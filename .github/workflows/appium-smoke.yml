@@ -33,6 +33,11 @@ jobs:
           bundle check || bundle install
           bundle exec pod install
 
+      - name: Unlock login keychain for codesign
+        env:
+          KEYCHAIN_PASSWORD: ${{ secrets.MAC_KEYCHAIN_PASSWORD }}
+        run: security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/login.keychain-db
+
       - name: "Run appium smoke (flavor: six)"
         env:
           IOS_AUTO_SELECT_FIRST: "1"
