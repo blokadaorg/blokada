@@ -1,0 +1,32 @@
+name: Appium smoke (iOS, physical device)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: appium-physical-device
+  cancel-in-progress: false
+
+jobs:
+  smoke:
+    runs-on: [self-hosted, macOS, ARM64, ios-physical]
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: "Run appium smoke (flavor: six)"
+        env:
+          IOS_AUTO_SELECT_FIRST: "1"
+          SHOW_XCODE_LOG: "0"
+        run: make appium-test
+
+      - name: Upload appium output on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: appium-output-${{ github.run_id }}
+          path: automation/appium/output/
+          if-no-files-found: warn
+          retention-days: 14
