@@ -1,7 +1,7 @@
 name: Appium smoke (iOS, physical device)
 
 on:
-  push:
+  pull_request_target:
     branches: [main]
   workflow_dispatch:
 
@@ -16,6 +16,10 @@ jobs:
   smoke:
     runs-on: [self-hosted, macOS, ARM64, ios-physical]
     timeout-minutes: 30
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'pull_request_target' &&
+       github.event.pull_request.head.repo.full_name == github.repository)
     env:
       LANG: en_US.UTF-8
       LC_ALL: en_US.UTF-8
@@ -23,6 +27,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
+          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Bootstrap Flutter common lib
         run: make -C common build-ios
@@ -44,11 +49,11 @@ jobs:
           SHOW_XCODE_LOG: "0"
         run: make appium-test
 
-      - name: Upload appium output on failure
+      - name: Upload appium screenshots on failure
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: appium-output-${{ github.run_id }}
-          path: automation/appium/output/
+          name: appium-screenshots-${{ github.run_id }}
+          path: automation/appium/output/*.png
           if-no-files-found: warn
           retention-days: 14
