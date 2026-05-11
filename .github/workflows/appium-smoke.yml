@@ -16,6 +16,9 @@ jobs:
   smoke:
     runs-on: [self-hosted, macOS, ARM64, ios-physical]
     timeout-minutes: 30
+    env:
+      LANG: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
     steps:
       - uses: actions/checkout@v4
         with:
