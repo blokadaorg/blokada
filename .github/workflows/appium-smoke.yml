@@ -21,6 +21,15 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Bootstrap Flutter common lib
+        run: make -C common build-ios
+
+      - name: Install iOS pods
+        working-directory: ios
+        run: |
+          bundle check || bundle install
+          bundle exec pod install
+
       - name: "Run appium smoke (flavor: six)"
         env:
           IOS_AUTO_SELECT_FIRST: "1"
