@@ -1,7 +1,9 @@
 # Appium WebdriverIO Harness
 
 This folder contains the WebdriverIO + TypeScript suite that drives Appium
-against the Blokada 6 iOS app on physical devices.
+against the Blokada 6 iOS app on physical devices. The same suite runs on
+each PR via the `Appium smoke (iOS, physical device)` GitHub Actions workflow
+on the dedicated self-hosted macOS runner.
 
 ## One-Time Device & WebDriverAgent Setup
 
