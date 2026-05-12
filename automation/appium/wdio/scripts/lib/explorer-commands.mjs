@@ -69,11 +69,17 @@ async function queryAppState(driver, bundleId) {
   };
 }
 
-async function getActiveAppInfo(driver) {
+async function getActiveAppInfo(driver, context) {
+  if (context.activeAppInfoUnsupported === true) {
+    return undefined;
+  }
+
   try {
     const activeApp = await driver.execute("mobile: activeAppInfo");
     return activeApp && typeof activeApp === "object" ? activeApp : undefined;
-  } catch (_) {
+  } catch (error) {
+    context.activeAppInfoUnsupported = true;
+    context.activeAppInfoError = error instanceof Error ? error.message : String(error);
     return undefined;
   }
 }
@@ -180,7 +186,7 @@ function toExternalTarget(bundleId) {
 }
 
 async function getForegroundTarget(driver, context) {
-  const activeApp = await getActiveAppInfo(driver);
+  const activeApp = await getActiveAppInfo(driver, context);
   const activeBundleId =
     typeof activeApp?.bundleId === "string" && activeApp.bundleId.trim().length > 0
       ? activeApp.bundleId.trim()

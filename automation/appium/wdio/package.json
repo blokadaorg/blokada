@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "appium:ensure": "node scripts/check-driver.mjs",
+    "ai:explore": "node scripts/ai-explore.mjs",
     "explore": "node scripts/explore.mjs --jsonl",
     "test:unit": "node --test scripts/tests/*.test.mjs",
     "wdio": "wdio run wdio.conf.ts",

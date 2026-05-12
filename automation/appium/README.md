@@ -111,6 +111,39 @@ Local harness-only tests:
 
 Reusable flows and helpers live under `automation/appium/wdio/src/flows/` and `automation/appium/wdio/src/support/`. Specs in `src/specs/smoke/` compose these flows to exercise end-to-end journeys.
 
+## AI Explorer
+
+```bash
+make appium-test
+make appium-ai-explore APP_INSTALL=0
+```
+
+The AI explorer is intended to run after the static smoke test. The smoke test
+builds, installs, and completes the DNS onboarding flow; the AI pass then
+attaches to that already-onboarded app state and explores the accessible UI
+without reinstalling by default.
+
+Optional overrides:
+
+- `AI_EXPLORER_BASE_URL=http://10.44.1.11:1234/v1` – OpenAI-compatible LM Studio endpoint (default).
+- `AI_EXPLORER_MODEL=nvidia/nemotron-3-nano-4b` – default local model verified with LM Studio.
+- `AI_EXPLORER_API_KEY=...` – optional bearer token for OpenAI-compatible servers that require one.
+- `AI_EXPLORER_TIMEOUT_MS=720000` – wall-clock budget, default 12 minutes.
+- `AI_EXPLORER_STEP_LIMIT=36` – maximum model-planned actions.
+- `AI_EXPLORER_FAKE_MODEL=1` – deterministic local harness mode for tests and debugging.
+- `APP_INSTALL=1` – manually rebuild/reinstall before exploration; CI should leave this unset or `0` so it reuses the post-smoke onboarding state.
+
+The model never controls Appium directly. It proposes one JSON action at a
+time, and the local runner allows only safe JSONL explorer commands. Purchases,
+subscription changes, sign-out, account deletion, external browser/mail flows,
+and destructive Settings changes are denied before they reach the device.
+
+Artifacts are saved in `automation/appium/output/`:
+
+- `ai-explorer-report.md` – reviewer-facing summary.
+- `ai-explorer-report.json` – structured result with findings and recent steps.
+- any screenshots/XML captured by the underlying explorer commands.
+
 ## Machine Session
 
 ```bash
