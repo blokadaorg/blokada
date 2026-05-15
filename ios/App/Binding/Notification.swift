@@ -28,6 +28,33 @@ let NOTIF_WEEKLY_REPORT = "weeklyReport"
 let NOTIF_ACTIVITY_LOGGING_REMINDER = "activityLoggingReminder"
 let WEEKLY_REPORT_BACKGROUND_LEAD_MS = 60 * 60 * 1000
 
+let WEEKLY_REPORT_CATEGORY = "WEEKLY_REPORT_CATEGORY"
+// Action identifiers MUST stay in sync with the Android side and with the
+// Dart `notificationTapped` parser in `actor.dart` — the delegate sends
+// "<notificationId>|<actionId>" to Flutter.
+let WEEKLY_REPORT_ACTION_SEE_MORE = "SEE_MORE"
+let WEEKLY_REPORT_ACTION_OPT_OUT = "OPT_OUT"
+
+func registerWeeklyReportCategory() {
+    let seeMore = UNNotificationAction(
+        identifier: WEEKLY_REPORT_ACTION_SEE_MORE,
+        title: L10n.notificationWeeklyReportActionSeeMore,
+        options: [.foreground]
+    )
+    let optOut = UNNotificationAction(
+        identifier: WEEKLY_REPORT_ACTION_OPT_OUT,
+        title: L10n.notificationWeeklyReportActionOptOut,
+        options: [.destructive]
+    )
+    let category = UNNotificationCategory(
+        identifier: WEEKLY_REPORT_CATEGORY,
+        actions: [seeMore, optOut],
+        intentIdentifiers: [],
+        options: []
+    )
+    UNUserNotificationCenter.current().setNotificationCategories([category])
+}
+
 struct WeeklyReportPayload: Codable {
     let title: String?
     let body: String?
@@ -104,6 +131,11 @@ func mapNotificationToUser(_ id: String, _ body: String?) -> UNMutableNotificati
         guard let payload = WeeklyReportPayload.from(json: body),
               let title = payload.title, !title.isEmpty,
               let notificationBody = payload.body, !notificationBody.isEmpty else {
+            // Belt-and-braces: the Dart caller guards on
+            // `WeeklyReportEvent.isPostable` so we should never get here. If a
+            // stale or malformed payload sneaks through, leave content empty
+            // so the scheduling callsite can drop it.
+            BlockaLogger.w("Notif", "Dropping weekly report with empty payload")
             content.title = ""
             content.body = ""
             content.userInfo = ["id": id]
@@ -112,6 +144,7 @@ func mapNotificationToUser(_ id: String, _ body: String?) -> UNMutableNotificati
         }
         content.title = title
         content.body = notificationBody
+        content.categoryIdentifier = WEEKLY_REPORT_CATEGORY
     } else if id == NOTIF_WEEKLY_REFRESH {
         content.title = "Update your filters"
         content.body = "Tap to update your ad-block filters and stay safe from websites and apps that are most likely to cause you harm."
@@ -160,10 +193,18 @@ class NotificationCenterDelegateHandler: NSObject, UNUserNotificationCenterDeleg
     ) {
         let userInfo = response.notification.request.content.userInfo
 
-        print("Notification tapped with info: \(userInfo)")
         if let id = userInfo["id"] as? String {
             StartupContext.shared.markNotificationTap(notificationId: id)
-            commands.execute(.notificationTapped, id)
+            let actionId = response.actionIdentifier
+            if actionId == UNNotificationDefaultActionIdentifier {
+                commands.execute(.notificationTapped, id)
+            } else if actionId == UNNotificationDismissActionIdentifier {
+                // user dismissed; nothing to do
+            } else {
+                // Custom action. Forward `id|actionId` so the Flutter command
+                // signature (single string arg) carries both; Dart splits on '|'.
+                commands.execute(.notificationTapped, "\(id)|\(actionId)")
+            }
         } else {
             print("No custom data found.")
         }
