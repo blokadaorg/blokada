@@ -320,6 +320,13 @@ class NotificationActor with Logging, Actor {
           log(m).w('weeklyReport:notification:noEvent');
           return;
         }
+        if (!reportEvent.isPostable) {
+          log(m)
+            ..w('weeklyReport:notification:notPostable')
+            ..pair('eventId', reportEvent.id)
+            ..pair('type', reportEvent.type.name);
+          return;
+        }
         final body = _buildWeeklyReportBody(reportEvent);
         await showWithBody(NotificationId.weeklyReport, m, body, when: when);
       });

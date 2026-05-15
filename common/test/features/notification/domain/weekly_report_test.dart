@@ -75,6 +75,76 @@ void main() {
       expect(result.hasComparison, isFalse);
     });
   });
+
+  group('WeeklyReportEvent.isPostable', () {
+    WeeklyReportEvent base({
+      String body = 'body',
+      WeeklyReportEventType type = WeeklyReportEventType.toplistChange,
+      WeeklyReportToplistHighlight? toplistHighlight,
+      double? deltaPercent,
+      bool? deltaIncreased,
+      String? deltaLabel,
+    }) {
+      return WeeklyReportEvent(
+        id: 'test',
+        title: 'title',
+        body: body,
+        type: type,
+        icon: WeeklyReportIcon.shield,
+        score: 10,
+        generatedAt: DateTime.utc(2026, 5, 15),
+        toplistHighlight: toplistHighlight,
+        deltaPercent: deltaPercent,
+        deltaIncreased: deltaIncreased,
+        deltaLabel: deltaLabel,
+      );
+    }
+
+    test('toplist event without highlight is not postable', () {
+      expect(base().isPostable, isFalse);
+    });
+
+    test('toplist event with highlight is postable', () {
+      final event = base(
+        toplistHighlight: const WeeklyReportToplistHighlight(
+          name: 'tracker.example',
+          blocked: true,
+          newRank: 1,
+        ),
+      );
+      expect(event.isPostable, isTrue);
+    });
+
+    test('totals event with deltaPercent is postable', () {
+      final event = base(
+        type: WeeklyReportEventType.totalsDelta,
+        deltaPercent: 4.2,
+        deltaIncreased: true,
+        deltaLabel: 'blocked',
+      );
+      expect(event.isPostable, isTrue);
+    });
+
+    test('empty body is not postable even with a highlight', () {
+      final event = base(
+        body: '',
+        toplistHighlight: const WeeklyReportToplistHighlight(
+          name: 'x',
+          blocked: true,
+          newRank: 1,
+        ),
+      );
+      expect(event.isPostable, isFalse);
+    });
+
+    test('whitespace-only body is not postable', () {
+      final event = base(
+        body: '   ',
+        deltaPercent: 5.0,
+      );
+      expect(event.isPostable, isFalse);
+    });
+  });
 }
 
 platform_stats.JsonStatsEndpoint _buildStats(Map<String, Map<int, int>> buckets) {
