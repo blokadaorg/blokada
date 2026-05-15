@@ -31,3 +31,7 @@ ios/*.dSYM.zip
 # Track repo-local skills even if .agents is globally ignored
 !.agents/skills/
 !.agents/skills/**
+
+# Local-only planning artifacts (Claude / superpowers)
+docs/superpowers/plans/
+
