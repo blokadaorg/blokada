@@ -71,6 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if !flutter.isFlavorFamily {
             Services.quickActions.start()
+            registerWeeklyReportCategory()
         }
 
         // Maybe gets the background ping (its unclear when it happens in ios)
