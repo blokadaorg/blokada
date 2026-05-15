@@ -83,6 +83,14 @@
         <receiver android:name="service.DozeReceiver" />
 
         <receiver android:name="service.NotificationAlarmReceiver" />
+
+        <receiver
+            android:name="service.WeeklyReportActionReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="org.blokada.weekly.OPT_OUT" />
+            </intent-filter>
+        </receiver>
         <receiver
             android:name="service.BootReceiver"
             android:enabled="true"
