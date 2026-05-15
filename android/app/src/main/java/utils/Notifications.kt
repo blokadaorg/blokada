@@ -12,14 +12,17 @@
 
 package utils
 
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.core.app.NotificationCompat
 import model.BlokadaException
 import org.blokada.R
 import service.Localised
 import service.NOTIF_WEEKLY_REPORT
 import service.NOTIF_ACTIVITY_LOGGING_REMINDER
+import service.WeeklyReportActionReceiver
 import ui.MainActivity
 
 private const val IMPORTANCE_NONE = 0
@@ -242,6 +245,30 @@ class WeeklyReportNotification(
         intentActivity.putExtra("notificationId", NOTIF_WEEKLY_REPORT)
         val piActivity = ctx.getPendingIntentForActivity(intentActivity, 0)
         b.setContentIntent(piActivity)
+
+        // Primary action: "See more". Opens the in-app destination — same as
+        // tapping the notification body, but tagged with a SEE_MORE suffix for
+        // symmetry with iOS. Dart splits on '|' so this lands in the same
+        // weeklyReport branch as the default tap.
+        val seeMoreIntent = Intent(ctx, MainActivity::class.java)
+        seeMoreIntent.putExtra("notificationId", "$NOTIF_WEEKLY_REPORT|SEE_MORE")
+        val piSeeMore = ctx.getPendingIntentForActivity(seeMoreIntent, 0)
+        b.addAction(0, ctx.getString(R.string.notification_weekly_report_action_see_more), piSeeMore)
+
+        // Secondary action: "Opt out". Fires a broadcast so the user does not
+        // have to open the app. The receiver toggles the opt-out setting via
+        // the Flutter command bridge and dismisses this notification.
+        val optOutIntent = Intent(ctx, WeeklyReportActionReceiver::class.java)
+        optOutIntent.action = WeeklyReportActionReceiver.ACTION_OPT_OUT
+        val piOptOutFlags = PendingIntent.FLAG_UPDATE_CURRENT or
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_IMMUTABLE else 0
+        val piOptOut = PendingIntent.getBroadcast(
+            ctx,
+            NOTIF_WEEKLY_REPORT.hashCode() + 1,
+            optOutIntent,
+            piOptOutFlags
+        )
+        b.addAction(0, ctx.getString(R.string.notification_weekly_report_action_opt_out), piOptOut)
     }
 )
 
