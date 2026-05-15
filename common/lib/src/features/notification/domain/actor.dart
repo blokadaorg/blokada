@@ -142,6 +142,17 @@ class NotificationActor with Logging, Actor {
     await syncNotificationConfigFromBackend(m);
   }
 
+  Future<void> _onWeeklyReportOptOutAction(Marker m) async {
+    await log(m).trace('weeklyReport:optOutFromNotification', (m) async {
+      try {
+        await setWeeklyReportEnabled(m, false);
+        log(m).i('weeklyReport:optOutFromNotification:ok');
+      } catch (e) {
+        log(m).e(msg: 'weeklyReport:optOutFromNotification:failed: $e');
+      }
+    });
+  }
+
   Future<void> setWeeklyReportEnabled(Marker m, bool enabled) async {
     final weeklyOptOut = _weeklyOptOut;
     if (weeklyOptOut == null) return;
@@ -203,9 +214,23 @@ class NotificationActor with Logging, Actor {
 
   notificationTapped(Marker m, String notificationId) async {
     return await log(m).trace("notificationTapped", (m) async {
-      final id = NotificationId.values.firstWhereOrNull((it) => it.name == notificationId);
+      // Native side passes "id" for body taps and "id|ACTION" for custom
+      // notification action buttons (iOS UNNotificationAction, Android
+      // NotificationCompat.Action).
+      final parts = notificationId.split('|');
+      final rawId = parts[0];
+      final actionId = parts.length > 1 ? parts[1] : null;
+      final id = NotificationId.values.firstWhereOrNull((it) => it.name == rawId);
 
+      log(m).pair("notificationId", notificationId);
       log(m).pair("id", id);
+      log(m).pair("actionId", actionId);
+
+      if (id == NotificationId.weeklyReport && actionId == 'OPT_OUT') {
+        await _onWeeklyReportOptOutAction(m);
+        return;
+      }
+
       final isOnPrivacyPulse = Navigation.lastPath == Paths.privacyPulse;
       if (id == NotificationId.supportNewMessage) {
         // await sleepAsync(const Duration(seconds: 1));
