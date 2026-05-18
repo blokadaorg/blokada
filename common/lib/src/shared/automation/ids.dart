@@ -35,6 +35,12 @@ class AutomationIds {
   static const settingsWeeklyReport = 'automation.settings_weekly_report';
   static const settingsSupport = 'automation.settings_support';
 
+  // Exceptions sub-page controls (so exploration can switch tabs and open a
+  // domain row to reach the domain-detail level instead of guessing labels).
+  static const exceptionsTabBlocked = 'automation.exceptions_tab_blocked';
+  static const exceptionsTabAllowed = 'automation.exceptions_tab_allowed';
+  static const exceptionItem = 'automation.exception_item';
+
   static const powerToggle = 'automation.power_toggle';
   static const powerActionSheet = 'automation.power_action_sheet';
   static const powerActionPauseFive = 'automation.power_action_pause_five';

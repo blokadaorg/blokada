@@ -1,3 +1,4 @@
+import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/ui/common_clickable.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
@@ -34,12 +35,20 @@ class ExceptionItemState extends State<ExceptionItem> {
   Widget _buildItem(BuildContext context) {
     final displayEntry = widget.wildcard ? "*.${widget.entry}" : widget.entry;
 
-    return CommonClickable(
-        onTap: widget.onTap ??
-            () {
-              Slidable.of(context)?.openEndActionPane();
-            },
-        child: Padding(
+    // MergeSemantics + a single Semantics node so the row exposes a stable id
+    // to Appium (same proven pattern as SettingsItem); generic id is fine —
+    // exploration just needs "tap a domain row" to reach the detail level.
+    return MergeSemantics(
+      child: Semantics(
+        identifier: AutomationIds.exceptionItem,
+        label: displayEntry,
+        button: true,
+        child: CommonClickable(
+            onTap: widget.onTap ??
+                () {
+                  Slidable.of(context)?.openEndActionPane();
+                },
+            child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           child: Row(
             children: [
@@ -60,7 +69,7 @@ class ExceptionItemState extends State<ExceptionItem> {
               )
             ],
           ),
-        ));
+        ))));
   }
 
   Widget _wrapInDismissible(

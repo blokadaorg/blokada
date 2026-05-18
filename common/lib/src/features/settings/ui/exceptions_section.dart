@@ -1,5 +1,6 @@
 import 'package:common/src/features/customlist/domain/customlist.dart';
 import 'package:common/src/features/journal/domain/journal.dart';
+import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/common_card.dart';
 import 'package:common/src/shared/ui/common_divider.dart';
@@ -97,48 +98,63 @@ class ExceptionsSectionState extends State<ExceptionsSection>
                         }
                       },
                       children: {
-                        ExceptionsTab.blocked: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 8),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const Icon(
-                                CupertinoIcons.xmark_shield_fill,
-                                color: Colors.red,
-                                size: 18,
+                        // MergeSemantics + Semantics(selected:) so the segment
+                        // exposes a stable id to Appium (same pattern as the
+                        // privacy-pulse range segments).
+                        ExceptionsTab.blocked: MergeSemantics(
+                          child: Semantics(
+                            identifier: AutomationIds.exceptionsTabBlocked,
+                            selected: _selectedTab == ExceptionsTab.blocked,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 8),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Icon(
+                                    CupertinoIcons.xmark_shield_fill,
+                                    color: Colors.red,
+                                    size: 18,
+                                  ),
+                                  const SizedBox(width: 6),
+                                  Text(
+                                    "privacy pulse tab blocked".i18n,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              const SizedBox(width: 6),
-                              Text(
-                                "privacy pulse tab blocked".i18n,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
                         ),
-                        ExceptionsTab.allowed: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 8),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const Icon(
-                                CupertinoIcons.checkmark_shield_fill,
-                                color: Colors.green,
-                                size: 18,
+                        ExceptionsTab.allowed: MergeSemantics(
+                          child: Semantics(
+                            identifier: AutomationIds.exceptionsTabAllowed,
+                            selected: _selectedTab == ExceptionsTab.allowed,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 8),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Icon(
+                                    CupertinoIcons.checkmark_shield_fill,
+                                    color: Colors.green,
+                                    size: 18,
+                                  ),
+                                  const SizedBox(width: 6),
+                                  Text(
+                                    "privacy pulse tab allowed".i18n,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              const SizedBox(width: 6),
-                              Text(
-                                "privacy pulse tab allowed".i18n,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
                         ),
                       },
