@@ -1,4 +1,5 @@
 import 'package:common/src/features/journal/domain/journal.dart';
+import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/common_clickable.dart';
 import 'package:common/src/features/settings/ui/retention_section.dart';
@@ -62,16 +63,19 @@ class ActivityScreenState extends State<ActivityScreen> with Logging {
   }
 
   Widget _buildForPhone(BuildContext context) {
-    return WithTopBar(
-      title: "main tab activity".i18n,
-      topBarTrailing: _getStatsAction(context),
-      child: Row(
-        children: [
-          Expanded(
-            flex: 1,
-            child: _buildStatsScreenPhone(context),
-          ),
-        ],
+    return Semantics(
+      identifier: AutomationIds.screenActivity,
+      child: WithTopBar(
+        title: "main tab activity".i18n,
+        topBarTrailing: _getStatsAction(context),
+        child: Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: _buildStatsScreenPhone(context),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -92,11 +96,14 @@ class ActivityScreenState extends State<ActivityScreen> with Logging {
   }
 
   Widget _buildForTablet(BuildContext context) {
-    return WithTopBar(
-      title: "main tab activity".i18n,
-      maxWidth: _showStats ? maxContentWidthTablet : maxContentWidth,
-      topBarTrailing: _getStatsAction(context),
-      child: _buildStatsScreenTablet(context),
+    return Semantics(
+      identifier: AutomationIds.screenActivity,
+      child: WithTopBar(
+        title: "main tab activity".i18n,
+        maxWidth: _showStats ? maxContentWidthTablet : maxContentWidth,
+        topBarTrailing: _getStatsAction(context),
+        child: _buildStatsScreenTablet(context),
+      ),
     );
   }
 

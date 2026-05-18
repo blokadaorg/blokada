@@ -61,6 +61,63 @@ test("guardrails deny invented selector strings", () => {
   assert.match(result.reason, /selector must/);
 });
 
+test("guardrails allow ui.wait without a selector", () => {
+  const result = evaluateExplorerAction(
+    {
+      command: "ui.wait",
+      args: {},
+      reason: "Pause briefly and re-check the app is alive."
+    },
+    { sessionBundleId: "net.blocka.app" }
+  );
+
+  assert.equal(result.allowed, true);
+  assert.equal(result.action.args.selector, undefined);
+  assert.equal(typeof result.action.args.timeoutMs, "number");
+});
+
+test("guardrails still require a selector for ui.exists", () => {
+  const result = evaluateExplorerAction(
+    {
+      command: "ui.exists",
+      args: {},
+      reason: "Check something."
+    },
+    { sessionBundleId: "net.blocka.app" }
+  );
+
+  assert.equal(result.allowed, false);
+  assert.match(result.reason, /requires args\.selector/);
+});
+
+test("guardrails normalize known shorthand automation selectors", () => {
+  const result = evaluateExplorerAction(
+    {
+      command: "ui.tap",
+      args: { selector: "~home_settings" },
+      reason: "Open Settings."
+    },
+    { sessionBundleId: "net.blocka.app" }
+  );
+
+  assert.equal(result.allowed, true);
+  assert.equal(result.action.args.selector, "~automation.home_settings");
+});
+
+test("guardrails normalize known display-label navigation selectors", () => {
+  const result = evaluateExplorerAction(
+    {
+      command: "ui.tap",
+      args: { selector: "~Privacy Pulse" },
+      reason: "Open Privacy Pulse."
+    },
+    { sessionBundleId: "net.blocka.app" }
+  );
+
+  assert.equal(result.allowed, true);
+  assert.equal(result.action.args.selector, "~automation.home_privacy_pulse");
+});
+
 test("guardrails keep app activation inside the configured app", () => {
   const allowed = evaluateExplorerAction(
     {

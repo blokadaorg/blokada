@@ -1,4 +1,5 @@
 import 'package:common/src/features/journal/domain/journal.dart';
+import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/features/settings/ui/retention_section.dart';
 import 'package:common/src/features/stats/ui/domain_detail_section.dart';
@@ -64,15 +65,18 @@ class PrivacyPulseScreenState extends State<PrivacyPulseScreen> with Logging {
   }
 
   Widget _buildForPhone(BuildContext context) {
-    return WithTopBar(
-      title: "privacy pulse section header".i18n,
-      child: Row(
-        children: [
-          Expanded(
-            flex: 1,
-            child: _buildStatsScreenPhone(context),
-          ),
-        ],
+    return Semantics(
+      identifier: AutomationIds.screenPrivacyPulse,
+      child: WithTopBar(
+        title: "privacy pulse section header".i18n,
+        child: Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: _buildStatsScreenPhone(context),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -97,10 +101,13 @@ class PrivacyPulseScreenState extends State<PrivacyPulseScreen> with Logging {
   }
 
   Widget _buildForTablet(BuildContext context) {
-    return WithTopBar(
-      title: "privacy pulse section header".i18n,
-      maxWidth: _showStats ? maxContentWidthTablet : maxContentWidth,
-      child: _buildStatsScreenTablet(context),
+    return Semantics(
+      identifier: AutomationIds.screenPrivacyPulse,
+      child: WithTopBar(
+        title: "privacy pulse section header".i18n,
+        maxWidth: _showStats ? maxContentWidthTablet : maxContentWidth,
+        child: _buildStatsScreenTablet(context),
+      ),
     );
   }
 

@@ -1,3 +1,4 @@
+import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/with_top_bar.dart';
 import 'package:common/src/core/core.dart';
@@ -26,23 +27,29 @@ class AdvancedScreenState extends State<AdvancedScreen> with Logging {
   }
 
   Widget _buildForPhone(BuildContext context) {
-    return WithTopBar(
-      title: "main tab advanced".i18n,
-      child: const V6FiltersSection(twoColumns: false),
+    return Semantics(
+      identifier: AutomationIds.screenAdvanced,
+      child: WithTopBar(
+        title: "main tab advanced".i18n,
+        child: const V6FiltersSection(twoColumns: false),
+      ),
     );
   }
 
   Widget _buildForTablet(BuildContext context) {
-    return WithTopBar(
-      title: "main tab advanced".i18n,
-      maxWidth: maxContentWidthTablet,
-      child: const Row(
-        children: [
-          Expanded(
-            flex: 1,
-            child: V6FiltersSection(twoColumns: true),
-          ),
-        ],
+    return Semantics(
+      identifier: AutomationIds.screenAdvanced,
+      child: WithTopBar(
+        title: "main tab advanced".i18n,
+        maxWidth: maxContentWidthTablet,
+        child: const Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: V6FiltersSection(twoColumns: true),
+            ),
+          ],
+        ),
       ),
     );
   }

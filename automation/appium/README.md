@@ -129,6 +129,7 @@ Optional overrides:
 - `AI_EXPLORER_MODEL=nvidia/nemotron-3-nano-4b` – default local model verified with LM Studio.
 - `AI_EXPLORER_API_KEY=...` – optional bearer token for OpenAI-compatible servers that require one.
 - `AI_EXPLORER_TIMEOUT_MS=720000` – wall-clock budget, default 12 minutes.
+- `AI_EXPLORER_MAX_TOKENS=2500` – completion-token budget per model decision (default 2500, max 8000). Reasoning models (e.g. nemotron-nano) spend most of this on hidden chain-of-thought before emitting the JSON action, so it must stay well above the model's reasoning length or every decision fails with empty content.
 - `AI_EXPLORER_STEP_LIMIT=36` – maximum model-planned actions.
 - `AI_EXPLORER_FAKE_MODEL=1` – deterministic local harness mode for tests and debugging.
 - `APP_INSTALL=1` – manually rebuild/reinstall before exploration; CI should leave this unset or `0` so it reuses the post-smoke onboarding state.
@@ -137,6 +138,19 @@ The model never controls Appium directly. It proposes one JSON action at a
 time, and the local runner allows only safe JSONL explorer commands. Purchases,
 subscription changes, sign-out, account deletion, external browser/mail flows,
 and destructive Settings changes are denied before they reach the device.
+
+Before handing control to the model, the runner performs a codebase-derived
+mission warmup across the main V6 surfaces: Home, Privacy Pulse, Advanced, and
+Settings. The warmup uses stable automation identifiers where available, scrolls
+each reached screen, returns to Home, and records mission coverage in the
+report. The warmup is capped at ~40% of the wall-clock budget so the model
+still gets time to drive even if warmup navigation is slow. The model receives that coverage state, known failed
+selectors, and the known surface checklist so it can spend its remaining budget
+on unvisited areas instead of repeating the same tab or stale selector.
+
+If the model returns no usable decision, the runner runs a deterministic
+fallback probe and keeps going; only several consecutive failed decisions end
+the run early, so one flaky response no longer aborts the whole exploration.
 
 Artifacts are saved in `automation/appium/output/`:
 

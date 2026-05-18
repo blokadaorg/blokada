@@ -1,5 +1,16 @@
 const JSON_START = /[{[]/;
 
+export class ModelEndpointError extends Error {
+  constructor(message, details = {}) {
+    super(message);
+    this.name = "ModelEndpointError";
+    this.status = details.status;
+    this.body = details.body;
+    this.payload = details.payload;
+    this.content = details.content;
+  }
+}
+
 function trimForPrompt(value, maxLength = 5000) {
   const text = JSON.stringify(value, null, 2);
   if (text.length <= maxLength) {
@@ -93,23 +104,32 @@ export function buildExplorerMessages(state) {
         "You propose exactly one safe Appium explorer command at a time.",
         "Return only JSON with this shape:",
         "{\"command\":\"ui.inspect|ui.summary|ui.tap|ui.back|ui.scroll|ui.swipe|ui.read|ui.exists|ui.wait|ui.screenshot|app.activate|finish\",\"args\":{},\"reason\":\"short reason\",\"confidence\":0.0,\"expected\":\"short expected result\"}",
-        "For ui.tap, ui.read, ui.exists, and ui.wait, args must contain selector.",
+        "For ui.tap, ui.read, and ui.exists, args must contain selector. ui.wait may omit selector to just pause briefly and re-check the app is alive.",
         "Valid selector examples: {\"selector\":\"~Privacy Pulse\"}, {\"selector\":\"~automation.power_toggle\"}, {\"selector\":\"-ios predicate string: type == 'XCUIElementTypeButton' AND name == 'Advanced'\"}, {\"selector\":\"//XCUIElementTypeButton[@name='Advanced']\"}.",
+        "Never shorten automation selectors: use \"~automation.home_settings\", not \"~home_settings\".",
+        "Reach Home surfaces via ~automation.home_privacy_pulse, ~automation.home_advanced, ~automation.home_settings. The bottom-tab ~automation.nav_* selectors do NOT resolve on iOS; never propose them.",
         "Never use args.name, and never invent selectors like \"XCUIElementTypeSwitch value=0\".",
         "Never propose purchases, subscription changes, sign-out, account deletion, external app/browser/mail flows, or destructive Settings changes.",
-        "Coverage is more important than repeating a successful tap. Avoid selectors that were already tapped or checked.",
-        "If the same labels or the same screen keep appearing, choose ui.scroll or ui.back instead of another ui.tap.",
-        "Use ui.scroll down/up to reveal more of the current screen, and use ui.back to leave a detail screen after checking one or two controls.",
-        "Prefer unvisited low-risk navigation controls visible in the current UI. Use ui.tap only when it expands coverage.",
-        "Do not finish until you have explored several distinct surfaces unless there is a critical failure."
+        "Your goal is depth, not just visiting screens. After you reach a detail surface (Privacy Pulse, Advanced, Settings), interact with several of THAT surface's own controls visible in the current inspection (e.g. ~automation.settings_*, ~automation.filter_option.*, ~automation.privacy_pulse_range_*, ~automation.power_*) before leaving it.",
+        "A surface marked seen in mission coverage still needs its controls exercised; do not treat seen as done.",
+        "Prefer in-surface automation ids from the current inspection over re-tapping Home navigation cards. Use ui.tap only when it exercises something not yet tried.",
+        "Do not use selectors listed as known failed selectors, and avoid actions listed as already tried.",
+        "If the same screen or labels keep repeating, ui.back to leave it, then open a different surface or a different in-surface control.",
+        "Do not finish until you have interacted with controls inside several distinct surfaces unless there is a critical failure."
       ].join("\n")
     },
     {
       role: "user",
       content: [
-        "Mission: explore the already-onboarded Blokada app and look for crashes, blank screens, stuck loading, broken navigation, inaccessible controls, and obvious functional regressions.",
+        "Mission: explore the already-onboarded Blokada app and look for crashes, blank screens, stuck loading, broken navigation, inaccessible controls, and obvious functional regressions. Exercise real controls (toggles, filters, settings rows, range switches), not just top-level navigation.",
         "",
         `Budget: step ${state.stepIndex + 1} of ${state.stepLimit}; minimum useful steps ${state.minSteps}.`,
+        "",
+        "Known app surfaces from the codebase:",
+        trimForPrompt(state.knownSurfaces ?? [], 3000),
+        "",
+        "Mission surface coverage:",
+        trimForPrompt(state.missionStatus ?? [], 2500),
         "",
         "Current summary:",
         trimForPrompt(state.summary, 6000),
@@ -125,6 +145,7 @@ export function buildExplorerMessages(state) {
         "",
         "Selectors/actions already tried; avoid repeating them:",
         trimForPrompt({
+          failedSelectors: state.failedSelectors,
           triedSelectors: state.triedSelectors,
           usedActions: state.usedActions
         }, 2500),
@@ -174,17 +195,30 @@ export async function callOpenAiCompatibleChat({
     try {
       payload = JSON.parse(text);
     } catch (_) {
-      throw new Error(`Model endpoint returned non-JSON response: ${text.slice(0, 200)}`);
+      throw new ModelEndpointError("Model endpoint returned non-JSON response.", {
+        body: text
+      });
     }
 
     if (!response.ok) {
       const message = payload?.error?.message ?? text;
-      throw new Error(`Model endpoint failed with ${response.status}: ${message}`);
+      throw new ModelEndpointError(`Model endpoint failed with ${response.status}: ${message}`, {
+        body: text,
+        payload,
+        status: response.status
+      });
     }
 
     const content = payload?.choices?.[0]?.message?.content;
     if (typeof content !== "string" || content.trim().length === 0) {
-      throw new Error("Model endpoint response did not include choices[0].message.content.");
+      throw new ModelEndpointError(
+        "Model endpoint response did not include choices[0].message.content.",
+        {
+          body: text,
+          payload,
+          status: response.status
+        }
+      );
     }
 
     return {
@@ -213,8 +247,21 @@ export async function requestExplorerDecision({
     temperature: config.temperature
   });
 
+  let decision;
+  try {
+    decision = extractJsonFromModelContent(content);
+  } catch (error) {
+    throw new ModelEndpointError(
+      `Model response content could not be parsed as explorer JSON: ${error instanceof Error ? error.message : String(error)}`,
+      {
+        content,
+        payload
+      }
+    );
+  }
+
   return {
-    decision: extractJsonFromModelContent(content),
+    decision,
     rawContent: content,
     usage: payload.usage
   };

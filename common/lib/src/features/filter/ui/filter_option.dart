@@ -12,13 +12,18 @@ class FilterOptionWidget extends StatefulWidget {
   final List<String> selections;
   final Function(bool) onSelect;
 
+  /// Stable id for the option switch so automation can avoid opaque iOS values
+  /// like "0" and "1" when exploring filter controls.
+  final String? automationId;
+
   const FilterOptionWidget(
       {super.key,
       required this.option,
       this.nameOverride,
       this.colorOverride,
       required this.selections,
-      required this.onSelect});
+      required this.onSelect,
+      this.automationId});
 
   @override
   State<StatefulWidget> createState() => FilterOptionWidgetState();
@@ -60,15 +65,21 @@ class FilterOptionWidgetState extends State<FilterOptionWidget> {
                 ),
               ),
               const SizedBox(width: 8.0),
-              CupertinoSwitch(
-                activeColor: context.theme.accent,
-                value: selected,
-                onChanged: (bool? value) {
-                  setState(() {
-                    selected = value!;
-                    widget.onSelect(selected);
-                  });
-                },
+              MergeSemantics(
+                child: Semantics(
+                  identifier: widget.automationId,
+                  toggled: selected,
+                  child: CupertinoSwitch(
+                    activeColor: context.theme.accent,
+                    value: selected,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        selected = value!;
+                        widget.onSelect(selected);
+                      });
+                    },
+                  ),
+                ),
               ),
             ],
           ),

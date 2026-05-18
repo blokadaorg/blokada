@@ -1,4 +1,5 @@
 import 'package:common/src/features/notification/domain/notification.dart';
+import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/minicard/minicard.dart';
 import 'package:common/src/core/core.dart';
@@ -71,6 +72,8 @@ class _TabState extends State<TabButtonsWidget> with Disposables, Logging {
             showUnreadBadge: _hasUnseenReport,
           ),
           onTap: () => _tap(StageTab.activity),
+          automationId: AutomationIds.homePrivacyPulse,
+          label: "privacy pulse section header".i18n,
         ),
         _wrapInDecor(
           context,
@@ -80,15 +83,28 @@ class _TabState extends State<TabButtonsWidget> with Disposables, Logging {
             active: false,
           ),
           onTap: () => _tap(StageTab.advanced),
+          automationId: AutomationIds.homeAdvanced,
+          label: "main tab advanced".i18n,
         ),
       ],
     );
   }
 
-  Widget _wrapInDecor(BuildContext context, Widget child, {required VoidCallback onTap}) {
+  Widget _wrapInDecor(
+    BuildContext context,
+    Widget child, {
+    required VoidCallback onTap,
+    required String automationId,
+    required String label,
+  }) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
-      child: MiniCard(onTap: onTap, child: SizedBox(width: 114, child: child)),
+      child: Semantics(
+        identifier: automationId,
+        label: label,
+        button: true,
+        child: MiniCard(onTap: onTap, child: SizedBox(width: 114, child: child)),
+      ),
     );
   }
 }

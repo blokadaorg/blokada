@@ -117,6 +117,7 @@ class FilterWidgetState extends State<FilterWidget> {
                 nameOverride: nameOverride,
                 colorOverride: widget.bgColor?.darken(20),
                 selections: widget.selections,
+                automationId: _filterOptionAutomationId(widget.filter, it),
                 onSelect: (selected) {
                   _updateUserChoice(widget.filter, it.optionName, selected);
                 }),
@@ -136,5 +137,16 @@ class FilterWidgetState extends State<FilterWidget> {
       widget.selections.remove(option);
     }
     widget.onSelect(widget.selections, option);
+  }
+
+  String _filterOptionAutomationId(Filter filter, Option option) {
+    final filterName = _sanitizeAutomationSegment(filter.filterName);
+    final optionName = _sanitizeAutomationSegment(option.optionName);
+    return "automation.filter_option.$filterName.$optionName";
+  }
+
+  String _sanitizeAutomationSegment(String value) {
+    final sanitized = value.replaceAll(RegExp(r'[^A-Za-z0-9._-]+'), '_');
+    return sanitized.isEmpty ? "unknown" : sanitized;
   }
 }

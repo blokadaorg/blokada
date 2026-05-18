@@ -47,9 +47,9 @@ export function readAiExplorerConfig(env = process.env) {
     apiKey: String(env.AI_EXPLORER_API_KEY ?? "").trim(),
     baseUrl: normalizeBaseUrl(env.AI_EXPLORER_BASE_URL),
     fakeModel: parseBoolean(env.AI_EXPLORER_FAKE_MODEL, false),
-    maxTokens: parseInteger(env.AI_EXPLORER_MAX_TOKENS, 700, {
+    maxTokens: parseInteger(env.AI_EXPLORER_MAX_TOKENS, 2500, {
       min: 100,
-      max: 4000
+      max: 8000
     }),
     minSteps: parseInteger(env.AI_EXPLORER_MIN_STEPS, 8, {
       min: 0,

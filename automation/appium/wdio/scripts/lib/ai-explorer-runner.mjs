@@ -41,18 +41,23 @@ function compactInspect(event) {
   };
 }
 
-function stepSignature(action) {
-  return `${action.command}:${JSON.stringify(action.args ?? {})}`;
+function stepSignature(action, scope = "") {
+  return `${scope}|${action.command}:${JSON.stringify(action.args ?? {})}`;
 }
 
 function repetitionLimit(action) {
+  // Scoped per current screen (see stepSignature call site), so these allow
+  // legitimately re-entering a surface and tapping a few of its controls
+  // before the loop is treated as stuck. A limit of 1 globally meant each
+  // navigation selector was banned for the whole run after one use, which
+  // locked the explorer on Home.
   if (action.command === "ui.tap" || action.command === "ui.exists") {
-    return 1;
+    return 3;
   }
   if (action.command === "ui.inspect") {
     return 2;
   }
-  return 3;
+  return 4;
 }
 
 function labelSignature(summary) {
@@ -61,10 +66,11 @@ function labelSignature(summary) {
 }
 
 function recordAction(state, action) {
-  if (typeof action.args?.selector === "string") {
+  const selector = selectorFromAction(action);
+  if (selector) {
     state.triedSelectors.set(
-      action.args.selector,
-      (state.triedSelectors.get(action.args.selector) ?? 0) + 1
+      selector,
+      (state.triedSelectors.get(selector) ?? 0) + 1
     );
   }
 }
@@ -73,6 +79,276 @@ function compactMap(map, limit = 12) {
   return [...map.entries()]
     .slice(-limit)
     .map(([value, count]) => ({ value, count }));
+}
+
+const KNOWN_SURFACES = [
+  {
+    id: "home",
+    name: "Home",
+    reach: "Initial post-onboarding surface; return here with back navigation.",
+    selectors: ["~automation.screen_home"],
+    navigationSelectors: [],
+    expectedLabels: [
+      "automation.screen_home",
+      "automation.power_toggle",
+      "automation.home_privacy_pulse",
+      "automation.home_advanced",
+      "automation.home_settings",
+      "Privacy Pulse",
+      "Advanced"
+    ]
+  },
+  {
+    id: "privacyPulse",
+    name: "Privacy Pulse",
+    reach: "Home Privacy Pulse card; this is the current V6 activity/statistics surface.",
+    selectors: ["~automation.screen_privacy_pulse"],
+    navigationSelectors: ["~automation.home_privacy_pulse", "~Privacy Pulse"],
+    expectedLabels: [
+      "automation.screen_privacy_pulse",
+      "24 h",
+      "7 d",
+      "Blocked",
+      "Allowed"
+    ],
+    scrollDirections: ["down", "down", "up"],
+    returnHome: true
+  },
+  {
+    id: "advanced",
+    name: "Advanced",
+    reach: "Home Advanced card; shows filter and blocklist controls.",
+    selectors: ["~automation.screen_advanced"],
+    navigationSelectors: ["~automation.home_advanced", "~Advanced"],
+    expectedLabels: [
+      "automation.screen_advanced",
+      "automation.filter_option.",
+      "Blocklists",
+      "Filters"
+    ],
+    scrollDirections: ["down", "down", "up"],
+    returnHome: true
+  },
+  {
+    id: "settings",
+    name: "Settings",
+    reach: "Home header settings button; exposes account, notifications, support, and app info.",
+    selectors: ["~automation.screen_settings"],
+    navigationSelectors: ["~automation.home_settings", "~Settings"],
+    expectedLabels: [
+      "automation.screen_settings",
+      "automation.settings_exceptions",
+      "automation.settings_weekly_report",
+      "Notifications",
+      "Version"
+    ],
+    scrollDirections: ["down", "up"],
+    returnHome: true
+  }
+];
+
+const MISSION_WARMUP_SURFACES = ["privacyPulse", "advanced", "settings"];
+
+// Fraction of the wall-clock budget the deterministic mission warmup may consume
+// before control is handed to the model, so the model still gets time to drive.
+const WARMUP_BUDGET_FRACTION = 0.4;
+
+// How many consecutive model-decision failures end the run. A single failure
+// triggers a deterministic fallback probe and the loop continues, so one flaky
+// model response no longer aborts the whole exploration.
+const MODEL_FAILURE_ABORT_THRESHOLD = 3;
+
+function publicKnownSurfaces() {
+  return KNOWN_SURFACES.map(
+    ({ id, name, reach, navigationSelectors, expectedLabels, routeOnly }) => ({
+      id,
+      name,
+      reach,
+      navigationSelectors,
+      expectedLabels,
+      routeOnly: routeOnly === true
+    })
+  );
+}
+
+function createMissionState() {
+  return KNOWN_SURFACES.map((surface) => ({
+    id: surface.id,
+    name: surface.name,
+    routeOnly: surface.routeOnly === true,
+    seen: false,
+    attempted: false,
+    attempts: 0
+  }));
+}
+
+function collectObservedValues(summary, inspect) {
+  const values = [];
+  const push = (value) => {
+    if (value == null) return;
+    const text = String(value).trim();
+    if (text) values.push(text);
+  };
+
+  for (const label of summary?.labels ?? []) push(label);
+  for (const label of inspect?.labels ?? []) push(label);
+  for (const line of inspect?.tree ?? []) push(line);
+  for (const element of inspect?.elements ?? []) {
+    push(element.name);
+    push(element.label);
+    push(element.value);
+  }
+
+  return [...new Set(values.map((value) => value.toLowerCase()))];
+}
+
+function matchesExpectedLabel(observedValues, expected) {
+  const normalizedExpected = String(expected).trim().toLowerCase();
+  if (!normalizedExpected) return false;
+
+  if (normalizedExpected.startsWith("automation.") || normalizedExpected.endsWith(".")) {
+    return observedValues.some((value) => value.includes(normalizedExpected));
+  }
+
+  return observedValues.some(
+    (value) =>
+      value === normalizedExpected ||
+      value.startsWith(`${normalizedExpected} `) ||
+      value.startsWith(`${normalizedExpected}\n`)
+  );
+}
+
+function updateMissionCoverage(report, state, reason) {
+  const observedValues = collectObservedValues(state.summary, state.inspect);
+  if (observedValues.length === 0) return;
+
+  for (const surface of KNOWN_SURFACES) {
+    const mission = state.mission.find((entry) => entry.id === surface.id);
+    if (!mission || mission.seen) continue;
+
+    const matched = surface.expectedLabels.find((label) =>
+      matchesExpectedLabel(observedValues, label)
+    );
+    if (!matched) continue;
+
+    mission.seen = true;
+    mission.matched = matched;
+    mission.reason = reason;
+    addStep(report, {
+      kind: "mission",
+      command: "surface-covered",
+      reason: `${surface.name} observed via ${matched}.`
+    });
+  }
+}
+
+function missionStatus(state) {
+  return state.mission.map((entry) => ({
+    id: entry.id,
+    name: entry.name,
+    routeOnly: entry.routeOnly,
+    seen: entry.seen,
+    attempted: entry.attempted,
+    attempts: entry.attempts,
+    matched: entry.matched
+  }));
+}
+
+function missionEntry(state, surfaceId) {
+  return state.mission.find((entry) => entry.id === surfaceId);
+}
+
+function missionSurfaceSeen(state, surfaceId) {
+  return missionEntry(state, surfaceId)?.seen === true;
+}
+
+function currentScreenIds(state) {
+  const observed = collectObservedValues(state.summary, state.inspect);
+  return {
+    advanced: observed.some((value) => value.includes("automation.screen_advanced")),
+    home: observed.some((value) => value.includes("automation.screen_home")),
+    privacyPulse: observed.some((value) => value.includes("automation.screen_privacy_pulse")),
+    settings: observed.some((value) => value.includes("automation.screen_settings"))
+  };
+}
+
+function isCurrentHomeSurface(state) {
+  return currentScreenIds(state).home === true;
+}
+
+// Coarse "what screen are we on" key used to scope repetition signatures, so
+// the same action on different surfaces is tracked independently. Detail
+// surfaces win over Home because a pushed surface can still leak some Home
+// labels in a merged accessibility tree.
+function currentScreenKey(state) {
+  const ids = currentScreenIds(state);
+  if (ids.privacyPulse) return "privacyPulse";
+  if (ids.advanced) return "advanced";
+  if (ids.settings) return "settings";
+  if (ids.home) return "home";
+  return "other";
+}
+
+function selectorRequiresHomeSurface(selector) {
+  if (!selector) return false;
+  // Only the Home cards (~automation.home_*) genuinely exist only on Home and
+  // therefore need a return-to-Home first. The bottom-tab ~automation.nav_*
+  // ids are not Appium-resolvable on iOS anyway (TabItem Semantics issue), and
+  // forcing a Home round-trip for generic text selectors just thrashed
+  // navigation and blocked in-surface depth.
+  return selector.startsWith("~automation.home_");
+}
+
+function selectorFromAction(action) {
+  return typeof action?.args?.selector === "string" ? action.args.selector : undefined;
+}
+
+function recordFailedSelector(state, selector) {
+  if (!selector) return;
+  state.failedSelectors.set(selector, (state.failedSelectors.get(selector) ?? 0) + 1);
+}
+
+function trimString(value, maxLength = 3000) {
+  const text = typeof value === "string" ? value : JSON.stringify(value);
+  if (text == null) return undefined;
+  return text.length > maxLength ? `${text.slice(0, maxLength)}\n... truncated ...` : text;
+}
+
+function compactModelPayload(payload) {
+  if (payload == null || typeof payload !== "object") {
+    return payload;
+  }
+  return {
+    id: payload.id,
+    model: payload.model,
+    object: payload.object,
+    usage: payload.usage,
+    error: payload.error,
+    choices: Array.isArray(payload.choices)
+      ? payload.choices.slice(0, 2).map((choice) => ({
+          finish_reason: choice.finish_reason,
+          index: choice.index,
+          message: choice.message
+            ? {
+                role: choice.message.role,
+                content: trimString(choice.message.content ?? "", 500),
+                reasoning_content: trimString(choice.message.reasoning_content ?? "", 500)
+              }
+            : undefined
+        }))
+      : undefined
+  };
+}
+
+function modelFailureDetails(error) {
+  const details = {
+    error: error instanceof Error ? error.message : String(error)
+  };
+  if (error?.status != null) details.status = error.status;
+  if (error?.body != null) details.body = trimString(error.body, 3000);
+  if (error?.content != null) details.content = trimString(error.content, 3000);
+  if (error?.payload != null) details.payload = compactModelPayload(error.payload);
+  return details;
 }
 
 function createFakeDecisionProvider() {
@@ -218,6 +494,22 @@ function evaluateSummary(report, summary, state) {
 }
 
 async function runCoverageIntervention(client, report, state, reason) {
+  if (!isCurrentHomeSurface(state) && Object.values(currentScreenIds(state)).some(Boolean)) {
+    state.coverageInterventions += 1;
+    state.inCoverageIntervention = true;
+    const returnedHome = await ensureHomeSurface(
+      client,
+      report,
+      state,
+      `Coverage intervention: ${reason}`
+    );
+    state.inCoverageIntervention = false;
+    state.needsCoverageIntervention = undefined;
+    if (returnedHome) {
+      return;
+    }
+  }
+
   const interventions = [
     {
       command: "ui.scroll",
@@ -270,6 +562,7 @@ async function runCoverageIntervention(client, report, state, reason) {
   state.summary = await observeSummary(client, report, "Observe after coverage intervention.");
   evaluateSummary(report, state.summary, state);
   state.inspect = await observeInspect(client, report, "Inspect after coverage intervention.");
+  updateMissionCoverage(report, state, "Coverage intervention observation.");
   state.inCoverageIntervention = false;
   state.needsCoverageIntervention = undefined;
 }
@@ -287,6 +580,288 @@ async function runInitialCoverageProbe(client, report, state) {
     state,
     "Initial coverage probe return pass before model-led exploration."
   );
+}
+
+function labelsInclude(summary, value) {
+  const labels = Array.isArray(summary?.labels) ? summary.labels : [];
+  return labels.some((label) => String(label).includes(value));
+}
+
+async function dismissBlockingIntroIfPresent(client, report, state) {
+  if (!labelsInclude(state.summary, "automation.onboard_continue")) {
+    return;
+  }
+
+  addStep(report, {
+    kind: "preflight",
+    command: "ui.tap",
+    args: { selector: "~automation.onboard_continue" },
+    reason: "Dismiss intro onboarding overlay before AI exploration."
+  });
+
+  try {
+    await executeExplorerCommand(
+      client,
+      report,
+      "ui.tap",
+      { selector: "~automation.onboard_continue" },
+      "Dismiss intro onboarding overlay before AI exploration."
+    );
+  } catch (error) {
+    addFinding(report, "warning", "Failed to dismiss intro onboarding overlay before AI exploration.", {
+      error: error instanceof Error ? error.message : String(error)
+    });
+    return;
+  }
+
+  state.summary = await observeSummary(client, report, "Observe after dismissing intro onboarding overlay.");
+  evaluateSummary(report, state.summary, state);
+  state.inspect = await observeInspect(client, report, "Inspect after dismissing intro onboarding overlay.");
+  updateMissionCoverage(report, state, "Post-onboarding-overlay observation.");
+}
+
+function addBlockingOnboardingFinding(report, state) {
+  if (labelsInclude(state.summary, "automation.dns_onboard_sheet")) {
+    addFinding(report, "warning", "AI explorer started before DNS onboarding was completed.", {
+      hint: "Run make appium-test first, then make appium-ai-explore APP_INSTALL=0."
+    });
+  }
+}
+
+async function selectorExists(client, report, selector, reason) {
+  try {
+    const event = await executeExplorerCommand(
+      client,
+      report,
+      "ui.exists",
+      { selector },
+      reason
+    );
+    return event.result === true;
+  } catch (error) {
+    addFinding(report, "warning", `Mission selector probe failed: ${selector}`, {
+      error: error instanceof Error ? error.message : String(error),
+      selector
+    });
+    return false;
+  }
+}
+
+async function observeAfterMissionAction(client, report, state, reason) {
+  state.summary = await observeSummary(client, report, reason);
+  evaluateSummary(report, state.summary, state);
+  state.inspect = await observeInspect(client, report, "Inspect after mission action.");
+  updateMissionCoverage(report, state, reason);
+}
+
+async function observeAfterNavigation(client, report, state, reason) {
+  state.summary = await observeSummary(client, report, reason);
+  evaluateSummary(report, state.summary, state);
+  state.inspect = await observeInspect(client, report, "Inspect after navigation action.");
+  updateMissionCoverage(report, state, reason);
+}
+
+async function ensureHomeSurface(client, report, state, reason) {
+  if (isCurrentHomeSurface(state)) {
+    return true;
+  }
+
+  addStep(report, {
+    kind: "navigation",
+    command: "home",
+    reason
+  });
+
+  // NOTE: the V6 bottom-tab controls (TabItem -> Semantics(identifier:),
+  // e.g. ~automation.nav_home / ~automation.nav_activity) are NOT resolvable
+  // by Appium on iOS — see report.json "Can't call click ... ~automation.nav_activity
+  // ... element wasn't found". Returning Home relies on platform back plus the
+  // resolvable "~Home" / name=='Home' back control, not the nav tab id.
+  const attempts = [
+    {
+      command: "ui.back",
+      args: {},
+      reason: `${reason}: use platform back.`
+    },
+    {
+      command: "ui.tap",
+      args: { selector: "~Home" },
+      reason: `${reason}: tap visible Home back control.`
+    },
+    {
+      command: "ui.tap",
+      args: {
+        selector: "-ios predicate string: name == 'Home' OR label == 'Home'"
+      },
+      reason: `${reason}: tap Home by iOS predicate.`
+    },
+    {
+      command: "ui.back",
+      args: {},
+      reason: `${reason}: retry platform back.`
+    }
+  ];
+
+  for (const attempt of attempts) {
+    try {
+      await executeExplorerCommand(
+        client,
+        report,
+        attempt.command,
+        attempt.args,
+        attempt.reason
+      );
+    } catch (error) {
+      addStep(report, {
+        kind: "navigation-failed",
+        command: attempt.command,
+        args: attempt.args,
+        reason: error instanceof Error ? error.message : String(error)
+      });
+      continue;
+    }
+
+    await observeAfterNavigation(client, report, state, "Observe while returning to Home.");
+    if (isCurrentHomeSurface(state)) {
+      return true;
+    }
+  }
+
+  addFinding(report, "warning", "Could not return to Home surface before continuing exploration.", {
+    labels: Array.isArray(state.summary?.labels) ? state.summary.labels.slice(0, 12) : []
+  });
+  return false;
+}
+
+async function returnTowardHome(client, report, state, reason) {
+  return ensureHomeSurface(client, report, state, reason);
+}
+
+async function runMissionSurface(client, report, state, surface) {
+  const mission = missionEntry(state, surface.id);
+  if (!mission || mission.seen || surface.routeOnly) {
+    return false;
+  }
+
+  mission.attempted = true;
+  mission.attempts += 1;
+  addStep(report, {
+    kind: "mission",
+    command: "surface-target",
+    reason: `Exercise ${surface.name}: ${surface.reach}`
+  });
+
+  if (surface.navigationSelectors.some(selectorRequiresHomeSurface)) {
+    const homeReady = await ensureHomeSurface(
+      client,
+      report,
+      state,
+      `Mission: return to Home before opening ${surface.name}.`
+    );
+    if (!homeReady) {
+      return false;
+    }
+  }
+
+  for (const selector of surface.navigationSelectors) {
+    if (state.failedSelectors.has(selector)) {
+      continue;
+    }
+
+    const exists = await selectorExists(
+      client,
+      report,
+      selector,
+      `Mission probe for ${surface.name}.`
+    );
+    if (!exists) {
+      continue;
+    }
+
+    try {
+      await executeExplorerCommand(
+        client,
+        report,
+        "ui.tap",
+        { selector },
+        `Mission: open ${surface.name}.`
+      );
+      recordAction(state, { command: "ui.tap", args: { selector } });
+    } catch (error) {
+      recordFailedSelector(state, selector);
+      addFinding(report, "warning", `Mission navigation failed: ${surface.name}`, {
+        error: error instanceof Error ? error.message : String(error),
+        selector
+      });
+      continue;
+    }
+
+    await observeAfterMissionAction(client, report, state, `Observe ${surface.name}.`);
+
+    if (!missionSurfaceSeen(state, surface.id)) {
+      addFinding(report, "warning", `Mission tap did not reach surface: ${surface.name}`, {
+        selector,
+        expected: surface.expectedLabels
+      });
+      continue;
+    }
+
+    for (const direction of surface.scrollDirections ?? []) {
+      try {
+        await executeExplorerCommand(
+          client,
+          report,
+          "ui.scroll",
+          { direction },
+          `Mission: scan ${surface.name} ${direction}.`
+        );
+        await observeAfterMissionAction(
+          client,
+          report,
+          state,
+          `Observe ${surface.name} after ${direction} scroll.`
+        );
+      } catch (error) {
+        addFinding(report, "warning", `Mission scroll failed: ${surface.name}`, {
+          direction,
+          error: error instanceof Error ? error.message : String(error)
+        });
+      }
+    }
+
+    if (surface.returnHome) {
+      await returnTowardHome(
+        client,
+        report,
+        state,
+        `Mission: return from ${surface.name} to the home surface.`
+      );
+    }
+
+    return true;
+  }
+
+  addFinding(report, "warning", `Mission surface was not reachable: ${surface.name}`, {
+    selectors: surface.navigationSelectors
+  });
+  return false;
+}
+
+async function runMissionWarmup(client, report, state, warmupDeadline) {
+  for (const id of MISSION_WARMUP_SURFACES) {
+    if (Date.now() >= warmupDeadline) {
+      addStep(report, {
+        kind: "mission",
+        command: "budget",
+        reason:
+          "Mission warmup stopped because the warmup time budget was reached; handing remaining budget to the model."
+      });
+      return;
+    }
+    const surface = KNOWN_SURFACES.find((entry) => entry.id === id);
+    if (!surface) continue;
+    await runMissionSurface(client, report, state, surface);
+  }
 }
 
 async function recoverToApp(client, report) {
@@ -310,6 +885,7 @@ async function recoverToApp(client, report) {
 async function runFallbackProbe(client, report, state) {
   addFinding(report, "warning", "Model decision unavailable; ran deterministic fallback probe.", {});
   state.inspect = await observeInspect(client, report, "Fallback probe: inspect visible controls.");
+  updateMissionCoverage(report, state, "Fallback inspection observation.");
   await executeExplorerCommand(
     client,
     report,
@@ -319,6 +895,7 @@ async function runFallbackProbe(client, report, state) {
   );
   state.summary = await observeSummary(client, report, "Fallback probe: observe after scrolling.");
   evaluateSummary(report, state.summary, state);
+  updateMissionCoverage(report, state, "Fallback scrolled observation.");
   await executeExplorerCommand(
     client,
     report,
@@ -328,6 +905,7 @@ async function runFallbackProbe(client, report, state) {
   );
   state.summary = await observeSummary(client, report, "Fallback probe: final observation.");
   evaluateSummary(report, state.summary, state);
+  updateMissionCoverage(report, state, "Fallback final observation.");
 }
 
 function shouldForceMoreExploration(action, stepIndex, minSteps) {
@@ -357,12 +935,15 @@ export async function runAiExplorer(options = {}) {
     });
   const state = {
     actionSignatures: new Map(),
+    consecutiveModelFailures: 0,
     coverageInterventions: 0,
+    failedSelectors: new Map(),
     findings: report.findings,
     inCoverageIntervention: false,
     inspect: undefined,
     labelSignatures: new Map(),
     loadingObservations: 0,
+    mission: createMissionState(),
     needsCoverageIntervention: undefined,
     summary: undefined,
     triedSelectors: new Map()
@@ -372,19 +953,37 @@ export async function runAiExplorer(options = {}) {
     (config.fakeModel
       ? createFakeDecisionProvider()
       : async (decisionState) => {
-          const response = await requestExplorerDecision({
-            config,
-            fetchFn: options.fetchFn,
-            state: decisionState
-          });
-          log(`AI explorer model decision: ${response.rawContent.trim().slice(0, 500)}`);
-          addStep(report, {
-            kind: "model",
-            command: "decision",
-            reason: response.rawContent,
-            usage: response.usage
-          });
-          return response.decision;
+          let lastError;
+          for (let attempt = 1; attempt <= 2; attempt += 1) {
+            try {
+              const response = await requestExplorerDecision({
+                config,
+                fetchFn: options.fetchFn,
+                state: decisionState
+              });
+              log(`AI explorer model decision: ${response.rawContent.trim().slice(0, 500)}`);
+              addStep(report, {
+                kind: "model",
+                command: "decision",
+                reason: response.rawContent,
+                usage: response.usage
+              });
+              return response.decision;
+            } catch (error) {
+              lastError = error;
+              const details = modelFailureDetails(error);
+              log(
+                `AI explorer model decision attempt ${attempt} failed: ${details.error}`
+              );
+              addStep(report, {
+                kind: "model-error",
+                command: "decision",
+                reason: `Model decision attempt ${attempt} failed.`,
+                details
+              });
+            }
+          }
+          throw lastError;
         });
 
   try {
@@ -425,36 +1024,57 @@ export async function runAiExplorer(options = {}) {
     state.summary = await observeSummary(client, report, "Initial post-smoke UI summary.");
     evaluateSummary(report, state.summary, state);
     state.inspect = await observeInspect(client, report, "Initial post-smoke UI inspection.");
-    await runInitialCoverageProbe(client, report, state);
-
+    updateMissionCoverage(report, state, "Initial post-smoke observation.");
+    await dismissBlockingIntroIfPresent(client, report, state);
+    addBlockingOnboardingFinding(report, state);
     const deadline = Date.now() + config.timeoutMs;
+    await runInitialCoverageProbe(client, report, state);
+    const warmupDeadline = Math.min(
+      deadline,
+      Date.now() + Math.floor(config.timeoutMs * WARMUP_BUDGET_FRACTION)
+    );
+    await runMissionWarmup(client, report, state, warmupDeadline);
+
     for (let stepIndex = 0; stepIndex < config.stepLimit && Date.now() < deadline; stepIndex += 1) {
       let decision;
       try {
         log(`AI explorer asking model for step ${stepIndex + 1}/${config.stepLimit}.`);
         decision = await decisionProvider({
           findings: report.findings.map(({ severity, message }) => ({ severity, message })),
+          failedSelectors: compactMap(state.failedSelectors),
           history: report.steps.slice(-12).map((step) => ({
             args: step.args,
+            details: step.details,
             kind: step.kind,
             command: step.command,
             reason: step.reason
           })),
           inspect: compactInspect({ result: state.inspect }),
+          knownSurfaces: publicKnownSurfaces(),
           minSteps: config.minSteps,
+          missionStatus: missionStatus(state),
           stepIndex,
           stepLimit: config.stepLimit,
           summary: compactEvent({ result: state.summary }),
           triedSelectors: compactMap(state.triedSelectors),
           usedActions: compactMap(state.actionSignatures)
         });
+        state.consecutiveModelFailures = 0;
       } catch (error) {
-        addFinding(report, "warning", "Model decision request failed.", {
-          error: error instanceof Error ? error.message : String(error)
-        });
+        state.consecutiveModelFailures += 1;
+        addFinding(report, "warning", "Model decision request failed.", modelFailureDetails(error));
         await runFallbackProbe(client, report, state);
-        report.completed = true;
-        break;
+        if (state.consecutiveModelFailures >= MODEL_FAILURE_ABORT_THRESHOLD) {
+          addFinding(
+            report,
+            "warning",
+            `Model produced no usable decision ${state.consecutiveModelFailures} times in a row; ending exploration early.`,
+            {}
+          );
+          report.completed = true;
+          break;
+        }
+        continue;
       }
 
       const guard = evaluateExplorerAction(decision, {
@@ -493,7 +1113,38 @@ export async function runAiExplorer(options = {}) {
         break;
       }
 
-      const signature = stepSignature(action);
+      const selector = selectorFromAction(action);
+      if (selectorRequiresHomeSurface(selector) && !isCurrentHomeSurface(state)) {
+        const homeReady = await ensureHomeSurface(
+          client,
+          report,
+          state,
+          `Return to Home before running ${action.command} ${selector}.`
+        );
+        if (!homeReady) {
+          continue;
+        }
+        state.failedSelectors.delete(selector);
+      }
+
+      if (selector && state.failedSelectors.has(selector)) {
+        log(`AI explorer skipped known failed selector: ${selector}`);
+        addStep(report, {
+          kind: "guardrail",
+          command: action.command,
+          args: action.args,
+          reason: "Skipped selector because it already failed earlier in this run."
+        });
+        await runCoverageIntervention(
+          client,
+          report,
+          state,
+          `Known failed selector skipped: ${selector}`
+        );
+        continue;
+      }
+
+      const signature = stepSignature(action, currentScreenKey(state));
       state.actionSignatures.set(signature, (state.actionSignatures.get(signature) ?? 0) + 1);
       const actionRepeatCount = state.actionSignatures.get(signature);
       if (actionRepeatCount > repetitionLimit(action)) {
@@ -524,12 +1175,17 @@ export async function runAiExplorer(options = {}) {
           action.reason
         );
       } catch (error) {
-        addFinding(report, "warning", `Explorer command failed: ${action.command}`, {
+        const failedSelector = selectorFromAction(action);
+        recordFailedSelector(state, failedSelector);
+        addFinding(report, "warning", `Explorer command failed: ${action.command}${failedSelector ? ` ${failedSelector}` : ""}`, {
           args: action.args,
           error: error instanceof Error ? error.message : String(error),
+          selector: failedSelector,
           reason: action.reason
         });
         state.summary = await observeSummary(client, report, "Observe after command failure.");
+        evaluateSummary(report, state.summary, state);
+        updateMissionCoverage(report, state, "Observation after command failure.");
         continue;
       }
 
@@ -547,10 +1203,12 @@ export async function runAiExplorer(options = {}) {
       if (summaryUpdated) {
         evaluateSummary(report, state.summary, state);
       }
+      updateMissionCoverage(report, state, "Observation after model action.");
       if (state.summary?.appState?.code !== 4) {
         await recoverToApp(client, report);
         state.summary = await observeSummary(client, report, "Observe after app recovery.");
         evaluateSummary(report, state.summary, state);
+        updateMissionCoverage(report, state, "Observation after app recovery.");
       }
 
       if (state.needsCoverageIntervention) {
@@ -565,6 +1223,7 @@ export async function runAiExplorer(options = {}) {
 
       if (stepIndex % 4 === 3) {
         state.inspect = await observeInspect(client, report, "Periodic inspection after exploration steps.");
+        updateMissionCoverage(report, state, "Periodic inspection observation.");
       }
     }
 
@@ -590,6 +1249,8 @@ export async function runAiExplorer(options = {}) {
     });
 
     report.durationMs = Date.now() - startedAt.getTime();
+    report.knownSurfaces = publicKnownSurfaces();
+    report.mission = missionStatus(state);
     report.summary = `AI explorer finished with status ${deriveReportStatus(report)} after ${report.steps.length} recorded steps.`;
     report.artifacts = await writeExplorerReports(report, outputDir);
     delete report.log;

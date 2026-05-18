@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/shared/ui/top_bar.dart';
@@ -87,21 +88,25 @@ class _TabState extends State<TabWidget> with Disposables {
                     icon: Icons.shield_outlined,
                     title: "main tab home".i18n,
                     active: _active == StageTab.home,
+                    automationId: AutomationIds.navHome,
                     onTap: () => _tap(StageTab.home)),
                 TabItem(
                     icon: CupertinoIcons.chart_bar,
                     title: "main tab activity".i18n,
                     active: _active == StageTab.activity,
+                    automationId: AutomationIds.navActivity,
                     onTap: () => _tap(StageTab.activity)),
                 TabItem(
                     icon: CupertinoIcons.cube_box,
                     title: "main tab advanced".i18n,
                     active: _active == StageTab.advanced,
+                    automationId: AutomationIds.navAdvanced,
                     onTap: () => _tap(StageTab.advanced)),
                 TabItem(
                     icon: CupertinoIcons.settings,
                     title: "main tab settings".i18n,
                     active: _active == StageTab.settings,
+                    automationId: AutomationIds.navSettings,
                     onTap: () => _tap(StageTab.settings)),
               ],
             ),

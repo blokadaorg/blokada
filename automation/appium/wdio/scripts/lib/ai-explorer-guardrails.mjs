@@ -86,10 +86,11 @@ function normalizeLimit(value, fallback, max) {
 }
 
 function normalizeSelector(args, command) {
-  const selector = String(args.selector ?? "").trim();
+  let selector = String(args.selector ?? "").trim();
   if (!selector) {
     throw new Error(`${command} requires args.selector.`);
   }
+  selector = normalizeKnownSelectorAlias(selector);
   if (
     !(
       selector.startsWith("~") ||
@@ -103,6 +104,22 @@ function normalizeSelector(args, command) {
     );
   }
   return selector;
+}
+
+function normalizeKnownSelectorAlias(selector) {
+  const aliases = new Map([
+    ["~Advanced", "~automation.home_advanced"],
+    ["~home_advanced", "~automation.home_advanced"],
+    ["~home_privacy_pulse", "~automation.home_privacy_pulse"],
+    ["~home_settings", "~automation.home_settings"],
+    ["~nav_activity", "~automation.nav_activity"],
+    ["~nav_advanced", "~automation.nav_advanced"],
+    ["~nav_home", "~automation.nav_home"],
+    ["~nav_settings", "~automation.nav_settings"],
+    ["~Privacy Pulse", "~automation.home_privacy_pulse"],
+    ["~Settings", "~automation.home_settings"]
+  ]);
+  return aliases.get(selector) ?? selector;
 }
 
 function normalizeAppArgs(args, sessionBundleId) {
@@ -157,13 +174,14 @@ function sanitizeArgs(action, context) {
       return { selector: normalizeSelector(args, command) };
     case "ui.read":
     case "ui.exists":
-    case "ui.wait":
+      return { selector: normalizeSelector(args, command) };
+    case "ui.wait": {
+      const hasSelector = String(args.selector ?? "").trim().length > 0;
       return {
-        selector: normalizeSelector(args, command),
-        ...(command === "ui.wait"
-          ? { timeoutMs: normalizeLimit(args.timeoutMs, 5000, 15000) }
-          : {})
+        ...(hasSelector ? { selector: normalizeSelector(args, command) } : {}),
+        timeoutMs: normalizeLimit(args.timeoutMs, 5000, 15000)
       };
+    }
     case "ui.screenshot":
       return {
         name: String(args.name ?? `ai-explorer-${Date.now()}`).replace(/[^A-Za-z0-9._-]+/g, "-")

@@ -16,8 +16,22 @@ export function createExplorerReport({ config, deviceName, startedAt, udid }) {
   };
 }
 
-export function addFinding(report, severity, message, details = {}) {
-  const dedupeKey = `${severity}:${message}`;
+function stableDetailsKey(value) {
+  if (value == null || typeof value !== "object") {
+    return JSON.stringify(value);
+  }
+  if (Array.isArray(value)) {
+    return `[${value.map((item) => stableDetailsKey(item)).join(",")}]`;
+  }
+  return `{${Object.keys(value)
+    .sort()
+    .map((key) => `${JSON.stringify(key)}:${stableDetailsKey(value[key])}`)
+    .join(",")}}`;
+}
+
+export function addFinding(report, severity, message, details = {}, options = {}) {
+  const dedupeKey =
+    options.dedupeKey ?? `${severity}:${message}:${stableDetailsKey(details)}`;
   if (report.findings.some((finding) => finding.dedupeKey === dedupeKey)) {
     return;
   }
@@ -95,6 +109,15 @@ export function renderMarkdownReport(report) {
 
   if (report.summary) {
     lines.push("## Summary", "", report.summary, "");
+  }
+
+  if (Array.isArray(report.mission) && report.mission.length > 0) {
+    lines.push("## Mission Coverage", "");
+    for (const surface of report.mission) {
+      const status = surface.seen ? "seen" : surface.attempted ? "attempted" : "not reached";
+      lines.push(`- ${surface.name}: ${status}`);
+    }
+    lines.push("");
   }
 
   if (report.findings.some((finding) => Object.keys(finding.details ?? {}).length > 0)) {

@@ -598,8 +598,12 @@ export async function runExplorerCommand(driver, context, command, args = {}) {
         result: await searchInUi(driver, args)
       };
     case "ui.wait": {
-      const selector = requireArg([args.selector], 0, "ui.wait requires args.selector");
       const timeout = normalizeLimit(args.timeoutMs, 10000);
+      const selector = String(args.selector ?? "").trim();
+      if (!selector) {
+        await driver.pause(timeout);
+        return { result: true };
+      }
       const element = await driver.$(selector);
       await element.waitForExist({ timeout });
       return { result: true };

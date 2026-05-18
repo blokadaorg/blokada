@@ -1,4 +1,5 @@
 import 'package:common/src/features/support/domain/support.dart';
+import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/features/home/ui/header/header_button.dart';
 import 'package:common/src/shared/ui/theme.dart';
@@ -45,10 +46,8 @@ class V6HomeSectionState extends State<V6HomeSection>
     super.initState();
     disposeLater(_unread.onChange.listen(rebuild));
 
-    controller =
-        AnimationController(vsync: this, duration: const Duration(seconds: 4));
-    controllerOrange =
-        AnimationController(vsync: this, duration: const Duration(seconds: 1));
+    controller = AnimationController(vsync: this, duration: const Duration(seconds: 4));
+    controllerOrange = AnimationController(vsync: this, duration: const Duration(seconds: 1));
 
     autorun((_) {
       final status = _app.status;
@@ -112,13 +111,17 @@ class V6HomeSectionState extends State<V6HomeSection>
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          SmartHeaderButton(
-                              bgColor: Colors.transparent,
-                              unread: _unread.present ?? false,
-                              icon: CupertinoIcons.settings,
-                              onTap: () {
-                                Navigation.open(Paths.settings);
-                              }),
+                          Semantics(
+                            identifier: AutomationIds.homeSettings,
+                            button: true,
+                            child: SmartHeaderButton(
+                                bgColor: Colors.transparent,
+                                unread: _unread.present ?? false,
+                                icon: CupertinoIcons.settings,
+                                onTap: () {
+                                  Navigation.open(Paths.settings);
+                                }),
+                          ),
                         ],
                       ),
                     ),

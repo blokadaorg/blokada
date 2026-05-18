@@ -1,3 +1,4 @@
+import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/app_variants/v6/widget/home/home_section.dart';
@@ -15,7 +16,10 @@ class _V6HomeScreenState extends State<V6HomeScreen> with Logging {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.theme.bgColorHome3,
-      body: V6HomeSection(),
+      body: Semantics(
+        identifier: AutomationIds.screenHome,
+        child: V6HomeSection(),
+      ),
     );
   }
 }
