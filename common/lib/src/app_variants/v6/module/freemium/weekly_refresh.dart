@@ -18,6 +18,14 @@ class WeeklyRefreshActor with Logging, Actor {
         _modalWidget.change(m, (context) => const WeeklyRefreshSheetIos());
       }
     });
+
+    _account.addOn(accountChanged, _onAccountChanged);
+  }
+
+  _onAccountChanged(Marker m) async {
+    if (_account.isFreemium) return;
+    if (!_account.type.isActive()) return;
+    await _notification.dismiss(m, id: NotificationId.weeklyRefresh);
   }
 
   @override
