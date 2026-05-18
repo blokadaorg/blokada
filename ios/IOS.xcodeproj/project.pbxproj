@@ -3591,7 +3591,7 @@
 					"$(PROJECT_DIR)",
 				);
 				MARKETING_VERSION = dev;
-				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG -D FAMILY";
+				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG -D FAMILY -D MOCKED";
 				"OTHER_SWIFT_FLAGS[sdk=iphonesimulator*]" = "$(inherited) -D PREVIEW";
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4067,7 +4067,7 @@
 					"$(PROJECT_DIR)",
 				);
 				MARKETING_VERSION = dev;
-				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG";
+				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG -D MOCKED";
 				"OTHER_SWIFT_FLAGS[sdk=iphonesimulator*]" = "$(inherited) -D PREVIEW";
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app;
 				PRODUCT_NAME = "Blokada $(TARGET_NAME)";

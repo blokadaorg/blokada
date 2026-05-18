@@ -185,12 +185,21 @@ class PlusBinding: PlusOps {
     }
 
     func doGenerateKeypair(completion: @escaping (Result<OpsKeypair, any Error>) -> Void) {
+        #if MOCKED
+        // Mocked scheme has no real VPN deps — return a base64-shaped placeholder
+        // so the Dart side gets a syntactically-valid keypair object.
+        let currentKeypair = OpsKeypair(
+            publicKey: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+            privateKey: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+        )
+        #else
         let privKey = PrivateKey()
         let pubKey = privKey.publicKey
         let currentKeypair = OpsKeypair(
             publicKey: pubKey.base64Key,
             privateKey: privKey.base64Key
         )
+        #endif
         completion(.success(currentKeypair))
     }
 
