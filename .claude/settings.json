@@ -1,7 +1,8 @@
 {
   "extraKnownMarketplaces": {
     "blokada-workflows": {
-      "source": { "source": "github", "repo": "blokadaorg/workflows" }
+      "source": { "source": "github", "repo": "blokadaorg/workflows" },
+      "autoUpdate": true
     }
   },
   "enabledPlugins": {
