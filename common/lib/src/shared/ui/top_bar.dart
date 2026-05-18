@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 import 'dart:ui';
 
+import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/route.dart';
 import 'package:common/src/shared/ui/theme.dart';
@@ -161,11 +162,25 @@ class TopCommonBarState extends State<TopCommonBar> {
                       opacity: ctrl.show <= 0.5
                           ? (ctrl.nav.length > 2 ? (1.0 - ctrl.show) : xpow(ctrl.show, 8))
                           : ctrl.show,
-                      child: GestureDetector(
-                        onTap: () {
-                          ctrl.goBackFromPlatform();
-                        },
-                        child: Icon(Icons.arrow_back_ios, color: context.theme.accent),
+                      // MergeSemantics + a single Semantics node collapses the
+                      // bare back Icon into one button element so the stable
+                      // identifier reaches the iOS accessibility tree (a plain
+                      // Icon is decorative and otherwise invisible to Appium).
+                      // This is the only reliable "pop one level" handle, so
+                      // automation can explore sub-pages and return.
+                      child: MergeSemantics(
+                        child: Semantics(
+                          identifier: AutomationIds.navBack,
+                          label: "back",
+                          button: true,
+                          child: GestureDetector(
+                            behavior: HitTestBehavior.opaque,
+                            onTap: () {
+                              ctrl.goBackFromPlatform();
+                            },
+                            child: Icon(Icons.arrow_back_ios, color: context.theme.accent),
+                          ),
+                        ),
                       ),
                     )
                   : Container(),

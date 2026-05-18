@@ -115,3 +115,46 @@ test("requestExplorerDecision returns parsed decision", async () => {
     reason: "look"
   });
 });
+
+test("requestExplorerDecision tells the model the current screen and valid selectors", async () => {
+  let capturedBody;
+  await requestExplorerDecision({
+    config: {
+      apiKey: "",
+      baseUrl: "http://lmstudio.test/v1",
+      maxTokens: 50,
+      model: "test-model",
+      modelTimeoutMs: 1000,
+      temperature: 0
+    },
+    fetchFn: async (_url, init) => {
+      capturedBody = JSON.parse(init.body);
+      return new Response(
+        JSON.stringify({
+          choices: [{ message: { content: "{\"command\":\"finish\",\"args\":{}}" } }]
+        }),
+        { status: 200 }
+      );
+    },
+    state: {
+      availableSelectors: ["~automation.nav_home", "~automation.filter_option.oisd.small"],
+      currentScreen: "advanced",
+      findings: [],
+      history: [],
+      inspect: {},
+      minSteps: 1,
+      stepIndex: 0,
+      stepLimit: 3,
+      summary: { labels: ["Advanced"] }
+    }
+  });
+
+  const system = capturedBody.messages.find((message) => message.role === "system").content;
+  const user = capturedBody.messages.find((message) => message.role === "user").content;
+
+  assert.match(user, /CURRENT SCREEN: advanced/);
+  assert.match(user, /~automation\.filter_option\.oisd\.small/);
+  // Round 2: bottom-tab nav_* are unresolvable; nav_back is the back primitive.
+  assert.match(system, /~automation\.nav_back/);
+  assert.match(system, /nav_\* ids do NOT resolve on iOS/);
+});

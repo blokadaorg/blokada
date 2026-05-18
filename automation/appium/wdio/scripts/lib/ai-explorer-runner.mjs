@@ -150,8 +150,30 @@ const KNOWN_SURFACES = [
 const MISSION_WARMUP_SURFACES = ["privacyPulse", "advanced", "settings"];
 
 // Fraction of the wall-clock budget the deterministic mission warmup may consume
-// before control is handed to the model, so the model still gets time to drive.
-const WARMUP_BUDGET_FRACTION = 0.4;
+// before control is handed to the model. The run is time-bound (it hits the
+// wall-clock budget long before the step budget), and the model can now reach
+// every surface on its own, so the warmup is kept short to leave the model the
+// bulk of the budget for in-surface depth.
+const WARMUP_BUDGET_FRACTION = 0.15;
+
+// Navigation primitive. The V6 bottom-tab ids (~automation.nav_*) do NOT
+// resolve via Appium even after the TabItem MergeSemantics change (the blurred
+// persistent overlay keeps them out of the iOS accessibility tree — confirmed
+// by two on-device runs). The only Appium-resolvable navigation handle is the
+// top-bar back button (~automation.nav_back, instrumented in top_bar.dart),
+// which pops exactly one level. Platform back is a no-op in this Flutter iOS
+// app. Forward navigation uses the Home cards (~automation.home_*).
+const NAV_BACK_SELECTOR = "~automation.nav_back";
+
+// A route pop animates for StandardRoute.transitionDuration (500ms) and the
+// controller delays its own pop bookkeeping by 600ms, so the screen is not
+// observable until ~1.1s later. Observing sooner makes screen detection race
+// the animation and the model thinks it is still on the old screen.
+const NAV_SETTLE_MS = 1400;
+
+// Upper bound on back pops when returning to Home, so a stuck back button
+// cannot loop forever.
+const MAX_BACK_POPS = 6;
 
 // How many consecutive model-decision failures end the run. A single failure
 // triggers a deterministic fallback probe and the loop continues, so one flaky
@@ -286,6 +308,42 @@ function currentScreenKey(state) {
   if (ids.advanced) return "advanced";
   if (ids.settings) return "settings";
   if (ids.home) return "home";
+  return "other";
+}
+
+// Selectors the model can actually act on right now: every automation.* id
+// currently visible in the summary/inspection, plus the persistent bottom-tab
+// nav ids. Passing this to the model stops it proposing controls that only
+// exist on a different screen (the dominant failure mode in earlier runs).
+function observedAutomationSelectors(state) {
+  const selectors = new Set();
+  for (const value of collectObservedValues(state.summary, state.inspect)) {
+    const match = String(value).match(/automation\.[a-z0-9_.]+/i);
+    if (match) {
+      selectors.add(`~${match[0].replace(/[.\s]+$/, "")}`);
+    }
+  }
+  // The top-bar back button is present on every pushed surface/sub-page but
+  // not on Home; surface it explicitly since the bare back Icon does not show
+  // up as an automation.* label in the summary.
+  if (currentScreenKey(state) !== "home") {
+    selectors.add(NAV_BACK_SELECTOR);
+  }
+  return [...selectors];
+}
+
+// Coarse screen key from summary labels alone (no inspect dependency), used to
+// detect screen changes so the repeated-UI guard does not treat normal
+// in-surface exploration as "stuck".
+function screenKeyFromSummary(summary) {
+  const labels = (Array.isArray(summary?.labels) ? summary.labels : []).map((label) =>
+    String(label).toLowerCase()
+  );
+  const has = (fragment) => labels.some((label) => label.includes(fragment));
+  if (has("automation.screen_privacy_pulse")) return "privacyPulse";
+  if (has("automation.screen_advanced")) return "advanced";
+  if (has("automation.screen_settings")) return "settings";
+  if (has("automation.screen_home")) return "home";
   return "other";
 }
 
@@ -462,16 +520,27 @@ function evaluateSummary(report, summary, state) {
     });
   }
 
+  // Moving between screens clears accumulated staleness: re-observing the same
+  // screen while drilling into its own controls is expected depth, not a loop,
+  // so only genuine no-progress on one screen should trip the guard.
+  const screenKey = screenKeyFromSummary(summary);
+  if (screenKey !== "other" && state.lastScreenKey && screenKey !== state.lastScreenKey) {
+    state.labelSignatures.clear();
+  }
+  if (screenKey !== "other") {
+    state.lastScreenKey = screenKey;
+  }
+
   const signature = labelSignature(summary);
   if (signature) {
     state.labelSignatures.set(signature, (state.labelSignatures.get(signature) ?? 0) + 1);
     const repeatCount = state.labelSignatures.get(signature);
-    if (repeatCount >= 4 && !state.inCoverageIntervention) {
+    if (repeatCount >= 7 && !state.inCoverageIntervention) {
       state.needsCoverageIntervention =
         state.needsCoverageIntervention ??
         "Visible UI has repeated several times; force a scroll/back coverage action.";
     }
-    if (repeatCount >= 6) {
+    if (repeatCount >= 12) {
       addFinding(report, "warning", "Explorer appears to be revisiting the same visible UI repeatedly.", {
         labels: labels.slice(0, 8)
       });
@@ -493,20 +562,47 @@ function evaluateSummary(report, summary, state) {
   }
 }
 
+// Break a stuck-screen loop by popping one level via the top-bar back button
+// (the only reliable navigation handle); landing on the parent surface is
+// enough to escape. If that does not change the screen, fall through to a
+// scroll nudge. Bottom-tab "switch surface" was tried in round 1 but the
+// nav_* ids do not resolve, so it is not used here.
 async function runCoverageIntervention(client, report, state, reason) {
-  if (!isCurrentHomeSurface(state) && Object.values(currentScreenIds(state)).some(Boolean)) {
+  const currentKey = currentScreenKey(state);
+  if (currentKey !== "other" && currentKey !== "home") {
     state.coverageInterventions += 1;
     state.inCoverageIntervention = true;
-    const returnedHome = await ensureHomeSurface(
-      client,
-      report,
-      state,
-      `Coverage intervention: ${reason}`
-    );
-    state.inCoverageIntervention = false;
-    state.needsCoverageIntervention = undefined;
-    if (returnedHome) {
-      return;
+    report.log?.(`AI explorer coverage intervention: ${reason}`);
+    addStep(report, {
+      kind: "coverage",
+      command: "ui.tap",
+      args: { selector: NAV_BACK_SELECTOR },
+      reason
+    });
+    try {
+      await executeExplorerCommand(
+        client,
+        report,
+        "ui.tap",
+        { selector: NAV_BACK_SELECTOR },
+        "Coverage intervention: pop one level to escape a repeated screen."
+      );
+      await settleAfterNavigation(client, report);
+      state.summary = await observeSummary(client, report, "Observe after coverage intervention.");
+      evaluateSummary(report, state.summary, state);
+      state.inspect = await observeInspect(client, report, "Inspect after coverage intervention.");
+      updateMissionCoverage(report, state, "Coverage intervention observation.");
+      state.inCoverageIntervention = false;
+      state.needsCoverageIntervention = undefined;
+      if (currentScreenKey(state) !== currentKey) {
+        return;
+      }
+    } catch (error) {
+      addFinding(report, "warning", "Coverage intervention back-pop failed.", {
+        selector: NAV_BACK_SELECTOR,
+        error: error instanceof Error ? error.message : String(error)
+      });
+      state.inCoverageIntervention = false;
     }
   }
 
@@ -661,6 +757,22 @@ async function observeAfterNavigation(client, report, state, reason) {
   updateMissionCoverage(report, state, reason);
 }
 
+// Pause long enough for a route push/pop animation to finish before observing,
+// so screen detection does not race the transition (see NAV_SETTLE_MS).
+async function settleAfterNavigation(client, report) {
+  try {
+    await executeExplorerCommand(
+      client,
+      report,
+      "ui.wait",
+      { timeoutMs: NAV_SETTLE_MS },
+      "Wait for the navigation transition to settle."
+    );
+  } catch (_) {
+    // Best-effort settle; observation will still proceed.
+  }
+}
+
 async function ensureHomeSurface(client, report, state, reason) {
   if (isCurrentHomeSurface(state)) {
     return true;
@@ -672,21 +784,49 @@ async function ensureHomeSurface(client, report, state, reason) {
     reason
   });
 
-  // NOTE: the V6 bottom-tab controls (TabItem -> Semantics(identifier:),
-  // e.g. ~automation.nav_home / ~automation.nav_activity) are NOT resolvable
-  // by Appium on iOS — see report.json "Can't call click ... ~automation.nav_activity
-  // ... element wasn't found". Returning Home relies on platform back plus the
-  // resolvable "~Home" / name=='Home' back control, not the nav tab id.
-  const attempts = [
+  // No Appium-resolvable "home"/tab control exists in this app. The only
+  // reliable handle is the top-bar back button (~automation.nav_back), which
+  // pops exactly one level, so return to Home by popping repeatedly until the
+  // Home surface is detected. Each pop must settle before observing because the
+  // route transition takes ~1.1s. Platform back / "~Home" / name=='Home' are
+  // kept only as last-resort fallbacks (back is a no-op here; the others are
+  // the dynamic breadcrumb label and unreliable).
+  for (let pop = 0; pop < MAX_BACK_POPS; pop += 1) {
+    try {
+      await executeExplorerCommand(
+        client,
+        report,
+        "ui.tap",
+        { selector: NAV_BACK_SELECTOR },
+        `${reason}: tap back (pop ${pop + 1}).`
+      );
+    } catch (error) {
+      addStep(report, {
+        kind: "navigation-failed",
+        command: "ui.tap",
+        args: { selector: NAV_BACK_SELECTOR },
+        reason: error instanceof Error ? error.message : String(error)
+      });
+      break;
+    }
+
+    await settleAfterNavigation(client, report);
+    await observeAfterNavigation(client, report, state, "Observe while returning to Home.");
+    if (isCurrentHomeSurface(state)) {
+      return true;
+    }
+  }
+
+  const fallbacks = [
     {
       command: "ui.back",
       args: {},
-      reason: `${reason}: use platform back.`
+      reason: `${reason}: platform back fallback.`
     },
     {
       command: "ui.tap",
       args: { selector: "~Home" },
-      reason: `${reason}: tap visible Home back control.`
+      reason: `${reason}: tap visible Home breadcrumb control.`
     },
     {
       command: "ui.tap",
@@ -694,15 +834,10 @@ async function ensureHomeSurface(client, report, state, reason) {
         selector: "-ios predicate string: name == 'Home' OR label == 'Home'"
       },
       reason: `${reason}: tap Home by iOS predicate.`
-    },
-    {
-      command: "ui.back",
-      args: {},
-      reason: `${reason}: retry platform back.`
     }
   ];
 
-  for (const attempt of attempts) {
+  for (const attempt of fallbacks) {
     try {
       await executeExplorerCommand(
         client,
@@ -721,6 +856,7 @@ async function ensureHomeSurface(client, report, state, reason) {
       continue;
     }
 
+    await settleAfterNavigation(client, report);
     await observeAfterNavigation(client, report, state, "Observe while returning to Home.");
     if (isCurrentHomeSurface(state)) {
       return true;
@@ -942,6 +1078,7 @@ export async function runAiExplorer(options = {}) {
     inCoverageIntervention: false,
     inspect: undefined,
     labelSignatures: new Map(),
+    lastScreenKey: undefined,
     loadingObservations: 0,
     mission: createMissionState(),
     needsCoverageIntervention: undefined,
@@ -1040,6 +1177,8 @@ export async function runAiExplorer(options = {}) {
       try {
         log(`AI explorer asking model for step ${stepIndex + 1}/${config.stepLimit}.`);
         decision = await decisionProvider({
+          availableSelectors: observedAutomationSelectors(state),
+          currentScreen: currentScreenKey(state),
           findings: report.findings.map(({ severity, message }) => ({ severity, message })),
           failedSelectors: compactMap(state.failedSelectors),
           history: report.steps.slice(-12).map((step) => ({

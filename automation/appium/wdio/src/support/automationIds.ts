@@ -13,6 +13,7 @@ export const AutomationIds = {
   navActivity: "automation.nav_activity",
   navAdvanced: "automation.nav_advanced",
   navSettings: "automation.nav_settings",
+  navBack: "automation.nav_back",
   homeSettings: "automation.home_settings",
   homePrivacyPulse: "automation.home_privacy_pulse",
   homeAdvanced: "automation.home_advanced",

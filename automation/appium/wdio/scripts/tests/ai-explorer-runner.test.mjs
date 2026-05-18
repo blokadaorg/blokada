@@ -113,7 +113,12 @@ function makeFakeClient(options = {}) {
           screen = "advanced";
         } else if (args.selector === "~automation.home_settings") {
           screen = "settings";
-        } else if (args.selector === "~Home") {
+        } else if (
+          args.selector === "~automation.nav_back" ||
+          args.selector === "~Home"
+        ) {
+          // The top-bar back button pops one level; in this flat fake model
+          // every detail surface sits directly under Home.
           screen = "home";
         }
         return { result: "tapped" };
@@ -165,11 +170,11 @@ test("runAiExplorer completes with fake model and fake client", async () => {
   assert.deepEqual(
     report.mission
       .filter((entry) => ["privacyPulse", "advanced", "settings"].includes(entry.id))
-      .map((entry) => [entry.id, entry.seen, entry.attempted]),
+      .map((entry) => [entry.id, entry.seen]),
     [
-      ["privacyPulse", true, true],
-      ["advanced", true, true],
-      ["settings", true, true]
+      ["privacyPulse", true],
+      ["advanced", true],
+      ["settings", true]
     ]
   );
   assert.equal(
@@ -179,7 +184,7 @@ test("runAiExplorer completes with fake model and fake client", async () => {
   assert.match(report.artifacts.markdownPath, /ai-explorer-report\.md$/);
 });
 
-test("runAiExplorer taps Home when back does not leave a detail surface", async () => {
+test("runAiExplorer returns Home via the back button when platform back is a no-op", async () => {
   const client = makeFakeClient({ backReturnsHome: false });
   const outputDir = await mkdtemp(join(tmpdir(), "ai-explorer-runner-"));
   const report = await runAiExplorer({
@@ -208,7 +213,8 @@ test("runAiExplorer taps Home when back does not leave a detail surface", async 
   assert.equal(deriveReportStatus(report), "pass");
   assert.ok(
     client.commands.some(
-      (entry) => entry.command === "ui.tap" && entry.args?.selector === "~Home"
+      (entry) =>
+        entry.command === "ui.tap" && entry.args?.selector === "~automation.nav_back"
     )
   );
   assert.equal(report.mission.find((entry) => entry.id === "advanced")?.seen, true);

@@ -17,6 +17,12 @@ class AutomationIds {
   static const navAdvanced = 'automation.nav_advanced';
   static const navSettings = 'automation.nav_settings';
 
+  /// Top-bar back control. The pushed routes (Settings/Advanced/Privacy Pulse
+  /// and their sub-pages) are MaterialWithModalsPageRoute, so there is no iOS
+  /// edge-swipe-back; this is the only reliable "pop one level" affordance and
+  /// must stay resolvable for automation to explore beyond the first level.
+  static const navBack = 'automation.nav_back';
+
   static const homeSettings = 'automation.home_settings';
   static const homePrivacyPulse = 'automation.home_privacy_pulse';
   static const homeAdvanced = 'automation.home_advanced';
