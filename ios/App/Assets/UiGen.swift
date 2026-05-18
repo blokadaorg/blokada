@@ -773,6 +773,10 @@ internal enum L10n {
   internal static let freemiumSheetSafariDesc = L10n.tr("Ui", "freemium sheet safari desc", fallback: "Enable our extension in Safari to get essential protection while you browse. It blocks annoying ads — including video ads on YouTube — so you can enjoy a cleaner, faster web experience.")
   /// Start blocking ads in Safari
   internal static let freemiumSheetSafariHeader = L10n.tr("Ui", "freemium sheet safari header", fallback: "Start blocking ads in Safari")
+  /// Set up later
+  internal static let freemiumSheetSafariSetupLater = L10n.tr("Ui", "freemium sheet safari setup later", fallback: "Set up later")
+  /// Continue to other options
+  internal static let freemiumSheetSafariSetupLaterDesc = L10n.tr("Ui", "freemium sheet safari setup later desc", fallback: "Continue to other options")
   /// See which trackers are reaching you - and block them.
   internal static let freemiumStatsCtaDesc = L10n.tr("Ui", "freemium stats cta desc", fallback: "See which trackers are reaching you - and block them.")
   /// Unlock full tracking control
@@ -919,8 +923,8 @@ internal enum L10n {
   internal static let notificationVpnExpiredHeader = L10n.tr("Ui", "notification vpn expired header", fallback: "BLOKADA+ subscription expired")
   /// The VPN is disabled
   internal static let notificationVpnExpiredSubtitle = L10n.tr("Ui", "notification vpn expired subtitle", fallback: "The VPN is disabled")
-  /// Turn off these notifications
-  internal static let notificationWeeklyReportActionOptOut = L10n.tr("Ui", "notification weekly report action opt out", fallback: "Turn off these notifications")
+  /// Turn off weekly reports
+  internal static let notificationWeeklyReportActionOptOut = L10n.tr("Ui", "notification weekly report action opt out", fallback: "Turn off weekly reports")
   /// See more
   internal static let notificationWeeklyReportActionSeeMore = L10n.tr("Ui", "notification weekly report action see more", fallback: "See more")
   /// Allowed traffic decreased

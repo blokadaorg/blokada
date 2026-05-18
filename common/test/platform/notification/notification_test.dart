@@ -115,11 +115,13 @@ void main() {
       });
     });
 
-    test("OPT_OUT action routes to setWeeklyReportEnabled(false)", () async {
+    test("OPT_OUT action opens settings and defers the toggle flip until consumed", () async {
       await withTrace((m) async {
         await CoreModule().create();
         Core.register<AccountStore>(_accountStoreWithAccount());
-        Core.register<StageStore>(MockStageStore());
+        final stage = MockStageStore();
+        when(stage.route).thenReturn(StageRouteState.init().newFg());
+        Core.register<StageStore>(stage);
         Core.register<PaymentActor>(_FakePaymentActor());
         Core.register(NotificationsValue());
         Core.register<WeeklyReportActor>(_FakeWeeklyReportActor(_weeklyEvent()));
@@ -135,13 +137,36 @@ void main() {
 
         final store = NotificationActor();
         Core.register<NotificationActor>(store);
+        Navigation.lastPath = null;
+        Navigation.isTabletMode = true;
+        Navigation.openInTablet = (path, arguments) {
+          Navigation.lastPath = path;
+        };
 
         await store.notificationTapped(m, "weeklyReport|OPT_OUT");
 
+        expect(Navigation.lastPath, Paths.settings,
+            reason: "user should land on settings to see the toggle move");
+        expect(await optOutValue.now(), isFalse,
+            reason: "toggle should still be enabled until settings consumes the pending flag");
+        expect(fakeApi.putConfigCalls, isEmpty,
+            reason: "backend should not be told yet — the screen has to render first");
+
+        final consumed = await store.consumePendingOptOutFromNotification(m);
+        expect(consumed, isTrue,
+            reason: "pending opt-out should be claimed by the settings screen");
+
         expect(await optOutValue.now(), isTrue,
-            reason: "opt-out should be persisted locally");
+            reason: "opt-out should be persisted locally after consume");
         expect(fakeApi.putConfigCalls, equals([true]),
-            reason: "backend should be told the user opted out");
+            reason: "backend should be told the user opted out after consume");
+
+        final consumedAgain = await store.consumePendingOptOutFromNotification(m);
+        expect(consumedAgain, isFalse,
+            reason: "second consume is a no-op so plain settings opens do not flip the toggle");
+        expect(fakeApi.putConfigCalls, equals([true]),
+            reason: "no extra PUT on a no-op consume");
+
         verifyNever(ops.doShow(any, any, any));
       });
     });

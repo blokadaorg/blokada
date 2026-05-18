@@ -12,17 +12,14 @@
 
 package utils
 
-import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import androidx.core.app.NotificationCompat
 import model.BlokadaException
 import org.blokada.R
 import service.Localised
 import service.NOTIF_WEEKLY_REPORT
 import service.NOTIF_ACTIVITY_LOGGING_REMINDER
-import service.WeeklyReportActionReceiver
 import ui.MainActivity
 
 private const val IMPORTANCE_NONE = 0
@@ -255,19 +252,15 @@ class WeeklyReportNotification(
         val piSeeMore = ctx.getPendingIntentForActivity(seeMoreIntent, 0)
         b.addAction(0, ctx.getString(R.string.notification_weekly_report_action_see_more), piSeeMore)
 
-        // Secondary action: "Opt out". Fires a broadcast so the user does not
-        // have to open the app. The receiver toggles the opt-out setting via
-        // the Flutter command bridge and dismisses this notification.
-        val optOutIntent = Intent(ctx, WeeklyReportActionReceiver::class.java)
-        optOutIntent.action = WeeklyReportActionReceiver.ACTION_OPT_OUT
-        val piOptOutFlags = PendingIntent.FLAG_UPDATE_CURRENT or
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_IMMUTABLE else 0
-        val piOptOut = PendingIntent.getBroadcast(
-            ctx,
-            NOTIF_WEEKLY_REPORT.hashCode() + 1,
-            optOutIntent,
-            piOptOutFlags
-        )
+        // Secondary action: "Turn off weekly reports". Opens the app via
+        // MainActivity with an OPT_OUT suffix; Dart toggles the opt-out
+        // setting AND navigates to the notification settings so the user sees
+        // the toggle move. Going through an Activity instead of a Broadcast
+        // means we don't race the Flutter engine boot — the body-tap path
+        // already proves the Activity entrypoint works.
+        val optOutIntent = Intent(ctx, MainActivity::class.java)
+        optOutIntent.putExtra("notificationId", "$NOTIF_WEEKLY_REPORT|OPT_OUT")
+        val piOptOut = ctx.getPendingIntentForActivity(optOutIntent, 0)
         b.addAction(0, ctx.getString(R.string.notification_weekly_report_action_opt_out), piOptOut)
     }
 )

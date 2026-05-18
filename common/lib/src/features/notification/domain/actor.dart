@@ -22,6 +22,14 @@ class NotificationActor with Logging, Actor {
   Object? _pendingNotificationArgs;
   var _notificationNavInFlight = false;
 
+  // When a user taps the weekly-report "Turn off" notification action we
+  // navigate to Settings first and defer the actual toggle flip until the
+  // screen has rendered, so the animation is visible. The widget consumes
+  // this flag via [consumePendingOptOutFromNotification]; a fallback timer
+  // in [notificationTapped] guarantees the opt-out lands even if the
+  // settings screen never mounts.
+  var _pendingOptOutFromNotification = false;
+
   late final _channel = Core.get<NotificationChannel>();
   late final _json = Core.get<NotificationApi>();
   late final _notifications = Core.get<NotificationsValue>();
@@ -142,6 +150,20 @@ class NotificationActor with Logging, Actor {
     await syncNotificationConfigFromBackend(m);
   }
 
+  // Called by the Settings screen after it has mounted following a
+  // notification opt-out action. Safe to call any time — no-ops if no
+  // notification-driven opt-out is pending. When pending, waits a short
+  // beat so the toggle's flip animation lands after the iOS app-launch /
+  // route-transition animation has settled, rather than playing invisibly
+  // while the route is still sliding in.
+  Future<bool> consumePendingOptOutFromNotification(Marker m) async {
+    if (!_pendingOptOutFromNotification) return false;
+    _pendingOptOutFromNotification = false;
+    await sleepAsync(const Duration(milliseconds: 700));
+    await _onWeeklyReportOptOutAction(m);
+    return true;
+  }
+
   Future<void> _onWeeklyReportOptOutAction(Marker m) async {
     await log(m).trace('weeklyReport:optOutFromNotification', (m) async {
       try {
@@ -227,7 +249,24 @@ class NotificationActor with Logging, Actor {
       log(m).pair("actionId", actionId);
 
       if (id == NotificationId.weeklyReport && actionId == 'OPT_OUT') {
-        await _onWeeklyReportOptOutAction(m);
+        // Set a pending marker, navigate to Settings, and let the settings
+        // screen drive the flip after it has rendered — that gives the user
+        // a deterministic "toggle was ON, now animates to OFF" cue without
+        // depending on hardcoded delays that miss cold-start times.
+        _pendingOptOutFromNotification = true;
+        await _queueNotificationNavigation(
+          m,
+          path: Paths.settings,
+          trigger: "notificationTapped:optOut",
+        );
+        // Safety: if the settings screen never mounts (e.g. user dismisses
+        // the route immediately, or the actor is invoked outside the normal
+        // UI lifecycle in a test), still honor the explicit user intent.
+        Future.delayed(const Duration(seconds: 3), () async {
+          if (_pendingOptOutFromNotification) {
+            await consumePendingOptOutFromNotification(m);
+          }
+        });
         return;
       }
 

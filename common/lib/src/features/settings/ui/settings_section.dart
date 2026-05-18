@@ -71,6 +71,15 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
         });
       });
     }
+
+    // After the first frame paints, ask the notification actor whether a
+    // notification-driven opt-out is pending. If so the actor flips the
+    // toggle now, so the user sees the animation land on a visible screen
+    // rather than firing while the route was still transitioning in.
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (!mounted) return;
+      await _notification?.consumePendingOptOutFromNotification(Markers.ui);
+    });
   }
 
   @override

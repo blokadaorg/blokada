@@ -21,13 +21,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import androidx.core.app.NotificationManagerCompat
-import binding.CommandBinding
-import channel.command.CommandName
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withTimeout
 import utils.ExpiredFamilyNotification
 import utils.ExpiredNotification
 import utils.FamilyOnboardingNotification
@@ -160,54 +153,6 @@ private const val WEEKLY_REPORT_REFRESH_BODY = "Your weekly report is updated."
     }
 
 }
-
-/**
- * Receives weekly-report notification action button taps that should NOT open
- * the app (currently: the secondary "opt out" action). Forwards an
- * `id|action` token to Flutter via the same command bridge used for body
- * taps, and dismisses the source notification.
- *
- * Uses `goAsync()` so the work survives the receiver returning. In a cold-
- * start path, MainApplication.onCreate spins up the Flutter engine, but the
- * Dart side needs a moment to drain CommandBinding's queue. Without
- * `goAsync()` the receiver returns and Android may tear the process down
- * before the command is delivered, silently dropping the opt-out.
- */
-class WeeklyReportActionReceiver : BroadcastReceiver() {
-    companion object {
-        const val ACTION_OPT_OUT = "org.blokada.weekly.OPT_OUT"
-        // Soft cap so we don't sit on the receiver indefinitely. Broadcast
-        // receivers have a 10s system limit regardless; budget below that.
-        private const val DELIVERY_TIMEOUT_MS = 7_000L
-    }
-
-    override fun onReceive(context: Context, intent: Intent) {
-        val actionId = when (intent.action) {
-            ACTION_OPT_OUT -> "OPT_OUT"
-            else -> return
-        }
-        val payload = "$NOTIF_WEEKLY_REPORT|$actionId"
-        val notifIntId = weeklyReportIntId()
-        NotificationManagerCompat.from(context).cancel(notifIntId)
-
-        val pending = goAsync()
-        CoroutineScope(Dispatchers.Main).launch {
-            try {
-                withTimeout(DELIVERY_TIMEOUT_MS) {
-                    CommandBinding.execute(CommandName.NOTIFICATIONTAPPED, payload)
-                }
-            } catch (e: Exception) {
-                Log.w("NotificationService", "WeeklyReportActionReceiver: command delivery failed: $e")
-            } finally {
-                pending.finish()
-            }
-        }
-    }
-}
-
-// Reuses the mapping kept in notificationIntId() so we don't sprinkle the
-// magic number 25 across files.
-private fun weeklyReportIntId(): Int = notificationIntId(NOTIF_WEEKLY_REPORT) ?: 25
 
 class NotificationAlarmReceiver : BroadcastReceiver() {
     private val notification by lazy { NotificationService }
