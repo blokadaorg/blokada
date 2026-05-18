@@ -13,41 +13,52 @@ void showPauseActionSheet(BuildContext context,
       child: CupertinoActionSheet(
         title: Text("home power pause status active".i18n),
         message: Text("home power off menu header".i18n),
-        actions: <CupertinoActionSheetAction>[
-          CupertinoActionSheetAction(
-            isDefaultAction: true,
-            onPressed: () {
-              onSelected(const Duration(minutes: 5));
-              Navigator.pop(context);
-            },
+        // The identifier must wrap the whole tappable action (merged into one
+        // node) to surface as an iOS accessibilityIdentifier; on the inner
+        // Text child alone it stays on a non-hittable node and Appium cannot
+        // resolve it (same root cause fixed for SettingsItem/filter_option).
+        // Semantics/MergeSemantics are zero-layout so the sheet is unchanged.
+        actions: <Widget>[
+          MergeSemantics(
             child: Semantics(
               identifier: AutomationIds.powerActionPauseFive,
               button: true,
-              child: Text("home power action pause five".i18n,
-                  style: TextStyle(color: context.theme.cloud)),
+              child: CupertinoActionSheetAction(
+                isDefaultAction: true,
+                onPressed: () {
+                  onSelected(const Duration(minutes: 5));
+                  Navigator.pop(context);
+                },
+                child: Text("home power action pause five".i18n,
+                    style: TextStyle(color: context.theme.cloud)),
+              ),
             ),
           ),
-          CupertinoActionSheetAction(
-            isDestructiveAction: true,
-            onPressed: () {
-              onSelected(null);
-              Navigator.pop(context);
-            },
+          MergeSemantics(
             child: Semantics(
               identifier: AutomationIds.powerActionTurnOff,
               button: true,
-              child: Text("home power action off all".i18n),
+              child: CupertinoActionSheetAction(
+                isDestructiveAction: true,
+                onPressed: () {
+                  onSelected(null);
+                  Navigator.pop(context);
+                },
+                child: Text("home power action off all".i18n),
+              ),
             ),
           ),
-          CupertinoActionSheetAction(
-            onPressed: () {
-              Navigator.pop(context);
-            },
+          MergeSemantics(
             child: Semantics(
               identifier: AutomationIds.powerActionCancel,
               button: true,
-              child: Text("universal action cancel".i18n,
-                  style: TextStyle(color: context.theme.cloud)),
+              child: CupertinoActionSheetAction(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text("universal action cancel".i18n,
+                    style: TextStyle(color: context.theme.cloud)),
+              ),
             ),
           ),
         ],
