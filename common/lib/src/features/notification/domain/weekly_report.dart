@@ -35,8 +35,6 @@ const weeklyReportToplistMoveBodyKey = 'notification weekly report toplist move 
 
 const weeklyReportActionSeeMoreKey = 'notification weekly report action see more';
 const weeklyReportActionOptOutKey = 'notification weekly report action opt out';
-const weeklyReportOptOutConfirmationKey =
-    'notification weekly report opt out confirmation';
 
 class WeeklyReportScheduleValue extends StringifiedPersistedValue<DateTime> {
   WeeklyReportScheduleValue() : super('notification:weekly_report:scheduled_at');

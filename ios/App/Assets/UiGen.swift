@@ -967,8 +967,6 @@ internal enum L10n {
   internal static let notificationWeeklyReportBody = L10n.tr("Ui", "notification weekly report body", fallback: "Open Blokada to see your weekly report.")
   /// View report
   internal static let notificationWeeklyReportCta = L10n.tr("Ui", "notification weekly report cta", fallback: "View report")
-  /// Weekly privacy report notifications turned off.
-  internal static let notificationWeeklyReportOptOutConfirmation = L10n.tr("Ui", "notification weekly report opt out confirmation", fallback: "Weekly privacy report notifications turned off.")
   /// Open Blokada to view the latest details.
   internal static let notificationWeeklyReportRefreshedBody = L10n.tr("Ui", "notification weekly report refreshed body", fallback: "Open Blokada to view the latest details.")
   /// Your weekly report is ready
