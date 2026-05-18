@@ -5,6 +5,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 
 import {
+  addAdvisory,
   addFinding,
   addStep,
   createExplorerReport,
@@ -12,6 +13,34 @@ import {
   renderMarkdownReport,
   writeExplorerReports
 } from "../lib/ai-explorer-report.mjs";
+
+test("advisory findings do not escalate status and render separately", () => {
+  const report = createExplorerReport({
+    config: { advisory: true, baseUrl: "http://localhost/v1", model: "model" },
+    startedAt: "2026-01-01T00:00:00.000Z"
+  });
+  report.completed = true;
+  addAdvisory(report, "Explorer command failed: ui.tap ~Save", { selector: "~Save" });
+
+  assert.equal(deriveReportStatus(report), "pass");
+  const md = renderMarkdownReport(report);
+  assert.match(md, /Findings: 0 actionable \/ 1 advisory/);
+  assert.match(md, /No actionable findings/);
+  assert.match(md, /## Advisory \(does not affect status\)/);
+  assert.match(md, /info: Explorer command failed: ui\.tap ~Save/);
+});
+
+test("a real warning still escalates status even alongside advisories", () => {
+  const report = createExplorerReport({
+    config: { advisory: true, baseUrl: "http://localhost/v1", model: "model" },
+    startedAt: "2026-01-01T00:00:00.000Z"
+  });
+  report.completed = true;
+  addAdvisory(report, "Explorer command failed: ui.tap ~Save");
+  addFinding(report, "warning", "Explorer appears to be revisiting the same visible UI repeatedly.");
+
+  assert.equal(deriveReportStatus(report), "warning");
+});
 
 test("deriveReportStatus reports warning findings", () => {
   const report = createExplorerReport({

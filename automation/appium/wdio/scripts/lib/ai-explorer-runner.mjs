@@ -3,12 +3,25 @@ import { evaluateExplorerAction } from "./ai-explorer-guardrails.mjs";
 import { publicConfig, readAiExplorerConfig } from "./ai-explorer-config.mjs";
 import { requestExplorerDecision } from "./ai-explorer-model.mjs";
 import {
+  addAdvisory,
   addFinding,
   addStep,
   createExplorerReport,
   deriveReportStatus,
   writeExplorerReports
 } from "./ai-explorer-report.mjs";
+
+// A command that failed only because the model proposed a selector that does
+// not resolve (or is off-screen) is expected exploration noise, not an app
+// defect. Such failures are recorded as advisory so they do not escalate run
+// status — otherwise every run is permanently "warning" and the status tells
+// us nothing about regressions.
+function isSelectorResolutionError(error) {
+  const message = error instanceof Error ? error.message : String(error ?? "");
+  return /wasn'?t found|was not found|could not be located|no such element|unable to (find|locate)|no elements? found|not found/i.test(
+    message
+  );
+}
 import { getProjectPaths } from "./paths.mjs";
 
 function compactEvent(event) {
@@ -598,7 +611,7 @@ async function runCoverageIntervention(client, report, state, reason) {
         return;
       }
     } catch (error) {
-      addFinding(report, "warning", "Coverage intervention back-pop failed.", {
+      addAdvisory(report, "Coverage intervention back-pop failed.", {
         selector: NAV_BACK_SELECTOR,
         error: error instanceof Error ? error.message : String(error)
       });
@@ -649,7 +662,7 @@ async function runCoverageIntervention(client, report, state, reason) {
       intervention.reason
     );
   } catch (error) {
-    addFinding(report, "warning", `Coverage intervention failed: ${intervention.command}`, {
+    addAdvisory(report, `Coverage intervention failed: ${intervention.command}`, {
       args: intervention.args,
       error: error instanceof Error ? error.message : String(error)
     });
@@ -704,7 +717,7 @@ async function dismissBlockingIntroIfPresent(client, report, state) {
       "Dismiss intro onboarding overlay before AI exploration."
     );
   } catch (error) {
-    addFinding(report, "warning", "Failed to dismiss intro onboarding overlay before AI exploration.", {
+    addAdvisory(report, "Failed to dismiss intro onboarding overlay before AI exploration.", {
       error: error instanceof Error ? error.message : String(error)
     });
     return;
@@ -735,7 +748,7 @@ async function selectorExists(client, report, selector, reason) {
     );
     return event.result === true;
   } catch (error) {
-    addFinding(report, "warning", `Mission selector probe failed: ${selector}`, {
+    addAdvisory(report, `Mission selector probe failed: ${selector}`, {
       error: error instanceof Error ? error.message : String(error),
       selector
     });
@@ -863,7 +876,7 @@ async function ensureHomeSurface(client, report, state, reason) {
     }
   }
 
-  addFinding(report, "warning", "Could not return to Home surface before continuing exploration.", {
+  addAdvisory(report, "Could not return to Home surface before continuing exploration.", {
     labels: Array.isArray(state.summary?.labels) ? state.summary.labels.slice(0, 12) : []
   });
   return false;
@@ -925,7 +938,7 @@ async function runMissionSurface(client, report, state, surface) {
       recordAction(state, { command: "ui.tap", args: { selector } });
     } catch (error) {
       recordFailedSelector(state, selector);
-      addFinding(report, "warning", `Mission navigation failed: ${surface.name}`, {
+      addAdvisory(report, `Mission navigation failed: ${surface.name}`, {
         error: error instanceof Error ? error.message : String(error),
         selector
       });
@@ -935,7 +948,7 @@ async function runMissionSurface(client, report, state, surface) {
     await observeAfterMissionAction(client, report, state, `Observe ${surface.name}.`);
 
     if (!missionSurfaceSeen(state, surface.id)) {
-      addFinding(report, "warning", `Mission tap did not reach surface: ${surface.name}`, {
+      addAdvisory(report, `Mission tap did not reach surface: ${surface.name}`, {
         selector,
         expected: surface.expectedLabels
       });
@@ -958,7 +971,7 @@ async function runMissionSurface(client, report, state, surface) {
           `Observe ${surface.name} after ${direction} scroll.`
         );
       } catch (error) {
-        addFinding(report, "warning", `Mission scroll failed: ${surface.name}`, {
+        addAdvisory(report, `Mission scroll failed: ${surface.name}`, {
           direction,
           error: error instanceof Error ? error.message : String(error)
         });
@@ -977,7 +990,7 @@ async function runMissionSurface(client, report, state, surface) {
     return true;
   }
 
-  addFinding(report, "warning", `Mission surface was not reachable: ${surface.name}`, {
+  addAdvisory(report, `Mission surface was not reachable: ${surface.name}`, {
     selectors: surface.navigationSelectors
   });
   return false;
@@ -1019,7 +1032,7 @@ async function recoverToApp(client, report) {
 }
 
 async function runFallbackProbe(client, report, state) {
-  addFinding(report, "warning", "Model decision unavailable; ran deterministic fallback probe.", {});
+  addAdvisory(report, "Model decision unavailable; ran deterministic fallback probe.", {});
   state.inspect = await observeInspect(client, report, "Fallback probe: inspect visible controls.");
   updateMissionCoverage(report, state, "Fallback inspection observation.");
   await executeExplorerCommand(
@@ -1201,7 +1214,7 @@ export async function runAiExplorer(options = {}) {
         state.consecutiveModelFailures = 0;
       } catch (error) {
         state.consecutiveModelFailures += 1;
-        addFinding(report, "warning", "Model decision request failed.", modelFailureDetails(error));
+        addAdvisory(report, "Model decision request failed.", modelFailureDetails(error));
         await runFallbackProbe(client, report, state);
         if (state.consecutiveModelFailures >= MODEL_FAILURE_ABORT_THRESHOLD) {
           addFinding(
@@ -1316,12 +1329,18 @@ export async function runAiExplorer(options = {}) {
       } catch (error) {
         const failedSelector = selectorFromAction(action);
         recordFailedSelector(state, failedSelector);
-        addFinding(report, "warning", `Explorer command failed: ${action.command}${failedSelector ? ` ${failedSelector}` : ""}`, {
+        const message = `Explorer command failed: ${action.command}${failedSelector ? ` ${failedSelector}` : ""}`;
+        const details = {
           args: action.args,
           error: error instanceof Error ? error.message : String(error),
           selector: failedSelector,
           reason: action.reason
-        });
+        };
+        if (isSelectorResolutionError(error)) {
+          addAdvisory(report, message, details);
+        } else {
+          addFinding(report, "warning", message, details);
+        }
         state.summary = await observeSummary(client, report, "Observe after command failure.");
         evaluateSummary(report, state.summary, state);
         updateMissionCoverage(report, state, "Observation after command failure.");
@@ -1382,7 +1401,7 @@ export async function runAiExplorer(options = {}) {
     });
   } finally {
     await client.shutdown().catch((error) => {
-      addFinding(report, "warning", "Failed to shut down explorer session cleanly.", {
+      addAdvisory(report, "Failed to shut down explorer session cleanly.", {
         error: error instanceof Error ? error.message : String(error)
       });
     });

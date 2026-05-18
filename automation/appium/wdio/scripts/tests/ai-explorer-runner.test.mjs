@@ -107,6 +107,11 @@ function makeFakeClient(options = {}) {
         };
       }
       if (command === "ui.tap") {
+        if (options.throwOnSelector && args.selector === options.throwOnSelector) {
+          throw new Error(
+            `Can't call click on element with selector "${args.selector}" because element wasn't found`
+          );
+        }
         if (args.selector === "~automation.home_privacy_pulse") {
           screen = "privacyPulse";
         } else if (args.selector === "~automation.home_advanced") {
@@ -219,4 +224,44 @@ test("runAiExplorer returns Home via the back button when platform back is a no-
   );
   assert.equal(report.mission.find((entry) => entry.id === "advanced")?.seen, true);
   assert.equal(report.mission.find((entry) => entry.id === "settings")?.seen, true);
+});
+
+test("a model selector that does not resolve is advisory, status stays pass", async () => {
+  const client = makeFakeClient({ throwOnSelector: "~automation.bogus" });
+  const outputDir = await mkdtemp(join(tmpdir(), "ai-explorer-runner-"));
+  const decisions = [
+    { command: "ui.tap", args: { selector: "~automation.bogus" }, reason: "probe", confidence: 1 },
+    { command: "finish", args: {}, reason: "done", confidence: 1 }
+  ];
+  let index = 0;
+  const report = await runAiExplorer({
+    client,
+    config: {
+      advisory: true,
+      apiKey: "",
+      baseUrl: "http://localhost:1234/v1",
+      fakeModel: false,
+      maxTokens: 100,
+      minSteps: 1,
+      model: "fake",
+      modelTimeoutMs: 1000,
+      stepLimit: 6,
+      temperature: 0,
+      timeoutMs: 30000
+    },
+    decisionProvider: async () => decisions[Math.min(index++, decisions.length - 1)],
+    env: {
+      APP_BUNDLE_ID: "net.blocka.app",
+      IOS_DEVICE_NAME: "Unit iPhone",
+      IOS_UDID: "unit-udid"
+    },
+    outputDir
+  });
+
+  assert.equal(deriveReportStatus(report), "pass");
+  const finding = report.findings.find((entry) =>
+    entry.message.includes("~automation.bogus")
+  );
+  assert.ok(finding, "expected a finding for the unresolved selector");
+  assert.equal(finding.severity, "info");
 });

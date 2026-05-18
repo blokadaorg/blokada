@@ -45,6 +45,16 @@ export function addFinding(report, severity, message, details = {}, options = {}
   });
 }
 
+// Advisory finding: recorded for the human reader but, by design, never
+// escalates run status. Used for expected exploration noise — the model
+// guessing a selector that does not resolve, or the explorer's own
+// navigation heuristics not landing — which says nothing about app health.
+// Without this, every run is permanently "warning" and the status carries
+// no regression signal.
+export function addAdvisory(report, message, details = {}, options = {}) {
+  return addFinding(report, "info", message, details, options);
+}
+
 export function addStep(report, step) {
   report.steps.push({
     timestamp: new Date().toISOString(),
@@ -52,6 +62,12 @@ export function addStep(report, step) {
   });
 }
 
+// Only genuine app-health signals escalate status. "critical" = app not
+// usable (not foreground / blank / could not recover), "warning" = app
+// likely misbehaving (stuck on a repeating screen, stuck loading, ran
+// un-onboarded). "info" findings are advisory and intentionally ignored
+// here so a healthy run reports "pass" even though the exploring model
+// always tries some selectors that do not resolve.
 export function deriveReportStatus(report) {
   if (report.infrastructureFailure) {
     return "infrastructure-failure";
@@ -81,18 +97,39 @@ export function renderMarkdownReport(report) {
     `- Model: ${report.config.model}`,
     `- Endpoint: ${report.config.baseUrl}`,
     `- Advisory: ${report.config.advisory ? "yes" : "no"}`,
-    "",
-    "## Findings",
     ""
   ];
 
-  if (report.findings.length === 0) {
-    lines.push("No findings recorded.", "");
+  const actionable = report.findings.filter(
+    (finding) => finding.severity === "critical" || finding.severity === "warning"
+  );
+  const advisory = report.findings.filter(
+    (finding) => finding.severity !== "critical" && finding.severity !== "warning"
+  );
+
+  lines.push(
+    `- Findings: ${actionable.length} actionable / ${advisory.length} advisory`,
+    "",
+    "## Findings",
+    ""
+  );
+
+  if (actionable.length === 0) {
+    lines.push("No actionable findings (no crashes, blank screens, or stuck states).", "");
   } else {
-    for (const finding of report.findings) {
+    for (const finding of actionable) {
       lines.push(`- ${finding.severity}: ${finding.message}`);
     }
     lines.push("");
+  }
+
+  if (advisory.length > 0) {
+    lines.push(
+      "## Advisory (does not affect status)",
+      "",
+      ...advisory.map((finding) => `- ${finding.severity}: ${finding.message}`),
+      ""
+    );
   }
 
   const recentSteps = report.steps.slice(-20);
