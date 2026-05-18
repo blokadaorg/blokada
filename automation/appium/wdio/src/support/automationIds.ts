@@ -14,6 +14,7 @@ export const AutomationIds = {
   navAdvanced: "automation.nav_advanced",
   navSettings: "automation.nav_settings",
   navBack: "automation.nav_back",
+  screenTitle: "automation.screen_title",
   exceptionsTabBlocked: "automation.exceptions_tab_blocked",
   exceptionsTabAllowed: "automation.exceptions_tab_allowed",
   exceptionItem: "automation.exception_item",

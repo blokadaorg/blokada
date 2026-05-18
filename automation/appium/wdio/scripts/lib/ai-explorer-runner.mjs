@@ -237,6 +237,72 @@ function collectObservedValues(summary, inspect) {
   return [...new Set(values.map((value) => value.toLowerCase()))];
 }
 
+// Generic blank/broken-screen signal that works for EVERY WithTopBar screen
+// and sub-page without per-screen config. Derived from real device captures:
+// a healthy screen's ui.summary always has either a body automation id
+// (filter_option / privacy_pulse_range / settings_* / exceptions_tab_* / …)
+// or many content text labels; a blank screen (empty body) collapses to ONLY
+// chrome — e.g. ["Dev","back","automation.nav_back","Home"(breadcrumb),
+// "automation.screen_advanced","Advanced\nAdvanced"(title),
+// "automation.screen_title"]. So: a real titled screen with no body
+// automation id and at most the breadcrumb+title text remaining is blank.
+function screenBodyValues(summary, inspect) {
+  const raw = [];
+  for (const label of summary?.labels ?? []) raw.push(String(label));
+  for (const label of inspect?.labels ?? []) raw.push(String(label));
+  for (const element of inspect?.elements ?? []) {
+    raw.push(String(element.name ?? ""), String(element.label ?? ""), String(element.value ?? ""));
+  }
+  const values = [...new Set(raw.map((v) => v.trim().toLowerCase()).filter(Boolean))];
+
+  const titled = values.some((v) => v.includes("automation.screen_title"));
+  const loading = values.some((v) =>
+    /\b(loading|please wait|initializing|starting)\b/.test(v)
+  );
+  // nav_/screen_ ids are chrome; any OTHER automation.* id is real body
+  // content (a control the screen is supposed to show).
+  const hasBodyAutomationId = values.some(
+    (v) => /^automation\./.test(v) && !/^automation\.(nav_|screen_)/.test(v)
+  );
+  // Non-chrome text labels. On a blank screen only the persistent-nav
+  // breadcrumb and the title text remain (<=2); a real screen has many more.
+  const bodyTextCount = values.filter(
+    (v) => !/^automation\./.test(v) && v !== "back" && v !== "dev" && v !== "blokada"
+  ).length;
+  const blank = titled && !loading && !hasBodyAutomationId && bodyTextCount <= 2;
+  return { titled, loading, blank, hasBodyAutomationId, bodyTextCount };
+}
+
+// Two consecutive blank observations (the screen has settled, see the ~1.4s
+// nav settle) before declaring it broken — guards against a single transient
+// loading/transition frame producing a false red.
+const BLANK_SCREEN_STREAK_ABORT = 2;
+
+// A core screen rendering empty is a serious regression a manual tester would
+// catch instantly: escalate to critical (red status) and stop the run — no
+// value exploring a broken build further.
+function evaluateScreenIntegrity(report, state) {
+  const { blank } = screenBodyValues(state.summary, state.inspect);
+  if (!blank) {
+    state.blankScreenStreak = 0;
+    return;
+  }
+  state.blankScreenStreak = (state.blankScreenStreak ?? 0) + 1;
+  if (state.blankScreenStreak >= BLANK_SCREEN_STREAK_ABORT && !state.blankScreenAbort) {
+    state.blankScreenAbort = true;
+    addFinding(
+      report,
+      "critical",
+      "A screen rendered with no content (blank/broken screen).",
+      {
+        summaryLabels: Array.isArray(state.summary?.labels)
+          ? state.summary.labels.slice(0, 12)
+          : []
+      }
+    );
+  }
+}
+
 function matchesExpectedLabel(observedValues, expected) {
   const normalizedExpected = String(expected).trim().toLowerCase();
   if (!normalizedExpected) return false;
@@ -275,6 +341,9 @@ function updateMissionCoverage(report, state, reason) {
       reason: `${surface.name} observed via ${matched}.`
     });
   }
+
+  // Runs at every observation point (summary+inspect just refreshed).
+  evaluateScreenIntegrity(report, state);
 }
 
 function missionStatus(state) {
@@ -998,6 +1067,9 @@ async function runMissionSurface(client, report, state, surface) {
 
 async function runMissionWarmup(client, report, state, warmupDeadline) {
   for (const id of MISSION_WARMUP_SURFACES) {
+    if (state.blankScreenAbort || state.wrongAppAbort) {
+      return;
+    }
     if (Date.now() >= warmupDeadline) {
       addStep(report, {
         kind: "mission",
@@ -1012,6 +1084,26 @@ async function runMissionWarmup(client, report, state, warmupDeadline) {
     await runMissionSurface(client, report, state, surface);
   }
 }
+
+// The foreground app is not the configured target (e.g. an incoming push
+// notification banner was tapped and iOS switched to another app). ui.summary
+// already computes this as targetVerified; the runner must act on it, or the
+// explorer silently "explores" the wrong app and the run status is
+// meaningless. Strict === false so an undefined field is treated as unknown
+// (no false positive).
+function isOffTarget(summary) {
+  return summary != null && summary.targetVerified === false;
+}
+
+function foregroundBundleId(summary) {
+  const bundle = summary?.activeApp?.bundleId ?? summary?.bundleId;
+  return typeof bundle === "string" && bundle.trim() ? bundle.trim() : "unknown app";
+}
+
+// Two consecutive off-target observations *after* a recovery attempt before
+// declaring the run unrecoverable — a single notification tap self-heals via
+// app.activate and exploration continues; only a stuck wrong-app aborts.
+const OFF_TARGET_STREAK_ABORT = 2;
 
 async function recoverToApp(client, report) {
   try {
@@ -1091,7 +1183,11 @@ export async function runAiExplorer(options = {}) {
     inCoverageIntervention: false,
     inspect: undefined,
     labelSignatures: new Map(),
+    blankScreenAbort: false,
+    blankScreenStreak: 0,
     lastScreenKey: undefined,
+    offTargetStreak: 0,
+    wrongAppAbort: false,
     loadingObservations: 0,
     mission: createMissionState(),
     needsCoverageIntervention: undefined,
@@ -1185,7 +1281,14 @@ export async function runAiExplorer(options = {}) {
     );
     await runMissionWarmup(client, report, state, warmupDeadline);
 
-    for (let stepIndex = 0; stepIndex < config.stepLimit && Date.now() < deadline; stepIndex += 1) {
+    for (
+      let stepIndex = 0;
+      stepIndex < config.stepLimit &&
+      Date.now() < deadline &&
+      !state.blankScreenAbort &&
+      !state.wrongAppAbort;
+      stepIndex += 1
+    ) {
       let decision;
       try {
         log(`AI explorer asking model for step ${stepIndex + 1}/${config.stepLimit}.`);
@@ -1362,11 +1465,33 @@ export async function runAiExplorer(options = {}) {
         evaluateSummary(report, state.summary, state);
       }
       updateMissionCoverage(report, state, "Observation after model action.");
-      if (state.summary?.appState?.code !== 4) {
+      if (state.summary?.appState?.code !== 4 || isOffTarget(state.summary)) {
+        const leftApp = isOffTarget(state.summary);
+        if (leftApp) {
+          addAdvisory(
+            report,
+            `Foreground left the target app (now in ${foregroundBundleId(state.summary)}); re-activating.`,
+            { activeApp: state.summary?.activeApp }
+          );
+        }
         await recoverToApp(client, report);
         state.summary = await observeSummary(client, report, "Observe after app recovery.");
         evaluateSummary(report, state.summary, state);
         updateMissionCoverage(report, state, "Observation after app recovery.");
+        if (isOffTarget(state.summary)) {
+          state.offTargetStreak += 1;
+          if (state.offTargetStreak >= OFF_TARGET_STREAK_ABORT && !state.wrongAppAbort) {
+            state.wrongAppAbort = true;
+            addFinding(
+              report,
+              "critical",
+              `Explorer left the target app (now in ${foregroundBundleId(state.summary)}) and could not recover; run results are not trustworthy.`,
+              { activeApp: state.summary?.activeApp }
+            );
+          }
+        } else {
+          state.offTargetStreak = 0;
+        }
       }
 
       if (state.needsCoverageIntervention) {
@@ -1383,6 +1508,26 @@ export async function runAiExplorer(options = {}) {
         state.inspect = await observeInspect(client, report, "Periodic inspection after exploration steps.");
         updateMissionCoverage(report, state, "Periodic inspection observation.");
       }
+    }
+
+    if (state.blankScreenAbort && !report.completed) {
+      report.completed = true;
+      log("AI explorer aborting: a screen rendered with no content (blank/broken).");
+      addStep(report, {
+        kind: "finish",
+        command: "blank-screen-abort",
+        reason: "Run interrupted: a screen rendered with no content (blank/broken screen)."
+      });
+    }
+
+    if (state.wrongAppAbort && !report.completed) {
+      report.completed = true;
+      log("AI explorer aborting: foreground left the target app and could not recover.");
+      addStep(report, {
+        kind: "finish",
+        command: "wrong-app-abort",
+        reason: "Run interrupted: foreground left the target app and could not recover."
+      });
     }
 
     if (!report.completed) {

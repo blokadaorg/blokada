@@ -103,12 +103,22 @@ class TopBarState extends State<TopBar> {
                       child: Opacity(
                         opacity: xpow(transition, 8),
                         //opacity: 1.0,
-                        child: Text(widget.title,
-                            style: TextStyle(
-                              color: context.theme.textPrimary,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600,
-                            )),
+                        // Stable chrome marker for every WithTopBar screen so
+                        // automation can separate the title from body content
+                        // and detect a screen that rendered with no body.
+                        child: MergeSemantics(
+                          child: Semantics(
+                            identifier: AutomationIds.screenTitle,
+                            header: true,
+                            label: widget.title,
+                            child: Text(widget.title,
+                                style: TextStyle(
+                                  color: context.theme.textPrimary,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w600,
+                                )),
+                          ),
+                        ),
                       ),
                     ),
                     // Other elements...

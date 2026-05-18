@@ -17,6 +17,11 @@ class AutomationIds {
   static const navAdvanced = 'automation.nav_advanced';
   static const navSettings = 'automation.nav_settings';
 
+  /// Top-bar title of every WithTopBar screen/sub-page. Stable chrome marker
+  /// so automation can tell "real screen with a title" apart from its body
+  /// content and detect a screen that rendered with no body (blank/broken).
+  static const screenTitle = 'automation.screen_title';
+
   /// Top-bar back control. The pushed routes (Settings/Advanced/Privacy Pulse
   /// and their sub-pages) are MaterialWithModalsPageRoute, so there is no iOS
   /// edge-swipe-back; this is the only reliable "pop one level" affordance and
