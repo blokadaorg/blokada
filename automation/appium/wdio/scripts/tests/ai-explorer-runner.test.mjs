@@ -13,6 +13,11 @@ function makeFakeClient(options = {}) {
   let summaryCount = 0;
   let screen = "home";
   const backReturnsHome = options.backReturnsHome !== false;
+  const degradedSurfaces = new Set(options.degradedSurfaces ?? []);
+  const deadNavSelectors = new Set(options.deadNavSelectors ?? []);
+  // A degraded surface keeps its screen identity but loses all body content.
+  const labelsFor = (s) =>
+    degradedSurfaces.has(s) ? [screenLabels[s][0]] : screenLabels[s];
   const screenLabels = {
     advanced: ["automation.screen_advanced", "Advanced", "automation.filter_option.ads.primary"],
     home: [
@@ -65,24 +70,25 @@ function makeFakeClient(options = {}) {
           result: {
             appState: { code: 4, label: "running-foreground" },
             bundleId: "net.blocka.app",
-            labels: [`Tick ${summaryCount}`, ...screenLabels[screen], `Scroll ${scrollPosition}`],
+            labels: [`Tick ${summaryCount}`, ...labelsFor(screen), `Scroll ${scrollPosition}`],
             target: "six"
           }
         };
       }
       if (command === "ui.inspect") {
+        const labels = labelsFor(screen);
         return {
           result: {
             elements: [
               {
-                label: screenLabels[screen][0],
-                name: screenLabels[screen][0],
+                label: labels[0],
+                name: labels[0],
                 type: "XCUIElementTypeButton",
                 visible: true
               }
             ],
-            labels: screenLabels[screen],
-            tree: screenLabels[screen].map((label) => `XCUIElementTypeButton name="${label}"`)
+            labels,
+            tree: labels.map((label) => `XCUIElementTypeButton name="${label}"`)
           }
         };
       }
@@ -111,6 +117,10 @@ function makeFakeClient(options = {}) {
           throw new Error(
             `Can't call click on element with selector "${args.selector}" because element wasn't found`
           );
+        }
+        if (deadNavSelectors.has(args.selector)) {
+          // Resolves and "taps" but the screen never changes (dead control).
+          return { result: "tapped" };
         }
         if (args.selector === "~automation.home_privacy_pulse") {
           screen = "privacyPulse";
@@ -415,5 +425,88 @@ test("leaving the target app (unrecoverable) is critical and interrupts the run"
   assert.ok(
     report.steps.filter((s) => s.kind === "model").length < 12,
     "run should have been interrupted, not exhausted the budget"
+  );
+});
+
+test("a known nav control that does not open its screen is critical and interrupts", async () => {
+  // The Advanced home card resolves and "taps" but never navigates (dead
+  // control / wrong handler) — a regression a manual tester catches at once.
+  const client = makeFakeClient({ deadNavSelectors: ["~automation.home_advanced"] });
+  const outputDir = await mkdtemp(join(tmpdir(), "ai-explorer-runner-"));
+  const decisions = [
+    { command: "ui.tap", args: { selector: "~automation.home_advanced" }, reason: "open Advanced", confidence: 1 },
+    { command: "finish", args: {}, reason: "done", confidence: 1 }
+  ];
+  let index = 0;
+  const report = await runAiExplorer({
+    client,
+    config: {
+      advisory: true,
+      apiKey: "",
+      baseUrl: "http://localhost:1234/v1",
+      fakeModel: false,
+      maxTokens: 100,
+      minSteps: 1,
+      model: "fake",
+      modelTimeoutMs: 1000,
+      stepLimit: 12,
+      temperature: 0,
+      timeoutMs: 30000
+    },
+    decisionProvider: async () => decisions[Math.min(index++, decisions.length - 1)],
+    env: { APP_BUNDLE_ID: "net.blocka.app", IOS_DEVICE_NAME: "Unit iPhone", IOS_UDID: "unit-udid" },
+    outputDir
+  });
+
+  assert.equal(deriveReportStatus(report), "critical");
+  assert.equal(report.completed, true);
+  const broken = report.findings.find(
+    (entry) => entry.severity === "critical" && /broken navigation/.test(entry.message)
+  );
+  assert.ok(broken, "expected a critical broken-navigation finding");
+  assert.ok(
+    report.steps.filter((s) => s.kind === "model").length < 12,
+    "run should have been interrupted, not exhausted the budget"
+  );
+});
+
+test("a surface reached with no body content is flagged degraded (critical)", async () => {
+  // Advanced keeps its screen identity but renders no filter/blocklist
+  // content — a partial blank the generic blank detector does not catch.
+  const client = makeFakeClient({ degradedSurfaces: ["advanced"] });
+  const outputDir = await mkdtemp(join(tmpdir(), "ai-explorer-runner-"));
+  const report = await runAiExplorer({
+    client,
+    config: {
+      advisory: true,
+      apiKey: "",
+      baseUrl: "http://localhost:1234/v1",
+      fakeModel: true,
+      maxTokens: 100,
+      minSteps: 1,
+      model: "fake",
+      modelTimeoutMs: 1000,
+      stepLimit: 8,
+      temperature: 0,
+      timeoutMs: 30000
+    },
+    env: { APP_BUNDLE_ID: "net.blocka.app", IOS_DEVICE_NAME: "Unit iPhone", IOS_UDID: "unit-udid" },
+    outputDir
+  });
+
+  assert.equal(deriveReportStatus(report), "critical");
+  const degraded = report.findings.find(
+    (entry) =>
+      entry.severity === "critical" &&
+      /expected content never rendered/.test(entry.message) &&
+      entry.message.includes("Advanced")
+  );
+  assert.ok(degraded, "expected a critical degraded-surface finding for Advanced");
+  // Other surfaces (with content) must not be falsely flagged.
+  assert.ok(
+    !report.findings.some(
+      (e) => /expected content never rendered/.test(e.message) && e.message.includes("Settings")
+    ),
+    "Settings has content and must not be flagged degraded"
   );
 });

@@ -124,6 +124,10 @@ const KNOWN_SURFACES = [
       "Blocked",
       "Allowed"
     ],
+    // Markers that prove the body actually rendered (not just the screen
+    // identity / chrome). If the identity is seen but none of these ever are,
+    // the surface is degraded/broken even though it is not fully blank.
+    contentLabels: ["automation.privacy_pulse_range_", "Blocked", "Allowed"],
     scrollDirections: ["down", "down", "up"],
     returnHome: true
   },
@@ -139,6 +143,7 @@ const KNOWN_SURFACES = [
       "Blocklists",
       "Filters"
     ],
+    contentLabels: ["automation.filter_option.", "Filters", "Blocklists"],
     scrollDirections: ["down", "down", "up"],
     returnHome: true
   },
@@ -155,10 +160,32 @@ const KNOWN_SURFACES = [
       "Notifications",
       "Version"
     ],
+    contentLabels: [
+      "automation.settings_exceptions",
+      "automation.settings_weekly_report",
+      "automation.settings_retention",
+      "automation.settings_support"
+    ],
     scrollDirections: ["down", "up"],
     returnHome: true
   }
 ];
+
+// Home cards whose tap MUST land on a specific surface. If the tap resolves
+// but the screen is not the expected one afterward, the control is broken
+// (does nothing / wrong target) — a regression a manual tester catches at
+// once. Reliable because the destination is known and screen detection +
+// the nav settle make it low-false-positive.
+function expectedScreenForSelector(selector) {
+  const s = String(selector ?? "").toLowerCase();
+  if (!s) return undefined;
+  if (s.includes("home_advanced") || s === "~advanced") return "advanced";
+  if (s.includes("home_settings") || s === "~settings") return "settings";
+  if (s.includes("home_privacy_pulse") || s === "~privacy pulse") {
+    return "privacyPulse";
+  }
+  return undefined;
+}
 
 const MISSION_WARMUP_SURFACES = ["privacyPulse", "advanced", "settings"];
 
@@ -212,6 +239,7 @@ function createMissionState() {
     name: surface.name,
     routeOnly: surface.routeOnly === true,
     seen: false,
+    contentSeen: false,
     attempted: false,
     attempts: 0
   }));
@@ -325,7 +353,21 @@ function updateMissionCoverage(report, state, reason) {
 
   for (const surface of KNOWN_SURFACES) {
     const mission = state.mission.find((entry) => entry.id === surface.id);
-    if (!mission || mission.seen) continue;
+    if (!mission) continue;
+
+    // Track body content separately from screen identity so a surface that
+    // shows only its chrome (identity present, content markers absent) is
+    // recorded as reached-but-degraded, not silently "seen".
+    if (!mission.contentSeen && Array.isArray(surface.contentLabels)) {
+      const contentHit = surface.contentLabels.find((label) =>
+        matchesExpectedLabel(observedValues, label)
+      );
+      if (contentHit) {
+        mission.contentSeen = true;
+      }
+    }
+
+    if (mission.seen) continue;
 
     const matched = surface.expectedLabels.find((label) =>
       matchesExpectedLabel(observedValues, label)
@@ -1186,6 +1228,7 @@ export async function runAiExplorer(options = {}) {
     blankScreenAbort: false,
     blankScreenStreak: 0,
     lastScreenKey: undefined,
+    navBrokenAbort: false,
     offTargetStreak: 0,
     wrongAppAbort: false,
     loadingObservations: 0,
@@ -1286,7 +1329,8 @@ export async function runAiExplorer(options = {}) {
       stepIndex < config.stepLimit &&
       Date.now() < deadline &&
       !state.blankScreenAbort &&
-      !state.wrongAppAbort;
+      !state.wrongAppAbort &&
+      !state.navBrokenAbort;
       stepIndex += 1
     ) {
       let decision;
@@ -1420,6 +1464,11 @@ export async function runAiExplorer(options = {}) {
       }
       recordAction(state, action);
 
+      const navExpectedScreen =
+        action.command === "ui.tap"
+          ? expectedScreenForSelector(selectorFromAction(action))
+          : undefined;
+
       let event;
       try {
         event = await executeExplorerCommand(
@@ -1450,6 +1499,13 @@ export async function runAiExplorer(options = {}) {
         continue;
       }
 
+      // A known navigation control must land on a specific screen. Let the
+      // route transition settle before judging, so this is not racing the
+      // animation (see NAV_SETTLE_MS).
+      if (navExpectedScreen) {
+        await settleAfterNavigation(client, report);
+      }
+
       let summaryUpdated = false;
       if (action.command === "ui.inspect") {
         state.inspect = event.result;
@@ -1465,6 +1521,34 @@ export async function runAiExplorer(options = {}) {
         evaluateSummary(report, state.summary, state);
       }
       updateMissionCoverage(report, state, "Observation after model action.");
+
+      if (navExpectedScreen) {
+        if (action.command !== "ui.inspect") {
+          state.inspect = await observeInspect(
+            client,
+            report,
+            "Inspect after navigation control."
+          );
+          updateMissionCoverage(report, state, "Observation after navigation control.");
+        }
+        const actualScreen = currentScreenKey(state);
+        if (actualScreen !== navExpectedScreen && !state.navBrokenAbort) {
+          state.navBrokenAbort = true;
+          addFinding(
+            report,
+            "critical",
+            `Navigation control ${selectorFromAction(action)} did not open ${navExpectedScreen} (now on ${actualScreen}); broken navigation.`,
+            {
+              selector: selectorFromAction(action),
+              expected: navExpectedScreen,
+              actual: actualScreen,
+              summaryLabels: Array.isArray(state.summary?.labels)
+                ? state.summary.labels.slice(0, 12)
+                : []
+            }
+          );
+        }
+      }
       if (state.summary?.appState?.code !== 4 || isOffTarget(state.summary)) {
         const leftApp = isOffTarget(state.summary);
         if (leftApp) {
@@ -1508,6 +1592,35 @@ export async function runAiExplorer(options = {}) {
         state.inspect = await observeInspect(client, report, "Periodic inspection after exploration steps.");
         updateMissionCoverage(report, state, "Periodic inspection observation.");
       }
+    }
+
+    // Degraded-surface verdict: a surface whose identity was observed but
+    // whose body content markers never appeared anywhere in the whole run
+    // (warmup deterministically visits each surface, so identity-seen is
+    // reliable). Catches partial blanks the generic detector misses.
+    for (const surface of KNOWN_SURFACES) {
+      if (!Array.isArray(surface.contentLabels) || surface.contentLabels.length === 0) {
+        continue;
+      }
+      const mission = state.mission.find((entry) => entry.id === surface.id);
+      if (mission && mission.seen && !mission.contentSeen) {
+        addFinding(
+          report,
+          "critical",
+          `Surface "${surface.name}" was reached but its expected content never rendered (degraded/broken screen).`,
+          { surface: surface.id, contentLabels: surface.contentLabels }
+        );
+      }
+    }
+
+    if (state.navBrokenAbort && !report.completed) {
+      report.completed = true;
+      log("AI explorer aborting: a navigation control did not open its destination.");
+      addStep(report, {
+        kind: "finish",
+        command: "navigation-broken-abort",
+        reason: "Run interrupted: a navigation control did not open its expected screen."
+      });
     }
 
     if (state.blankScreenAbort && !report.completed) {
