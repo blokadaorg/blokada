@@ -44,7 +44,7 @@ func registerWeeklyReportCategory() {
     let optOut = UNNotificationAction(
         identifier: WEEKLY_REPORT_ACTION_OPT_OUT,
         title: L10n.notificationWeeklyReportActionOptOut,
-        options: [.destructive]
+        options: []
     )
     let category = UNNotificationCategory(
         identifier: WEEKLY_REPORT_CATEGORY,
