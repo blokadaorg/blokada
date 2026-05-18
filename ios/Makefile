@@ -24,6 +24,7 @@ CHECK_CONFIG ?= Debug
 # the root directory instead.
 
 include make/run-helpers.mk
+include make/sim-helpers.mk
 
 
 # Build everything from scratch (release)
