@@ -642,6 +642,6 @@
     <string name="notification_weekly_report_toplist_new_body">Blokada is blocking %s — now ranked #%s. Tap to see more.</string>
     <string name="notification_weekly_report_toplist_move_body">%s moved to #%s (was #%s). Tap to see more.</string>
     <string name="notification_weekly_report_action_see_more">See more</string>
-    <string name="notification_weekly_report_action_opt_out">Turn off these notifications</string>
+    <string name="notification_weekly_report_action_opt_out">Turn off weekly reports</string>
     <string name="notification_weekly_report_opt_out_confirmation">Weekly privacy report notifications turned off.</string>
 </resources>
