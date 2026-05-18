@@ -510,3 +510,109 @@ test("a surface reached with no body content is flagged degraded (critical)", as
     "Settings has content and must not be flagged degraded"
   );
 });
+
+function makeStaticLabelClient(labels) {
+  return {
+    start() {},
+    async command(command) {
+      if (command === "session.status") {
+        return { result: { deviceName: "Unit iPhone", udid: "unit-udid" } };
+      }
+      if (command === "ui.summary") {
+        return {
+          result: {
+            appState: { code: 4, label: "running-foreground" },
+            bundleId: "net.blocka.app",
+            labels,
+            target: "six"
+          }
+        };
+      }
+      if (command === "ui.inspect") {
+        return { result: { labels, elements: [], tree: [] } };
+      }
+      if (command === "ui.exists") return { result: false };
+      if (command === "ui.scroll") return { result: "down" };
+      if (command === "ui.tap") return { result: "tapped" };
+      if (command === "ui.back") return { result: "back" };
+      if (command === "ui.wait") return { result: true };
+      return { result: { ok: true } };
+    },
+    async shutdown() {}
+  };
+}
+
+const STUCK_CONFIG = {
+  advisory: true,
+  apiKey: "",
+  baseUrl: "http://localhost:1234/v1",
+  fakeModel: true,
+  maxTokens: 100,
+  minSteps: 1,
+  model: "fake",
+  modelTimeoutMs: 1000,
+  stepLimit: 12,
+  temperature: 0,
+  timeoutMs: 30000
+};
+const STUCK_ENV = {
+  APP_BUNDLE_ID: "net.blocka.app",
+  IOS_DEVICE_NAME: "Unit iPhone",
+  IOS_UDID: "unit-udid"
+};
+
+test("a screen stuck loading is critical and interrupts the run", async () => {
+  const outputDir = await mkdtemp(join(tmpdir(), "ai-explorer-runner-"));
+  const report = await runAiExplorer({
+    client: makeStaticLabelClient(["Privacy Pulse", "Loading…", "Please wait"]),
+    config: STUCK_CONFIG,
+    env: STUCK_ENV,
+    outputDir
+  });
+  assert.equal(deriveReportStatus(report), "critical");
+  assert.equal(report.completed, true);
+  assert.ok(
+    report.findings.some(
+      (f) => f.severity === "critical" && /stuck loading/i.test(f.message)
+    ),
+    "expected a critical stuck-loading finding"
+  );
+});
+
+test("error-state text where content should be is critical and interrupts", async () => {
+  const outputDir = await mkdtemp(join(tmpdir(), "ai-explorer-runner-"));
+  const report = await runAiExplorer({
+    client: makeStaticLabelClient(["Privacy Pulse", "24 h", "Couldn't load activity"]),
+    config: STUCK_CONFIG,
+    env: STUCK_ENV,
+    outputDir
+  });
+  assert.equal(deriveReportStatus(report), "critical");
+  assert.equal(report.completed, true);
+  assert.ok(
+    report.findings.some(
+      (f) => f.severity === "critical" && /Error-state text rendered/i.test(f.message)
+    ),
+    "expected a critical error-state-text finding"
+  );
+});
+
+test("normal content does not trigger stuck/error criticals (status pass)", async () => {
+  const client = makeFakeClient();
+  const outputDir = await mkdtemp(join(tmpdir(), "ai-explorer-runner-"));
+  const report = await runAiExplorer({
+    client,
+    config: STUCK_CONFIG,
+    env: STUCK_ENV,
+    outputDir
+  });
+  assert.equal(deriveReportStatus(report), "pass");
+  assert.ok(
+    !report.findings.some(
+      (f) =>
+        f.severity === "critical" &&
+        /(stuck loading|Error-state text|UI appears frozen)/i.test(f.message)
+    ),
+    "healthy run must not raise stuck/error/frozen criticals"
+  );
+});

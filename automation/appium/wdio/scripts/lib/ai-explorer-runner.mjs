@@ -310,6 +310,11 @@ const BLANK_SCREEN_STREAK_ABORT = 2;
 // catch instantly: escalate to critical (red status) and stop the run — no
 // value exploring a broken build further.
 function evaluateScreenIntegrity(report, state) {
+  // Not our app in the foreground → don't judge a foreign app as blank.
+  if (isOffTarget(state.summary)) {
+    state.blankScreenStreak = 0;
+    return;
+  }
   const { blank } = screenBodyValues(state.summary, state.inspect);
   if (!blank) {
     state.blankScreenStreak = 0;
@@ -626,6 +631,14 @@ async function observeInspect(client, report, reason = "Inspect current UI.") {
 }
 
 function evaluateSummary(report, summary, state) {
+  // If the foreground app is not our target (e.g. a notification banner
+  // switched to another app), do NOT run in-app health diagnostics — we
+  // would be judging a foreign app's UI as our app's regression. The
+  // dedicated off-target guard owns recovery/abort for this case.
+  if (isOffTarget(summary)) {
+    return;
+  }
+
   const labels = Array.isArray(summary?.labels) ? summary.labels : [];
   const foreground = summary?.appState?.code === 4;
 
@@ -669,6 +682,18 @@ function evaluateSummary(report, summary, state) {
         labels: labels.slice(0, 8)
       });
     }
+    // Loose label-repeat stays a warning (often the explorer's own loop or a
+    // sparse screen, not an app defect). But if the UI has not changed at all
+    // across a very large number of observations despite continued
+    // exploration, the screen is effectively frozen/dead — a real bug.
+    if (repeatCount >= 18 && !state.healthAbort) {
+      state.healthAbort = true;
+      state.healthAbortReason =
+        "UI appears frozen: the same screen repeated across many observations despite continued exploration.";
+      addFinding(report, "critical", state.healthAbortReason, {
+        labels: labels.slice(0, 8)
+      });
+    }
   }
 
   const loadingLabels = labels.filter((label) =>
@@ -676,13 +701,48 @@ function evaluateSummary(report, summary, state) {
   );
   if (loadingLabels.length > 0) {
     state.loadingObservations += 1;
-    if (state.loadingObservations >= 3) {
+    if (state.loadingObservations === 3) {
       addFinding(report, "warning", "Loading-style text persisted across several observations.", {
+        labels: loadingLabels
+      });
+    }
+    // Loading text that never resolves to content is a real functional
+    // regression a manual tester would flag → critical + abort.
+    if (state.loadingObservations >= 4 && !state.healthAbort) {
+      state.healthAbort = true;
+      state.healthAbortReason =
+        "A screen is stuck loading: loading text persisted and never resolved to content.";
+      addFinding(report, "critical", state.healthAbortReason, {
         labels: loadingLabels
       });
     }
   } else {
     state.loadingObservations = 0;
+  }
+
+  // Error-state text where content should be (e.g. one section/table failed
+  // to load) — a localized functional regression the surface/blank detectors
+  // do not catch because the rest of the screen still renders. Conservative
+  // phrase set so legitimate copy is not matched; confirmed across 2
+  // observations so a transient blip that recovers is not a false red.
+  const errorLabels = labels.filter((label) =>
+    /(something went wrong|could ?n'?t load|could not load|failed to load|unable to load|error loading|couldn'?t connect|failed to connect|please try again|try again later|an error occurred)/i.test(
+      String(label)
+    )
+  );
+  if (errorLabels.length > 0) {
+    state.errorTextObservations = (state.errorTextObservations ?? 0) + 1;
+    if (state.errorTextObservations >= 2 && !state.healthAbort) {
+      state.healthAbort = true;
+      state.healthAbortReason = `Error-state text rendered where content should be: ${errorLabels
+        .slice(0, 2)
+        .join(" | ")}`;
+      addFinding(report, "critical", state.healthAbortReason, {
+        labels: errorLabels.slice(0, 6)
+      });
+    }
+  } else {
+    state.errorTextObservations = 0;
   }
 }
 
@@ -1109,7 +1169,7 @@ async function runMissionSurface(client, report, state, surface) {
 
 async function runMissionWarmup(client, report, state, warmupDeadline) {
   for (const id of MISSION_WARMUP_SURFACES) {
-    if (state.blankScreenAbort || state.wrongAppAbort) {
+    if (state.blankScreenAbort || state.wrongAppAbort || state.healthAbort) {
       return;
     }
     if (Date.now() >= warmupDeadline) {
@@ -1227,6 +1287,9 @@ export async function runAiExplorer(options = {}) {
     labelSignatures: new Map(),
     blankScreenAbort: false,
     blankScreenStreak: 0,
+    errorTextObservations: 0,
+    healthAbort: false,
+    healthAbortReason: "",
     lastScreenKey: undefined,
     navBrokenAbort: false,
     offTargetStreak: 0,
@@ -1330,7 +1393,8 @@ export async function runAiExplorer(options = {}) {
       Date.now() < deadline &&
       !state.blankScreenAbort &&
       !state.wrongAppAbort &&
-      !state.navBrokenAbort;
+      !state.navBrokenAbort &&
+      !state.healthAbort;
       stepIndex += 1
     ) {
       let decision;
@@ -1620,6 +1684,16 @@ export async function runAiExplorer(options = {}) {
         kind: "finish",
         command: "navigation-broken-abort",
         reason: "Run interrupted: a navigation control did not open its expected screen."
+      });
+    }
+
+    if (state.healthAbort && !report.completed) {
+      report.completed = true;
+      log(`AI explorer aborting: ${state.healthAbortReason}`);
+      addStep(report, {
+        kind: "finish",
+        command: "health-abort",
+        reason: `Run interrupted: ${state.healthAbortReason}`
       });
     }
 
