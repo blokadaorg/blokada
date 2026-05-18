@@ -268,7 +268,11 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                       ],
                     ),
                   ),
-                  Semantics(
+                  // MergeSemantics so the identifier lands on the switch node
+                  // Appium resolves (un-merged it is flaky — same fix as
+                  // filter_option).
+                  MergeSemantics(
+                    child: Semantics(
                     identifier: AutomationIds.settingsWeeklyReport,
                     toggled: _weeklyReportEnabled,
                     child: CupertinoSwitch(
@@ -289,6 +293,7 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                         }
                       },
                     ),
+                  ),
                   ),
                 ],
               ),

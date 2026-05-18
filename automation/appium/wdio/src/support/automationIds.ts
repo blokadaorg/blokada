@@ -17,6 +17,7 @@ export const AutomationIds = {
   exceptionsTabBlocked: "automation.exceptions_tab_blocked",
   exceptionsTabAllowed: "automation.exceptions_tab_allowed",
   exceptionItem: "automation.exception_item",
+  retentionToggle: "automation.retention_toggle",
   homeSettings: "automation.home_settings",
   homePrivacyPulse: "automation.home_privacy_pulse",
   homeAdvanced: "automation.home_advanced",

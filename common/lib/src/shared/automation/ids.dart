@@ -34,6 +34,7 @@ class AutomationIds {
   static const settingsRetention = 'automation.settings_retention';
   static const settingsWeeklyReport = 'automation.settings_weekly_report';
   static const settingsSupport = 'automation.settings_support';
+  static const retentionToggle = 'automation.retention_toggle';
 
   // Exceptions sub-page controls (so exploration can switch tabs and open a
   // domain row to reach the domain-detail level instead of guessing labels).
