@@ -33,6 +33,9 @@ const weeklyReportAllowedToplistDownTitleKey =
 const weeklyReportToplistNewBodyKey = 'notification weekly report toplist new body';
 const weeklyReportToplistMoveBodyKey = 'notification weekly report toplist move body';
 
+const weeklyReportActionSeeMoreKey = 'notification weekly report action see more';
+const weeklyReportActionOptOutKey = 'notification weekly report action opt out';
+
 class WeeklyReportScheduleValue extends StringifiedPersistedValue<DateTime> {
   WeeklyReportScheduleValue() : super('notification:weekly_report:scheduled_at');
 
@@ -102,6 +105,17 @@ class WeeklyReportEvent {
     this.deltaIncreased,
     this.deltaPercent,
   });
+
+  // Policy gate for whether this event is worth posting as a system
+  // notification. Requires non-empty body and at least one concrete marker
+  // (`toplistHighlight` or `deltaPercent`) so the tap lands on a screen with
+  // something specific to show, not the generic Privacy Pulse view. Stricter
+  // than what the in-app card technically requires; watch the
+  // `weeklyReport:notification:notPostable` log if this needs loosening.
+  bool get isPostable {
+    if (body.trim().isEmpty) return false;
+    return toplistHighlight != null || deltaPercent != null;
+  }
 
   Map<String, dynamic> toJson() {
     return {

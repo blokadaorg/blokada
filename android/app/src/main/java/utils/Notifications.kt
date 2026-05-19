@@ -242,6 +242,26 @@ class WeeklyReportNotification(
         intentActivity.putExtra("notificationId", NOTIF_WEEKLY_REPORT)
         val piActivity = ctx.getPendingIntentForActivity(intentActivity, 0)
         b.setContentIntent(piActivity)
+
+        // Primary action: "See more". Opens the in-app destination — same as
+        // tapping the notification body, but tagged with a SEE_MORE suffix for
+        // symmetry with iOS. Dart splits on '|' so this lands in the same
+        // weeklyReport branch as the default tap.
+        val seeMoreIntent = Intent(ctx, MainActivity::class.java)
+        seeMoreIntent.putExtra("notificationId", "$NOTIF_WEEKLY_REPORT|SEE_MORE")
+        val piSeeMore = ctx.getPendingIntentForActivity(seeMoreIntent, 0)
+        b.addAction(0, ctx.getString(R.string.notification_weekly_report_action_see_more), piSeeMore)
+
+        // Secondary action: "Turn off weekly reports". Opens the app via
+        // MainActivity with an OPT_OUT suffix; Dart toggles the opt-out
+        // setting AND navigates to the notification settings so the user sees
+        // the toggle move. Going through an Activity instead of a Broadcast
+        // means we don't race the Flutter engine boot — the body-tap path
+        // already proves the Activity entrypoint works.
+        val optOutIntent = Intent(ctx, MainActivity::class.java)
+        optOutIntent.putExtra("notificationId", "$NOTIF_WEEKLY_REPORT|OPT_OUT")
+        val piOptOut = ctx.getPendingIntentForActivity(optOutIntent, 0)
+        b.addAction(0, ctx.getString(R.string.notification_weekly_report_action_opt_out), piOptOut)
     }
 )
 

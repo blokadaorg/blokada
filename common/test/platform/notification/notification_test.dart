@@ -115,6 +115,99 @@ void main() {
       });
     });
 
+    test("OPT_OUT action opens settings and defers the toggle flip until consumed", () async {
+      await withTrace((m) async {
+        await CoreModule().create();
+        Core.register<AccountStore>(_accountStoreWithAccount());
+        final stage = MockStageStore();
+        when(stage.route).thenReturn(StageRouteState.init().newFg());
+        Core.register<StageStore>(stage);
+        Core.register<PaymentActor>(_FakePaymentActor());
+        Core.register(NotificationsValue());
+        Core.register<WeeklyReportActor>(_FakeWeeklyReportActor(_weeklyEvent()));
+
+        final optOutValue = WeeklyReportOptOutValue();
+        Core.register<WeeklyReportOptOutValue>(optOutValue);
+
+        final fakeApi = _FakeNotificationApi();
+        Core.register<NotificationApi>(fakeApi);
+
+        final ops = MockNotificationChannel();
+        Core.register<NotificationChannel>(ops);
+
+        final store = NotificationActor();
+        Core.register<NotificationActor>(store);
+        Navigation.lastPath = null;
+        Navigation.isTabletMode = true;
+        Navigation.openInTablet = (path, arguments) {
+          Navigation.lastPath = path;
+        };
+
+        await store.notificationTapped(m, "weeklyReport|OPT_OUT");
+
+        expect(Navigation.lastPath, Paths.settings,
+            reason: "user should land on settings to see the toggle move");
+        expect(await optOutValue.now(), isFalse,
+            reason: "toggle should still be enabled until settings consumes the pending flag");
+        expect(fakeApi.putConfigCalls, isEmpty,
+            reason: "backend should not be told yet — the screen has to render first");
+
+        final consumed = await store.consumePendingOptOutFromNotification(m);
+        expect(consumed, isTrue,
+            reason: "pending opt-out should be claimed by the settings screen");
+
+        expect(await optOutValue.now(), isTrue,
+            reason: "opt-out should be persisted locally after consume");
+        expect(fakeApi.putConfigCalls, equals([true]),
+            reason: "backend should be told the user opted out after consume");
+
+        final consumedAgain = await store.consumePendingOptOutFromNotification(m);
+        expect(consumedAgain, isFalse,
+            reason: "second consume is a no-op so plain settings opens do not flip the toggle");
+        expect(fakeApi.putConfigCalls, equals([true]),
+            reason: "no extra PUT on a no-op consume");
+
+        verifyNever(ops.doShow(any, any, any));
+      });
+    });
+
+    test("handleFcmEvent skips weekly update when event has no in-app marker",
+        () async {
+      await withTrace((m) async {
+        Core.register<AccountStore>(_accountStoreWithAccount());
+        Core.register<StageStore>(MockStageStore());
+        Core.register<PaymentActor>(_FakePaymentActor());
+        Core.register(NotificationsValue());
+        // Event has no toplistHighlight and no deltaPercent → isPostable=false.
+        final notPostable = WeeklyReportEvent(
+          id: "event-id",
+          title: "Weekly report",
+          body: "Traffic changed",
+          type: WeeklyReportEventType.toplistChange,
+          icon: WeeklyReportIcon.chart,
+          score: 1,
+          generatedAt: DateTime.now().toUtc(),
+        );
+        Core.register<WeeklyReportActor>(_FakeWeeklyReportActor(notPostable));
+
+        final ops = MockNotificationChannel();
+        Core.register<NotificationChannel>(ops);
+
+        final store = NotificationActor();
+        Core.register<NotificationActor>(store);
+
+        final payload = jsonEncode({
+          "v": "1",
+          "type": "weekly_update",
+          "event_id": "evt-not-postable",
+        });
+
+        await store.handleFcmEvent(m, payload);
+
+        verifyNever(ops.doShow(any, any, any));
+      });
+    });
+
     test("handleFcmEvent handles account expiry without weekly notification", () async {
       await withTrace((m) async {
         Core.register<AccountStore>(_accountStoreWithAccount());
@@ -525,10 +618,16 @@ WeeklyReportEvent _weeklyEvent() {
     id: "event-id",
     title: "Weekly report",
     body: "Traffic changed",
-    type: WeeklyReportEventType.mock,
+    type: WeeklyReportEventType.toplistChange,
     icon: WeeklyReportIcon.chart,
     score: 1,
     generatedAt: DateTime.now().toUtc(),
+    // Required for isPostable so handleFcmEvent will actually schedule.
+    toplistHighlight: const WeeklyReportToplistHighlight(
+      name: "tracker.example",
+      blocked: true,
+      newRank: 1,
+    ),
   );
 }
 
@@ -544,6 +643,20 @@ AccountStore _accountStoreWithAccount() {
     ),
   );
   return store;
+}
+
+class _FakeNotificationApi extends NotificationApi {
+  final List<bool> putConfigCalls = [];
+
+  @override
+  Future<JsonNotificationConfig> getConfig(Marker m) async {
+    return JsonNotificationConfig(optOut: false);
+  }
+
+  @override
+  Future<void> putConfig(bool optOut, Marker m) async {
+    putConfigCalls.add(optOut);
+  }
 }
 
 class _FakeWeeklyReportActor extends WeeklyReportActor {
