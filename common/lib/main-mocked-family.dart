@@ -1,12 +1,11 @@
+import 'package:common/main_mocked_shared.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/app.dart';
 import 'package:common/src/shared/ui/top_bar.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/app_variants/family/widget/main_screen.dart';
-import 'package:common/mocked-deps.dart';
 import 'package:common/modules.dart';
 import 'package:common/src/platform/app/launch_context.dart';
-import 'package:common/src/platform/stage/stage.dart';
 import 'package:flutter/material.dart';
 
 import 'package:common/src/platform/command/channel.pg.dart';
@@ -21,7 +20,13 @@ void main() async {
   const flavor = Flavor.family;
   final modules = Modules();
   await modules.create(ActScreenplay(ActScenario.platformIsMocked, flavor, PlatformType.iOS));
-  attachMockedDeps();
+
+  // Mirror the family-flavor base-URL switch from main.dart so API calls land
+  // on family.api.blocka.net, not the default api.blocka.net.
+  jsonUrl = "https://family.api.blocka.net";
+
+  await seedDevAccount(flavor);
+
   await modules.start(
     Markers.start,
     launchContext: AppLaunchContext.foregroundInteractive,
@@ -40,13 +45,4 @@ void main() async {
   ));
 
   MockedStart().start();
-}
-
-// In mocked, manually trigger the foreground
-class MockedStart {
-  late final StageStore _stage = Core.get<StageStore>();
-
-  Future<void> start() async {
-    await _stage.setForeground(Markers.start);
-  }
 }

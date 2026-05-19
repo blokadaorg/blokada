@@ -20,7 +20,11 @@ class PlatformPermModule with Module {
     await register(VpnEnabledValue());
     await register(PlatformPermActor());
 
-    if (Core.act.isProd) {
+    // Mocked scenario uses real iOS perm bindings so getPrivateDnsState hits
+    // PrivateDnsServiceMock (which reports "enabled") instead of the no-op
+    // channel's hardcoded "unavailable" — otherwise the home screen shows the
+    // DNS install wizard on every tap-to-activate.
+    if (Core.act.isProd || Core.act.isMocked) {
       await register<PermChannel>(PlatformPermChannel());
     } else {
       await register<PermChannel>(NoOpPermChannel());

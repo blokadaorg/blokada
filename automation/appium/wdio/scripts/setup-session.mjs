@@ -2,6 +2,7 @@
 
 import { ensureAppiumRuntime } from "./lib/appium-runtime.mjs";
 import {
+  isSimulatorMode,
   resolveAppDisplayName,
   resolveAppFlavor,
   resolveInstallTarget,
@@ -9,13 +10,16 @@ import {
 } from "./lib/app-targets.mjs";
 import { resolveTargetDevice, shellQuote } from "../../../shared/lib/devices.mjs";
 import { getProjectPaths } from "./lib/paths.mjs";
+import { resolveSimulatorDevice } from "./lib/sim.mjs";
 
 const outputJson = process.argv.includes("--json");
 
 async function main() {
   const paths = getProjectPaths();
   await ensureAppiumRuntime({ log: console.error });
-  const device = await resolveTargetDevice();
+  const device = isSimulatorMode(process.env)
+    ? resolveSimulatorDevice()
+    : await resolveTargetDevice();
 
   const payload = {
     appiumHome: paths.appiumHome,

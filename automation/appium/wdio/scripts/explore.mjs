@@ -8,6 +8,7 @@ import { remote } from "webdriverio";
 import {
   createManagedAppiumRuntime
 } from "./lib/appium-runtime.mjs";
+import { isSimulatorMode } from "./lib/app-targets.mjs";
 import {
   buildCapabilities,
   getRemoteOptions
@@ -15,6 +16,7 @@ import {
 import { resolveTargetDevice } from "../../../shared/lib/devices.mjs";
 import { runExplorerCommand } from "./lib/explorer-commands.mjs";
 import { getProjectPaths } from "./lib/paths.mjs";
+import { resolveSimulatorDevice } from "./lib/sim.mjs";
 import {
   createAck,
   createDone,
@@ -91,14 +93,19 @@ async function runJsonlSession(driver, context) {
 async function main() {
   parseArgs(process.argv.slice(2));
   const paths = getProjectPaths();
-  const device = await resolveTargetDevice({ interactive: false });
+  const simMode = isSimulatorMode(process.env);
+  const device = simMode
+    ? resolveSimulatorDevice()
+    : await resolveTargetDevice({ interactive: false });
 
   process.env.IOS_UDID = device.udid;
   process.env.IOS_DEVICE_NAME = device.name;
   process.env.APPIUM_HOME = paths.appiumHome;
 
   const runtime = await createManagedAppiumRuntime({
-    deviceIdentifier: device.udid,
+    // Skip the devicectl-backed process inspection on simulator runs;
+    // Appium manages its own bundled WDA for the sim.
+    deviceIdentifier: simMode ? undefined : device.udid,
     log: console.error
   });
   let driver;

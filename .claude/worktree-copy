@@ -1,0 +1,13 @@
+# Paths listed here are copied from the main checkout into a freshly created
+# jj workspace by the WorktreeCreate hook (claude-worktree-create.sh in the
+# jj skill). Directories are deep-copied via APFS clone where supported, so
+# the initial copy is near-zero disk and stays cheap until divergence.
+#
+# Git submodules — jj does not manage submodules itself, so these directories
+# would otherwise be empty in a new workspace and any Xcode target that
+# references them (currently the WireGuardBridgeiOS legacy build target for
+# Dev / FamilyDev) would fail to build. Mocked / FamilyMocked do not need
+# them.
+deps/wireguard-apple
+deps/translate
+deps/landing-github-pages

@@ -571,10 +571,31 @@ export async function runExplorerCommand(driver, context, command, args = {}) {
       };
     }
     case "ui.tap": {
-      const selector = requireArg([args.selector], 0, "ui.tap requires args.selector");
+      // Coordinate-based tap fires a real touch via XCTest's hit-test, which
+      // matches what a finger does on a real device. Needed for Flutter
+      // widgets exposed as XCUIElementTypeStaticText (no Semantics button=true),
+      // where element.click() targets the accessibility element but doesn't
+      // dispatch the underlying GestureDetector callback.
+      if (typeof args.x === "number" && typeof args.y === "number") {
+        await driver.execute("mobile: tap", { x: args.x, y: args.y });
+        return { result: "tapped", x: args.x, y: args.y };
+      }
+      const selector = requireArg([args.selector], 0, "ui.tap requires args.selector or args.x+args.y");
       const element = await driver.$(selector);
       await element.click();
       return { result: "tapped" };
+    }
+    case "ui.tapCenter": {
+      // Resolve element by selector, then tap its on-screen center via the
+      // coordinate path. Use for Flutter widgets that XCUI exposes as
+      // StaticText (no Semantics button=true) — element.click() would no-op.
+      const selector = requireArg([args.selector], 0, "ui.tapCenter requires args.selector");
+      const element = await driver.$(selector);
+      const rect = await element.getElementRect(element.elementId);
+      const x = Math.round(rect.x + rect.width / 2);
+      const y = Math.round(rect.y + rect.height / 2);
+      await driver.execute("mobile: tap", { x, y });
+      return { result: "tapped", x, y };
     }
     case "ui.type": {
       const selector = requireArg([args.selector], 0, "ui.type requires args.selector");

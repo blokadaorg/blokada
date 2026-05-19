@@ -29,7 +29,6 @@ part 'refresh.g.dart';
 
 const String _keyTimer = "account:expiration";
 const String _keyRefresh = "account:refresh";
-const String _keyAccount = "account:jsonAccount";
 
 class AccountExpiration {
   final AccountStatus status;
@@ -160,7 +159,7 @@ abstract class AccountRefreshStoreBase with Store, Logging, Actor, Cooldown, Emi
         } on HttpCodeException catch (e) {
           if (_shouldReplaceCachedAccount(e)) {
             log(m).w("cached account became invalid, creating a new one: $e");
-            await _securePersistence.delete(m, _keyAccount, isBackup: true);
+            await _securePersistence.delete(m, keyAccount, isBackup: true);
             _account.account = null;
             shouldCreateAccount = true;
           } else {

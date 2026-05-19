@@ -246,6 +246,13 @@ class PlatformPermActor with Logging, Actor {
       return false;
     }
 
+    // PrivateDnsServiceMock can't construct the device-tag/alias-specific URL
+    // the Dart side expects, so trust its 'enabled' verdict without the URL
+    // round-trip. The mock is only registered when Core.act.isMocked is true.
+    if (Core.act.isMocked) {
+      return true;
+    }
+
     final current = state.serverUrl;
     if (current == null || current.isEmpty) {
       return false;

@@ -37,7 +37,7 @@ class Account {
 final accountChanged = EmitterEvent<Account>("accountChanged");
 final accountIdChanged = EmitterEvent<AccountId>("accountIdChanged");
 
-const String _keyAccount = "account:jsonAccount";
+const String keyAccount = "account:jsonAccount";
 
 typedef AccountId = String;
 
@@ -156,7 +156,7 @@ abstract class AccountStoreBase with Store, Logging, Actor, Emitter {
   Future<void> createAccount(Marker m) async {
     return await log(m).trace("create", (m) async {
       final jsonAccount = await _api.postAccount(m);
-      await _persistence.saveJson(m, _keyAccount, jsonAccount.toJson(), isBackup: true);
+      await _persistence.saveJson(m, keyAccount, jsonAccount.toJson(), isBackup: true);
       await _changeAccount(AccountState(jsonAccount.id, jsonAccount), m);
     });
   }
@@ -168,7 +168,7 @@ abstract class AccountStoreBase with Store, Logging, Actor, Emitter {
         throw AccountNotInitialized();
       }
       final jsonAccount = await _api.getAccount(account!.id, m);
-      await _persistence.saveJson(m, _keyAccount, jsonAccount.toJson(), isBackup: true);
+      await _persistence.saveJson(m, keyAccount, jsonAccount.toJson(), isBackup: true);
       await _changeAccount(account!.update(jsonAccount), m);
     });
   }
@@ -180,7 +180,7 @@ abstract class AccountStoreBase with Store, Logging, Actor, Emitter {
         final sanitizedId = _sanitizeAccountId(id);
         _ensureValidAccountId(sanitizedId);
         final jsonAccount = await _api.getAccount(sanitizedId, m);
-        await _persistence.saveJson(m, _keyAccount, jsonAccount.toJson(), isBackup: true);
+        await _persistence.saveJson(m, keyAccount, jsonAccount.toJson(), isBackup: true);
         await _changeAccount(AccountState(jsonAccount.id, jsonAccount), m);
         if (jsonAccount.isActive()) {
           await sleepAsync(const Duration(milliseconds: 500));
@@ -203,7 +203,7 @@ abstract class AccountStoreBase with Store, Logging, Actor, Emitter {
   Future<void> propose(JsonAccount jsonAccount, Marker m) async {
     return await log(m).trace("propose", (m) async {
       _ensureValidAccountId(jsonAccount.id);
-      await _persistence.saveJson(m, _keyAccount, jsonAccount.toJson(), isBackup: true);
+      await _persistence.saveJson(m, keyAccount, jsonAccount.toJson(), isBackup: true);
       await _changeAccount(AccountState(jsonAccount.id, jsonAccount), m);
     });
   }
@@ -218,7 +218,7 @@ abstract class AccountStoreBase with Store, Logging, Actor, Emitter {
         type: AccountType.libre.name,
       );
 
-      await _persistence.saveJson(m, _keyAccount, jsonAccount.toJson(), isBackup: true);
+      await _persistence.saveJson(m, keyAccount, jsonAccount.toJson(), isBackup: true);
       await _changeAccount(account!.update(jsonAccount), m);
     });
   }
@@ -265,7 +265,7 @@ abstract class AccountStoreBase with Store, Logging, Actor, Emitter {
   }
 
   Future<AccountState> _readPersistedAccount(Marker m) async {
-    final accJson = await _persistence.loadJson(m, _keyAccount, isBackup: true);
+    final accJson = await _persistence.loadJson(m, keyAccount, isBackup: true);
     final jsonAccount = JsonAccount.fromJson(accJson);
     _ensureValidAccountId(jsonAccount.id);
     _ensureValidAccountType(jsonAccount);
