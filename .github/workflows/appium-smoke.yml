@@ -8,8 +8,13 @@ on:
 permissions:
   contents: read
 
+# Per-PR group: a new push to a PR coalesces that PR's own pending run
+# (latest commit wins), but different PRs use different groups so none are
+# dropped. workflow_dispatch runs get a unique group (run_id) so they always
+# run. Cross-PR / cross-workflow device exclusion is provided by the single
+# self-hosted ios-physical runner (one job at a time), not by this group.
 concurrency:
-  group: appium-physical-device
+  group: appium-smoke-${{ github.event.pull_request.number || github.run_id }}
   cancel-in-progress: false
 
 jobs:
