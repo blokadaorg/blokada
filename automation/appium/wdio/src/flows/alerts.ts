@@ -35,64 +35,62 @@ function looksLikeNotification(text: string | undefined): boolean {
   );
 }
 
-export async function acceptNotificationAlert(timeout = 5000): Promise<void> {
+export async function acceptNotificationAlert(timeout = 8000): Promise<void> {
   const end = Date.now() + timeout;
-  let alertText: string | undefined;
 
   while (Date.now() < end) {
+    // getAlertText() does NOT expose iOS SpringBoard system permission
+    // prompts — it throws "no modal dialog open" even while the prompt is
+    // visible. So it is used only to (a) bail on a *different*
+    // (non-notification) app alert we must not auto-accept, and (b) take
+    // the locale-aware path when WDA does expose it. Dismissal is then
+    // attempted via every mechanism regardless, because the SpringBoard
+    // prompt is reachable as a tappable element / via the alert handler
+    // even though getAlertText() cannot see it (the previous code returned
+    // before ever reaching those paths — the root of the smoke flakiness).
+    let alertText: string | undefined;
     try {
       alertText = await driver.getAlertText();
-      break;
     } catch {
-      // The iOS permission alert is presented asynchronously, so a
-      // "no modal dialog open" error often just means it has not
-      // appeared *yet*; keep polling within the timeout instead of
-      // returning on the first miss. (Minor robustness only — the
-      // dominant DNS-onboarding smoke flakiness was a CI-runner device
-      // Auto-Lock issue, not this; see automation/appium/README.md.)
-      await driver.pause(200);
+      // SpringBoard alert, or none yet — fall through to the taps below.
     }
-  }
 
-  if (!alertText) {
-    return;
-  }
-
-  if (!looksLikeNotification(alertText)) {
-    return;
-  }
-
-  for (const label of notificationButtonLabels) {
-    try {
-      await driver.execute("mobile: alert", {
-        action: "accept",
-        buttonLabel: label
-      });
-      await driver.pause(500);
+    if (alertText && !looksLikeNotification(alertText)) {
+      // A non-notification alert is up; leave it for the caller to handle.
       return;
-    } catch (error) {
-      // Some driver versions do not support this extension; ignore.
-      console.warn(`Notification alert accept failed for label '${label}': ${String(error)}`);
     }
-  }
 
-  for (const selector of notificationButtonSelectors) {
-    try {
-      const element = await driver.$(selector);
-      if (await element.isExisting()) {
-        await element.click();
+    for (const label of notificationButtonLabels) {
+      try {
+        await driver.execute("mobile: alert", { action: "accept", buttonLabel: label });
         await driver.pause(500);
         return;
+      } catch {
+        // Label not present / extension unsupported — try the next.
       }
-    } catch (error) {
-      console.warn(`Notification selector '${selector}' failed: ${String(error)}`);
     }
-  }
 
-  try {
-    await driver.acceptAlert();
-    await driver.pause(500);
-  } catch (error) {
-    console.warn(`Notification alert accept fallback failed: ${String(error)}`);
+    for (const selector of notificationButtonSelectors) {
+      try {
+        const element = await driver.$(selector);
+        if (await element.isExisting()) {
+          await element.click();
+          await driver.pause(500);
+          return;
+        }
+      } catch {
+        // Selector unsupported / not present — try the next.
+      }
+    }
+
+    try {
+      await driver.acceptAlert();
+      await driver.pause(500);
+      return;
+    } catch {
+      // No accept-able alert this iteration.
+    }
+
+    await driver.pause(250);
   }
 }
