@@ -29,6 +29,7 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
   late final _stage = Core.get<StageStore>();
   late final _channel = Core.get<PaymentChannel>();
   late final _key = Core.get<AdaptyApiKey>();
+  late final _installReferrer = Core.get<InstallReferrerService>();
 
   bool _adaptyInitialized = false;
   Completer? _preloadCompleter = Completer();
@@ -77,6 +78,11 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
       await _syncCustomAttributes(m, account);
       await reportOnboarding(_pendingOnboard);
     }
+
+    // One-time Google Play install referrer -> Adapty attribution (Android
+    // only; the service self-gates on non-Android to protect iOS ASA). Runs
+    // after Adapty activate, non-blocking, idempotent via a persisted guard.
+    unawaited(_installReferrer.sendAttributionOnce(m));
 
     /// After init:
     /// - pass account id to Adapty if it changes, and has been active before

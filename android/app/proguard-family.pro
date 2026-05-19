@@ -7,3 +7,6 @@
 -keep class com.adapty.** { *; }
 -keep class com.adapty_flutter.** { *; }
 -keep class com.adapty.flutter.** { *; }
+
+# Google Play Install Referrer (used for Adapty acquisition-source attribution).
+-keep class com.android.installreferrer.** { *; }

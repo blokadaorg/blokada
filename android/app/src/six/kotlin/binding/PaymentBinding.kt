@@ -155,6 +155,27 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
         }
     }
 
+    override fun doUpdateAttribution(
+        attribution: Map<String, Any?>,
+        source: String,
+        callback: (Result<Unit>) -> Unit
+    ) {
+        try {
+            Adapty.updateAttribution(attribution, source) { error ->
+                if (error == null) {
+                    log("Sent install attribution to Adapty (native sdk)")
+                    callback(Result.success(Unit))
+                } else {
+                    logError("Failed updateAttribution", error)
+                    callback(Result.failure(error))
+                }
+            }
+        } catch (e: Throwable) {
+            logError("Failed updateAttribution (threw)", e)
+            callback(Result.failure(e))
+        }
+    }
+
     override fun doLogOnboardingStep(
         name: String,
         stepName: String,

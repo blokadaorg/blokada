@@ -824,6 +824,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.6"
+  play_install_referrer:
+    dependency: "direct main"
+    description:
+      name: play_install_referrer
+      sha256: "7dd808236d35d15199d5e7a5b55488e4343c1b67c4694902d6b95196b22b19cd"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.0"
   plugin_platform_interface:
     dependency: transitive
     description:

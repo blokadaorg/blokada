@@ -1,0 +1,287 @@
+part of 'payment.dart';
+
+/// Parsed Google Play Install Referrer.
+///
+/// The referrer is a URL-encoded query fragment, e.g. for organic Play installs
+/// `utm_source=google-play&utm_medium=organic`, and for Google Ads
+/// `gclid=...&utm_source=google&utm_medium=cpc&utm_campaign=...`.
+class InstallReferrerData {
+  final String? utmSource;
+  final String? utmMedium;
+  final String? utmCampaign;
+  final String? utmContent;
+  final String? utmTerm;
+  final String? gclid;
+  final String? rawReferrer;
+  final bool isOrganic;
+
+  InstallReferrerData({
+    this.utmSource,
+    this.utmMedium,
+    this.utmCampaign,
+    this.utmContent,
+    this.utmTerm,
+    this.gclid,
+    this.rawReferrer,
+    required this.isOrganic,
+  });
+
+  factory InstallReferrerData.organic() =>
+      InstallReferrerData(isOrganic: true);
+
+  /// Never throws. A null/empty referrer (sideload, debug, non-Play) yields
+  /// an organic record. A malformed referrer keeps [rawReferrer] but parses
+  /// best-effort.
+  static InstallReferrerData parse(String? referrerUrl) {
+    if (referrerUrl == null || referrerUrl.trim().isEmpty) {
+      return InstallReferrerData.organic();
+    }
+
+    Map<String, String> q = {};
+    try {
+      q = Uri.splitQueryString(referrerUrl);
+    } catch (_) {
+      q = {};
+    }
+
+    String? g(String k) {
+      final v = q[k];
+      return (v == null || v.isEmpty) ? null : v;
+    }
+
+    final source = g('utm_source');
+    final medium = g('utm_medium');
+    final gclid = g('gclid');
+
+    // Google Ads installs carry a gclid (and usually utm_medium=cpc). Play
+    // organic installs report utm_source=google-play&utm_medium=organic.
+    final mediumLc = medium?.toLowerCase();
+    final isOrganic = gclid == null &&
+        (source == null || source == 'google-play' || source == '(not set)') &&
+        mediumLc != 'cpc' &&
+        mediumLc != 'paid';
+
+    return InstallReferrerData(
+      utmSource: source,
+      utmMedium: medium,
+      utmCampaign: g('utm_campaign'),
+      utmContent: g('utm_content'),
+      utmTerm: g('utm_term'),
+      gclid: gclid,
+      rawReferrer: referrerUrl,
+      isOrganic: isOrganic,
+    );
+  }
+
+  static String _truncate(String v, int max) =>
+      v.length > max ? v.substring(0, max) : v;
+
+  /// Adapty `updateAttribution` payload (recommended keys, each <=50 chars).
+  /// `status` is always present; other keys are omitted when empty.
+  Map<String, dynamic> toAttributionMap() {
+    final map = <String, dynamic>{};
+    map['status'] = isOrganic ? 'organic' : 'non_organic';
+
+    final channel = utmSource ?? (isOrganic ? 'google-play' : null);
+    if (channel != null && channel.isNotEmpty) {
+      map['channel'] = _truncate(channel, 50);
+    }
+    if (utmCampaign != null && utmCampaign!.isNotEmpty) {
+      map['campaign'] = _truncate(utmCampaign!, 50);
+    }
+    if (utmTerm != null && utmTerm!.isNotEmpty) {
+      map['ad_group'] = _truncate(utmTerm!, 50);
+    }
+    final adSet = utmMedium ?? (isOrganic ? 'organic' : null);
+    if (adSet != null && adSet.isNotEmpty) {
+      map['ad_set'] = _truncate(adSet, 50);
+    }
+    if (utmContent != null && utmContent!.isNotEmpty) {
+      map['creative'] = _truncate(utmContent!, 50);
+    }
+    return map;
+  }
+
+  static List<String> _chunk(String s, int size, int maxChunks) {
+    final out = <String>[];
+    for (var i = 0; i < s.length && out.length < maxChunks; i += size) {
+      out.add(s.substring(i, i + size > s.length ? s.length : i + size));
+    }
+    return out;
+  }
+
+  /// gclid stashed as Adapty custom attributes for downstream BI join.
+  /// Bypasses [AdaptyAttributeConverter] (its 30-char value cap would destroy
+  /// the gclid); chunked to Adapty's real ~50-char per-value limit. A gclid is
+  /// typically <100 chars, so at most 2 chunks; capped at 4 defensively.
+  List<Map<String, dynamic>> buildCustomAttributes() {
+    final attrs = <Map<String, dynamic>>[];
+    attrs.add({
+      'key': 'acq_status',
+      'value': isOrganic ? 'organic' : 'non_organic',
+    });
+
+    final gc = gclid;
+    if (gc != null && gc.isNotEmpty) {
+      final chunks = _chunk(gc, 50, 4);
+      for (var i = 0; i < chunks.length; i++) {
+        attrs.add({
+          'key': i == 0 ? 'acq_gclid' : 'acq_gclid_$i',
+          'value': chunks[i],
+        });
+      }
+    }
+    return attrs;
+  }
+}
+
+enum InstallReferrerFetchStatus {
+  /// Referrer was read (the url may still be organic).
+  ok,
+
+  /// Referrer will never be available (non-Play / sideload / old Play Store).
+  /// Safe to record organic and latch the guard.
+  permanentlyUnavailable,
+
+  /// Transient Play hiccup (no connection / service busy). Must NOT be latched
+  /// as organic — retry on a later app start so a paid install isn't
+  /// permanently misattributed.
+  transientlyUnavailable,
+}
+
+class InstallReferrerFetchResult {
+  final InstallReferrerFetchStatus status;
+  final String? url; // present only when status == ok
+
+  const InstallReferrerFetchResult(this.status, [this.url]);
+}
+
+/// Test seam over the Play Install Referrer system API.
+mixin InstallReferrerChannel {
+  Future<InstallReferrerFetchResult> fetchReferrer();
+}
+
+class PlatformInstallReferrerChannel with Logging, InstallReferrerChannel {
+  // Connection-class errors: the referrer may be obtainable on a later launch.
+  static const _transientCodes = {
+    'SERVICE_UNAVAILABLE',
+    'SERVICE_DISCONNECTED',
+    'DEAD_OBJECT_EXCEPTION',
+    'BAD_STATE',
+  };
+
+  @override
+  Future<InstallReferrerFetchResult> fetchReferrer() async {
+    // play_install_referrer throws on iOS / when Play Services are absent.
+    if (!Core.act.isAndroid) {
+      return const InstallReferrerFetchResult(
+          InstallReferrerFetchStatus.permanentlyUnavailable);
+    }
+    try {
+      final details = await PlayInstallReferrer.installReferrer;
+      return InstallReferrerFetchResult(
+          InstallReferrerFetchStatus.ok, details.installReferrer);
+    } on PlatformException catch (e) {
+      // FEATURE_NOT_SUPPORTED / DEVELOPER_ERROR / PERMISSION_ERROR / unknown
+      // are permanent; only connection-class codes are retryable.
+      final transient = _transientCodes.contains(e.code);
+      log(Markers.root)
+          .i("Install referrer unavailable: ${e.code} (transient=$transient)");
+      return InstallReferrerFetchResult(transient
+          ? InstallReferrerFetchStatus.transientlyUnavailable
+          : InstallReferrerFetchStatus.permanentlyUnavailable);
+    } catch (e) {
+      // Non-PlatformException (e.g. MissingPluginException) -> permanent.
+      log(Markers.root).i("Install referrer unavailable: $e");
+      return const InstallReferrerFetchResult(
+          InstallReferrerFetchStatus.permanentlyUnavailable);
+    }
+  }
+}
+
+/// Once-per-install idempotency guard. Stored in non-secure `local`
+/// SharedPreferences. Note: the app sets no allowBackup=false, so Android Auto
+/// Backup may restore this on reinstall (no re-send) — acceptable, since
+/// Adapty is one-source-per-profile and would reject a re-send anyway.
+class InstallReferrerSentValue extends BoolPersistedValue {
+  InstallReferrerSentValue() : super("payment:install_referrer_sent");
+}
+
+/// Captures the Google Play Install Referrer once and forwards it to Adapty
+/// as acquisition-source attribution + gclid custom attributes. Routed via the
+/// active [PaymentChannel] so v6 Android goes through the native Adapty SDK
+/// (Pigeon) and family through the Adapty Flutter SDK.
+class InstallReferrerService with Logging {
+  late final _channel = Core.get<InstallReferrerChannel>();
+  late final _payment = Core.get<PaymentChannel>();
+  late final _sentGuard = Core.get<InstallReferrerSentValue>();
+
+  Future<void> sendAttributionOnce(Marker m) async {
+    // CRITICAL: iOS keeps automatic Apple Search Ads attribution. The trigger
+    // in PaymentActor.onStart is cross-platform; on iOS PaymentChannel is the
+    // Adapty Flutter SDK, and updateAttribution(source:"custom") there would
+    // permanently clobber the ASA source (Adapty: one source per profile, no
+    // override). Gate FIRST, before the guard and before any Adapty call.
+    if (!Core.act.isAndroid) return;
+
+    return await log(m).trace("installReferrerAttribution", (m) async {
+      try {
+        // fetch() (not now()) so the guard is loaded from persistence — it
+        // must survive process restarts and is never resolved elsewhere.
+        if (await _sentGuard.fetch(m)) {
+          log(m).t("Install referrer attribution already sent, skip");
+          return;
+        }
+
+        final fetched = await _channel.fetchReferrer();
+        if (fetched.status ==
+            InstallReferrerFetchStatus.transientlyUnavailable) {
+          // A temporary Play hiccup must NOT latch a (possibly paid) install
+          // as organic. Send nothing, leave the guard unset, retry next start.
+          log(m).i("Install referrer temporarily unavailable, "
+              "will retry on next app start");
+          return;
+        }
+
+        // ok -> parse the (possibly organic) referrer; permanentlyUnavailable
+        // -> organic, since nothing better will ever arrive.
+        final url =
+            fetched.status == InstallReferrerFetchStatus.ok ? fetched.url : null;
+        final data = InstallReferrerData.parse(url);
+        log(m).i("Install referrer: organic=${data.isOrganic}, "
+            "hasGclid=${data.gclid != null}, status=${fetched.status.name}");
+
+        await _payment.updateAttribution(m, data.toAttributionMap());
+
+        // Checkpoint immediately: the #71-critical acquisition-source signal is
+        // delivered. Adapty is one-source-per-profile, so updateAttribution
+        // must never be re-attempted — do not couple it to the best-effort
+        // custom-attribute write below. On an updateAttribution failure we fall
+        // to catch with the guard unset and retry on the next app start.
+        await _sentGuard.change(m, true);
+        log(m).i("Sent install referrer attribution to Adapty");
+
+        // Best-effort BI extras (gclid / acq_status). Independently swallowed:
+        // a failure here must not unset the guard nor re-trigger attribution.
+        final customAttrs = data.buildCustomAttributes();
+        if (customAttrs.isNotEmpty) {
+          try {
+            await _payment
+                .setCustomAttributes(m, {'custom_attributes': customAttrs});
+          } catch (e, s) {
+            log(m).e(
+                msg: "Failed syncing acq_* custom attributes (best-effort)",
+                err: e,
+                stack: s);
+          }
+        }
+      } catch (e, s) {
+        // Never rethrow: must not break the payment init/startup sequence.
+        log(m).e(
+            msg: "Failed sending install referrer attribution",
+            err: e,
+            stack: s);
+      }
+    });
+  }
+}

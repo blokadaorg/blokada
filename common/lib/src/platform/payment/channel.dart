@@ -27,4 +27,9 @@ class PlatformPaymentChannel with PaymentChannel {
   @override
   Future<void> setCustomAttributes(Marker m, Map<String, dynamic> attributes) =>
       _ops.doSetCustomAttributes(attributes);
+
+  @override
+  Future<void> updateAttribution(Marker m, Map<String, dynamic> attribution,
+          {String source = "custom"}) =>
+      _ops.doUpdateAttribution(attribution, source);
 }

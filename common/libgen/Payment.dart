@@ -22,4 +22,7 @@ abstract class PaymentOps {
 
   @async
   void doSetCustomAttributes(Map<String, Object?> attributes);
+
+  @async
+  void doUpdateAttribution(Map<String, Object?> attribution, String source);
 }
