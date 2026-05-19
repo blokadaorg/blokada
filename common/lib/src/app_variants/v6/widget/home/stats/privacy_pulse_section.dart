@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:common/src/features/journal/domain/journal.dart';
 import 'package:common/src/features/payment/domain/payment.dart';
+import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/navigation.dart' show maxContentWidth, getTopPadding;
 import 'package:common/src/features/notification/domain/notification.dart';
 import 'package:common/src/shared/ui/freemium_screen.dart';
@@ -350,23 +351,35 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
       children: {
         ToplistRange.daily: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          child: Text(
-            "24 h",
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: context.theme.textPrimary,
+          child: MergeSemantics(
+            child: Semantics(
+              identifier: AutomationIds.privacyPulseRangeDaily,
+              selected: _toplistRange == ToplistRange.daily,
+              child: Text(
+                "24 h",
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: context.theme.textPrimary,
+                ),
+              ),
             ),
           ),
         ),
         ToplistRange.weekly: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          child: Text(
-            "7 d",
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: context.theme.textPrimary,
+          child: MergeSemantics(
+            child: Semantics(
+              identifier: AutomationIds.privacyPulseRangeWeekly,
+              selected: _toplistRange == ToplistRange.weekly,
+              child: Text(
+                "7 d",
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: context.theme.textPrimary,
+                ),
+              ),
             ),
           ),
         ),

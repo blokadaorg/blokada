@@ -1,6 +1,7 @@
 import 'package:common/src/shared/ui/dialog.dart';
 import 'package:common/src/features/customlist/domain/customlist.dart';
 import 'package:common/src/features/support/domain/support.dart';
+import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/common_clickable.dart';
 import 'package:common/src/features/settings/ui/exceptions_section.dart';
@@ -49,32 +50,34 @@ class SettingsScreenState extends State<SettingsScreen> with Logging {
   }
 
   Widget _buildForPhone(BuildContext context) {
-    return WithTopBar(
-      title: (Core.act.isFamily)
-          ? "account action my account".i18n
-          : "main tab settings".i18n,
-      child: const SettingsSection(isHeader: false),
+    return Semantics(
+      identifier: AutomationIds.screenSettings,
+      child: WithTopBar(
+        title: (Core.act.isFamily) ? "account action my account".i18n : "main tab settings".i18n,
+        child: const SettingsSection(isHeader: false),
+      ),
     );
   }
 
   Widget _buildForTablet(BuildContext context) {
-    return WithTopBar(
-      title: (Core.act.isFamily)
-          ? "account action my account".i18n
-          : "main tab settings".i18n,
-      topBarTrailing: _path == Paths.support ? _getAction(context) : null,
-      maxWidth: maxContentWidthTablet,
-      child: Row(
-        children: [
-          const Expanded(
-            flex: 1,
-            child: SettingsSection(isHeader: false),
-          ),
-          Expanded(
-            flex: 1,
-            child: _buildForPath(_path, _arguments),
-          ),
-        ],
+    return Semantics(
+      identifier: AutomationIds.screenSettings,
+      child: WithTopBar(
+        title: (Core.act.isFamily) ? "account action my account".i18n : "main tab settings".i18n,
+        topBarTrailing: _path == Paths.support ? _getAction(context) : null,
+        maxWidth: maxContentWidthTablet,
+        child: Row(
+          children: [
+            const Expanded(
+              flex: 1,
+              child: SettingsSection(isHeader: false),
+            ),
+            Expanded(
+              flex: 1,
+              child: _buildForPath(_path, _arguments),
+            ),
+          ],
+        ),
       ),
     );
   }

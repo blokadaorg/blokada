@@ -1,4 +1,5 @@
 import 'package:common/src/features/link/domain/link.dart';
+import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/common_card.dart';
 import 'package:common/src/shared/ui/theme.dart';
@@ -74,17 +75,23 @@ class RetentionSectionState extends State<RetentionSection> with Logging {
                       "activity retention option 24h".i18n,
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     )),
-                    CupertinoSwitch(
-                      activeColor: context.theme.accent,
-                      value: selected,
-                      onChanged: (bool? value) async {
-                        setState(() {
-                          selected = value!;
-                        });
+                    MergeSemantics(
+                      child: Semantics(
+                        identifier: AutomationIds.retentionToggle,
+                        toggled: selected,
+                        child: CupertinoSwitch(
+                          activeColor: context.theme.accent,
+                          value: selected,
+                          onChanged: (bool? value) async {
+                            setState(() {
+                              selected = value!;
+                            });
 
-                        // No async to not lag, but lags anyway
-                        _setRetention(context, value!);
-                      },
+                            // No async to not lag, but lags anyway
+                            _setRetention(context, value!);
+                          },
+                        ),
+                      ),
                     ),
                   ],
                 )),

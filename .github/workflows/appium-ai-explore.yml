@@ -1,0 +1,94 @@
+name: Appium AI explorer (iOS, physical device — manual)
+
+# Manually triggered only (Actions tab → "Run workflow"). No automatic
+# execution. Requires the self-hosted macOS runner with the physical iPhone
+# attached AND LAN access to the local LM endpoint — GitHub-hosted runners
+# cannot run this (no device, no LAN model).
+on:
+  workflow_dispatch:
+    inputs:
+      reonboard:
+        description: "Reinstall + redo DNS onboarding before exploring (uncheck only if the device is already onboarded with the desired build)"
+        type: boolean
+        default: true
+      advisory:
+        description: "Advisory mode: do NOT fail the run on a critical finding (leave unchecked so a real regression turns the run red)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+# Share the device lock with the smoke workflow: only one job may drive the
+# single physical iPhone at a time.
+concurrency:
+  group: appium-physical-device
+  cancel-in-progress: false
+
+jobs:
+  ai-explore:
+    runs-on: [self-hosted, macOS, ARM64, ios-physical]
+    timeout-minutes: 40
+    env:
+      LANG: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Bootstrap Flutter common lib
+        run: make -C common build-ios
+
+      - name: Install iOS pods
+        working-directory: ios
+        run: |
+          bundle check || bundle install
+          bundle exec pod install
+
+      - name: Unlock login keychain for codesign
+        env:
+          KEYCHAIN_PASSWORD: ${{ secrets.MAC_KEYCHAIN_PASSWORD }}
+        run: security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/login.keychain-db
+
+      - name: "Reinstall + DNS onboarding (flavor: six)"
+        if: ${{ inputs.reonboard }}
+        env:
+          IOS_AUTO_SELECT_FIRST: "1"
+          SHOW_XCODE_LOG: "0"
+        run: make appium-test
+
+      - name: Run appium AI explorer
+        env:
+          AI_EXPLORER_BASE_URL: "http://10.44.1.11:1234/v1"
+          AI_EXPLORER_MODEL: "nvidia/nemotron-3-nano-4b"
+          # Non-advisory by default: a critical finding (blank/broken/degraded
+          # screen, broken navigation, stuck loading, frozen UI, error-state
+          # text, left-the-target-app) exits non-zero and turns the run red.
+          AI_EXPLORER_ADVISORY: ${{ inputs.advisory && '1' || '0' }}
+          APP_INSTALL: "0"
+          IOS_AUTO_SELECT_FIRST: "1"
+          SHOW_XCODE_LOG: "0"
+        run: make appium-ai-explore APP_INSTALL=0
+
+      - name: Add AI explorer report to run summary
+        if: always()
+        run: |
+          if [ -f automation/appium/output/ai-explorer-report.md ]; then
+            cat automation/appium/output/ai-explorer-report.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "No AI explorer report was produced." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Upload AI explorer artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: appium-ai-explorer-${{ github.run_id }}
+          path: |
+            automation/appium/output/ai-explorer-*
+            automation/appium/output/*.xml
+            automation/appium/output/*.log
+            automation/appium/output/*.png
+          if-no-files-found: warn
+          retention-days: 14

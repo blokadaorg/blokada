@@ -8,16 +8,21 @@ class SettingsItem extends StatelessWidget {
   final VoidCallback onTap;
   final bool unread;
 
+  /// Stable automation id for rows whose localized text is not enough for
+  /// dynamic exploration to understand which setting was opened.
+  final String? automationId;
+
   const SettingsItem(
       {super.key,
       required this.icon,
       required this.text,
       required this.onTap,
-      this.unread = false});
+      this.unread = false,
+      this.automationId});
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    final child = Stack(
       children: [
         CommonClickable(
           tapBorderRadius: BorderRadius.zero,
@@ -50,9 +55,7 @@ class SettingsItem extends StatelessWidget {
                           child: Text(
                             "1",
                             style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 11,
-                                fontWeight: FontWeight.bold),
+                                color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
@@ -62,6 +65,21 @@ class SettingsItem extends StatelessWidget {
               )
             : Container(),
       ],
+    );
+
+    final automationId = this.automationId;
+    if (automationId == null) return child;
+
+    // MergeSemantics collapses the inner clickable + Row(Icon, Text, chevron)
+    // into one accessibility node so the identifier lands on the element
+    // Appium can resolve (without it the id stays on a non-hittable container).
+    return MergeSemantics(
+      child: Semantics(
+        identifier: automationId,
+        label: text,
+        button: true,
+        child: child,
+      ),
     );
   }
 }

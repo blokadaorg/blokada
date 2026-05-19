@@ -3,6 +3,7 @@ import 'package:common/src/features/env/domain/env.dart';
 import 'package:common/src/features/link/domain/link.dart';
 import 'package:common/src/features/rate/domain/rate.dart';
 import 'package:common/src/features/support/domain/support.dart';
+import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/common_card.dart';
 import 'package:common/src/shared/ui/common_divider.dart';
@@ -169,6 +170,7 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                                     SettingsItem(
                                         icon: CupertinoIcons.shield_lefthalf_fill,
                                         text: "family stats title".i18n, // My exceptions
+                                        automationId: AutomationIds.settingsExceptions,
                                         onTap: () {
                                           Navigation.open(Paths.settingsExceptions);
                                         }),
@@ -176,6 +178,7 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                                     SettingsItem(
                                         icon: CupertinoIcons.chart_bar,
                                         text: "activity section header".i18n,
+                                        automationId: AutomationIds.settingsRetention,
                                         onTap: () {
                                           Navigation.open(Paths.settingsRetention);
                                         }),
@@ -265,23 +268,32 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                       ],
                     ),
                   ),
-                  CupertinoSwitch(
-                    activeColor: context.theme.accent,
-                    value: _weeklyReportEnabled,
-                    onChanged: (bool value) async {
-                      final previous = _weeklyReportEnabled;
-                      setState(() {
-                        _weeklyReportEnabled = value;
-                      });
-                      try {
-                        await _notification!.setWeeklyReportEnabled(Markers.userTap, value);
-                      } catch (_) {
-                        if (!mounted) return;
+                  // MergeSemantics so the identifier lands on the switch node
+                  // Appium resolves (un-merged it is flaky — same fix as
+                  // filter_option).
+                  MergeSemantics(
+                    child: Semantics(
+                    identifier: AutomationIds.settingsWeeklyReport,
+                    toggled: _weeklyReportEnabled,
+                    child: CupertinoSwitch(
+                      activeColor: context.theme.accent,
+                      value: _weeklyReportEnabled,
+                      onChanged: (bool value) async {
+                        final previous = _weeklyReportEnabled;
                         setState(() {
-                          _weeklyReportEnabled = previous;
+                          _weeklyReportEnabled = value;
                         });
-                      }
-                    },
+                        try {
+                          await _notification!.setWeeklyReportEnabled(Markers.userTap, value);
+                        } catch (_) {
+                          if (!mounted) return;
+                          setState(() {
+                            _weeklyReportEnabled = previous;
+                          });
+                        }
+                      },
+                    ),
+                  ),
                   ),
                 ],
               ),
@@ -323,6 +335,7 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                     unread: _unread.present ?? false,
                     icon: CupertinoIcons.chat_bubble_text,
                     text: "support action chat".i18n,
+                    automationId: AutomationIds.settingsSupport,
                     onTap: () => Navigation.open(Paths.support)),
                 const CommonDivider(),
                 SettingsItem(

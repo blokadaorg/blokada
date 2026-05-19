@@ -9,6 +9,10 @@ class TabItem extends StatefulWidget {
   final VoidCallback? onTap;
   final bool showUnreadBadge;
 
+  /// Stable semantics identifier used by automation because these tab buttons
+  /// are custom Flutter gestures rather than native tab bar controls.
+  final String? automationId;
+
   const TabItem({
     Key? key,
     required this.icon,
@@ -16,6 +20,7 @@ class TabItem extends StatefulWidget {
     required this.active,
     this.onTap,
     this.showUnreadBadge = false,
+    this.automationId,
   }) : super(key: key);
 
   @override
@@ -25,10 +30,9 @@ class TabItem extends StatefulWidget {
 class TabItemState extends State<TabItem> {
   @override
   Widget build(BuildContext context) {
-    final color =
-        widget.active ? context.theme.accent : context.theme.textPrimary;
+    final color = widget.active ? context.theme.accent : context.theme.textPrimary;
 
-    return GestureDetector(
+    final child = GestureDetector(
       onTap: widget.onTap,
       child: Container(
         padding: const EdgeInsets.all(0),
@@ -55,6 +59,22 @@ class TabItemState extends State<TabItem> {
             ],
           ),
         ),
+      ),
+    );
+
+    final automationId = widget.automationId;
+    if (automationId == null) return child;
+
+    // MergeSemantics collapses the GestureDetector + Icon/Text column into a
+    // single node so the identifier reaches the iOS accessibility element
+    // Appium queries (otherwise it stays on a non-hittable container).
+    return MergeSemantics(
+      child: Semantics(
+        identifier: automationId,
+        label: widget.title,
+        button: widget.onTap != null,
+        selected: widget.active,
+        child: child,
       ),
     );
   }

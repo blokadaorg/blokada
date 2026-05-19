@@ -34,6 +34,7 @@ ADAPTY_VER := 3_8.0
 	ci-build-ios-family ci-build-ios-six \
 	adapty-paywalls \
 	appium-explore-session \
+	appium-ai-explore \
 	appium-test \
 
 translate:
@@ -98,7 +99,7 @@ build-ios-six-debug:
 appium-test:
 	@set -euo pipefail; \
 	cd automation/appium/wdio && \
-	npm install >/dev/null 2>&1 && \
+	npm ci >/dev/null && \
 	eval "$$(IOS_AUTO_SELECT_FIRST=1 node scripts/setup-session.mjs)"; \
 	export IOS_AUTO_SELECT_FIRST=1; \
 	$(MAKE) -C ../../../ios "$$APPIUM_APP_INSTALL_TARGET" IOS_UDID="$$IOS_UDID" IOS_DEVICE_NAME="$$IOS_DEVICE_NAME"; \
@@ -110,12 +111,25 @@ appium-test:
 	fi; \
 	node scripts/run-wdio.mjs
 
+# Run the AI-driven exploratory pass against an already installed/onboarded app.
+# Intended CI usage: run this immediately after make appium-test with APP_INSTALL=0.
+appium-ai-explore:
+	@set -euo pipefail; \
+	cd automation/appium/wdio && \
+	npm ci >/dev/null && \
+	export IOS_AUTO_SELECT_FIRST="$${IOS_AUTO_SELECT_FIRST:-1}"; \
+	eval "$$(node scripts/setup-session.mjs)"; \
+	if [ "$(or $(APP_INSTALL),0)" != "0" ]; then \
+		$(MAKE) -C ../../../ios "$$APPIUM_APP_INSTALL_TARGET" IOS_UDID="$$IOS_UDID" IOS_DEVICE_NAME="$$IOS_DEVICE_NAME"; \
+	fi; \
+	node scripts/ai-explore.mjs
+
 # Start a long-lived machine-oriented Appium explorer session against a connected iOS device.
 # Usage: make appium-explore-session [IOS_DEVICE_NAME="device name"] [APP_FLAVOR="six|family"] [APP_INSTALL=0]
 appium-explore-session:
 	@set -euo pipefail; \
 	cd automation/appium/wdio && \
-	npm install >/dev/null 2>&1 && \
+	npm ci >/dev/null && \
 	export IOS_AUTO_SELECT_FIRST="$${IOS_AUTO_SELECT_FIRST:-1}"; \
 	eval "$$(node scripts/setup-session.mjs)"; \
 	if [ "$${APP_INSTALL:-1}" != "0" ]; then \
