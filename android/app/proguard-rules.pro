@@ -19,3 +19,6 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Google Play Install Referrer (used for Adapty acquisition-source attribution).
+-keep class com.android.installreferrer.** { *; }

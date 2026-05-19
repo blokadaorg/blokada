@@ -235,4 +235,17 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIPaywa
       }
     });
   }
+
+  @override
+  Future<void> updateAttribution(Marker m, Map<String, dynamic> attribution,
+      {String source = "custom"}) async {
+    return await log(m).trace("updateAttribution", (m) async {
+      try {
+        await _adapty.updateAttribution(attribution, source: source);
+        log(m).i("Sent install attribution to Adapty (flutter sdk)");
+      } on AdaptyError catch (adaptyError) {
+        throw Exception("Adapty error: ${adaptyError.message}");
+      }
+    });
+  }
 }

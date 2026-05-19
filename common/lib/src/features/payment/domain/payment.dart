@@ -12,6 +12,7 @@ import 'package:common/src/platform/stage/stage.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:i18n_extension/i18n_extension.dart';
+import 'package:play_install_referrer/play_install_referrer.dart';
 
 part 'actor.dart';
 part 'adapty.dart';
@@ -19,6 +20,7 @@ part 'adapty_key.dart';
 part 'attribute_converter.dart';
 part 'api.dart';
 part 'channel.dart';
+part 'install_referrer.dart';
 part 'paywall_sheet.dart';
 
 enum OnboardingStep {
@@ -59,6 +61,9 @@ class PaymentModule with Module {
   @override
   onCreateModule() async {
     await register(CurrentOnboardingStepValue());
+    await register(InstallReferrerSentValue());
+    await register<InstallReferrerChannel>(PlatformInstallReferrerChannel());
+    await register(InstallReferrerService());
     await register(PaymentActor());
     await register(PaymentApi());
     await register(PaymentCommand());

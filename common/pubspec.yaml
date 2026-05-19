@@ -56,6 +56,7 @@ dependencies:
   flyer_chat_text_message: ^2.0.0
   logger: ^2.4.0
   adapty_flutter: 3.15.5
+  play_install_referrer: ^0.5.0
   input_code_field: ^2.0.2
   flutter_linkify: ^6.0.0
   cached_network_image: ^3.3.1
