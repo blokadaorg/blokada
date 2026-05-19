@@ -28,7 +28,18 @@ const rawConfig = {
   },
   reporters: ["spec"],
   services: [],
-  capabilities: [buildCapabilities(process.env)]
+  capabilities: [buildCapabilities(process.env)],
+  // Sleep the device screen when the run finishes so the CI iPhone is not
+  // left awake at full brightness between runs. Pairs with the wake step in
+  // `make appium-test` (relaunch before the run). Best-effort — a lock
+  // failure must never fail the suite.
+  after: async function () {
+    try {
+      await browser.lock();
+    } catch (error) {
+      console.warn(`Post-run device lock failed: ${String(error)}`);
+    }
+  }
 } as const;
 
 export const config = rawConfig as unknown as Options.Testrunner;

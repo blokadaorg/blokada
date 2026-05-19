@@ -102,6 +102,8 @@ appium-test:
 	eval "$$(IOS_AUTO_SELECT_FIRST=1 node scripts/setup-session.mjs)"; \
 	export IOS_AUTO_SELECT_FIRST=1; \
 	$(MAKE) -C ../../../ios "$$APPIUM_APP_INSTALL_TARGET" IOS_UDID="$$IOS_UDID" IOS_DEVICE_NAME="$$IOS_DEVICE_NAME"; \
+	xcrun devicectl device process launch --terminate-existing --device "$$IOS_UDID" "$$APP_BUNDLE_ID" >/dev/null \
+		|| echo "wake: device app launch failed (continuing; WDA will activate)" >&2; \
 	node scripts/run-wdio.mjs
 
 # Start a long-lived machine-oriented Appium explorer session against a connected iOS device.
