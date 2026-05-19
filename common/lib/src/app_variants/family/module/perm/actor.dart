@@ -43,9 +43,12 @@ class PermActor with Logging, Actor {
       await _perm.change(m, isEnabled);
     } else {
       final current = await _channel.getPrivateDnsState();
+      // Mirror of PlatformPermActor._isPrivateDnsStateEnabled — see the
+      // rationale there; if you change this, change that too.
       final isEnabled = current.kind == PrivateDnsStateKind.enabled &&
-          current.serverUrl != null &&
-          _check.isCorrect(m, current.serverUrl!, device.deviceTag, device.alias);
+          (Core.act.isMocked ||
+              (current.serverUrl != null &&
+                  _check.isCorrect(m, current.serverUrl!, device.deviceTag, device.alias)));
       await _perm.change(m, isEnabled);
     }
   }

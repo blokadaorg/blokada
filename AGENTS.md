@@ -47,6 +47,19 @@ management uses MobX; payments use Adapty.
 git submodule update --init --recursive
 ```
 
+In a fresh worktree, the command above re-fetches every submodule from
+origin (~20 s and ~340 MB for this repo, dominated by `landing-github-pages`).
+Faster alternative: copy the already-populated submodule directories from
+your main checkout. On APFS (macOS), `cp -cR` is near-instant and uses
+copy-on-write to avoid duplicating disk:
+
+```bash
+cp -cR /path/to/main-checkout/deps/* deps/
+```
+
+Use plain `cp -R` on non-APFS filesystems. Either path leaves the worktree
+buildable; pick whichever fits your workflow.
+
 ## Build & Install Commands
 
 ### Debug Builds

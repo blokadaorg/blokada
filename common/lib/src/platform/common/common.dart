@@ -14,7 +14,11 @@ class PlatformCommonModule with Logging, Module {
   onCreateModule() async {
     CommonChannel channel;
 
-    if (Core.act.isProd) {
+    // Mocked scenario uses the real platform channel so HTTP, notifications,
+    // rate/env/link/config calls hit iOS code (which then talks to the real
+    // backend at api.blocka.net / family.api.blocka.net). NoOpCommonChannel
+    // is only for unit tests where the platform host is unavailable.
+    if (Core.act.isProd || Core.act.isMocked) {
       channel = PlatformCommonChannel();
     } else {
       channel = NoOpCommonChannel();

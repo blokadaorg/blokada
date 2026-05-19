@@ -16,6 +16,7 @@ mixin Act {
   late final bool isIos;
   late final bool isAndroid;
   late final bool isTest;
+  late final bool isMocked;
   late final bool isRelease;
   late final bool hasToys;
   late final PlatformType platform;
@@ -29,6 +30,7 @@ class ActScreenplay with Act {
     isProd = scenario == ActScenario.prod || scenario == ActScenario.prodWithToys;
     isFamily = flavor == Flavor.family;
     isTest = scenario == ActScenario.test;
+    isMocked = scenario == ActScenario.platformIsMocked;
     isRelease = kReleaseMode;
     hasToys = scenario == ActScenario.prodWithToys;
     isIos = platform == PlatformType.iOS;

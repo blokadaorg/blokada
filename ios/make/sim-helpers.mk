@@ -19,10 +19,26 @@ SIM_BASE     ?= iPhone 16
 SIM_TEMPLATE ?= $(SIM_BASE)
 SIM_NAME     := $(SIM_BASE) - $(NAME)
 
+# Repo-root .env.local: gitignored, optional. Sourced by run-mocked-app.
+# Recognised keys: SIX_DEV_ACCOUNT_ID, FAMILY_DEV_ACCOUNT_ID, ACCOUNT_ID.
+ENV_FILE     := $(abspath $(CURDIR)/..)/.env.local
+
+# ACCOUNT_ID seeds the dev account into secure storage at boot via the Mocked
+# scheme's --dart-define plumbing. Resolution order in run-mocked-app:
+#   1. ACCOUNT_ID env/CLI override (always wins)
+#   2. Flavor-keyed value from $(ENV_FILE) (SIX_/FAMILY_DEV_ACCOUNT_ID)
+#   3. Unset -> build proceeds; app fails fast at boot with a StateError.
+export ACCOUNT_ID
+
 # Literal `(` for use in shell strings — keeps Make's $(...) parser happy.
 LPAREN := (
 
-sim-udid = $(shell xcrun simctl list devices 2>/dev/null | awk -v needle="    $(SIM_NAME) $(LPAREN)" 'index($$0, needle) == 1 {print; exit}' | sed -E 's/.*\(([-0-9A-Fa-f]+)\).*/\1/')
+# Restricted to `available` so a stale clone (common after Xcode runtime
+# upgrades, when its runtime is gone) is treated as missing — _ensure-sim
+# then re-clones automatically instead of returning an unavailable UDID
+# that boot/install would later fail on. Run `make sim-gc` to clear the
+# stale entry from Xcode's device list.
+sim-udid = $(shell xcrun simctl list devices available 2>/dev/null | awk -v needle="    $(SIM_NAME) $(LPAREN)" 'index($$0, needle) == 1 {print; exit}' | sed -E 's/.*\(([-0-9A-Fa-f]+)\).*/\1/')
 
 .PHONY: sim-status sim-clean sim-gc \
 	run-six-mocked run-family-mocked \
@@ -84,6 +100,11 @@ print-product-name-scheme:
 # own recipe line so the leading `@` in xcode-build is parsed as Make's silent
 # prefix; inlining it inside a shell pipeline would leak the literal `@` and
 # break bash.
+#
+# ACCOUNT_ID is propagated to the Mocked / FamilyMocked script phase as an
+# environment variable (via the `export ACCOUNT_ID` directive above), not as
+# an xcodebuild user-defined build setting, so the value does not appear in
+# argv / `ps` output.
 _build-mocked:
 	$(call xcode-build,build,$(SCHEME),Debug,$(DESTINATION),)
 
@@ -96,6 +117,19 @@ define run-mocked-app
 	@set -e; \
 	UDID=$$($(MAKE) --no-print-directory _ensure-sim); \
 	DEST="platform=iOS Simulator,id=$$UDID"; \
+	ACCOUNT_ID=$$( \
+		__cli="$${ACCOUNT_ID:-}"; \
+		[ -f "$(ENV_FILE)" ] && . "$(ENV_FILE)"; \
+		if [ -n "$$__cli" ]; then printf '%s' "$$__cli"; \
+		elif [ -n "$${ACCOUNT_ID:-}" ]; then printf '%s' "$$ACCOUNT_ID"; \
+		elif [ "$(1)" = "Mocked" ]; then printf '%s' "$${SIX_DEV_ACCOUNT_ID:-}"; \
+		elif [ "$(1)" = "FamilyMocked" ]; then printf '%s' "$${FAMILY_DEV_ACCOUNT_ID:-}"; \
+		fi \
+	); \
+	export ACCOUNT_ID; \
+	if [ -z "$${ACCOUNT_ID:-}" ]; then \
+		echo "warning: ACCOUNT_ID not set (no CLI override, no $(ENV_FILE) entry). App will compile but throw StateError at boot. See ios/SIMULATOR.md." >&2; \
+	fi; \
 	$(MAKE) --no-print-directory _build-mocked SCHEME=$(1) DESTINATION="$$DEST"; \
 	xcrun simctl boot "$$UDID" 2>/dev/null || true; \
 	APP_DIR=$$($(MAKE) --no-print-directory print-build-dir-scheme SCHEME=$(1) DESTINATION="$$DEST"); \
