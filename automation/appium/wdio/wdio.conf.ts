@@ -34,8 +34,11 @@ const rawConfig = {
   // `make appium-test` (relaunch before the run). Best-effort — a lock
   // failure must never fail the suite.
   after: async function () {
+    // Log on both paths so every run's log proves this hook executed.
+    console.warn("Post-run: locking device screen");
     try {
       await browser.lock();
+      console.warn("Post-run: device screen locked");
     } catch (error) {
       console.warn(`Post-run device lock failed: ${String(error)}`);
     }
