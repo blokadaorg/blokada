@@ -99,7 +99,7 @@ build-ios-six-debug:
 appium-test:
 	@set -euo pipefail; \
 	cd automation/appium/wdio && \
-	npm install >/dev/null 2>&1 && \
+	npm ci >/dev/null && \
 	eval "$$(IOS_AUTO_SELECT_FIRST=1 node scripts/setup-session.mjs)"; \
 	export IOS_AUTO_SELECT_FIRST=1; \
 	$(MAKE) -C ../../../ios "$$APPIUM_APP_INSTALL_TARGET" IOS_UDID="$$IOS_UDID" IOS_DEVICE_NAME="$$IOS_DEVICE_NAME"; \
@@ -116,7 +116,7 @@ appium-test:
 appium-ai-explore:
 	@set -euo pipefail; \
 	cd automation/appium/wdio && \
-	npm install >/dev/null 2>&1 && \
+	npm ci >/dev/null && \
 	export IOS_AUTO_SELECT_FIRST="$${IOS_AUTO_SELECT_FIRST:-1}"; \
 	eval "$$(node scripts/setup-session.mjs)"; \
 	if [ "$(or $(APP_INSTALL),0)" != "0" ]; then \
@@ -129,7 +129,7 @@ appium-ai-explore:
 appium-explore-session:
 	@set -euo pipefail; \
 	cd automation/appium/wdio && \
-	npm install >/dev/null 2>&1 && \
+	npm ci >/dev/null && \
 	export IOS_AUTO_SELECT_FIRST="$${IOS_AUTO_SELECT_FIRST:-1}"; \
 	eval "$$(node scripts/setup-session.mjs)"; \
 	if [ "$${APP_INSTALL:-1}" != "0" ]; then \

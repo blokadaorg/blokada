@@ -110,7 +110,10 @@ class TopBarState extends State<TopBar> {
                           child: Semantics(
                             identifier: AutomationIds.screenTitle,
                             header: true,
-                            label: widget.title,
+                            // No explicit label: the child Text already
+                            // supplies it (MergeSemantics merges it onto this
+                            // node). Setting it here too made VoiceOver
+                            // announce the title twice / doubled the title.
                             child: Text(widget.title,
                                 style: TextStyle(
                                   color: context.theme.textPrimary,

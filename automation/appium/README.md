@@ -143,7 +143,7 @@ Before handing control to the model, the runner performs a codebase-derived
 mission warmup across the main V6 surfaces: Home, Privacy Pulse, Advanced, and
 Settings. The warmup uses stable automation identifiers where available, scrolls
 each reached screen, returns to Home, and records mission coverage in the
-report. The warmup is capped at ~40% of the wall-clock budget so the model
+report. The warmup is capped at ~15% of the wall-clock budget so the model
 still gets time to drive even if warmup navigation is slow. The model receives that coverage state, known failed
 selectors, and the known surface checklist so it can spend its remaining budget
 on unvisited areas instead of repeating the same tab or stale selector.
