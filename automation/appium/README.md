@@ -19,7 +19,18 @@ against the Blokada 6 iOS app on physical devices.
    - Choose your physical device (for example, your connected iPhone).  
    - In Signing & Capabilities set *Development Team* to your local Apple Developer team.
 4. **Build/run once from Xcode**  
-   
+5. **Disable Auto-Lock on the device — REQUIRED**  
+   Settings ▸ Display & Brightness ▸ Auto-Lock ▸ **Never**, and keep the
+   device unlocked and on power.  
+   If the iPhone sleeps/locks during a run, WebDriverAgent returns black
+   screenshots and an empty/SpringBoard accessibility tree, so element
+   lookups fail intermittently — manifesting as flaky
+   `element ("~automation.power_toggle") still not existing` /
+   `Failed to find General / Allmänt in Settings` failures that pass on
+   re-run. This was the dominant cause of `appium-smoke` flakiness; it is
+   a runner/device-configuration requirement, not a code issue. CI
+   self-hosted-runner devices must have Auto-Lock set to Never.
+
 After this, Appium can build WDA on demand using the same signing profile.
 
 ## Host Mac: Full Disk Access for `/var/db/lockdown/`
