@@ -43,11 +43,13 @@ export async function acceptNotificationAlert(timeout = 5000): Promise<void> {
     try {
       alertText = await driver.getAlertText();
       break;
-    } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      if (message.toLowerCase().includes("modal dialog when one was not open")) {
-        return;
-      }
+    } catch {
+      // The iOS permission alert is presented asynchronously, so a
+      // "no modal dialog open" error often just means it has not
+      // appeared *yet*; keep polling within the timeout instead of
+      // returning on the first miss. (Minor robustness only — the
+      // dominant DNS-onboarding smoke flakiness was a CI-runner device
+      // Auto-Lock issue, not this; see automation/appium/README.md.)
       await driver.pause(200);
     }
   }

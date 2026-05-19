@@ -1,5 +1,6 @@
 import { $, $$, driver } from "@wdio/globals";
 
+import { acceptNotificationAlert } from "./alerts.js";
 import { waitForAppForeground } from "./app.js";
 
 export const SETTINGS_BUNDLE_ID = "com.apple.Preferences";
@@ -405,6 +406,12 @@ export async function waitForSettingsForeground(timeout = 20000): Promise<void> 
 }
 
 export async function enableDnsProfile(): Promise<void> {
+  // A late iOS notification-permission prompt can surface during the
+  // app→Settings hand-off and overlay Settings; dismissAnyAlerts() only
+  // taps generic dismiss buttons, so clear the permission prompt
+  // explicitly before navigating, or openSettingsSection cannot reach
+  // "General" and the smoke flakes.
+  await acceptNotificationAlert();
   await dismissAnyAlerts();
 
   // Ensure we start from the root of Settings before navigating.
