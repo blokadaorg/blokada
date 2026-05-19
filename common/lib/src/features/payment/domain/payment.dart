@@ -11,6 +11,7 @@ import 'package:common/src/platform/stage/channel.pg.dart';
 import 'package:common/src/platform/stage/stage.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show PlatformException;
 import 'package:i18n_extension/i18n_extension.dart';
 import 'package:play_install_referrer/play_install_referrer.dart';
 

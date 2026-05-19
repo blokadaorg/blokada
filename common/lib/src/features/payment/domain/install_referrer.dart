@@ -135,24 +135,66 @@ class InstallReferrerData {
   }
 }
 
+enum InstallReferrerFetchStatus {
+  /// Referrer was read (the url may still be organic).
+  ok,
+
+  /// Referrer will never be available (non-Play / sideload / old Play Store).
+  /// Safe to record organic and latch the guard.
+  permanentlyUnavailable,
+
+  /// Transient Play hiccup (no connection / service busy). Must NOT be latched
+  /// as organic — retry on a later app start so a paid install isn't
+  /// permanently misattributed.
+  transientlyUnavailable,
+}
+
+class InstallReferrerFetchResult {
+  final InstallReferrerFetchStatus status;
+  final String? url; // present only when status == ok
+
+  const InstallReferrerFetchResult(this.status, [this.url]);
+}
+
 /// Test seam over the Play Install Referrer system API.
 mixin InstallReferrerChannel {
-  Future<String?> fetchReferrerUrl();
+  Future<InstallReferrerFetchResult> fetchReferrer();
 }
 
 class PlatformInstallReferrerChannel with Logging, InstallReferrerChannel {
+  // Connection-class errors: the referrer may be obtainable on a later launch.
+  static const _transientCodes = {
+    'SERVICE_UNAVAILABLE',
+    'SERVICE_DISCONNECTED',
+    'DEAD_OBJECT_EXCEPTION',
+    'BAD_STATE',
+  };
+
   @override
-  Future<String?> fetchReferrerUrl() async {
+  Future<InstallReferrerFetchResult> fetchReferrer() async {
     // play_install_referrer throws on iOS / when Play Services are absent.
-    if (!Core.act.isAndroid) return null;
+    if (!Core.act.isAndroid) {
+      return const InstallReferrerFetchResult(
+          InstallReferrerFetchStatus.permanentlyUnavailable);
+    }
     try {
       final details = await PlayInstallReferrer.installReferrer;
-      return details.installReferrer;
+      return InstallReferrerFetchResult(
+          InstallReferrerFetchStatus.ok, details.installReferrer);
+    } on PlatformException catch (e) {
+      // FEATURE_NOT_SUPPORTED / DEVELOPER_ERROR / PERMISSION_ERROR / unknown
+      // are permanent; only connection-class codes are retryable.
+      final transient = _transientCodes.contains(e.code);
+      log(Markers.root)
+          .i("Install referrer unavailable: ${e.code} (transient=$transient)");
+      return InstallReferrerFetchResult(transient
+          ? InstallReferrerFetchStatus.transientlyUnavailable
+          : InstallReferrerFetchStatus.permanentlyUnavailable);
     } catch (e) {
-      // FEATURE_NOT_SUPPORTED / SERVICE_UNAVAILABLE / DEVELOPER_ERROR
-      // (sideload, debug, non-Play install) -> treat as organic/unknown.
+      // Non-PlatformException (e.g. MissingPluginException) -> permanent.
       log(Markers.root).i("Install referrer unavailable: $e");
-      return null;
+      return const InstallReferrerFetchResult(
+          InstallReferrerFetchStatus.permanentlyUnavailable);
     }
   }
 }
@@ -191,25 +233,48 @@ class InstallReferrerService with Logging {
           return;
         }
 
-        final url = await _channel.fetchReferrerUrl();
+        final fetched = await _channel.fetchReferrer();
+        if (fetched.status ==
+            InstallReferrerFetchStatus.transientlyUnavailable) {
+          // A temporary Play hiccup must NOT latch a (possibly paid) install
+          // as organic. Send nothing, leave the guard unset, retry next start.
+          log(m).i("Install referrer temporarily unavailable, "
+              "will retry on next app start");
+          return;
+        }
+
+        // ok -> parse the (possibly organic) referrer; permanentlyUnavailable
+        // -> organic, since nothing better will ever arrive.
+        final url =
+            fetched.status == InstallReferrerFetchStatus.ok ? fetched.url : null;
         final data = InstallReferrerData.parse(url);
         log(m).i("Install referrer: organic=${data.isOrganic}, "
-            "hasGclid=${data.gclid != null}, available=${url != null}");
+            "hasGclid=${data.gclid != null}, status=${fetched.status.name}");
 
         await _payment.updateAttribution(m, data.toAttributionMap());
 
-        final customAttrs = data.buildCustomAttributes();
-        if (customAttrs.isNotEmpty) {
-          await _payment
-              .setCustomAttributes(m, {'custom_attributes': customAttrs});
-        }
-
-        // Reached only on success (incl. organic when referrer unavailable —
-        // nothing better will ever arrive, so we never spin). On a transient
-        // Adapty error we fall to catch and leave the guard unset to retry on
-        // the next app start.
+        // Checkpoint immediately: the #71-critical acquisition-source signal is
+        // delivered. Adapty is one-source-per-profile, so updateAttribution
+        // must never be re-attempted — do not couple it to the best-effort
+        // custom-attribute write below. On an updateAttribution failure we fall
+        // to catch with the guard unset and retry on the next app start.
         await _sentGuard.change(m, true);
         log(m).i("Sent install referrer attribution to Adapty");
+
+        // Best-effort BI extras (gclid / acq_status). Independently swallowed:
+        // a failure here must not unset the guard nor re-trigger attribution.
+        final customAttrs = data.buildCustomAttributes();
+        if (customAttrs.isNotEmpty) {
+          try {
+            await _payment
+                .setCustomAttributes(m, {'custom_attributes': customAttrs});
+          } catch (e, s) {
+            log(m).e(
+                msg: "Failed syncing acq_* custom attributes (best-effort)",
+                err: e,
+                stack: s);
+          }
+        }
       } catch (e, s) {
         // Never rethrow: must not break the payment init/startup sequence.
         log(m).e(
