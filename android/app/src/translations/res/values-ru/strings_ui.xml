@@ -569,6 +569,8 @@
     <string name="freemium_sheet_safari_header">Начните блокировать рекламу в Safari</string>
     <string name="freemium_sheet_safari_desc">Включите наше расширение в Safari, чтобы получить необходимую защиту во время работы в интернете. Оно блокирует назойливую рекламу, включая видеорекламу на YouTube, чтобы вы могли наслаждаться более чистым и быстрым интернетом.</string>
     <string name="freemium_sheet_safari_cta">Открыть Safari</string>
+    <string name="freemium_sheet_safari_setup_later">Настроить позже</string>
+    <string name="freemium_sheet_safari_setup_later_desc">Перейти к другим вариантам</string>
     <string name="dialog_title_activity_rule">Как Blokada должна обрабатывать трафик к %1$s?</string>
     <string name="dialog_exception_add_title">Добавить исключение</string>
     <string name="dialog_exception_add_text">Введите имя хоста для добавления в свои исключения. Вы можете использовать * как подстановочный знак, например, *.example.com.</string>
@@ -637,6 +639,8 @@
     <string name="notification_weekly_report_allowed_toplist_up_title">Домен поднялся в списке лидеров</string>
     <string name="notification_weekly_report_blocked_toplist_down_title">Активность трекеров снизилась</string>
     <string name="notification_weekly_report_allowed_toplist_down_title">Домен опустился в списке лидеров</string>
-    <string name="notification_weekly_report_toplist_new_body">%s теперь занимает %s место на этой неделе.</string>
-    <string name="notification_weekly_report_toplist_move_body">%s переместился на #%s (был #%s) на этой неделе.</string>
+    <string name="notification_weekly_report_toplist_new_body">Blokada заблокировала %s — теперь занимает #%s место. Нажмите, чтобы узнать больше.</string>
+    <string name="notification_weekly_report_toplist_move_body">%s перемещен на #%s (был #%s). Нажмите, чтобы узнать больше.</string>
+    <string name="notification_weekly_report_action_see_more">Подробнее</string>
+    <string name="notification_weekly_report_action_opt_out">Отключить еженедельные отчеты</string>
 </resources>

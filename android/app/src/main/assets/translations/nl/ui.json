@@ -568,6 +568,8 @@
     "freemium sheet safari header": "Begin met advertenties blokkeren in Safari",
     "freemium sheet safari desc": "Schakel onze extensie in Safari in om essentiële bescherming te krijgen tijdens het browsen. Het blokkeert vervelende advertenties — inclusief video-advertenties op YouTube — zodat je kunt genieten van een schonere, snellere webervaring.",
     "freemium sheet safari cta": "Open Safari",
+    "freemium sheet safari setup later": "Set up later",
+    "freemium sheet safari setup later desc": "Continue to other options",
     "dialog title activity rule": "Hoe moet Blokada verkeer naar %1$s behandelen?",
     "dialog exception add title": "Uitzondering toevoegen",
     "dialog exception add text": "Voer een hostnaam in om aan je uitzonderingen toe te voegen. Je kunt * gebruiken als wildcard, bijvoorbeeld *.voorbeeld.com.",
@@ -636,6 +638,8 @@
     "notification weekly report allowed toplist up title": "Domain moved up",
     "notification weekly report blocked toplist down title": "Tracker activity decreased",
     "notification weekly report allowed toplist down title": "Domain moved down",
-    "notification weekly report toplist new body": "%s is now #%s this week.",
-    "notification weekly report toplist move body": "%s moved to #%s (was #%s) this week."
+    "notification weekly report toplist new body": "Blokada is blocking %s — now ranked #%s. Tap to see more.",
+    "notification weekly report toplist move body": "%s moved to #%s (was #%s). Tap to see more.",
+    "notification weekly report action see more": "See more",
+    "notification weekly report action opt out": "Turn off weekly reports"
 } }

@@ -568,6 +568,8 @@
     "freemium sheet safari header": "Safariで広告ブロックを開始",
     "freemium sheet safari desc": "Safariで拡張機能を有効にして、ブラウジング中にエッセンシャル保護を得ましょう。YouTubeのビデオ広告を含む煩わしい広告をブロックするので、よりクリーンで速いウェブ体験を楽しめます。",
     "freemium sheet safari cta": "Safariを開く",
+    "freemium sheet safari setup later": "Set up later",
+    "freemium sheet safari setup later desc": "Continue to other options",
     "dialog title activity rule": "%1$sへのトラフィックをBlokadaでどのように処理しますか？",
     "dialog exception add title": "例外を追加",
     "dialog exception add text": "例外に追加するホスト名を入力してください。ワイルドカードとして*を利用できます（例：*.example.com）。",
@@ -636,6 +638,8 @@
     "notification weekly report allowed toplist up title": "Domain moved up",
     "notification weekly report blocked toplist down title": "Tracker activity decreased",
     "notification weekly report allowed toplist down title": "Domain moved down",
-    "notification weekly report toplist new body": "%s is now #%s this week.",
-    "notification weekly report toplist move body": "%s moved to #%s (was #%s) this week."
+    "notification weekly report toplist new body": "Blokada is blocking %s — now ranked #%s. Tap to see more.",
+    "notification weekly report toplist move body": "%s moved to #%s (was #%s). Tap to see more.",
+    "notification weekly report action see more": "See more",
+    "notification weekly report action opt out": "Turn off weekly reports"
 } }

@@ -569,6 +569,8 @@
     <string name="freemium_sheet_safari_header">Kezdd el a hirdetések blokkolását a Safariban</string>
     <string name="freemium_sheet_safari_desc">Engedélyezd bővítményünket Safariban, hogy alapvető védelmet kapj böngészés közben. Blokkolja a zavaró hirdetéseket – beleértve a YouTube videóhirdetéseket is –, így tisztább, gyorsabb webes élményt kapsz.</string>
     <string name="freemium_sheet_safari_cta">Safari megnyitása</string>
+    <string name="freemium_sheet_safari_setup_later">Set up later</string>
+    <string name="freemium_sheet_safari_setup_later_desc">Continue to other options</string>
     <string name="dialog_title_activity_rule">Hogyan kezelje a Blokada a(z) %1$s forgalmat?</string>
     <string name="dialog_exception_add_title">Kivétel hozzáadása</string>
     <string name="dialog_exception_add_text">Adj meg egy hosztnevet, amit szeretnél hozzáadni a kivételekhez. Használhatsz * karaktert helyettesítőként, például: *.example.com.</string>
@@ -637,6 +639,8 @@
     <string name="notification_weekly_report_allowed_toplist_up_title">Domain moved up</string>
     <string name="notification_weekly_report_blocked_toplist_down_title">Tracker activity decreased</string>
     <string name="notification_weekly_report_allowed_toplist_down_title">Domain moved down</string>
-    <string name="notification_weekly_report_toplist_new_body">%s is now #%s this week.</string>
-    <string name="notification_weekly_report_toplist_move_body">%s moved to #%s (was #%s) this week.</string>
+    <string name="notification_weekly_report_toplist_new_body">Blokada is blocking %s — now ranked #%s. Tap to see more.</string>
+    <string name="notification_weekly_report_toplist_move_body">%s moved to #%s (was #%s). Tap to see more.</string>
+    <string name="notification_weekly_report_action_see_more">See more</string>
+    <string name="notification_weekly_report_action_opt_out">Turn off weekly reports</string>
 </resources>

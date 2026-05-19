@@ -569,6 +569,8 @@
     <string name="freemium_sheet_safari_header">Започнете да блокирате рекламите в Safari</string>
     <string name="freemium_sheet_safari_desc">Активирайте нашето разширение в Safari, за да получите необходимата защита докато сърфирате. То блокира досадните реклами, включително видео рекламите в YouTube, така ще можете да се насладите на по-чисто и по-бързо сърфиране в интернет.</string>
     <string name="freemium_sheet_safari_cta">Отваряне на Safari</string>
+    <string name="freemium_sheet_safari_setup_later">Set up later</string>
+    <string name="freemium_sheet_safari_setup_later_desc">Continue to other options</string>
     <string name="dialog_title_activity_rule">Как Blokada да обработва трафика към %1$s?</string>
     <string name="dialog_exception_add_title">Добавяне на изключение</string>
     <string name="dialog_exception_add_text">Въведете име на хост, което да добавите към изключенията си. Можете да използвате * като заместващ символ, например *.example.com.</string>
@@ -637,6 +639,8 @@
     <string name="notification_weekly_report_allowed_toplist_up_title">Domain moved up</string>
     <string name="notification_weekly_report_blocked_toplist_down_title">Tracker activity decreased</string>
     <string name="notification_weekly_report_allowed_toplist_down_title">Domain moved down</string>
-    <string name="notification_weekly_report_toplist_new_body">%s is now #%s this week.</string>
-    <string name="notification_weekly_report_toplist_move_body">%s moved to #%s (was #%s) this week.</string>
+    <string name="notification_weekly_report_toplist_new_body">Blokada is blocking %s — now ranked #%s. Tap to see more.</string>
+    <string name="notification_weekly_report_toplist_move_body">%s moved to #%s (was #%s). Tap to see more.</string>
+    <string name="notification_weekly_report_action_see_more">See more</string>
+    <string name="notification_weekly_report_action_opt_out">Turn off weekly reports</string>
 </resources>

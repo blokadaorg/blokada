@@ -569,6 +569,8 @@
     <string name="freemium_sheet_safari_header">Commencez à bloquer les publicités dans Safari</string>
     <string name="freemium_sheet_safari_desc">Activez notre extension dans Safari pour obtenir une protection essentielle pendant que vous naviguez. Il bloque les publicités ennuyeuses — y compris les publicités vidéo sur YouTube — pour que vous puissiez profiter d’une expérience Web plus propre et plus rapide.</string>
     <string name="freemium_sheet_safari_cta">Ouvrez Safari</string>
+    <string name="freemium_sheet_safari_setup_later">Configurer plus tard</string>
+    <string name="freemium_sheet_safari_setup_later_desc">Passer aux autres options</string>
     <string name="dialog_title_activity_rule">Comment Blokada doit-il gérer le trafic vers %1$s ?</string>
     <string name="dialog_exception_add_title">Ajouter une exception</string>
     <string name="dialog_exception_add_text">Saisissez un nom d\'hôte à ajouter à vos exceptions. Vous pouvez utiliser * comme caractère générique, par exemple *.example.com.</string>
@@ -637,6 +639,8 @@
     <string name="notification_weekly_report_allowed_toplist_up_title">Domaine déplacé vers le haut</string>
     <string name="notification_weekly_report_blocked_toplist_down_title">Diminution de l\'activité du tracker</string>
     <string name="notification_weekly_report_allowed_toplist_down_title">Domaine déplacé vers le bas</string>
-    <string name="notification_weekly_report_toplist_new_body">%s est désormais #%s cette semaine.</string>
-    <string name="notification_weekly_report_toplist_move_body">%s a déménagé à #%s (était #%s) cette semaine.</string>
+    <string name="notification_weekly_report_toplist_new_body">Blokada bloque %s — désormais classé n° %s. Appuyez pour en savoir plus.</string>
+    <string name="notification_weekly_report_toplist_move_body">%s a été déplacé vers #%s (auparavant #%s). Appuyez ici pour en savoir plus.</string>
+    <string name="notification_weekly_report_action_see_more">En savoir plus</string>
+    <string name="notification_weekly_report_action_opt_out">Désactiver les rapports hebdomadaires</string>
 </resources>

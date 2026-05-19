@@ -786,6 +786,8 @@
 "freemium sheet safari header" = "Commencez à bloquer les publicités dans Safari";
 "freemium sheet safari desc" = "Activez notre extension dans Safari pour obtenir une protection essentielle pendant que vous naviguez. Il bloque les publicités ennuyeuses — y compris les publicités vidéo sur YouTube — pour que vous puissiez profiter d’une expérience Web plus propre et plus rapide.";
 "freemium sheet safari cta" = "Ouvrez Safari";
+"freemium sheet safari setup later" = "Configurer plus tard";
+"freemium sheet safari setup later desc" = "Passer aux autres options";
 
 "dialog title activity rule" = "Comment Blokada doit-il gérer le trafic vers %@ ?";
 "dialog exception add title" = "Ajouter une exception";
@@ -894,5 +896,8 @@
 "notification weekly report blocked toplist down title" = "Diminution de l'activité du tracker";
 "notification weekly report allowed toplist down title" = "Domaine déplacé vers le bas";
 
-"notification weekly report toplist new body" = "%s est désormais #%s cette semaine.";
-"notification weekly report toplist move body" = "%s a déménagé à #%s (était #%s) cette semaine.";
+"notification weekly report toplist new body" = "Blokada bloque %s — désormais classé n° %s. Appuyez pour en savoir plus.";
+"notification weekly report toplist move body" = "%s a été déplacé vers #%s (auparavant #%s). Appuyez ici pour en savoir plus.";
+
+"notification weekly report action see more" = "En savoir plus";
+"notification weekly report action opt out" = "Désactiver les rapports hebdomadaires";

@@ -569,6 +569,8 @@
     <string name="freemium_sheet_safari_header">Comece a bloquear anúncios no Safari</string>
     <string name="freemium_sheet_safari_desc">Habilite nossa extensão no Safari para obter proteção essencial enquanto navega. Ela bloqueia anúncios irritantes — incluindo anúncios em vídeo no YouTube — para que você aproveite uma web mais limpa e rápida.</string>
     <string name="freemium_sheet_safari_cta">Abrir Safari</string>
+    <string name="freemium_sheet_safari_setup_later">Set up later</string>
+    <string name="freemium_sheet_safari_setup_later_desc">Continue to other options</string>
     <string name="dialog_title_activity_rule">Como a Blokada deve tratar o tráfego para %1$s?</string>
     <string name="dialog_exception_add_title">Adicionar uma exceção</string>
     <string name="dialog_exception_add_text">Insira um nome de host para adicionar às suas exceções. Você pode usar * como coringa, por exemplo *.exemplo.com.</string>
@@ -637,6 +639,8 @@
     <string name="notification_weekly_report_allowed_toplist_up_title">Domain moved up</string>
     <string name="notification_weekly_report_blocked_toplist_down_title">Tracker activity decreased</string>
     <string name="notification_weekly_report_allowed_toplist_down_title">Domain moved down</string>
-    <string name="notification_weekly_report_toplist_new_body">%s is now #%s this week.</string>
-    <string name="notification_weekly_report_toplist_move_body">%s moved to #%s (was #%s) this week.</string>
+    <string name="notification_weekly_report_toplist_new_body">Blokada is blocking %s — now ranked #%s. Tap to see more.</string>
+    <string name="notification_weekly_report_toplist_move_body">%s moved to #%s (was #%s). Tap to see more.</string>
+    <string name="notification_weekly_report_action_see_more">See more</string>
+    <string name="notification_weekly_report_action_opt_out">Turn off weekly reports</string>
 </resources>

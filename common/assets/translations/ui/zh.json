@@ -568,6 +568,8 @@
     "freemium sheet safari header": "在 Safari 上開始封鎖廣告",
     "freemium sheet safari desc": "在 Safari 啟用我們的延伸功能，便能在瀏覽時獲得必備防護。它會封鎖煩人的廣告－包含 YouTube 上的影片廣告－讓您享受更乾淨、更快速的網頁體驗。",
     "freemium sheet safari cta": "開啟 Safari",
+    "freemium sheet safari setup later": "Set up later",
+    "freemium sheet safari setup later desc": "Continue to other options",
     "dialog title activity rule": "Blokada 應該如何處理 %s 的流量？",
     "dialog exception add title": "新增例外條件",
     "dialog exception add text": "請輸入要加入例外清單的主機名稱。您可以使用 * 作為萬用字元，例如 *.example.com。",
@@ -636,6 +638,8 @@
     "notification weekly report allowed toplist up title": "Domain moved up",
     "notification weekly report blocked toplist down title": "Tracker activity decreased",
     "notification weekly report allowed toplist down title": "Domain moved down",
-    "notification weekly report toplist new body": "%s is now #%s this week.",
-    "notification weekly report toplist move body": "%s moved to #%s (was #%s) this week."
+    "notification weekly report toplist new body": "Blokada is blocking %s — now ranked #%s. Tap to see more.",
+    "notification weekly report toplist move body": "%s moved to #%s (was #%s). Tap to see more.",
+    "notification weekly report action see more": "See more",
+    "notification weekly report action opt out": "Turn off weekly reports"
 }
