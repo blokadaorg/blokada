@@ -8,30 +8,26 @@ const STALENESS_PATTERNS: RegExp[] = [
   /code:\s*2006\b/i,
 ];
 
-type PullRecentDeviceLog = (options: Record<string, unknown>) => Promise<{ text: string }>;
-
-export async function assertAdaptyFallbackHealthy(bundleId: string): Promise<void> {
-  // Give the catch in common/lib/src/features/payment/domain/adapty.dart:39
-  // time to flush the failure line to the in-app share-log.
+export async function assertAdaptyFallbackHealthy(): Promise<void> {
+  // Adapty SDK emits 2006 to OSLog at setFallbackPaywalls() time, which runs
+  // during PaymentActor init at app boot — see adapty.dart:38. A short pause
+  // here lets the Dart catch flush its "Failed setting fallback" line too.
   await driver.pause(1500);
 
-  const caps = driver.capabilities as Record<string, unknown>;
-  const udid = (caps["appium:udid"] ?? caps["udid"]) as string | undefined;
-  if (!udid) {
-    throw new Error("Adapty fallback check: no UDID in wdio capabilities");
-  }
-
-  const logModule = (await import("../../../../device/lib/log.mjs")) as {
-    pullRecentDeviceLog: PullRecentDeviceLog;
-  };
-
-  const { text } = await logModule.pullRecentDeviceLog({
-    bundleId,
-    device: { udid },
-    window: "1h",
-    lines: 2000,
-    save: false,
-  });
+  // Session-scoped syslog buffer from appium-xcuitest-driver
+  // (via appium-ios-device). Bypasses the CoreDevice app-group provisioning
+  // path that breaks pullRecentDeviceLog with Code 1002.
+  const logs = await driver.getLogs("syslog");
+  const text = (Array.isArray(logs) ? logs : [logs])
+    .map((entry) => {
+      if (typeof entry === "string") return entry;
+      if (entry && typeof entry === "object") {
+        const message = (entry as { message?: unknown }).message;
+        if (typeof message === "string") return message;
+      }
+      return JSON.stringify(entry);
+    })
+    .join("\n");
 
   const hits = STALENESS_PATTERNS
     .map((re) => text.match(re)?.[0])

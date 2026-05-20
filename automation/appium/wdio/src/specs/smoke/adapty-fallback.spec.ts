@@ -19,6 +19,6 @@ describe("Smoke: Adapty fallback paywalls", () => {
     await dismissIntroOverlayIfPresent();
     await waitForPowerButton();
 
-    await assertAdaptyFallbackHealthy(APP_BUNDLE_ID);
+    await assertAdaptyFallbackHealthy();
   });
 });
