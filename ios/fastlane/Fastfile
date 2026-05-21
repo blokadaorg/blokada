@@ -43,6 +43,7 @@ platform :ios do
       app_identifier: "net.blocka.app",
       metadata_path: "../metadata/ios-six/",
       api_key_path: "./blokada-appstore.json",
+      skip_metadata: true, # metadata ships via upload_ios_six_metadata, not with the binary
       skip_screenshots: true,
       skip_app_version_update: false,
       force: true, # skips verification of HTML preview file
@@ -56,10 +57,40 @@ platform :ios do
       app_identifier: "net.blocka.app.family",
       metadata_path: "../metadata/ios-family/",
       api_key_path: "./blokada-appstore.json",
+      skip_metadata: true, # metadata ships via upload_ios_family_metadata, not with the binary
       skip_screenshots: true,
       skip_app_version_update: false,
       force: true, # skips verification of HTML preview file
       run_precheck_before_submit: false # not supported through ASC API yet
+   )
+  end
+
+  # Metadata-only upload (no binary). Deliberately omits `force: true` so the
+  # HTML preview fires and the operator confirms the diff before any write.
+  # NOTE: do not invoke these lanes from headless CI — fastlane will block
+  # forever waiting for stdin confirmation on the HTML preview. Manual,
+  # interactive use only.
+  lane :upload_ios_six_metadata do
+   deliver(
+      app_identifier: "net.blocka.app",
+      metadata_path: "../metadata/ios-six/",
+      api_key_path: "./blokada-appstore.json",
+      skip_binary_upload: true,
+      skip_screenshots: true,
+      use_live_version: true, # edit the live App Store listing, not an in-flight Prepare-for-Submission version
+      run_precheck_before_submit: false
+   )
+  end
+
+  lane :upload_ios_family_metadata do
+   deliver(
+      app_identifier: "net.blocka.app.family",
+      metadata_path: "../metadata/ios-family/",
+      api_key_path: "./blokada-appstore.json",
+      skip_binary_upload: true,
+      skip_screenshots: true,
+      use_live_version: true, # edit the live App Store listing, not an in-flight Prepare-for-Submission version
+      run_precheck_before_submit: false
    )
   end
 end

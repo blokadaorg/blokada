@@ -21,8 +21,8 @@ ADAPTY_VER := 3_8.0
 	build-android build-android-family build-android-six \
 	build-ios build-ios-family build-ios-six build-ios-six-debug \
 	version version-clean \
-	publish-android gplay-key-unpack gplay-key-clean \
-	publish-ios appstore-key-unpack appstore-key-clean fastlane-match \
+	publish-android upload-android-metadata gplay-key-unpack gplay-key-clean \
+	publish-ios upload-ios-metadata appstore-key-unpack appstore-key-clean fastlane-match \
 	build-android-family-debug build-android-six-debug \
 	build-android-family-quick build-android-six-quick \
 	build-android-family-debug-quick build-android-six-debug-quick \
@@ -156,7 +156,10 @@ version-clean:
 	git restore $(IOS_PROJECT_FILE)
 
 
-# Publish android app to Google Play internal channel (use FLAVOR param)
+# Publish android app to Google Play internal channel (use FLAVOR param).
+# Listing TEXT (title, short/long description) is decoupled and skipped here;
+# screenshots, images, and changelogs still ship with the binary as before.
+# To push listing text changes, use `make upload-android-metadata FLAVOR=...`.
 publish-android:
 	$(MAKE) gplay-key-unpack
 	@AAB=$(if $(filter family,$(FLAVOR)),familyRelease/app-family-release.aab,sixRelease/app-six-release.aab); \
@@ -165,7 +168,29 @@ publish-android:
 	--package_name "$$PKG" \
 	--json_key blokada-gplay.json \
 	--metadata_path metadata/android-$(FLAVOR) \
+	--skip_upload_metadata \
 	--track internal
+	$(MAKE) gplay-key-clean
+
+# Upload android listing metadata (no binary). Use FLAVOR param.
+# Uploads listing text, images, and screenshots from metadata/android-FLAVOR.
+# Skips APK/AAB and changelogs — changelogs are version-bound and require a
+# version code that a metadata-only run doesn't have; they ship via the
+# binary lane instead.
+# TRACK defaults to production because Play Console listing text is global
+# across tracks (the parameter is kept so callers can override if needed).
+upload-android-metadata:
+	$(MAKE) gplay-key-unpack
+	@PKG=$(if $(filter family,$(FLAVOR)),org.blokada.family,org.blokada.sex); \
+	TRACK=$(or $(TRACK),production); \
+	$(FASTLANE) supply \
+	--package_name "$$PKG" \
+	--json_key blokada-gplay.json \
+	--metadata_path metadata/android-$(FLAVOR) \
+	--skip_upload_apk \
+	--skip_upload_aab \
+	--skip_upload_changelogs \
+	--track $$TRACK
 	$(MAKE) gplay-key-clean
 
 # Unpack Google Play api key for publishing (use env var)
@@ -180,10 +205,21 @@ gplay-key-unpack:
 gplay-key-clean:
 	rm -rf blokada-gplay.json
 
-# Publish ios app to AppStore TestFlight (use FLAVOR param)
+# Publish ios app to AppStore TestFlight (use FLAVOR param).
+# Listing metadata is decoupled: this target uploads the IPA only. To push
+# metadata changes, use `make upload-ios-metadata FLAVOR=...`.
 publish-ios:
 	$(MAKE) appstore-key-unpack
 	@LANE=$(if $(filter family,$(FLAVOR)),publish_ios_family,publish_ios_six); \
+	cd ios/ && $(FASTLANE) $$LANE
+	$(MAKE) appstore-key-clean
+
+# Upload ios listing metadata only (no binary). Use FLAVOR param.
+# The lane opens fastlane's HTML preview before uploading — abort there if the
+# diff looks wrong.
+upload-ios-metadata:
+	$(MAKE) appstore-key-unpack
+	@LANE=$(if $(filter family,$(FLAVOR)),upload_ios_family_metadata,upload_ios_six_metadata); \
 	cd ios/ && $(FASTLANE) $$LANE
 	$(MAKE) appstore-key-clean
 
