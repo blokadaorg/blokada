@@ -19,6 +19,7 @@ part 'adapty_key.dart';
 part 'attribute_converter.dart';
 part 'api.dart';
 part 'channel.dart';
+part 'mock_channel.dart';
 part 'paywall_sheet.dart';
 
 enum OnboardingStep {

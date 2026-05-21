@@ -36,12 +36,14 @@ protocol PrivateDnsServiceIn {
 
 class PrivateDnsServiceMock: PrivateDnsServiceIn {
 
-    private var active = false
+    // Sim runs without a real DNS profile, so report "already configured" so
+    // the app skips the install wizard and proceeds straight into the active
+    // path — matches what the real PrivateDnsService would report on a real
+    // device that's already onboarded.
+    private var active = true
 
     func isPrivateDnsProfileActive() -> AnyPublisher<Bool, Error> {
-        let a = active
-        active = true
-        return Just(a).setFailureType(to: Error.self)
+        return Just(active).setFailureType(to: Error.self)
             .eraseToAnyPublisher()
     }
 

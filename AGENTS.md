@@ -47,6 +47,19 @@ management uses MobX; payments use Adapty.
 git submodule update --init --recursive
 ```
 
+In a fresh worktree, the command above re-fetches every submodule from
+origin (~20 s and ~340 MB for this repo, dominated by `landing-github-pages`).
+Faster alternative: copy the already-populated submodule directories from
+your main checkout. On APFS (macOS), `cp -cR` is near-instant and uses
+copy-on-write to avoid duplicating disk:
+
+```bash
+cp -cR /path/to/main-checkout/deps/* deps/
+```
+
+Use plain `cp -R` on non-APFS filesystems. Either path leaves the worktree
+buildable; pick whichever fits your workflow.
+
 ## Build & Install Commands
 
 ### Debug Builds
@@ -97,6 +110,26 @@ make -C ios run-family [DEVICE_NAME="device name"] [CONFIG="Release|Debug"]
 # Android
 make install-family-debug    # or make install-six-debug
 ```
+
+### Simulator Testing (iOS)
+
+```bash
+# iOS Mocked scheme on an auto-cloned per-worktree simulator (NetxServiceMock
+# substitutes the real NetworkExtension — no DNS/VPN entitlement needed).
+# Each worktree gets its own sim, so parallel checkouts don't contend.
+make -C ios run-six-mocked          # or run-family-mocked
+make -C ios appium-install-six-mocked  # install only, prints UDID for Appium
+
+# Pre-warm onboarding/login state once, reuse across clones:
+make -C ios run-six-mocked SIM_TEMPLATE="warm template"
+
+# Status / cleanup
+make -C ios sim-status sim-clean sim-gc
+```
+
+Use for UX/notifications/state work; use `run-six`/`run-family` on a real
+device when you need actual DNS/VPN behaviour. See `ios/SIMULATOR.md` for
+overrides, warm-template setup, and caveats.
 
 ## Testing & Linting
 

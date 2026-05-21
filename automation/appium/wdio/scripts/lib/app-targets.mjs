@@ -71,6 +71,13 @@ export function resolvePrimaryBundleId(env = process.env) {
     return configuredBundleId;
   }
 
+  // Mocked / FamilyMocked Xcode targets both emit PRODUCT_BUNDLE_IDENTIFIER =
+  // net.blocka.app, so the device-mode family bundle id doesn't apply in sim
+  // mode. Switching flavor requires reinstall (same bundle id, can't coexist).
+  if (isSimulatorMode(env)) {
+    return SIX_BUNDLE_ID;
+  }
+
   return KNOWN_APP_TARGETS[resolveAppFlavor(env)].bundleId;
 }
 
@@ -85,10 +92,15 @@ export function resolveAppDisplayName(env = process.env) {
   return KNOWN_APP_TARGETS[resolveAppFlavor(env)].displayName;
 }
 
+export function isSimulatorMode(env = process.env) {
+  return String(env.IOS_USE_SIM ?? "").trim() === "1";
+}
+
 export function resolveInstallTarget(env = process.env) {
+  const suffix = isSimulatorMode(env) ? "-mocked" : "";
   return resolveAppFlavor(env) === "family"
-    ? "appium-install-family"
-    : "appium-install-six";
+    ? `appium-install-family${suffix}`
+    : `appium-install-six${suffix}`;
 }
 
 export function buildKnownAppTargets() {

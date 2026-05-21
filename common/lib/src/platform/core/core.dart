@@ -13,7 +13,11 @@ class PlatformCoreModule with Logging, Module {
   onCreateModule() async {
     CoreChannel channel;
 
-    if (Core.act.isProd) {
+    // Mocked scenario also uses real iOS storage: the secure-storage seeded
+    // account must survive across reads, and other state (config, lock pin,
+    // support unread, etc.) must persist between launches. RuntimeCoreChannel
+    // is only for unit tests where the platform host is unavailable.
+    if (Core.act.isProd || Core.act.isMocked) {
       channel = PlatformCoreChannel();
     } else {
       channel = RuntimeCoreChannel();
