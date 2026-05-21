@@ -12,8 +12,13 @@ blokada-appstore.json
 
 *.local.json
 .env.local
+
+# Claude Code: only check in shared instructions/skills; everything else is developer-local
+# (the !.claude/ line overrides the global gitignore's `.claude` rule so re-includes below take effect)
 !.claude/
+.claude/*
 !.claude/settings.json
+!.claude/skills
 
 # Appium / WDIO artifacts
 automation/appium/output/
