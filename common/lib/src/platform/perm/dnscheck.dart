@@ -19,7 +19,7 @@ class PrivateDnsCheck with Actor, Logging {
 
     log(m).pair("current dns", line);
 
-    var expected = _getIosPrivateDnsStringV6(m, tag, alias);
+    var expected = getIosPrivateDnsStringV6(m, tag, alias);
 
     if (Core.act.isAndroid && Core.act.flavor == Flavor.family) {
       expected = getAndroidPrivateDnsStringFamily(m, tag);
@@ -54,7 +54,7 @@ class PrivateDnsCheck with Actor, Logging {
     }
   }
 
-  String _getIosPrivateDnsStringV6(Marker m, DeviceTag tag, String alias) {
+  String getIosPrivateDnsStringV6(Marker m, DeviceTag tag, String alias) {
     try {
       final name = _escapeAlias(alias);
       return "https://cloud.blokada.org/$tag/$name";
