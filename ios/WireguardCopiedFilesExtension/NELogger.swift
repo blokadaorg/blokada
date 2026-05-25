@@ -58,10 +58,30 @@ enum LogPrio: Int {
 }
 
 class LoggerSaver {
+    // Must match the app's LoggerSaver/CoreBinding subdirectory. Logs stay in
+    // the shared group but under the standard Library hierarchy because
+    // devicectl on Xcode 26.5+ can only list/copy files inside Library/, not
+    // the container root or custom top-level directories.
+    static let logSubdirectory = "Library/Application Support/Blokada"
+
     static var logFile: URL? {
         let fileManager = FileManager.default
-        return fileManager.containerURL(
-            forSecurityApplicationGroupIdentifier: "group.net.blocka.app")?.appendingPathComponent("blokada.log")
+        guard let container = fileManager.containerURL(
+            forSecurityApplicationGroupIdentifier: "group.net.blocka.app") else {
+            return nil
+        }
+
+        let logsDir = container.appendingPathComponent(logSubdirectory, isDirectory: true)
+        try? fileManager.createDirectory(at: logsDir, withIntermediateDirectories: true)
+
+        let target = logsDir.appendingPathComponent("blokada.log")
+        let legacy = container.appendingPathComponent("blokada.log")
+        if fileManager.fileExists(atPath: legacy.path),
+           !fileManager.fileExists(atPath: target.path) {
+            try? fileManager.moveItem(at: legacy, to: target)
+        }
+
+        return target
     }
 
     private static var formatter: DateFormatter {
