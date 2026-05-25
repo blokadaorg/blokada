@@ -14,10 +14,31 @@ import Foundation
 
 class LoggerSaver {
 
+    // Logs live in the shared group (so the network extension can write too) but
+    // under the standard Library hierarchy: devicectl on Xcode 26.5+ can only
+    // list/copy files inside the standard Library/ subtree, not files at the
+    // container root or in custom top-level directories. Must match the
+    // extension's NELogger copy and CoreBinding.
+    static let logSubdirectory = "Library/Application Support/Blokada"
+
     static var logFile: URL? {
         let fileManager = FileManager.default
-        return fileManager.containerURL(
-            forSecurityApplicationGroupIdentifier: "group.net.blocka.app")?.appendingPathComponent("blokada.log")
+        guard let container = fileManager.containerURL(
+            forSecurityApplicationGroupIdentifier: "group.net.blocka.app") else {
+            return nil
+        }
+
+        let logsDir = container.appendingPathComponent(logSubdirectory, isDirectory: true)
+        try? fileManager.createDirectory(at: logsDir, withIntermediateDirectories: true)
+
+        let target = logsDir.appendingPathComponent("blokada.log")
+        let legacy = container.appendingPathComponent("blokada.log")
+        if fileManager.fileExists(atPath: legacy.path),
+           !fileManager.fileExists(atPath: target.path) {
+            try? fileManager.moveItem(at: legacy, to: target)
+        }
+
+        return target
     }
 
     private static var formatter: DateFormatter {

@@ -105,6 +105,9 @@ export function getCrashReportPrefix(bundleId = "net.blocka.app") {
 export function selectNewestCrashReport(files, bundleId) {
   const prefix = getCrashReportPrefix(bundleId);
   const matches = files.filter((file) => {
+    // Crash reports are flat filenames in the systemCrashLogs domain, so match
+    // the full name here (unlike selectNewestLogFile, which matches a basename
+    // because share logs live in a subdirectory).
     const name = file?.name ?? file?.relativePath ?? "";
     const isDirectory = file?.resources?.isDirectory === true;
     return !isDirectory && name.startsWith(prefix) && name.endsWith(".ips");
@@ -123,8 +126,11 @@ export function selectNewestLogFile(files, bundleId) {
   const prefix = getShareLogPrefix(bundleId);
   const matches = files.filter((file) => {
     const name = file?.name ?? file?.relativePath ?? "";
+    // The app writes logs into a subdirectory of the group container (under
+    // Library/), so match on the basename rather than the full relativePath.
+    const base = name.split("/").pop() ?? "";
     const isDirectory = file?.resources?.isDirectory === true;
-    return !isDirectory && name.startsWith(prefix) && name.endsWith(".log");
+    return !isDirectory && base.startsWith(prefix) && base.endsWith(".log");
   });
 
   matches.sort((left, right) => {
@@ -233,6 +239,9 @@ async function runDevicectlJson(args, execFileSyncImpl = execFileSync) {
 }
 
 async function listAppGroupFiles(device, execFileSyncImpl = execFileSync) {
+  // Omit `--subdirectory`: passing "." makes CoreDevice on Xcode 26.5+ reject
+  // the listing with "ActionError error 3" for container domains. Without it,
+  // the root listing is returned recursively with relativePaths.
   const payload = await runDevicectlJson(
     [
       "devicectl",
@@ -244,9 +253,7 @@ async function listAppGroupFiles(device, execFileSyncImpl = execFileSync) {
       "--domain-type",
       "appGroupDataContainer",
       "--domain-identifier",
-      APP_GROUP_ID,
-      "--subdirectory",
-      "."
+      APP_GROUP_ID
     ],
     execFileSyncImpl
   );

@@ -49,7 +49,7 @@ Supported variables:
 ## Behavior
 
 - `ARTIFACT=log`:
-  - pulls the share-log file from the app group container `group.net.blocka.app`
+  - pulls the share-log file from the app group container `group.net.blocka.app`, under `Library/Application Support/Blokada/` (devicectl on Xcode 26.5+ cannot list or copy files at the container root, only inside the standard `Library/` hierarchy)
   - chooses the newest matching file for the selected bundle:
     - `net.blocka.app` -> `blokada-i6x*.log`
     - `net.blocka.app.family` -> `blokada-iFx*.log`

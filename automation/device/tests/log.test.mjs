@@ -47,24 +47,27 @@ test("normalizeLines defaults to 400 and caps invalid values", () => {
   assert.equal(normalizeLines("0"), 400);
 });
 
-test("selectNewestLogFile chooses the newest matching share log", () => {
+test("selectNewestLogFile chooses the newest matching share log by basename", () => {
+  // The app writes into a subdirectory of the group container, so the listing
+  // returns subdirectory-prefixed relativePaths; selection matches on the
+  // basename and ignores blokada.log (wrong prefix) even though it is newer.
   const selected = selectNewestLogFile(
     [
       {
-        name: "blokada-i6xR.log",
-        relativePath: "blokada-i6xR.log",
+        name: "Library/Application Support/Blokada/blokada-i6xR.log",
+        relativePath: "Library/Application Support/Blokada/blokada-i6xR.log",
         metadata: { lastModDate: "2026-03-13T12:00:00.000Z" },
         resources: { isDirectory: false }
       },
       {
-        name: "blokada-i6xD.log",
-        relativePath: "blokada-i6xD.log",
+        name: "Library/Application Support/Blokada/blokada-i6xD.log",
+        relativePath: "Library/Application Support/Blokada/blokada-i6xD.log",
         metadata: { lastModDate: "2026-03-13T13:00:00.000Z" },
         resources: { isDirectory: false }
       },
       {
-        name: "blokada.log",
-        relativePath: "blokada.log",
+        name: "Library/Application Support/Blokada/blokada.log",
+        relativePath: "Library/Application Support/Blokada/blokada.log",
         metadata: { lastModDate: "2026-03-13T14:00:00.000Z" },
         resources: { isDirectory: false }
       }
@@ -72,7 +75,7 @@ test("selectNewestLogFile chooses the newest matching share log", () => {
     "net.blocka.app"
   );
 
-  assert.equal(selected.relativePath, "blokada-i6xD.log");
+  assert.equal(selected.relativePath, "Library/Application Support/Blokada/blokada-i6xD.log");
 });
 
 test("selectNewestCrashReport chooses the newest matching crash artifact", () => {
@@ -190,8 +193,8 @@ test("pullRecentDeviceLog saves full and filtered artifacts", async () => {
             result: {
               files: [
                 {
-                  name: "blokada-i6xR.log",
-                  relativePath: "blokada-i6xR.log",
+                  name: "Library/Application Support/Blokada/blokada-i6xR.log",
+                  relativePath: "Library/Application Support/Blokada/blokada-i6xR.log",
                   metadata: { lastModDate: "2026-03-13T13:00:00.000Z" },
                   resources: { isDirectory: false }
                 }
@@ -217,13 +220,35 @@ test("pullRecentDeviceLog saves full and filtered artifacts", async () => {
     window: "1h"
   });
 
-  assert.equal(result.sourceFile, "blokada-i6xR.log");
+  assert.equal(result.sourceFile, "Library/Application Support/Blokada/blokada-i6xR.log");
   assert.match(result.text, /copied log/);
   assert.equal(calls.length, 2);
   assert.match(result.fullArtifactPath, /blokada-i6x-1h\.full\.log$/);
   assert.match(result.artifactPath, /blokada-i6x-1h\.log$/);
   assert.equal(await readFile(result.fullArtifactPath, "utf8"), copiedText);
   assert.equal(await readFile(result.artifactPath, "utf8"), result.text);
+  // The list call must not pass `--subdirectory "."`, which CoreDevice on
+  // Xcode 26.5+ rejects with ActionError error 3. (`--json-output <path>` is
+  // appended by runDevicectlJson, so only assert the stable prefix.)
+  assert.deepEqual(
+    calls[0][1].slice(0, 10),
+    [
+      "devicectl",
+      "device",
+      "info",
+      "files",
+      "--device",
+      "abc",
+      "--domain-type",
+      "appGroupDataContainer",
+      "--domain-identifier",
+      "group.net.blocka.app"
+    ]
+  );
+  assert.ok(
+    !calls[0][1].includes("--subdirectory"),
+    "list call must not pass --subdirectory"
+  );
   assert.deepEqual(
     calls[1][1],
     [
@@ -238,7 +263,7 @@ test("pullRecentDeviceLog saves full and filtered artifacts", async () => {
       "--domain-identifier",
       "group.net.blocka.app",
       "--source",
-      "blokada-i6xR.log",
+      "Library/Application Support/Blokada/blokada-i6xR.log",
       "--destination",
       result.fullArtifactPath
     ]

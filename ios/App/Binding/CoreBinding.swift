@@ -157,9 +157,34 @@ class CoreBinding: CoreOps {
 
     func getFilename(_ file: String) -> URL? {
         let fileManager = FileManager.default
-        return fileManager.containerURL(
+        guard let container = fileManager.containerURL(
             forSecurityApplicationGroupIdentifier: "group.net.blocka.app"
-        )?.appendingPathComponent(file)
+        ) else {
+            return nil
+        }
+
+        // Keep logs in the shared group (the network extension writes here too)
+        // but under the standard Library hierarchy: devicectl on Xcode 26.5+ can
+        // only list/copy files inside Library/, not files at the container root
+        // or in custom top-level dirs, so those are unreachable for host-side
+        // log fetching.
+        let logsDir = container.appendingPathComponent(LoggerSaver.logSubdirectory, isDirectory: true)
+        try? fileManager.createDirectory(at: logsDir, withIntermediateDirectories: true)
+
+        guard !file.isEmpty else {
+            return logsDir
+        }
+
+        let target = logsDir.appendingPathComponent(file)
+
+        // Preserve the existing append-only log previously written to the root.
+        let legacy = container.appendingPathComponent(file)
+        if fileManager.fileExists(atPath: legacy.path),
+           !fileManager.fileExists(atPath: target.path) {
+            try? fileManager.moveItem(at: legacy, to: target)
+        }
+
+        return target
     }
 
     // Persistence
