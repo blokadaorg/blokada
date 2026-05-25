@@ -4,33 +4,29 @@ part of 'payment.dart';
 // We are waiting for the flutter SDK to add support for android prorate modes.
 // After that, we can drop the android SDK.
 // This is handled through flutter platform channel (the other class).
-class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIPaywallsEventsObserver {
+class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIObserver {
   late final _stage = Core.get<StageStore>();
   late final _actor = Core.get<PaymentActor>(); // Circular dep
-  late final _modal = Core.get<CurrentModalValue>();
-  late final _modalWidget = Core.get<CurrentModalWidgetValue>();
 
   late final _adapty = Adapty();
+  late final _adaptyUi = AdaptyUI();
 
-  AdaptyPaywall? _paymentPaywall;
-  String? _paymentPaywallForPlacementId;
-  bool _isEmbeddedPaywallVisible = false;
-  bool _isClosingEmbeddedPaywall = false;
+  AdaptyUIPaywallView? _paymentView;
+  String? _paymentViewForPlacementId;
 
   @override
   init(Marker m, String apiKey, String? accountId, bool verboseLogs) async {
-    final configuration = AdaptyConfiguration(apiKey: apiKey)
-      ..withLogLevel(verboseLogs ? AdaptyLogLevel.debug : AdaptyLogLevel.warn)
-      ..withObserverMode(false)
-      ..withIpAddressCollectionDisabled(true)
-      ..withGoogleAdvertisingIdCollectionDisabled(true)
-      ..withAppleIdfaCollectionDisabled(true);
+    _adaptyUi.setObserver(this);
 
-    if (accountId != null) {
-      configuration.withCustomerUserId(accountId);
-    }
-
-    await _adapty.activate(configuration: configuration);
+    await _adapty.activate(
+      configuration: AdaptyConfiguration(apiKey: apiKey)
+        ..withCustomerUserId(accountId)
+        ..withLogLevel(verboseLogs ? AdaptyLogLevel.debug : AdaptyLogLevel.warn)
+        ..withObserverMode(false)
+        ..withIpAddressCollectionDisabled(true)
+        ..withGoogleAdvertisingIdCollectionDisabled(true)
+        ..withAppleIdfaCollectionDisabled(true),
+    );
 
     // Set Adapty fallback for any connection problems situations
     try {
@@ -48,48 +44,47 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIPaywa
 
   @override
   logOnboardingStep(String name, OnboardingStep step) async {
-    // adapty_flutter 3.15.x no longer exposes the previous onboarding logging
-    // helper. Keep this as a best-effort no-op until we decide whether to
-    // replace it with a native-only path or a different Adapty API.
+    await _adapty.logShowOnboarding(name: name, screenName: step.name, screenOrder: step.order);
   }
 
   @override
   preload(Marker m, Placement placement) async {
-    _paymentPaywall = await _fetchPaywall(m, placement);
-    _paymentPaywallForPlacementId = placement.id;
+    _paymentView = await _createPaywall(m, placement);
+    _paymentViewForPlacementId = placement.id;
   }
 
   @override
   showPaymentScreen(Marker m, Placement placement, {bool forceReload = false}) async {
-    if (forceReload || _paymentPaywallForPlacementId != placement.id || _paymentPaywall == null) {
-      _paymentPaywall = await _fetchPaywall(m, placement);
-      _paymentPaywallForPlacementId = placement.id;
+    if (forceReload || _paymentViewForPlacementId != placement.id || _paymentView == null) {
+      _paymentView = await _createPaywall(m, placement);
+      _paymentViewForPlacementId = placement.id;
     }
 
-    _isClosingEmbeddedPaywall = false;
-    _isEmbeddedPaywallVisible = true;
-    await _modalWidget.change(
-        m,
-        (context) => AdaptyEmbeddedPaywallSheet(
-              channel: this,
-              paywall: _paymentPaywall!,
-            ));
-    await _modal.change(m, Modal.adaptyPaywall);
+    try {
+      await _paymentView!.present();
+    } catch (_) {
+      // AdaptyUIPaywallView is single-use; drop the spent view so the next
+      // open recreates it instead of re-presenting a view that already failed.
+      _paymentView = null;
+      _paymentViewForPlacementId = null;
+      rethrow;
+    }
   }
 
   @override
   closePaymentScreen(bool isError, {AdaptyUIPaywallView? view}) async {
-    final wasEmbeddedPaywallVisible = _isEmbeddedPaywallVisible;
-    _isClosingEmbeddedPaywall = true;
-    _isEmbeddedPaywallVisible = false;
-
-    if (!wasEmbeddedPaywallVisible) {
-      await view?.dismiss();
-    }
-
-    await _modal.change(Markers.ui, null);
-    _isClosingEmbeddedPaywall = false;
+    await view?.dismiss();
+    if (view == null) await _paymentView?.dismiss();
+    _paymentView = null;
     await _actor.handleScreenClosed(Markers.ui, isError: isError);
+  }
+
+  Future<AdaptyUIPaywallView> _createPaywall(Marker m, Placement placement) async {
+    final paywall = await _fetchPaywall(m, placement);
+    return await _adaptyUi.createPaywallView(
+      paywall: paywall,
+      preloadProducts: false,
+    );
   }
 
   Future<AdaptyPaywall> _fetchPaywall(Marker m, Placement placement) async {
@@ -100,11 +95,6 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIPaywa
       );
       return paywall;
     });
-  }
-
-  void handleEmbeddedPaywallDisposed() {
-    if (!_isEmbeddedPaywallVisible || _isClosingEmbeddedPaywall) return;
-    unawaited(closePaymentScreen(false));
   }
 
   @override
