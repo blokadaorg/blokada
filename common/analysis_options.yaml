@@ -6,7 +6,6 @@ formatter:
 analyzer:
   exclude:
     - lib/mock/**
-    - lib/main-mocked-*.dart
     - lib/main-widgets.dart
     - libgen/**
     - build/**
