@@ -22,6 +22,22 @@ launch so the paywall / first-account-create flow never runs; real
 pre-provisioned dev account per flavor (Family + v6/cloud) so the simulator
 doesn't provision throwaway prod accounts.
 
+The mocked build has no paywall or purchase flow (StoreKit and the payment
+channel are stubbed), so the dev account you supply must already be active. An
+inactive or expired account leaves the app deactivated with no in-app way to
+upgrade it. Also note that `seedDevAccount` only seeds when no account is stored
+yet, so a reused simulator keeps whatever account was last persisted, including
+an inactive throwaway the app may create after refreshing an inactive account.
+To switch to a different `ACCOUNT_ID`, start from a clean simulator
+(`make sim-clean`) or restore the account from the app's settings.
+
+The Mocked / FamilyMocked schemes build the same `lib/main.dart` entrypoint as
+the shipping app; mocked behavior is switched on by the `MOCKED=true` and
+`FLAVOR` dart-defines that the make layer folds (with `ACCOUNT_ID`) into the
+`DART_DEFINES` it passes to xcodebuild. There is no separate mocked entrypoint
+and no Mocked-specific Xcode build-phase edit, so `pod install` cannot clobber
+the mocked build config.
+
 Two ways to provide the ID:
 
 ```bash

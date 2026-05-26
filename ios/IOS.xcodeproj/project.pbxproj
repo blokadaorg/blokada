@@ -2257,7 +2257,7 @@
 			name = "[CP-User] Run Flutter Build common Script";
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport FLUTTER_TARGET=lib/main-mocked-family.dart\nif [ -n \"${ACCOUNT_ID:-}\" ]; then\n  ENCODED=$(printf '%s' \"ACCOUNT_ID=$ACCOUNT_ID\" | base64 | tr -d '\\n')\n  if [ -n \"${DART_DEFINES:-}\" ]; then\n    export DART_DEFINES=\"$DART_DEFINES,$ENCODED\"\n  else\n    export DART_DEFINES=\"$ENCODED\"\n  fi\nfi\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build";
+			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build";
 			showEnvVarsInLog = 0;
 		};
 		853C6FC8CB07CD97112BE02B /* [CP-User] Run Flutter Build common Script */ = {
@@ -2474,7 +2474,7 @@
 			name = "[CP-User] Run Flutter Build common Script";
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport FLUTTER_TARGET=lib/main-mocked-six.dart\nif [ -n \"${ACCOUNT_ID:-}\" ]; then\n  ENCODED=$(printf '%s' \"ACCOUNT_ID=$ACCOUNT_ID\" | base64 | tr -d '\\n')\n  if [ -n \"${DART_DEFINES:-}\" ]; then\n    export DART_DEFINES=\"$DART_DEFINES,$ENCODED\"\n  else\n    export DART_DEFINES=\"$ENCODED\"\n  fi\nfi\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build";
+			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build";
 			showEnvVarsInLog = 0;
 		};
 		F1A9A6D7F8AD3B104D6D2A4D /* [CP-User] Embed Flutter Build common Script */ = {
