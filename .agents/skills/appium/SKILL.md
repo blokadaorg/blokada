@@ -34,6 +34,38 @@ Notes:
 - Appium does not manage iOS auto-lock for us. Before a long session, set Auto-Lock to `Never` or the longest available value and keep the device unlocked before starting.
 - The process stays open and accepts JSONL commands on stdin.
 
+## Simulator mode (mocked builds)
+
+The same explorer drives an iOS Simulator running a Mocked / FamilyMocked
+build, not just a physical device. Use this when verifying mocked-scheme work
+(`make run-{six,family}-mocked`) where there is no real tunnel and no connected
+phone. Opt in with `IOS_USE_SIM=1`; the harness then resolves the per-worktree
+sim from `make -C ios sim-status`, uses simulator capabilities (Appium-managed
+WDA, no signing identity), and skips the `devicectl` device-discovery the
+physical path needs. None of the "request elevated access" / connected-iPhone
+notes above apply in sim mode.
+
+```bash
+# interactive JSONL session against the per-worktree mocked sim
+IOS_USE_SIM=1 make appium-explore-session
+# family flavor
+IOS_USE_SIM=1 APP_FLAVOR=family make appium-explore-session
+# reuse an already-installed/running mocked build, skip rebuild+reinstall
+IOS_USE_SIM=1 APP_INSTALL=0 make appium-explore-session
+```
+
+Prerequisites and gotchas:
+- `make run-{six,family}-mocked` must have created the sim first;
+  `appium-explore-session` does not provision it.
+- `sim-status` derives the sim name from `SIM_BASE` (default `iPhone 17`). If
+  you created the sim with a non-default base, pass the **same** `SIM_BASE`
+  here or the UDID will not resolve, e.g.
+  `IOS_USE_SIM=1 SIM_BASE="iPhone 15" make appium-explore-session`.
+- Run from the repo root (the target `cd`s into `automation/appium/wdio`
+  itself); do not run it from inside `wdio/`.
+- See `ios/SIMULATOR.md` ("Appium targeting") for the full sim flow and a raw
+  `appium --udid ...` fallback.
+
 ## Drive the session
 
 Send one JSON object per line to stdin. Wait for the terminal `done` or `error` event before sending the next command.
