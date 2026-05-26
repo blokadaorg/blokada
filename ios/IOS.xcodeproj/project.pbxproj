@@ -44,7 +44,7 @@
 		4E1275FE2AE7D0FC00A94994 /* BlokadaText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E290FB52497A1F700FC4C61 /* BlokadaText.swift */; };
 		4E1276002AE7D0FC00A94994 /* Sequence+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E78E359245EBFD90017B234 /* Sequence+Extensions.swift */; };
 		4E1276012AE7D0FC00A94994 /* CoreBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC49502A4D983D001EF934 /* CoreBinding.swift */; };
-		4E1276042AE7D0FC00A94994 /* LoggerSaverMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E42355924519582005A0779 /* LoggerSaverMock.swift */; };
+		4E1276042AE7D0FC00A94994 /* LoggerSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E42355B2451959F005A0779 /* LoggerSaver.swift */; };
 		4E1276062AE7D0FC00A94994 /* PermBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD3612A0CDD190039C101 /* PermBinding.swift */; };
 		4E1276082AE7D0FC00A94994 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E423556245192C7005A0779 /* Date+Extensions.swift */; };
 		4E1276092AE7D0FC00A94994 /* ShowTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAFCE2F2487BA47003601A1 /* ShowTime.swift */; };
@@ -267,7 +267,7 @@
 		4E423557245192C7005A0779 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E423556245192C7005A0779 /* Date+Extensions.swift */; };
 		4E423558245194E0005A0779 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E423556245192C7005A0779 /* Date+Extensions.swift */; };
 		4E42355C2451959F005A0779 /* LoggerSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E42355B2451959F005A0779 /* LoggerSaver.swift */; };
-		4E42355D245195FA005A0779 /* LoggerSaverMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E42355924519582005A0779 /* LoggerSaverMock.swift */; };
+		4E42355D245195FA005A0779 /* LoggerSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E42355B2451959F005A0779 /* LoggerSaver.swift */; };
 		4E4562B4240D114D0022CBF6 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4562B3240D114D0022CBF6 /* Error.swift */; };
 		4E4562B8240E5E150022CBF6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4562B7240E5E150022CBF6 /* SceneDelegate.swift */; };
 		4E58C1332AC1B196002CA1A3 /* AccountChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58C12F2AC1B196002CA1A3 /* AccountChangeView.swift */; };
@@ -888,7 +888,6 @@
 		4E423539244F3ADE005A0779 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		4E42353C244F3D21005A0779 /* LocationListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListViewModel.swift; sourceTree = "<group>"; };
 		4E423556245192C7005A0779 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
-		4E42355924519582005A0779 /* LoggerSaverMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerSaverMock.swift; sourceTree = "<group>"; };
 		4E42355B2451959F005A0779 /* LoggerSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerSaver.swift; sourceTree = "<group>"; };
 		4E4562B3240D114D0022CBF6 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		4E4562B7240E5E150022CBF6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -1340,7 +1339,6 @@
 			isa = PBXGroup;
 			children = (
 				4EA9A2A22785B927009764F1 /* ServicesForMocked.swift */,
-				4E42355924519582005A0779 /* LoggerSaverMock.swift */,
 			);
 			path = ServiceMock;
 			sourceTree = "<group>";
@@ -2675,7 +2673,7 @@
 				4E1276002AE7D0FC00A94994 /* Sequence+Extensions.swift in Sources */,
 				4E92C7002C05CBE400A33170 /* ViewModels.swift in Sources */,
 				4E1276012AE7D0FC00A94994 /* CoreBinding.swift in Sources */,
-				4E1276042AE7D0FC00A94994 /* LoggerSaverMock.swift in Sources */,
+				4E1276042AE7D0FC00A94994 /* LoggerSaver.swift in Sources */,
 				4E1276062AE7D0FC00A94994 /* PermBinding.swift in Sources */,
 				4E1276082AE7D0FC00A94994 /* Date+Extensions.swift in Sources */,
 				4EDB13CE2D14321D000E2AD3 /* LinkRepo.swift in Sources */,
@@ -2893,7 +2891,7 @@
 				4EEC49532A4D983D001EF934 /* CoreBinding.swift in Sources */,
 				4E38CDE62E4D00B400594093 /* PrivateDnsServiceMac.swift in Sources */,
 				4E36D5EE24589B2D00E339F2 /* BlokadaView.swift in Sources */,
-				4E42355D245195FA005A0779 /* LoggerSaverMock.swift in Sources */,
+				4E42355D245195FA005A0779 /* LoggerSaver.swift in Sources */,
 				4EBDD3632A0CDD190039C101 /* PermBinding.swift in Sources */,
 				4E423558245194E0005A0779 /* Date+Extensions.swift in Sources */,
 				4EF8ED802B87AA3B00E6E607 /* ScanQrCodeView.swift in Sources */,
