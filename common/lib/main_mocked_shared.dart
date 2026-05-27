@@ -1,5 +1,9 @@
+import 'package:common/mock_traffic.dart';
+import 'package:common/src/app_variants/family/module/family/family.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/account/account.dart';
+import 'package:common/src/platform/device/device.dart';
+import 'package:common/src/platform/perm/dnscheck.dart';
 import 'package:common/src/platform/stage/stage.dart';
 
 const _rawAccountId = String.fromEnvironment('ACCOUNT_ID');
@@ -58,4 +62,39 @@ Future<void> seedDevAccount(Flavor flavor) async {
     'type': type,
     'payment_source': 'mocked',
   }, isBackup: true);
+}
+
+// Mocked builds drive synthetic DoH lookups so the activity/stats UI has data
+// to show without a real tunnel. The endpoint resolver is flavor-specific.
+void startMockTraffic(Flavor flavor) {
+  if (flavor == Flavor.family) {
+    // Family DoH path is /{tag} — no alias component (see
+    // PrivateDnsCheck._getIosPrivateDnsStringFamily). Fire for the devices the
+    // parent app knows about (its own plus each linked kid), since there's no
+    // separate kid app running in the dev sim to generate their traffic. In
+    // linked/child mode the list is just this device, so it fires for itself.
+    // Capped to 5 tags so a dev account littered with throwaway devices doesn't
+    // fan out into excessive traffic.
+    MockTrafficGenerator(() {
+      return Core.get<FamilyDevicesValue>()
+          .now
+          .getTags()
+          .take(5)
+          .map((tag) => Uri.parse('https://cloud.blokada.org/$tag'))
+          .toList();
+    }).start();
+  } else {
+    // v6 DoH path is /{tag}/{alias} — the resolver uses both to identify the
+    // device. Delegate the exact URL construction to PrivateDnsCheck so the
+    // mock fires at the same path the production iOS app would set; building it
+    // here by hand drifted (it copied the Android alias rule, not the iOS one).
+    MockTrafficGenerator(() {
+      final device = Core.get<DeviceStore>();
+      final tag = device.deviceTag;
+      if (tag == null || tag.isEmpty) return const [];
+      final url = Core.get<PrivateDnsCheck>()
+          .getIosPrivateDnsStringV6(Markers.start, tag, device.deviceAlias);
+      return url.isEmpty ? const [] : [Uri.parse(url)];
+    }).start();
+  }
 }

@@ -64,10 +64,12 @@ From `ios/`:
 ACCOUNT_ID=xxx make run-six-mocked      # or run-family-mocked
 ```
 
-First invocation auto-clones a sim named `iPhone 16 - <parent-dir>`.
+First invocation auto-clones a sim named `iPhone 17 - <parent-dir>`.
 Worktrees each get their own, so two checkouts can run in parallel.
 
 Overrides: `SIM_BASE="iPhone 15"`, `NAME=custom`, `SIM_TEMPLATE="warm sim"`.
+`SIM_BASE` defaults to `iPhone 17` (what a current Xcode installs); if that
+model isn't installed, pass one from `xcrun simctl list devices available`.
 
 ## When to use what
 
@@ -94,7 +96,10 @@ IOS_USE_SIM=1 APP_INSTALL=0 make appium-explore-session
 ```
 
 `make run-{six,family}-mocked` must have been run at least once for the sim
-to exist; `appium-explore-session` does not provision the sim itself.
+to exist; `appium-explore-session` does not provision the sim itself. If you
+created the sim with a non-default `SIM_BASE`, pass the same value here so
+`sim-status` resolves the matching UDID (e.g.
+`IOS_USE_SIM=1 SIM_BASE="iPhone 15" make appium-explore-session`).
 
 Raw bash equivalent if you'd rather drive Appium directly:
 
@@ -105,7 +110,7 @@ appium --udid "$SIM_UDID" ...
 
 ## Warm-state template
 
-Default clones from a fresh `iPhone 16`, so first launch in each new
+Default clones from a fresh `iPhone 17`, so first launch in each new
 checkout has to redo onboarding. To skip that, pre-warm one sim and
 point clones at it via `SIM_TEMPLATE`:
 

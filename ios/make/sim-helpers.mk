@@ -9,13 +9,16 @@
 #
 # Variables (override on the make command line):
 #   NAME         per-checkout label; defaults to basename of CURDIR/..
-#   SIM_BASE     iPhone model used in the sim name (default: iPhone 16)
+#   SIM_BASE     iPhone model used in the sim name (default: iPhone 17).
+#                Must be an installed simulator model — check with
+#                `xcrun simctl list devices available`. iPhone 17 is what a
+#                current Xcode installs by default; override if yours differs.
 #   SIM_TEMPLATE source sim to clone from (default: $(SIM_BASE) — fresh)
 #                Set to a pre-warmed sim name to seed each new clone
 #                with that sim's state (onboarding, logged in, etc.).
 
 NAME         ?= $(notdir $(abspath $(CURDIR)/..))
-SIM_BASE     ?= iPhone 16
+SIM_BASE     ?= iPhone 17
 SIM_TEMPLATE ?= $(SIM_BASE)
 SIM_NAME     := $(SIM_BASE) - $(NAME)
 

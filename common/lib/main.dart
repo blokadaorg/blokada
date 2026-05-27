@@ -114,6 +114,8 @@ Future<void> _startMocked() async {
   ));
 
   MockedStart().start();
+
+  startMockTraffic(flavor);
 }
 
 Widget _buildHome(Flavor flavor) {
