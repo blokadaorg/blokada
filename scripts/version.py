@@ -101,7 +101,7 @@ def main():
     clean_version_name = re.sub(r'/.*', '', args.version_name)
 
     # Add constant to our version code to be above legacy builds
-    code = 668000000 + args.version_code
+    code = 669000000 + args.version_code
 
     update_android_version(args.android_file, clean_version_name, code)
     update_ios_project_version(args.xcodeproj_file, clean_version_name, code)
