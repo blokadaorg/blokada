@@ -4,11 +4,11 @@
   "type": "module",
   "description": "UI tests for BlockaWeb Safari extension popup",
   "scripts": {
-    "test": "playwright test",
-    "test:headed": "playwright test --headed",
-    "test:ui": "playwright test --ui",
+    "test": "playwright test -c tests/playwright.config.js",
+    "test:headed": "playwright test -c tests/playwright.config.js --headed",
+    "test:ui": "playwright test -c tests/playwright.config.js --ui",
     "test:clean": "npm run clean && npm test",
-    "clean": "rm -rf ui/screenshots/* test-results/* test-results.json test-results.xml",
+    "clean": "rm -rf tests/ui/screenshots/* tests/test-results/* tests/test-results.json tests/test-results.xml",
     "install-playwright": "playwright install webkit"
   },
   "devDependencies": {

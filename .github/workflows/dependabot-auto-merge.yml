@@ -1,0 +1,19 @@
+name: Dependabot auto-merge
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
+
+jobs:
+  dependabot-auto-merge:
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+      pull-requests: read
+    uses: blokadaorg/workflows/.github/workflows/dependabot-auto-merge.yml@main
+    with:
+      allowed_files_regex: >-
+        ^(common/pubspec\.(yaml|lock)|ios/(Podfile|Podfile\.lock)|android/(build\.gradle|settings\.gradle|gradle\.properties|gradle/wrapper/gradle-wrapper\.(jar|properties)|app/build\.gradle)|ios/BlockaWebExtension/(package\.json|package-lock\.json)|automation/appium/wdio/(package\.json|package-lock\.json)|\.github/dependabot\.yml|\.github/workflows/[^/]+\.ya?ml)$
+    secrets: inherit

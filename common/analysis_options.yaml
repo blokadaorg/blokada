@@ -9,6 +9,8 @@ analyzer:
     - lib/main-widgets.dart
     - libgen/**
     - build/**
+    - "**/*.g.dart"
+    - "**/*.mocks.dart"
   errors:
     file_names: ignore
     # Re-enable unused code signals to keep the codebase tidy.

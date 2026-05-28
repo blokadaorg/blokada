@@ -1,0 +1,91 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  flutter_analyze:
+    name: Flutter analyze
+    runs-on: [self-hosted, macOS, ARM64, build-only]
+    timeout-minutes: 45
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.pull_request.head.repo.full_name == github.repository
+    env:
+      LANG: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 1
+
+      - name: Analyze Flutter module
+        working-directory: common
+        run: |
+          make pub gen
+          fvm flutter analyze --no-fatal-warnings --no-fatal-infos
+
+  ios_build:
+    name: iOS build
+    runs-on: [self-hosted, macOS, ARM64, build-only]
+    timeout-minutes: 120
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.pull_request.head.repo.full_name == github.repository
+    env:
+      LANG: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
+      SHOW_XCODE_LOG: "0"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 1
+
+      - name: Bootstrap Flutter common lib
+        run: make -C common build-ios
+
+      - name: Install iOS pods
+        working-directory: ios
+        run: |
+          bundle check || bundle install
+          bundle exec pod install
+
+      - name: Build iOS six debug
+        run: make -C ios check CHECK_SCHEME=Dev CHECK_CONFIG=Debug
+
+      - name: Build iOS family debug
+        run: make -C ios check CHECK_SCHEME=FamilyDev CHECK_CONFIG=Debug
+
+  android_assemble:
+    name: Android assemble
+    runs-on: [self-hosted, macOS, ARM64, build-only]
+    timeout-minutes: 120
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.pull_request.head.repo.full_name == github.repository
+    env:
+      LANG: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
+      GRADLE_OPTS: -Dorg.gradle.unsafe.disable.watch-fs=true -Dorg.gradle.vfs.watch=false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 1
+
+      - name: Build Flutter Android debug library
+        run: make regen-android
+
+      - name: Assemble Android debug apps
+        run: make -C android apk-family-debug apk-six-debug
