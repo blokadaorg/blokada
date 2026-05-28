@@ -50,47 +50,6 @@ jobs:
   maxRetries: 3
   retryDelay: 30
   timeout: 14400
-- name: publish android-six on tag
-  jobExecutor: barebones-mini
-  steps:
-  - !CheckoutStep
-    name: checkout
-    cloneCredential: !DefaultCredential {}
-    withLfs: false
-    withSubmodules: false
-    condition: SUCCESSFUL
-    optional: false
-  - !CommandStep
-    name: publish android six
-    runInContainer: false
-    interpreter: !DefaultInterpreter
-      commands: |
-        make publish-android FLAVOR=six
-    envVars:
-    - name: BLOKADA_GPLAY_KEY_BASE64
-      value: '@secret:BLOKADA_GPLAY_KEY_BASE64@'
-    useTTY: true
-    condition: SUCCESSFUL
-    optional: false
-  triggers:
-  - !TagCreateTrigger
-    tags: '*/six/android'
-  - !TagCreateTrigger
-    tags: '*/six'
-  jobDependencies:
-  - jobName: build all android
-    requireSuccessful: true
-    paramMatrix:
-    - secret: false
-      valuesProvider: !SpecifiedValues
-        values:
-        - - '@tag@'
-      name: version-name
-    artifacts: '**'
-  retryCondition: never
-  maxRetries: 3
-  retryDelay: 30
-  timeout: 14400
 - name: run tests
   jobExecutor: barebones-mini
   steps:
@@ -171,47 +130,6 @@ jobs:
     name: flavor
     allowEmpty: false
     multiline: false
-  retryCondition: never
-  maxRetries: 3
-  retryDelay: 30
-  timeout: 14400
-- name: publish android-family on tag
-  jobExecutor: barebones-mini
-  steps:
-  - !CheckoutStep
-    name: checkout
-    cloneCredential: !DefaultCredential {}
-    withLfs: false
-    withSubmodules: false
-    condition: SUCCESSFUL
-    optional: false
-  - !CommandStep
-    name: publish android-family
-    runInContainer: false
-    interpreter: !DefaultInterpreter
-      commands: |
-        make publish-android FLAVOR=family
-    envVars:
-    - name: BLOKADA_GPLAY_KEY_BASE64
-      value: '@secret:BLOKADA_GPLAY_KEY_BASE64@'
-    useTTY: true
-    condition: SUCCESSFUL
-    optional: false
-  triggers:
-  - !TagCreateTrigger
-    tags: '*/family/android'
-  - !TagCreateTrigger
-    tags: '*/family'
-  jobDependencies:
-  - jobName: build all android
-    requireSuccessful: true
-    paramMatrix:
-    - secret: false
-      valuesProvider: !SpecifiedValues
-        values:
-        - - '@tag@'
-      name: version-name
-    artifacts: '**'
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
@@ -307,98 +225,6 @@ jobs:
     name: flavor
     allowEmpty: false
     multiline: false
-  retryCondition: never
-  maxRetries: 3
-  retryDelay: 30
-  timeout: 14400
-- name: publish ios-family on tag
-  jobExecutor: barebones-mini
-  steps:
-  - !CheckoutStep
-    name: checkout
-    cloneCredential: !DefaultCredential {}
-    withLfs: false
-    withSubmodules: false
-    condition: SUCCESSFUL
-    optional: false
-  - !CommandStep
-    name: publish ipa family
-    runInContainer: false
-    interpreter: !DefaultInterpreter
-      commands: |
-        make publish-ios FLAVOR=family
-    envVars:
-    - name: BLOKADA_APPSTORE_KEY_BASE64
-      value: '@secret:BLOKADA_APPSTORE_KEY_BASE64@'
-    useTTY: true
-    condition: SUCCESSFUL
-    optional: false
-  triggers:
-  - !TagCreateTrigger
-    tags: '*/family/ios'
-  - !TagCreateTrigger
-    tags: '*/family'
-  jobDependencies:
-  - jobName: build ios
-    requireSuccessful: true
-    paramMatrix:
-    - secret: false
-      valuesProvider: !SpecifiedValues
-        values:
-        - - '@tag@'
-      name: version-name
-    - secret: false
-      valuesProvider: !SpecifiedValues
-        values:
-        - - family
-      name: flavor
-    artifacts: '**'
-  retryCondition: never
-  maxRetries: 3
-  retryDelay: 30
-  timeout: 14400
-- name: publish ios-six on tag
-  jobExecutor: barebones-mini
-  steps:
-  - !CheckoutStep
-    name: checkout
-    cloneCredential: !DefaultCredential {}
-    withLfs: false
-    withSubmodules: false
-    condition: SUCCESSFUL
-    optional: false
-  - !CommandStep
-    name: publish ipa six
-    runInContainer: false
-    interpreter: !DefaultInterpreter
-      commands: |
-        make publish-ios FLAVOR=six
-    envVars:
-    - name: BLOKADA_APPSTORE_KEY_BASE64
-      value: '@secret:BLOKADA_APPSTORE_KEY_BASE64@'
-    useTTY: true
-    condition: SUCCESSFUL
-    optional: false
-  triggers:
-  - !TagCreateTrigger
-    tags: '*/six/ios'
-  - !TagCreateTrigger
-    tags: '*/six'
-  jobDependencies:
-  - jobName: build ios
-    requireSuccessful: true
-    paramMatrix:
-    - secret: false
-      valuesProvider: !SpecifiedValues
-        values:
-        - - '@tag@'
-      name: version-name
-    - secret: false
-      valuesProvider: !SpecifiedValues
-        values:
-        - - six
-      name: flavor
-    artifacts: '**'
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
