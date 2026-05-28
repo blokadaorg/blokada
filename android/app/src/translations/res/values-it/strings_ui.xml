@@ -639,8 +639,8 @@
     <string name="notification_weekly_report_allowed_toplist_up_title">Dominio spostato in alto</string>
     <string name="notification_weekly_report_blocked_toplist_down_title">Attività dei tracker diminuita</string>
     <string name="notification_weekly_report_allowed_toplist_down_title">Dominio spostato in basso</string>
-    <string name="notification_weekly_report_toplist_new_body">Blokada is blocking %s — now ranked #%s. Tap to see more.</string>
-    <string name="notification_weekly_report_toplist_move_body">%s moved to #%s (was #%s). Tap to see more.</string>
-    <string name="notification_weekly_report_action_see_more">See more</string>
-    <string name="notification_weekly_report_action_opt_out">Turn off weekly reports</string>
+    <string name="notification_weekly_report_toplist_new_body">Blokada sta bloccando %s — classificato #%s. Clicca per saperne di più.</string>
+    <string name="notification_weekly_report_toplist_move_body">%s spostato al #%s (era #%s). Clicca per saperne di più.</string>
+    <string name="notification_weekly_report_action_see_more">Mostra altro</string>
+    <string name="notification_weekly_report_action_opt_out">Disattiva report settimanali</string>
 </resources>

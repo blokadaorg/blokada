@@ -569,8 +569,8 @@
     <string name="freemium_sheet_safari_header">Mulai blokir iklan di Safari</string>
     <string name="freemium_sheet_safari_desc">Aktifkan ekstensi kami di Safari untuk mendapatkan perlindungan esensial ketika menjelajahi internet. Ekstensi ini memblokir iklan yang mengganggu — termasuk iklan video di YouTube — sehingga Anda dapat menikmati pengalaman berselancar yang lebih bersih dan cepat.</string>
     <string name="freemium_sheet_safari_cta">Buka Safari</string>
-    <string name="freemium_sheet_safari_setup_later">Set up later</string>
-    <string name="freemium_sheet_safari_setup_later_desc">Continue to other options</string>
+    <string name="freemium_sheet_safari_setup_later">Atur nanti</string>
+    <string name="freemium_sheet_safari_setup_later_desc">Lanjut ke opsi lainnya</string>
     <string name="dialog_title_activity_rule">Bagaimana Blokada Harus Menangani Lalu Lintas ke %1$s?</string>
     <string name="dialog_exception_add_title">Tambah Pengecualian</string>
     <string name="dialog_exception_add_text">Masukkan nama host untuk ditambahkan ke pengecualian Anda. Anda dapat menggunakan * sebagai wildcard, misalnya *.example.com.</string>
@@ -639,8 +639,8 @@
     <string name="notification_weekly_report_allowed_toplist_up_title">Domain dipindahkan ke atas</string>
     <string name="notification_weekly_report_blocked_toplist_down_title">Aktivitas pelacak menurun</string>
     <string name="notification_weekly_report_allowed_toplist_down_title">Domain dipindahkan ke bawah</string>
-    <string name="notification_weekly_report_toplist_new_body">Blokada is blocking %s — now ranked #%s. Tap to see more.</string>
-    <string name="notification_weekly_report_toplist_move_body">%s moved to #%s (was #%s). Tap to see more.</string>
-    <string name="notification_weekly_report_action_see_more">See more</string>
-    <string name="notification_weekly_report_action_opt_out">Turn off weekly reports</string>
+    <string name="notification_weekly_report_toplist_new_body">Blokada sedang memblokir %s — sekarang berada di peringkat #%s. Ketuk untuk melihat lebih lanjut.</string>
+    <string name="notification_weekly_report_toplist_move_body">%s dipindahkan ke #%s (sebelumnya #%s). Ketuk untuk melihat lebih lanjut.</string>
+    <string name="notification_weekly_report_action_see_more">Lihat selengkapnya</string>
+    <string name="notification_weekly_report_action_opt_out">Matikan laporan mingguan</string>
 </resources>
