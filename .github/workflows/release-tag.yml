@@ -1,0 +1,277 @@
+name: Release from tag
+
+on:
+  push:
+    tags:
+      - "*/*/ios"
+      - "*/*/android"
+      - "*/six"
+      - "*/family"
+  workflow_dispatch:
+    inputs:
+      version_name:
+        description: "Release version name, for example 26.2.12"
+        required: true
+        type: string
+      flavor:
+        description: "App flavor to build and publish"
+        required: true
+        type: choice
+        options:
+          - six
+          - family
+      platform:
+        description: "Platform to build and publish"
+        required: true
+        type: choice
+        options:
+          - ios
+          - android
+          - all
+
+permissions:
+  contents: read
+
+jobs:
+  release_context:
+    runs-on: [self-hosted, macOS, ARM64, build-only]
+    timeout-minutes: 5
+    outputs:
+      version_name: ${{ steps.release.outputs.version_name }}
+      version_code: ${{ steps.release.outputs.version_code }}
+      flavor: ${{ steps.release.outputs.flavor }}
+      platform: ${{ steps.release.outputs.platform }}
+    steps:
+      - name: Resolve release inputs
+        id: release
+        env:
+          INPUT_VERSION_NAME: ${{ inputs.version_name || '' }}
+          INPUT_FLAVOR: ${{ inputs.flavor || '' }}
+          INPUT_PLATFORM: ${{ inputs.platform || '' }}
+        run: |
+          set -euo pipefail
+
+          if [ "$GITHUB_EVENT_NAME" = "push" ]; then
+            version_name="$GITHUB_REF_NAME"
+            IFS=/ read -r version flavor platform extra <<< "$version_name"
+            if [ -n "${extra:-}" ]; then
+              echo "Unsupported release tag: $version_name" >&2
+              exit 1
+            fi
+            if [ -z "${platform:-}" ]; then
+              platform="all"
+            fi
+          else
+            version="$INPUT_VERSION_NAME"
+            version_name="$INPUT_VERSION_NAME"
+            flavor="$INPUT_FLAVOR"
+            platform="$INPUT_PLATFORM"
+          fi
+
+          if [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Version must be MAJOR.MINOR.PATCH, got: $version" >&2
+            exit 1
+          fi
+
+          case "$flavor" in
+            six|family) ;;
+            *)
+              echo "Flavor must be six or family, got: $flavor" >&2
+              exit 1
+              ;;
+          esac
+
+          case "$platform" in
+            ios|android|all) ;;
+            *)
+              echo "Platform must be ios, android, or all, got: $platform" >&2
+              exit 1
+              ;;
+          esac
+
+          {
+            echo "version_name=$version_name"
+            echo "version_code=$GITHUB_RUN_NUMBER"
+            echo "flavor=$flavor"
+            echo "platform=$platform"
+          } >> "$GITHUB_OUTPUT"
+
+          {
+            echo "### Release"
+            echo "- version name: \`$version_name\`"
+            echo "- version code: \`$GITHUB_RUN_NUMBER\`"
+            echo "- flavor: \`$flavor\`"
+            echo "- platform: \`$platform\`"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  build_ios:
+    needs: release_context
+    if: ${{ needs.release_context.outputs.platform == 'ios' || needs.release_context.outputs.platform == 'all' }}
+    runs-on: [self-hosted, macOS, ARM64, build-only]
+    timeout-minutes: 240
+    env:
+      LANG: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
+      FLAVOR: ${{ needs.release_context.outputs.flavor }}
+      BLOKADA_VERSION_NAME: ${{ needs.release_context.outputs.version_name }}
+      BLOKADA_VERSION_CODE: ${{ needs.release_context.outputs.version_code }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 1
+
+      - name: Unlock login keychain for codesign
+        env:
+          KEYCHAIN_PASSWORD: ${{ secrets.MAC_KEYCHAIN_PASSWORD }}
+        run: |
+          if [ -n "$KEYCHAIN_PASSWORD" ]; then
+            security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/login.keychain-db
+          else
+            echo "MAC_KEYCHAIN_PASSWORD is not set; leaving keychain as-is."
+          fi
+
+      - name: Build iOS IPA
+        run: |
+          set -euo pipefail
+          if [ "$FLAVOR" = "family" ]; then
+            make ci-build-ios-family
+          else
+            make ci-build-ios-six
+          fi
+
+      - name: Package iOS artifacts
+        run: tar -czf release-ios-artifacts.tgz ios/*.ipa
+
+      - name: Upload iOS artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-ios-${{ github.run_id }}
+          path: release-ios-artifacts.tgz
+          if-no-files-found: error
+          retention-days: 14
+
+  publish_ios:
+    needs:
+      - release_context
+      - build_ios
+    if: >-
+      ${{
+        (needs.release_context.outputs.platform == 'ios' ||
+         needs.release_context.outputs.platform == 'all') &&
+        needs.build_ios.result == 'success'
+      }}
+    runs-on: [self-hosted, macOS, ARM64, build-only]
+    timeout-minutes: 240
+    env:
+      LANG: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
+      FLAVOR: ${{ needs.release_context.outputs.flavor }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Download iOS artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: release-ios-${{ github.run_id }}
+          path: .
+
+      - name: Restore iOS artifacts
+        run: tar -xzf release-ios-artifacts.tgz
+
+      - name: Publish iOS IPA
+        env:
+          BLOKADA_APPSTORE_KEY_BASE64: ${{ secrets.BLOKADA_APPSTORE_KEY_BASE64 }}
+        run: make publish-ios FLAVOR="$FLAVOR"
+
+      - name: Clean App Store key
+        if: always()
+        run: make appstore-key-clean
+
+  build_android:
+    needs: release_context
+    if: ${{ needs.release_context.outputs.platform == 'android' || needs.release_context.outputs.platform == 'all' }}
+    runs-on: [self-hosted, macOS, ARM64, build-only]
+    timeout-minutes: 240
+    env:
+      LANG: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
+      FLAVOR: ${{ needs.release_context.outputs.flavor }}
+      BLOKADA_VERSION_NAME: ${{ needs.release_context.outputs.version_name }}
+      BLOKADA_VERSION_CODE: ${{ needs.release_context.outputs.version_code }}
+      BLOKADA_KEYSTORE_BASE64: ${{ secrets.BLOKADA_KEYSTORE_BASE64 }}
+      BLOKADA_KEYSTORE_PWD: ${{ secrets.BLOKADA_KEYSTORE_PWD }}
+      BLOKADA_KEY_PWD: ${{ secrets.BLOKADA_KEY_PWD }}
+      GRADLE_OPTS: -Dorg.gradle.unsafe.disable.watch-fs=true -Dorg.gradle.vfs.watch=false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 1
+
+      - name: Build Android AAB
+        run: |
+          set -euo pipefail
+          if [ "$GITHUB_EVENT_NAME" = "push" ]; then
+            make ci-build-android-family ci-build-android-six
+          elif [ "$FLAVOR" = "family" ]; then
+            make ci-build-android-family
+          else
+            make ci-build-android-six
+          fi
+
+      - name: Package Android artifacts
+        run: tar -czf release-android-artifacts.tgz android/app/build/outputs/bundle
+
+      - name: Upload Android artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-android-${{ github.run_id }}
+          path: release-android-artifacts.tgz
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Clean Android keystore
+        if: always()
+        run: rm -f android/keystore.jks
+
+  publish_android:
+    needs:
+      - release_context
+      - build_android
+    if: >-
+      ${{
+        (needs.release_context.outputs.platform == 'android' ||
+         needs.release_context.outputs.platform == 'all') &&
+        needs.build_android.result == 'success'
+      }}
+    runs-on: [self-hosted, macOS, ARM64, build-only]
+    timeout-minutes: 240
+    env:
+      LANG: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
+      FLAVOR: ${{ needs.release_context.outputs.flavor }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Download Android artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: release-android-${{ github.run_id }}
+          path: .
+
+      - name: Restore Android artifacts
+        run: tar -xzf release-android-artifacts.tgz
+
+      - name: Publish Android AAB
+        env:
+          BLOKADA_GPLAY_KEY_BASE64: ${{ secrets.BLOKADA_GPLAY_KEY_BASE64 }}
+        run: make publish-android FLAVOR="$FLAVOR"
+
+      - name: Clean Google Play key
+        if: always()
+        run: make gplay-key-clean
