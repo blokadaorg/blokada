@@ -5,6 +5,8 @@ import 'package:common/src/features/api/domain/api.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/app_variants/family/module/family/family.dart';
 import 'package:common/src/app_variants/family/module/profile/profile.dart';
+import 'package:common/src/app_variants/family/module/schedule/platform_timezone.dart';
+import 'package:common/src/app_variants/family/module/schedule/schedule.dart';
 import 'package:unique_names_generator/unique_names_generator.dart' as names;
 
 part 'actor.dart';

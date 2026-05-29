@@ -65,10 +65,17 @@ class LinkActor with Logging, Actor {
 
   _finishLinkDevice(Marker m, DeviceTag tag) async {
     if (tag == _linkingDevice!.device.deviceTag) {
+      final linked = _linkingDevice!.device;
       _linkingDevice = null;
       _device.stopHeartbeatMonitoring();
       linkDeviceHeartbeatReceived();
       linkDeviceFinished(m);
+      // Seed the kid device's School/Bedtime templates + locked schedule
+      // only now that the link has actually completed. Running this from
+      // `DeviceActor.addDevice` would leak the seeded profiles into the
+      // parent's profile picker if the parent cancelled before the kid
+      // device accepted.
+      await _device.seedScheduleForLinkedDevice(linked, m);
     } else {
       log(m).e(msg: "addDevice: unexpected device tag: $tag");
     }

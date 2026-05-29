@@ -24,6 +24,7 @@ import 'package:common/src/app_variants/family/module/family/family.dart';
 import 'package:common/src/app_variants/family/module/perm/perm.dart';
 import 'package:common/src/app_variants/family/module/profile/profile.dart';
 import 'package:common/src/app_variants/family/module/qrscan/qrscan.dart';
+import 'package:common/src/app_variants/family/module/schedule/actor.dart';
 import 'package:common/src/app_variants/family/module/stats/stats.dart';
 import 'package:common/src/platform/common/common.dart';
 import 'package:common/src/platform/core/core.dart';
@@ -113,6 +114,7 @@ class Modules with Logging {
     if (Core.act.isFamily) {
       await _registerModule(ProfileModule());
       await _registerModule(DeviceModule());
+      await _registerModule(ScheduleModule());
       await _registerModule(AuthModule());
       await _registerModule(StatsModule());
       await _registerModule(PermModule());

@@ -61,4 +61,22 @@ class DeviceApi {
         )));
     return _marshal.toDevice(result);
   }
+
+  /// PUT the device record with a new schedule (and, optionally, a fresh
+  /// timezone). The server validates and rejects with 400 on any
+  /// wire-format violation (see [ScheduleModel.validate] for the client-side
+  /// mirror). Returns the canonicalised device record — the server may
+  /// re-order weekdays etc. so the caller commits the response, not the
+  /// draft.
+  Future<JsonDevice> changeSchedule(
+      JsonDevice device, ScheduleModel schedule, String? timezone,
+      Marker m) async {
+    final result = await _api.request(ApiEndpoint.putDevice, m,
+        payload: _marshal.fromPayload(JsonDevicePayload.forUpdateSchedule(
+          deviceTag: device.deviceTag,
+          schedule: schedule,
+          timezone: timezone,
+        )));
+    return _marshal.toDevice(result);
+  }
 }

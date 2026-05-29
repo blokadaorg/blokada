@@ -25,7 +25,10 @@ object Flavor {
         )
 
         channel.setMethodCallHandler { call, result ->
-            result.success(getFlavor())
+            when (call.method) {
+                "getTimezone" -> result.success(java.util.TimeZone.getDefault().id)
+                else -> result.success(getFlavor())
+            }
         }
     }
 
