@@ -1,20 +1,22 @@
 name: Appium smoke (iOS, physical device)
 
 on:
-  pull_request_target:
-    branches: [main]
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
   workflow_dispatch:
 
 permissions:
   contents: read
 
-# Per-PR group: a new push to a PR coalesces that PR's own pending run
-# (latest commit wins), but different PRs use different groups so none are
-# dropped. workflow_dispatch runs get a unique group (run_id) so they always
-# run. Cross-PR / cross-workflow device exclusion is provided by the single
-# self-hosted ios-physical runner (one job at a time), not by this group.
+# Per-branch group: a new push to a branch coalesces that branch's own pending
+# run after CI succeeds (latest commit wins), but different branches use
+# different groups so none are dropped. workflow_dispatch runs get a unique
+# group (run_id) so they always run. Cross-PR / cross-workflow device exclusion
+# is provided by the single self-hosted ios-physical runner (one job at a time),
+# not by this group.
 concurrency:
-  group: appium-smoke-${{ github.event.pull_request.number || github.run_id }}
+  group: appium-smoke-${{ github.event.workflow_run.head_branch || github.run_id }}
   cancel-in-progress: false
 
 jobs:
@@ -23,8 +25,9 @@ jobs:
     timeout-minutes: 30
     if: >-
       github.event_name == 'workflow_dispatch' ||
-      (github.event_name == 'pull_request_target' &&
-       github.event.pull_request.head.repo.full_name == github.repository)
+      (github.event.workflow_run.event == 'pull_request' &&
+       github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_repository.full_name == github.repository)
     env:
       LANG: en_US.UTF-8
       LC_ALL: en_US.UTF-8
@@ -32,7 +35,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
-          ref: ${{ github.event.pull_request.head.sha }}
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
 
       - name: Bootstrap Flutter common lib
         run: make -C common build-ios

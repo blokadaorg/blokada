@@ -7,19 +7,19 @@ test:
 
 e2e: e2e-setup
 	@echo "Running E2E tests with screenshots..."
-	cd tests && npm test
-	@echo "✅ E2E tests complete!"
-	@echo "📸 Screenshots saved to: tests/ui/screenshots/"
+	npm test
+	@echo "E2E tests complete"
+	@echo "Screenshots saved to: tests/ui/screenshots/"
 
 e2e-setup:
 	@echo "Setting up E2E tests..."
-	@if [ ! -d "tests/node_modules" ]; then \
+	@if [ ! -d "node_modules" ]; then \
 		echo "Installing dependencies..."; \
-		cd tests && npm install; \
+		npm install; \
 	fi
-	@if [ ! -f "tests/node_modules/.bin/playwright" ] || [ ! -d "tests/node_modules/@playwright/test/lib/server/chromium" ]; then \
+	@if [ ! -f "node_modules/.bin/playwright" ] || [ ! -d "node_modules/@playwright/test/lib/server/chromium" ]; then \
 		echo "Installing Playwright browsers..."; \
-		cd tests && npm run install-playwright; \
+		npm run install-playwright; \
 	fi
 
 # Generate Safari Web Extension rules from domain lists

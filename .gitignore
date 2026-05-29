@@ -1,7 +1,6 @@
 .DS_Store
 
 ios/Pods
-ios/Podfile.lock
 
 local.properties
 keystore.properties
@@ -26,6 +25,8 @@ automation/appium/.appium/
 automation/appium/wdio/node_modules/
 automation/appium/wdio/.npmrc
 automation/device/output/
+ios/BlockaWebExtension/node_modules/
+ios/BlockaWebExtension/tests/node_modules/
 !.appiumrc.yaml
 
 *.log
@@ -40,4 +41,3 @@ ios/*.dSYM.zip
 
 # Local-only planning artifacts (Claude / superpowers)
 docs/superpowers/plans/
-
