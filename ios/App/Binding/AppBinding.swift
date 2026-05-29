@@ -15,6 +15,11 @@ import Combine
 import UIKit
 import Factory
 
+private let blokadaSixProtectionOwnerKey = "blokada6:protection_owner"
+private let blokadaSixProtectionOwnerUpdatedAtKey = "blokada6:protection_owner_updated_at"
+private let blokadaSixProtectionOwnerValue = "blokada6"
+private let noProtectionOwnerValue = "none"
+
 enum AccountType {
     case Libre
     case Cloud
@@ -88,6 +93,7 @@ class AppBinding: AppOps {
     func doAppStatusChanged(status: AppStatus,
                             completion: @escaping (Result<Void, Error>) -> Void) {
         writeWorking.send(status == .reconfiguring)
+        publishBlokadaSixProtectionOwner(status: status)
         if (status == .activatedCloud) {
             writeAppState.send(.Activated)
         } else if (status == .activatedPlus) {
@@ -98,6 +104,20 @@ class AppBinding: AppOps {
             writeAppState.send(.Deactivated)
         }
         completion(Result.success(()))
+    }
+
+    /// Publishes a lightweight cross-app marker so Family can avoid taking over
+    /// this device when the Blokada 6 app is already protecting it.
+    private func publishBlokadaSixProtectionOwner(status: AppStatus) {
+        guard flutter.isFlavorFamily == false else { return }
+        guard let storage = UserDefaults(suiteName: "group.net.blocka.app") else { return }
+
+        let owner = (status == .activatedCloud || status == .activatedPlus)
+            ? blokadaSixProtectionOwnerValue
+            : noProtectionOwnerValue
+        storage.set(owner, forKey: blokadaSixProtectionOwnerKey)
+        storage.set(Date().timeIntervalSince1970, forKey: blokadaSixProtectionOwnerUpdatedAtKey)
+        storage.synchronize()
     }
 
     func doAppPauseDurationChanged(seconds: Int64,

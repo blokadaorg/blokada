@@ -67,6 +67,9 @@ class _FakePermChannel with PermChannel {
   }
 
   @override
+  Future<String> getParentDeviceProtectionOwner() async => "none";
+
+  @override
   Future<PrivateDnsState> getPrivateDnsState() async {
     getPrivateDnsStateCalls += 1;
     if (_privateDnsStates.isEmpty) {
@@ -158,9 +161,7 @@ Future<_Harness> createHarness(
 
   Core.register<PlusActor>(MockPlusActor());
   Core.register<PermChannel>(_FakePermChannel(
-    privateDnsStates: privateDnsStates.isEmpty
-        ? [unavailableDnsState()]
-        : privateDnsStates,
+    privateDnsStates: privateDnsStates.isEmpty ? [unavailableDnsState()] : privateDnsStates,
   ));
   Core.register(PrivateDnsEnabledForValue());
   Core.register(NotificationEnabledValue());

@@ -30,6 +30,7 @@ class FamilyModule with Module {
   onCreateModule() async {
     await register(FamilyPhaseValue());
     await register(FamilyDevicesValue());
+    await register(ParentDeviceProtectionOwnerValue());
     await register(FamilyActor());
     await register(FamilyLinkedMode());
     await register(LinkActor());

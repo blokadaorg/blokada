@@ -107,16 +107,39 @@ class FamilyDevices {
     return d;
   }
 
-  List<DeviceTag> getTags() {
-    return entries
+  List<DeviceTag> getTags({
+    ParentDeviceProtectionOwner parentDeviceOwner = ParentDeviceProtectionOwner.none,
+  }) {
+    return visibleEntries(parentDeviceOwner)
         .map((d) => d.device.deviceTag)
         .filter((d) => d.isNotEmpty)
         .toList();
   }
 
+  /// Returns the rows Family should render on the parent home screen. When
+  /// Blokada 6 owns this device, Family keeps child devices but suppresses its
+  /// local "this device" row so it does not compete for DNS/VPN ownership.
+  List<FamilyDevice> visibleEntries(ParentDeviceProtectionOwner parentDeviceOwner) {
+    if (!parentDeviceOwner.isBlokada6) return entries;
+    return entries.where((it) => !it.thisDevice).toList();
+  }
+
+  bool hasParentDevicePointer(ParentDeviceProtectionOwner parentDeviceOwner) {
+    return parentDeviceOwner.isBlokada6;
+  }
+
+  bool hasVisibleDevices(ParentDeviceProtectionOwner parentDeviceOwner) {
+    return visibleEntries(parentDeviceOwner).isNotEmpty ||
+        hasParentDevicePointer(parentDeviceOwner);
+  }
+
+  int visibleCount(ParentDeviceProtectionOwner parentDeviceOwner) {
+    return visibleEntries(parentDeviceOwner).length +
+        (hasParentDevicePointer(parentDeviceOwner) ? 1 : 0);
+  }
+
   _findDeviceByTag(DeviceTag tag) {
-    return IterableExtension(entries.where((e) => e.device.deviceTag == tag))
-        .firstOrNull;
+    return IterableExtension(entries.where((e) => e.device.deviceTag == tag)).firstOrNull;
   }
 
   @override

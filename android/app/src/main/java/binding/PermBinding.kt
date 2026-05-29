@@ -12,6 +12,9 @@
 
 package binding
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import channel.perm.PermOps
 import channel.perm.PrivateDnsState
 import channel.perm.PrivateDnsStateKind
@@ -38,6 +41,9 @@ import utils.OnboardingNotification
 
 object PermBinding : PermOps {
     val vpnProfileActivated = MutableStateFlow(false)
+    private const val BLOKADA_SIX_PACKAGE = "org.blokada.sex"
+    private const val BLOKADA_SIX_OWNER = "blokada6"
+    private const val NO_PROTECTION_OWNER = "none"
 
     private val flutter by lazy { FlutterService }
     private val notification by lazy { NotificationService }
@@ -89,6 +95,36 @@ object PermBinding : PermOps {
         val enabled = vpnPerms.hasPermission()
         vpnProfileActivated.value = enabled
         callback(Result.success(enabled))
+    }
+
+    override fun getParentDeviceProtectionOwner(callback: (Result<String>) -> Unit) {
+        val ctx = context.requireContext()
+        val sixInstalled =
+            ctx.packageManager.getLaunchIntentForPackage(BLOKADA_SIX_PACKAGE) != null
+        if (!sixInstalled) {
+            callback(Result.success(NO_PROTECTION_OWNER))
+            return
+        }
+
+        val owner = if (activeNetworkLooksLikeBlokadaSix(ctx) || privateDnsLooksLikeBlokadaSix()) {
+            BLOKADA_SIX_OWNER
+        } else {
+            NO_PROTECTION_OWNER
+        }
+        callback(Result.success(owner))
+    }
+
+    private fun activeNetworkLooksLikeBlokadaSix(ctx: Context): Boolean {
+        val manager = ctx.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork = manager.activeNetwork ?: return false
+        val caps = manager.getNetworkCapabilities(activeNetwork) ?: return false
+        return caps.hasTransport(NetworkCapabilities.TRANSPORT_VPN)
+    }
+
+    private fun privateDnsLooksLikeBlokadaSix(): Boolean {
+        val host = connectivity.privateDns ?: return false
+        if (!host.endsWith(".cloud.blokada.org")) return false
+        return host.removeSuffix(".cloud.blokada.org").contains("-")
     }
 
     override fun doOpenSettings(callback: (Result<Unit>) -> Unit) {

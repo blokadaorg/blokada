@@ -7,6 +7,7 @@ mixin PermChannel {
   Future<void> doSetDns(String tag);
   Future<bool> doNotificationEnabled();
   Future<bool> doVpnEnabled();
+  Future<String> getParentDeviceProtectionOwner();
   Future<void> doOpenPermSettings();
   Future<void> doAskNotificationPerms();
   Future<void> doAskVpnPerms();
@@ -34,6 +35,14 @@ class PermActor with Logging, Actor {
       await _perm.change(m, false);
       return;
     }
+
+    final parentDeviceOwner = await _channel.getParentDeviceProtectionOwner();
+    if (parentDeviceOwner == "blokada6") {
+      log(m).i("Skipping Family DNS setup; parent device is managed by Blokada 6");
+      await _perm.change(m, true);
+      return;
+    }
+
     await _channel.doSetDns(device.deviceTag);
 
     // Use API check on macOS, local check on iOS/iPadOS

@@ -496,6 +496,8 @@
     "family device brief internet off": "No content is blocked. The Internet is fully open.",
     "family device label internet block": "Block All",
     "family device brief internet block": "Stops all Internet access on the device.",
+    "family device managed by six": "Managed in Blokada 6. Family will not change DNS or VPN settings on this device.",
+    "family device action open six": "Open Blokada 6",
     "family perms header": "One more thing",
     "family perms brief alt": "Activate '%s' in Settings by navigating as shown below.",
     "family perms setting ios general": "General",

@@ -17,15 +17,12 @@ class FamilyHomeScreen extends StatefulWidget {
 }
 
 class FamilyHomeScreenState extends State<FamilyHomeScreen>
-    with
-        TickerProviderStateMixin,
-        Logging,
-        WidgetsBindingObserver,
-        Disposables {
+    with TickerProviderStateMixin, Logging, WidgetsBindingObserver, Disposables {
   late final _app = Core.get<AppStore>();
   late final _stage = Core.get<StageStore>();
   late final _phase = Core.get<FamilyPhaseValue>();
   late final _devices = Core.get<FamilyDevicesValue>();
+  late final _parentDeviceProtectionOwner = Core.get<ParentDeviceProtectionOwnerValue>();
 
   @override
   void initState() {
@@ -33,6 +30,7 @@ class FamilyHomeScreenState extends State<FamilyHomeScreen>
     _app.addOn(appStatusChanged, rebuild);
     disposeLater(_phase.onChange.listen(rebuild));
     disposeLater(_devices.onChange.listen(rebuild));
+    disposeLater(_parentDeviceProtectionOwner.onChange.listen(rebuild));
     reactionOnStore((_) => _stage.route, rebuild);
     reactionOnStore((_) => _stage.isReady, rebuild);
   }
@@ -46,7 +44,8 @@ class FamilyHomeScreenState extends State<FamilyHomeScreen>
   @override
   Widget build(BuildContext context) {
     final phase = _phase.now;
-    final deviceCount = _devices.now.entries.length;
+    final parentDeviceProtectionOwner = _parentDeviceProtectionOwner.now;
+    final deviceCount = _devices.now.visibleCount(parentDeviceProtectionOwner);
 
     return Stack(
       children: [
@@ -65,7 +64,10 @@ class FamilyHomeScreenState extends State<FamilyHomeScreen>
             ? Center(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 120),
-                  child: HomeDevices(devices: _devices.now),
+                  child: HomeDevices(
+                    devices: _devices.now,
+                    parentDeviceProtectionOwner: parentDeviceProtectionOwner,
+                  ),
                 ),
               )
             : Container(),

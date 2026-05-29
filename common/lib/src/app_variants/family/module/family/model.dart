@@ -16,9 +16,28 @@ class FamilyDevice {
   });
 }
 
+/// Identifies when Family should avoid taking over this parent device because
+/// another Blokada app already owns local protection.
+enum ParentDeviceProtectionOwner {
+  unknown,
+  none,
+  family,
+  blokada6,
+}
+
+extension ParentDeviceProtectionOwnerExt on ParentDeviceProtectionOwner {
+  bool get isBlokada6 => this == ParentDeviceProtectionOwner.blokada6;
+}
+
+ParentDeviceProtectionOwner parentDeviceProtectionOwnerFromPlatformValue(String value) {
+  return ParentDeviceProtectionOwner.values.firstWhere(
+    (it) => it.name == value,
+    orElse: () => ParentDeviceProtectionOwner.unknown,
+  );
+}
+
 extension FamilyDeviceExt on FamilyDevice {
-  String get displayName =>
-      !thisDevice ? device.alias : "app settings section header".i18n;
+  String get displayName => !thisDevice ? device.alias : "app settings section header".i18n;
 }
 
 enum FamilyPhase {

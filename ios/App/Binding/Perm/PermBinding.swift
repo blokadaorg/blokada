@@ -15,6 +15,12 @@ import Factory
 import Combine
 import UIKit
 
+private let blokadaSixProtectionOwnerKey = "blokada6:protection_owner"
+private let blokadaSixProtectionOwnerUpdatedAtKey = "blokada6:protection_owner_updated_at"
+private let blokadaSixProtectionOwnerValue = "blokada6"
+private let noProtectionOwnerValue = "none"
+private let parentDeviceProtectionOwnerTtl: TimeInterval = 14 * 24 * 60 * 60
+
 class PermBinding: PermOps {
 
     var vpnProfilePerms: AnyPublisher<Granted, Never> {
@@ -100,6 +106,48 @@ class PermBinding: PermOps {
                 }
             )
             .store(in: &cancellables)
+    }
+
+    func getParentDeviceProtectionOwner(completion: @escaping (Result<String, Error>) -> Void) {
+        guard flutter.isFlavorFamily else {
+            completion(.success(noProtectionOwnerValue))
+            return
+        }
+
+        guard canOpenBlokadaSix() else {
+            completion(.success(noProtectionOwnerValue))
+            return
+        }
+
+        guard let storage = UserDefaults(suiteName: "group.net.blocka.app") else {
+            completion(.success(blokadaSixProtectionOwnerValue))
+            return
+        }
+
+        let owner = storage.string(forKey: blokadaSixProtectionOwnerKey)
+        let updatedAt = storage.double(forKey: blokadaSixProtectionOwnerUpdatedAtKey)
+        let isFresh = updatedAt > 0 &&
+            Date().timeIntervalSince1970 - updatedAt < parentDeviceProtectionOwnerTtl
+
+        if owner == noProtectionOwnerValue && updatedAt > 0 {
+            completion(.success(noProtectionOwnerValue))
+            return
+        }
+
+        if owner == blokadaSixProtectionOwnerValue && isFresh {
+            completion(.success(blokadaSixProtectionOwnerValue))
+            return
+        }
+
+        completion(.success(blokadaSixProtectionOwnerValue))
+    }
+
+    /// iOS does not expose another app's active DNS/VPN profile. If Blokada 6
+    /// is installed but has not yet written a fresh marker, Family assumes the
+    /// parent wants to keep managing this device in Blokada 6 and stays out.
+    private func canOpenBlokadaSix() -> Bool {
+        guard let url = URL(string: "six://") else { return false }
+        return UIApplication.shared.canOpenURL(url)
     }
 
     func doOpenSettings(completion: @escaping (Result<Void, Error>) -> Void) {
