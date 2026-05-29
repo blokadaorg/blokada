@@ -10,7 +10,6 @@ import 'package:common/src/app_variants/family/module/device_v3/device.dart';
 import 'package:common/src/app_variants/family/module/perm/perm.dart';
 import 'package:common/src/app_variants/family/module/profile/profile.dart';
 import 'package:common/src/app_variants/family/module/stats/stats.dart';
-import 'package:common/src/app_variants/family/widget/add_profile_sheet.dart';
 import 'package:common/src/app_variants/family/widget/home/link_device_sheet.dart';
 import 'package:common/src/platform/account/account.dart';
 import 'package:common/src/platform/perm/perm.dart';
@@ -48,8 +47,6 @@ class FamilySheetActor with Actor {
     _modal.onChange.listen((it) {
       if (it.now == Modal.familyLinkDevice) {
         _modalWidget.change(it.m, (context) => const LinkDeviceSheet());
-      } else if (it.now == Modal.familyAddProfile) {
-        _modalWidget.change(it.m, (context) => const AddProfileSheet());
       }
     });
   }
