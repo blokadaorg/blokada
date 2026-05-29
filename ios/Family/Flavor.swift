@@ -25,7 +25,12 @@ class Flavor {
 
         channel.setMethodCallHandler({
             (call: FlutterMethodCall, result: @escaping FlutterResult) -> Void in
-            result(self.getFlavor())
+            switch call.method {
+            case "getTimezone":
+                result(TimeZone.current.identifier)
+            default:
+                result(self.getFlavor())
+            }
         })
     }
     
