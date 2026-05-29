@@ -1,3 +1,4 @@
+import 'package:common/src/app_variants/family/widget/profile/profile_avatar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -12,13 +13,13 @@ IconData getProfileIcon(String template) {
   }
 }
 
-Color getProfileColor(String template) {
+Color getProfileColorFor(String template, String alias) {
   switch (template) {
-    case "parent":
+    case 'parent':
       return Colors.blue;
-    case "child":
+    case 'child':
       return Colors.green;
     default:
-      return Colors.amber;
+      return ProfileAvatar.paletteColor(alias);
   }
 }

@@ -11,6 +11,7 @@ import 'package:common/src/core/core.dart';
 import 'package:common/src/app_variants/family/module/device_v3/device.dart';
 import 'package:common/src/app_variants/family/module/family/family.dart';
 import 'package:common/src/app_variants/family/module/profile/profile.dart';
+import 'package:common/src/app_variants/family/widget/profile/profile_avatar.dart';
 import 'package:common/src/app_variants/family/widget/profile/profile_utils.dart';
 import 'package:common/src/platform/family/family.dart';
 import 'package:flutter/cupertino.dart';
@@ -211,21 +212,20 @@ class LinkDeviceSheetState extends State<LinkDeviceSheet> with Logging {
                                                 .i18n,
                                             trailing: Row(
                                               children: [
-                                                Icon(
-                                                    getProfileIcon(_payload
-                                                        .profile!.template),
-                                                    color: getProfileColor(
-                                                        _payload
-                                                            .profile!.template),
+                                                ProfileAvatar(
+                                                    template: _payload
+                                                        .profile!.template,
+                                                    displayAlias: _payload
+                                                        .profile!.displayAlias,
                                                     size: 18),
                                                 const SizedBox(width: 4),
                                                 Text(
                                                     _payload.profile!
                                                         .displayAlias.i18n,
                                                     style: TextStyle(
-                                                        color: getProfileColor(
-                                                            _payload.profile!
-                                                                .template))),
+                                                        color: getProfileColorFor(
+                                                            _payload.profile!.template,
+                                                            _payload.profile!.displayAlias))),
                                               ],
                                             ),
                                           ),
