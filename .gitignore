@@ -41,3 +41,4 @@ ios/*.dSYM.zip
 
 # Local-only planning artifacts (Claude / superpowers)
 docs/superpowers/plans/
+.superpowers/
