@@ -192,7 +192,7 @@ void showConfirmDialog(BuildContext context, String name, {required Function() o
 }
 
 void showRenameDialog(BuildContext context, String what, String? name,
-    {required Function(String) onConfirm}) {
+    {required Function(String) onConfirm, Function()? onCancel}) {
   final TextEditingController ctrl = TextEditingController(text: name);
 
   showDefaultDialog(
@@ -208,6 +208,12 @@ void showRenameDialog(BuildContext context, String what, String? name,
           child: Material(
             child: TextField(
               controller: ctrl,
+              // Grab focus on open. When this dialog is shown over a
+              // showCupertinoModalBottomSheet (e.g. the rule editor's +New
+              // flow), the sheet's gesture layer can swallow the tap that
+              // would otherwise focus the field, leaving `ctrl.text` empty on
+              // confirm. Autofocus makes the field acquire focus regardless.
+              autofocus: true,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: context.theme.bgColor,
@@ -230,6 +236,7 @@ void showRenameDialog(BuildContext context, String what, String? name,
       TextButton(
         onPressed: () {
           Navigator.of(context).pop();
+          onCancel?.call();
         },
         style: TextButton.styleFrom(
           shape: RoundedRectangleBorder(
