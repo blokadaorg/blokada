@@ -144,7 +144,7 @@ jobs:
         run: tar -czf release-ios-artifacts.tgz ios/*.ipa
 
       - name: Upload iOS artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: release-ios-${{ github.run_id }}
           path: release-ios-artifacts.tgz
@@ -231,7 +231,7 @@ jobs:
           tar -czf release-android-artifacts.tgz "$bundle_dir"
 
       - name: Upload Android artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: release-android-${{ github.run_id }}
           path: release-android-artifacts.tgz
