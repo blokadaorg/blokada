@@ -10,7 +10,6 @@ enum Modal {
   onboardSafari,
   onboardSafariYoutube,
   plusDeviceLimitReached,
-  familyAddProfile,
   familyLinkDevice,
   familyQrScanMacos,
   pause,

@@ -1,11 +1,11 @@
 import 'package:common/src/shared/ui/dialog.dart';
-import 'package:common/src/features/modal/domain/modal.dart';
 import 'package:common/src/shared/ui/common_clickable.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/app_variants/family/module/device_v3/device.dart';
 import 'package:common/src/app_variants/family/module/family/family.dart';
 import 'package:common/src/app_variants/family/module/profile/profile.dart';
+import 'package:common/src/app_variants/family/widget/device/profile_editor_page.dart';
 import 'package:common/src/app_variants/family/widget/profile/profile_button.dart';
 import 'package:common/src/app_variants/family/widget/profile/profile_utils.dart';
 import 'package:dartx/dartx.dart';
@@ -28,7 +28,6 @@ class ProfileDialogState extends State<ProfileDialog> with Disposables {
   late final _devices = Core.get<DeviceActor>();
   late final _profiles = Core.get<ProfileActor>();
   late final _familyDevices = Core.get<FamilyDevicesValue>();
-  late final _modal = Core.get<CurrentModalValue>();
 
   late JsonDevice device;
   String? error;
@@ -83,7 +82,16 @@ class ProfileDialogState extends State<ProfileDialog> with Disposables {
               const SizedBox(height: 40),
               CommonClickable(
                 onTap: () {
-                  _modal.change(Markers.userTap, Modal.familyAddProfile);
+                  showRenameDialog(
+                    context,
+                    'profile',
+                    null,
+                    onConfirm: (name) async {
+                      if (name.isEmpty) return;
+                      await _profiles.addProfile("", name, Markers.userTap);
+                      if (mounted) setState(() {});
+                    },
+                  );
                 },
                 tapBgColor: context.theme.divider,
                 tapBorderRadius: BorderRadius.circular(24),
@@ -127,24 +135,26 @@ class ProfileDialogState extends State<ProfileDialog> with Disposables {
                 }
               },
               icon: getProfileIcon(it.template),
-              iconColor: getProfileColor(it.template),
+              iconColor: getProfileColorFor(it.template, it.displayAlias),
               name: it.displayAlias.i18n,
               trailing: CommonClickable(
-                onTap: () {
-                  showRenameDialog(context, "profile", it.displayAlias,
-                      onConfirm: (newName) {
-                    _profiles.renameProfile(Markers.userTap, it, newName);
-                  });
+                onTap: () async {
+                  // Opens the canonical profile editor (rename +
+                  // blocklists + safe-search + delete). Replaces the
+                  // previous rename-only pencil so the dialog stops
+                  // being a narrower parallel management surface.
+                  await ProfileEditorPage.open(context, it);
+                  if (mounted) setState(() {});
                 },
                 padding: const EdgeInsets.all(16),
                 child: Icon(
-                  CupertinoIcons.pencil,
+                  CupertinoIcons.chevron_right,
                   size: 16,
                   color: context.theme.textSecondary,
                 ),
               ),
               borderColor: it.profileId == device.profileId
-                  ? getProfileColor(it.template).withOpacity(0.30)
+                  ? getProfileColorFor(it.template, it.displayAlias).withOpacity(0.30)
                   : null,
               tapBgColor: context.theme.divider.withOpacity(0.1),
               padding: const EdgeInsets.only(left: 12),
@@ -167,7 +177,20 @@ class ProfileDialogState extends State<ProfileDialog> with Disposables {
               try {
                 await device.deleteProfile(Markers.userTap, it);
               } on ProfileInUseException catch (e) {
-                setError("family profile error use".i18n);
+                // Same typed copy the editor's Delete uses, sourced from
+                // the exception's captured affectedDevices so the two
+                // surfaces stay in lockstep.
+                if (e.affectedDevices.isEmpty) {
+                  setError("family profile error".i18n);
+                } else {
+                  final names =
+                      e.affectedDevices.map((d) => d.alias).join(', ');
+                  final key =
+                      e.reason == ProfileInUseReason.deviceDefault
+                          ? "family profile error used as default"
+                          : "family profile error used by rule";
+                  setError(key.i18n.withParams(names));
+                }
               } catch (e) {
                 setError("family profile error".i18n);
               }
