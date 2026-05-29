@@ -15,11 +15,6 @@ import Combine
 import UIKit
 import Factory
 
-private let blokadaSixProtectionOwnerKey = "blokada6:protection_owner"
-private let blokadaSixProtectionOwnerUpdatedAtKey = "blokada6:protection_owner_updated_at"
-private let blokadaSixProtectionOwnerValue = "blokada6"
-private let noProtectionOwnerValue = "none"
-
 enum AccountType {
     case Libre
     case Cloud
@@ -110,14 +105,26 @@ class AppBinding: AppOps {
     /// this device when the Blokada 6 app is already protecting it.
     private func publishBlokadaSixProtectionOwner(status: AppStatus) {
         guard flutter.isFlavorFamily == false else { return }
-        guard let storage = UserDefaults(suiteName: "group.net.blocka.app") else { return }
+        guard let storage = UserDefaults(
+            suiteName: BlokadaSixProtectionOwnerMarker.storageSuite
+        ) else { return }
 
-        let owner = (status == .activatedCloud || status == .activatedPlus)
-            ? blokadaSixProtectionOwnerValue
-            : noProtectionOwnerValue
-        storage.set(owner, forKey: blokadaSixProtectionOwnerKey)
-        storage.set(Date().timeIntervalSince1970, forKey: blokadaSixProtectionOwnerUpdatedAtKey)
-        storage.synchronize()
+        let owner = isBlokadaSixProtecting(status: status)
+            ? BlokadaSixProtectionOwnerMarker.ownerBlokadaSix
+            : BlokadaSixProtectionOwnerMarker.ownerNone
+        storage.set(owner, forKey: BlokadaSixProtectionOwnerMarker.ownerKey)
+        storage.set(Date().timeIntervalSince1970, forKey: BlokadaSixProtectionOwnerMarker.updatedAtKey)
+    }
+
+    /// `pausedPlus` keeps the VPN active, so Family must still treat Blokada 6
+    /// as owning local protection while the pause timer runs.
+    private func isBlokadaSixProtecting(status: AppStatus) -> Bool {
+        switch status {
+        case .activatedCloud, .activatedPlus, .pausedPlus:
+            return true
+        default:
+            return false
+        }
     }
 
     func doAppPauseDurationChanged(seconds: Int64,

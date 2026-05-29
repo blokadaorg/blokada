@@ -15,12 +15,6 @@ import Factory
 import Combine
 import UIKit
 
-private let blokadaSixProtectionOwnerKey = "blokada6:protection_owner"
-private let blokadaSixProtectionOwnerUpdatedAtKey = "blokada6:protection_owner_updated_at"
-private let blokadaSixProtectionOwnerValue = "blokada6"
-private let noProtectionOwnerValue = "none"
-private let parentDeviceProtectionOwnerTtl: TimeInterval = 14 * 24 * 60 * 60
-
 class PermBinding: PermOps {
 
     var vpnProfilePerms: AnyPublisher<Granted, Never> {
@@ -110,36 +104,37 @@ class PermBinding: PermOps {
 
     func getParentDeviceProtectionOwner(completion: @escaping (Result<String, Error>) -> Void) {
         guard flutter.isFlavorFamily else {
-            completion(.success(noProtectionOwnerValue))
+            completion(.success(BlokadaSixProtectionOwnerMarker.ownerNone))
             return
         }
 
         guard canOpenBlokadaSix() else {
-            completion(.success(noProtectionOwnerValue))
+            completion(.success(BlokadaSixProtectionOwnerMarker.ownerNone))
             return
         }
 
-        guard let storage = UserDefaults(suiteName: "group.net.blocka.app") else {
-            completion(.success(blokadaSixProtectionOwnerValue))
+        guard let storage = UserDefaults(
+            suiteName: BlokadaSixProtectionOwnerMarker.storageSuite
+        ) else {
+            completion(.success(BlokadaSixProtectionOwnerMarker.ownerBlokadaSix))
             return
         }
 
-        let owner = storage.string(forKey: blokadaSixProtectionOwnerKey)
-        let updatedAt = storage.double(forKey: blokadaSixProtectionOwnerUpdatedAtKey)
-        let isFresh = updatedAt > 0 &&
-            Date().timeIntervalSince1970 - updatedAt < parentDeviceProtectionOwnerTtl
+        let owner = storage.string(forKey: BlokadaSixProtectionOwnerMarker.ownerKey)
+        let updatedAt = storage.double(forKey: BlokadaSixProtectionOwnerMarker.updatedAtKey)
+        let isFresh = BlokadaSixProtectionOwnerMarker.isFresh(updatedAt: updatedAt)
 
-        if owner == noProtectionOwnerValue && updatedAt > 0 {
-            completion(.success(noProtectionOwnerValue))
+        if owner == BlokadaSixProtectionOwnerMarker.ownerNone && isFresh {
+            completion(.success(BlokadaSixProtectionOwnerMarker.ownerNone))
             return
         }
 
-        if owner == blokadaSixProtectionOwnerValue && isFresh {
-            completion(.success(blokadaSixProtectionOwnerValue))
+        if owner == BlokadaSixProtectionOwnerMarker.ownerBlokadaSix && isFresh {
+            completion(.success(BlokadaSixProtectionOwnerMarker.ownerBlokadaSix))
             return
         }
 
-        completion(.success(blokadaSixProtectionOwnerValue))
+        completion(.success(BlokadaSixProtectionOwnerMarker.ownerBlokadaSix))
     }
 
     /// iOS does not expose another app's active DNS/VPN profile. If Blokada 6

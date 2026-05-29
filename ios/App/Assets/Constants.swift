@@ -17,3 +17,18 @@ let DEFAULT_USER_INTERACTION_DEBOUNCE = 0.3
 
 // HTTP timeout configuration - used by main app, network extension, and WgService (in seconds)
 let HTTP_TIMEOUT_INTERVAL: TimeInterval = 15.0
+
+/// Shared cross-app marker used so Family can stay out of parent-device DNS
+/// setup when Blokada 6 is already responsible for protection.
+enum BlokadaSixProtectionOwnerMarker {
+    static let storageSuite = "group.net.blocka.app"
+    static let ownerKey = "blokada6:protection_owner"
+    static let updatedAtKey = "blokada6:protection_owner_updated_at"
+    static let ownerBlokadaSix = "blokada6"
+    static let ownerNone = "none"
+    static let ttl: TimeInterval = 14 * 24 * 60 * 60
+
+    static func isFresh(updatedAt: TimeInterval) -> Bool {
+        return updatedAt > 0 && Date().timeIntervalSince1970 - updatedAt < ttl
+    }
+}

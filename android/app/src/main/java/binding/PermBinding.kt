@@ -15,6 +15,7 @@ package binding
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.os.Build
 import channel.perm.PermOps
 import channel.perm.PrivateDnsState
 import channel.perm.PrivateDnsStateKind
@@ -106,7 +107,7 @@ object PermBinding : PermOps {
             return
         }
 
-        val owner = if (activeNetworkLooksLikeBlokadaSix(ctx) || privateDnsLooksLikeBlokadaSix()) {
+        val owner = if (activeVpnLooksLikeBlokadaSix(ctx) || privateDnsLooksLikeBlokadaSix()) {
             BLOKADA_SIX_OWNER
         } else {
             NO_PROTECTION_OWNER
@@ -114,11 +115,15 @@ object PermBinding : PermOps {
         callback(Result.success(owner))
     }
 
-    private fun activeNetworkLooksLikeBlokadaSix(ctx: Context): Boolean {
+    private fun activeVpnLooksLikeBlokadaSix(ctx: Context): Boolean {
         val manager = ctx.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork = manager.activeNetwork ?: return false
         val caps = manager.getNetworkCapabilities(activeNetwork) ?: return false
-        return caps.hasTransport(NetworkCapabilities.TRANSPORT_VPN)
+        if (!caps.hasTransport(NetworkCapabilities.TRANSPORT_VPN)) return false
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) return false
+
+        val packages = ctx.packageManager.getPackagesForUid(caps.ownerUid) ?: return false
+        return packages.contains(BLOKADA_SIX_PACKAGE)
     }
 
     private fun privateDnsLooksLikeBlokadaSix(): Boolean {
