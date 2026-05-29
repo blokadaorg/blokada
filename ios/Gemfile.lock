@@ -42,7 +42,7 @@ GEM
     aws-sigv4 (1.12.1)
       aws-eventstream (~> 1, >= 1.0.2)
     babosa (1.0.4)
-    base64 (0.2.0)
+    base64 (0.3.0)
     benchmark (0.5.0)
     bigdecimal (4.0.1)
     claide (1.1.0)
@@ -126,16 +126,16 @@ GEM
     faraday_middleware (1.2.1)
       faraday (~> 1.0)
     fastimage (2.4.0)
-    fastlane (2.232.0)
-      CFPropertyList (>= 2.3, < 4.0.0)
-      abbrev (~> 0.1.2)
+    fastlane (2.235.0)
+      CFPropertyList (>= 2.3, < 5.0.0)
+      abbrev (~> 0.1)
       addressable (>= 2.8, < 3.0.0)
       artifactory (~> 3.0)
       aws-sdk-s3 (~> 1.197)
       babosa (>= 1.0.3, < 2.0.0)
-      base64 (~> 0.2.0)
+      base64 (~> 0.2)
       benchmark (>= 0.1.0)
-      bundler (>= 1.17.3, < 5.0.0)
+      bundler (>= 2.4.0, < 5.0.0)
       colored (~> 1.2)
       commander (~> 4.6)
       csv (~> 3.3)
@@ -146,22 +146,22 @@ GEM
       faraday-cookie_jar (~> 0.0.6)
       faraday_middleware (~> 1.0)
       fastimage (>= 2.1.0, < 3.0.0)
-      fastlane-sirp (>= 1.0.0)
+      fastlane-sirp (>= 1.1.0)
       gh_inspector (>= 1.1.2, < 2.0.0)
       google-apis-androidpublisher_v3 (~> 0.3)
       google-apis-playcustomapp_v1 (~> 0.1)
-      google-cloud-env (>= 1.6.0, <= 2.1.1)
+      google-cloud-env (>= 1.6.0, < 2.3.0)
       google-cloud-storage (~> 1.31)
       highline (~> 2.0)
       http-cookie (~> 1.0.5)
       json (< 3.0.0)
-      jwt (>= 2.1.0, < 3)
+      jwt (>= 2.1.0, < 4)
       logger (>= 1.6, < 2.0)
       mini_magick (>= 4.9.4, < 5.0.0)
       multipart-post (>= 2.0.0, < 3.0.0)
-      mutex_m (~> 0.3.0)
+      mutex_m (~> 0.3)
       naturally (~> 2.2)
-      nkf (~> 0.2.0)
+      nkf (~> 0.2)
       optparse (>= 0.1.1, < 1.0.0)
       ostruct (>= 0.1.0)
       plist (>= 3.1.0, < 4.0.0)
@@ -176,8 +176,7 @@ GEM
       xcodeproj (>= 1.13.0, < 2.0.0)
       xcpretty (~> 0.4.1)
       xcpretty-travis-formatter (>= 0.0.3, < 2.0.0)
-    fastlane-sirp (1.0.0)
-      sysrandom (~> 1.0)
+    fastlane-sirp (1.1.0)
     ffi (1.17.3)
     ffi (1.17.3-aarch64-linux-gnu)
     ffi (1.17.3-aarch64-linux-musl)
@@ -211,7 +210,8 @@ GEM
     google-cloud-core (1.8.0)
       google-cloud-env (>= 1.0, < 3.a)
       google-cloud-errors (~> 1.0)
-    google-cloud-env (2.1.1)
+    google-cloud-env (2.2.2)
+      base64 (~> 0.2)
       faraday (>= 1.0, < 3.a)
     google-cloud-errors (1.5.0)
     google-cloud-storage (1.58.0)
@@ -223,10 +223,12 @@ GEM
       google-cloud-core (~> 1.6)
       googleauth (~> 1.9)
       mini_mime (~> 1.0)
-    googleauth (1.11.2)
+    google-logging-utils (0.2.0)
+    googleauth (1.16.2)
       faraday (>= 1.0, < 3.a)
-      google-cloud-env (~> 2.1)
-      jwt (>= 1.4, < 3.0)
+      google-cloud-env (~> 2.2)
+      google-logging-utils (~> 0.1)
+      jwt (>= 1.4, < 4.0)
       multi_json (~> 1.11)
       os (>= 0.9, < 2.0)
       signet (>= 0.16, < 2.a)
@@ -239,7 +241,7 @@ GEM
       concurrent-ruby (~> 1.0)
     jmespath (1.6.2)
     json (2.18.1)
-    jwt (2.10.2)
+    jwt (3.2.0)
       base64
     logger (1.7.0)
     mini_magick (4.13.2)
@@ -282,7 +284,6 @@ GEM
     simctl (1.6.10)
       CFPropertyList
       naturally
-    sysrandom (1.0.5)
     terminal-notifier (2.0.0)
     terminal-table (3.0.2)
       unicode-display_width (>= 1.1.1, < 3)
@@ -329,7 +330,6 @@ DEPENDENCIES
   fastlane
   logger
 
-CHECKSUMS
   CFPropertyList (3.0.8) sha256=2c99d0d980536d3d7ab252f7bd59ac8be50fbdd1ff487c98c949bb66bb114261
   abbrev (0.1.2) sha256=ad1b4eaaaed4cb722d5684d63949e4bde1d34f2a95e20db93aecfe7cbac74242
   activesupport (7.2.3) sha256=5675c9770dac93e371412684249f9dc3c8cec104efd0624362a520ae685c7b10
@@ -344,7 +344,7 @@ CHECKSUMS
   aws-sdk-s3 (1.213.0) sha256=af596ccf544582406db610e95cc9099276eaf03142f57a2f30f76940e598e50d
   aws-sigv4 (1.12.1) sha256=6973ff95cb0fd0dc58ba26e90e9510a2219525d07620c8babeb70ef831826c00
   babosa (1.0.4) sha256=18dea450f595462ed7cb80595abd76b2e535db8c91b350f6c4b3d73986c5bc99
-  base64 (0.2.0) sha256=0f25e9b21a02a0cc0cea8ef92b2041035d39350946e8789c562b2d1a3da01507
+  base64 (0.3.0) sha256=27337aeabad6ffae05c265c450490628ef3ebd4b67be58257393227588f5a97b
   benchmark (0.5.0) sha256=465df122341aedcb81a2a24b4d3bd19b6c67c1530713fd533f3ff034e419236c
   bigdecimal (4.0.1) sha256=8b07d3d065a9f921c80ceaea7c9d4ae596697295b584c296fe599dd0ad01c4a7
   claide (1.1.0) sha256=6d3c5c089dde904d96aa30e73306d0d4bd444b1accb9b3125ce14a3c0183f82e
@@ -383,8 +383,8 @@ CHECKSUMS
   faraday-rack (1.0.0) sha256=ef60ec969a2bb95b8dbf24400155aee64a00fc8ba6c6a4d3968562bcc92328c0
   faraday_middleware (1.2.1) sha256=d45b78c8ee864c4783fbc276f845243d4a7918a67301c052647bacabec0529e9
   fastimage (2.4.0) sha256=5fce375e27d3bdbb46c18dbca6ba9af29d3304801ae1eb995771c4796c5ac7e8
-  fastlane (2.232.0) sha256=441c9481115c4cdb60354b95426964358c32e1e1ee339a03ced05915e30c6222
-  fastlane-sirp (1.0.0) sha256=66478f25bcd039ec02ccf65625373fca29646fa73d655eb533c915f106c5e641
+  fastlane (2.235.0) sha256=7de12cf4c4e242b68836aef859ba8e6b25bb1db7f6c8e2d705b024fb16a2ed65
+  fastlane-sirp (1.1.0) sha256=10bc94f9682efd8e1badfb31452a76dd8981f1f3a33717c765fde6d75b54d847
   ffi (1.17.3) sha256=0e9f39f7bb3934f77ad6feab49662be77e87eedcdeb2a3f5c0234c2938563d4c
   ffi (1.17.3-aarch64-linux-gnu) sha256=28ad573df26560f0aedd8a90c3371279a0b2bd0b4e834b16a2baa10bd7a97068
   ffi (1.17.3-aarch64-linux-musl) sha256=020b33b76775b1abacc3b7d86b287cef3251f66d747092deec592c7f5df764b2
@@ -405,17 +405,18 @@ CHECKSUMS
   google-apis-playcustomapp_v1 (0.17.0) sha256=d5bc90b705f3f862bab4998086449b0abe704ee1685a84821daa90ca7fa95a78
   google-apis-storage_v1 (0.60.0) sha256=ad2511b7128344248c2a16adb56ad4b1b48f37d53925455b7b77acccfe75367a
   google-cloud-core (1.8.0) sha256=e572edcbf189cfcab16590628a516cec3f4f63454b730e59f0b36575120281cf
-  google-cloud-env (2.1.1) sha256=cf4bb8c7d517ee1ea692baedf06e0b56ce68007549d8d5a66481aa9f97f46999
+  google-cloud-env (2.2.2) sha256=94bed40e05a67e9468ce1cb38389fba9a90aa8fc62fc9e173204c1dca59e21e7
   google-cloud-errors (1.5.0) sha256=b56be28b8c10628125214dde571b925cfcebdbc58619e598250c37a2114f7b4b
   google-cloud-storage (1.58.0) sha256=1bedc07a9c75af169e1ede1dd306b9f941f9ffa9e7095d0364c0803c468fdffd
-  googleauth (1.11.2) sha256=7e6bacaeed7aea3dd66dcea985266839816af6633e9f5983c3c2e0e40a44731e
+  google-logging-utils (0.2.0) sha256=675462b4ea5affa825a3442694ca2d75d0069455a1d0956127207498fca3df7b
+  googleauth (1.16.2) sha256=15009502e2e38af71948cda918f230e27d327f6882a1e47967a5a4664930a638
   highline (2.0.3) sha256=2ddd5c127d4692721486f91737307236fe005352d12a4202e26c48614f719479
   http-cookie (1.0.8) sha256=b14fe0445cf24bf9ae098633e9b8d42e4c07c3c1f700672b09fbfe32ffd41aa6
   httpclient (2.9.0) sha256=4b645958e494b2f86c2f8a2f304c959baa273a310e77a2931ddb986d83e498c8
   i18n (1.14.8) sha256=285778639134865c5e0f6269e0b818256017e8cde89993fdfcbfb64d088824a5
   jmespath (1.6.2) sha256=238d774a58723d6c090494c8879b5e9918c19485f7e840f2c1c7532cf84ebcb1
   json (2.18.1) sha256=fe112755501b8d0466b5ada6cf50c8c3f41e897fa128ac5d263ec09eedc9f986
-  jwt (2.10.2) sha256=31e1ee46f7359883d5e622446969fe9c118c3da87a0b1dca765ce269c3a0c4f4
+  jwt (3.2.0) sha256=5419b1fe37b1da0982bd07051f573a8b8789ab724c2aa7e785e4784a3ed217d7
   logger (1.7.0) sha256=196edec7cc44b66cfb40f9755ce11b392f21f7967696af15d274dde7edff0203
   mini_magick (4.13.2) sha256=71d6258e0e8a3d04a9a0a09784d5d857b403a198a51dd4f882510435eb95ddd9
   mini_mime (1.1.5) sha256=8681b7e2e4215f2a159f9400b5816d85e9d8c6c6b491e96a12797e798f8bccef
@@ -447,7 +448,6 @@ CHECKSUMS
   security (0.1.5) sha256=3a977a0eca7706e804c96db0dd9619e0a94969fe3aac9680fcfc2bf9b8a833b7
   signet (0.21.0) sha256=d617e9fbf24928280d39dcfefba9a0372d1c38187ffffd0a9283957a10a8cd5b
   simctl (1.6.10) sha256=b99077f4d13ad81eace9f86bf5ba4df1b0b893a4d1b368bd3ed59b5b27f9236b
-  sysrandom (1.0.5) sha256=5ac1ac3c2ec64ef76ac91018059f541b7e8f437fbda1ccddb4f2c56a9ccf1e75
   terminal-notifier (2.0.0) sha256=7a0d2b2212ab9835c07f4b2e22a94cff64149dba1eed203c04835f7991078cea
   terminal-table (3.0.2) sha256=f951b6af5f3e00203fb290a669e0a85c5dd5b051b3b023392ccfd67ba5abae91
   trailblazer-option (0.1.2) sha256=20e4f12ea4e1f718c8007e7944ca21a329eee4eed9e0fa5dde6e8ad8ac4344a3
