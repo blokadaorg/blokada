@@ -3,6 +3,7 @@ import 'package:common/src/core/core.dart';
 part 'json.dart';
 part 'seed_templates.dart';
 part 'summary.dart';
+part 'active_profile.dart';
 
 /// Schedule module surface.
 ///

@@ -26,6 +26,8 @@ import 'package:common/src/app_variants/family/module/schedule/schedule.dart';
 import 'package:common/src/app_variants/family/widget/device/rule_editor_sheet.dart';
 import 'package:common/src/app_variants/family/widget/device/schedule_section.dart';
 import 'package:common/src/app_variants/family/widget/home/link_device_sheet.dart';
+import 'package:common/src/app_variants/family/widget/profile/profile_avatar.dart';
+import 'package:common/src/app_variants/family/widget/profile/profile_utils.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -154,12 +156,34 @@ class DeviceSectionState extends State<DeviceSection>
                       trailing: Text(device.device.alias,
                           style: TextStyle(color: context.theme.textSecondary)),
                     ),
-                    // Profile row removed (issue #292): the device's
-                    // single profile is now surfaced as the Default row
-                    // inside the Schedule section below. The existing
-                    // profile-picker (`showSelectProfileDialog`) is wired
-                    // through the section's `onDefaultTap` callback so
-                    // tapping Default still opens the same picker.
+                    // Default profile: the device's base profile, surfaced
+                    // here in Device settings (it was briefly the Default row
+                    // inside the Schedule section per #292; moved back up so
+                    // the schedule holds only override rules). Tapping opens
+                    // the existing profile picker. Collapsing this with the
+                    // Blocklists row into a single push-to-config flow is a
+                    // deferred follow-up.
+                    CommonItem(
+                      onTap: () => showSelectProfileDialog(context,
+                          device: device.device),
+                      icon: CupertinoIcons.person_crop_circle,
+                      text: "family device default profile".i18n,
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          ProfileAvatar(
+                              template: device.profile.template,
+                              displayAlias: device.profile.displayAlias,
+                              size: 18),
+                          const SizedBox(width: 4),
+                          Text(device.profile.displayAlias.i18n,
+                              style: TextStyle(
+                                  color: getProfileColorFor(
+                                      device.profile.template,
+                                      device.profile.displayAlias))),
+                        ],
+                      ),
+                    ),
                     CommonItem(
                       onTap: () {
                         Navigation.open(Paths.deviceFilters, arguments: device);
@@ -183,14 +207,13 @@ class DeviceSectionState extends State<DeviceSection>
           ),
         ),
 
-        // Schedule section (variant γ) — sits between Settings and Internet.
-        // The Default row inside the section is the device's existing
-        // single profile; the rule list overrides that default by weekday
-        // and time-of-day. See coordinator plan §"Wire format".
+        // Schedule section — sits between Settings and Internet. Holds only
+        // the override rules; the device's default profile lives in the
+        // Device-settings card above. The rule list overrides that default by
+        // weekday and time-of-day. See coordinator plan §"Wire format".
         ScheduleSection(
           deviceTag: device.device.deviceTag,
           profiles: _profiles.profiles,
-          defaultProfileId: device.device.profileId,
           schedule: device.device.schedule ??
               const ScheduleModel(paused: false, rules: <RuleModel>[]),
           onPausedChanged: (paused) async {
@@ -208,8 +231,6 @@ class DeviceSectionState extends State<DeviceSection>
               }
             }
           },
-          onDefaultTap: () =>
-              showSelectProfileDialog(context, device: device.device),
           onRuleTap: (index) {
             final schedule = device.device.schedule;
             if (schedule == null) return;

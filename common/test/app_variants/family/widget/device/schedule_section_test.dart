@@ -2,6 +2,7 @@ import 'package:common/src/app_variants/family/module/profile/profile.dart';
 import 'package:common/src/app_variants/family/module/schedule/schedule.dart';
 import 'package:common/src/app_variants/family/widget/device/schedule_section.dart';
 import 'package:common/src/shared/ui/theme.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -47,8 +48,8 @@ void main() {
   ];
 
   testWidgets(
-      'renders Default row (from device profile_id) + rule rows + Add rule',
-      (tester) async {
+      'renders rule rows + Add rule; the Default row is gone (it moved to '
+      'Device settings)', (tester) async {
     await withTrace((_) async {
       final schedule = ScheduleModel(
         paused: false,
@@ -66,21 +67,17 @@ void main() {
       await tester.pumpWidget(_wrap(ScheduleSection(
         deviceTag: 'tag1',
         profiles: profiles,
-        defaultProfileId: 'prof_default',
         schedule: schedule,
         onPausedChanged: (_) {},
-        onDefaultTap: () {},
         onRuleTap: (_) {},
         onAddRule: () {},
         onReorder: (_, __) {},
       )));
       await tester.pump();
 
-      // Default row uses the locked English label key (test env doesn't
-      // resolve translations; key is the source-of-truth value).
-      expect(find.text('family schedule default row title'), findsOneWidget);
-      // Default profile name comes from JsonProfile.displayAlias = "Parent".
-      expect(find.text('Parent'), findsOneWidget);
+      // The device's base profile moved to the Device-settings card, so the
+      // schedule section no longer renders a Default row.
+      expect(find.text('family schedule default row title'), findsNothing);
 
       // Rule row: profile name + days summary + windows summary. The days
       // summary goes through the i18n key surface so non-English locales
@@ -106,18 +103,16 @@ void main() {
       await tester.pumpWidget(_wrap(ScheduleSection(
         deviceTag: 'tag1',
         profiles: profiles,
-        defaultProfileId: 'prof_default',
         schedule: const ScheduleModel(paused: false, rules: <RuleModel>[]),
         onPausedChanged: (v) => newPaused = v,
-        onDefaultTap: () {},
         onRuleTap: (_) {},
         onAddRule: () {},
         onReorder: (_, __) {},
       )));
       await tester.pump();
 
-      final firstSwitch = tester
-          .widget<Switch>(find.byKey(const Key('schedule_paused_switch')));
+      final firstSwitch = tester.widget<CupertinoSwitch>(
+          find.byKey(const Key('schedule_paused_switch')));
       expect(firstSwitch.value, isTrue,
           reason: 'paused:false should render the toggle as ON.');
 
@@ -132,18 +127,16 @@ void main() {
       await tester.pumpWidget(_wrap(ScheduleSection(
         deviceTag: 'tag1',
         profiles: profiles,
-        defaultProfileId: 'prof_default',
         schedule: const ScheduleModel(paused: true, rules: <RuleModel>[]),
         onPausedChanged: (v) => newPaused = v,
-        onDefaultTap: () {},
         onRuleTap: (_) {},
         onAddRule: () {},
         onReorder: (_, __) {},
       )));
       await tester.pump();
 
-      final secondSwitch = tester
-          .widget<Switch>(find.byKey(const Key('schedule_paused_switch')));
+      final secondSwitch = tester.widget<CupertinoSwitch>(
+          find.byKey(const Key('schedule_paused_switch')));
       expect(secondSwitch.value, isFalse,
           reason: 'paused:true should render the toggle as OFF.');
 
@@ -151,6 +144,50 @@ void main() {
       await tester.pump();
       expect(newPaused, isFalse,
           reason: 'Tapping OFF → ON should fire onPausedChanged(false).');
+    });
+  });
+
+  testWidgets('marks the firing rule with the Active-now caption, and not '
+      'when paused', (tester) async {
+    await withTrace((_) async {
+      // A rule active at every instant: all weekdays, plus two windows that
+      // together cover all 1440 minutes (the wrap window picks up the single
+      // minute the [0,1439) window misses), so the marker assertion never
+      // flakes on the wall clock.
+      ScheduleModel always({required bool paused}) => ScheduleModel(
+            paused: paused,
+            rules: [
+              RuleModel(
+                profileId: 'prof_school',
+                weekdays: const [1, 2, 3, 4, 5, 6, 7],
+                windows: const [
+                  TimeWindowModel(startMinute: 0, endMinute: 1439),
+                  TimeWindowModel(startMinute: 1439, endMinute: 1),
+                ],
+              ),
+            ],
+          );
+
+      ScheduleSection section(ScheduleModel s) => ScheduleSection(
+            deviceTag: 'tag1',
+            profiles: profiles,
+            schedule: s,
+            onPausedChanged: (_) {},
+            onRuleTap: (_) {},
+            onAddRule: () {},
+            onReorder: (_, __) {},
+          );
+
+      // Active: the firing rule shows the Active-now caption (i18n key
+      // resolves verbatim in the test env).
+      await tester.pumpWidget(_wrap(section(always(paused: false))));
+      await tester.pump();
+      expect(find.textContaining('family schedule active now'), findsOneWidget);
+
+      // Paused: the resolver returns null, so no caption renders.
+      await tester.pumpWidget(_wrap(section(always(paused: true))));
+      await tester.pump();
+      expect(find.textContaining('family schedule active now'), findsNothing);
     });
   });
 }
