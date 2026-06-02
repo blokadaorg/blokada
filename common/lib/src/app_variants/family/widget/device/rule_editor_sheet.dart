@@ -426,6 +426,12 @@ class _RuleEditorSheetState extends State<RuleEditorSheet> {
           padding:
               const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           child: Text('universal action save'.i18n,
+              // Keep the action on one line even when the localised label
+              // is long (e.g. es "Guardar"); the nav bar sizes the
+              // trailing slot to this content rather than wrapping it.
+              maxLines: 1,
+              softWrap: false,
+              overflow: TextOverflow.visible,
               style: TextStyle(
                   color: saveDisabled
                       ? context.theme.divider
@@ -470,9 +476,15 @@ class _RuleEditorSheetState extends State<RuleEditorSheet> {
   /// horizontal 24 above a [CommonCard] at horizontal 12 holding [content].
   /// `extraTop` adds breathing room between successive sections; the
   /// first section caller passes 0 to stay tight to the AppBar.
+  ///
+  /// [description] is optional explanatory text rendered in the gray area
+  /// between the label and the card, matching the Schedule section
+  /// subtitle and the rest of the settings UI. Brief / footer texts belong
+  /// here, not inside the white card.
   Widget _buildSection(BuildContext context,
       {required String label,
       required Widget content,
+      Widget? description,
       double extraTop = 16}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -483,6 +495,14 @@ class _RuleEditorSheetState extends State<RuleEditorSheet> {
           child: Text(label.toUpperCase(),
               style: const TextStyle(fontWeight: FontWeight.w500)),
         ),
+        if (description != null)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(24, 4, 24, 0),
+            child: DefaultTextStyle.merge(
+              style: TextStyle(color: context.theme.textSecondary),
+              child: description,
+            ),
+          ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           child: CommonCard(
@@ -500,39 +520,41 @@ class _RuleEditorSheetState extends State<RuleEditorSheet> {
   Widget _buildProfileSection(BuildContext context) {
     final eligible = _eligibleProfiles;
     final base = _baseProfileForDisplay;
+    // Section explainers live in the gray area above the card (matching the
+    // Schedule section subtitle and the rest of the settings UI), not inside
+    // the white card.
+    //
+    // Override hint — frames the chip row in the user's mental model ("rule
+    // profile overrides standard during this window") before they pick. Only
+    // rendered when we can name the standard; if the base profile id isn't in
+    // the loaded list yet, the sentence with an empty parenthesis would
+    // confuse more than it teaches.
+    final descriptionLines = <Widget>[
+      if (base != null)
+        Text('family schedule rule editor override hint'
+            .i18n
+            .withParams(base.displayAlias.i18n)),
+      if (eligible.isEmpty)
+        Padding(
+          padding: EdgeInsets.only(top: base != null ? 4 : 0),
+          child: Text(
+              'family schedule rule editor profile empty subtitle'.i18n,
+              style: const TextStyle(fontStyle: FontStyle.italic)),
+        ),
+    ];
     return _buildSection(
       context,
       label: 'family schedule rule editor profile label'.i18n,
       extraTop: 0,
+      description: descriptionLines.isEmpty
+          ? null
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: descriptionLines),
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Override hint — frames the chip row in the user's mental
-          // model ("rule profile overrides standard during this
-          // window") before they pick. Only rendered when we can name
-          // the standard; if the base profile id isn't in the loaded
-          // list yet, the sentence with an empty parenthesis would
-          // confuse more than it teaches.
-          if (base != null)
-            Padding(
-              padding: const EdgeInsets.only(bottom: 8),
-              child: Text(
-                  'family schedule rule editor override hint'
-                      .i18n
-                      .withParams(base.displayAlias.i18n),
-                  style: TextStyle(
-                      color: context.theme.textSecondary, fontSize: 12)),
-            ),
-          if (eligible.isEmpty)
-            Padding(
-              padding: const EdgeInsets.only(bottom: 6),
-              child: Text(
-                  'family schedule rule editor profile empty subtitle'.i18n,
-                  style: TextStyle(
-                      color: context.theme.textSecondary,
-                      fontSize: 12,
-                      fontStyle: FontStyle.italic)),
-            ),
           _buildChipRow(context, eligible),
           // Edit affordance for the currently-selected chip. Hidden when
           // no eligible chip is selected (rule editor for a brand-new
@@ -725,12 +747,13 @@ class _RuleEditorSheetState extends State<RuleEditorSheet> {
             ],
           ),
           const SizedBox(height: 12),
-          // ISO 1..7 (Mon..Sun) day toggles. Layouts as a single Row when
-          // there is space, falls back to wrap-around on narrow widths via
-          // the surrounding Wrap.
-          Wrap(
-            spacing: 6,
-            runSpacing: 6,
+          // ISO 1..7 (Mon..Sun) day toggles as a full-width Row of equal
+          // Expanded cells. Selection changes fill + text colour only, not
+          // cell width, so toggling a day never reflows the row (the old
+          // FilterChip version grew on selection because of the checkmark,
+          // which made chips jump around). The row always spans the full
+          // card width.
+          Row(
             children: List.generate(7, (i) {
               final day = i + 1; // 1..7
               final selected = _weekdays.contains(day);
@@ -743,21 +766,51 @@ class _RuleEditorSheetState extends State<RuleEditorSheet> {
                 'Sat',
                 'Sun',
               ];
-              return FilterChip(
-                key: Key('day_chip_$day'),
-                label: Text(labels[i]),
-                selected: selected,
-                onSelected: (_) {
-                  setState(() {
-                    final set = _weekdays.toSet();
-                    if (selected) {
-                      set.remove(day);
-                    } else {
-                      set.add(day);
-                    }
-                    _weekdays = set.toList()..sort();
-                  });
-                },
+              return Expanded(
+                child: Padding(
+                  // Inter-cell gutter; halved on the outer edges so the
+                  // row sits flush with the card padding.
+                  padding: EdgeInsets.only(
+                      left: i == 0 ? 0 : 3, right: i == 6 ? 0 : 3),
+                  child: CommonClickable(
+                    key: Key('day_chip_$day'),
+                    onTap: () {
+                      setState(() {
+                        final set = _weekdays.toSet();
+                        if (selected) {
+                          set.remove(day);
+                        } else {
+                          set.add(day);
+                        }
+                        _weekdays = set.toList()..sort();
+                      });
+                    },
+                    padding: EdgeInsets.zero,
+                    child: Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      decoration: BoxDecoration(
+                        color: selected
+                            ? context.theme.accent
+                            : context.theme.divider.withOpacity(0.12),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        labels[i],
+                        maxLines: 1,
+                        overflow: TextOverflow.clip,
+                        softWrap: false,
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                          color: selected
+                              ? Colors.white
+                              : context.theme.textPrimary,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               );
             }),
           ),

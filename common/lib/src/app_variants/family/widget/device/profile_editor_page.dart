@@ -238,30 +238,32 @@ class _ProfileEditorPageState extends State<ProfileEditorPage> {
         // below is given showHeader: false so it doesn't duplicate the
         // alias or restate it as "Profil: <name>". The avatar keeps
         // glance-identification (colored letter or person icon) without
-        // the body header.
-        title: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ProfileAvatar(
-                template: current.template,
-                displayAlias: current.displayAlias,
-                size: 22),
-            const SizedBox(width: 8),
-            Flexible(
-              child: Text(current.displayAlias.i18n,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                      color: context.theme.textPrimary,
-                      fontSize: 17,
-                      fontWeight: FontWeight.w600)),
-            ),
-          ],
-        ),
-        trailing: IconButton(
+        // the body header. The whole title region is tappable to rename,
+        // replacing the previous trailing pencil button.
+        title: CommonClickable(
           key: const Key('profile_editor_rename'),
-          icon: const Icon(CupertinoIcons.pencil),
-          onPressed: _rename,
+          onTap: _rename,
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ProfileAvatar(
+                  template: current.template,
+                  displayAlias: current.displayAlias,
+                  size: 22),
+              const SizedBox(width: 8),
+              Flexible(
+                child: Text(current.displayAlias.i18n,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        color: context.theme.textPrimary,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600)),
+              ),
+            ],
+          ),
         ),
+        trailing: null,
       ),
       body: widget.child ??
           // Scaffold with extendBodyBehindAppBar:true + extendBody:true
@@ -299,44 +301,59 @@ class _ProfileEditorPageState extends State<ProfileEditorPage> {
             top: false,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
+              // Single row: the primary Done CTA takes the remaining width
+              // while the destructive delete sits beside it as a compact
+              // trailing trash button, instead of stacking a separate
+              // full-width Delete row underneath. The outer min-height
+              // Column bounds the dock to its content; `bottomNavigationBar`
+              // under `extendBody: true` hands down the full screen height,
+              // and a bare Row here would stretch the Done CTA to fill it.
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  CommonClickable(
-                    key: const Key('blocklists_done_button'),
-                    onTap: () => Navigator.of(context).maybePop(),
-                    child: Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      decoration: BoxDecoration(
-                        color: context.theme.accent,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Center(
-                        child: Text(
-                            'family schedule rule editor profile new blocklists done'
-                                .i18n,
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600)),
-                      ),
-                    ),
-                  ),
-                  CommonClickable(
-                    key: const Key('profile_editor_delete'),
-                    onTap: _confirmDelete,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 8),
+                  IntrinsicHeight(
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        const Icon(CupertinoIcons.delete,
-                            size: 16, color: Colors.red),
-                        const SizedBox(width: 6),
-                        Text('family profile editor delete'.i18n,
-                            style: const TextStyle(
-                                color: Colors.red, fontSize: 14)),
+                        Expanded(
+                          child: CommonClickable(
+                            key: const Key('blocklists_done_button'),
+                            onTap: () => Navigator.of(context).maybePop(),
+                            child: Container(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 12),
+                              decoration: BoxDecoration(
+                                color: context.theme.accent,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Center(
+                                child: Text(
+                                    'family schedule rule editor profile new blocklists done'
+                                        .i18n,
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600)),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        CommonClickable(
+                          key: const Key('profile_editor_delete'),
+                          onTap: _confirmDelete,
+                          tapBorderRadius: BorderRadius.circular(12),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 14),
+                            decoration: BoxDecoration(
+                              color: Colors.red.withOpacity(0.10),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: const Icon(CupertinoIcons.delete,
+                                size: 20, color: Colors.red),
+                          ),
+                        ),
                       ],
                     ),
                   ),

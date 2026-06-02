@@ -68,17 +68,20 @@ class BackTitleNavBar extends StatelessWidget
             bottom: false,
             child: SizedBox(
               height: _height,
-              child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // Leading region: 25% of bar width, content aligned left.
-              // Flex layout (vs Stack + Positioned) keeps the centered
-              // title clear of leading + trailing content even when one
-              // side is wider, the way Apple's UINavigationBar does.
-              Flexible(
-                flex: 1,
-                fit: FlexFit.tight,
-                child: Align(
+              // Stack so the leading + trailing regions size to their own
+              // content (a longer trailing label like "Guardar" no longer
+              // gets squeezed into a rigid 25% slot and wrapped) while the
+              // title stays centred on the whole bar. The title is given a
+              // symmetric horizontal inset equal to the wider of the two
+              // sides so it stays both centred and clear of the side
+              // content, the way Apple's UINavigationBar does.
+              child: LayoutBuilder(builder: (context, constraints) {
+                // Side regions are free to size to their content, but
+                // capped at 45% of the bar so neither a long back label
+                // nor a long trailing action can overrun the centred
+                // title. The back label ellipsises within this cap.
+                final sideMax = constraints.maxWidth * 0.45;
+                final leading = Align(
                   alignment: Alignment.centerLeft,
                   child: CommonClickable(
                     key: backKey,
@@ -103,33 +106,49 @@ class BackTitleNavBar extends StatelessWidget
                       ],
                     ),
                   ),
-                ),
-              ),
-              // Centered title region: 50%. Wrapping in Center positions
-              // any natural-sized child (Text, Row, etc.) at the visual
-              // centre of the available 50% slice — which, with balanced
-              // 1/2/1 flex, is the centre of the whole bar.
-              Flexible(
-                flex: 2,
-                fit: FlexFit.tight,
-                child: Center(child: title),
-              ),
-              // Trailing region: 25%, content aligned right. Empty
-              // SizedBox keeps the flex slot balanced when no trailing
-              // action is provided so the centered title stays centered.
-              Flexible(
-                flex: 1,
-                fit: FlexFit.tight,
-                child: Align(
+                );
+                final trailingChild = Align(
                   alignment: Alignment.centerRight,
                   child: trailing ?? const SizedBox.shrink(),
-                ),
-              ),
-            ],
+                );
+                // Reserve a symmetric inset on both sides so the centred
+                // title never runs under either action. Cap it at 40% of
+                // the bar so a long back label can't collapse the title to
+                // nothing; the leading label already ellipsises.
+                final sideInset = (constraints.maxWidth * 0.25)
+                    .clamp(0.0, constraints.maxWidth * 0.4);
+                return Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: sideInset),
+                      child: Center(child: title),
+                    ),
+                    Positioned(
+                      left: 0,
+                      top: 0,
+                      bottom: 0,
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(maxWidth: sideMax),
+                        child: leading,
+                      ),
+                    ),
+                    Positioned(
+                      right: 0,
+                      top: 0,
+                      bottom: 0,
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(maxWidth: sideMax),
+                        child: trailingChild,
+                      ),
+                    ),
+                  ],
+                );
+              }),
+            ),
           ),
         ),
-      ),
-    ),
       ),
     );
   }

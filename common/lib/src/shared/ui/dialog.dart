@@ -247,8 +247,14 @@ void showRenameDialog(BuildContext context, String what, String? name,
       ),
       TextButton(
         onPressed: () {
+          // Trim centrally so every rename surface (device / profile /
+          // +New) gets a clean name and a whitespace-only entry can't be
+          // saved. Keep the dialog open on an empty-after-trim value
+          // instead of confirming a blank rename.
+          final trimmed = ctrl.text.trim();
+          if (trimmed.isEmpty) return;
           Navigator.of(context).pop();
-          onConfirm(ctrl.text);
+          onConfirm(trimmed);
         },
         style: TextButton.styleFrom(
           shape: RoundedRectangleBorder(

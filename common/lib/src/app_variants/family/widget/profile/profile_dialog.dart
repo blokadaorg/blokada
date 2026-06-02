@@ -6,6 +6,7 @@ import 'package:common/src/app_variants/family/module/device_v3/device.dart';
 import 'package:common/src/app_variants/family/module/family/family.dart';
 import 'package:common/src/app_variants/family/module/profile/profile.dart';
 import 'package:common/src/app_variants/family/widget/device/profile_editor_page.dart';
+import 'package:common/src/app_variants/family/widget/profile/profile_avatar.dart';
 import 'package:common/src/app_variants/family/widget/profile/profile_button.dart';
 import 'package:common/src/app_variants/family/widget/profile/profile_utils.dart';
 import 'package:dartx/dartx.dart';
@@ -134,8 +135,15 @@ class ProfileDialogState extends State<ProfileDialog> with Disposables {
                   _devices.changeDeviceProfile(device, it, Markers.userTap);
                 }
               },
-              icon: getProfileIcon(it.template),
-              iconColor: getProfileColorFor(it.template, it.displayAlias),
+              // Use the shared ProfileAvatar (coloured circle + initial /
+              // emoji, or the pinned parent/child icon) so the quick
+              // selector's badge matches the avatar shown everywhere else
+              // (schedule rows, rule editor chips), instead of the plain
+              // template icon.
+              leading: ProfileAvatar(
+                  template: it.template,
+                  displayAlias: it.displayAlias,
+                  size: 28),
               name: it.displayAlias.i18n,
               trailing: CommonClickable(
                 onTap: () async {

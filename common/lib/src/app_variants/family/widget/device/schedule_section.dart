@@ -78,21 +78,51 @@ class ScheduleSection extends StatelessWidget {
                     'family schedule section title'.i18n.toUpperCase(),
                     style: const TextStyle(fontWeight: FontWeight.w500)),
               ),
-              Text('family schedule use label'.i18n,
-                  style: TextStyle(
-                      color: context.theme.textSecondary, fontSize: 13)),
-              const SizedBox(width: 8),
-              // Toggle label is positive-state ("Use schedule"): ON = the
-              // schedule is enforcing rules, matching Apple's section-
-              // level toggle convention. The wire-format / domain field
-              // stays `paused`, so the parameter to `onChanged` is named
-              // `use` for clarity and inverted before calling back into
-              // the host. Keep value and onChanged both inverted together
-              // — flipping one without the other breaks the round trip.
-              Switch(
-                key: const Key('schedule_paused_switch'),
-                value: !schedule.paused,
-                onChanged: (use) => onPausedChanged(!use),
+              // Group the label + Switch into a rounded pill so the
+              // control reads as one tappable affordance against the
+              // section title rather than two loose elements floating at
+              // the right edge.
+              Container(
+                padding: const EdgeInsets.only(left: 14, right: 6),
+                decoration: BoxDecoration(
+                  color: context.theme.divider.withOpacity(0.08),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text('family schedule use label'.i18n,
+                        style: TextStyle(
+                            color: context.theme.textSecondary,
+                            fontSize: 13)),
+                    const SizedBox(width: 8),
+                    // Toggle label is positive-state ("Use schedule"): ON =
+                    // the schedule is enforcing rules, matching Apple's
+                    // section-level toggle convention. The wire-format /
+                    // domain field stays `paused`, so the parameter to
+                    // `onChanged` is named `use` for clarity and inverted
+                    // before calling back into the host. Keep value and
+                    // onChanged both inverted together — flipping one
+                    // without the other breaks the round trip.
+                    //
+                    // shrinkWrap drops the Switch's default 48pt tap-target
+                    // padding so the visible track sits flush inside the
+                    // pill instead of floating a few points off its right
+                    // edge; the pill box itself stays aligned to the 24pt
+                    // content margin shared by the title and subtitle.
+                    Theme(
+                      data: Theme.of(context).copyWith(
+                        materialTapTargetSize:
+                            MaterialTapTargetSize.shrinkWrap,
+                      ),
+                      child: Switch(
+                        key: const Key('schedule_paused_switch'),
+                        value: !schedule.paused,
+                        onChanged: (use) => onPausedChanged(!use),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
