@@ -13,6 +13,7 @@ import 'package:common/src/app_variants/family/module/stats/stats.dart';
 import 'package:common/src/app_variants/family/widget/add_profile_sheet.dart';
 import 'package:common/src/app_variants/family/widget/home/link_device_sheet.dart';
 import 'package:common/src/platform/account/account.dart';
+import 'package:common/src/platform/perm/dnscheck.dart';
 import 'package:common/src/platform/perm/perm.dart';
 import 'package:common/src/platform/stage/channel.pg.dart';
 import 'package:common/src/platform/stage/stage.dart';
@@ -30,6 +31,7 @@ class FamilyModule with Module {
   onCreateModule() async {
     await register(FamilyPhaseValue());
     await register(FamilyDevicesValue());
+    await register(ParentDeviceProtectionOwnerValue());
     await register(FamilyActor());
     await register(FamilyLinkedMode());
     await register(LinkActor());

@@ -158,9 +158,7 @@ Future<_Harness> createHarness(
 
   Core.register<PlusActor>(MockPlusActor());
   Core.register<PermChannel>(_FakePermChannel(
-    privateDnsStates: privateDnsStates.isEmpty
-        ? [unavailableDnsState()]
-        : privateDnsStates,
+    privateDnsStates: privateDnsStates.isEmpty ? [unavailableDnsState()] : privateDnsStates,
   ));
   Core.register(PrivateDnsEnabledForValue());
   Core.register(NotificationEnabledValue());

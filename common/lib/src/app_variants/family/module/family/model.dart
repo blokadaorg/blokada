@@ -16,9 +16,29 @@ class FamilyDevice {
   });
 }
 
+/// Identifies when Family should avoid taking over this parent device because
+/// another Blokada app already owns local protection.
+enum ParentDeviceProtectionOwner {
+  unknown,
+  none,
+  blokada6,
+}
+
+extension ParentDeviceProtectionOwnerExt on ParentDeviceProtectionOwner {
+  bool get isBlokada6 => this == ParentDeviceProtectionOwner.blokada6;
+}
+
+/// Maps the backend `v3/status/test` `flavor` field to a protection owner.
+/// Only Blokada 6 flavors (cloud/plus) make Family step aside; Family's own DNS
+/// reports `family`, and an absent/other flavor means nothing owns DNS — both
+/// map to `none` so Family proceeds normally.
+ParentDeviceProtectionOwner parentDeviceProtectionOwnerFromDnsFlavor(String? flavor) {
+  if (isBlokadaSixDnsFlavor(flavor)) return ParentDeviceProtectionOwner.blokada6;
+  return ParentDeviceProtectionOwner.none;
+}
+
 extension FamilyDeviceExt on FamilyDevice {
-  String get displayName =>
-      !thisDevice ? device.alias : "app settings section header".i18n;
+  String get displayName => !thisDevice ? device.alias : "app settings section header".i18n;
 }
 
 enum FamilyPhase {

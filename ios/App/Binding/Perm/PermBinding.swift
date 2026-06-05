@@ -13,7 +13,7 @@
 import Foundation
 import Factory
 import Combine
-import UIKit
+import UserNotifications
 
 class PermBinding: PermOps {
 

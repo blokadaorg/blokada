@@ -18,6 +18,14 @@ Scope: Family onboarding CTA, protection readiness.
 Non-rules: Family does not have a browser-extension fallback path.
 Verification: Check `requiresPerms()` phases and `SmartOnboard._handleCtaTap`.
 
+### Rule: Blokada 6 can own protection on the parent device
+Applies to: family
+Intent: Let parents administer Family while keeping their own Blokada 6 setup.
+Rule: If Family detects that Blokada 6 already owns local protection on the parent device, Family must not require DNS setup or create the default local "this device" Family entry. The home device list should show a pointer to manage this device in Blokada 6 while child devices remain managed by Family.
+Scope: Parent-mode Family onboarding, Family home device list.
+Non-rules: This does not merge v6 and Family accounts or change child-device DNS setup. On iOS, Family cannot inspect another app's live DNS/VPN owner, so an installed Blokada 6 app is enough for Family to stay out of parent-device DNS setup unless Blokada 6 has written an explicit inactive marker.
+Verification: Check parent phase resolution, Family device creation, and home device-list rendering with Blokada 6 ownership.
+
 ### Rule: Linked child devices keep child-managed continuity
 Applies to: family
 Intent: Prevent child devices from pretending they can locally resolve parent subscription health.

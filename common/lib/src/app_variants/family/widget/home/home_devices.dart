@@ -7,6 +7,8 @@ import 'package:common/src/core/core.dart';
 import 'package:common/src/app_variants/family/module/device_v3/device.dart';
 import 'package:common/src/app_variants/family/module/family/family.dart';
 import 'package:common/src/app_variants/family/widget/home/device/home_device.dart';
+import 'package:common/src/app_variants/family/widget/home/device/home_device_header.dart';
+import 'package:common/src/platform/stage/stage.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,15 +16,19 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 
 class HomeDevices extends StatefulWidget {
   final FamilyDevices devices;
+  final ParentDeviceProtectionOwner parentDeviceProtectionOwner;
 
-  const HomeDevices({super.key, required this.devices});
+  const HomeDevices({
+    super.key,
+    required this.devices,
+    required this.parentDeviceProtectionOwner,
+  });
 
   @override
   HomeDevicesState createState() => HomeDevicesState();
 }
 
-class HomeDevicesState extends State<HomeDevices>
-    with TickerProviderStateMixin, Logging {
+class HomeDevicesState extends State<HomeDevices> with TickerProviderStateMixin, Logging {
   late final _modal = Core.get<CurrentModalValue>();
   late final _slidableOnboarding = Core.get<SlidableOnboarding>();
 
@@ -79,8 +85,7 @@ class HomeDevicesState extends State<HomeDevices>
                       (devices.length / 2).floor(),
                       (index) => SizedBox(
                             width: maxContentWidth,
-                            child:
-                                devices[(devices.length - 1) - (2 * index + 1)],
+                            child: devices[(devices.length - 1) - (2 * index + 1)],
                           )),
                 ),
                 Column(
@@ -100,30 +105,47 @@ class HomeDevicesState extends State<HomeDevices>
   }
 
   List<Widget> _getDevices(BuildContext context) {
-    final priorityDevices = <FamilyDevice>[];
-    if (widget.devices.hasThisDevice) {
-      priorityDevices
-          .add(widget.devices.entries.firstWhere((it) => it.thisDevice));
+    final priorityDevices = <Widget>[];
+    if (widget.devices.hasParentDevicePointer(widget.parentDeviceProtectionOwner)) {
+      priorityDevices.add(_wrapPlain(
+        HomeBlokadaSixDevicePointer(color: context.theme.accent),
+      ));
+    } else if (widget.devices.hasThisDevice) {
+      final thisDevice = widget.devices.entries.firstWhere((it) => it.thisDevice);
+      priorityDevices.add(_buildDeviceCard(context, thisDevice));
     }
 
-    return (priorityDevices +
-            widget.devices.entries.filter((e) => !e.thisDevice).toList())
-        .map((e) => Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-            child: _wrapInDismissible(
-              context,
-              e,
-              HomeDevice(
-                  device: e,
-                  color: e.thisDevice
-                      ? context.theme.accent
-                      : const Color(0xff3c8cff)),
-            )))
+    final childDevices = widget.devices
+        .visibleEntries(widget.parentDeviceProtectionOwner)
+        .filter((e) => !e.thisDevice)
+        .map((e) => _buildDeviceCard(context, e))
         .toList();
+
+    return priorityDevices + childDevices;
   }
 
-  Widget _wrapInDismissible(
-      BuildContext context, FamilyDevice d, Widget child) {
+  Widget _wrapPlain(Widget child) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+      child: child,
+    );
+  }
+
+  Widget _buildDeviceCard(BuildContext context, FamilyDevice device) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+      child: _wrapInDismissible(
+        context,
+        device,
+        HomeDevice(
+          device: device,
+          color: device.thisDevice ? context.theme.accent : const Color(0xff3c8cff),
+        ),
+      ),
+    );
+  }
+
+  Widget _wrapInDismissible(BuildContext context, FamilyDevice d, Widget child) {
     return Slidable(
       key: Key(d.device.alias),
       endActionPane: ActionPane(
@@ -131,8 +153,7 @@ class HomeDevicesState extends State<HomeDevices>
         extentRatio: 0.3,
         children: [
           SlidableAction(
-            onPressed: (c) =>
-                showSelectProfileDialog(context, device: d.device),
+            onPressed: (c) => showSelectProfileDialog(context, device: d.device),
             backgroundColor: context.theme.textPrimary.withOpacity(0.15),
             foregroundColor: Colors.white,
             icon: CupertinoIcons.profile_circled,
@@ -188,8 +209,7 @@ class HomeDevicesState extends State<HomeDevices>
                     const SizedBox(width: 8),
                     Text(
                       "family device header add".i18n,
-                      style: const TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.w600),
+                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
                     ),
                   ],
                 ),
@@ -197,6 +217,43 @@ class HomeDevicesState extends State<HomeDevices>
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class HomeBlokadaSixDevicePointer extends StatelessWidget {
+  HomeBlokadaSixDevicePointer({
+    super.key,
+    required this.color,
+  });
+
+  final Color color;
+  final _stage = Core.get<StageStore>();
+
+  @override
+  Widget build(BuildContext context) {
+    return MiniCard(
+      onTap: Core.act.isIos ? () => _stage.openUrl("six://", Markers.userTap) : null,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          DeviceCardHeader(
+            text: "app settings section header".i18n,
+            iconName: "Blokada 6",
+            color: color,
+            chevronText: Core.act.isIos ? "family device action open six".i18n : null,
+            chevronIcon: Core.act.isIos ? Icons.chevron_right : null,
+          ),
+          const SizedBox(height: 12),
+          Text(
+            "family device managed by six".i18n,
+            style: TextStyle(
+              color: context.theme.textSecondary,
+              fontSize: 14,
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -67,9 +67,10 @@ class Api {
     JsonString? payload,
     Headers headers = const {},
     bool skipResolvingParams = false,
+    int attempts = 3,
   }) {
     return _http.call(
-      HttpRequest(endpoint, payload: payload),
+      HttpRequest(endpoint, payload: payload, attempts: attempts),
       m,
       params: params,
       headers: headers,
