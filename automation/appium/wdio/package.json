@@ -23,7 +23,7 @@
   "devDependencies": {
     "@types/chai": "^5.2.2",
     "@types/node": "^20.11.30",
-    "appium": "^3.2.2",
+    "appium": "^3.5.0",
     "chai": "^6.2.0",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
