@@ -164,6 +164,11 @@ jobs:
 
       - name: Run Claude review
         if: steps.resolve.outputs.pr_number != '' && steps.precheck.outputs.verdict == 'PASS'
+        # A hard error from the action (transient API failure, etc.) must not
+        # fail the whole review job — otherwise Parse decision is skipped and
+        # the ABSTAIN fallback never fires. Let it continue; a missing
+        # /tmp/decision.txt is then parsed as ABSTAIN and surfaced to humans.
+        continue-on-error: true
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
@@ -172,7 +177,7 @@ jobs:
           allowed_bots: 'dependabot[bot]'
           additional_permissions: |
             actions: read
-          claude_args: '--allowed-tools "Bash(gh pr view:*),Bash(gh pr diff:*),Bash(cat:*),Write"'
+          claude_args: '--allowed-tools "Bash(gh pr view:*),Bash(gh pr diff:*),Write"'
           prompt: |
             You are reviewing Dependabot PR #${{ steps.resolve.outputs.pr_number }}
             in ${{ github.repository }}. CI has passed. Pre-checks have
@@ -251,7 +256,11 @@ jobs:
 
       - name: Parse decision
         id: parse
-        if: steps.resolve.outputs.pr_number != ''
+        # always() so this still runs when the Claude step errored (which is
+        # continue-on-error). Without it the implicit success() gate would
+        # skip parsing and no decision/reason output would reach the
+        # annotation jobs. The pr_number guard is preserved.
+        if: always() && steps.resolve.outputs.pr_number != ''
         shell: bash
         env:
           PRECHECK_VERDICT: ${{ steps.precheck.outputs.verdict }}
