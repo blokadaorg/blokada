@@ -24,7 +24,7 @@ jobs:
       LANG: en_US.UTF-8
       LC_ALL: en_US.UTF-8
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           submodules: recursive
           fetch-depth: 1
@@ -47,7 +47,7 @@ jobs:
       LC_ALL: en_US.UTF-8
       SHOW_XCODE_LOG: "0"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           submodules: recursive
           fetch-depth: 1
@@ -79,7 +79,7 @@ jobs:
       LC_ALL: en_US.UTF-8
       GRADLE_OPTS: -Dorg.gradle.unsafe.disable.watch-fs=true -Dorg.gradle.vfs.watch=false
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           submodules: recursive
           fetch-depth: 1

@@ -18,5 +18,5 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 2
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - run: node scripts/check-adapty-fallback-version.mjs
