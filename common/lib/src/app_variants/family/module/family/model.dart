@@ -21,7 +21,6 @@ class FamilyDevice {
 enum ParentDeviceProtectionOwner {
   unknown,
   none,
-  family,
   blokada6,
 }
 
