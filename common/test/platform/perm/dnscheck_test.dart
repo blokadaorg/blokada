@@ -47,5 +47,63 @@ void main() {
         expect(flavor, null);
       });
     });
+
+    test("treats a non-string flavor as not-owned instead of throwing", () async {
+      await withTrace((m) async {
+        final api = MockApi();
+        when(api.request(any, any,
+                skipResolvingParams: anyNamed("skipResolvingParams"),
+                attempts: anyNamed("attempts")))
+            .thenAnswer((_) => Future.value('{"blokada_dns":true,"flavor":1}'));
+        Core.register<Api>(api);
+
+        final flavor = await PrivateDnsCheck().getDnsOwnerFlavor(m);
+
+        expect(flavor, null);
+      });
+    });
+
+    test("memoizes within the cache window so a second call hits no network", () async {
+      await withTrace((m) async {
+        final api = MockApi();
+        when(api.request(any, any,
+                skipResolvingParams: anyNamed("skipResolvingParams"),
+                attempts: anyNamed("attempts")))
+            .thenAnswer((_) => Future.value('{"blokada_dns":true,"flavor":"plus"}'));
+        Core.register<Api>(api);
+
+        final subject = PrivateDnsCheck();
+        expect(await subject.getDnsOwnerFlavor(m), "plus");
+        expect(await subject.getDnsOwnerFlavor(m), "plus");
+
+        verify(api.request(any, any,
+                skipResolvingParams: anyNamed("skipResolvingParams"),
+                attempts: anyNamed("attempts")))
+            .called(1);
+      });
+    });
+
+    test("shares one in-flight request across concurrent callers", () async {
+      await withTrace((m) async {
+        final api = MockApi();
+        when(api.request(any, any,
+                skipResolvingParams: anyNamed("skipResolvingParams"),
+                attempts: anyNamed("attempts")))
+            .thenAnswer((_) async => '{"blokada_dns":true,"flavor":"cloud"}');
+        Core.register<Api>(api);
+
+        final subject = PrivateDnsCheck();
+        final results = await Future.wait([
+          subject.getDnsOwnerFlavor(m),
+          subject.getDnsOwnerFlavor(m),
+        ]);
+
+        expect(results, ["cloud", "cloud"]);
+        verify(api.request(any, any,
+                skipResolvingParams: anyNamed("skipResolvingParams"),
+                attempts: anyNamed("attempts")))
+            .called(1);
+      });
+    });
   });
 }

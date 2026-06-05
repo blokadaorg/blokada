@@ -51,10 +51,29 @@ class PrivateDnsCheck with Actor, Logging {
   /// turned off in Settings, a plan cancelled outside the app, a web-installed
   /// profile). Throws on network/parse failure so callers keep their previous
   /// decision rather than assuming "none" on a transient blip.
-  Future<String?> getDnsOwnerFlavor(Marker m) async {
+  // FamilyActor and PermActor both probe ownership on the same foreground /
+  // cold-start burst. Share one in-flight request and briefly memoize the
+  // result so they get a single identical answer instead of two competing
+  // network calls that could disagree; foregrounds past the TTL re-probe fresh.
+  static const _ownerCacheTtl = Duration(seconds: 5);
+  String? _ownerFlavor;
+  DateTime? _ownerFlavorAt;
+  Future<String?>? _ownerFlavorInflight;
+
+  Future<String?> getDnsOwnerFlavor(Marker m) {
+    final at = _ownerFlavorAt;
+    if (at != null && DateTime.now().difference(at) < _ownerCacheTtl) {
+      return Future.value(_ownerFlavor);
+    }
+    return _ownerFlavorInflight ??=
+        _probeDnsOwnerFlavor(m).whenComplete(() => _ownerFlavorInflight = null);
+  }
+
+  Future<String?> _probeDnsOwnerFlavor(Marker m) async {
     // Single attempt: this sits on the Family cold-start / foreground path, so
     // avoid the default 3x retry + retry-sleep stalls on a flaky connection. A
-    // failure is non-fatal — callers fall back to their previous decision.
+    // failure is non-fatal — callers fall back to their previous decision, and
+    // it is not memoized so the next call retries.
     final response = await _api.request(
       ApiEndpoint.getStatusTestNoTag,
       m,
@@ -62,8 +81,15 @@ class PrivateDnsCheck with Actor, Logging {
       attempts: 1,
     );
     final json = jsonDecode(response);
-    if (json['blokada_dns'] != true) return null;
-    return json['flavor'] as String?;
+    // Defensive: don't let an unexpected non-string flavor throw a CastError
+    // here — that would be swallowed by callers and silently drop the v6
+    // ownership signal. A non-string flavor maps to "not a known owner".
+    final rawFlavor = json['flavor'];
+    final flavor =
+        json['blokada_dns'] == true && rawFlavor is String ? rawFlavor : null;
+    _ownerFlavor = flavor;
+    _ownerFlavorAt = DateTime.now();
+    return flavor;
   }
 
   Future<bool> checkPrivateDnsEnabledWithApi(Marker m, DeviceTag deviceTag) async {
