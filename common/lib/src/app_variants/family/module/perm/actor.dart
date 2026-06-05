@@ -17,6 +17,7 @@ class PermActor with Logging, Actor {
   late final _channel = Core.get<PermChannel>();
   late final _perm = Core.get<DnsPerm>();
   late final _deviceTag = Core.get<ThisDevice>();
+  late final _currentToken = Core.get<CurrentToken>();
   late final _check = Core.get<PrivateDnsCheck>();
 
   late final _stage = Core.get<StageStore>();
@@ -35,19 +36,26 @@ class PermActor with Logging, Actor {
       return;
     }
 
-    // Defer to Blokada 6 when it already owns this device's DNS. The backend
-    // reports the owning flavor; on a transient failure we fall through to the
-    // normal Family DNS setup rather than wrongly skipping it.
-    String? ownerFlavor;
-    try {
-      ownerFlavor = await _check.getDnsOwnerFlavor(m);
-    } catch (e) {
-      log(m).e(msg: "getDnsOwnerFlavor", err: e);
-    }
-    if (isBlokadaSixDnsFlavor(ownerFlavor)) {
-      log(m).i("Skipping Family DNS setup; parent device is managed by Blokada 6");
-      await _perm.change(m, true);
-      return;
+    // Coexistence with Blokada 6 is parent-device-only. A linked child still
+    // needs its own Family DNS so parental filtering applies, even if it
+    // currently routes through Blokada 6 — so only take the v6 shortcut on a
+    // non-linked (parent) device. CurrentToken is persisted on child devices.
+    final isLinkedChild = (await _currentToken.fetch(m)) != null;
+    if (!isLinkedChild) {
+      // Defer to Blokada 6 when it already owns this device's DNS. The backend
+      // reports the owning flavor; on a transient failure we fall through to the
+      // normal Family DNS setup rather than wrongly skipping it.
+      String? ownerFlavor;
+      try {
+        ownerFlavor = await _check.getDnsOwnerFlavor(m);
+      } catch (e) {
+        log(m).e(msg: "getDnsOwnerFlavor", err: e);
+      }
+      if (isBlokadaSixDnsFlavor(ownerFlavor)) {
+        log(m).i("Skipping Family DNS setup; parent device is managed by Blokada 6");
+        await _perm.change(m, true);
+        return;
+      }
     }
 
     await _channel.doSetDns(device.deviceTag);

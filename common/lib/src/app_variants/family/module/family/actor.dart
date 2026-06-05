@@ -7,6 +7,7 @@ class FamilyActor with Logging, Actor {
   late final _device = Core.get<DeviceActor>();
   late final _stats = Core.get<StatsActor>();
   late final _thisDevice = Core.get<ThisDevice>();
+  late final _currentToken = Core.get<CurrentToken>();
   late final _dnsPerm = Core.get<DnsPerm>();
   late final _dnsCheck = Core.get<PrivateDnsCheck>();
   late final _permStore = Core.get<PlatformPermActor>();
@@ -120,7 +121,11 @@ class FamilyActor with Logging, Actor {
   /// entry when Blokada 6 already owns local protection.
   Future<bool> _refreshParentDeviceProtectionOwner(Marker m) async {
     try {
-      final flavor = await _dnsCheck.getDnsOwnerFlavor(m);
+      // Coexistence is parent-device-only: a linked child manages its own
+      // Family DNS, so never treat it as Blokada-6-owned (and skip the network
+      // probe entirely). CurrentToken is persisted on child devices only.
+      final isLinkedChild = (await _currentToken.fetch(m)) != null;
+      final flavor = isLinkedChild ? null : await _dnsCheck.getDnsOwnerFlavor(m);
       final owner = parentDeviceProtectionOwnerFromDnsFlavor(flavor);
       if (owner == parentDeviceProtectionOwner.now) return false;
 
