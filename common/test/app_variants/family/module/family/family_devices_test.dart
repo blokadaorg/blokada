@@ -34,10 +34,28 @@ void main() {
       expect(devices.visibleCount(ParentDeviceProtectionOwner.none), 2);
     });
 
-    test('parses unknown platform values conservatively', () {
+    test('maps the backend dns flavor to a protection owner', () {
       expect(
-        parentDeviceProtectionOwnerFromPlatformValue('unexpected'),
-        ParentDeviceProtectionOwner.unknown,
+        parentDeviceProtectionOwnerFromDnsFlavor('cloud'),
+        ParentDeviceProtectionOwner.blokada6,
+      );
+      expect(
+        parentDeviceProtectionOwnerFromDnsFlavor('plus'),
+        ParentDeviceProtectionOwner.blokada6,
+      );
+      // Family's own DNS (and an absent or unexpected flavor) means Family
+      // should proceed normally, not defer to Blokada 6.
+      expect(
+        parentDeviceProtectionOwnerFromDnsFlavor('family'),
+        ParentDeviceProtectionOwner.none,
+      );
+      expect(
+        parentDeviceProtectionOwnerFromDnsFlavor(null),
+        ParentDeviceProtectionOwner.none,
+      );
+      expect(
+        parentDeviceProtectionOwnerFromDnsFlavor('unexpected'),
+        ParentDeviceProtectionOwner.none,
       );
     });
   });

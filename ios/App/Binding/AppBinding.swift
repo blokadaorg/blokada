@@ -88,7 +88,6 @@ class AppBinding: AppOps {
     func doAppStatusChanged(status: AppStatus,
                             completion: @escaping (Result<Void, Error>) -> Void) {
         writeWorking.send(status == .reconfiguring)
-        publishBlokadaSixProtectionOwner(status: status)
         if (status == .activatedCloud) {
             writeAppState.send(.Activated)
         } else if (status == .activatedPlus) {
@@ -99,32 +98,6 @@ class AppBinding: AppOps {
             writeAppState.send(.Deactivated)
         }
         completion(Result.success(()))
-    }
-
-    /// Publishes a lightweight cross-app marker so Family can avoid taking over
-    /// this device when the Blokada 6 app is already protecting it.
-    private func publishBlokadaSixProtectionOwner(status: AppStatus) {
-        guard flutter.isFlavorFamily == false else { return }
-        guard let storage = UserDefaults(
-            suiteName: BlokadaSixProtectionOwnerMarker.storageSuite
-        ) else { return }
-
-        let owner = isBlokadaSixProtecting(status: status)
-            ? BlokadaSixProtectionOwnerMarker.ownerBlokadaSix
-            : BlokadaSixProtectionOwnerMarker.ownerNone
-        storage.set(owner, forKey: BlokadaSixProtectionOwnerMarker.ownerKey)
-        storage.set(Date().timeIntervalSince1970, forKey: BlokadaSixProtectionOwnerMarker.updatedAtKey)
-    }
-
-    /// `pausedPlus` keeps the VPN active, so Family must still treat Blokada 6
-    /// as owning local protection while the pause timer runs.
-    private func isBlokadaSixProtecting(status: AppStatus) -> Bool {
-        switch status {
-        case .activatedCloud, .activatedPlus, .pausedPlus:
-            return true
-        default:
-            return false
-        }
     }
 
     func doAppPauseDurationChanged(seconds: Int64,

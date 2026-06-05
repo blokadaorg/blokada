@@ -7,7 +7,6 @@ mixin PermChannel {
   Future<void> doSetDns(String tag);
   Future<bool> doNotificationEnabled();
   Future<bool> doVpnEnabled();
-  Future<String> getParentDeviceProtectionOwner();
   Future<void> doOpenPermSettings();
   Future<void> doAskNotificationPerms();
   Future<void> doAskVpnPerms();
@@ -36,8 +35,16 @@ class PermActor with Logging, Actor {
       return;
     }
 
-    final parentDeviceOwner = await _channel.getParentDeviceProtectionOwner();
-    if (parentDeviceOwner == "blokada6") {
+    // Defer to Blokada 6 when it already owns this device's DNS. The backend
+    // reports the owning flavor; on a transient failure we fall through to the
+    // normal Family DNS setup rather than wrongly skipping it.
+    String? ownerFlavor;
+    try {
+      ownerFlavor = await _check.getDnsOwnerFlavor(m);
+    } catch (e) {
+      log(m).e(msg: "getDnsOwnerFlavor", err: e);
+    }
+    if (isBlokadaSixDnsFlavor(ownerFlavor)) {
       log(m).i("Skipping Family DNS setup; parent device is managed by Blokada 6");
       await _perm.change(m, true);
       return;

@@ -29,11 +29,13 @@ extension ParentDeviceProtectionOwnerExt on ParentDeviceProtectionOwner {
   bool get isBlokada6 => this == ParentDeviceProtectionOwner.blokada6;
 }
 
-ParentDeviceProtectionOwner parentDeviceProtectionOwnerFromPlatformValue(String value) {
-  return ParentDeviceProtectionOwner.values.firstWhere(
-    (it) => it.name == value,
-    orElse: () => ParentDeviceProtectionOwner.unknown,
-  );
+/// Maps the backend `v3/status/test` `flavor` field to a protection owner.
+/// Only Blokada 6 flavors (cloud/plus) make Family step aside; Family's own DNS
+/// reports `family`, and an absent/other flavor means nothing owns DNS — both
+/// map to `none` so Family proceeds normally.
+ParentDeviceProtectionOwner parentDeviceProtectionOwnerFromDnsFlavor(String? flavor) {
+  if (isBlokadaSixDnsFlavor(flavor)) return ParentDeviceProtectionOwner.blokada6;
+  return ParentDeviceProtectionOwner.none;
 }
 
 extension FamilyDeviceExt on FamilyDevice {

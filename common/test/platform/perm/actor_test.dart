@@ -67,9 +67,6 @@ class _FakePermChannel with PermChannel {
   }
 
   @override
-  Future<String> getParentDeviceProtectionOwner() async => "none";
-
-  @override
   Future<PrivateDnsState> getPrivateDnsState() async {
     getPrivateDnsStateCalls += 1;
     if (_privateDnsStates.isEmpty) {

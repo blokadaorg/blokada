@@ -2,8 +2,16 @@ import 'dart:convert';
 
 import 'package:common/src/features/api/domain/api.dart';
 import 'package:common/src/core/core.dart';
+import 'package:common/src/platform/account/account.dart';
 import 'package:common/src/platform/device/device.dart';
 import 'package:dartx/dartx.dart';
+
+/// Whether the `flavor` reported by `v3/status/test` belongs to Blokada 6.
+/// Family's own DNS reports `family`; only the v6 flavors (cloud/plus) mean
+/// Family should defer. Kept here so both the Family phase mapper and the perm
+/// actor share one definition of "v6 owns DNS".
+bool isBlokadaSixDnsFlavor(String? flavor) =>
+    flavor == AccountType.cloud.name || flavor == AccountType.plus.name;
 
 class PrivateDnsCheck with Actor, Logging {
   late final _api = Core.get<Api>();
@@ -32,6 +40,30 @@ class PrivateDnsCheck with Actor, Logging {
     log(m).pair("expects dns", expected);
 
     return line == expected;
+  }
+
+  /// Returns the Blokada flavor (`AccountType` name, e.g. `cloud`/`plus`/`family`)
+  /// that currently owns this device's DNS, or null when DNS is not routed
+  /// through Blokada. No device tag is sent: Family only needs to know whether
+  /// DNS is already owned, and by which flavor, so it can defer to Blokada 6
+  /// instead of running its own onboarding. This reflects the *live* routing —
+  /// it catches cases a local check can't (v6 installed but not protecting, DNS
+  /// turned off in Settings, a plan cancelled outside the app, a web-installed
+  /// profile). Throws on network/parse failure so callers keep their previous
+  /// decision rather than assuming "none" on a transient blip.
+  Future<String?> getDnsOwnerFlavor(Marker m) async {
+    // Single attempt: this sits on the Family cold-start / foreground path, so
+    // avoid the default 3x retry + retry-sleep stalls on a flaky connection. A
+    // failure is non-fatal — callers fall back to their previous decision.
+    final response = await _api.request(
+      ApiEndpoint.getStatusTestNoTag,
+      m,
+      skipResolvingParams: true,
+      attempts: 1,
+    );
+    final json = jsonDecode(response);
+    if (json['blokada_dns'] != true) return null;
+    return json['flavor'] as String?;
   }
 
   Future<bool> checkPrivateDnsEnabledWithApi(Marker m, DeviceTag deviceTag) async {

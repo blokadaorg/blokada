@@ -60,6 +60,13 @@ enum ApiEndpoint {
   putSupport("https://support.blocka.net/v3/support", type: "PUT"),
   postAdaptyCheckout("v3/adapty/checkout", type: "POST", params: [ApiParam.accountId]),
   getStatusTest("v3/status/test", params: [ApiParam.deviceTag]),
+  // Untagged status check: detects whether DNS is already routed through Blokada
+  // and which flavor owns it (the `flavor` field). No device_tag is sent — we
+  // only need to know if some flavor already owns DNS, not to confirm a specific
+  // tag. The absolute URL pins it to the v6 backend even in the Family flavor
+  // (whose base URL is family.api.blocka.net), matching how v6 tags register;
+  // precedent for absolute URLs: the support endpoints above.
+  getStatusTestNoTag("https://api.blocka.net/v3/status/test"),
 
   // V2 api (to be migrated away)
   getAccountV2("v2/account", params: [ApiParam.accountId]),

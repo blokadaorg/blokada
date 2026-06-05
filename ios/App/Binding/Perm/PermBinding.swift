@@ -13,7 +13,6 @@
 import Foundation
 import Factory
 import Combine
-import UIKit
 
 class PermBinding: PermOps {
 
@@ -100,49 +99,6 @@ class PermBinding: PermOps {
                 }
             )
             .store(in: &cancellables)
-    }
-
-    func getParentDeviceProtectionOwner(completion: @escaping (Result<String, Error>) -> Void) {
-        guard flutter.isFlavorFamily else {
-            completion(.success(BlokadaSixProtectionOwnerMarker.ownerNone))
-            return
-        }
-
-        guard canOpenBlokadaSix() else {
-            completion(.success(BlokadaSixProtectionOwnerMarker.ownerNone))
-            return
-        }
-
-        guard let storage = UserDefaults(
-            suiteName: BlokadaSixProtectionOwnerMarker.storageSuite
-        ) else {
-            completion(.success(BlokadaSixProtectionOwnerMarker.ownerBlokadaSix))
-            return
-        }
-
-        let owner = storage.string(forKey: BlokadaSixProtectionOwnerMarker.ownerKey)
-        let updatedAt = storage.double(forKey: BlokadaSixProtectionOwnerMarker.updatedAtKey)
-        let isFresh = BlokadaSixProtectionOwnerMarker.isFresh(updatedAt: updatedAt)
-
-        if owner == BlokadaSixProtectionOwnerMarker.ownerNone && isFresh {
-            completion(.success(BlokadaSixProtectionOwnerMarker.ownerNone))
-            return
-        }
-
-        if owner == BlokadaSixProtectionOwnerMarker.ownerBlokadaSix && isFresh {
-            completion(.success(BlokadaSixProtectionOwnerMarker.ownerBlokadaSix))
-            return
-        }
-
-        completion(.success(BlokadaSixProtectionOwnerMarker.ownerBlokadaSix))
-    }
-
-    /// iOS does not expose another app's active DNS/VPN profile. If Blokada 6
-    /// is installed but has not yet written a fresh marker, Family assumes the
-    /// parent wants to keep managing this device in Blokada 6 and stays out.
-    private func canOpenBlokadaSix() -> Bool {
-        guard let url = URL(string: "six://") else { return false }
-        return UIApplication.shared.canOpenURL(url)
     }
 
     func doOpenSettings(completion: @escaping (Result<Void, Error>) -> Void) {

@@ -36,9 +36,6 @@ abstract class PermOps {
   bool doVpnEnabled();
 
   @async
-  String getParentDeviceProtectionOwner();
-
-  @async
   void doOpenSettings();
 
   @async

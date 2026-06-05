@@ -8,7 +8,7 @@ class FamilyActor with Logging, Actor {
   late final _stats = Core.get<StatsActor>();
   late final _thisDevice = Core.get<ThisDevice>();
   late final _dnsPerm = Core.get<DnsPerm>();
-  late final _permChannel = Core.get<PermChannel>();
+  late final _dnsCheck = Core.get<PrivateDnsCheck>();
   late final _permStore = Core.get<PlatformPermActor>();
   late final _profiles = Core.get<ProfileActor>();
   late final _link = Core.get<LinkActor>();
@@ -120,8 +120,8 @@ class FamilyActor with Logging, Actor {
   /// entry when Blokada 6 already owns local protection.
   Future<bool> _refreshParentDeviceProtectionOwner(Marker m) async {
     try {
-      final value = await _permChannel.getParentDeviceProtectionOwner();
-      final owner = parentDeviceProtectionOwnerFromPlatformValue(value);
+      final flavor = await _dnsCheck.getDnsOwnerFlavor(m);
+      final owner = parentDeviceProtectionOwnerFromDnsFlavor(flavor);
       if (owner == parentDeviceProtectionOwner.now) return false;
 
       parentDeviceProtectionOwner.now = owner;
