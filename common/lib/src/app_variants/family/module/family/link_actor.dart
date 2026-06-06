@@ -52,6 +52,56 @@ class LinkActor with Logging, Actor {
     });
   }
 
+  // Updates the name and/or profile of the device currently being linked,
+  // without minting a new token or device tag. The token and QR stay valid, so
+  // a child that already scanned keeps linking, and the live profile picker
+  // keeps pointing at an existing device.
+  Future<LinkingDevice?> updateLinkingDevice({
+    String? name,
+    JsonProfile? profile,
+    required Marker m,
+  }) async {
+    return await log(m).trace("updateLinkingDevice", (m) async {
+      final current = _linkingDevice;
+      // The link can finish (heartbeat) or be cancelled (dispose) while an edit
+      // dialog is still open. A tap after that is a no-op, not an error thrown
+      // into the UI caller's uncaught Future.
+      if (current == null) return null;
+
+      // The session can finish, be cancelled, or be replaced by a newer edit
+      // while we await network calls below. If it does, abort instead of writing
+      // _linkingDevice back to a stale (or deleted) device. cancelLinkDevice
+      // already deleted that device, so resurrecting it would leak state.
+      bool sessionGone() => !identical(_linkingDevice, current);
+
+      var device = current.device;
+      if (name != null) {
+        device = await _device.renameDevice(device, name, m);
+        if (sessionGone()) return null;
+      }
+
+      var newProfile = current.profile;
+      if (profile != null && profile.profileId != device.profileId) {
+        // select: false, the linking device is a child, changing its profile
+        // must not rewrite this (parent) device's own filter config.
+        device = await _device.changeDeviceProfile(device, profile, m,
+            select: false);
+        if (sessionGone()) return null;
+        newProfile = profile;
+      }
+
+      final updated = LinkingDevice(
+        device: device,
+        relink: current.relink,
+        profile: newProfile,
+      );
+      updated.token = current.token;
+      updated.qrUrl = current.qrUrl;
+      _linkingDevice = updated;
+      return updated;
+    });
+  }
+
   cancelLinkDevice(Marker m) async {
     return await log(m).trace("cancelAddDevice", (m) async {
       if (_linkingDevice == null) return;
