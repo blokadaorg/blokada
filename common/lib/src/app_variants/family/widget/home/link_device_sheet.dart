@@ -62,6 +62,21 @@ class LinkDeviceSheetState extends State<LinkDeviceSheet> with Logging {
     });
   }
 
+  // Updates the device being linked in place. Unlike _setDeviceTemplate it does
+  // not recreate the device or token, so the QR stays valid and the profile
+  // picker keeps pointing at a live device (avoids the gray-area glitch and the
+  // already-scanned child being orphaned).
+  _updateDeviceTemplate({String? name, JsonProfile? profile}) async {
+    await log(Markers.ui).trace("updateDeviceAdding", (m) async {
+      // null when the link already finished or was cancelled; nothing to update.
+      final updated = await _familyLink.updateLinkingDevice(
+          name: name, profile: profile, m: m);
+      if (updated == null) return;
+      _payload = updated;
+      setState(() {});
+    });
+  }
+
   String _getProbablyUniqueRandomName() {
     final existing =
         _family.devices.now.entries.map((e) => e.device.alias).toSet();
@@ -167,10 +182,8 @@ class LinkDeviceSheetState extends State<LinkDeviceSheet> with Logging {
                                                   "device",
                                                   _payload.device.alias,
                                                   onConfirm: (name) =>
-                                                      _setDeviceTemplate(
-                                                          name: name,
-                                                          profile: _payload
-                                                              .profile));
+                                                      _updateDeviceTemplate(
+                                                          name: name));
                                             },
                                             icon: CupertinoIcons
                                                 .device_phone_portrait,
@@ -188,8 +201,7 @@ class LinkDeviceSheetState extends State<LinkDeviceSheet> with Logging {
                                               showSelectProfileDialog(context,
                                                   device: _payload.device,
                                                   onSelected: (p) {
-                                                _setDeviceTemplate(
-                                                    name: _payload.device.alias,
+                                                _updateDeviceTemplate(
                                                     profile: p);
                                               });
                                             },

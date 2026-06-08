@@ -137,7 +137,12 @@ class DeviceActor with Logging, Actor {
     }
   }
 
-  changeDeviceProfile(JsonDevice device, JsonProfile profile, Marker m) async {
+  // [select] also makes [profile] the currently selected one, rewriting this
+  // device's own filter config. That is wrong while linking a child device, so
+  // the link flow passes select: false to only post the device's new profile.
+  Future<JsonDevice> changeDeviceProfile(
+      JsonDevice device, JsonProfile profile, Marker m,
+      {bool select = true}) async {
     log(m).i("changing profile of ${device.deviceTag} to ${profile.alias}");
     final draft = JsonDevice(
       deviceTag: device.deviceTag,
@@ -152,7 +157,7 @@ class DeviceActor with Logging, Actor {
       final updated =
           await _devices.changeProfile(device, profile.profileId, m);
       _commit(updated);
-      await _profiles.selectProfile(m, profile);
+      if (select) await _profiles.selectProfile(m, profile);
       return updated;
     } catch (e) {
       _commit(old);
