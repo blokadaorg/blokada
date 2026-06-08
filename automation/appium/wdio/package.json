@@ -21,7 +21,7 @@
     "webdriverio": "^9.0.5"
   },
   "devDependencies": {
-    "@types/chai": "^5.2.2",
+    "@types/chai": "^5.2.3",
     "@types/node": "^20.11.30",
     "appium": "^3.5.0",
     "chai": "^6.2.2",
