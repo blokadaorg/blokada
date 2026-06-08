@@ -61,10 +61,19 @@ class RuleModel {
   final List<int> weekdays;
   final List<TimeWindowModel> windows;
 
+  /// What the rule does while active. Mirrors the api/blockarust wire key
+  /// `"action"`: lowercase `"filter"` (apply [profileId]) or `"block"` (drop
+  /// all queries; [profileId] is empty). Null/absent is treated as `"filter"`
+  /// so legacy rules behave unchanged. Kept on the wire only when non-null —
+  /// `toJson` omits the key for filter/null so the payload stays minimal and
+  /// matches the api's "absent ⇒ filter" convention.
+  final String? action;
+
   RuleModel({
     required this.profileId,
     required List<int> weekdays,
     required this.windows,
+    this.action,
   }) : weekdays = List<int>.unmodifiable([...weekdays]..sort());
 
   factory RuleModel.fromJson(Map<String, dynamic> json) {
@@ -75,6 +84,7 @@ class RuleModel {
         windows: (json['windows'] as List<dynamic>)
             .map((e) => TimeWindowModel.fromJson(e as Map<String, dynamic>))
             .toList(),
+        action: json['action'] as String?,
       );
     } on TypeError catch (e) {
       throw JsonError(json, e);
@@ -85,17 +95,23 @@ class RuleModel {
         'profile_id': profileId,
         'weekdays': weekdays,
         'windows': windows.map((w) => w.toJson()).toList(),
+        // Omit `action` for filter/null: the api treats an absent key as
+        // filter, so emitting it would be redundant and diverge from the
+        // wire convention shared with blockarust.
+        if (action != null) 'action': action,
       };
 
   RuleModel copyWith({
     String? profileId,
     List<int>? weekdays,
     List<TimeWindowModel>? windows,
+    String? action,
   }) =>
       RuleModel(
         profileId: profileId ?? this.profileId,
         weekdays: weekdays ?? this.weekdays,
         windows: windows ?? this.windows,
+        action: action ?? this.action,
       );
 }
 
@@ -173,6 +189,28 @@ class ScheduleModel {
           throw ScheduleValidationError(
               'invalid_minute', 'Window minutes must be in 0..1439.');
         }
+      }
+      // Action / profile mutual exclusion, mirroring the api's 400 table:
+      // a `block` rule drops all queries and must carry no profile; a
+      // `filter` rule (the default when `action` is null/absent) applies a
+      // profile and must name a known one. Any other action string is a
+      // wire-format violation we reject before the round-trip.
+      final action = rule.action;
+      if (action != null && action != 'filter' && action != 'block') {
+        throw ScheduleValidationError('invalid_rule_action',
+            'Rule action "$action" must be "filter" or "block".');
+      }
+      if (action == 'block') {
+        if (rule.profileId.isNotEmpty) {
+          throw ScheduleValidationError('block_rule_with_profile',
+              'A block rule must not carry a profile_id.');
+        }
+        // A block rule needs no profile reference; skip the profile-set check.
+        continue;
+      }
+      if (rule.profileId.isEmpty) {
+        throw ScheduleValidationError('filter_rule_without_profile',
+            'A filter rule must carry a profile_id.');
       }
       if (!profileIds.contains(rule.profileId)) {
         throw ScheduleValidationError('unknown_rule_profile',

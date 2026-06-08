@@ -71,6 +71,57 @@ void main() {
       );
       expect(rule.weekdays, [1, 3, 7]);
     });
+
+    test('action absent on the wire round-trips as null (filter default)', () {
+      final json = {
+        'profile_id': 'prof_school',
+        'weekdays': [1],
+        'windows': [
+          {'start_minute': 0, 'end_minute': 60}
+        ],
+      };
+      final restored = RuleModel.fromJson(json);
+      expect(restored.action, isNull);
+      // toJson must NOT re-emit the key for a filter/null action.
+      expect(restored.toJson().containsKey('action'), isFalse);
+    });
+
+    test('action "filter" round-trips and is emitted', () {
+      final rule = RuleModel(
+        profileId: 'prof_school',
+        weekdays: const [1],
+        windows: const [TimeWindowModel(startMinute: 0, endMinute: 60)],
+        action: 'filter',
+      );
+      final json = rule.toJson();
+      expect(json['action'], 'filter');
+      expect(RuleModel.fromJson(json).action, 'filter');
+    });
+
+    test('action "block" round-trips with empty profile_id', () {
+      final rule = RuleModel(
+        profileId: '',
+        weekdays: const [1],
+        windows: const [TimeWindowModel(startMinute: 0, endMinute: 60)],
+        action: 'block',
+      );
+      final json = rule.toJson();
+      expect(json['action'], 'block');
+      expect(json['profile_id'], '');
+      final restored = RuleModel.fromJson(json);
+      expect(restored.action, 'block');
+      expect(restored.profileId, '');
+    });
+
+    test('copyWith preserves action when not overridden', () {
+      final rule = RuleModel(
+        profileId: '',
+        weekdays: const [1],
+        windows: const [TimeWindowModel(startMinute: 0, endMinute: 60)],
+        action: 'block',
+      );
+      expect(rule.copyWith(weekdays: const [2]).action, 'block');
+    });
   });
 
   group('ScheduleModel', () {
@@ -258,6 +309,86 @@ void main() {
         returnsNormally,
       );
     });
+
+    ScheduleModel single(RuleModel rule) =>
+        ScheduleModel(paused: false, rules: [rule]);
+
+    test('validate accepts a block rule with empty profile_id', () {
+      final s = single(RuleModel(
+        profileId: '',
+        weekdays: const [1],
+        windows: const [TimeWindowModel(startMinute: 0, endMinute: 60)],
+        action: 'block',
+      ));
+      // No profile reference, so the profile set is irrelevant.
+      expect(() => s.validate(profileIds: const {}), returnsNormally);
+    });
+
+    test('validate rejects a block rule that carries a profile_id', () {
+      final s = single(RuleModel(
+        profileId: 'prof_a',
+        weekdays: const [1],
+        windows: const [TimeWindowModel(startMinute: 0, endMinute: 60)],
+        action: 'block',
+      ));
+      expect(
+        () => s.validate(profileIds: const {'prof_a'}),
+        throwsA(isA<ScheduleValidationError>()
+            .having((e) => e.code, 'code', 'block_rule_with_profile')),
+      );
+    });
+
+    test('validate rejects a filter rule with empty profile_id', () {
+      final s = single(RuleModel(
+        profileId: '',
+        weekdays: const [1],
+        windows: const [TimeWindowModel(startMinute: 0, endMinute: 60)],
+        action: 'filter',
+      ));
+      expect(
+        () => s.validate(profileIds: const {'prof_a'}),
+        throwsA(isA<ScheduleValidationError>()
+            .having((e) => e.code, 'code', 'filter_rule_without_profile')),
+      );
+    });
+
+    test('validate rejects a rule with empty profile_id and null action', () {
+      // Null action defaults to filter, so the same profile requirement holds.
+      final s = single(RuleModel(
+        profileId: '',
+        weekdays: const [1],
+        windows: const [TimeWindowModel(startMinute: 0, endMinute: 60)],
+      ));
+      expect(
+        () => s.validate(profileIds: const {'prof_a'}),
+        throwsA(isA<ScheduleValidationError>()
+            .having((e) => e.code, 'code', 'filter_rule_without_profile')),
+      );
+    });
+
+    test('validate rejects an unknown action value', () {
+      final s = single(RuleModel(
+        profileId: 'prof_a',
+        weekdays: const [1],
+        windows: const [TimeWindowModel(startMinute: 0, endMinute: 60)],
+        action: 'allow',
+      ));
+      expect(
+        () => s.validate(profileIds: const {'prof_a'}),
+        throwsA(isA<ScheduleValidationError>()
+            .having((e) => e.code, 'code', 'invalid_rule_action')),
+      );
+    });
+
+    test('validate accepts an explicit filter action with a known profile', () {
+      final s = single(RuleModel(
+        profileId: 'prof_a',
+        weekdays: const [1],
+        windows: const [TimeWindowModel(startMinute: 0, endMinute: 60)],
+        action: 'filter',
+      ));
+      expect(() => s.validate(profileIds: const {'prof_a'}), returnsNormally);
+    });
   });
 
   group('JsonDevice schedule + timezone fields', () {
@@ -338,6 +469,113 @@ void main() {
       final out = d.toJson();
       expect(out['schedule'], {'paused': true, 'rules': <dynamic>[]});
       expect(out['timezone'], 'Europe/Stockholm');
+    });
+  });
+
+  group('JsonDevice mode_until field', () {
+    test('parses mode_until as a UTC instant', () {
+      final json = {
+        'device_tag': 'tag1',
+        'alias': 'Kid Phone',
+        'mode': 'off',
+        'retention': '24h',
+        'profile_id': 'prof_default',
+        'last_heartbeat': '2026-05-15T10:00:00Z',
+        'mode_until': '2026-06-08T21:00:00Z',
+      };
+      final d = JsonDevice.fromJson(json);
+      expect(d.modeUntil, DateTime.utc(2026, 6, 8, 21, 0, 0));
+      expect(d.modeUntil!.isUtc, isTrue);
+    });
+
+    test('mode_until is null when the api omits it (legacy / indefinite)', () {
+      final json = {
+        'device_tag': 'tag1',
+        'alias': 'Kid Phone',
+        'mode': 'on',
+        'retention': '24h',
+        'profile_id': 'prof_default',
+        'last_heartbeat': '2026-05-15T10:00:00Z',
+      };
+      expect(JsonDevice.fromJson(json).modeUntil, isNull);
+    });
+
+    test('toJson omits mode_until when null', () {
+      final d = JsonDevice(
+        deviceTag: 'tag1',
+        alias: 'Kid Phone',
+        mode: JsonDeviceMode.on,
+        retention: '24h',
+        profileId: 'prof_default',
+      );
+      d.lastHeartbeat = '2026-05-15T10:00:00Z';
+      expect(d.toJson().containsKey('mode_until'), isFalse);
+    });
+
+    test('toJson emits mode_until as RFC3339 UTC when set', () {
+      final d = JsonDevice(
+        deviceTag: 'tag1',
+        alias: 'Kid Phone',
+        mode: JsonDeviceMode.off,
+        retention: '24h',
+        profileId: 'prof_default',
+        modeUntil: DateTime.utc(2026, 6, 8, 21, 0, 0),
+      );
+      d.lastHeartbeat = '2026-05-15T10:00:00Z';
+      expect(d.toJson()['mode_until'], '2026-06-08T21:00:00.000Z');
+    });
+
+    test('non-UTC mode_until is serialised as UTC', () {
+      // A local-zone instant must still go out as Z-suffixed UTC.
+      final d = JsonDevice(
+        deviceTag: 'tag1',
+        alias: 'Kid Phone',
+        mode: JsonDeviceMode.off,
+        retention: '24h',
+        profileId: 'prof_default',
+        modeUntil: DateTime.utc(2026, 6, 8, 21, 0, 0).toLocal(),
+      );
+      d.lastHeartbeat = '2026-05-15T10:00:00Z';
+      expect(d.toJson()['mode_until'], endsWith('Z'));
+      expect(DateTime.parse(d.toJson()['mode_until'] as String).toUtc(),
+          DateTime.utc(2026, 6, 8, 21, 0, 0));
+    });
+  });
+
+  group('JsonDevicePayload.forUpdateMode mode_until', () {
+    test('omits mode_until when none is supplied (indefinite, as before)', () {
+      final p = JsonDevicePayload.forUpdateMode(
+        deviceTag: 'tag1',
+        mode: JsonDeviceMode.off,
+      );
+      final out = p.toJson();
+      expect(out['mode'], 'off');
+      expect(out.containsKey('mode_until'), isFalse);
+    });
+
+    test('emits mode_until when supplied', () {
+      final p = JsonDevicePayload.forUpdateMode(
+        deviceTag: 'tag1',
+        mode: JsonDeviceMode.blocked,
+        modeUntil: DateTime.utc(2026, 6, 8, 21, 0, 0),
+      );
+      final out = p.toJson();
+      expect(out['mode'], 'blocked');
+      expect(out['mode_until'], '2026-06-08T21:00:00.000Z');
+    });
+
+    test('other payload factories never carry mode_until', () {
+      expect(
+          JsonDevicePayload.forUpdateProfile(
+                  deviceTag: 'tag1', profileId: 'p')
+              .toJson()
+              .containsKey('mode_until'),
+          isFalse);
+      expect(
+          JsonDevicePayload.forUpdateAlias(deviceTag: 'tag1', alias: 'x')
+              .toJson()
+              .containsKey('mode_until'),
+          isFalse);
     });
   });
 }

@@ -218,6 +218,7 @@ class DeviceActor with Logging, Actor {
       profileId: device.profileId,
       retention: device.retention,
       mode: device.mode,
+      modeUntil: device.modeUntil,
       schedule: device.schedule,
       timezone: device.timezone,
     );
@@ -252,6 +253,7 @@ class DeviceActor with Logging, Actor {
       profileId: profile.profileId,
       retention: device.retention,
       mode: device.mode,
+      modeUntil: device.modeUntil,
       schedule: device.schedule,
       timezone: device.timezone,
     );
@@ -275,26 +277,44 @@ class DeviceActor with Logging, Actor {
     onChange(false);
   }
 
-  changeDeviceMode(JsonDevice device, JsonDeviceMode mode, Marker m) async {
+  /// Change a device's released [mode]. [modeUntil] is optional and defaults
+  /// to null, reproducing today's indefinite override; when supplied it bounds
+  /// the override to that instant (after which the device reverts to its
+  /// schedule/default server-side). The optimistic draft carries the same
+  /// bound so the UI reflects it before the round-trip.
+  changeDeviceMode(JsonDevice device, JsonDeviceMode mode, Marker m,
+      {DateTime? modeUntil}) async {
     final draft = JsonDevice(
       deviceTag: device.deviceTag,
       alias: device.alias,
       profileId: device.profileId,
       retention: device.retention,
       mode: mode,
+      modeUntil: modeUntil,
       schedule: device.schedule,
       timezone: device.timezone,
     );
     final old = _commit(draft, dirty: true);
 
     try {
-      final updated = await _devices.changeMode(device, mode, m);
+      final updated =
+          await _devices.changeMode(device, mode, m, modeUntil: modeUntil);
       _commit(updated);
       return updated;
     } catch (e) {
       _commit(old);
       rethrow;
     }
+  }
+
+  /// Clear any active override and hand the device back to its schedule /
+  /// default: sets `mode = on` and drops `mode_until` (passing null bounds is
+  /// what tells the api to resume indefinite normal evaluation). Thin wrapper
+  /// over [changeDeviceMode] kept as a named helper so call sites read as
+  /// "resume" rather than an opaque `on` + null.
+  Future<JsonDevice> resumeDevice(JsonDevice device, Marker m) async {
+    return await changeDeviceMode(device, JsonDeviceMode.on, m,
+        modeUntil: null);
   }
 
   /// Optimistically commit a new [schedule] (and optional [timezone]) for
@@ -309,6 +329,10 @@ class DeviceActor with Logging, Actor {
       profileId: device.profileId,
       retention: device.retention,
       mode: device.mode,
+      // Carry the override expiry too: a schedule edit must not optimistically
+      // drop `modeUntil` (which would flip a bounded override to "indefinite"
+      // in the Now readout until the api response reconciles).
+      modeUntil: device.modeUntil,
       schedule: schedule,
       timezone: timezone ?? device.timezone,
     );

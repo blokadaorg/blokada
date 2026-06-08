@@ -42,13 +42,19 @@ class DeviceApi {
         )));
   }
 
+  /// [modeUntil] is optional and defaults to null, preserving today's
+  /// indefinite mode change. When supplied it bounds the new [mode] to that
+  /// instant (emitted as `mode_until`); callers that don't pass it behave
+  /// exactly as before.
   Future<JsonDevice> changeMode(
-      JsonDevice device, JsonDeviceMode mode, Marker m) async {
+      JsonDevice device, JsonDeviceMode mode, Marker m,
+      {DateTime? modeUntil}) async {
     final result = await _api.request(ApiEndpoint.putDevice, m,
         payload: _marshal.fromPayload(JsonDevicePayload.forUpdateMode(
             deviceTag: device.deviceTag,
             mode: mode,
-            retention: mode == JsonDeviceMode.off ? null : "24h")));
+            retention: mode == JsonDeviceMode.off ? null : "24h",
+            modeUntil: modeUntil)));
     return _marshal.toDevice(result);
   }
 
