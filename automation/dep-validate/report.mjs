@@ -288,12 +288,19 @@ async function upsertComment(pr, body) {
       "--paginate",
       `repos/${REPO}/issues/${pr}/comments`,
       "--jq",
-      "[.[] | {id, login: .user.login, body}]"
+      "[.[] | {id, login: .user.login, type: .user.type, body}]"
     ])
   );
+  // Match our own marked comment to upsert. When the viewer is known (PAT),
+  // require the author to be us. When it is not (App-installation token, where
+  // `gh api user` fails), fall back to bot/app authors only — never PATCH a
+  // human-authored comment that happens to contain the marker; post a new one
+  // instead.
+  const isBot = (c) =>
+    c.type === "Bot" || /\[bot\]$/i.test(c.login ?? "");
   const mine = existing.find(
     (c) =>
-      c.body?.includes(marker) && (viewer === "" || c.login === viewer)
+      c.body?.includes(marker) && (viewer ? c.login === viewer : isBot(c))
   );
 
   const tmp = resolve(OUTPUT_DIR, `.comment-${pr}.md`);
@@ -331,7 +338,13 @@ function parseArgs(argv) {
   const args = { comment: false, input: null };
   for (let i = 0; i < argv.length; i++) {
     if (argv[i] === "--comment") args.comment = true;
-    else if (argv[i] === "--input") args.input = argv[++i];
+    else if (argv[i] === "--input") {
+      const next = argv[i + 1];
+      if (next === undefined || next.startsWith("--")) {
+        throw new Error("--input requires a file path");
+      }
+      args.input = argv[++i];
+    }
   }
   return args;
 }

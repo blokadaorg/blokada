@@ -28,7 +28,12 @@ const HIGH_RISK_PACKAGES = [
   { match: "storekit", surface: "payment" }
 ];
 
-const VERSION = "v?\\d+(?:\\.\\d+){0,2}";
+// Numeric core (major[.minor[.patch]]) plus an optional pub prerelease/build
+// suffix (e.g. 3.0.0-beta.1, 5.8.0+1). Without the suffix, a "from X to Y" line
+// or a grouped-table cell carrying build metadata fails to match and the bump
+// is silently dropped from the queue. majorOf() still keys off the leading int.
+const VERSION =
+  "v?\\d+(?:\\.\\d+){0,2}(?:[-+][0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?";
 
 function gh(args) {
   return execFileSync("gh", args, {
