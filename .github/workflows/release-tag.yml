@@ -173,7 +173,7 @@ jobs:
           fetch-depth: 1
 
       - name: Download iOS artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: release-ios-${{ github.run_id }}
           path: .
@@ -264,7 +264,7 @@ jobs:
           fetch-depth: 1
 
       - name: Download Android artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: release-android-${{ github.run_id }}
           path: .
