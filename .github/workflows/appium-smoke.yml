@@ -59,7 +59,7 @@ jobs:
 
       - name: Upload appium screenshots on failure
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: appium-screenshots-${{ github.run_id }}
           path: automation/appium/output/*.png
@@ -68,7 +68,7 @@ jobs:
 
       - name: Upload appium smoke artifacts
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: appium-smoke-${{ github.run_id }}
           path: |
