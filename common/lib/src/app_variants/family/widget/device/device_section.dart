@@ -11,7 +11,6 @@ import 'package:common/src/features/modal/domain/modal.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/common_card.dart';
 import 'package:common/src/shared/ui/common_clickable.dart';
-import 'package:common/src/shared/ui/common_divider.dart';
 import 'package:common/src/shared/ui/common_item.dart';
 import 'package:common/src/shared/ui/minicard/header.dart';
 import 'package:common/src/shared/ui/minicard/minicard.dart';
@@ -23,6 +22,7 @@ import 'package:common/src/app_variants/family/module/family/family.dart';
 import 'package:common/src/app_variants/family/module/profile/profile.dart';
 import 'package:common/src/app_variants/family/module/schedule/actor.dart';
 import 'package:common/src/app_variants/family/module/schedule/schedule.dart';
+import 'package:common/src/app_variants/family/widget/device/now_section.dart';
 import 'package:common/src/app_variants/family/widget/device/rule_editor_sheet.dart';
 import 'package:common/src/app_variants/family/widget/device/schedule_section.dart';
 import 'package:common/src/app_variants/family/widget/home/link_device_sheet.dart';
@@ -125,10 +125,50 @@ class DeviceSectionState extends State<DeviceSection>
             ),
           ),
         ),
+        // NOW section — the device's effective state right now plus the two
+        // timed manual overrides (Block internet / Pause filtering). Replaces
+        // the old persistent on/off/blocked Internet radios: those were a
+        // mode with no expiry, this is the same mode plus an auto-reverting
+        // `mode_until`. Driven by the client-side `resolveEffectiveState`
+        // resolver (display-only; blockarust remains the enforcement
+        // authority server-side).
+        NowSection(
+          device: device.device,
+          profiles: _profiles.profiles,
+          onOverride: (kind, modeUntil) async {
+            final mode = kind == OverrideKind.block
+                ? JsonDeviceMode.blocked
+                : JsonDeviceMode.off;
+            try {
+              await _device.changeDeviceMode(
+                  device.device, mode, Markers.userTap,
+                  modeUntil: modeUntil);
+            } catch (_) {
+              if (context.mounted) {
+                showErrorDialog(context, "error fetching data".i18n);
+              }
+            }
+          },
+          onResume: () async {
+            try {
+              await _device.resumeDevice(device.device, Markers.userTap);
+            } catch (_) {
+              if (context.mounted) {
+                showErrorDialog(context, "error fetching data".i18n);
+              }
+            }
+          },
+        ),
+
+        // Default profile section — the device's base profile (its top-level
+        // `profileId`) plus the profile's Blocklists, grouped so the "what
+        // applies when no rule and no override is active" lives in one place.
+        // The Schedule below overrides this default during its windows; the
+        // Now overrides above supersede both until they end.
         const SizedBox(height: 32),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Text("family device label settings".i18n.capitalize(),
+          child: Text("family device default profile".i18n.toUpperCase(),
               style: const TextStyle(fontWeight: FontWeight.w500)),
         ),
         Padding(
@@ -141,76 +181,53 @@ class DeviceSectionState extends State<DeviceSection>
           child: CommonCard(
             child: Column(
               children: [
-                Column(
-                  children: [
-                    CommonItem(
-                      onTap: () {
-                        showRenameDialog(context, "device", device.device.alias,
-                            onConfirm: (name) {
-                          _device.renameDevice(
-                              device.device, name, Markers.userTap);
-                        });
-                      },
-                      icon: CupertinoIcons.device_phone_portrait,
-                      text: "account lease label name".i18n,
-                      trailing: Text(device.device.alias,
-                          style: TextStyle(color: context.theme.textSecondary)),
-                    ),
-                    // Default profile: the device's base profile, surfaced
-                    // here in Device settings (it was briefly the Default row
-                    // inside the Schedule section per #292; moved back up so
-                    // the schedule holds only override rules). Tapping opens
-                    // the existing profile picker. Collapsing this with the
-                    // Blocklists row into a single push-to-config flow is a
-                    // deferred follow-up.
-                    CommonItem(
-                      onTap: () => showSelectProfileDialog(context,
-                          device: device.device),
-                      icon: CupertinoIcons.person_crop_circle,
-                      text: "family device default profile".i18n,
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          ProfileAvatar(
-                              template: device.profile.template,
-                              displayAlias: device.profile.displayAlias,
-                              size: 18),
-                          const SizedBox(width: 4),
-                          Text(device.profile.displayAlias.i18n,
-                              style: TextStyle(
-                                  color: getProfileColorFor(
-                                      device.profile.template,
-                                      device.profile.displayAlias))),
-                        ],
-                      ),
-                    ),
-                    CommonItem(
-                      onTap: () {
-                        Navigation.open(Paths.deviceFilters, arguments: device);
-                      },
-                      icon: CupertinoIcons.shield,
-                      text: "family stats label blocklists alt".i18n,
-                      trailing: Text(
-                          "family stats label blocklists count".i18n.withParams(
-                              _selectedFilters.present
-                                      ?.map((e) => e.options.length)
-                                      .sum() ??
-                                  0),
+                CommonItem(
+                  onTap: () => showSelectProfileDialog(context,
+                      device: device.device),
+                  icon: CupertinoIcons.person_crop_circle,
+                  text: "family device default profile".i18n,
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ProfileAvatar(
+                          template: device.profile.template,
+                          displayAlias: device.profile.displayAlias,
+                          size: 18),
+                      const SizedBox(width: 4),
+                      Text(device.profile.displayAlias.i18n,
                           style: TextStyle(
-                            color: context.theme.textSecondary,
-                          )),
-                    ),
-                  ],
+                              color: getProfileColorFor(
+                                  device.profile.template,
+                                  device.profile.displayAlias))),
+                    ],
+                  ),
+                ),
+                CommonItem(
+                  onTap: () {
+                    Navigation.open(Paths.deviceFilters, arguments: device);
+                  },
+                  icon: CupertinoIcons.shield,
+                  text: "family stats label blocklists alt".i18n,
+                  trailing: Text(
+                      "family stats label blocklists count".i18n.withParams(
+                          _selectedFilters.present
+                                  ?.map((e) => e.options.length)
+                                  .sum() ??
+                              0),
+                      style: TextStyle(
+                        color: context.theme.textSecondary,
+                      )),
                 ),
               ],
             ),
           ),
         ),
 
-        // Schedule section — sits between Settings and Internet. Holds only
-        // the override rules; the device's default profile lives in the
-        // Device-settings card above. The rule list overrides that default by
-        // weekday and time-of-day. See coordinator plan §"Wire format".
+        // Schedule section — sits between the Default profile and the device
+        // Settings. Holds only the override rules; the device's default
+        // profile lives in the Default-profile card above. The rule list
+        // overrides that default by weekday and time-of-day. See coordinator
+        // plan §"Wire format".
         ScheduleSection(
           deviceTag: device.device.deviceTag,
           profiles: _profiles.profiles,
@@ -273,25 +290,33 @@ class DeviceSectionState extends State<DeviceSection>
           },
         ),
 
-        // Internet control section
+        // Device settings — now just the device name. The default profile,
+        // blocklists and the internet on/off/block controls all moved into
+        // their own sections above (Default profile / Now), so this card
+        // holds only the rename row.
         const SizedBox(height: 32),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Text("family device label internet".i18n.toUpperCase(),
+          child: Text("family device label settings".i18n.toUpperCase(),
               style: const TextStyle(fontWeight: FontWeight.w500)),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Text("family device brief internet".i18n,
-              style: TextStyle(color: context.theme.textSecondary)),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           child: CommonCard(
             child: Column(
               children: [
-                Column(
-                  children: _buildInternetControlOptions(context),
+                CommonItem(
+                  onTap: () {
+                    showRenameDialog(context, "device", device.device.alias,
+                        onConfirm: (name) {
+                      _device.renameDevice(
+                          device.device, name, Markers.userTap);
+                    });
+                  },
+                  icon: CupertinoIcons.device_phone_portrait,
+                  text: "account lease label name".i18n,
+                  trailing: Text(device.device.alias,
+                      style: TextStyle(color: context.theme.textSecondary)),
                 ),
               ],
             ),
@@ -344,38 +369,6 @@ class DeviceSectionState extends State<DeviceSection>
         const SizedBox(height: 48),
       ],
     );
-  }
-
-  List<Widget> _buildInternetControlOptions(BuildContext context) {
-    onChanged(JsonDeviceMode? value) {
-      if (value == null) return;
-      log(Markers.userTap)
-          .i("changing device mode ${device.device.deviceTag} to $value");
-      _device.changeDeviceMode(device.device, value, Markers.userTap);
-    }
-
-    return [
-      _buildInternetControlOption(
-          context,
-          JsonDeviceMode.on,
-          "family device label internet on".i18n,
-          "family device brief internet on".i18n,
-          onChanged),
-      const CommonDivider(indent: 0),
-      _buildInternetControlOption(
-          context,
-          JsonDeviceMode.off,
-          "family device label internet off".i18n,
-          "family device brief internet off".i18n,
-          onChanged),
-      const CommonDivider(indent: 0),
-      _buildInternetControlOption(
-          context,
-          JsonDeviceMode.blocked,
-          "family device label internet block".i18n,
-          "family device brief internet block".i18n,
-          onChanged),
-    ];
   }
 
   /// Open the rule editor sheet for [device], either creating a new rule
@@ -518,54 +511,6 @@ class DeviceSectionState extends State<DeviceSection>
     );
     return completer.future
         .timeout(const Duration(seconds: 60), onTimeout: () => null);
-  }
-
-  Widget _buildInternetControlOption(BuildContext context, JsonDeviceMode value,
-      String text, String desc, ValueChanged<JsonDeviceMode?> onChanged) {
-    return GestureDetector(
-      onTap: () {
-        onChanged(value);
-      },
-      behavior: HitTestBehavior.opaque,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 12.0),
-        child: Row(
-          children: [
-            CupertinoRadio(
-                value: value,
-                groupValue: device.device.mode,
-                useCheckmarkStyle: true,
-                activeColor: context.theme.accent,
-                inactiveColor: context.theme.shadow.withAlpha(127),
-                onChanged: onChanged),
-            const SizedBox(width: 16),
-            Expanded(
-                child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  text,
-                  style: TextStyle(
-                    color: context.theme.textPrimary,
-                    fontSize: 16,
-                    //fontWeight: FontWeight.w600,
-                  ),
-                  textAlign: TextAlign.start,
-                ),
-                Text(
-                  desc,
-                  style: TextStyle(
-                    color: context.theme.textSecondary,
-                    fontSize: 14,
-                  ),
-                  textAlign: TextAlign.start,
-                ),
-              ],
-            )),
-          ],
-        ),
-      ),
-    );
   }
 }
 

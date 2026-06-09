@@ -138,7 +138,11 @@ void main() {
       await tester.pump();
 
       // Untoggle Friday (Mon-Fri starts selected) → yields Mon-Thu and the
-      // preset row should switch to "Custom" automatically.
+      // preset row should switch to "Custom" automatically. The new target
+      // selector section pushes the day chips below the 600px test viewport,
+      // so scroll the chip into view before tapping.
+      await tester.ensureVisible(find.byKey(const Key('day_chip_5')));
+      await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key('day_chip_5')));
       await tester.pump();
 
@@ -165,6 +169,13 @@ void main() {
         onDelete: null,
       )));
       await tester.pump();
+
+      // The target selector now leads the form, so the times section sits
+      // below the 600px test viewport and the outer ListView culls it; scroll
+      // down until the From button is built before asserting on it.
+      await tester.scrollUntilVisible(find.text('09:00'), 200,
+          scrollable: find.byType(Scrollable).first);
+      await tester.pumpAndSettle();
 
       // Initial window 09:00–17:00 rendered as compact From/To buttons.
       expect(find.text('09:00'), findsOneWidget);
@@ -203,6 +214,13 @@ void main() {
       )));
       await tester.pump();
 
+      // Times section is below the viewport (target selector leads the form);
+      // scroll the wrap hint into view before asserting.
+      await tester.scrollUntilVisible(
+          find.text('family schedule rule editor times wrap'), 200,
+          scrollable: find.byType(Scrollable).first);
+      await tester.pumpAndSettle();
+
       expect(find.text('family schedule rule editor times wrap'),
           findsOneWidget);
     });
@@ -233,6 +251,13 @@ void main() {
         onDelete: () {},
       )));
       await tester.pump();
+
+      // Scroll the Add-another-time button into view (it sits below the
+      // target selector + 4 window rows, past the test viewport).
+      await tester.scrollUntilVisible(
+          find.byKey(const Key('times_add_button')), 200,
+          scrollable: find.byType(Scrollable).first);
+      await tester.pumpAndSettle();
 
       final btn = tester.widget<TextButton>(
           find.byKey(const Key('times_add_button')));
@@ -265,13 +290,17 @@ void main() {
       )));
       await tester.pump();
 
+      // Scroll the times rows into view — the target selector now leads the
+      // form so both delete buttons start below the 600px test viewport and
+      // the outer ListView culls them.
+      await tester.scrollUntilVisible(
+          find.byKey(const Key('times_delete_1')), 200,
+          scrollable: find.byType(Scrollable).first);
+      await tester.pumpAndSettle();
+
       // Two delete buttons visible (canDelete is gated on length > 1).
       expect(find.byKey(const Key('times_delete_0')), findsOneWidget);
       expect(find.byKey(const Key('times_delete_1')), findsOneWidget);
-      // Scroll the second row into view before tapping — the editor's
-      // outer ListView may push it below the 600px test viewport.
-      await tester.ensureVisible(find.byKey(const Key('times_delete_1')));
-      await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key('times_delete_1')));
       await tester.pumpAndSettle();
       // After deletion only one window remains — the row no longer offers
@@ -820,6 +849,123 @@ void main() {
       // pop to assert — the test wrapper has no parent route — but the
       // tap target must exist for the screen to be dismissible).
       expect(find.byKey(const Key('rule_editor_back')), findsOneWidget);
+    });
+  });
+
+  testWidgets(
+      'Selecting the "No internet" target hides the profile section and saves '
+      'action:block with no profile', (tester) async {
+    await withTrace((_) async {
+      RuleModel? saved;
+      await tester.pumpWidget(_wrap(RuleEditorSheet(
+        deviceTag: 'tag1',
+        deviceName: 'TestDevice',
+        initialRule: null,
+        availableProfiles: [_profile('p1', 'School', template: '')],
+        deviceBaseProfileId: 'prof_other_unused',
+        onAddProfile: null,
+        onEditProfile: null,
+        onDeleteProfile: null,
+        onSave: (r) => saved = r,
+        onDelete: null,
+      )));
+      await tester.pump();
+
+      // Filter is the default target, so the profile section is present. The
+      // section label is upper-cased by _buildSection.
+      expect(find.text('FAMILY SCHEDULE RULE EDITOR PROFILE LABEL'),
+          findsOneWidget);
+
+      // Pick "No internet" (block). The profile section disappears.
+      await tester.tap(find.byKey(const Key('rule_target_block')));
+      await tester.pumpAndSettle();
+      expect(find.text('FAMILY SCHEDULE RULE EDITOR PROFILE LABEL'),
+          findsNothing);
+
+      // Save → a block rule with no profile id.
+      await tester.tap(find.byKey(const Key('rule_editor_save')));
+      await tester.pumpAndSettle();
+      expect(saved, isNotNull);
+      expect(saved!.action, 'block');
+      expect(saved!.profileId, isEmpty);
+    });
+  });
+
+  testWidgets(
+      'Editing an existing block rule seeds the block target and Save stays '
+      'enabled with no profile', (tester) async {
+    await withTrace((_) async {
+      RuleModel? saved;
+      await tester.pumpWidget(_wrap(RuleEditorSheet(
+        deviceTag: 'tag1',
+        deviceName: 'TestDevice',
+        initialRule: RuleModel(
+          profileId: '',
+          weekdays: const [1, 2, 3, 4, 5],
+          windows: const [TimeWindowModel(startMinute: 1260, endMinute: 420)],
+          action: 'block',
+        ),
+        availableProfiles: [_profile('p1', 'School', template: '')],
+        deviceBaseProfileId: 'prof_other_unused',
+        onAddProfile: null,
+        onEditProfile: null,
+        onDeleteProfile: null,
+        onSave: (r) => saved = r,
+        onDelete: () {},
+      )));
+      await tester.pump();
+
+      // Block target rules carry no profile, so the profile section is hidden
+      // and Save is not gated on a profile pick.
+      expect(find.text('FAMILY SCHEDULE RULE EDITOR PROFILE LABEL'),
+          findsNothing);
+      await tester.tap(find.byKey(const Key('rule_editor_save')));
+      await tester.pumpAndSettle();
+      expect(saved, isNotNull);
+      expect(saved!.action, 'block');
+      expect(saved!.profileId, isEmpty);
+      expect(saved!.weekdays, [1, 2, 3, 4, 5]);
+    });
+  });
+
+  testWidgets(
+      'Switching from block back to filter restores the profile section and '
+      're-gates Save until a profile is picked', (tester) async {
+    await withTrace((_) async {
+      await tester.pumpWidget(_wrap(RuleEditorSheet(
+        deviceTag: 'tag1',
+        deviceName: 'TestDevice',
+        // No eligible profiles: base + nothing else, so a filter rule cannot
+        // pick a profile and Save must stay disabled when filter is active.
+        initialRule: null,
+        availableProfiles: const [],
+        deviceBaseProfileId: 'prof_other_unused',
+        onAddProfile: null,
+        onEditProfile: null,
+        onDeleteProfile: null,
+        onSave: (_) {},
+        onDelete: null,
+      )));
+      await tester.pump();
+
+      Text saveTrailing() => tester.widget<Text>(find.descendant(
+          of: find.byKey(const Key('rule_editor_save')),
+          matching: find.byType(Text)));
+
+      // Filter active, no profile → Save disabled (rendered in divider grey).
+      expect((saveTrailing().style!.color), Colors.grey);
+
+      // Block → Save enabled (accent), profile section gone.
+      await tester.tap(find.byKey(const Key('rule_target_block')));
+      await tester.pumpAndSettle();
+      expect((saveTrailing().style!.color), Colors.blue);
+
+      // Back to filter → profile section returns, Save disabled again.
+      await tester.tap(find.byKey(const Key('rule_target_filter')));
+      await tester.pumpAndSettle();
+      expect(find.text('FAMILY SCHEDULE RULE EDITOR PROFILE LABEL'),
+          findsOneWidget);
+      expect((saveTrailing().style!.color), Colors.grey);
     });
   });
 }

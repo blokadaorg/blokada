@@ -190,4 +190,44 @@ void main() {
       expect(find.textContaining('family schedule active now'), findsNothing);
     });
   });
+
+  testWidgets(
+      'a block rule renders the "No internet" label and no profile name',
+      (tester) async {
+    await withTrace((_) async {
+      final schedule = ScheduleModel(
+        paused: false,
+        rules: [
+          RuleModel(
+            profileId: '',
+            weekdays: const [1, 2, 3, 4, 5, 6, 7],
+            windows: const [
+              TimeWindowModel(startMinute: 1260, endMinute: 420),
+            ],
+            action: 'block',
+          ),
+        ],
+      );
+
+      await tester.pumpWidget(_wrap(ScheduleSection(
+        deviceTag: 'tag1',
+        profiles: profiles,
+        schedule: schedule,
+        onPausedChanged: (_) {},
+        onRuleTap: (_) {},
+        onAddRule: () {},
+        onReorder: (_, __) {},
+      )));
+      await tester.pump();
+
+      // Block rules render the neutral "No internet" label (i18n key resolves
+      // verbatim in the test env), not a profile name.
+      expect(find.textContaining('family schedule rule block title'),
+          findsOneWidget);
+      // It still shows the days + times summary.
+      expect(find.textContaining('family schedule days summary every'),
+          findsOneWidget);
+      expect(find.textContaining('21:00–07:00'), findsOneWidget);
+    });
+  });
 }

@@ -198,11 +198,43 @@ class _ScheduleSectionState extends State<ScheduleSection> {
     required bool isActive,
     required int? activeUntilMinute,
   }) {
-    final profileColor = profile == null
+    // A `block` rule cuts all internet during its window — it carries no
+    // profile, so render a neutral circle-slash glyph and the "No internet"
+    // label instead of a profile avatar / colored name. A `filter` rule (the
+    // default) keeps the profile identity.
+    final isBlock = rule.action == 'block';
+    final profileColor = isBlock || profile == null
         ? null
         : getProfileColorFor(profile.template, profile.displayAlias);
-    final profileName =
-        profile?.displayAlias.i18n ?? 'family stats label profile unknown'.i18n;
+    final profileName = isBlock
+        ? 'family schedule rule block title'.i18n
+        : (profile?.displayAlias.i18n ??
+            'family stats label profile unknown'.i18n);
+
+    final Widget leadingGlyph;
+    if (isBlock) {
+      leadingGlyph = Container(
+        width: 22,
+        height: 22,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.red.withOpacity(0.16),
+        ),
+        child: const Icon(CupertinoIcons.nosign, size: 14, color: Colors.red),
+      );
+    } else if (profile == null) {
+      leadingGlyph = Container(
+          width: 22,
+          height: 22,
+          decoration: BoxDecoration(
+              shape: BoxShape.circle, color: context.theme.divider));
+    } else {
+      leadingGlyph = ProfileAvatar(
+          template: profile.template,
+          displayAlias: profile.displayAlias,
+          size: 22);
+    }
 
     final row = CommonClickable(
       onTap: () => widget.onRuleTap(index),
@@ -223,16 +255,7 @@ class _ScheduleSectionState extends State<ScheduleSection> {
             ),
           ),
           const SizedBox(width: 10),
-          profile == null
-              ? Container(
-                  width: 22,
-                  height: 22,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle, color: context.theme.divider))
-              : ProfileAvatar(
-                  template: profile.template,
-                  displayAlias: profile.displayAlias,
-                  size: 22),
+          leadingGlyph,
           const SizedBox(width: 10),
           Expanded(
             child: Column(

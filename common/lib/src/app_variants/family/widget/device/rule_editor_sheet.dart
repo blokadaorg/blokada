@@ -68,6 +68,10 @@ class RuleEditorSheet extends StatefulWidget {
 class _RuleEditorSheetState extends State<RuleEditorSheet> {
   late List<JsonProfile> _availableProfiles;
   late String _profileId;
+  // What the rule does: 'filter' (apply [_profileId]) or 'block' (cut all
+  // internet, no profile). Drives whether the profile section is shown and
+  // whether Save sends a profileId. Mirrors the wire `action` field.
+  late String _action;
   late List<int> _weekdays;
   // Chip row scroll bookkeeping. `_chipsOverflow` reflects whether the
   // content extends past the visible area at all; `_chipsAtStart` and
@@ -101,6 +105,9 @@ class _RuleEditorSheetState extends State<RuleEditorSheet> {
     _availableProfiles = [...widget.availableProfiles];
     _chipsScroll.addListener(_onChipsScrolled);
     final initial = widget.initialRule;
+    // 'block' rules carry no profile; everything else (including a null/absent
+    // action on legacy rules) is a filter rule.
+    _action = initial?.action == 'block' ? 'block' : 'filter';
     if (initial != null) {
       // Legacy data: an existing rule may carry a profileId that points at
       // a profile no longer eligible for rule targets — the device's own
@@ -371,10 +378,15 @@ class _RuleEditorSheetState extends State<RuleEditorSheet> {
   }
 
   void _save() {
+    final isBlock = _action == 'block';
     final rule = RuleModel(
-      profileId: _profileId,
+      // A block rule must not carry a profile id (server + local validate
+      // both reject `block` + profile). A filter rule's action stays null on
+      // the wire — the model treats absent as filter, matching the api.
+      profileId: isBlock ? '' : _profileId,
       weekdays: _weekdays,
       windows: _windows,
+      action: isBlock ? 'block' : null,
     );
     try {
       // Mirror server validation locally so the user sees a friendly error
@@ -397,7 +409,10 @@ class _RuleEditorSheetState extends State<RuleEditorSheet> {
         ? 'family schedule rule editor title new'.i18n
         : 'family schedule rule editor title edit'.i18n;
 
-    final saveDisabled = _profileId.isEmpty;
+    // A block rule needs no profile, so it can always save once days/times
+    // are valid; a filter rule stays gated until an eligible profile is
+    // picked.
+    final saveDisabled = _action != 'block' && _profileId.isEmpty;
     return Scaffold(
       // Page bg matches the device-detail screen (bgColor), so the
       // CommonCard panels below read as raised sections, not a flat wash
@@ -454,7 +469,11 @@ class _RuleEditorSheetState extends State<RuleEditorSheet> {
           padding: EdgeInsets.only(
               top: mq.padding.top + 4, bottom: mq.padding.bottom),
           children: [
-            _buildProfileSection(context),
+            _buildTargetSection(context),
+            // The profile picker only applies to a filter rule; a block rule
+            // cuts all internet and carries no profile, so the whole section
+            // is hidden when block is selected.
+            if (_action != 'block') _buildProfileSection(context),
             _buildDaysSection(context),
             _buildTimesSection(context),
             if (_error != null)
@@ -517,6 +536,95 @@ class _RuleEditorSheetState extends State<RuleEditorSheet> {
     );
   }
 
+  /// Target selector — what the rule does during its window: switch to a
+  /// stricter filtering profile, or cut all internet ("No internet" / block).
+  /// Two stacked, mutually-exclusive option rows with a leading checkmark on
+  /// the active one. Picking "block" hides the profile section and Save sends
+  /// `action: block` with no profile; picking "filter" restores the profile
+  /// chips. This is the first section, so it owns `extraTop: 0`.
+  Widget _buildTargetSection(BuildContext context) {
+    return _buildSection(
+      context,
+      label: 'family schedule rule editor target label'.i18n,
+      extraTop: 0,
+      content: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _targetOption(
+            context,
+            key: const Key('rule_target_filter'),
+            value: 'filter',
+            icon: CupertinoIcons.person_crop_circle,
+            iconColor: context.theme.accent,
+            title: 'family schedule rule editor target filter'.i18n,
+            brief: 'family schedule rule editor target filter brief'.i18n,
+          ),
+          const SizedBox(height: 4),
+          _targetOption(
+            context,
+            key: const Key('rule_target_block'),
+            value: 'block',
+            icon: CupertinoIcons.nosign,
+            iconColor: Colors.red,
+            title: 'family schedule rule editor target block'.i18n,
+            brief: 'family schedule rule editor target block brief'.i18n,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _targetOption(
+    BuildContext context, {
+    required Key key,
+    required String value,
+    required IconData icon,
+    required Color iconColor,
+    required String title,
+    required String brief,
+  }) {
+    final selected = _action == value;
+    return CommonClickable(
+      key: key,
+      onTap: () {
+        if (_action == value) return;
+        setState(() {
+          _action = value;
+          // Clearing the surfaced error avoids a stale "filter rule without
+          // profile" message lingering after the user switches to block.
+          _error = null;
+        });
+      },
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Row(
+        children: [
+          Icon(icon, size: 22, color: iconColor),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(title,
+                    style: TextStyle(
+                        color: context.theme.textPrimary,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500)),
+                const SizedBox(height: 2),
+                Text(brief,
+                    style: TextStyle(
+                        color: context.theme.textSecondary, fontSize: 13)),
+              ],
+            ),
+          ),
+          if (selected)
+            Icon(CupertinoIcons.checkmark_alt,
+                size: 20, color: context.theme.accent),
+        ],
+      ),
+    );
+  }
+
   Widget _buildProfileSection(BuildContext context) {
     final eligible = _eligibleProfiles;
     final base = _baseProfileForDisplay;
@@ -545,7 +653,6 @@ class _RuleEditorSheetState extends State<RuleEditorSheet> {
     return _buildSection(
       context,
       label: 'family schedule rule editor profile label'.i18n,
-      extraTop: 0,
       description: descriptionLines.isEmpty
           ? null
           : Column(
