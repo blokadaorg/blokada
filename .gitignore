@@ -25,6 +25,7 @@ automation/appium/.appium/
 automation/appium/wdio/node_modules/
 automation/appium/wdio/.npmrc
 automation/device/output/
+automation/dep-validate/output/
 ios/BlockaWebExtension/node_modules/
 ios/BlockaWebExtension/tests/node_modules/
 !.appiumrc.yaml
