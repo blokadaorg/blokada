@@ -38,6 +38,8 @@ cd ios && bundle install && pod install && cd ..
 
 Record the branch you came from so you can return to it when done.
 
+**The dep-validate helpers may not exist on the checked-out PR branch.** A Dependabot branch created before this skill merged to `main` has no `automation/dep-validate/` scripts, so `node automation/dep-validate/queue.mjs` / `report.mjs` fail there. The helpers only need `gh` + the PR number, not the PR's own files — so run them from a known-good checkout, not the PR branch: discover the queue *before* Stage A checkout, and emit the report *after* you return to your own branch (or run the script via an absolute path / `git show <your-branch>:automation/dep-validate/report.mjs`). Once the skill is on `main` and the PR rebases, the scripts are present and this caveat is moot.
+
 ### Stage B — unit + static (fastest, always)
 
 ```bash
@@ -52,6 +54,16 @@ node scripts/check-adapty-fallback-version.mjs
 ```
 
 Gate: all green to continue. A pigeon or codegen-tool major most often surfaces here as regenerated bridge code that no longer compiles — that is a real failure, capture it.
+
+**Tooling-only bumps don't touch the Flutter app**, so `make test` / `analyze` is the wrong gate for them. When the diff is confined to a dev-tooling manifest (e.g. `automation/appium/wdio/package*.json`, a CI-only action), validate the thing that bump can actually break instead:
+
+```bash
+cd automation/appium/wdio && npm ci          # installs under the bumped lockfile
+npx tsc --noEmit -p tsconfig.json            # type-check the harness
+npm run test:unit                            # headless .mjs unit tests
+```
+
+Judge by **delta, not absolute count**: a major like `typescript 5→6` may print pre-existing errors that have nothing to do with the bump. Re-run the identical check with the *old* version pinned (`npx -p typescript@<old> tsc --noEmit -p tsconfig.json`) on the same tree and diff the output — only *new* errors are the bump's fault. (The wdio harness runs no `tsc` in CI and executes specs via `ts-node`, so a type error there is informational, not a build break.) These bumps carry no app `surfaces`, so they stop at Stage B → classify; there is no Stage C/D.
 
 ### Stage C — mocked simulator smoke
 

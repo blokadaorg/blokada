@@ -200,12 +200,20 @@ function renderReport(p, stampIso) {
     }
     lines.push("");
   }
-  if (noDeviceRun(p)) {
-    lines.push(renderDeviceGap(p));
-    lines.push("");
-  } else if (purchaseSeamBlocked(p)) {
-    lines.push(renderPurchaseSeam(p));
-    lines.push("");
+  // The device-gap / seam blocks are escalation content, derived from the
+  // real-device:* stage names. Gate them on classification so a "proceed" run
+  // that happens to name a skipped stage with a device keyword cannot emit a
+  // spurious "real-hardware validation pending" section. A genuinely blocked
+  // revenue/protection stage forces classification=escalate upstream, so this
+  // never hides a real gap.
+  if (p.classification === "escalate") {
+    if (noDeviceRun(p)) {
+      lines.push(renderDeviceGap(p));
+      lines.push("");
+    } else if (purchaseSeamBlocked(p)) {
+      lines.push(renderPurchaseSeam(p));
+      lines.push("");
+    }
   }
   if (p.artifacts?.length) {
     lines.push("## Artifacts");
@@ -248,12 +256,17 @@ function renderComment(p, artifactPath) {
     lines.push(`**Recommendation:** ${p.recommendation}`);
     lines.push("");
   }
-  if (noDeviceRun(p)) {
-    lines.push(renderDeviceGap(p, { compact: true }));
-    lines.push("");
-  } else if (purchaseSeamBlocked(p)) {
-    lines.push(renderPurchaseSeam(p, { compact: true }));
-    lines.push("");
+  // Escalation-only blocks. renderComment is already called only on escalate
+  // (see main()), but gate defensively so the same name-derived blocks cannot
+  // leak into a non-escalate comment if this is ever called directly.
+  if (p.classification === "escalate") {
+    if (noDeviceRun(p)) {
+      lines.push(renderDeviceGap(p, { compact: true }));
+      lines.push("");
+    } else if (purchaseSeamBlocked(p)) {
+      lines.push(renderPurchaseSeam(p, { compact: true }));
+      lines.push("");
+    }
   }
   lines.push(`Full report: \`${artifactPath}\``);
   lines.push("");
