@@ -27,6 +27,6 @@
     "chai": "^6.2.2",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.4.5"
+    "typescript": "^6.0.3"
   }
 }
