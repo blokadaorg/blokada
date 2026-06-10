@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:common/src/app_variants/family/module/device_v3/device.dart';
 import 'package:common/src/app_variants/family/module/profile/profile.dart';
 import 'package:common/src/app_variants/family/module/schedule/schedule.dart';
@@ -30,9 +28,13 @@ const _activeGreen = Color(0xFF34C759);
 /// The device's default (base) profile lives in the Device-settings card
 /// above this section, not here — the rules override it during their windows.
 ///
-/// Stateful so a 1-minute ticker can recompute the "active now" marker (which
-/// rule is firing, and until when) from the client-side resolver without a
-/// backend round trip.
+/// The "active now" marker (which rule is firing, and until when) is recomputed
+/// on every build from the client-side resolver. The minute-cadence refresh
+/// that keeps it current as windows open and close is owned by the parent
+/// [DeviceSection]'s single ticker, which rebuilds this whole subtree — so this
+/// widget runs no timer of its own (a second clock would let the marker and the
+/// parent's Default-row in-control bar flip on different ticks, briefly showing
+/// two bars or none).
 class ScheduleSection extends StatefulWidget {
   final DeviceTag deviceTag;
   final List<JsonProfile> profiles;
@@ -48,6 +50,14 @@ class ScheduleSection extends StatefulWidget {
   /// Delete footer).
   final void Function(int index)? onDeleteRule;
 
+  /// True when a manual override is currently in effect on the device, so the
+  /// override (not the schedule) is the layer deciding right now. The
+  /// "active now" marker is suppressed while overridden: the in-control bar
+  /// lives on the Now readout instead, keeping exactly one bar visible across
+  /// the screen. The rule rows still render (and stay editable); only the
+  /// green marker is withheld.
+  final bool overridden;
+
   const ScheduleSection({
     Key? key,
     required this.deviceTag,
@@ -58,6 +68,7 @@ class ScheduleSection extends StatefulWidget {
     required this.onAddRule,
     required this.onReorder,
     this.onDeleteRule,
+    this.overridden = false,
   }) : super(key: key);
 
   @override
@@ -65,25 +76,6 @@ class ScheduleSection extends StatefulWidget {
 }
 
 class _ScheduleSectionState extends State<ScheduleSection> {
-  Timer? _ticker;
-
-  @override
-  void initState() {
-    super.initState();
-    // Recompute the active-rule marker every minute so the highlighted row
-    // and its "until HH:MM" caption stay current as windows open and close,
-    // without polling the backend.
-    _ticker = Timer.periodic(const Duration(minutes: 1), (_) {
-      if (mounted) setState(() {});
-    });
-  }
-
-  @override
-  void dispose() {
-    _ticker?.cancel();
-    super.dispose();
-  }
-
   JsonProfile? _profileForId(String id) {
     for (final p in widget.profiles) {
       if (p.profileId == id) return p;
@@ -96,8 +88,10 @@ class _ScheduleSectionState extends State<ScheduleSection> {
     final schedule = widget.schedule;
     // Client-side mirror of the backend resolver: which rule (if any) is
     // firing right now. Null when paused or outside every window — the
-    // Default profile applies and nothing in the list is marked.
-    final active = activeRuleForSchedule(schedule, DateTime.now());
+    // Default profile applies and nothing in the list is marked. Also null
+    // while a manual override is active: the override outranks the schedule,
+    // so its bar lives on the Now readout and no rule row is marked here.
+    final active = widget.overridden ? null : activeRuleForSchedule(schedule, DateTime.now());
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -208,8 +202,7 @@ class _ScheduleSectionState extends State<ScheduleSection> {
         : getProfileColorFor(profile.template, profile.displayAlias);
     final profileName = isBlock
         ? 'family schedule rule block title'.i18n
-        : (profile?.displayAlias.i18n ??
-            'family stats label profile unknown'.i18n);
+        : (profile?.displayAlias.i18n ?? 'family stats label profile unknown'.i18n);
 
     final Widget leadingGlyph;
     if (isBlock) {
@@ -227,13 +220,10 @@ class _ScheduleSectionState extends State<ScheduleSection> {
       leadingGlyph = Container(
           width: 22,
           height: 22,
-          decoration: BoxDecoration(
-              shape: BoxShape.circle, color: context.theme.divider));
+          decoration: BoxDecoration(shape: BoxShape.circle, color: context.theme.divider));
     } else {
-      leadingGlyph = ProfileAvatar(
-          template: profile.template,
-          displayAlias: profile.displayAlias,
-          size: 22);
+      leadingGlyph =
+          ProfileAvatar(template: profile.template, displayAlias: profile.displayAlias, size: 22);
     }
 
     final row = CommonClickable(
@@ -271,10 +261,8 @@ class _ScheduleSectionState extends State<ScheduleSection> {
                             fontSize: 14,
                             fontWeight: FontWeight.w600)),
                     TextSpan(
-                        text:
-                            '  ${daysSummary(rule.weekdays)} · ${windowsSummary(rule.windows)}',
-                        style: TextStyle(
-                            color: context.theme.textSecondary, fontSize: 13)),
+                        text: '  ${daysSummary(rule.weekdays)} · ${windowsSummary(rule.windows)}',
+                        style: TextStyle(color: context.theme.textSecondary, fontSize: 13)),
                   ]),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -287,9 +275,7 @@ class _ScheduleSectionState extends State<ScheduleSection> {
                           .i18n
                           .withParams(formatMinuteOfDay(activeUntilMinute)),
                       style: const TextStyle(
-                          color: _activeGreen,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w700),
+                          color: _activeGreen, fontSize: 11, fontWeight: FontWeight.w700),
                     ),
                   ),
               ],
@@ -346,9 +332,7 @@ class _ScheduleSectionState extends State<ScheduleSection> {
           Icon(CupertinoIcons.add, size: 18, color: context.theme.accent),
           const SizedBox(width: 8),
           Text('family schedule add rule'.i18n,
-              style: TextStyle(
-                  color: context.theme.accent,
-                  fontWeight: FontWeight.w500)),
+              style: TextStyle(color: context.theme.accent, fontWeight: FontWeight.w500)),
         ],
       ),
     );

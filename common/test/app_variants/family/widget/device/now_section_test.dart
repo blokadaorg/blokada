@@ -60,9 +60,26 @@ JsonDevice _device({
   return d;
 }
 
-/// NowSection runs a 1-second `Timer.periodic` for its countdown. Pumping an
-/// empty tree at the end of a test disposes the section (cancelling the timer)
-/// so the framework's "timer still pending" invariant check stays green.
+/// Schedule whose single rule matches any wall-clock minute on any weekday:
+/// a [0, 1439) window plus a 1439→1 wrap window covering 23:59 (same trick
+/// as schedule_section_test.dart).
+ScheduleModel _allDaySchedule() => ScheduleModel(
+      paused: false,
+      rules: [
+        RuleModel(
+          profileId: 'prof_school',
+          weekdays: const [1, 2, 3, 4, 5, 6, 7],
+          windows: const [
+            TimeWindowModel(startMinute: 0, endMinute: 1439),
+            TimeWindowModel(startMinute: 1439, endMinute: 1),
+          ],
+        ),
+      ],
+    );
+
+/// NowSection runs a periodic ticker. Pumping an empty tree at the end of a
+/// test disposes the section (cancelling the timer) so the framework's
+/// "timer still pending" invariant check stays green.
 Future<void> _disposeNow(WidgetTester tester) async {
   await tester.pumpWidget(const SizedBox());
 }
@@ -71,8 +88,8 @@ void main() {
   final profiles = [_profile('prof_default', 'Standard')];
 
   testWidgets(
-      'default state shows the filtering status, the two override actions, and '
-      'the precedence footer', (tester) async {
+      'default state shows the readout (status + source), the default footer, '
+      'and no inline actions', (tester) async {
     await withTrace((_) async {
       await tester.pumpWidget(_wrap(NowSection(
         device: _device(),
@@ -83,133 +100,26 @@ void main() {
       await tester.pump();
 
       // Filtering with the default profile, sourced from the device default.
-      expect(find.textContaining('family device now status filter'),
-          findsOneWidget);
-      expect(find.text('family device now source default'), findsOneWidget);
+      expect(find.textContaining('family device now status filter'), findsOneWidget);
+      expect(find.textContaining('family device now source default'), findsOneWidget);
 
-      // Both override actions present; no Resume row (no override active).
-      expect(find.byKey(const Key('now_action_block')), findsOneWidget);
-      expect(find.byKey(const Key('now_action_pause')), findsOneWidget);
-      expect(find.byKey(const Key('now_action_resume')), findsNothing);
-
-      // Precedence footer.
-      expect(find.text('family device now footer'), findsOneWidget);
-      await _disposeNow(tester);
-    });
-  });
-
-  testWidgets(
-      'active indefinite block override shows the blocked status, the '
-      '"until you turn it back on" caption, and the Resume action',
-      (tester) async {
-    await withTrace((_) async {
-      await tester.pumpWidget(_wrap(NowSection(
-        device: _device(mode: JsonDeviceMode.blocked),
-        profiles: profiles,
-        onOverride: (_, __) {},
-        onResume: () {},
-      )));
-      await tester.pump();
-
-      expect(find.text('family device now status blocked'), findsOneWidget);
-      expect(find.textContaining('family device now indefinite'),
-          findsOneWidget);
-
-      // Resume replaces the override actions while an override is active.
-      expect(find.byKey(const Key('now_action_resume')), findsOneWidget);
+      // The readout row is the only interactive element; the old inline
+      // action rows are gone (they live in the sheet now, which is closed).
+      expect(find.byKey(const Key('now_status_row')), findsOneWidget);
       expect(find.byKey(const Key('now_action_block')), findsNothing);
       expect(find.byKey(const Key('now_action_pause')), findsNothing);
+      expect(find.byKey(const Key('now_action_resume')), findsNothing);
+
+      // Default-state footer (teaches the tap affordance).
+      expect(find.text('family device now footer'), findsOneWidget);
+      expect(find.text('family device now footer override'), findsNothing);
       await _disposeNow(tester);
     });
   });
 
   testWidgets(
-      'a bounded block override shows a minutes countdown and the Resume '
-      'action', (tester) async {
-    await withTrace((_) async {
-      // 30 minutes out → "30 min" countdown (under an hour renders minutes).
-      final until = DateTime.now().add(const Duration(minutes: 30));
-      await tester.pumpWidget(_wrap(NowSection(
-        device: _device(mode: JsonDeviceMode.blocked, modeUntil: until),
-        profiles: profiles,
-        onOverride: (_, __) {},
-        onResume: () {},
-      )));
-      await tester.pump();
-
-      expect(find.text('family device now status blocked'), findsOneWidget);
-      // Bounded override → the "until %s" caption is shown (the %s param is
-      // not interpolated in the no-translation test env, so assert on the
-      // key), not the indefinite label.
-      expect(find.textContaining('family device now until'), findsOneWidget);
-      expect(find.textContaining('family device now indefinite'), findsNothing);
-      expect(find.byKey(const Key('now_action_resume')), findsOneWidget);
-
-      await _disposeNow(tester);
-    });
-  });
-
-  testWidgets('Resume action invokes onResume', (tester) async {
-    await withTrace((_) async {
-      var resumed = false;
-      await tester.pumpWidget(_wrap(NowSection(
-        device: _device(mode: JsonDeviceMode.blocked),
-        profiles: profiles,
-        onOverride: (_, __) {},
-        onResume: () => resumed = true,
-      )));
-      await tester.pump();
-
-      await tester.tap(find.byKey(const Key('now_action_resume')));
-      await tester.pumpAndSettle();
-      expect(resumed, isTrue);
-      await _disposeNow(tester);
-    });
-  });
-
-  testWidgets(
-      'Block action opens the duration sheet; picking "For 1 hour" calls '
-      'onOverride(block, ~now+1h)', (tester) async {
-    await withTrace((_) async {
-      OverrideKind? kind;
-      DateTime? until;
-      await tester.pumpWidget(_wrap(NowSection(
-        device: _device(),
-        profiles: profiles,
-        onOverride: (k, u) {
-          kind = k;
-          until = u;
-        },
-        onResume: () {},
-      )));
-      await tester.pump();
-
-      await tester.tap(find.byKey(const Key('now_action_block')));
-      await tester.pumpAndSettle();
-
-      // The three required choices plus a cancel.
-      expect(find.byKey(const Key('now_duration_hour')), findsOneWidget);
-      expect(find.byKey(const Key('now_duration_morning')), findsOneWidget);
-      expect(find.byKey(const Key('now_duration_indefinite')), findsOneWidget);
-
-      final before = DateTime.now().add(const Duration(hours: 1));
-      await tester.tap(find.byKey(const Key('now_duration_hour')));
-      await tester.pumpAndSettle();
-      final after = DateTime.now().add(const Duration(hours: 1));
-
-      expect(kind, OverrideKind.block);
-      expect(until, isNotNull);
-      // Within the (before, after) window the sheet captured "now + 1h".
-      expect(until!.isAfter(before.subtract(const Duration(seconds: 2))),
-          isTrue);
-      expect(until!.isBefore(after.add(const Duration(seconds: 2))), isTrue);
-      await _disposeNow(tester);
-    });
-  });
-
-  testWidgets(
-      'Pause action "Until I turn it back on" calls onOverride(pause, null)',
-      (tester) async {
+      'tapping the readout opens the change-now sheet without Resume when no '
+      'override is active; Pause → duration → onOverride(pause, null)', (tester) async {
     await withTrace((_) async {
       OverrideKind? kind;
       DateTime? until;
@@ -226,8 +136,20 @@ void main() {
       )));
       await tester.pump();
 
+      await tester.tap(find.byKey(const Key('now_status_row')));
+      await tester.pumpAndSettle();
+
+      // Sheet contents: title/brief + the two actions, no Resume.
+      expect(find.textContaining('family device now sheet title'), findsOneWidget);
+      expect(find.byKey(const Key('now_action_pause')), findsOneWidget);
+      expect(find.byKey(const Key('now_action_block')), findsOneWidget);
+      expect(find.byKey(const Key('now_action_resume')), findsNothing);
+
       await tester.tap(find.byKey(const Key('now_action_pause')));
       await tester.pumpAndSettle();
+
+      // Duration sheet (unchanged component).
+      expect(find.byKey(const Key('now_duration_hour')), findsOneWidget);
       await tester.tap(find.byKey(const Key('now_duration_indefinite')));
       await tester.pumpAndSettle();
 
@@ -238,21 +160,114 @@ void main() {
     });
   });
 
-  // Regression for the reported nav bug: the device screen lives on the family
-  // shell's *nested* Navigator, but the duration action sheet (via
-  // showCupertinoModalPopup) lands on the *root* Navigator. Picking a duration
-  // must dismiss only that sheet and keep the device page on screen. The old
-  // code popped via the page `context`, which resolved to the nested Navigator
-  // and tore the device page down (bouncing to "Home") while the sheet stayed
-  // dangling on the root Navigator.
   testWidgets(
-      'picking a duration dismisses only the sheet and keeps the device page '
+      'active indefinite block override: blocked status, indefinite caption, '
+      'override footer, and the sheet leads with Resume', (tester) async {
+    await withTrace((_) async {
+      var resumed = false;
+      await tester.pumpWidget(_wrap(NowSection(
+        device: _device(mode: JsonDeviceMode.blocked),
+        profiles: profiles,
+        onOverride: (_, __) {},
+        onResume: () => resumed = true,
+      )));
+      await tester.pump();
+
+      expect(find.text('family device now status blocked'), findsOneWidget);
+      expect(find.textContaining('family device now indefinite'), findsOneWidget);
+      expect(find.text('family device now footer override'), findsOneWidget);
+
+      await tester.tap(find.byKey(const Key('now_status_row')));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('now_action_resume')), findsOneWidget);
+
+      await tester.tap(find.byKey(const Key('now_action_resume')));
+      await tester.pumpAndSettle();
+      expect(resumed, isTrue);
+      await _disposeNow(tester);
+    });
+  });
+
+  testWidgets('a bounded block override shows a minutes countdown in the readout', (tester) async {
+    await withTrace((_) async {
+      final until = DateTime.now().add(const Duration(minutes: 30));
+      await tester.pumpWidget(_wrap(NowSection(
+        device: _device(mode: JsonDeviceMode.blocked, modeUntil: until),
+        profiles: profiles,
+        onOverride: (_, __) {},
+        onResume: () {},
+      )));
+      await tester.pump();
+
+      expect(find.text('family device now status blocked'), findsOneWidget);
+      expect(find.textContaining('family device now until'), findsOneWidget);
+      expect(find.textContaining('family device now indefinite'), findsNothing);
+      await _disposeNow(tester);
+    });
+  });
+
+  testWidgets(
+      'schedule-sourced state shows the rule profile, the schedule source, '
+      'and the window-end caption', (tester) async {
+    await withTrace((_) async {
+      final schoolProfiles = [
+        _profile('prof_default', 'Standard'),
+        _profile('prof_school', 'School'),
+      ];
+      await tester.pumpWidget(_wrap(NowSection(
+        device: _device(schedule: _allDaySchedule()),
+        profiles: schoolProfiles,
+        onOverride: (_, __) {},
+        onResume: () {},
+      )));
+      await tester.pump();
+
+      expect(find.textContaining('family device now status filter'), findsOneWidget);
+      // Source caption carries both the schedule attribution and "until".
+      expect(find.textContaining('family device now source schedule'), findsOneWidget);
+      expect(find.textContaining('family device now until'), findsOneWidget);
+      await _disposeNow(tester);
+    });
+  });
+
+  testWidgets(
+      'in-control bar on the readout is red during an override and '
+      'transparent otherwise', (tester) async {
+    await withTrace((_) async {
+      await tester.pumpWidget(_wrap(NowSection(
+        device: _device(mode: JsonDeviceMode.blocked),
+        profiles: profiles,
+        onOverride: (_, __) {},
+        onResume: () {},
+      )));
+      await tester.pump();
+      var bar = tester.widget<Container>(find.byKey(const Key('now_status_bar')));
+      expect((bar.decoration as BoxDecoration).color, Colors.red);
+      await _disposeNow(tester);
+
+      await tester.pumpWidget(_wrap(NowSection(
+        device: _device(),
+        profiles: profiles,
+        onOverride: (_, __) {},
+        onResume: () {},
+      )));
+      await tester.pump();
+      bar = tester.widget<Container>(find.byKey(const Key('now_status_bar')));
+      expect((bar.decoration as BoxDecoration).color, Colors.transparent);
+      await _disposeNow(tester);
+    });
+  });
+
+  // Regression: the device screen lives on the family shell's *nested*
+  // Navigator while both sheets land on the *root* Navigator. The full
+  // readout → change-now → duration chain must dismiss only the sheets and
+  // keep the device page on screen.
+  testWidgets(
+      'the readout → sheet → duration chain keeps the device page '
       '(nested-navigator regression)', (tester) async {
     await withTrace((_) async {
       OverrideKind? kind;
       final nestedKey = GlobalKey<NavigatorState>();
-      // Root MaterialApp whose home hosts a *nested* Navigator. The device page
-      // is pushed onto that nested Navigator, reproducing FamilyMainScreen.
       await tester.pumpWidget(MaterialApp(
         theme: ThemeData(
           platform: TargetPlatform.iOS,
@@ -286,7 +301,6 @@ void main() {
       ));
       await tester.pump();
 
-      // Push the device page onto the nested Navigator (as Navigation.open does).
       nestedKey.currentState!.push(MaterialPageRoute(
         builder: (_) => Scaffold(
           body: SingleChildScrollView(
@@ -306,29 +320,19 @@ void main() {
       ));
       await tester.pumpAndSettle();
 
-      expect(find.text('DEVICE PAGE MARKER'), findsOneWidget,
-          reason: 'device page should be on screen before the action');
-
+      await tester.tap(find.byKey(const Key('now_status_row')));
+      await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key('now_action_block')));
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key('now_duration_hour')));
       await tester.pumpAndSettle();
 
-      // The override callback fired with the block kind.
       expect(kind, OverrideKind.block);
-      // The sheet dismissed: its options are gone.
       expect(find.byKey(const Key('now_duration_hour')), findsNothing);
-      // The device page is STILL the top route on the nested Navigator (the
-      // bug popped it, leaving only HOME). canPop() is true only while the
-      // pushed device route is still on the stack.
       expect(find.text('DEVICE PAGE MARKER'), findsOneWidget,
-          reason: 'picking a duration must not pop the device page');
-      expect(nestedKey.currentState!.canPop(), isTrue,
-          reason: 'the device route must still be on the nested navigator '
-              '(the bug popped it back to Home)');
+          reason: 'the sheet chain must not pop the device page');
+      expect(nestedKey.currentState!.canPop(), isTrue);
 
-      // Pop the device page ourselves so the ticker-bearing NowSection is
-      // disposed before the test ends.
       nestedKey.currentState!.pop();
       await tester.pumpAndSettle();
       await tester.pumpWidget(const SizedBox());

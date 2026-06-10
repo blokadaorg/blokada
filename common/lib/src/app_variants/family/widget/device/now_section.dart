@@ -4,12 +4,12 @@ import 'package:collection/collection.dart' show IterableExtension;
 import 'package:common/src/app_variants/family/module/device_v3/device.dart';
 import 'package:common/src/app_variants/family/module/profile/profile.dart';
 import 'package:common/src/app_variants/family/module/schedule/resolver.dart';
+import 'package:common/src/app_variants/family/module/schedule/schedule.dart';
 import 'package:common/src/app_variants/family/widget/profile/profile_avatar.dart';
 import 'package:common/src/app_variants/family/widget/profile/profile_utils.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/shared/ui/common_card.dart';
 import 'package:common/src/shared/ui/common_clickable.dart';
-import 'package:common/src/shared/ui/common_divider.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,18 +25,23 @@ enum OverrideKind { block, pause }
 /// section's active marker so the device screen reads consistently.
 const _filterGreen = Color(0xFF34C759);
 
-/// "Now" section on the Device detail screen.
+/// "Right now" readout on the Device detail screen.
 ///
-/// Shows the device's effective state right now (from [resolveEffectiveState]):
-/// what it is doing (filtering with a profile / internet open / internet
-/// blocked), where that decision comes from (Default profile, schedule, or a
-/// manual override), and — when bounded — when it ends. Offers two timed
-/// overrides (Block internet / Pause filtering); when an override is already
-/// active it shows a live countdown and a Resume-now action instead.
+/// A single tappable row (from [resolveEffectiveState]) that always answers
+/// three things: what the device is doing (filtering with a profile /
+/// internet open / internet blocked), which setting caused it (Default
+/// profile, a schedule rule, or a manual override), and until when it lasts.
+/// Tapping it opens the change-now action sheet (Pause filtering / Block
+/// internet, led by Resume while an override runs) which chains into the
+/// duration sheet. While a manual override is active, the row carries the
+/// red in-control bar — the same bar that otherwise sits on the active
+/// schedule rule or the Default profile row.
 ///
-/// Stateful so a 1-second ticker keeps the countdown and the resolved state
-/// current as an override's `mode_until` approaches and passes, without a
-/// backend round trip (the resolver re-evaluates against a fresh clock).
+/// Stateful only for the bounded-override countdown: a 1-second ticker runs
+/// while `mode_until` is approaching so the caption counts down and the
+/// readout flips the instant it passes. Schedule-window boundary flips are
+/// driven by the parent [DeviceSection]'s own 1-minute rebuild, so this widget
+/// keeps no timer in the default / indefinite-override / schedule states.
 class NowSection extends StatefulWidget {
   final JsonDevice device;
   final List<JsonProfile> profiles;
@@ -86,11 +91,12 @@ class _NowSectionState extends State<NowSection> {
   }
 
   /// Run the 1-second rebuild ticker only while a *bounded* override is
-  /// active — that is the sole state whose display (the live countdown, and
-  /// the flip back to schedule/default the instant `mode_until` passes) needs
-  /// second resolution. An indefinite override, a schedule rule, or the plain
-  /// default are all static until the parent pushes a new device record, so a
-  /// per-second rebuild there would be wasted work.
+  /// active — the sole state whose display (the live countdown, and the flip
+  /// back to schedule/default the instant `mode_until` passes) needs second
+  /// resolution. An indefinite override, a schedule rule, or the plain default
+  /// are static until the parent rebuilds (its 1-minute tick covers
+  /// schedule-window boundaries), so a per-second rebuild there would be
+  /// wasted work.
   void _syncTicker() {
     final until = resolveEffectiveState(widget.device, DateTime.now()).until;
     final needsTicker = until != null;
@@ -136,33 +142,27 @@ class _NowSectionState extends State<NowSection> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           child: CommonCard(
-            child: Column(
-              children: [
-                _buildStatusRow(context, state, now),
-                const CommonDivider(indent: 0),
-                if (overrideActive)
-                  _buildResumeRow(context)
-                else
-                  ..._buildOverrideActions(context),
-              ],
-            ),
+            child: _buildStatusRow(context, state, now),
           ),
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(24, 8, 24, 0),
-          child: Text('family device now footer'.i18n,
-              style: TextStyle(
-                  color: context.theme.textSecondary, fontSize: 13)),
+          child: Text(
+              overrideActive
+                  ? 'family device now footer override'.i18n
+                  : 'family device now footer'.i18n,
+              style: TextStyle(color: context.theme.textSecondary, fontSize: 13)),
         ),
       ],
     );
   }
 
-  /// The status row: a leading colored dot, a one-line "what is happening"
-  /// label, and a secondary line carrying the source and (when bounded) the
-  /// "until …" caption.
-  Widget _buildStatusRow(
-      BuildContext context, EffectiveState state, DateTime now) {
+  /// The readout row: the in-control bar (red while an override outranks
+  /// everything, transparent otherwise — the bar then sits on the deciding
+  /// row further down the page), a leading avatar/glyph, the "what is
+  /// happening" label, the source · until caption, and a trailing chevron.
+  /// The whole row is the tap target for the change-now sheet.
+  Widget _buildStatusRow(BuildContext context, EffectiveState state, DateTime now) {
     final profile = _profileForId(state.profileId);
 
     final Color dotColor;
@@ -170,9 +170,9 @@ class _NowSectionState extends State<NowSection> {
     switch (state.outcome) {
       case EffectiveOutcome.filter:
         dotColor = _filterGreen;
-        statusLabel = 'family device now status filter'.i18n.withParams(
-            profile?.displayAlias.i18n ??
-                'family stats label profile unknown'.i18n);
+        statusLabel = 'family device now status filter'
+            .i18n
+            .withParams(profile?.displayAlias.i18n ?? 'family stats label profile unknown'.i18n);
         break;
       case EffectiveOutcome.allowAll:
         dotColor = context.theme.textSecondary;
@@ -197,28 +197,48 @@ class _NowSectionState extends State<NowSection> {
         break;
     }
 
-    // The until-caption only applies to a bounded override. An indefinite
-    // override (`until == null`, "until you turn it back on") and the
-    // recurring schedule windows have no single end instant to show here.
+    // Until-caption: a bounded override shows its live countdown; a firing
+    // schedule rule shows its window end (recurring, so minute precision);
+    // the default has no horizon.
     final String? untilCaption;
-    if (state.source == EffectiveSource.manualOverride) {
-      untilCaption = state.until == null
-          ? 'family device now indefinite'.i18n
-          : 'family device now until'.i18n
-              .withParams(_formatCountdown(state.until!, now));
-    } else {
-      untilCaption = null;
+    switch (state.source) {
+      case EffectiveSource.manualOverride:
+        untilCaption = state.until == null
+            ? 'family device now indefinite'.i18n
+            : 'family device now until'.i18n.withParams(_formatCountdown(state.until!, now));
+        break;
+      case EffectiveSource.scheduleRule:
+        final schedule = widget.device.schedule;
+        final active = schedule == null ? null : activeRuleForSchedule(schedule, now);
+        untilCaption = active == null
+            ? null
+            : 'family device now until'.i18n.withParams(formatMinuteOfDay(active.endMinute));
+        break;
+      case EffectiveSource.deviceDefault:
+        untilCaption = null;
+        break;
     }
 
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
+    final overrideActive = state.source == EffectiveSource.manualOverride;
+
+    return CommonClickable(
+      key: const Key('now_status_row'),
+      onTap: () => _showChangeNowSheet(context, overrideActive),
+      padding: const EdgeInsets.fromLTRB(12, 14, 8, 14),
       child: Row(
         children: [
+          Container(
+            key: const Key('now_status_bar'),
+            width: 4,
+            height: 36,
+            decoration: BoxDecoration(
+              color: overrideActive ? Colors.red : Colors.transparent,
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ),
+          const SizedBox(width: 10),
           if (profile != null)
-            ProfileAvatar(
-                template: profile.template,
-                displayAlias: profile.displayAlias,
-                size: 22)
+            ProfileAvatar(template: profile.template, displayAlias: profile.displayAlias, size: 22)
           else
             _statusGlyph(context, state.outcome, dotColor),
           const SizedBox(width: 12),
@@ -230,10 +250,8 @@ class _NowSectionState extends State<NowSection> {
                 Text(
                   statusLabel,
                   style: TextStyle(
-                    color: state.outcome == EffectiveOutcome.filter &&
-                            profile != null
-                        ? getProfileColorFor(
-                            profile.template, profile.displayAlias)
+                    color: state.outcome == EffectiveOutcome.filter && profile != null
+                        ? getProfileColorFor(profile.template, profile.displayAlias)
                         : context.theme.textPrimary,
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
@@ -241,15 +259,13 @@ class _NowSectionState extends State<NowSection> {
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  untilCaption == null
-                      ? sourceLabel
-                      : '$sourceLabel · $untilCaption',
-                  style: TextStyle(
-                      color: context.theme.textSecondary, fontSize: 13),
+                  untilCaption == null ? sourceLabel : '$sourceLabel · $untilCaption',
+                  style: TextStyle(color: context.theme.textSecondary, fontSize: 13),
                 ),
               ],
             ),
           ),
+          Icon(Icons.chevron_right, size: 24, color: context.theme.divider),
         ],
       ),
     );
@@ -258,11 +274,8 @@ class _NowSectionState extends State<NowSection> {
   /// Non-profile leading glyph: a circle-slash for blocked, a globe for the
   /// fully-open "Allow all" state. Kept the same footprint as [ProfileAvatar]
   /// so the row content does not shift when the outcome flips.
-  Widget _statusGlyph(
-      BuildContext context, EffectiveOutcome outcome, Color color) {
-    final icon = outcome == EffectiveOutcome.blocked
-        ? CupertinoIcons.nosign
-        : CupertinoIcons.globe;
+  Widget _statusGlyph(BuildContext context, EffectiveOutcome outcome, Color color) {
+    final icon = outcome == EffectiveOutcome.blocked ? CupertinoIcons.nosign : CupertinoIcons.globe;
     return Container(
       width: 22,
       height: 22,
@@ -275,89 +288,51 @@ class _NowSectionState extends State<NowSection> {
     );
   }
 
-  /// The two override actions stacked with a divider: "Block internet…" and
-  /// "Pause filtering…". Each opens the duration action sheet for its kind.
-  List<Widget> _buildOverrideActions(BuildContext context) {
-    return [
-      _actionRow(
-        context,
-        key: const Key('now_action_block'),
-        icon: CupertinoIcons.nosign,
-        iconColor: Colors.red,
-        title: 'family device action block'.i18n,
-        brief: 'family device action block brief'.i18n,
-        onTap: () => _showDurationSheet(context, OverrideKind.block),
-      ),
-      const CommonDivider(indent: 0),
-      _actionRow(
-        context,
-        key: const Key('now_action_pause'),
-        icon: CupertinoIcons.pause_circle,
-        iconColor: context.theme.accent,
-        title: 'family device action pause'.i18n,
-        brief: 'family device action pause brief'.i18n,
-        onTap: () => _showDurationSheet(context, OverrideKind.pause),
-      ),
-    ];
-  }
-
-  Widget _actionRow(
-    BuildContext context, {
-    required Key key,
-    required IconData icon,
-    required Color iconColor,
-    required String title,
-    required String brief,
-    required VoidCallback onTap,
-  }) {
-    return CommonClickable(
-      key: key,
-      onTap: onTap,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      child: Row(
-        children: [
-          Icon(icon, size: 22, color: iconColor),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(title,
-                    style: TextStyle(
-                        color: context.theme.textPrimary,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500)),
-                const SizedBox(height: 2),
-                Text(brief,
-                    style: TextStyle(
-                        color: context.theme.textSecondary, fontSize: 13)),
-              ],
+  /// First-level action sheet from tapping the readout. Led by Resume while
+  /// an override runs (so switching override type doesn't require resuming
+  /// first); Pause / Block chain into the duration sheet. Same root-navigator
+  /// pop discipline as [_showDurationSheet] — always pop via [sheetContext].
+  void _showChangeNowSheet(BuildContext context, bool overrideActive) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (sheetContext) {
+        return CupertinoActionSheet(
+          title: Text('family device now sheet title'.i18n.withParams(widget.device.alias)),
+          message: Text('family device now sheet brief'.i18n),
+          actions: <Widget>[
+            if (overrideActive)
+              CupertinoActionSheetAction(
+                key: const Key('now_action_resume'),
+                onPressed: () {
+                  Navigator.pop(sheetContext);
+                  widget.onResume();
+                },
+                child: Text('family device action resume'.i18n),
+              ),
+            CupertinoActionSheetAction(
+              key: const Key('now_action_pause'),
+              onPressed: () {
+                Navigator.pop(sheetContext);
+                _showDurationSheet(context, OverrideKind.pause);
+              },
+              child: Text('family device action pause'.i18n),
             ),
+            CupertinoActionSheetAction(
+              key: const Key('now_action_block'),
+              isDestructiveAction: true,
+              onPressed: () {
+                Navigator.pop(sheetContext);
+                _showDurationSheet(context, OverrideKind.block);
+              },
+              child: Text('family device action block'.i18n),
+            ),
+          ],
+          cancelButton: CupertinoActionSheetAction(
+            onPressed: () => Navigator.pop(sheetContext),
+            child: Text('universal action cancel'.i18n),
           ),
-        ],
-      ),
-    );
-  }
-
-  /// Resume-now row, shown in place of the override actions while an override
-  /// is active. Hands the device back to its schedule / default.
-  Widget _buildResumeRow(BuildContext context) {
-    return CommonClickable(
-      key: const Key('now_action_resume'),
-      onTap: widget.onResume,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-      child: Row(
-        children: [
-          Icon(CupertinoIcons.play_circle, size: 22, color: context.theme.accent),
-          const SizedBox(width: 12),
-          Text('family device action resume'.i18n,
-              style: TextStyle(
-                  color: context.theme.accent,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500)),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -395,8 +370,7 @@ class _NowSectionState extends State<NowSection> {
           actions: <Widget>[
             CupertinoActionSheetAction(
               key: const Key('now_duration_hour'),
-              onPressed: () =>
-                  pick(DateTime.now().add(const Duration(hours: 1))),
+              onPressed: () => pick(DateTime.now().add(const Duration(hours: 1))),
               child: Text('family device override duration hour'.i18n),
             ),
             CupertinoActionSheetAction(

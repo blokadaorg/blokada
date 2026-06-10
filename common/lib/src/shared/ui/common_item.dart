@@ -10,6 +10,10 @@ class CommonItem extends StatefulWidget {
   final Widget trailing;
   final bool chevron;
 
+  /// Optional widget rendered before the icon, e.g. the device screen's
+  /// in-control bar. Null (the default) renders the row exactly as before.
+  final Widget? leading;
+
   const CommonItem({
     super.key,
     required this.onTap,
@@ -17,6 +21,7 @@ class CommonItem extends StatefulWidget {
     required this.text,
     required this.trailing,
     this.chevron = true,
+    this.leading,
   });
 
   @override
@@ -32,6 +37,10 @@ class CommonItemState extends State<CommonItem> {
       tapBorderRadius: BorderRadius.zero,
       child: Row(
         children: [
+          if (widget.leading != null) ...[
+            widget.leading!,
+            const SizedBox(width: 8),
+          ],
           Icon(widget.icon, color: context.theme.divider, size: 22),
           const SizedBox(width: 10),
           Expanded(
@@ -47,8 +56,7 @@ class CommonItemState extends State<CommonItem> {
           ),
           widget.trailing,
           widget.chevron
-              ? Icon(Icons.chevron_right,
-                  size: 24, color: context.theme.divider)
+              ? Icon(Icons.chevron_right, size: 24, color: context.theme.divider)
               : Container(),
         ],
       ),

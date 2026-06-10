@@ -21,6 +21,7 @@ import 'package:common/src/app_variants/family/module/device_v3/device.dart';
 import 'package:common/src/app_variants/family/module/family/family.dart';
 import 'package:common/src/app_variants/family/module/profile/profile.dart';
 import 'package:common/src/app_variants/family/module/schedule/actor.dart';
+import 'package:common/src/app_variants/family/module/schedule/resolver.dart';
 import 'package:common/src/app_variants/family/module/schedule/schedule.dart';
 import 'package:common/src/app_variants/family/widget/device/now_section.dart';
 import 'package:common/src/app_variants/family/widget/device/rule_editor_sheet.dart';
@@ -41,8 +42,7 @@ class DeviceSection extends StatefulWidget {
   State<DeviceSection> createState() => DeviceSectionState();
 }
 
-class DeviceSectionState extends State<DeviceSection>
-    with Logging, Disposables {
+class DeviceSectionState extends State<DeviceSection> with Logging, Disposables {
   late final _family = Core.get<FamilyActor>();
   late final _device = Core.get<DeviceActor>();
   late final _selectedFilters = Core.get<SelectedFilters>();
@@ -55,6 +55,7 @@ class DeviceSectionState extends State<DeviceSection>
   late FamilyDevice device;
 
   bool built = false;
+  Timer? _ticker;
 
   @override
   void initState() {
@@ -63,6 +64,13 @@ class DeviceSectionState extends State<DeviceSection>
     disposeLater(_selectedFilters.onChange.listen(rebuild));
 
     _selectedDevice.change(Markers.ui, widget.tag);
+
+    // The in-control bar on the Default profile row depends on wall-clock
+    // time (schedule windows opening/closing). Recompute every minute, like
+    // the Schedule section's own active marker.
+    _ticker = Timer.periodic(const Duration(minutes: 1), (_) {
+      if (mounted && built) setState(() {});
+    });
   }
 
   @override
@@ -74,15 +82,38 @@ class DeviceSectionState extends State<DeviceSection>
   @override
   void dispose() {
     _selectedDevice.change(Markers.ui, null);
+    _ticker?.cancel();
     disposeAll();
     super.dispose();
   }
+
+  /// The traveling in-control bar, in this card's single-line-row height.
+  /// Always rendered (transparent when inactive) so the Default profile and
+  /// Blocklists rows keep their icons aligned. Green matches the schedule
+  /// section's active marker.
+  Widget _inControlBar(bool active) => Container(
+        width: 4,
+        height: 20,
+        decoration: BoxDecoration(
+          color: active ? const Color(0xFF34C759) : Colors.transparent,
+          borderRadius: BorderRadius.circular(2),
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
     built = true;
     device = _family.devices.now.getDevice(widget.tag);
     _custom.setProfileId(device.profile.profileId, Markers.ui);
+
+    // Which layer decides right now — drives the in-control bar placement
+    // (readout while overridden, rule row while a rule fires, this card's
+    // Default profile row otherwise). Resolved once here so the Default-row
+    // bar and the schedule marker agree on a single verdict and exactly one
+    // bar shows.
+    final effectiveSource = resolveEffectiveState(device.device, DateTime.now()).source;
+    final defaultInControl = effectiveSource == EffectiveSource.deviceDefault;
+    final overrideActive = effectiveSource == EffectiveSource.manualOverride;
 
     return ListView(
       primary: true,
@@ -136,12 +167,9 @@ class DeviceSectionState extends State<DeviceSection>
           device: device.device,
           profiles: _profiles.profiles,
           onOverride: (kind, modeUntil) async {
-            final mode = kind == OverrideKind.block
-                ? JsonDeviceMode.blocked
-                : JsonDeviceMode.off;
+            final mode = kind == OverrideKind.block ? JsonDeviceMode.blocked : JsonDeviceMode.off;
             try {
-              await _device.changeDeviceMode(
-                  device.device, mode, Markers.userTap,
+              await _device.changeDeviceMode(device.device, mode, Markers.userTap,
                   modeUntil: modeUntil);
             } catch (_) {
               if (context.mounted) {
@@ -173,7 +201,7 @@ class DeviceSectionState extends State<DeviceSection>
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Text("family device brief settings alt".i18n,
+          child: Text("family device default profile brief".i18n,
               style: TextStyle(color: context.theme.textSecondary)),
         ),
         Padding(
@@ -182,8 +210,8 @@ class DeviceSectionState extends State<DeviceSection>
             child: Column(
               children: [
                 CommonItem(
-                  onTap: () => showSelectProfileDialog(context,
-                      device: device.device),
+                  onTap: () => showSelectProfileDialog(context, device: device.device),
+                  leading: _inControlBar(defaultInControl),
                   icon: CupertinoIcons.person_crop_circle,
                   text: "family device default profile".i18n,
                   trailing: Row(
@@ -197,8 +225,7 @@ class DeviceSectionState extends State<DeviceSection>
                       Text(device.profile.displayAlias.i18n,
                           style: TextStyle(
                               color: getProfileColorFor(
-                                  device.profile.template,
-                                  device.profile.displayAlias))),
+                                  device.profile.template, device.profile.displayAlias))),
                     ],
                   ),
                 ),
@@ -206,14 +233,12 @@ class DeviceSectionState extends State<DeviceSection>
                   onTap: () {
                     Navigation.open(Paths.deviceFilters, arguments: device);
                   },
+                  leading: _inControlBar(false),
                   icon: CupertinoIcons.shield,
                   text: "family stats label blocklists alt".i18n,
                   trailing: Text(
                       "family stats label blocklists count".i18n.withParams(
-                          _selectedFilters.present
-                                  ?.map((e) => e.options.length)
-                                  .sum() ??
-                              0),
+                          _selectedFilters.present?.map((e) => e.options.length).sum() ?? 0),
                       style: TextStyle(
                         color: context.theme.textSecondary,
                       )),
@@ -231,11 +256,12 @@ class DeviceSectionState extends State<DeviceSection>
         ScheduleSection(
           deviceTag: device.device.deviceTag,
           profiles: _profiles.profiles,
-          schedule: device.device.schedule ??
-              const ScheduleModel(paused: false, rules: <RuleModel>[]),
+          schedule:
+              device.device.schedule ?? const ScheduleModel(paused: false, rules: <RuleModel>[]),
+          overridden: overrideActive,
           onPausedChanged: (paused) async {
-            final current = device.device.schedule ??
-                const ScheduleModel(paused: false, rules: <RuleModel>[]);
+            final current =
+                device.device.schedule ?? const ScheduleModel(paused: false, rules: <RuleModel>[]);
             try {
               await _schedule.saveSchedule(
                 device.device,
@@ -254,8 +280,8 @@ class DeviceSectionState extends State<DeviceSection>
             _openRuleEditor(context, device, schedule, editIndex: index);
           },
           onAddRule: () {
-            final schedule = device.device.schedule ??
-                const ScheduleModel(paused: false, rules: <RuleModel>[]);
+            final schedule =
+                device.device.schedule ?? const ScheduleModel(paused: false, rules: <RuleModel>[]);
             _openRuleEditor(context, device, schedule, editIndex: null);
           },
           onReorder: (oldIndex, newIndex) async {
@@ -307,10 +333,8 @@ class DeviceSectionState extends State<DeviceSection>
               children: [
                 CommonItem(
                   onTap: () {
-                    showRenameDialog(context, "device", device.device.alias,
-                        onConfirm: (name) {
-                      _device.renameDevice(
-                          device.device, name, Markers.userTap);
+                    showRenameDialog(context, "device", device.device.alias, onConfirm: (name) {
+                      _device.renameDevice(device.device, name, Markers.userTap);
                     });
                   },
                   icon: CupertinoIcons.device_phone_portrait,
@@ -331,11 +355,10 @@ class DeviceSectionState extends State<DeviceSection>
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
                 child: CommonClickable(
                   onTap: () {
-                    _modalWidget.change(Markers.userTap,
-                        (context) => LinkDeviceSheet(device: device.device));
+                    _modalWidget.change(
+                        Markers.userTap, (context) => LinkDeviceSheet(device: device.device));
                   },
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   child: Text("family device action link".i18n,
                       style: TextStyle(
                           color: context.theme.textSecondary,
@@ -349,21 +372,17 @@ class DeviceSectionState extends State<DeviceSection>
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
                 child: CommonClickable(
                   onTap: () {
-                    showConfirmDialog(context, device.displayName,
-                        onConfirm: () {
+                    showConfirmDialog(context, device.displayName, onConfirm: () {
                       Navigator.of(context).pop();
                       log(Markers.userTap).trace("deleteDevice", (m) async {
                         await _family.deleteDevice(device.device, m);
                       });
                     });
                   },
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   child: Text("family device action delete".i18n,
                       style: const TextStyle(
-                          color: Colors.red,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500)),
+                          color: Colors.red, fontSize: 16, fontWeight: FontWeight.w500)),
                 ),
               ),
         const SizedBox(height: 48),
@@ -376,8 +395,7 @@ class DeviceSectionState extends State<DeviceSection>
   /// Wires the sheet's save / delete callbacks back through
   /// `ScheduleActor.saveSchedule` so each mutation hits the api and
   /// rebuilds the device-detail UI through the existing `onChange` plumbing.
-  void _openRuleEditor(BuildContext context, FamilyDevice device,
-      ScheduleModel schedule,
+  void _openRuleEditor(BuildContext context, FamilyDevice device, ScheduleModel schedule,
       {int? editIndex}) {
     // Present the editor as a full page (rootNavigator push) instead of
     // a Cupertino bottom sheet so it matches the profile editor pushed
@@ -398,18 +416,15 @@ class DeviceSectionState extends State<DeviceSection>
         initialRule: editIndex == null ? null : schedule.rules[editIndex],
         availableProfiles: _profiles.profiles,
         deviceBaseProfileId: device.device.profileId,
-        onAddProfile: () =>
-            _onAddProfileFromRule(ctx, device, ruleEditorTitle),
+        onAddProfile: () => _onAddProfileFromRule(ctx, device, ruleEditorTitle),
         onEditProfile: (p) async {
           // The editor uses the actor as source of truth: renames update
           // ProfileActor.profiles in place, deletes remove the entry.
           // After it closes, look the profile up by id: missing → was
           // deleted (from inside the editor or anywhere else); present →
           // possibly renamed, use the fresh value.
-          await ProfileEditorPage.open(ctx, p,
-              previousPageTitle: ruleEditorTitle);
-          return _profiles.profiles
-              .firstWhereOrNull((it) => it.profileId == p.profileId);
+          await ProfileEditorPage.open(ctx, p, previousPageTitle: ruleEditorTitle);
+          return _profiles.profiles.firstWhereOrNull((it) => it.profileId == p.profileId);
         },
         onDeleteProfile: (p) async {
           // Long-press → quick remove from the chip row. The actor's
@@ -434,8 +449,7 @@ class DeviceSectionState extends State<DeviceSection>
               ? ScheduleActor.addRule(schedule, rule)
               : ScheduleActor.updateRule(schedule, editIndex, rule);
           try {
-            await _schedule.saveSchedule(
-                device.device, next, Markers.userTap);
+            await _schedule.saveSchedule(device.device, next, Markers.userTap);
           } catch (_) {
             if (context.mounted) {
               showErrorDialog(context, "error fetching data".i18n);
@@ -489,8 +503,7 @@ class DeviceSectionState extends State<DeviceSection>
         try {
           final p = await _profiles.addProfile("", name, Markers.userTap);
           if (context.mounted) {
-            await ProfileEditorPage.open(context, p,
-                previousPageTitle: previousPageTitle);
+            await ProfileEditorPage.open(context, p, previousPageTitle: previousPageTitle);
           }
           // The editor may have renamed (or deleted) the just-created
           // profile. Re-read from the actor so the rule editor's chip
@@ -498,8 +511,7 @@ class DeviceSectionState extends State<DeviceSection>
           // the user tapped Delete inside the editor — `+ New` then
           // resolves with null and `_handleAddProfile` skips inserting
           // the chip.
-          final updated = _profiles.profiles
-              .firstWhereOrNull((it) => it.profileId == p.profileId);
+          final updated = _profiles.profiles.firstWhereOrNull((it) => it.profileId == p.profileId);
           if (!completer.isCompleted) completer.complete(updated);
         } catch (_) {
           if (context.mounted) {
@@ -509,8 +521,6 @@ class DeviceSectionState extends State<DeviceSection>
         }
       },
     );
-    return completer.future
-        .timeout(const Duration(seconds: 60), onTimeout: () => null);
+    return completer.future.timeout(const Duration(seconds: 60), onTimeout: () => null);
   }
 }
-

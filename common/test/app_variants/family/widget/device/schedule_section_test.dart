@@ -84,9 +84,7 @@ void main() {
       // pick up their own translation; in the test env the key resolves
       // verbatim.
       expect(find.textContaining('School'), findsWidgets);
-      expect(
-          find.textContaining('family schedule days summary weekdays'),
-          findsOneWidget);
+      expect(find.textContaining('family schedule days summary weekdays'), findsOneWidget);
       expect(find.textContaining('08:00–15:00'), findsOneWidget);
 
       // Add-rule trailing item.
@@ -111,15 +109,13 @@ void main() {
       )));
       await tester.pump();
 
-      final firstSwitch = tester.widget<CupertinoSwitch>(
-          find.byKey(const Key('schedule_paused_switch')));
-      expect(firstSwitch.value, isTrue,
-          reason: 'paused:false should render the toggle as ON.');
+      final firstSwitch =
+          tester.widget<CupertinoSwitch>(find.byKey(const Key('schedule_paused_switch')));
+      expect(firstSwitch.value, isTrue, reason: 'paused:false should render the toggle as ON.');
 
       await tester.tap(find.byKey(const Key('schedule_paused_switch')));
       await tester.pump();
-      expect(newPaused, isTrue,
-          reason: 'Tapping ON → OFF should fire onPausedChanged(true).');
+      expect(newPaused, isTrue, reason: 'Tapping ON → OFF should fire onPausedChanged(true).');
 
       // Now flip the underlying state: paused:true → Switch should render
       // OFF, and tapping should fire onPausedChanged(false).
@@ -135,19 +131,18 @@ void main() {
       )));
       await tester.pump();
 
-      final secondSwitch = tester.widget<CupertinoSwitch>(
-          find.byKey(const Key('schedule_paused_switch')));
-      expect(secondSwitch.value, isFalse,
-          reason: 'paused:true should render the toggle as OFF.');
+      final secondSwitch =
+          tester.widget<CupertinoSwitch>(find.byKey(const Key('schedule_paused_switch')));
+      expect(secondSwitch.value, isFalse, reason: 'paused:true should render the toggle as OFF.');
 
       await tester.tap(find.byKey(const Key('schedule_paused_switch')));
       await tester.pump();
-      expect(newPaused, isFalse,
-          reason: 'Tapping OFF → ON should fire onPausedChanged(false).');
+      expect(newPaused, isFalse, reason: 'Tapping OFF → ON should fire onPausedChanged(false).');
     });
   });
 
-  testWidgets('marks the firing rule with the Active-now caption, and not '
+  testWidgets(
+      'marks the firing rule with the Active-now caption, and not '
       'when paused', (tester) async {
     await withTrace((_) async {
       // A rule active at every instant: all weekdays, plus two windows that
@@ -192,8 +187,45 @@ void main() {
   });
 
   testWidgets(
-      'a block rule renders the "No internet" label and no profile name',
-      (tester) async {
+      'suppresses the Active-now marker while a manual override is in effect '
+      '(the in-control bar lives on the Now readout instead)', (tester) async {
+    await withTrace((_) async {
+      // A rule firing at every instant — but an override outranks it, so the
+      // marker must be withheld to keep exactly one in-control bar on screen.
+      final always = ScheduleModel(
+        paused: false,
+        rules: [
+          RuleModel(
+            profileId: 'prof_school',
+            weekdays: const [1, 2, 3, 4, 5, 6, 7],
+            windows: const [
+              TimeWindowModel(startMinute: 0, endMinute: 1439),
+              TimeWindowModel(startMinute: 1439, endMinute: 1),
+            ],
+          ),
+        ],
+      );
+
+      await tester.pumpWidget(_wrap(ScheduleSection(
+        deviceTag: 'tag1',
+        profiles: profiles,
+        schedule: always,
+        overridden: true,
+        onPausedChanged: (_) {},
+        onRuleTap: (_) {},
+        onAddRule: () {},
+        onReorder: (_, __) {},
+      )));
+      await tester.pump();
+
+      // The rule row still renders (and stays editable)…
+      expect(find.textContaining('School'), findsWidgets);
+      // …but its Active-now marker is suppressed while overridden.
+      expect(find.textContaining('family schedule active now'), findsNothing);
+    });
+  });
+
+  testWidgets('a block rule renders the "No internet" label and no profile name', (tester) async {
     await withTrace((_) async {
       final schedule = ScheduleModel(
         paused: false,
@@ -222,11 +254,9 @@ void main() {
 
       // Block rules render the neutral "No internet" label (i18n key resolves
       // verbatim in the test env), not a profile name.
-      expect(find.textContaining('family schedule rule block title'),
-          findsOneWidget);
+      expect(find.textContaining('family schedule rule block title'), findsOneWidget);
       // It still shows the days + times summary.
-      expect(find.textContaining('family schedule days summary every'),
-          findsOneWidget);
+      expect(find.textContaining('family schedule days summary every'), findsOneWidget);
       expect(find.textContaining('21:00–07:00'), findsOneWidget);
     });
   });
