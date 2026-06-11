@@ -10,6 +10,7 @@ import 'package:common/src/features/stats/ui/action_item.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/app_variants/family/module/profile/profile.dart';
+import 'package:common/src/app_variants/family/widget/profile/profile_avatar.dart';
 import 'package:common/src/app_variants/family/widget/profile/profile_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -237,13 +238,16 @@ class StatsDetailSectionState extends State<StatsDetailSection> with Logging {
         profile != null
             ? Row(
                 children: [
-                  Icon(getProfileIcon(profile!.template),
-                      color: getProfileColor(profile!.template), size: 20),
+                  ProfileAvatar(
+                      template: profile!.template,
+                      displayAlias: profile!.displayAlias,
+                      size: 20),
                   const SizedBox(width: 4),
                   Text(
                     profile!.displayAlias.i18n,
                     style: TextStyle(
-                      color: getProfileColor(profile!.template),
+                      color: getProfileColorFor(
+                          profile!.template, profile!.displayAlias),
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
                     ),

@@ -16,6 +16,18 @@ const IOS_DIR = resolve(HERE, "..", "..", "..", "..", "..", "ios");
  * guessing which sim to target.
  */
 export function resolveSimulatorDevice() {
+  // Escape hatch for cross-worktree Appium runs (drive a sim that was
+  // provisioned by a sibling worktree without reprovisioning here). When
+  // IOS_UDID is set we skip `sim-status` entirely and trust the caller.
+  const envUdid = (process.env.IOS_UDID ?? "").trim();
+  if (envUdid) {
+    return {
+      udid: envUdid,
+      name: (process.env.IOS_DEVICE_NAME ?? "").trim() ||
+        `iPhone Simulator (${envUdid})`
+    };
+  }
+
   const stdout = execFileSync("make", ["-C", IOS_DIR, "sim-status"], {
     encoding: "utf8"
   });

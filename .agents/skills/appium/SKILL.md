@@ -203,6 +203,49 @@ Capture artifacts only when needed:
 {"id":"17","command":"ui.source","args":{"name":"settings-screen"}}
 ```
 
+## System alerts (notification / location / etc.)
+
+iOS system permission alerts live in SpringBoard, not the foreground app. `ui.tap` (selector or coordinate) cannot reach them — the alert is outside WDA's app-scoped accessibility tree, and a coordinate tap lands "underneath" the alert in the app's coordinate space.
+
+Use `ui.alert` instead, which wraps WDA's `mobile: alert` extension and operates on the system alert layer:
+
+```json
+{"id":"1","command":"ui.alert","args":{"action":"getButtons"}}
+{"id":"2","command":"ui.alert","args":{"action":"accept","buttonLabel":"Tillåt"}}
+{"id":"3","command":"ui.alert","args":{"action":"dismiss"}}
+```
+
+- `action`: `accept` (positive button) | `dismiss` (negative button) | `getButtons` (return the button labels for diagnostics)
+- `buttonLabel` (optional): pick a specific button by visible label. Useful for localized alerts where "Allow" vs "Tillåt" vs "Erlauben" differs by sim locale.
+
+If `ui.alert` returns `"An attempt was made to operate on a modal dialog when one was not open"`, the alert hasn't materialized yet. Sleep briefly and retry, or send the user-action that triggers it first.
+
+## Flutter widget taps (when element.click() is a no-op)
+
+Flutter often exposes interactive widgets as `XCUIElementTypeStaticText` (no `Semantics(button: true)`). `ui.tap` with a selector calls `element.click()`, which targets the accessibility element but doesn't dispatch the underlying `GestureDetector` callback. The tap reports success but nothing happens in the app.
+
+Use `ui.tapCenter` for these — it resolves the element's on-screen rect and dispatches a real touch via `mobile: tap`:
+
+```json
+{"id":"1","command":"ui.tapCenter","args":{"selector":"~Aktivera"}}
+```
+
+Quick diagnosis: if `ui.tap ~Foo` reports `tapped` but the app's log shows no trace of the expected callback, switch to `ui.tapCenter` with the same selector.
+
+## Cross-worktree sim targeting
+
+By default the harness reads the per-worktree sim from `make -C ios sim-status`. To drive a sim that was provisioned by a *sibling* worktree (without reprovisioning a new sim in this worktree), set `IOS_UDID` (and optionally `IOS_DEVICE_NAME`):
+
+```bash
+IOS_USE_SIM=1 \
+IOS_UDID=83114086-0934-4944-A01C-7955DB91B0A8 \
+IOS_DEVICE_NAME="iPhone 16 - other-worktree" \
+APP_FLAVOR=family APP_INSTALL=0 \
+make appium-explore-session
+```
+
+This is the path for: edit harness scripts in worktree A, drive the existing app/sim from worktree B without rebuilding.
+
 ## Cleanup
 
 Always send:

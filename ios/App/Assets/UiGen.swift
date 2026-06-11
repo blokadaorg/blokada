@@ -657,8 +657,6 @@ internal enum L10n {
   internal static let familyProfileActionDelete = L10n.tr("Ui", "family profile action delete", fallback: "Remove this profile")
   /// Select profile
   internal static let familyProfileActionSelect = L10n.tr("Ui", "family profile action select", fallback: "Select profile")
-  /// Which profile would you like to add?
-  internal static let familyProfileAdd = L10n.tr("Ui", "family profile add", fallback: "Which profile would you like to add?")
   /// Select a profile to use for %@.
   internal static func familyProfileDialogHeader(_ p1: Any) -> String {
     return L10n.tr("Ui", "family profile dialog header", String(describing: p1), fallback: "Select a profile to use for %@.")
@@ -669,14 +667,6 @@ internal enum L10n {
   internal static let familyProfileError = L10n.tr("Ui", "family profile error", fallback: "Failed to delete this profile.")
   /// This profile is currently in use. Ensure no device is using it before deletion.
   internal static let familyProfileErrorUse = L10n.tr("Ui", "family profile error use", fallback: "This profile is currently in use. Ensure no device is using it before deletion.")
-  /// Child
-  internal static let familyProfileNameChild = L10n.tr("Ui", "family profile name child", fallback: "Child")
-  /// Custom
-  internal static let familyProfileNameCustom = L10n.tr("Ui", "family profile name custom", fallback: "Custom")
-  /// Parent
-  internal static let familyProfileNameParent = L10n.tr("Ui", "family profile name parent", fallback: "Parent")
-  /// Choose a template to get started.
-  internal static let familyProfileTemplate = L10n.tr("Ui", "family profile template", fallback: "Choose a template to get started.")
   /// %@ Profile
   internal static func familyProfileTemplateName(_ p1: Any) -> String {
     return L10n.tr("Ui", "family profile template name", String(describing: p1), fallback: "%@ Profile")

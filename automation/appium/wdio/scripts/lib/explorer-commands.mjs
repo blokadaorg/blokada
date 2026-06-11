@@ -576,6 +576,29 @@ export async function runExplorerCommand(driver, context, command, args = {}) {
         result: await element.getAttribute(attribute)
       };
     }
+    case "ui.alert": {
+      // System alerts (notification permission, location, etc.) live in
+      // SpringBoard, outside the foreground app's accessibility tree, so
+      // ui.tap (by selector or coordinate) cannot reach them. WDA's
+      // `mobile: alert` extension goes through iOS's alert API and works
+      // across the process boundary.
+      //
+      // Args:
+      //   action:      'accept' (default) | 'dismiss' | 'getButtons'
+      //   buttonLabel: optional, label of the specific button to tap
+      //                (e.g. 'Tillåt' on Swedish locales). When omitted,
+      //                'accept' taps the conventional positive button and
+      //                'dismiss' the negative one.
+      // WDA expects exact 'accept' | 'dismiss' | 'getButtons' (camelCase).
+      // Pass the action string through unchanged.
+      const action = String(args.action ?? "accept");
+      const params = { action };
+      if (typeof args.buttonLabel === "string" && args.buttonLabel.length > 0) {
+        params.buttonLabel = args.buttonLabel;
+      }
+      const result = await driver.execute("mobile: alert", params);
+      return { result: result ?? action };
+    }
     case "ui.tap": {
       // Coordinate-based tap fires a real touch via XCTest's hit-test, which
       // matches what a finger does on a real device. Needed for Flutter
@@ -595,9 +618,13 @@ export async function runExplorerCommand(driver, context, command, args = {}) {
       // Resolve element by selector, then tap its on-screen center via the
       // coordinate path. Use for Flutter widgets that XCUI exposes as
       // StaticText (no Semantics button=true) — element.click() would no-op.
+      // Use the W3C protocol directly (driver.getElementRect(elementId))
+      // because WDIO's element.getElementRect() signature differs across
+      // versions and can hit "Wrong parameters applied for getElementRect"
+      // on some driver/wdio combos.
       const selector = requireArg([args.selector], 0, "ui.tapCenter requires args.selector");
       const element = await driver.$(selector);
-      const rect = await element.getElementRect();
+      const rect = await driver.getElementRect(element.elementId);
       const x = Math.round(rect.x + rect.width / 2);
       const y = Math.round(rect.y + rect.height / 2);
       await driver.execute("mobile: tap", { x, y });
@@ -633,9 +660,51 @@ export async function runExplorerCommand(driver, context, command, args = {}) {
       return {
         result: await navigateBack(driver)
       };
+    case "ui.longPress": {
+      // Touch-and-hold on a selector (preferred) or a coordinate pair.
+      // Useful for triggering iOS context-menu / Cupertino action-sheet
+      // flows that surface on long-press (e.g. profile-chip quick
+      // delete).
+      const durationSec =
+        typeof args.duration === "number" && args.duration > 0
+          ? args.duration
+          : 1.2;
+      const selectorArg =
+        typeof args.selector === "string" ? args.selector.trim() : "";
+      if (selectorArg.length > 0) {
+        const element = await driver.$(selectorArg);
+        await driver.execute("mobile: touchAndHold", {
+          element: element.elementId,
+          duration: durationSec,
+        });
+      } else if (
+        typeof args.x === "number" &&
+        typeof args.y === "number"
+      ) {
+        await driver.execute("mobile: touchAndHold", {
+          x: args.x,
+          y: args.y,
+          duration: durationSec,
+        });
+      } else {
+        throw new Error(
+          "ui.longPress requires args.selector or args.x+args.y",
+        );
+      }
+      return { result: "longPressed", duration: durationSec };
+    }
     case "ui.swipe": {
       const direction = normalizeDirection(args.direction, "up");
-      await driver.execute("mobile: swipe", { direction });
+      const params = { direction };
+      // Optional: scope the swipe to a specific element (useful for
+      // Slidable-style row swipe-to-delete). Falls back to screen-wide
+      // swipe when no selector is given.
+      const selectorArg = typeof args.selector === "string" ? args.selector.trim() : "";
+      if (selectorArg.length > 0) {
+        const element = await driver.$(selectorArg);
+        params.element = element.elementId;
+      }
+      await driver.execute("mobile: swipe", params);
       return {
         result: direction
       };

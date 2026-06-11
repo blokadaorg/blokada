@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'theme.dart';
 
 class CommonClickable extends StatefulWidget {
-  final VoidCallback onTap;
+  /// Tap handler. Pass `null` to render the widget non-interactive — the
+  /// press-highlight animation is suppressed too, so a disabled state
+  /// reads as disabled in both visual and gesture terms.
+  final VoidCallback? onTap;
   final EdgeInsets? padding;
   final Color? bgColor;
   final Color? tapBgColor;
@@ -50,10 +53,15 @@ class CommonClickableState extends State<CommonClickable> {
 
   @override
   Widget build(BuildContext context) {
+    final disabled = widget.onTap == null;
     return GestureDetector(
-      onTapDown: _onTapDown,
-      onTapUp: _onTapUp,
-      onTapCancel: _depress,
+      // When disabled, suppress every gesture callback so the press
+      // highlight doesn't fire either — a no-op `onTap` would still let
+      // the press animation play, reading as a broken button instead of
+      // a disabled one.
+      onTapDown: disabled ? null : _onTapDown,
+      onTapUp: disabled ? null : _onTapUp,
+      onTapCancel: disabled ? null : _depress,
       onTap: widget.onTap,
       child: Container(
         decoration: BoxDecoration(

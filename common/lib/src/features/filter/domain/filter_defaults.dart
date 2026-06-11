@@ -16,7 +16,12 @@ class DefaultFilters {
       case "child":
         return _childEnabled;
       default:
-        return _v6Enabled;
+        // Empty/unknown template (e.g. the family +New profile flow passes "")
+        // must fall back to the flavor's own defaults. Returning the v6 set in
+        // the family app yields filter names the family `KnownFilters` don't
+        // contain, which made `FilterActor.getConfig` throw and silently abort
+        // profile creation.
+        return isFamily ? _familyEnabled : _v6Enabled;
     }
   }
 }

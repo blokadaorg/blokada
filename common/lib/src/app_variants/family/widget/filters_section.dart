@@ -4,16 +4,35 @@ import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/features/filter/ui/filter.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/app_variants/family/module/profile/profile.dart';
-import 'package:common/src/app_variants/family/widget/profile/profile_utils.dart';
+import 'package:common/src/app_variants/family/widget/profile/profile_avatar.dart';
 import 'package:flutter/material.dart';
 
 class FamilyFiltersSection extends StatefulWidget {
   final String? profileId;
   final bool primary;
+  /// When true (default) renders the big avatar + "Profil: <name>"
+  /// title at the top of the list, matching the standalone
+  /// device-detail Blocklists route. When the section is embedded
+  /// inside ProfileEditorPage the AppBar already carries the profile
+  /// name, so the host passes false to drop the duplicate header.
+  final bool showHeader;
+  /// Extra spacers prepended/appended to the ListView so its content
+  /// starts and ends clear of chrome that's drawn over the body —
+  /// e.g. a glass AppBar on top and a glass bottom dock. The list
+  /// fills the full screen behind that chrome; these insets just
+  /// shift its content area so the first card isn't hidden under the
+  /// nav bar and the last one isn't masked by the dock.
+  final double topInset;
+  final double bottomInset;
 
-  const FamilyFiltersSection(
-      {Key? key, required this.profileId, this.primary = true})
-      : super(key: key);
+  const FamilyFiltersSection({
+    Key? key,
+    required this.profileId,
+    this.primary = true,
+    this.showHeader = true,
+    this.topInset = 0,
+    this.bottomInset = 0,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => FamilyFiltersSectionState();
@@ -41,26 +60,49 @@ class FamilyFiltersSectionState extends State<FamilyFiltersSection>
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> header = [];
     profile = _profiles.get(widget.profileId!);
-    header = _buildFamilyHeader(context);
-
+    // Embedded uses (profile editor) drop the in-list header; the host's
+    // AppBar already shows the profile name. A small top pad keeps the
+    // first filter card from butting against the navigation bar.
+    // Explicit <Widget> on the alternative branch — otherwise Dart
+    // infers `const [SizedBox(...)]` as `List<SizedBox>` and the `+`
+    // against `_buildFilters()` (`List<Widget>`) crashes at runtime
+    // with a subtype error.
+    final List<Widget> header = widget.showHeader
+        ? _buildFamilyHeader(context)
+        : <Widget>[const SizedBox(height: 16)];
+    final List<Widget> body = header +
+        _buildFilters(context) +
+        <Widget>[SizedBox(height: widget.bottomInset)];
     return ListView(
-        primary: widget.primary, children: header + _buildFilters(context)
+        primary: widget.primary,
+        // topInset goes through ListView's own padding so the first
+        // content sits below glass chrome but still scrolls under it.
+        padding: EdgeInsets.only(top: widget.topInset),
+        children: body
         //_buildFooter(context),
         );
   }
 
   List<Widget> _buildFamilyHeader(BuildContext context) {
+    // The big avatar + title is a centerpiece, so it must sit fully below the
+    // glass TopBar. getTopPadding is tuned for list content that scrolls subtly
+    // under the glass and returns only 68 on notched phones; used here it
+    // leaves the prominent avatar's top clipped under the bar (no-notch devices
+    // return 100 and happen to clear, which is why only phones show it). Clamp
+    // the clearance up to the bar height so the avatar always clears.
+    const barHeight = 100.0; // keep in sync with TopBar.height (top_bar.dart)
+    final topPadding = getTopPadding(context);
+    final topClearance = topPadding < barHeight ? barHeight : topPadding;
     return [
-      SizedBox(height: getTopPadding(context)),
+      SizedBox(height: topClearance),
       Column(
         children: [
           const SizedBox(height: 12),
-          Icon(
-            getProfileIcon(profile.template),
+          ProfileAvatar(
+            template: profile.template,
+            displayAlias: profile.displayAlias,
             size: 48,
-            color: getProfileColor(profile.template),
           ),
           const SizedBox(height: 8),
           Text(
