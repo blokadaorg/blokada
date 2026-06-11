@@ -501,7 +501,6 @@
     "family schedule use label": "Använd schema",
     "family schedule active now": "Aktiv nu · tills %s",
     "family device default profile": "Standardprofil",
-    "family device default profile brief": "Gäller när ingen schemaregel eller åsidosättning är aktiv.",
     "family schedule paused hint": "När schemat är av ignoreras alla regler och standardprofilen gäller.",
     "family schedule rule editor title new": "Ny regel",
     "family schedule rule editor title edit": "Redigera regel",

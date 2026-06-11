@@ -88,9 +88,9 @@ class DeviceSectionState extends State<DeviceSection> with Logging, Disposables 
   }
 
   /// The traveling in-control bar, in this card's single-line-row height.
-  /// Always rendered (transparent when inactive) so the Default profile and
-  /// Blocklists rows keep their icons aligned. Green matches the schedule
-  /// section's active marker.
+  /// Always rendered (transparent when inactive) so the Device settings rows
+  /// (name, Default profile, Blocklists) keep their icons aligned. Green
+  /// matches the schedule section's active marker.
   Widget _inControlBar(bool active) => Container(
         width: 4,
         height: 20,
@@ -188,27 +188,36 @@ class DeviceSectionState extends State<DeviceSection> with Logging, Disposables 
           },
         ),
 
-        // Default profile section — the device's base profile (its top-level
-        // `profileId`) plus the profile's Blocklists, grouped so the "what
-        // applies when no rule and no override is active" lives in one place.
-        // The Schedule below overrides this default during its windows; the
-        // Now overrides above supersede both until they end.
+        // Device settings — the device's identity and base configuration: its
+        // name, the default profile (the device's top-level `profileId`), and
+        // the profile's Blocklists. The default profile is what applies when no
+        // schedule rule and no override is active; the Schedule below overrides
+        // it during its windows and the Now overrides above supersede both. The
+        // default-profile row carries the traveling in-control bar; the name row
+        // reserves the same bar width so the icons stay aligned.
         const SizedBox(height: 32),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Text("family device default profile".i18n.toUpperCase(),
+          child: Text("family device label settings".i18n.toUpperCase(),
               style: const TextStyle(fontWeight: FontWeight.w500)),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Text("family device default profile brief".i18n,
-              style: TextStyle(color: context.theme.textSecondary)),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           child: CommonCard(
             child: Column(
               children: [
+                CommonItem(
+                  onTap: () {
+                    showRenameDialog(context, "device", device.device.alias, onConfirm: (name) {
+                      _device.renameDevice(device.device, name, Markers.userTap);
+                    });
+                  },
+                  leading: _inControlBar(false),
+                  icon: CupertinoIcons.device_phone_portrait,
+                  text: "account lease label name".i18n,
+                  trailing: Text(device.device.alias,
+                      style: TextStyle(color: context.theme.textSecondary)),
+                ),
                 CommonItem(
                   onTap: () => showSelectProfileDialog(context, device: device.device),
                   leading: _inControlBar(defaultInControl),
@@ -316,39 +325,8 @@ class DeviceSectionState extends State<DeviceSection> with Logging, Disposables 
           },
         ),
 
-        // Device settings — now just the device name. The default profile,
-        // blocklists and the internet on/off/block controls all moved into
-        // their own sections above (Default profile / Now), so this card
-        // holds only the rename row.
-        const SizedBox(height: 32),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Text("family device label settings".i18n.toUpperCase(),
-              style: const TextStyle(fontWeight: FontWeight.w500)),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          child: CommonCard(
-            child: Column(
-              children: [
-                CommonItem(
-                  onTap: () {
-                    showRenameDialog(context, "device", device.device.alias, onConfirm: (name) {
-                      _device.renameDevice(device.device, name, Markers.userTap);
-                    });
-                  },
-                  icon: CupertinoIcons.device_phone_portrait,
-                  text: "account lease label name".i18n,
-                  trailing: Text(device.device.alias,
-                      style: TextStyle(color: context.theme.textSecondary)),
-                ),
-              ],
-            ),
-          ),
-        ),
-
         // Bottom links
-        const SizedBox(height: 6),
+        const SizedBox(height: 32),
         device.thisDevice
             ? Container()
             : Padding(

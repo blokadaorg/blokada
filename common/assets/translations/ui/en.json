@@ -529,7 +529,6 @@
     "family schedule use label": "Use schedule",
     "family schedule active now": "Active now · until %s",
     "family device default profile": "Default profile",
-    "family device default profile brief": "Applies whenever no schedule rule or override is active.",
     "family schedule paused hint": "When the schedule is off, all rules are ignored and the Default profile applies.",
     "family schedule rule editor title new": "New rule",
     "family schedule rule editor title edit": "Edit rule",
