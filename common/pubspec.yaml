@@ -34,7 +34,7 @@ dependencies:
   snapping_sheet: ^3.1.0
   i18n_extension: ^15.1.1
   relative_scale: ^2.0.0
-  get_it: ^7.7.0
+  get_it: ">=7.7.0 <10.0.0"
   collection: ^1.17.0
   http: ^1.0.0
   dartx: ^1.1.0
