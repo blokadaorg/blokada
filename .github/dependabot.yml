@@ -20,6 +20,13 @@ updates:
         applies-to: security-updates
         patterns:
           - "*"
+    ignore:
+      # pigeon 26 needs a native Swift/Kotlin codegen migration (Kotlin enum
+      # renames + Swift PigeonError collision) that's disproportionate for a
+      # dev-only codegen tool; held — see closed PR #1106. Remove this when
+      # that migration is scheduled.
+      - dependency-name: "pigeon"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: "gradle"
     directory: "/android"
