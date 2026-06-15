@@ -59,7 +59,10 @@ jobs:
         working-directory: ios
         run: |
           bundle check || bundle install
-          bundle exec pod install
+          # --repo-update so the runner's CocoaPods spec cache picks up newly
+          # released pod versions (e.g. dependency bumps); without it `pod
+          # install` fails on "out-of-date source repos" for fresh specs.
+          bundle exec pod install --repo-update
 
       - name: Build iOS six debug
         run: make -C ios check CHECK_SCHEME=Dev CHECK_CONFIG=Debug
