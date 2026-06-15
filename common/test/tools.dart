@@ -17,7 +17,14 @@ withTrace(Future Function(Marker m) fn) async {
   Core.config = CoreConfig();
 
   Translations.missingKeyCallback = (_, __) {};
-  Translations.missingTranslationCallback = (_, __) {};
+  // i18n_extension 15 changed this to a named-param callback returning a bool
+  // that decides whether to record the miss; return false to keep tests quiet.
+  Translations.missingTranslationCallback = (
+          {required key,
+          required locale,
+          required translations,
+          required supportedLocales}) =>
+      false;
 
   try {
     final m = (goldenFileComparator as LocalFileComparator).basedir.pathSegments;
