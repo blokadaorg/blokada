@@ -28,7 +28,7 @@ class CommandStore with Logging, Actor implements CommandEvents {
 
   void onRegister() {
     Core.register<CommandStore>(this);
-    if (Core.act.isProd) CommandEvents.setup(this);
+    if (Core.act.isProd) CommandEvents.setUp(this);
   }
 
   Future<void> acceptCommands(Marker m) async {
