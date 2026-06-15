@@ -62,6 +62,18 @@ dependencies:
 
 dependency_overrides:
   intl: 0.20.2
+  # adapty_flutter 3.17.0 (latest) hardcodes kotlinOptions.jvmTarget = '1.8' in its
+  # android/build.gradle, but its Adapty native Android SDK (io.adapty:android-ui via
+  # adapty-bom 3.17.1) is compiled for JVM 11 and exposes inline functions used by the
+  # native paywall/onboarding views. Kotlin refuses to inline JVM-11 bytecode into a
+  # JVM-1.8 target, so `flutter build aar` fails at :adapty_flutter:compileReleaseKotlin
+  # ("Cannot inline bytecode built with JVM target 11 ... built with JVM target 1.8").
+  # Pin to a blokadaorg fork of the 3.17.0 tag that only raises the plugin to JVM 11.
+  # Remove once upstream ships the fix: https://github.com/adaptyteam/AdaptySDK-Flutter
+  adapty_flutter:
+    git:
+      url: https://github.com/blokadaorg/AdaptySDK-Flutter.git
+      ref: 3755e279485487f82833fae01462799f87594c62
 
 dev_dependencies:
   flutter_test:
