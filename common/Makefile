@@ -33,6 +33,10 @@ build-android: pub gen-android runner lib
 
 # Build iOS dependencies (library itself is built by xcode)
 build-ios: pub gen-ios runner
+	# Ensure the iOS engine artifacts (Flutter.xcframework) for the pinned
+	# Flutter version are present before CocoaPods runs; podhelper.rb needs
+	# them and a freshly installed SDK on CI isn't precached. Idempotent.
+	$(FLUTTER) precache --ios
 
 # Fetch dependencies from pubspec.yaml (flutter pub get)
 pub:
