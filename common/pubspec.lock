@@ -1199,10 +1199,10 @@ packages:
     dependency: "direct main"
     description:
       name: unique_names_generator
-      sha256: "1faaa9ad393d3cde99de74f88e32c66f96d7bb9bd016e087725ceee834a88535"
+      sha256: f5accbf9603ad98a0e4420a380dca01595a456846d93c674a9a6e5d2ed36973c
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "3.1.2"
   uuid:
     dependency: transitive
     description:

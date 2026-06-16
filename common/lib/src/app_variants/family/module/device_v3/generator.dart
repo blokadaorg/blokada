@@ -4,7 +4,7 @@ class NameGenerator {
   final _generator = names.UniqueNamesGenerator(
     config: names.Config(
       length: 1,
-      seperator: " ",
+      separator: " ",
       style: names.Style.capital,
       dictionaries: [names.animals],
     ),
