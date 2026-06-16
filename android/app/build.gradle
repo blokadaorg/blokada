@@ -212,7 +212,7 @@ dependencies {
     // adapty-ui pulls androidx.compose.* without versions; under AGP 9 the
     // consumer must supply them. We don't author Compose — the BOM only pins
     // the versions for Adapty's prebuilt paywall UI.
-    sixImplementation platform('androidx.compose:compose-bom:2025.09.01')
+    sixImplementation platform('androidx.compose:compose-bom:2026.05.01')
     sixImplementation platform('io.adapty:adapty-bom:3.17.1')
     sixImplementation 'io.adapty:android-sdk'
     sixImplementation 'io.adapty:android-ui'
