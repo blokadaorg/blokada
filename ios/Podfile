@@ -14,8 +14,7 @@ target 'Dev' do
   use_frameworks!
 
   # Pods for Dev
-  pod 'FirebaseCore'
-  pod 'FirebaseMessaging'
+  # FirebaseCore / FirebaseMessaging are now provided via Swift Package Manager.
   install_all_flutter_pods(flutter_application_path)
 end
 
@@ -24,8 +23,7 @@ target 'Prod' do
   use_frameworks!
 
   # Pods for Prod
-  pod 'FirebaseCore'
-  pod 'FirebaseMessaging'
+  # FirebaseCore / FirebaseMessaging are now provided via Swift Package Manager.
   install_all_flutter_pods(flutter_application_path)
 end
 
@@ -34,8 +32,7 @@ target 'Mocked' do
   use_frameworks!
 
   # Pods for Mocked
-  pod 'FirebaseCore'
-  pod 'FirebaseMessaging'
+  # FirebaseCore / FirebaseMessaging are now provided via Swift Package Manager.
   install_all_flutter_pods(flutter_application_path)
 end
 

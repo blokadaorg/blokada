@@ -19,79 +19,29 @@ PODS:
     - AdaptyUIBuilder (= 3.17.2)
   - AdaptyUIBuilder (3.17.2):
     - AdaptyLogger (= 3.17.2)
-  - FirebaseCore (12.12.1):
-    - FirebaseCoreInternal (~> 12.12.0)
-    - GoogleUtilities/Environment (~> 8.1)
-    - GoogleUtilities/Logger (~> 8.1)
-  - FirebaseCoreInternal (12.12.0):
-    - "GoogleUtilities/NSData+zlib (~> 8.1)"
-  - FirebaseInstallations (12.12.0):
-    - FirebaseCore (~> 12.12.0)
-    - GoogleUtilities/Environment (~> 8.1)
-    - GoogleUtilities/UserDefaults (~> 8.1)
-    - PromisesObjC (~> 2.4)
-  - FirebaseMessaging (12.12.0):
-    - FirebaseCore (~> 12.12.0)
-    - FirebaseInstallations (~> 12.12.0)
-    - GoogleDataTransport (~> 10.1)
-    - GoogleUtilities/AppDelegateSwizzler (~> 8.1)
-    - GoogleUtilities/Environment (~> 8.1)
-    - GoogleUtilities/Reachability (~> 8.1)
-    - GoogleUtilities/UserDefaults (~> 8.1)
-    - nanopb (~> 3.30910.0)
   - Flutter (1.0.0)
   - FlutterPluginRegistrant (0.0.1):
     - adapty_flutter
     - Flutter
     - path_provider_foundation
+    - shared_preferences_foundation
     - sqflite_darwin
-  - GoogleDataTransport (10.1.0):
-    - nanopb (~> 3.30910.0)
-    - PromisesObjC (~> 2.4)
-  - GoogleUtilities/AppDelegateSwizzler (8.1.0):
-    - GoogleUtilities/Environment
-    - GoogleUtilities/Logger
-    - GoogleUtilities/Network
-    - GoogleUtilities/Privacy
-  - GoogleUtilities/Environment (8.1.0):
-    - GoogleUtilities/Privacy
-  - GoogleUtilities/Logger (8.1.0):
-    - GoogleUtilities/Environment
-    - GoogleUtilities/Privacy
-  - GoogleUtilities/Network (8.1.0):
-    - GoogleUtilities/Logger
-    - "GoogleUtilities/NSData+zlib"
-    - GoogleUtilities/Privacy
-    - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (8.1.0)":
-    - GoogleUtilities/Privacy
-  - GoogleUtilities/Privacy (8.1.0)
-  - GoogleUtilities/Reachability (8.1.0):
-    - GoogleUtilities/Logger
-    - GoogleUtilities/Privacy
-  - GoogleUtilities/UserDefaults (8.1.0):
-    - GoogleUtilities/Logger
-    - GoogleUtilities/Privacy
-  - nanopb (3.30910.0):
-    - nanopb/decode (= 3.30910.0)
-    - nanopb/encode (= 3.30910.0)
-  - nanopb/decode (3.30910.0)
-  - nanopb/encode (3.30910.0)
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
-  - PromisesObjC (2.4.0)
+  - shared_preferences_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
   - sqflite_darwin (0.0.4):
     - Flutter
     - FlutterMacOS
 
 DEPENDENCIES:
   - adapty_flutter (from `../common/.ios/.symlinks/plugins/adapty_flutter/ios`)
-  - FirebaseCore
-  - FirebaseMessaging
   - Flutter (from `../common/.ios/Flutter`)
   - FlutterPluginRegistrant (from `../common/.ios/Flutter/FlutterPluginRegistrant`)
   - path_provider_foundation (from `../common/.ios/.symlinks/plugins/path_provider_foundation/darwin`)
+  - shared_preferences_foundation (from `../common/.ios/.symlinks/plugins/shared_preferences_foundation/darwin`)
   - sqflite_darwin (from `../common/.ios/.symlinks/plugins/sqflite_darwin/darwin`)
 
 SPEC REPOS:
@@ -101,14 +51,6 @@ SPEC REPOS:
     - AdaptyPlugin
     - AdaptyUI
     - AdaptyUIBuilder
-    - FirebaseCore
-    - FirebaseCoreInternal
-    - FirebaseInstallations
-    - FirebaseMessaging
-    - GoogleDataTransport
-    - GoogleUtilities
-    - nanopb
-    - PromisesObjC
 
 EXTERNAL SOURCES:
   adapty_flutter:
@@ -119,6 +61,8 @@ EXTERNAL SOURCES:
     :path: "../common/.ios/Flutter/FlutterPluginRegistrant"
   path_provider_foundation:
     :path: "../common/.ios/.symlinks/plugins/path_provider_foundation/darwin"
+  shared_preferences_foundation:
+    :path: "../common/.ios/.symlinks/plugins/shared_preferences_foundation/darwin"
   sqflite_darwin:
     :path: "../common/.ios/.symlinks/plugins/sqflite_darwin/darwin"
 
@@ -129,19 +73,12 @@ SPEC CHECKSUMS:
   AdaptyPlugin: 87183239c885f4a251acbd354631fd2d6f281a5b
   AdaptyUI: ecd9614d961257d4608315510e8030e40efbbcd5
   AdaptyUIBuilder: 7425b23c8039d62f02463a4d236e86c8e08d61f8
-  FirebaseCore: 86241206e656f5c80c995e370e6c975913b9b284
-  FirebaseCoreInternal: 7c12fc3011d889085e765e317d7b9fd1cef97af9
-  FirebaseInstallations: 4e6e162aa4abaaeeeb01dd00179dfc5ad9c2194e
-  FirebaseMessaging: 341004946fa7ffc741344b20f1b667514fc93e31
-  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  FlutterPluginRegistrant: 4460963b523c8c665ce9e4c50cf31b979e869b35
-  GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
-  GoogleUtilities: 00c88b9a86066ef77f0da2fab05f65d7768ed8e1
-  nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
+  FlutterPluginRegistrant: 0142b30e7798741b38fb06d13ebfc4611592d75e
   path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
-  PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
+  shared_preferences_foundation: 9e1978ff2562383bd5676f64ec4e9aa8fa06a6f7
   sqflite_darwin: 20b2a3a3b70e43edae938624ce550a3cbf66a3d0
 
-PODFILE CHECKSUM: aa0b9301ebdc4887e479cad78bb18143509e8888
+PODFILE CHECKSUM: be7cf9307274447122fb3f8bdf83a5e759627d9b
 
 COCOAPODS: 1.16.2

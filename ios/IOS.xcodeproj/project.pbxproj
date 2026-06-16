@@ -9,8 +9,10 @@
 /* Begin PBXBuildFile section */
 		176BF5230E082798AF0311E8 /* Pods_Dev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD62BE06311E71CD991CE3F2 /* Pods_Dev.framework */; };
 		1AD1BA7496D8C335F2E6678D /* Pods_FamilyDev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2D21A15748E1394054B3DFC /* Pods_FamilyDev.framework */; };
+		1DC1BD23E00EC4DD41238D45 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = DF46A2984E82ABC856F26576 /* FirebaseCore */; };
 		2BAF43F98AE7367532A1363E /* Pods_Mocked.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCCAB443BAD3852B4A55923E /* Pods_Mocked.framework */; };
 		32C1008A7577A4987B004E84 /* Pods_Prod.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C94D6248881297B61CC2DF7 /* Pods_Prod.framework */; };
+		3DFA9F4792D51C716F8ED0D6 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = D7C7F707EE2359006E66B1A1 /* FirebaseCore */; };
 		47729E0622F447C800B9B36B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47729E0522F447C800B9B36B /* AppDelegate.swift */; };
 		47729E0D22F447CA00B9B36B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47729E0C22F447CA00B9B36B /* Assets.xcassets */; };
 		47729E1022F447CA00B9B36B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47729E0E22F447CA00B9B36B /* LaunchScreen.storyboard */; };
@@ -672,10 +674,14 @@
 		4EF8ED812B87AA3B00E6E607 /* ScanQrCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF8ED7D2B87AA3B00E6E607 /* ScanQrCodeView.swift */; };
 		4EF8ED822B87AA3B00E6E607 /* ScanQrCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF8ED7D2B87AA3B00E6E607 /* ScanQrCodeView.swift */; };
 		4EF8ED832B87AA3B00E6E607 /* ScanQrCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF8ED7D2B87AA3B00E6E607 /* ScanQrCodeView.swift */; };
+		8187E5CC61B540A0F67B3E1E /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = CA05A15F2397A2ECD7A962E0 /* FirebaseMessaging */; };
 		81A14548F0971940140E60F7 /* Pods_FamilyProd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 172E613B3E5E2ECA63DB72B5 /* Pods_FamilyProd.framework */; };
+		9EE02E63D584674824D01B10 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 22CAA4468AF49D1E84301553 /* FirebaseMessaging */; };
 		B2382A312E61E14300ED7415 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2F2A172760E400005A59F5 /* Constants.swift */; };
 		B2382A322E61E14300ED7415 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2F2A172760E400005A59F5 /* Constants.swift */; };
+		C58396BD1C3831BDC8BA6CB5 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = CCB9EEAE8489C4BFFF761842 /* FirebaseCore */; };
 		D457AF88E4351BB1D413F70B /* Pods_FamilyMocked.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39323AFF3B4C4CB93EF7EEB4 /* Pods_FamilyMocked.framework */; };
+		EAF13E21F04EA4DF15F3E95C /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 066B82AD6C9B8945B4602DC0 /* FirebaseMessaging */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1096,6 +1102,8 @@
 				4E270DF62A80F30400D3484B /* Factory in Frameworks */,
 				4E58C1372AC1B7D7002CA1A3 /* CodeScanner in Frameworks */,
 				32C1008A7577A4987B004E84 /* Pods_Prod.framework in Frameworks */,
+				C58396BD1C3831BDC8BA6CB5 /* FirebaseCore in Frameworks */,
+				8187E5CC61B540A0F67B3E1E /* FirebaseMessaging in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1157,6 +1165,8 @@
 				4E58C1392AC1B8FB002CA1A3 /* CodeScanner in Frameworks */,
 				4E28ADDA2AB33169007445C8 /* Factory in Frameworks */,
 				2BAF43F98AE7367532A1363E /* Pods_Mocked.framework in Frameworks */,
+				3DFA9F4792D51C716F8ED0D6 /* FirebaseCore in Frameworks */,
+				9EE02E63D584674824D01B10 /* FirebaseMessaging in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1168,6 +1178,8 @@
 				4E270DF82A80F31600D3484B /* Factory in Frameworks */,
 				4EEDBBA42B6117C9004AB456 /* CodeScanner in Frameworks */,
 				176BF5230E082798AF0311E8 /* Pods_Dev.framework in Frameworks */,
+				1DC1BD23E00EC4DD41238D45 /* FirebaseCore in Frameworks */,
+				EAF13E21F04EA4DF15F3E95C /* FirebaseMessaging in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1710,6 +1722,8 @@
 			packageProductDependencies = (
 				4E270DF52A80F30400D3484B /* Factory */,
 				4E58C1362AC1B7D7002CA1A3 /* CodeScanner */,
+				CCB9EEAE8489C4BFFF761842 /* FirebaseCore */,
+				CA05A15F2397A2ECD7A962E0 /* FirebaseMessaging */,
 			);
 			productName = IOS;
 			productReference = 47729E0222F447C800B9B36B /* Blokada 6.app */;
@@ -1858,6 +1872,8 @@
 			packageProductDependencies = (
 				4E28ADD92AB33169007445C8 /* Factory */,
 				4E58C1382AC1B8FB002CA1A3 /* CodeScanner */,
+				D7C7F707EE2359006E66B1A1 /* FirebaseCore */,
+				22CAA4468AF49D1E84301553 /* FirebaseMessaging */,
 			);
 			productName = IOS;
 			productReference = 4E7FE9D8244DC28900851E9F /* Blokada Mocked.app */;
@@ -1886,6 +1902,8 @@
 			packageProductDependencies = (
 				4E270DF72A80F31600D3484B /* Factory */,
 				4EEDBBA32B6117C9004AB456 /* CodeScanner */,
+				DF46A2984E82ABC856F26576 /* FirebaseCore */,
+				066B82AD6C9B8945B4602DC0 /* FirebaseMessaging */,
 			);
 			productName = IOS;
 			productReference = 4E86520C2A3C968B0060AFB1 /* Dev.app */;
@@ -1992,6 +2010,7 @@
 			packageReferences = (
 				4E270DF42A80F30400D3484B /* XCRemoteSwiftPackageReference "Factory" */,
 				4E58C1352AC1B7D7002CA1A3 /* XCRemoteSwiftPackageReference "CodeScanner" */,
+				CFCB1ADAFCFE628257F71256 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 47729E0322F447C800B9B36B /* Products */;
@@ -4592,9 +4611,27 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		CFCB1ADAFCFE628257F71256 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.12.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		066B82AD6C9B8945B4602DC0 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CFCB1ADAFCFE628257F71256 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		22CAA4468AF49D1E84301553 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CFCB1ADAFCFE628257F71256 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
 		4E1275F82AE7D0FC00A94994 /* Factory */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4E1275F92AE7D0FC00A94994 /* XCRemoteSwiftPackageReference "Factory" */;
@@ -4654,6 +4691,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E58C1352AC1B7D7002CA1A3 /* XCRemoteSwiftPackageReference "CodeScanner" */;
 			productName = CodeScanner;
+		};
+		CA05A15F2397A2ECD7A962E0 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CFCB1ADAFCFE628257F71256 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		CCB9EEAE8489C4BFFF761842 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CFCB1ADAFCFE628257F71256 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		D7C7F707EE2359006E66B1A1 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CFCB1ADAFCFE628257F71256 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		DF46A2984E82ABC856F26576 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CFCB1ADAFCFE628257F71256 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
