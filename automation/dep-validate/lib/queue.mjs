@@ -12,7 +12,7 @@ export const REPO = "blokadaorg/blokada";
 // path outside this allowlist is a human-review trigger there, so it is one here
 // too. Keep in sync if the workflow's allowlist changes.
 const ALLOWED_FILES_REGEX =
-  /^(common\/pubspec\.(yaml|lock)|ios\/(Podfile|Podfile\.lock|Gemfile|Gemfile\.lock)|android\/(build\.gradle|settings\.gradle|gradle\.properties|gradle\/wrapper\/gradle-wrapper\.(jar|properties)|app\/build\.gradle)|ios\/BlockaWebExtension\/(package\.json|package-lock\.json)|automation\/appium\/wdio\/(package\.json|package-lock\.json)|\.github\/dependabot\.yml|\.github\/workflows\/[^/]+\.ya?ml)$/;
+  /^(common\/pubspec\.(yaml|lock)|ios\/(Gemfile|Gemfile\.lock)|android\/(build\.gradle|settings\.gradle|gradle\.properties|gradle\/wrapper\/gradle-wrapper\.(jar|properties)|app\/build\.gradle)|ios\/BlockaWebExtension\/(package\.json|package-lock\.json)|automation\/appium\/wdio\/(package\.json|package-lock\.json)|\.github\/dependabot\.yml|\.github\/workflows\/[^/]+\.ya?ml)$/;
 
 // Packages whose runtime behavior CI (build + lint only) cannot prove safe, so
 // they warrant on-device validation regardless of bump size. Matched as a
@@ -257,26 +257,39 @@ export function discoverAdvisories() {
     });
   }
 
-  // iOS CocoaPods: not Dependabot-scanned. Surface current pins of the
-  // revenue/protection-critical pods so the agent can check them against
-  // upstream releases manually (latest-version lookup is left to the agent).
+  // iOS Swift Package Manager: not Dependabot-scanned. Surface current pins of
+  // the host SPM packages (Firebase, Factory, CodeScanner) so the agent can
+  // compare them to upstream releases manually (latest-version lookup is left
+  // to the agent). Adapty's iOS version is governed by adapty_flutter in
+  // common/pubspec.yaml, which Dependabot does scan, so it's covered above.
   try {
-    const lock = readFileSync(resolve(repoRoot, "ios/Podfile.lock"), "utf8");
-    for (const name of ["Adapty", "AdaptyUI", "Firebase"]) {
-      const re = new RegExp(`^\\s*-\\s*${name}\\s*\\(([^)]+)\\)`, "m");
-      const found = lock.match(re);
-      if (found) {
-        advisories.push({
-          kind: "advisory",
-          ecosystem: "cocoapods",
-          subject: `ios/Podfile.lock: ${name}`,
-          current: found[1].replace(/^[=~><\s]+/, "").trim(),
-          note: "not scanned by Dependabot; compare to upstream release manually"
-        });
-      }
+    const pbxproj = readFileSync(
+      resolve(repoRoot, "ios/IOS.xcodeproj/project.pbxproj"),
+      "utf8"
+    );
+    // Only the package references listed in the project's `packageReferences`
+    // array are live; the file also carries orphaned duplicate references from
+    // past Xcode edits (e.g. several stale Factory pins) that we must ignore.
+    const listed = pbxproj.match(/packageReferences = \(([\s\S]*?)\);/);
+    const active = new Set(
+      listed ? [...listed[1].matchAll(/([0-9A-F]{24})/g)].map((m) => m[1]) : []
+    );
+    const re =
+      /([0-9A-F]{24}) \/\* [^*]*\*\/ = \{\s*isa = XCRemoteSwiftPackageReference;\s*repositoryURL = "([^"]+)";\s*requirement = \{[^}]*?(?:minimumVersion|version) = ([^;]+);/g;
+    let m;
+    while ((m = re.exec(pbxproj)) !== null) {
+      if (active.size && !active.has(m[1])) continue;
+      const name = m[2].replace(/\.git$/, "").split("/").pop();
+      advisories.push({
+        kind: "advisory",
+        ecosystem: "swift-package-manager",
+        subject: `ios SPM: ${name}`,
+        current: m[3].trim(),
+        note: "not scanned by Dependabot; compare to upstream release manually"
+      });
     }
   } catch {
-    // Podfile.lock absent in this checkout; skip.
+    // project.pbxproj unreadable in this checkout; skip.
   }
 
   return advisories;

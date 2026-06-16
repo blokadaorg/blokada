@@ -12,7 +12,7 @@ feature work that benefits from exercising the real iOS↔API wire.
 ## One-time setup
 
 ```bash
-make pods                                          # once per checkout
+make -C ../common build-ios                        # build the Flutter xcframeworks the app embeds
 ```
 
 The dev account ID is supplied to the build at compile-time as a

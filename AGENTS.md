@@ -169,7 +169,9 @@ This commonly fixes generated-signature mismatches after API changes.
 ## Platform-Specific Notes
 
 ### iOS
-- Fastlane for automation and deployment; CocoaPods for dependency management.
+- Fastlane for automation and deployment. Native dependencies use Swift Package
+  Manager (Firebase, Factory, CodeScanner); the Flutter module is embedded as
+  prebuilt xcframeworks from `make -C common build-ios`. No CocoaPods.
 - **iOS 14+ Flutter Debug Limitation**: Flutter debug mode apps cannot launch
   directly on device without Xcode/Flutter tooling. The `make -C ios run`
   target defaults to Release mode to bypass this.

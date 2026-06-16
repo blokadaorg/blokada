@@ -38,16 +38,8 @@ jobs:
           submodules: recursive
 
       - name: Bootstrap Flutter common lib
+        # Builds the add-to-app xcframeworks the host project embeds.
         run: make -C common build-ios
-
-      - name: Install iOS pods
-        working-directory: ios
-        run: |
-          bundle check || bundle install
-          # --repo-update so the runner's CocoaPods spec cache picks up newly
-          # released pod versions; without it `pod install` fails on
-          # "out-of-date source repos" for fresh specs.
-          bundle exec pod install --repo-update
 
       - name: Unlock login keychain for codesign
         env:

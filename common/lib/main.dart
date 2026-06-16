@@ -17,13 +17,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-// Mocked simulator builds set these via the DART_DEFINES env var that the iOS
-// make layer (ios/make/sim-helpers.mk) supplies to xcodebuild. Shipping builds
-// leave MOCKED unset, so _isMocked is a compile-time const false and the entire
-// mocked branch (plus seedDevAccount / MockedStart) is dead-code-eliminated from
-// release AOT binaries. This lets the Xcode build phase stay at Flutter's
-// default, with no per-target FLUTTER_TARGET override for pod install to
-// clobber. See ios/SIMULATOR.md.
+// Mocked simulator builds set these via --dart-define when the iOS make layer
+// (ios/make/sim-helpers.mk) builds the mocked Flutter App.xcframework that the
+// Mocked target embeds. Shipping builds leave MOCKED unset, so _isMocked is a
+// compile-time const false and the entire mocked branch (plus seedDevAccount /
+// MockedStart) is dead-code-eliminated from release AOT binaries. See
+// ios/SIMULATOR.md.
 const _isMocked = bool.fromEnvironment('MOCKED');
 const _mockedFlavor = String.fromEnvironment('FLAVOR');
 
