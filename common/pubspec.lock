@@ -12,11 +12,12 @@ packages:
   adapty_flutter:
     dependency: "direct main"
     description:
-      name: adapty_flutter
-      sha256: "34535c1315578c4dae68e01e2c8a8efcec401a619c62a115087b8f3be7a5e864"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.11.4"
+      path: "."
+      ref: "3755e279485487f82833fae01462799f87594c62"
+      resolved-ref: "3755e279485487f82833fae01462799f87594c62"
+      url: "https://github.com/blokadaorg/AdaptySDK-Flutter.git"
+    source: git
+    version: "3.17.0"
   analyzer:
     dependency: transitive
     description:

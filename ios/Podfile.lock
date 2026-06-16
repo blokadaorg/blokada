@@ -1,15 +1,24 @@
 PODS:
-  - Adapty (3.11.1)
-  - adapty_flutter (3.11.1):
-    - Adapty (= 3.11.1)
-    - AdaptyPlugin (= 3.11.1)
-    - AdaptyUI (= 3.11.1)
+  - Adapty (3.17.2):
+    - AdaptyLogger (= 3.17.2)
+    - AdaptyUIBuilder (= 3.17.2)
+  - adapty_flutter (3.17.0):
+    - Adapty (= 3.17.2)
+    - AdaptyPlugin (= 3.17.2)
+    - AdaptyUI (= 3.17.2)
     - Flutter
-  - AdaptyPlugin (3.11.1):
-    - Adapty (= 3.11.1)
-    - AdaptyUI (= 3.11.1)
-  - AdaptyUI (3.11.1):
-    - Adapty (= 3.11.1)
+  - AdaptyLogger (3.17.2)
+  - AdaptyPlugin (3.17.2):
+    - Adapty (= 3.17.2)
+    - AdaptyLogger (= 3.17.2)
+    - AdaptyUI (= 3.17.2)
+    - AdaptyUIBuilder (= 3.17.2)
+  - AdaptyUI (3.17.2):
+    - Adapty (= 3.17.2)
+    - AdaptyLogger (= 3.17.2)
+    - AdaptyUIBuilder (= 3.17.2)
+  - AdaptyUIBuilder (3.17.2):
+    - AdaptyLogger (= 3.17.2)
   - FirebaseCore (12.12.1):
     - FirebaseCoreInternal (~> 12.12.0)
     - GoogleUtilities/Environment (~> 8.1)
@@ -88,8 +97,10 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Adapty
+    - AdaptyLogger
     - AdaptyPlugin
     - AdaptyUI
+    - AdaptyUIBuilder
     - FirebaseCore
     - FirebaseCoreInternal
     - FirebaseInstallations
@@ -112,10 +123,12 @@ EXTERNAL SOURCES:
     :path: "../common/.ios/.symlinks/plugins/sqflite_darwin/darwin"
 
 SPEC CHECKSUMS:
-  Adapty: acfd515166328461979c903a08aa0a9e55cf0d65
-  adapty_flutter: 5532acc582261290054d88ddf32b81d308ad8957
-  AdaptyPlugin: d1a6e35d9f1b7b750e8772adefc89583c0a4c7f7
-  AdaptyUI: 8dc77880549ff2be797bc7ecfd60c4ad3633bf4b
+  Adapty: fd1e8130a1298abba9bc084a69a63c80fcc5275a
+  adapty_flutter: e87ab51ee70c541de25ba602155e42a8c0a47ee6
+  AdaptyLogger: c59354e1e6b602d08eae91b79bd1492d78c46820
+  AdaptyPlugin: 87183239c885f4a251acbd354631fd2d6f281a5b
+  AdaptyUI: ecd9614d961257d4608315510e8030e40efbbcd5
+  AdaptyUIBuilder: 7425b23c8039d62f02463a4d236e86c8e08d61f8
   FirebaseCore: 86241206e656f5c80c995e370e6c975913b9b284
   FirebaseCoreInternal: 7c12fc3011d889085e765e317d7b9fd1cef97af9
   FirebaseInstallations: 4e6e162aa4abaaeeeb01dd00179dfc5ad9c2194e

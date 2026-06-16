@@ -18,15 +18,19 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIObser
   init(Marker m, String apiKey, String? accountId, bool verboseLogs) async {
     _adaptyUi.setObserver(this);
 
-    await _adapty.activate(
-      configuration: AdaptyConfiguration(apiKey: apiKey)
-        ..withCustomerUserId(accountId)
-        ..withLogLevel(verboseLogs ? AdaptyLogLevel.debug : AdaptyLogLevel.warn)
-        ..withObserverMode(false)
-        ..withIpAddressCollectionDisabled(true)
-        ..withGoogleAdvertisingIdCollectionDisabled(true)
-        ..withAppleIdfaCollectionDisabled(true),
-    );
+    // Adapty 3.17 made withCustomerUserId require a non-null String. accountId
+    // can be null at activation (anonymous start); only bind it when present,
+    // which matches the old nullable behaviour. When an account id exists it is
+    // also bound separately via identify(), so attribution is unaffected.
+    final configuration = AdaptyConfiguration(apiKey: apiKey)
+      ..withLogLevel(verboseLogs ? AdaptyLogLevel.debug : AdaptyLogLevel.warn)
+      ..withObserverMode(false)
+      ..withIpAddressCollectionDisabled(true)
+      ..withGoogleAdvertisingIdCollectionDisabled(true)
+      ..withAppleIdfaCollectionDisabled(true);
+    if (accountId != null) configuration.withCustomerUserId(accountId);
+
+    await _adapty.activate(configuration: configuration);
 
     // Set Adapty fallback for any connection problems situations
     try {
@@ -44,7 +48,15 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIObser
 
   @override
   logOnboardingStep(String name, OnboardingStep step) async {
-    await _adapty.logShowOnboarding(name: name, screenName: step.name, screenOrder: step.order);
+    // Adapty 3.17 removed Adapty.logShowOnboarding (the manual onboarding-step
+    // analytics API) in favour of its hosted AdaptyUI onboarding views, which
+    // we don't use — onboarding is rendered by the app. There is no drop-in
+    // replacement for logging a custom step. The native Android path already
+    // no-op'd this on Adapty Android 3.15.x, so the Adapty-side onboarding
+    // analytics is gone app-wide; local step tracking in
+    // PaymentActor.reportOnboarding is unaffected.
+    log(Markers.ui)
+        .t("Adapty: skipping onboarding step '$name/${step.name}' (logShowOnboarding removed in 3.17)");
   }
 
   @override
