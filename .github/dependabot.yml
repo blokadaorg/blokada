@@ -13,6 +13,16 @@ updates:
         applies-to: version-updates
         patterns:
           - "*"
+        # pigeon's semver-major ignore (below) does not keep it out of this
+        # group's recreated PRs — when a grouped dep merges, Dependabot
+        # recreates the group and re-widens the pigeon constraint, re-bumping
+        # it to 26.x and going red on the setup→setUp break (closed #1106,
+        # #1109, #1114). Excluding pigeon from the group keeps the safe
+        # minor/patch bumps unblocked; pigeon minor/patch then gets its own
+        # PR and its major stays held by the ignore rule. Drop this together
+        # with the ignore when the pigeon 26 native migration is scheduled.
+        exclude-patterns:
+          - "pigeon"
         update-types:
           - "minor"
           - "patch"
