@@ -121,21 +121,18 @@ android {
     }
 
     sourceSets {
-        // AGP 9 built-in Kotlin only compiles dirs registered as kotlin.srcDirs
-        // (java.srcDirs no longer feeds the Kotlin compiler). The default
-        // src/<flavor>/kotlin dirs are auto-included; these custom ones aren't.
+        // AGP 9 built-in Kotlin compiles kotlin.srcDirs, not java.srcDirs. The
+        // default src/<flavor>/kotlin dirs are auto-included; these custom
+        // Kotlin-only dirs must be registered as kotlin.srcDirs explicitly.
         debug.java.srcDirs += 'src/mock/kotlin'
-        debug.kotlin.srcDirs += 'src/mock/kotlin'
 
         six.java.srcDirs += 'src/six/kotlin'
         six.manifest.srcFile 'src/six/AndroidManifest.xml'
         six.res.srcDirs += 'src/six/res'
 
-        six.java.srcDirs += 'src/engine/kotlin'
         six.kotlin.srcDirs += 'src/engine/kotlin'
         six.jniLibs.srcDirs += 'src/engine/jniLibs'
 
-        six.java.srcDirs += 'wireguard-android/ui/src/main/java'
         six.kotlin.srcDirs += 'wireguard-android/ui/src/main/java'
         six.res.srcDirs += 'wireguard-android/ui/src/main/res'
 
