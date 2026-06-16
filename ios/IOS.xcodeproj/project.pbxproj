@@ -7,15 +7,61 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		176BF5230E082798AF0311E8 /* Pods_Dev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD62BE06311E71CD991CE3F2 /* Pods_Dev.framework */; };
-		1AD1BA7496D8C335F2E6678D /* Pods_FamilyDev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2D21A15748E1394054B3DFC /* Pods_FamilyDev.framework */; };
+		05F5AE646891B643C9965C6A /* AdaptyPlugin.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC35391E9EA9DEADEB7E33A /* AdaptyPlugin.xcframework */; };
+		06D02F3D108E81905D6A293A /* shared_preferences_foundation.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 0C78F727D4DFD7E5EB6E2846 /* shared_preferences_foundation.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		070DA06D5FB7632350DC7916 /* AdaptyLogger.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 244C12F46960E8D957078882 /* AdaptyLogger.xcframework */; };
+		07B83BC6BADE48156BA0E16E /* AdaptyUIBuilder.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3B800A69B1511DA04E83A4 /* AdaptyUIBuilder.xcframework */; };
+		0B73B5CF95F67BFDC41CF5DE /* AdaptyUI.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 01438ACD82B603C5CD05A225 /* AdaptyUI.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0CDCFF66EF2A87CB0351903A /* shared_preferences_foundation.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 0C78F727D4DFD7E5EB6E2846 /* shared_preferences_foundation.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0DEC666BF559342497F1C937 /* path_provider_foundation.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = CB361589C2DC61C5C7576043 /* path_provider_foundation.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0E8A70846F6D344FEA6A4BE6 /* sqflite_darwin.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7701112A2E69BEC3234042 /* sqflite_darwin.xcframework */; };
+		0FA7280D6A586DD8487A7816 /* App.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = EE84FC4D74BE9E76DF3E6E38 /* App.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		11A32CA65A265DF41AA61787 /* App.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE84FC4D74BE9E76DF3E6E38 /* App.xcframework */; };
+		125FC6F7FA170F4F575EE178 /* AdaptyPlugin.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC35391E9EA9DEADEB7E33A /* AdaptyPlugin.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1394EFD7BED240B0B83B0CEF /* Adapty.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 178B93D86112A4AF7D22277E /* Adapty.xcframework */; };
+		15195FC309AC86B07364CDF5 /* AdaptyPlugin.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC35391E9EA9DEADEB7E33A /* AdaptyPlugin.xcframework */; };
+		1894EEB489F348CB1BFB0CB3 /* path_provider_foundation.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB361589C2DC61C5C7576043 /* path_provider_foundation.xcframework */; };
+		1AC75F38D7DAF2063076A627 /* App.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = EE84FC4D74BE9E76DF3E6E38 /* App.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1C4826A8C9CB2D02D421C01E /* AdaptyUIBuilder.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3B800A69B1511DA04E83A4 /* AdaptyUIBuilder.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1D44DBC878EB672B3099B207 /* AdaptyLogger.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 244C12F46960E8D957078882 /* AdaptyLogger.xcframework */; };
 		1DC1BD23E00EC4DD41238D45 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = DF46A2984E82ABC856F26576 /* FirebaseCore */; };
-		2BAF43F98AE7367532A1363E /* Pods_Mocked.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BCCAB443BAD3852B4A55923E /* Pods_Mocked.framework */; };
-		32C1008A7577A4987B004E84 /* Pods_Prod.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C94D6248881297B61CC2DF7 /* Pods_Prod.framework */; };
+		1DC3CBB150809AB6C7D00CE6 /* sqflite_darwin.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7701112A2E69BEC3234042 /* sqflite_darwin.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2086BF6FCBD44727CD707391 /* shared_preferences_foundation.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C78F727D4DFD7E5EB6E2846 /* shared_preferences_foundation.xcframework */; };
+		24B1E7FC2AF2673EDA14C831 /* App.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE84FC4D74BE9E76DF3E6E38 /* App.xcframework */; };
+		26E88EC0F9362A532CAC1D58 /* FlutterPluginRegistrant.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7F926680D79542AA15AE64 /* FlutterPluginRegistrant.xcframework */; };
+		27B430356CD86EBC632B75D3 /* adapty_flutter.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = B418F2C134A19E9A159396B1 /* adapty_flutter.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		285362F71AD3A5DE453901F6 /* AdaptyUIBuilder.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3B800A69B1511DA04E83A4 /* AdaptyUIBuilder.xcframework */; };
+		2894300D380C6D0CAAF87C25 /* AdaptyLogger.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 244C12F46960E8D957078882 /* AdaptyLogger.xcframework */; };
+		295444E6A6E5A0F31FF94D4D /* Adapty.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 178B93D86112A4AF7D22277E /* Adapty.xcframework */; };
+		2A7CD30DD036911099DAAD8C /* AdaptyPlugin.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC35391E9EA9DEADEB7E33A /* AdaptyPlugin.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2A8C92867E519B0E845C82CF /* Adapty.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 178B93D86112A4AF7D22277E /* Adapty.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2B13FE2D0DB4A68737E2E1D3 /* Flutter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE6FF56F806187501579E61F /* Flutter.xcframework */; };
+		2CC1E6B5DABF504616A2ACE8 /* AdaptyUIBuilder.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3B800A69B1511DA04E83A4 /* AdaptyUIBuilder.xcframework */; };
+		2CCAF70D8F5A70D51BA85E29 /* AdaptyLogger.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 244C12F46960E8D957078882 /* AdaptyLogger.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2EB17F89845882C42ED1634D /* Flutter.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = FE6FF56F806187501579E61F /* Flutter.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2EBB333B63BDA18F013954D4 /* Adapty.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 178B93D86112A4AF7D22277E /* Adapty.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2EC5ABA46E53026717ED46CD /* AdaptyUIBuilder.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3B800A69B1511DA04E83A4 /* AdaptyUIBuilder.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3292282EB0325D0C702DF865 /* FlutterPluginRegistrant.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7F926680D79542AA15AE64 /* FlutterPluginRegistrant.xcframework */; };
+		333235306A8FAA11E9978E5F /* AdaptyUI.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 01438ACD82B603C5CD05A225 /* AdaptyUI.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3A9564FB36389F9176056ED4 /* Flutter.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = FE6FF56F806187501579E61F /* Flutter.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3B3D1681AE86B1B50E23D54D /* sqflite_darwin.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7701112A2E69BEC3234042 /* sqflite_darwin.xcframework */; };
+		3C12D11B2AE5F18808189ADD /* path_provider_foundation.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = CB361589C2DC61C5C7576043 /* path_provider_foundation.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3DFA9F4792D51C716F8ED0D6 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = D7C7F707EE2359006E66B1A1 /* FirebaseCore */; };
+		3E8CF6147DAC6AD406054536 /* App.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE84FC4D74BE9E76DF3E6E38 /* App.xcframework */; };
+		40228C5FA92636CC674AF672 /* AdaptyLogger.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 244C12F46960E8D957078882 /* AdaptyLogger.xcframework */; };
+		40E41C883CEE821AF988402F /* shared_preferences_foundation.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 0C78F727D4DFD7E5EB6E2846 /* shared_preferences_foundation.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4117488C34A3EB51A80A27FA /* Flutter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE6FF56F806187501579E61F /* Flutter.xcframework */; };
+		42893DA1F69C2BFAFD5B9F1F /* path_provider_foundation.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB361589C2DC61C5C7576043 /* path_provider_foundation.xcframework */; };
+		429B1B71F4E784D2F1ABF1AD /* sqflite_darwin.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7701112A2E69BEC3234042 /* sqflite_darwin.xcframework */; };
+		467E5D468BE1366994E6AE43 /* AdaptyPlugin.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC35391E9EA9DEADEB7E33A /* AdaptyPlugin.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		47729E0622F447C800B9B36B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47729E0522F447C800B9B36B /* AppDelegate.swift */; };
 		47729E0D22F447CA00B9B36B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47729E0C22F447CA00B9B36B /* Assets.xcassets */; };
 		47729E1022F447CA00B9B36B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47729E0E22F447CA00B9B36B /* LaunchScreen.storyboard */; };
+		496A331C507F5A7B6EF37311 /* AdaptyUIBuilder.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3B800A69B1511DA04E83A4 /* AdaptyUIBuilder.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		49B909584E3803FB972BAACD /* AdaptyUI.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01438ACD82B603C5CD05A225 /* AdaptyUI.xcframework */; };
+		4AAAA83555D574613E351CBF /* path_provider_foundation.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = CB361589C2DC61C5C7576043 /* path_provider_foundation.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4D46ACB17273A8AFD03E8B50 /* adapty_flutter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = B418F2C134A19E9A159396B1 /* adapty_flutter.xcframework */; };
+		4D5AFFB64D6E6D129142F996 /* shared_preferences_foundation.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 0C78F727D4DFD7E5EB6E2846 /* shared_preferences_foundation.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E02E30E2A56DA620014E884 /* NetworkCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E02E30D2A56DA620014E884 /* NetworkCommand.swift */; };
 		4E02E30F2A56DA620014E884 /* NetworkCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E02E30D2A56DA620014E884 /* NetworkCommand.swift */; };
 		4E02E3102A56DA620014E884 /* NetworkCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E02E30D2A56DA620014E884 /* NetworkCommand.swift */; };
@@ -674,14 +720,100 @@
 		4EF8ED812B87AA3B00E6E607 /* ScanQrCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF8ED7D2B87AA3B00E6E607 /* ScanQrCodeView.swift */; };
 		4EF8ED822B87AA3B00E6E607 /* ScanQrCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF8ED7D2B87AA3B00E6E607 /* ScanQrCodeView.swift */; };
 		4EF8ED832B87AA3B00E6E607 /* ScanQrCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF8ED7D2B87AA3B00E6E607 /* ScanQrCodeView.swift */; };
+		50FDE7758757786F40AD642A /* Flutter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE6FF56F806187501579E61F /* Flutter.xcframework */; };
+		51B6A365DADB8DA39FA6EFBB /* shared_preferences_foundation.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C78F727D4DFD7E5EB6E2846 /* shared_preferences_foundation.xcframework */; };
+		52AFFD32F0D44D600D15CEB0 /* Flutter.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = FE6FF56F806187501579E61F /* Flutter.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		542395D4E302F5D020F809A4 /* adapty_flutter.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = B418F2C134A19E9A159396B1 /* adapty_flutter.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		54D161FD89AC2EEF4F1B2DED /* AdaptyUIBuilder.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3B800A69B1511DA04E83A4 /* AdaptyUIBuilder.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		642410BA07D59AF5A5B154F9 /* AdaptyUIBuilder.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3B800A69B1511DA04E83A4 /* AdaptyUIBuilder.xcframework */; };
+		64B30D5A116E8283A889D0AA /* path_provider_foundation.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB361589C2DC61C5C7576043 /* path_provider_foundation.xcframework */; };
+		6590C8F7C259A089A4DF497C /* Adapty.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 178B93D86112A4AF7D22277E /* Adapty.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		65AD37CFE0C5989C5FC3DE12 /* AdaptyPlugin.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC35391E9EA9DEADEB7E33A /* AdaptyPlugin.xcframework */; };
+		6630E8325AD95420CE7B112A /* Adapty.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 178B93D86112A4AF7D22277E /* Adapty.xcframework */; };
+		676BB49036E1B46830880E60 /* path_provider_foundation.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB361589C2DC61C5C7576043 /* path_provider_foundation.xcframework */; };
+		6B74F9DD0C0EDFEE70D3F525 /* Adapty.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 178B93D86112A4AF7D22277E /* Adapty.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6EE776FB95C956DCA1F3DCD9 /* adapty_flutter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = B418F2C134A19E9A159396B1 /* adapty_flutter.xcframework */; };
+		71E3789E380A7D51B123BD5C /* path_provider_foundation.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB361589C2DC61C5C7576043 /* path_provider_foundation.xcframework */; };
+		7477C26F1529DD0C6CD8360F /* AdaptyPlugin.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC35391E9EA9DEADEB7E33A /* AdaptyPlugin.xcframework */; };
+		7784D163067F532CBEBB5535 /* sqflite_darwin.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7701112A2E69BEC3234042 /* sqflite_darwin.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		77D4FFEEE3F9FDBA2C55B598 /* AdaptyPlugin.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC35391E9EA9DEADEB7E33A /* AdaptyPlugin.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7863D90DD5C45829943C4D36 /* shared_preferences_foundation.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C78F727D4DFD7E5EB6E2846 /* shared_preferences_foundation.xcframework */; };
+		7D65FCA459A284363D3C33F7 /* Flutter.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = FE6FF56F806187501579E61F /* Flutter.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		805C49D191F77B843D0268A9 /* shared_preferences_foundation.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C78F727D4DFD7E5EB6E2846 /* shared_preferences_foundation.xcframework */; };
+		815790DBD8ED11147D4D7616 /* Flutter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE6FF56F806187501579E61F /* Flutter.xcframework */; };
 		8187E5CC61B540A0F67B3E1E /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = CA05A15F2397A2ECD7A962E0 /* FirebaseMessaging */; };
-		81A14548F0971940140E60F7 /* Pods_FamilyProd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 172E613B3E5E2ECA63DB72B5 /* Pods_FamilyProd.framework */; };
+		81D38BFAD2D3811B97455A3F /* FlutterPluginRegistrant.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7F926680D79542AA15AE64 /* FlutterPluginRegistrant.xcframework */; };
+		8210E114E1C455B250DC894A /* AdaptyUI.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 01438ACD82B603C5CD05A225 /* AdaptyUI.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		82B74BF5732D3F3061A1BEEE /* sqflite_darwin.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7701112A2E69BEC3234042 /* sqflite_darwin.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		88E3FEDD8785E4D4E3E1875D /* AdaptyUI.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 01438ACD82B603C5CD05A225 /* AdaptyUI.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8AEA48B05FF9F42ECDF0AD26 /* App.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE84FC4D74BE9E76DF3E6E38 /* App.xcframework */; };
+		8B437B718446E96B5028D9E3 /* adapty_flutter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = B418F2C134A19E9A159396B1 /* adapty_flutter.xcframework */; };
+		8B5FE423A5E66E5C6DCEFD2D /* AdaptyLogger.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 244C12F46960E8D957078882 /* AdaptyLogger.xcframework */; };
+		8B68290786DA0604724285B6 /* AdaptyPlugin.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC35391E9EA9DEADEB7E33A /* AdaptyPlugin.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8C5A9CD643BFB9B3076692DC /* AdaptyLogger.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 244C12F46960E8D957078882 /* AdaptyLogger.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8E06AD97B3FF4A8DDD114719 /* sqflite_darwin.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7701112A2E69BEC3234042 /* sqflite_darwin.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8E74432859CDC723DF5097A7 /* AdaptyUIBuilder.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3B800A69B1511DA04E83A4 /* AdaptyUIBuilder.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9009E6FC33323903147A1EF5 /* FlutterPluginRegistrant.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7F926680D79542AA15AE64 /* FlutterPluginRegistrant.xcframework */; };
+		9027B0736DE22A6C28687E63 /* adapty_flutter.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = B418F2C134A19E9A159396B1 /* adapty_flutter.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		91F65F89CAEBFB1CDB96AAB8 /* shared_preferences_foundation.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 0C78F727D4DFD7E5EB6E2846 /* shared_preferences_foundation.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9242788955E883A528FF4C7C /* Adapty.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 178B93D86112A4AF7D22277E /* Adapty.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9556E15ECBF4DAD79EBD344D /* path_provider_foundation.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB361589C2DC61C5C7576043 /* path_provider_foundation.xcframework */; };
+		955B92185CC128F26507921F /* AdaptyUI.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01438ACD82B603C5CD05A225 /* AdaptyUI.xcframework */; };
+		959F519EF4772CF2C69D2302 /* sqflite_darwin.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7701112A2E69BEC3234042 /* sqflite_darwin.xcframework */; };
+		9BC8A846DC02BA1B6D21ED31 /* sqflite_darwin.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7701112A2E69BEC3234042 /* sqflite_darwin.xcframework */; };
+		9C9303A5D2C4A1C088960B32 /* Flutter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE6FF56F806187501579E61F /* Flutter.xcframework */; };
+		9E2F02E61C356F5CFA5BE890 /* shared_preferences_foundation.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 0C78F727D4DFD7E5EB6E2846 /* shared_preferences_foundation.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9E97011AF3A8B55AC82B6C35 /* AdaptyUI.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01438ACD82B603C5CD05A225 /* AdaptyUI.xcframework */; };
+		9EC206E26504797FE48D63A9 /* AdaptyLogger.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 244C12F46960E8D957078882 /* AdaptyLogger.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9EE02E63D584674824D01B10 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 22CAA4468AF49D1E84301553 /* FirebaseMessaging */; };
+		A1D1E35440C415C25C87E53D /* path_provider_foundation.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = CB361589C2DC61C5C7576043 /* path_provider_foundation.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A85DA3E35FD20304D9B7ADA8 /* adapty_flutter.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = B418F2C134A19E9A159396B1 /* adapty_flutter.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A98D4E142EB5B814F9E613F3 /* App.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = EE84FC4D74BE9E76DF3E6E38 /* App.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A9A87666C98AC139755C8B7B /* AdaptyLogger.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 244C12F46960E8D957078882 /* AdaptyLogger.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AA9938BA227CA1A9301063F6 /* App.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE84FC4D74BE9E76DF3E6E38 /* App.xcframework */; };
+		AB51D0EC3E95A90230B1CDDF /* AdaptyUIBuilder.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3B800A69B1511DA04E83A4 /* AdaptyUIBuilder.xcframework */; };
+		AFAF2B732B928FF3C8D9B56D /* Flutter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE6FF56F806187501579E61F /* Flutter.xcframework */; };
+		B118953EF151AF2CAF3C9B9F /* AdaptyPlugin.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC35391E9EA9DEADEB7E33A /* AdaptyPlugin.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B1B99AC2C916E863128A052F /* App.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = EE84FC4D74BE9E76DF3E6E38 /* App.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B2382A312E61E14300ED7415 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2F2A172760E400005A59F5 /* Constants.swift */; };
 		B2382A322E61E14300ED7415 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2F2A172760E400005A59F5 /* Constants.swift */; };
+		B2F7BB6A6D8A587D860E3241 /* AdaptyUIBuilder.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3B800A69B1511DA04E83A4 /* AdaptyUIBuilder.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B4FF3982E96CC6756784A58A /* FlutterPluginRegistrant.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7F926680D79542AA15AE64 /* FlutterPluginRegistrant.xcframework */; };
+		B66461732490D4D1CCBAEFD9 /* adapty_flutter.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = B418F2C134A19E9A159396B1 /* adapty_flutter.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B6EC5AD87FD5E64E47AE7353 /* Adapty.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 178B93D86112A4AF7D22277E /* Adapty.xcframework */; };
+		B910EAD34F18CAF772CC8DCB /* sqflite_darwin.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7701112A2E69BEC3234042 /* sqflite_darwin.xcframework */; };
+		B963601ACA979FE16C944B04 /* path_provider_foundation.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = CB361589C2DC61C5C7576043 /* path_provider_foundation.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BA98AC12680E440AED9550B6 /* path_provider_foundation.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = CB361589C2DC61C5C7576043 /* path_provider_foundation.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BB65535F4E404535C1ED9250 /* AdaptyLogger.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 244C12F46960E8D957078882 /* AdaptyLogger.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BE04E56D26BA51439B6CBDD2 /* App.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = EE84FC4D74BE9E76DF3E6E38 /* App.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BE7C867803DEA2EC74992411 /* shared_preferences_foundation.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C78F727D4DFD7E5EB6E2846 /* shared_preferences_foundation.xcframework */; };
+		C2E7C3E3B581299CAD4B4F82 /* sqflite_darwin.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7701112A2E69BEC3234042 /* sqflite_darwin.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C4A7044FB95F2DC8E5141188 /* AdaptyUIBuilder.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3B800A69B1511DA04E83A4 /* AdaptyUIBuilder.xcframework */; };
 		C58396BD1C3831BDC8BA6CB5 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = CCB9EEAE8489C4BFFF761842 /* FirebaseCore */; };
-		D457AF88E4351BB1D413F70B /* Pods_FamilyMocked.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39323AFF3B4C4CB93EF7EEB4 /* Pods_FamilyMocked.framework */; };
+		C75249DBE6339BE13D24A0C8 /* App.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE84FC4D74BE9E76DF3E6E38 /* App.xcframework */; };
+		C9400AF97A7DAB7149B5815A /* AdaptyLogger.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 244C12F46960E8D957078882 /* AdaptyLogger.xcframework */; };
+		C990C12BA1B02E7EC830ABE3 /* AdaptyPlugin.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC35391E9EA9DEADEB7E33A /* AdaptyPlugin.xcframework */; };
+		CA558AA751BD4694EC4A15FE /* AdaptyUI.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01438ACD82B603C5CD05A225 /* AdaptyUI.xcframework */; };
+		D0429FDB48435AB682CC96F6 /* Flutter.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = FE6FF56F806187501579E61F /* Flutter.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D5346B6A12F08F0E1E234D19 /* AdaptyUI.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01438ACD82B603C5CD05A225 /* AdaptyUI.xcframework */; };
+		D554C0E1FCD485B840C4A773 /* adapty_flutter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = B418F2C134A19E9A159396B1 /* adapty_flutter.xcframework */; };
+		DA52639EAE36E3128FAAE4A7 /* adapty_flutter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = B418F2C134A19E9A159396B1 /* adapty_flutter.xcframework */; };
+		DB063A409C4BE985DED0EFA4 /* AdaptyUI.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 01438ACD82B603C5CD05A225 /* AdaptyUI.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DC6CED5F7F93BF6C998C5BCC /* adapty_flutter.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = B418F2C134A19E9A159396B1 /* adapty_flutter.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DDA22489AFA9DDED35CEAB24 /* shared_preferences_foundation.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C78F727D4DFD7E5EB6E2846 /* shared_preferences_foundation.xcframework */; };
+		E7B784277415459B17440351 /* Flutter.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = FE6FF56F806187501579E61F /* Flutter.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E90F993EF0E196147EB09016 /* sqflite_darwin.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7701112A2E69BEC3234042 /* sqflite_darwin.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E9598E5FAD003966AC22AE11 /* AdaptyUI.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 01438ACD82B603C5CD05A225 /* AdaptyUI.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EAF13E21F04EA4DF15F3E95C /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 066B82AD6C9B8945B4602DC0 /* FirebaseMessaging */; };
+		EDF69ABC402F3EA2C26A74B3 /* Adapty.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 178B93D86112A4AF7D22277E /* Adapty.xcframework */; };
+		EEBD35F09098090D3B63571E /* AdaptyLogger.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 244C12F46960E8D957078882 /* AdaptyLogger.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F176A9AB8D8E8929B73DE5B9 /* AdaptyUI.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01438ACD82B603C5CD05A225 /* AdaptyUI.xcframework */; };
+		F4FBB22F2821AC0B914C0B28 /* Adapty.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = 178B93D86112A4AF7D22277E /* Adapty.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FADC0FB47A8366D547C947D1 /* AdaptyPlugin.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC35391E9EA9DEADEB7E33A /* AdaptyPlugin.xcframework */; };
+		FAF4666474BD5215B0C61B58 /* adapty_flutter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = B418F2C134A19E9A159396B1 /* adapty_flutter.xcframework */; };
+		FB93E4DF165672CEDC549220 /* Adapty.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 178B93D86112A4AF7D22277E /* Adapty.xcframework */; };
+		FC0EF1787340B2C9E4BFFCEC /* App.xcframework in Embed Flutter Frameworks */ = {isa = PBXBuildFile; fileRef = EE84FC4D74BE9E76DF3E6E38 /* App.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FF62FBB7095D6A2BAEA74B71 /* FlutterPluginRegistrant.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7F926680D79542AA15AE64 /* FlutterPluginRegistrant.xcframework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -781,21 +913,145 @@
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		76D1242E71237CF1F21FFDBC /* Embed Flutter Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7D65FCA459A284363D3C33F7 /* Flutter.xcframework in Embed Flutter Frameworks */,
+				FC0EF1787340B2C9E4BFFCEC /* App.xcframework in Embed Flutter Frameworks */,
+				B66461732490D4D1CCBAEFD9 /* adapty_flutter.xcframework in Embed Flutter Frameworks */,
+				BA98AC12680E440AED9550B6 /* path_provider_foundation.xcframework in Embed Flutter Frameworks */,
+				40E41C883CEE821AF988402F /* shared_preferences_foundation.xcframework in Embed Flutter Frameworks */,
+				7784D163067F532CBEBB5535 /* sqflite_darwin.xcframework in Embed Flutter Frameworks */,
+				9242788955E883A528FF4C7C /* Adapty.xcframework in Embed Flutter Frameworks */,
+				A9A87666C98AC139755C8B7B /* AdaptyLogger.xcframework in Embed Flutter Frameworks */,
+				467E5D468BE1366994E6AE43 /* AdaptyPlugin.xcframework in Embed Flutter Frameworks */,
+				8210E114E1C455B250DC894A /* AdaptyUI.xcframework in Embed Flutter Frameworks */,
+				1C4826A8C9CB2D02D421C01E /* AdaptyUIBuilder.xcframework in Embed Flutter Frameworks */,
+			);
+			name = "Embed Flutter Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7AC85137675B8F7AA6A0FFD8 /* Embed Flutter Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E7B784277415459B17440351 /* Flutter.xcframework in Embed Flutter Frameworks */,
+				A98D4E142EB5B814F9E613F3 /* App.xcframework in Embed Flutter Frameworks */,
+				542395D4E302F5D020F809A4 /* adapty_flutter.xcframework in Embed Flutter Frameworks */,
+				0DEC666BF559342497F1C937 /* path_provider_foundation.xcframework in Embed Flutter Frameworks */,
+				91F65F89CAEBFB1CDB96AAB8 /* shared_preferences_foundation.xcframework in Embed Flutter Frameworks */,
+				1DC3CBB150809AB6C7D00CE6 /* sqflite_darwin.xcframework in Embed Flutter Frameworks */,
+				6B74F9DD0C0EDFEE70D3F525 /* Adapty.xcframework in Embed Flutter Frameworks */,
+				EEBD35F09098090D3B63571E /* AdaptyLogger.xcframework in Embed Flutter Frameworks */,
+				8B68290786DA0604724285B6 /* AdaptyPlugin.xcframework in Embed Flutter Frameworks */,
+				88E3FEDD8785E4D4E3E1875D /* AdaptyUI.xcframework in Embed Flutter Frameworks */,
+				B2F7BB6A6D8A587D860E3241 /* AdaptyUIBuilder.xcframework in Embed Flutter Frameworks */,
+			);
+			name = "Embed Flutter Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7BD9A8783E0AC19808013F4C /* Embed Flutter Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2EB17F89845882C42ED1634D /* Flutter.xcframework in Embed Flutter Frameworks */,
+				1AC75F38D7DAF2063076A627 /* App.xcframework in Embed Flutter Frameworks */,
+				DC6CED5F7F93BF6C998C5BCC /* adapty_flutter.xcframework in Embed Flutter Frameworks */,
+				A1D1E35440C415C25C87E53D /* path_provider_foundation.xcframework in Embed Flutter Frameworks */,
+				06D02F3D108E81905D6A293A /* shared_preferences_foundation.xcframework in Embed Flutter Frameworks */,
+				E90F993EF0E196147EB09016 /* sqflite_darwin.xcframework in Embed Flutter Frameworks */,
+				F4FBB22F2821AC0B914C0B28 /* Adapty.xcframework in Embed Flutter Frameworks */,
+				2CCAF70D8F5A70D51BA85E29 /* AdaptyLogger.xcframework in Embed Flutter Frameworks */,
+				2A7CD30DD036911099DAAD8C /* AdaptyPlugin.xcframework in Embed Flutter Frameworks */,
+				E9598E5FAD003966AC22AE11 /* AdaptyUI.xcframework in Embed Flutter Frameworks */,
+				54D161FD89AC2EEF4F1B2DED /* AdaptyUIBuilder.xcframework in Embed Flutter Frameworks */,
+			);
+			name = "Embed Flutter Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		93656E8C8925CB1BA406DC1F /* Embed Flutter Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D0429FDB48435AB682CC96F6 /* Flutter.xcframework in Embed Flutter Frameworks */,
+				0FA7280D6A586DD8487A7816 /* App.xcframework in Embed Flutter Frameworks */,
+				A85DA3E35FD20304D9B7ADA8 /* adapty_flutter.xcframework in Embed Flutter Frameworks */,
+				B963601ACA979FE16C944B04 /* path_provider_foundation.xcframework in Embed Flutter Frameworks */,
+				0CDCFF66EF2A87CB0351903A /* shared_preferences_foundation.xcframework in Embed Flutter Frameworks */,
+				C2E7C3E3B581299CAD4B4F82 /* sqflite_darwin.xcframework in Embed Flutter Frameworks */,
+				2A8C92867E519B0E845C82CF /* Adapty.xcframework in Embed Flutter Frameworks */,
+				9EC206E26504797FE48D63A9 /* AdaptyLogger.xcframework in Embed Flutter Frameworks */,
+				B118953EF151AF2CAF3C9B9F /* AdaptyPlugin.xcframework in Embed Flutter Frameworks */,
+				DB063A409C4BE985DED0EFA4 /* AdaptyUI.xcframework in Embed Flutter Frameworks */,
+				2EC5ABA46E53026717ED46CD /* AdaptyUIBuilder.xcframework in Embed Flutter Frameworks */,
+			);
+			name = "Embed Flutter Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9E534D10ECA949CC91925ADE /* Embed Flutter Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3A9564FB36389F9176056ED4 /* Flutter.xcframework in Embed Flutter Frameworks */,
+				BE04E56D26BA51439B6CBDD2 /* App.xcframework in Embed Flutter Frameworks */,
+				9027B0736DE22A6C28687E63 /* adapty_flutter.xcframework in Embed Flutter Frameworks */,
+				3C12D11B2AE5F18808189ADD /* path_provider_foundation.xcframework in Embed Flutter Frameworks */,
+				4D5AFFB64D6E6D129142F996 /* shared_preferences_foundation.xcframework in Embed Flutter Frameworks */,
+				8E06AD97B3FF4A8DDD114719 /* sqflite_darwin.xcframework in Embed Flutter Frameworks */,
+				2EBB333B63BDA18F013954D4 /* Adapty.xcframework in Embed Flutter Frameworks */,
+				BB65535F4E404535C1ED9250 /* AdaptyLogger.xcframework in Embed Flutter Frameworks */,
+				77D4FFEEE3F9FDBA2C55B598 /* AdaptyPlugin.xcframework in Embed Flutter Frameworks */,
+				0B73B5CF95F67BFDC41CF5DE /* AdaptyUI.xcframework in Embed Flutter Frameworks */,
+				8E74432859CDC723DF5097A7 /* AdaptyUIBuilder.xcframework in Embed Flutter Frameworks */,
+			);
+			name = "Embed Flutter Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FFF4673105B14F848101E10D /* Embed Flutter Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				52AFFD32F0D44D600D15CEB0 /* Flutter.xcframework in Embed Flutter Frameworks */,
+				B1B99AC2C916E863128A052F /* App.xcframework in Embed Flutter Frameworks */,
+				27B430356CD86EBC632B75D3 /* adapty_flutter.xcframework in Embed Flutter Frameworks */,
+				4AAAA83555D574613E351CBF /* path_provider_foundation.xcframework in Embed Flutter Frameworks */,
+				9E2F02E61C356F5CFA5BE890 /* shared_preferences_foundation.xcframework in Embed Flutter Frameworks */,
+				82B74BF5732D3F3061A1BEEE /* sqflite_darwin.xcframework in Embed Flutter Frameworks */,
+				6590C8F7C259A089A4DF497C /* Adapty.xcframework in Embed Flutter Frameworks */,
+				8C5A9CD643BFB9B3076692DC /* AdaptyLogger.xcframework in Embed Flutter Frameworks */,
+				125FC6F7FA170F4F575EE178 /* AdaptyPlugin.xcframework in Embed Flutter Frameworks */,
+				333235306A8FAA11E9978E5F /* AdaptyUI.xcframework in Embed Flutter Frameworks */,
+				496A331C507F5A7B6EF37311 /* AdaptyUIBuilder.xcframework in Embed Flutter Frameworks */,
+			);
+			name = "Embed Flutter Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0655BBF8E78C476032237728 /* Pods-Mocked.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mocked.debug.xcconfig"; path = "Target Support Files/Pods-Mocked/Pods-Mocked.debug.xcconfig"; sourceTree = "<group>"; };
-		0F70130A542AB5FF3C0E7D08 /* Pods-Mocked.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mocked.release.xcconfig"; path = "Target Support Files/Pods-Mocked/Pods-Mocked.release.xcconfig"; sourceTree = "<group>"; };
-		172E613B3E5E2ECA63DB72B5 /* Pods_FamilyProd.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FamilyProd.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2DDB0E585CAE52746156F926 /* Pods-Dev.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dev.debug.xcconfig"; path = "Target Support Files/Pods-Dev/Pods-Dev.debug.xcconfig"; sourceTree = "<group>"; };
-		39323AFF3B4C4CB93EF7EEB4 /* Pods_FamilyMocked.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FamilyMocked.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		39D856BE3F9E93FAF1751D60 /* Pods-FamilyDev.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FamilyDev.debug.xcconfig"; path = "Target Support Files/Pods-FamilyDev/Pods-FamilyDev.debug.xcconfig"; sourceTree = "<group>"; };
+		01438ACD82B603C5CD05A225 /* AdaptyUI.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = AdaptyUI.xcframework; path = "../common/build/ios-framework/$(CONFIGURATION)/AdaptyUI.xcframework"; sourceTree = "<group>"; };
+		0C78F727D4DFD7E5EB6E2846 /* shared_preferences_foundation.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = shared_preferences_foundation.xcframework; path = "../common/build/ios-framework/$(CONFIGURATION)/shared_preferences_foundation.xcframework"; sourceTree = "<group>"; };
+		178B93D86112A4AF7D22277E /* Adapty.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = Adapty.xcframework; path = "../common/build/ios-framework/$(CONFIGURATION)/Adapty.xcframework"; sourceTree = "<group>"; };
+		244C12F46960E8D957078882 /* AdaptyLogger.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = AdaptyLogger.xcframework; path = "../common/build/ios-framework/$(CONFIGURATION)/AdaptyLogger.xcframework"; sourceTree = "<group>"; };
+		2FC35391E9EA9DEADEB7E33A /* AdaptyPlugin.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = AdaptyPlugin.xcframework; path = "../common/build/ios-framework/$(CONFIGURATION)/AdaptyPlugin.xcframework"; sourceTree = "<group>"; };
 		47729E0222F447C800B9B36B /* Blokada 6.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Blokada 6.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		47729E0522F447C800B9B36B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47729E0C22F447CA00B9B36B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		47729E0F22F447CA00B9B36B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		47729E1122F447CA00B9B36B /* Info-six.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-six.plist"; sourceTree = "<group>"; };
-		4845648844193CBC09726A12 /* Pods-FamilyMocked.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FamilyMocked.release.xcconfig"; path = "Target Support Files/Pods-FamilyMocked/Pods-FamilyMocked.release.xcconfig"; sourceTree = "<group>"; };
 		4E02E30D2A56DA620014E884 /* NetworkCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkCommand.swift; sourceTree = "<group>"; };
 		4E057E76244DBB7500995A6E /* KeychainSwiftDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainSwiftDistrib.swift; sourceTree = "<group>"; };
 		4E08B9D5247EAD8100AED8F0 /* ContentHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentHostingController.swift; sourceTree = "<group>"; };
@@ -885,8 +1141,6 @@
 		4E2F2A25276371C6005A59F5 /* AppBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBinding.swift; sourceTree = "<group>"; };
 		4E356A8724376B3A0094EE27 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		4E356A8B24378CA80094EE27 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
-		4E363E662880027F00406368 /* Flutter.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Flutter.xcframework; path = "../common/build/ios-framework/$(CONFIGURATION)/Flutter.xcframework"; sourceTree = "<group>"; };
-		4E363E672880027F00406368 /* App.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = App.xcframework; path = "../common/build/ios-framework/$(CONFIGURATION)/App.xcframework"; sourceTree = "<group>"; };
 		4E36D5EC24589AFF00E339F2 /* BlokadaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlokadaView.swift; sourceTree = "<group>"; };
 		4E38CDE52E4D00B400594093 /* PrivateDnsServiceMac.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateDnsServiceMac.swift; sourceTree = "<group>"; };
 		4E3E1FB62A7B8F24005A2550 /* Flavor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flavor.swift; sourceTree = "<group>"; };
@@ -930,15 +1184,11 @@
 		4E8AE1F8275918B400BD2E5B /* CombineUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineUtil.swift; sourceTree = "<group>"; };
 		4E8AE1FB27591F8E00BD2E5B /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 		4E90BA3E27BC09260051FD0C /* QuickActionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionsService.swift; sourceTree = "<group>"; };
-		4E9216992966E71700E1C34D /* App.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = App.xcframework; path = "six-common/build/ios-framework/Release/App.xcframework"; sourceTree = "<group>"; };
-		4E92169D2966E72600E1C34D /* Flutter.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:S8QB4VV633:FLUTTER.IO LLC"; lastKnownFileType = wrapper.xcframework; name = Flutter.xcframework; path = "six-common/build/ios-framework/Release/Flutter.xcframework"; sourceTree = "<group>"; };
 		4E92C6EF2C04C3F800A33170 /* Family.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Family.entitlements; sourceTree = "<group>"; };
 		4E92C6FD2C05CBE400A33170 /* ViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModels.swift; sourceTree = "<group>"; };
 		4E92C7012C05CC1800A33170 /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 		4E92C7092C05CF9700A33170 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		4E92C70D2C05D00E00A33170 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		4E946E452A2483EB0053943D /* App.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = App.xcframework; path = "six-common/build/ios-framework/Debug/App.xcframework"; sourceTree = "<group>"; };
-		4E946E462A2483EC0053943D /* Flutter.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:S8QB4VV633:FLUTTER.IO LLC"; lastKnownFileType = wrapper.xcframework; name = Flutter.xcframework; path = "six-common/build/ios-framework/Debug/Flutter.xcframework"; sourceTree = "<group>"; };
 		4E946E5B2A29CD430053943D /* PlusBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusBinding.swift; sourceTree = "<group>"; };
 		4E94C2FC2420B0A60008E318 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		4E94C3022428F1C20008E318 /* BlockaLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockaLogger.swift; sourceTree = "<group>"; };
@@ -1023,19 +1273,14 @@
 		4EF5E4782A39D1AE001D1FF7 /* Env.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Env.swift; sourceTree = "<group>"; };
 		4EF7EDF4240E9E95001FA02E /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		4EF8ED7D2B87AA3B00E6E607 /* ScanQrCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanQrCodeView.swift; sourceTree = "<group>"; };
-		548F3BBF5E3AA6F2587A522A /* Pods-FamilyProd.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FamilyProd.release.xcconfig"; path = "Target Support Files/Pods-FamilyProd/Pods-FamilyProd.release.xcconfig"; sourceTree = "<group>"; };
-		54C558C85715162C0728B745 /* Pods-FamilyMocked.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FamilyMocked.debug.xcconfig"; path = "Target Support Files/Pods-FamilyMocked/Pods-FamilyMocked.debug.xcconfig"; sourceTree = "<group>"; };
-		5F1CC6D071CA068879542CB6 /* Pods_WireGuardNetworkExtensioniOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WireGuardNetworkExtensioniOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6077D4402E4F70C7F9F66BBE /* Pods-FamilyDev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FamilyDev.release.xcconfig"; path = "Target Support Files/Pods-FamilyDev/Pods-FamilyDev.release.xcconfig"; sourceTree = "<group>"; };
-		6B39155040C383190BD210AF /* Pods-Dev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dev.release.xcconfig"; path = "Target Support Files/Pods-Dev/Pods-Dev.release.xcconfig"; sourceTree = "<group>"; };
-		8C1897DE1A6919F849F7C67D /* Pods-Prod.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Prod.debug.xcconfig"; path = "Target Support Files/Pods-Prod/Pods-Prod.debug.xcconfig"; sourceTree = "<group>"; };
-		8C94D6248881297B61CC2DF7 /* Pods_Prod.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Prod.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5F7701112A2E69BEC3234042 /* sqflite_darwin.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = sqflite_darwin.xcframework; path = "../common/build/ios-framework/$(CONFIGURATION)/sqflite_darwin.xcframework"; sourceTree = "<group>"; };
+		6F3B800A69B1511DA04E83A4 /* AdaptyUIBuilder.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = AdaptyUIBuilder.xcframework; path = "../common/build/ios-framework/$(CONFIGURATION)/AdaptyUIBuilder.xcframework"; sourceTree = "<group>"; };
 		B2240DD92417FA8900F13E97 /* libengine.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libengine.a; path = Engine/libengine.a; sourceTree = "<group>"; };
-		B2D21A15748E1394054B3DFC /* Pods_FamilyDev.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FamilyDev.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BCCAB443BAD3852B4A55923E /* Pods_Mocked.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mocked.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BD62BE06311E71CD991CE3F2 /* Pods_Dev.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dev.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EB85EFCE9007BDB008A06578 /* Pods-FamilyProd.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FamilyProd.debug.xcconfig"; path = "Target Support Files/Pods-FamilyProd/Pods-FamilyProd.debug.xcconfig"; sourceTree = "<group>"; };
-		FC0CE56C29D8A2B13170BD63 /* Pods-Prod.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Prod.release.xcconfig"; path = "Target Support Files/Pods-Prod/Pods-Prod.release.xcconfig"; sourceTree = "<group>"; };
+		B418F2C134A19E9A159396B1 /* adapty_flutter.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = adapty_flutter.xcframework; path = "../common/build/ios-framework/$(CONFIGURATION)/adapty_flutter.xcframework"; sourceTree = "<group>"; };
+		BE7F926680D79542AA15AE64 /* FlutterPluginRegistrant.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = FlutterPluginRegistrant.xcframework; path = "../common/build/ios-framework/$(CONFIGURATION)/FlutterPluginRegistrant.xcframework"; sourceTree = "<group>"; };
+		CB361589C2DC61C5C7576043 /* path_provider_foundation.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = path_provider_foundation.xcframework; path = "../common/build/ios-framework/$(CONFIGURATION)/path_provider_foundation.xcframework"; sourceTree = "<group>"; };
+		EE84FC4D74BE9E76DF3E6E38 /* App.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = App.xcframework; path = "../common/build/ios-framework/$(CONFIGURATION)/App.xcframework"; sourceTree = "<group>"; };
+		FE6FF56F806187501579E61F /* Flutter.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = Flutter.xcframework; path = "../common/build/ios-framework/$(CONFIGURATION)/Flutter.xcframework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -1101,9 +1346,20 @@
 				4ED3445623E1B0D90075B796 /* NetworkExtension.framework in Frameworks */,
 				4E270DF62A80F30400D3484B /* Factory in Frameworks */,
 				4E58C1372AC1B7D7002CA1A3 /* CodeScanner in Frameworks */,
-				32C1008A7577A4987B004E84 /* Pods_Prod.framework in Frameworks */,
 				C58396BD1C3831BDC8BA6CB5 /* FirebaseCore in Frameworks */,
 				8187E5CC61B540A0F67B3E1E /* FirebaseMessaging in Frameworks */,
+				9C9303A5D2C4A1C088960B32 /* Flutter.xcframework in Frameworks */,
+				11A32CA65A265DF41AA61787 /* App.xcframework in Frameworks */,
+				B4FF3982E96CC6756784A58A /* FlutterPluginRegistrant.xcframework in Frameworks */,
+				4D46ACB17273A8AFD03E8B50 /* adapty_flutter.xcframework in Frameworks */,
+				1894EEB489F348CB1BFB0CB3 /* path_provider_foundation.xcframework in Frameworks */,
+				805C49D191F77B843D0268A9 /* shared_preferences_foundation.xcframework in Frameworks */,
+				B910EAD34F18CAF772CC8DCB /* sqflite_darwin.xcframework in Frameworks */,
+				FB93E4DF165672CEDC549220 /* Adapty.xcframework in Frameworks */,
+				070DA06D5FB7632350DC7916 /* AdaptyLogger.xcframework in Frameworks */,
+				15195FC309AC86B07364CDF5 /* AdaptyPlugin.xcframework in Frameworks */,
+				F176A9AB8D8E8929B73DE5B9 /* AdaptyUI.xcframework in Frameworks */,
+				AB51D0EC3E95A90230B1CDDF /* AdaptyUIBuilder.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1113,7 +1369,18 @@
 			files = (
 				4E1276B52AE7D0FC00A94994 /* CodeScanner in Frameworks */,
 				4E1276B62AE7D0FC00A94994 /* Factory in Frameworks */,
-				D457AF88E4351BB1D413F70B /* Pods_FamilyMocked.framework in Frameworks */,
+				2B13FE2D0DB4A68737E2E1D3 /* Flutter.xcframework in Frameworks */,
+				AA9938BA227CA1A9301063F6 /* App.xcframework in Frameworks */,
+				81D38BFAD2D3811B97455A3F /* FlutterPluginRegistrant.xcframework in Frameworks */,
+				FAF4666474BD5215B0C61B58 /* adapty_flutter.xcframework in Frameworks */,
+				64B30D5A116E8283A889D0AA /* path_provider_foundation.xcframework in Frameworks */,
+				2086BF6FCBD44727CD707391 /* shared_preferences_foundation.xcframework in Frameworks */,
+				3B3D1681AE86B1B50E23D54D /* sqflite_darwin.xcframework in Frameworks */,
+				EDF69ABC402F3EA2C26A74B3 /* Adapty.xcframework in Frameworks */,
+				C9400AF97A7DAB7149B5815A /* AdaptyLogger.xcframework in Frameworks */,
+				C990C12BA1B02E7EC830ABE3 /* AdaptyPlugin.xcframework in Frameworks */,
+				9E97011AF3A8B55AC82B6C35 /* AdaptyUI.xcframework in Frameworks */,
+				2CC1E6B5DABF504616A2ACE8 /* AdaptyUIBuilder.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1140,7 +1407,18 @@
 				4E270DDD2A80EB8300D3484B /* NetworkExtension.framework in Frameworks */,
 				4E270DDE2A80EB8300D3484B /* Factory in Frameworks */,
 				4E58C13D2AC1B90D002CA1A3 /* CodeScanner in Frameworks */,
-				81A14548F0971940140E60F7 /* Pods_FamilyProd.framework in Frameworks */,
+				AFAF2B732B928FF3C8D9B56D /* Flutter.xcframework in Frameworks */,
+				24B1E7FC2AF2673EDA14C831 /* App.xcframework in Frameworks */,
+				9009E6FC33323903147A1EF5 /* FlutterPluginRegistrant.xcframework in Frameworks */,
+				D554C0E1FCD485B840C4A773 /* adapty_flutter.xcframework in Frameworks */,
+				9556E15ECBF4DAD79EBD344D /* path_provider_foundation.xcframework in Frameworks */,
+				BE7C867803DEA2EC74992411 /* shared_preferences_foundation.xcframework in Frameworks */,
+				9BC8A846DC02BA1B6D21ED31 /* sqflite_darwin.xcframework in Frameworks */,
+				B6EC5AD87FD5E64E47AE7353 /* Adapty.xcframework in Frameworks */,
+				1D44DBC878EB672B3099B207 /* AdaptyLogger.xcframework in Frameworks */,
+				FADC0FB47A8366D547C947D1 /* AdaptyPlugin.xcframework in Frameworks */,
+				49B909584E3803FB972BAACD /* AdaptyUI.xcframework in Frameworks */,
+				285362F71AD3A5DE453901F6 /* AdaptyUIBuilder.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1164,9 +1442,20 @@
 			files = (
 				4E58C1392AC1B8FB002CA1A3 /* CodeScanner in Frameworks */,
 				4E28ADDA2AB33169007445C8 /* Factory in Frameworks */,
-				2BAF43F98AE7367532A1363E /* Pods_Mocked.framework in Frameworks */,
 				3DFA9F4792D51C716F8ED0D6 /* FirebaseCore in Frameworks */,
 				9EE02E63D584674824D01B10 /* FirebaseMessaging in Frameworks */,
+				50FDE7758757786F40AD642A /* Flutter.xcframework in Frameworks */,
+				8AEA48B05FF9F42ECDF0AD26 /* App.xcframework in Frameworks */,
+				FF62FBB7095D6A2BAEA74B71 /* FlutterPluginRegistrant.xcframework in Frameworks */,
+				DA52639EAE36E3128FAAE4A7 /* adapty_flutter.xcframework in Frameworks */,
+				676BB49036E1B46830880E60 /* path_provider_foundation.xcframework in Frameworks */,
+				7863D90DD5C45829943C4D36 /* shared_preferences_foundation.xcframework in Frameworks */,
+				0E8A70846F6D344FEA6A4BE6 /* sqflite_darwin.xcframework in Frameworks */,
+				6630E8325AD95420CE7B112A /* Adapty.xcframework in Frameworks */,
+				2894300D380C6D0CAAF87C25 /* AdaptyLogger.xcframework in Frameworks */,
+				7477C26F1529DD0C6CD8360F /* AdaptyPlugin.xcframework in Frameworks */,
+				955B92185CC128F26507921F /* AdaptyUI.xcframework in Frameworks */,
+				642410BA07D59AF5A5B154F9 /* AdaptyUIBuilder.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1177,9 +1466,20 @@
 				4E8651FB2A3C968B0060AFB1 /* NetworkExtension.framework in Frameworks */,
 				4E270DF82A80F31600D3484B /* Factory in Frameworks */,
 				4EEDBBA42B6117C9004AB456 /* CodeScanner in Frameworks */,
-				176BF5230E082798AF0311E8 /* Pods_Dev.framework in Frameworks */,
 				1DC1BD23E00EC4DD41238D45 /* FirebaseCore in Frameworks */,
 				EAF13E21F04EA4DF15F3E95C /* FirebaseMessaging in Frameworks */,
+				815790DBD8ED11147D4D7616 /* Flutter.xcframework in Frameworks */,
+				C75249DBE6339BE13D24A0C8 /* App.xcframework in Frameworks */,
+				3292282EB0325D0C702DF865 /* FlutterPluginRegistrant.xcframework in Frameworks */,
+				6EE776FB95C956DCA1F3DCD9 /* adapty_flutter.xcframework in Frameworks */,
+				71E3789E380A7D51B123BD5C /* path_provider_foundation.xcframework in Frameworks */,
+				51B6A365DADB8DA39FA6EFBB /* shared_preferences_foundation.xcframework in Frameworks */,
+				959F519EF4772CF2C69D2302 /* sqflite_darwin.xcframework in Frameworks */,
+				1394EFD7BED240B0B83B0CEF /* Adapty.xcframework in Frameworks */,
+				8B5FE423A5E66E5C6DCEFD2D /* AdaptyLogger.xcframework in Frameworks */,
+				05F5AE646891B643C9965C6A /* AdaptyPlugin.xcframework in Frameworks */,
+				CA558AA751BD4694EC4A15FE /* AdaptyUI.xcframework in Frameworks */,
+				07B83BC6BADE48156BA0E16E /* AdaptyUIBuilder.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1190,7 +1490,18 @@
 				4EBF3BDF2A80E55900F637BB /* NetworkExtension.framework in Frameworks */,
 				4EBF3BE02A80E55900F637BB /* Factory in Frameworks */,
 				4E58C13B2AC1B905002CA1A3 /* CodeScanner in Frameworks */,
-				1AD1BA7496D8C335F2E6678D /* Pods_FamilyDev.framework in Frameworks */,
+				4117488C34A3EB51A80A27FA /* Flutter.xcframework in Frameworks */,
+				3E8CF6147DAC6AD406054536 /* App.xcframework in Frameworks */,
+				26E88EC0F9362A532CAC1D58 /* FlutterPluginRegistrant.xcframework in Frameworks */,
+				8B437B718446E96B5028D9E3 /* adapty_flutter.xcframework in Frameworks */,
+				42893DA1F69C2BFAFD5B9F1F /* path_provider_foundation.xcframework in Frameworks */,
+				DDA22489AFA9DDED35CEAB24 /* shared_preferences_foundation.xcframework in Frameworks */,
+				429B1B71F4E784D2F1ABF1AD /* sqflite_darwin.xcframework in Frameworks */,
+				295444E6A6E5A0F31FF94D4D /* Adapty.xcframework in Frameworks */,
+				40228C5FA92636CC674AF672 /* AdaptyLogger.xcframework in Frameworks */,
+				65AD37CFE0C5989C5FC3DE12 /* AdaptyPlugin.xcframework in Frameworks */,
+				D5346B6A12F08F0E1E234D19 /* AdaptyUI.xcframework in Frameworks */,
+				C4A7044FB95F2DC8E5141188 /* AdaptyUIBuilder.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1226,10 +1537,10 @@
 				4E6B36A32DBB85C100A37431 /* BlockaWebExtension */,
 				4ED3443D23E190910075B796 /* Frameworks */,
 				47729E0322F447C800B9B36B /* Products */,
-				976CF20AFE2D9EC991A20222 /* Pods */,
 				4E23CF93293DEFC900613D0A /* Config.xcconfig */,
 				4ED7517E2D635F2F00CEE82E /* WireGuardNetworkExtensioniOS copy-Info.plist */,
 				4E5E73332DC0DF0500A0B192 /* BlockaWebExt-Info.plist */,
+				7123F62CB9E8E93BFA81A9FC /* FlutterFrameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1613,23 +1924,10 @@
 		4ED3443D23E190910075B796 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4E92169D2966E72600E1C34D /* Flutter.xcframework */,
-				4E9216992966E71700E1C34D /* App.xcframework */,
-				4E946E452A2483EB0053943D /* App.xcframework */,
-				4E946E462A2483EC0053943D /* Flutter.xcframework */,
 				4E23CFA5293DF89100613D0A /* libwg-go.a */,
-				4E363E672880027F00406368 /* App.xcframework */,
-				4E363E662880027F00406368 /* Flutter.xcframework */,
 				B2240DD92417FA8900F13E97 /* libengine.a */,
 				4ED3445323E1B0A60075B796 /* NetworkExtension.framework */,
 				4ED3443E23E190910075B796 /* libresolv.tbd */,
-				BD62BE06311E71CD991CE3F2 /* Pods_Dev.framework */,
-				B2D21A15748E1394054B3DFC /* Pods_FamilyDev.framework */,
-				39323AFF3B4C4CB93EF7EEB4 /* Pods_FamilyMocked.framework */,
-				172E613B3E5E2ECA63DB72B5 /* Pods_FamilyProd.framework */,
-				BCCAB443BAD3852B4A55923E /* Pods_Mocked.framework */,
-				8C94D6248881297B61CC2DF7 /* Pods_Prod.framework */,
-				5F1CC6D071CA068879542CB6 /* Pods_WireGuardNetworkExtensioniOS.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1660,23 +1958,23 @@
 			path = Channel;
 			sourceTree = "<group>";
 		};
-		976CF20AFE2D9EC991A20222 /* Pods */ = {
+		7123F62CB9E8E93BFA81A9FC /* FlutterFrameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2DDB0E585CAE52746156F926 /* Pods-Dev.debug.xcconfig */,
-				6B39155040C383190BD210AF /* Pods-Dev.release.xcconfig */,
-				39D856BE3F9E93FAF1751D60 /* Pods-FamilyDev.debug.xcconfig */,
-				6077D4402E4F70C7F9F66BBE /* Pods-FamilyDev.release.xcconfig */,
-				54C558C85715162C0728B745 /* Pods-FamilyMocked.debug.xcconfig */,
-				4845648844193CBC09726A12 /* Pods-FamilyMocked.release.xcconfig */,
-				EB85EFCE9007BDB008A06578 /* Pods-FamilyProd.debug.xcconfig */,
-				548F3BBF5E3AA6F2587A522A /* Pods-FamilyProd.release.xcconfig */,
-				0655BBF8E78C476032237728 /* Pods-Mocked.debug.xcconfig */,
-				0F70130A542AB5FF3C0E7D08 /* Pods-Mocked.release.xcconfig */,
-				8C1897DE1A6919F849F7C67D /* Pods-Prod.debug.xcconfig */,
-				FC0CE56C29D8A2B13170BD63 /* Pods-Prod.release.xcconfig */,
+				FE6FF56F806187501579E61F /* Flutter.xcframework */,
+				EE84FC4D74BE9E76DF3E6E38 /* App.xcframework */,
+				BE7F926680D79542AA15AE64 /* FlutterPluginRegistrant.xcframework */,
+				B418F2C134A19E9A159396B1 /* adapty_flutter.xcframework */,
+				CB361589C2DC61C5C7576043 /* path_provider_foundation.xcframework */,
+				0C78F727D4DFD7E5EB6E2846 /* shared_preferences_foundation.xcframework */,
+				5F7701112A2E69BEC3234042 /* sqflite_darwin.xcframework */,
+				178B93D86112A4AF7D22277E /* Adapty.xcframework */,
+				244C12F46960E8D957078882 /* AdaptyLogger.xcframework */,
+				2FC35391E9EA9DEADEB7E33A /* AdaptyPlugin.xcframework */,
+				01438ACD82B603C5CD05A225 /* AdaptyUI.xcframework */,
+				6F3B800A69B1511DA04E83A4 /* AdaptyUIBuilder.xcframework */,
 			);
-			path = Pods;
+			name = FlutterFrameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1703,14 +2001,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 47729E2A22F447CA00B9B36B /* Build configuration list for PBXNativeTarget "Prod" */;
 			buildPhases = (
-				2637C3700CCF381FFE13B394 /* [CP] Check Pods Manifest.lock */,
-				FF60C343CE653B9B305F661F /* [CP-User] Run Flutter Build common Script */,
 				47729DFE22F447C800B9B36B /* Sources */,
 				47729DFF22F447C800B9B36B /* Frameworks */,
 				47729E0022F447C800B9B36B /* Resources */,
 				4ED3445223E1B0580075B796 /* Embed Foundation Extensions */,
-				05EC5BCE37BC4918CD8CBC62 /* [CP] Embed Pods Frameworks */,
-				FA90FD3C263F87931895D0FF /* [CP-User] Embed Flutter Build common Script */,
+				7AC85137675B8F7AA6A0FFD8 /* Embed Flutter Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1733,13 +2028,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E1276C22AE7D0FC00A94994 /* Build configuration list for PBXNativeTarget "FamilyMocked" */;
 			buildPhases = (
-				43338CE548CB51003ACE21E1 /* [CP] Check Pods Manifest.lock */,
-				767B6E5A6063014DF3198520 /* [CP-User] Run Flutter Build common Script */,
 				4E1275FC2AE7D0FC00A94994 /* Sources */,
 				4E1276B42AE7D0FC00A94994 /* Frameworks */,
 				4E1276B92AE7D0FC00A94994 /* Resources */,
-				99D45E18C644D6E0DE5282F5 /* [CP] Embed Pods Frameworks */,
-				D1084037127AA47AD1C145CD /* [CP-User] Embed Flutter Build common Script */,
+				FFF4673105B14F848101E10D /* Embed Flutter Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1794,14 +2086,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E270DEB2A80EB8300D3484B /* Build configuration list for PBXNativeTarget "FamilyProd" */;
 			buildPhases = (
-				F945F32715EE0F6DC90B7AB4 /* [CP] Check Pods Manifest.lock */,
-				853C6FC8CB07CD97112BE02B /* [CP-User] Run Flutter Build common Script */,
 				4E270D0B2A80EB8300D3484B /* Sources */,
 				4E270DDB2A80EB8300D3484B /* Frameworks */,
 				4E270DE02A80EB8300D3484B /* Resources */,
 				4E270DE62A80EB8300D3484B /* Embed Foundation Extensions */,
-				9DFF5FB51773F535178A6216 /* [CP] Embed Pods Frameworks */,
-				3AFF420069408B1DB7E4FF9F /* [CP-User] Embed Flutter Build common Script */,
+				9E534D10ECA949CC91925ADE /* Embed Flutter Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1856,13 +2145,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E7FE9D5244DC28900851E9F /* Build configuration list for PBXNativeTarget "Mocked" */;
 			buildPhases = (
-				C26F2754DDE952990DD3075F /* [CP] Check Pods Manifest.lock */,
-				EEADD774A4318AD992964C79 /* [CP-User] Run Flutter Build common Script */,
 				4E7FE994244DC28900851E9F /* Sources */,
 				4E7FE9CD244DC28900851E9F /* Frameworks */,
 				4E7FE9D0244DC28900851E9F /* Resources */,
-				C6CF31F57BFE35110E9B07A1 /* [CP] Embed Pods Frameworks */,
-				F1A9A6D7F8AD3B104D6D2A4D /* [CP-User] Embed Flutter Build common Script */,
+				93656E8C8925CB1BA406DC1F /* Embed Flutter Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1883,14 +2169,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E8652092A3C968B0060AFB1 /* Build configuration list for PBXNativeTarget "Dev" */;
 			buildPhases = (
-				3B04D5AB98A1285AED91575C /* [CP] Check Pods Manifest.lock */,
-				B864EACB5DB73F47E3B33140 /* [CP-User] Run Flutter Build common Script */,
 				4E86510B2A3C968B0060AFB1 /* Sources */,
 				4E8651F92A3C968B0060AFB1 /* Frameworks */,
 				4E8651FE2A3C968B0060AFB1 /* Resources */,
 				4E8652042A3C968B0060AFB1 /* Embed Foundation Extensions */,
-				A6E4B6426235F623398BEAFF /* [CP] Embed Pods Frameworks */,
-				B0736F70A5A69ADD7B6C575C /* [CP-User] Embed Flutter Build common Script */,
+				76D1242E71237CF1F21FFDBC /* Embed Flutter Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1913,14 +2196,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4EBF3BED2A80E55900F637BB /* Build configuration list for PBXNativeTarget "FamilyDev" */;
 			buildPhases = (
-				B0E65CE39D5FD6DD53B129D4 /* [CP] Check Pods Manifest.lock */,
-				0A74296A75C5FA790D5C5E95 /* [CP-User] Run Flutter Build common Script */,
 				4EBF3B0D2A80E55900F637BB /* Sources */,
 				4EBF3BDD2A80E55900F637BB /* Frameworks */,
 				4EBF3BE22A80E55900F637BB /* Resources */,
 				4E270CFE2A80E91700D3484B /* Embed Foundation Extensions */,
-				E306742B9B36E8E2834EB0DF /* [CP] Embed Pods Frameworks */,
-				72E7218A413BF752F840DFA9 /* [CP-User] Embed Flutter Build common Script */,
+				7BD9A8783E0AC19808013F4C /* Embed Flutter Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2153,223 +2433,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		05EC5BCE37BC4918CD8CBC62 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Prod/Pods-Prod-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Prod/Pods-Prod-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Prod/Pods-Prod-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		0A74296A75C5FA790D5C5E95 /* [CP-User] Run Flutter Build common Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			name = "[CP-User] Run Flutter Build common Script";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build";
-		};
-		2637C3700CCF381FFE13B394 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Prod-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3AFF420069408B1DB7E4FF9F /* [CP-User] Embed Flutter Build common Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			name = "[CP-User] Embed Flutter Build common Script";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh embed_and_thin";
-		};
-		3B04D5AB98A1285AED91575C /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Dev-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		43338CE548CB51003ACE21E1 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-FamilyMocked-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		72E7218A413BF752F840DFA9 /* [CP-User] Embed Flutter Build common Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			name = "[CP-User] Embed Flutter Build common Script";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh embed_and_thin";
-		};
-		767B6E5A6063014DF3198520 /* [CP-User] Run Flutter Build common Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			name = "[CP-User] Run Flutter Build common Script";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build";
-			showEnvVarsInLog = 0;
-		};
-		853C6FC8CB07CD97112BE02B /* [CP-User] Run Flutter Build common Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			name = "[CP-User] Run Flutter Build common Script";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build";
-		};
-		99D45E18C644D6E0DE5282F5 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FamilyMocked/Pods-FamilyMocked-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FamilyMocked/Pods-FamilyMocked-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FamilyMocked/Pods-FamilyMocked-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9DFF5FB51773F535178A6216 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FamilyProd/Pods-FamilyProd-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FamilyProd/Pods-FamilyProd-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FamilyProd/Pods-FamilyProd-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A6E4B6426235F623398BEAFF /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Dev/Pods-Dev-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Dev/Pods-Dev-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Dev/Pods-Dev-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B0736F70A5A69ADD7B6C575C /* [CP-User] Embed Flutter Build common Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			name = "[CP-User] Embed Flutter Build common Script";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh embed_and_thin";
-		};
-		B0E65CE39D5FD6DD53B129D4 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-FamilyDev-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		B27F19A42E13D64E00EE56A2 /* Make content filter rules */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2406,145 +2469,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -eu\n\nmake -C \"${SRCROOT}/BlockaWebExtension\" gen-rules\n";
-		};
-		B864EACB5DB73F47E3B33140 /* [CP-User] Run Flutter Build common Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			name = "[CP-User] Run Flutter Build common Script";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build";
-		};
-		C26F2754DDE952990DD3075F /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Mocked-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C6CF31F57BFE35110E9B07A1 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Mocked/Pods-Mocked-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Mocked/Pods-Mocked-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Mocked/Pods-Mocked-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D1084037127AA47AD1C145CD /* [CP-User] Embed Flutter Build common Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			name = "[CP-User] Embed Flutter Build common Script";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh embed_and_thin";
-		};
-		E306742B9B36E8E2834EB0DF /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FamilyDev/Pods-FamilyDev-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FamilyDev/Pods-FamilyDev-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FamilyDev/Pods-FamilyDev-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EEADD774A4318AD992964C79 /* [CP-User] Run Flutter Build common Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			name = "[CP-User] Run Flutter Build common Script";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build";
-			showEnvVarsInLog = 0;
-		};
-		F1A9A6D7F8AD3B104D6D2A4D /* [CP-User] Embed Flutter Build common Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			name = "[CP-User] Embed Flutter Build common Script";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh embed_and_thin";
-		};
-		F945F32715EE0F6DC90B7AB4 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-FamilyProd-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FA90FD3C263F87931895D0FF /* [CP-User] Embed Flutter Build common Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			name = "[CP-User] Embed Flutter Build common Script";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh embed_and_thin";
-		};
-		FF60C343CE653B9B305F661F /* [CP-User] Run Flutter Build common Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			name = "[CP-User] Run Flutter Build common Script";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../common/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -3476,7 +3400,6 @@
 		};
 		47729E2B22F447CA00B9B36B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8C1897DE1A6919F849F7C67D /* Pods-Prod.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -3527,7 +3450,6 @@
 		};
 		47729E2C22F447CA00B9B36B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FC0CE56C29D8A2B13170BD63 /* Pods-Prod.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -3575,7 +3497,6 @@
 		};
 		4E1276C32AE7D0FC00A94994 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 54C558C85715162C0728B745 /* Pods-FamilyMocked.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = FamilyAppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -3617,7 +3538,6 @@
 		};
 		4E1276C42AE7D0FC00A94994 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4845648844193CBC09726A12 /* Pods-FamilyMocked.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = FamilyAppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -3797,7 +3717,6 @@
 		};
 		4E270DEC2A80EB8300D3484B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EB85EFCE9007BDB008A06578 /* Pods-FamilyProd.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = FamilyAppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -3845,7 +3764,6 @@
 		};
 		4E270DED2A80EB8300D3484B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 548F3BBF5E3AA6F2587A522A /* Pods-FamilyProd.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = FamilyAppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -4051,7 +3969,6 @@
 		};
 		4E7FE9D6244DC28900851E9F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0655BBF8E78C476032237728 /* Pods-Mocked.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -4093,7 +4010,6 @@
 		};
 		4E7FE9D7244DC28900851E9F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0F70130A542AB5FF3C0E7D08 /* Pods-Mocked.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -4132,7 +4048,6 @@
 		};
 		4E86520A2A3C968B0060AFB1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2DDB0E585CAE52746156F926 /* Pods-Dev.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -4183,7 +4098,6 @@
 		};
 		4E86520B2A3C968B0060AFB1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6B39155040C383190BD210AF /* Pods-Dev.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -4231,7 +4145,6 @@
 		};
 		4EBF3BEE2A80E55900F637BB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 39D856BE3F9E93FAF1751D60 /* Pods-FamilyDev.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = FamilyAppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -4277,7 +4190,6 @@
 		};
 		4EBF3BEF2A80E55900F637BB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6077D4402E4F70C7F9F66BBE /* Pods-FamilyDev.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = FamilyAppIcon;
 				CLANG_ENABLE_MODULES = YES;

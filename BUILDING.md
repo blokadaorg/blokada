@@ -16,7 +16,6 @@ For minimum versions needed see the Dockerfile.
 
 - Xcode
 - ruby
-- cocoapods
 - bundler
 - swiftlint
 - go
@@ -36,9 +35,7 @@ $ sudo xcodebuild -runFirstLaunch
 $ brew install ruby
 $ export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 $ export PATH="$HOME/.gem/ruby/3.4.0/bin:$PATH"
-$ gem install cocoapods --user-install
-$ gem install bundler
-$ pod install --repo-update
+$ gem install bundler   # for fastlane
 $ brew install swiftlint go@1.22
 $ export PATH="/opt/homebrew/opt/go@1.22/bin:$PATH"
 
@@ -63,11 +60,17 @@ fastlane match development
 ...
 ```
 
-If there are any problems with iOS dependencies, you may need to do (in ios dir):
+iOS native dependencies use Swift Package Manager, resolved by Xcode (Firebase,
+Factory, CodeScanner). The Flutter module is consumed as prebuilt xcframeworks:
+`make -C common build-ios` produces them under `common/build/ios-framework/`,
+which the host project links and embeds. If iOS deps look stale, rebuild with:
 ```
-$ rm Podfile.lock
-$ pod install --repo-update
+$ make -C common build-ios
 ```
+
+To debug the embedded Flutter engine (`flutter attach`, breakpoints) set the
+LLDB init file once, per https://docs.flutter.dev/to/ios-add-to-app-embed-setup
+("Use frameworks > Set LLDB Init File").
 
 Now see fastlane/README.md for more details on how to build the apps.
 

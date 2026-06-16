@@ -87,7 +87,7 @@ jobs:
           REPO: ${{ github.repository }}
           # Flutter/Gradle/iOS dependency-file surface for this repo. Any
           # changed path outside this allowlist triggers REQUEST_CHANGES.
-          ALLOWED_FILES_REGEX: '^(common/pubspec\.(yaml|lock)|ios/(Podfile|Podfile\.lock|Gemfile|Gemfile\.lock)|android/(build\.gradle|settings\.gradle|gradle\.properties|gradle/wrapper/gradle-wrapper\.(jar|properties)|app/build\.gradle)|ios/BlockaWebExtension/(package\.json|package-lock\.json)|automation/appium/wdio/(package\.json|package-lock\.json)|\.github/dependabot\.yml|\.github/workflows/[^/]+\.ya?ml)$'
+          ALLOWED_FILES_REGEX: '^(common/pubspec\.(yaml|lock)|ios/(Gemfile|Gemfile\.lock)|android/(build\.gradle|settings\.gradle|gradle\.properties|gradle/wrapper/gradle-wrapper\.(jar|properties)|app/build\.gradle)|ios/BlockaWebExtension/(package\.json|package-lock\.json)|automation/appium/wdio/(package\.json|package-lock\.json)|\.github/dependabot\.yml|\.github/workflows/[^/]+\.ya?ml)$'
         run: |
           set -euo pipefail
           title=$(gh pr view "$PR" --repo "$REPO" --json title --jq .title)

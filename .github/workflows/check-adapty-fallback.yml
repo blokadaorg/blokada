@@ -7,7 +7,6 @@ on:
       - "android/app/src/main/assets/fallbacks/**"
       - "common/pubspec.yaml"
       - "common/pubspec.lock"
-      - "ios/Podfile.lock"
       - "scripts/check-adapty-fallback-version.mjs"
       - ".github/workflows/check-adapty-fallback.yml"
   push:

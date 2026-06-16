@@ -3,7 +3,6 @@ BUNDLE := bundle
 BUNDLE_EXEC := $(BUNDLE) exec
 
 FASTLANE := $(BUNDLE_EXEC) fastlane
-POD := $(BUNDLE_EXEC) pod
 XCODEBUILD := xcodebuild
 XCODE_WORKSPACE := IOS.xcworkspace
 CHECK_SCHEME ?= Dev
@@ -16,7 +15,7 @@ CHECK_CONFIG ?= Debug
 .DEFAULT_GOAL := build
 
 .PHONY: build build-family build-six build-six-debug build-family-debug \
-	ipa-family ipa-six pods check run-six run-family appium-install-six appium-install-family \
+	ipa-family ipa-six check run-six run-family appium-install-six appium-install-family \
 	print-build-dir-six print-build-dir-family
 
 # Note: for all targets in this Makefile, the common lib has to be
@@ -27,29 +26,25 @@ include make/run-helpers.mk
 include make/sim-helpers.mk
 
 
-# Build everything from scratch (release)
+# Build everything from scratch (release).
+# The common add-to-app frameworks must be built first (`make -C common
+# build-ios`), which is handled when building from the root Makefile.
 build:
 	export LANG=en_US.UTF-8
 	$(BUNDLE) check || $(BUNDLE) install
-	$(POD) repo update
-	$(POD) install --repo-update
 	$(MAKE) ipa-family
 	$(MAKE) ipa-six
 
-# Build .ipa of family (release) - with pods
+# Build .ipa of family (release)
 build-family:
 	export LANG=en_US.UTF-8
 	$(BUNDLE) check || $(BUNDLE) install
-	$(POD) repo update
-	$(POD) install --repo-update
 	$(MAKE) ipa-family
 
-# Build .ipa of six (release) - with pods
+# Build .ipa of six (release)
 build-six:
 	export LANG=en_US.UTF-8
 	$(BUNDLE) check || $(BUNDLE) install
-	$(POD) repo update
-	$(POD) install --repo-update
 	$(MAKE) ipa-six
 
 # Build .ipa of family (release)
@@ -78,12 +73,6 @@ print-build-dir-six:
 
 print-build-dir-family:
 	@$(call xcode-build-dir,FamilyDev,$(if $(CONFIG),$(CONFIG),Debug),$(DESTINATION))
-
-# Regenerate Podfile.lock
-pods:
-	rm -rf Podfile.lock
-	$(BUNDLE) check || $(BUNDLE) install
-	$(POD) install --repo-update
 
 # Compile the iOS app without launching it, to catch broken imports,
 # generated bindings, and signature mismatches.

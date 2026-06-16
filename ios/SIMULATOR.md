@@ -12,7 +12,7 @@ feature work that benefits from exercising the real iOS↔API wire.
 ## One-time setup
 
 ```bash
-make pods                                          # once per checkout
+make -C ../common build-ios                        # build the Flutter xcframeworks the app embeds
 ```
 
 The dev account ID is supplied to the build at compile-time as a
@@ -33,10 +33,12 @@ To switch to a different `ACCOUNT_ID`, start from a clean simulator
 
 The Mocked / FamilyMocked schemes build the same `lib/main.dart` entrypoint as
 the shipping app; mocked behavior is switched on by the `MOCKED=true` and
-`FLAVOR` dart-defines that the make layer folds (with `ACCOUNT_ID`) into the
-`DART_DEFINES` it passes to xcodebuild. There is no separate mocked entrypoint
-and no Mocked-specific Xcode build-phase edit, so `pod install` cannot clobber
-the mocked build config.
+`FLAVOR` dart-defines that the make layer folds (with `ACCOUNT_ID`) into a mocked
+Flutter `App.xcframework`, built via `--dart-define-from-file` before the host
+build. There is no separate mocked entrypoint; the defines are baked into the
+prebuilt framework, not passed to xcodebuild. (This overwrites the shared Debug
+`App.xcframework`; run `make -C ../common build-ios` to restore the non-mocked
+build before a normal Debug build.)
 
 Two ways to provide the ID:
 

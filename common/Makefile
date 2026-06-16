@@ -31,12 +31,14 @@ build: pub gen-android gen-ios runner lib
 # Build the Android library from scratch (release)
 build-android: pub gen-android runner lib
 
-# Build iOS dependencies (library itself is built by xcode)
+# Build the add-to-app iOS frameworks the host Xcode project links and embeds.
+# Produces Flutter/App/FlutterPluginRegistrant and one xcframework per plugin
+# under build/ios-framework/<config>/; the host picks <config> via
+# $(CONFIGURATION). precache first so a freshly installed SDK on CI has the iOS
+# engine artifacts. Replaces the old CocoaPods integration.
 build-ios: pub gen-ios runner
-	# Ensure the iOS engine artifacts (Flutter.xcframework) for the pinned
-	# Flutter version are present before CocoaPods runs; podhelper.rb needs
-	# them and a freshly installed SDK on CI isn't precached. Idempotent.
 	$(FLUTTER) precache --ios
+	$(FLUTTER) build ios-framework --output=build/ios-framework --no-profile
 
 # Fetch dependencies from pubspec.yaml (flutter pub get)
 pub:

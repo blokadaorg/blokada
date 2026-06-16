@@ -5,9 +5,9 @@
 //   1. Open Dependabot PRs the auto-merge workflow hands to a human (major
 //      bumps, non-allowlist files, github-actions), plus high-risk packages
 //      (Adapty, Firebase, WireGuard, pigeon, gradle/AGP) at any bump level.
-//   2. Advisory entries for ecosystems Dependabot does not scan: iOS CocoaPods
-//      and the wireguard-apple / translate submodules. These are version-drift
-//      notes only — there is no PR to validate.
+//   2. Advisory entries for ecosystems Dependabot does not scan: iOS Swift
+//      Package Manager and the wireguard-apple / translate submodules. These
+//      are version-drift notes only — there is no PR to validate.
 //
 // See .agents/skills/dep-validate/SKILL.md for the loop that consumes this.
 

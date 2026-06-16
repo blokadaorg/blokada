@@ -27,9 +27,10 @@ SIM_NAME     := $(SIM_BASE) - $(NAME)
 ENV_FILE     := $(abspath $(CURDIR)/..)/.env.local
 
 # ACCOUNT_ID seeds the dev account into secure storage at boot. run-mocked-app
-# resolves it and folds it (with MOCKED and FLAVOR) into the DART_DEFINES that
-# the default Flutter build phase consumes, so there is no Mocked-specific
-# build-phase edit for pod install to clobber. Resolution order in run-mocked-app:
+# resolves it and folds it (with MOCKED and FLAVOR) into a dart-defines file used
+# to build the mocked Flutter App.xcframework the Mocked target embeds. Since the
+# frameworks are prebuilt (no host-side Flutter build phase), the defines must be
+# baked into the framework, not passed to xcodebuild. Resolution order:
 #   1. ACCOUNT_ID env/CLI override (always wins)
 #   2. Flavor-keyed value from $(ENV_FILE) (SIX_/FAMILY_DEV_ACCOUNT_ID)
 #   3. Unset -> build proceeds; app fails fast at boot with a StateError.
@@ -106,11 +107,12 @@ print-product-name-scheme:
 # prefix; inlining it inside a shell pipeline would leak the literal `@` and
 # break bash.
 #
-# DART_DEFINES (carrying MOCKED, FLAVOR, and the base64-encoded ACCOUNT_ID) is
-# propagated to xcodebuild as an environment variable by run-mocked-app, not as
-# an xcodebuild user-defined build setting, so the account id does not appear in
-# argv / `ps` output. The Flutter build phase reads DART_DEFINES from the env;
-# flutter_export_environment.sh does not set it, so the value survives.
+# The MOCKED/FLAVOR/ACCOUNT_ID defines are baked into the prebuilt mocked
+# App.xcframework by run-mocked-app (via --dart-define-from-file, which keeps the
+# account id out of argv / `ps`), so this host build just embeds it — no defines
+# are passed to xcodebuild. NOTE: this overwrites the shared Debug framework at
+# common/build/ios-framework/Debug with a mocked App; run `make -C common
+# build-ios` to restore the non-mocked frameworks before a normal Debug build.
 _build-mocked:
 	$(call xcode-build,build,$(SCHEME),Debug,$(DESTINATION),)
 
@@ -136,11 +138,12 @@ define run-mocked-app
 		echo "warning: ACCOUNT_ID not set (no CLI override, no $(ENV_FILE) entry). App will compile but throw StateError at boot. See ios/SIMULATOR.md." >&2; \
 	fi; \
 	if [ "$(1)" = "FamilyMocked" ]; then FLAVOR=family; else FLAVOR=six; fi; \
-	D_MOCKED=$$(printf '%s' "MOCKED=true" | base64 | tr -d '\n'); \
-	D_FLAVOR=$$(printf '%s' "FLAVOR=$$FLAVOR" | base64 | tr -d '\n'); \
-	D_ACCOUNT=$$(printf '%s' "ACCOUNT_ID=$${ACCOUNT_ID:-}" | base64 | tr -d '\n'); \
-	DART_DEFINES="$$D_MOCKED,$$D_FLAVOR,$$D_ACCOUNT"; \
-	export DART_DEFINES; \
+	COMMON_DIR="$(abspath $(CURDIR)/..)/common"; \
+	DEFINES_FILE="$$COMMON_DIR/.dart_tool/dart-defines-mocked.env"; \
+	mkdir -p "$$COMMON_DIR/.dart_tool"; \
+	printf 'MOCKED=true\nFLAVOR=%s\nACCOUNT_ID=%s\n' "$$FLAVOR" "$${ACCOUNT_ID:-}" > "$$DEFINES_FILE"; \
+	trap 'rm -f "$$DEFINES_FILE"' EXIT; \
+	( cd "$$COMMON_DIR" && fvm flutter build ios-framework --output=build/ios-framework --no-profile --no-release --dart-define-from-file=.dart_tool/dart-defines-mocked.env ); \
 	$(MAKE) --no-print-directory _build-mocked SCHEME=$(1) DESTINATION="$$DEST"; \
 	xcrun simctl boot "$$UDID" 2>/dev/null || true; \
 	APP_DIR=$$($(MAKE) --no-print-directory print-build-dir-scheme SCHEME=$(1) DESTINATION="$$DEST"); \

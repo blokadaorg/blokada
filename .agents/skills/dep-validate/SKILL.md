@@ -1,6 +1,6 @@
 ---
 name: dep-validate
-description: Use to validate risky dependency bumps end to end as a local or cloud-launched agent. Trigger when a Dependabot PR was handed to a human (major version or migration-flagged) or for the ecosystems Dependabot does not scan (iOS CocoaPods, the wireguard-apple / translate submodules). CI here is build + lint only, so this drives the runtime validation it cannot: unit tests, mocked simulator, then real-device paywall / protection smoke, and either proceeds on pure core refactors or escalates the behavioral judgement calls to a human.
+description: Use to validate risky dependency bumps end to end as a local or cloud-launched agent. Trigger when a Dependabot PR was handed to a human (major version or migration-flagged) or for the ecosystems Dependabot does not scan (iOS Swift Package Manager, the wireguard-apple / translate submodules). CI here is build + lint only, so this drives the runtime validation it cannot: unit tests, mocked simulator, then real-device paywall / protection smoke, and either proceeds on pure core refactors or escalates the behavioral judgement calls to a human.
 ---
 
 # Dep Validate
@@ -32,8 +32,10 @@ Run fast to slow. Each stage gates the next: a hard failure stops the loop and y
 ```bash
 gh pr checkout <pr> --repo blokadaorg/blokada
 git submodule update --init --recursive
-# iOS bumps only (Podfile / Adapty / Firebase):
-cd ios && bundle install && pod install && cd ..
+# iOS bumps only (Adapty / Firebase / other native deps):
+# the host links Firebase/Factory/CodeScanner via SwiftPackageManager (Xcode
+# resolves them at build) and embeds the Flutter module as xcframeworks built by:
+make -C common build-ios
 ```
 
 Record the branch you came from so you can return to it when done.
@@ -47,7 +49,7 @@ make test            # full Flutter suite incl. pigeon + build_runner codegen
 fvm flutter analyze  # run from common/, or: make -C common analyze
 ```
 
-When the bump touches Adapty, `common/pubspec.yaml`, or `ios/Podfile`, also run the fallback-consistency check the CI `check-adapty-fallback.yml` job runs:
+When the bump touches Adapty or `common/pubspec.yaml`, also run the fallback-consistency check the CI `check-adapty-fallback.yml` job runs:
 
 ```bash
 node scripts/check-adapty-fallback-version.mjs
@@ -157,6 +159,6 @@ Keep the public-repo comment free of any private issue-tracker detail. Reference
   - **Removed / renamed sub-artifact** (e.g. `#1081`: `firebase-bom` 34 deleted the `-ktx` modules, so `firebase-messaging-ktx` resolved an empty version → `Could not find …-ktx:.`). The repo's toolchain floors are *fine*; the bump dropped or renamed a coordinate the build still references. Diagnose by reading the bump's release notes for removed/renamed/merged artifacts, then grep whether the code actually consumes the removed surface (here `FcmService.kt` used only the main `com.google.firebase.messaging.*` API, no `.ktx` import) — that tells you whether the fix is a clean manifest rename or also needs source edits. The fix is a one-line manifest edit Dependabot can't make, so the bump can't merge as-is; recommend hold + the exact edit.
   - Either way: runtime-behavior validation (the part CI can't do) only starts once it compiles — which on Android means a real device, i.e. the stub above. So even a "fix is one line, behaviorally safe" call carries a residual on-device gap (e.g. FCM push actually arriving); name it.
 - **Mocked schemes stub Adapty / DNS / VPN.** Never report those flows validated from a Stage C run alone; they require Stage D.
-- **Advisories are not validated.** CocoaPods and submodule entries from `queue.mjs` are drift notes; bumping a submodule pointer or a pod is a manual change with no Dependabot PR to drive the loop. Latest-version lookup for pods is left to you (the lock only gives the current pin).
+- **Advisories are not validated.** iOS Swift Package Manager and submodule entries from `queue.mjs` are drift notes; bumping a submodule pointer or an SPM package pin (Firebase, Factory, CodeScanner in `ios/IOS.xcodeproj/project.pbxproj`) is a manual change with no Dependabot PR to drive the loop. Latest-version lookup for SPM packages is left to you.
 - **One physical device.** Stage D and `appium-smoke.yml` contend for the same device; serialize, do not run them at once.
 - **Keep the queue logic in sync.** `automation/dep-validate/lib/queue.mjs` ports the allowlist + major-bump rules from `.github/workflows/dependabot-auto-merge.yml`. If that workflow's allowlist changes, mirror it here.

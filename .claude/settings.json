@@ -31,8 +31,6 @@
       "Bash(make regen:*)",
       "Bash(make test:*)",
       "Bash(make uninstall)",
-      "Bash(pod install:*)",
-      "Bash(pod update:*)",
       "Bash(make -C ios run:*)",
       "Bash(xcrun devicectl list:*)",
       "Bash(xcodebuild:*)"
