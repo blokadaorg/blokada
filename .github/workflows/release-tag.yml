@@ -117,10 +117,14 @@ jobs:
           fetch-depth: 1
 
       # Coverage only reads deps/translate/langs.js; skip the heavy siblings.
+      # continue-on-error on both steps keeps this job from ever reddening a
+      # release run: coverage is informational and must never block a release.
       - name: Init deps/translate submodule
+        continue-on-error: true
         run: git submodule update --init --depth 1 deps/translate
 
       - name: Report per-locale coverage
+        continue-on-error: true
         run: python3 .github/scripts/translation_coverage.py
 
   build_ios:

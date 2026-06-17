@@ -10,7 +10,8 @@ was never translated).
 
 Coverage lag is normal, so this NEVER fails the build: it writes a markdown
 table to the run summary and emits ::warning:: annotations for primary
-languages below 100%. Always exits 0.
+languages below COVERAGE_WARN_THRESHOLD (default 80). Any unexpected error is
+downgraded to a warning. Always exits 0.
 """
 
 import json
@@ -24,6 +25,16 @@ LANGS_JS = ROOT / "deps" / "translate" / "langs.js"
 TRANSLATIONS = ROOT / "common" / "assets" / "translations"
 CATEGORIES = ["ui", "packs", "packtags"]
 
+# Below this overall percentage a primary language is flagged with a warning.
+# Coverage counts only keys that differ from English, so fully-usable locales
+# still land well under 100; the default flags genuinely-behind locales without
+# warning on every language. Override via the env var to tune the signal.
+THRESHOLD = float(os.environ.get("COVERAGE_WARN_THRESHOLD", "80"))
+
+
+def warn(message):
+    print(f"::warning title=Translation coverage::{message}")
+
 
 def load_langs():
     """Parse the langs.js module the same way scripts/translate.py does."""
@@ -33,10 +44,14 @@ def load_langs():
 
 
 def load_json(path):
+    """Load a translation file, or None if missing/unparseable (best-effort)."""
     try:
         with open(path, encoding="utf-8") as f:
             return json.load(f)
     except FileNotFoundError:
+        return None
+    except (json.JSONDecodeError, OSError) as e:
+        warn(f"could not read {path.name}: {e}; treating as uncovered")
         return None
 
 
@@ -57,7 +72,7 @@ def pct(covered, total):
     return 100.0 * covered / total if total else 0.0
 
 
-def main():
+def run():
     primary, arb = load_langs()
 
     # Load the English baseline once per category.
@@ -81,7 +96,7 @@ def main():
             tot_all += tot
         overall = pct(tot_cov, tot_all)
         rows.append((lang, mapped, per_cat, overall))
-        if overall < 100.0:
+        if overall < THRESHOLD:
             warnings.append((lang, mapped, overall))
 
     def cell(v):
@@ -104,7 +119,7 @@ def main():
         "_Coverage counts source keys that are present, non-empty, and differ "
         "from the English source. Strings that are legitimately identical to "
         "English (proper nouns, \"OK\", etc.) count as untranslated, so 100% is "
-        "not always reachable; treat the numbers as a relative signal._"
+        f"not reachable; languages below {THRESHOLD:.0f}% are flagged._"
     )
     report = "\n".join(lines) + "\n"
 
@@ -116,12 +131,16 @@ def main():
         print(report)
 
     for lang, mapped, overall in warnings:
-        print(
-            f"::warning title=Translation coverage::{lang} ({mapped}) "
-            f"overall {overall:.1f}% (< 100%)"
-        )
+        warn(f"{lang} ({mapped}) overall {overall:.1f}% (< {THRESHOLD:.0f}%)")
 
-    # Coverage lag is expected; never block a release.
+
+def main():
+    # Informational only: coverage lag is expected, and a release must never be
+    # blocked by this. Downgrade any unexpected failure to a warning.
+    try:
+        run()
+    except Exception as e:  # noqa: BLE001 - best-effort reporting
+        warn(f"coverage report failed: {e}")
     sys.exit(0)
 
 
