@@ -104,6 +104,29 @@ jobs:
             echo "- platform: \`$platform\`"
           } >> "$GITHUB_STEP_SUMMARY"
 
+  translation_coverage:
+    # Informational only: report per-locale coverage for the primary languages
+    # to the run summary and warn (never fail) on anything below 100%, since
+    # translation lag is normal. Independent of the build jobs, so it cannot
+    # block a release. Pure python3 -> ubuntu-latest, off the self-hosted pool.
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      # Coverage only reads deps/translate/langs.js; skip the heavy siblings.
+      # continue-on-error on both steps keeps this job from ever reddening a
+      # release run: coverage is informational and must never block a release.
+      - name: Init deps/translate submodule
+        continue-on-error: true
+        run: git submodule update --init --depth 1 deps/translate
+
+      - name: Report per-locale coverage
+        continue-on-error: true
+        run: python3 .github/scripts/translation_coverage.py
+
   build_ios:
     needs: release_context
     if: ${{ needs.release_context.outputs.platform == 'ios' || needs.release_context.outputs.platform == 'all' }}

@@ -13,6 +13,50 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  translations_drift:
+    name: en.json drift
+    # Source-bypass guard: the committed English JSON under
+    # common/assets/translations/*/en.json is generated from the pinned
+    # deps/translate submodule's v6/*.strings. Regenerate and fail if they
+    # differ, so a string can never reach the app without coming from source
+    # (this is the bypass that shipped the June family strings as English).
+    # Pure python3, so it runs on ubuntu-latest off the self-hosted pool.
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.pull_request.head.repo.full_name == github.repository
+    env:
+      # convert.py writes raw UTF-8 via the locale's preferred encoding; pin a
+      # UTF-8 locale so non-ASCII source strings round-trip byte-for-byte.
+      LANG: C.UTF-8
+      LC_ALL: C.UTF-8
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      # Only deps/translate is needed; avoid cloning the heavy sibling
+      # submodules (wireguard-apple, etc.) that the build jobs require.
+      - name: Init deps/translate submodule
+        run: git submodule update --init --depth 1 deps/translate
+
+      - name: Regenerate en.json from pinned source strings
+        working-directory: deps/translate/scripts
+        run: |
+          set -euo pipefail
+          out="$GITHUB_WORKSPACE/common/assets/translations"
+          python3 ./convert.py -i ../v6/Ui.strings       -o "$out/ui/en.json"       -f flutter
+          python3 ./convert.py -i ../v6/Packs.strings    -o "$out/packs/en.json"    -f flutter
+          python3 ./convert.py -i ../v6/PackTags.strings -o "$out/packtags/en.json" -f flutter
+
+      - name: Fail if regenerated en.json differs from committed
+        run: |
+          git diff --exit-code -- \
+            common/assets/translations/ui/en.json \
+            common/assets/translations/packs/en.json \
+            common/assets/translations/packtags/en.json
+
   flutter_analyze:
     name: Flutter analyze
     runs-on: [self-hosted, macOS, ARM64, build-only]
