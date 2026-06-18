@@ -19,6 +19,13 @@ cd ../../../
 #echo "Running gen-l10n for common..."
 #flutter gen-l10n
 
-git commit -am "$commit"
+# CI (translations-sync.yml) sets SKIP_COMMIT=1 so it can stage and commit the
+# diff itself under the blokada-ci App identity. Run by hand without it for the
+# normal local flow, where this commit is what you want.
+if [ -z "${SKIP_COMMIT:-}" ]; then
+  git commit -am "$commit"
+else
+  echo "SKIP_COMMIT set; leaving changes uncommitted for CI to stage."
+fi
 
 echo "Done"

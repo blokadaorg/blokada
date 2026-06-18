@@ -1,0 +1,286 @@
+name: Translations sync
+
+# Daily pull of merged translations from the translate repo into the app.
+# Bumps the deps/translate submodule to its latest master, regenerates the
+# committed locale assets via `make translate` (SKIP_COMMIT=1 so CI stages the
+# diff), opens a PR, and auto-merges it when a cheap gate passes (en.json is a
+# faithful regen of source + every changed locale JSON parses). Translation-only
+# diffs can't affect the binary, so the PR skips the heavy iOS/Android CI jobs
+# (see ci.yml) and does not wait on them. Modelled on the org's
+# blokadaorg/landing-github-pages blocklist-sync + dependabot auto-merge pattern.
+#
+# Kill-switch: set the repo variable TRANSLATIONS_SYNC_AUTOMERGE_PAUSED to
+# 'true' (Settings -> Secrets and variables -> Actions -> Variables) to keep the
+# PR open without merging. Unset = enabled.
+
+on:
+  schedule:
+    # Daily 05:00 UTC = 06:00 CET / 07:00 CEST. Tunable.
+    - cron: '0 5 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: translations-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      # convert.py writes raw UTF-8 via the locale's preferred encoding; pin a
+      # UTF-8 locale so non-ASCII strings round-trip byte-for-byte and the
+      # en.json drift guard stays clean. Matches ci.yml's `en.json drift` job.
+      LANG: C.UTF-8
+      LC_ALL: C.UTF-8
+    steps:
+      - name: Mint App token
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          # client-id input — `app-id` is deprecated in v3. Secrets are
+          # distributed per-repo by ops/secrets.tf.
+          client-id: ${{ secrets.BLOKADA_APP_CLIENT_ID }}
+          private-key: ${{ secrets.BLOKADA_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          # No submodules here — only deps/translate is needed and it's inited
+          # in the next step, skipping the heavy wireguard-apple / landing /
+          # tracker-radar siblings (same approach as ci.yml's drift job).
+
+      - name: Configure git identity
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
+        run: |
+          set -euo pipefail
+          # Derive identity from the App slug. The bot user isn't always
+          # exposed via /users/<slug>%5Bbot%5D (404), so the numeric-ID lookup
+          # is best-effort with a slug-only noreply fallback.
+          name="${APP_SLUG}[bot]"
+          if id=$(gh api "/users/${APP_SLUG}%5Bbot%5D" --jq .id 2>/dev/null); then
+            email="${id}+${name}@users.noreply.github.com"
+          else
+            email="${name}@users.noreply.github.com"
+          fi
+          git config user.name  "${name}"
+          git config user.email "${email}"
+          echo "Configured: ${name} <${email}>"
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.x'
+
+      - name: Init + bump translate submodule to latest master
+        # Init only deps/translate, then put it on master tracking origin/master
+        # so `make translate` (sync-translations.sh) can fast-forward it and we
+        # bump to the newest merged translations.
+        run: |
+          set -euo pipefail
+          git submodule update --init deps/translate
+          git -C deps/translate fetch --quiet origin master
+          git -C deps/translate checkout -B master origin/master
+          echo "translate -> $(git -C deps/translate rev-parse --short HEAD)"
+
+      - name: Regenerate translations (SKIP_COMMIT=1)
+        env:
+          SKIP_COMMIT: '1'
+        run: make translate
+
+      - name: Check for changes
+        id: changes
+        run: |
+          set -euo pipefail
+          if git diff --quiet HEAD && [ -z "$(git ls-files --others --exclude-standard)" ]; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            echo "No new translations — exiting cleanly."
+          else
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Gate
+        id: gates
+        if: steps.changes.outputs.has_changes == 'true'
+        # Cheap, mechanical "is it OK" check. Always exits 0 — a failure just
+        # sets verdict=FAIL so the PR is still opened (for a human) but not merged.
+        run: |
+          set +e
+          verdict=PASS
+          reason="en.json matches source; all changed translation JSON valid"
+          out="$GITHUB_WORKSPACE/common/assets/translations"
+          # 1. en.json must be a faithful regen of the pinned v6 source (the
+          #    same check ci.yml's drift job enforces) — compare a fresh regen
+          #    to what `make translate` wrote.
+          ( cd deps/translate/scripts
+            for p in Ui:ui Packs:packs PackTags:packtags; do
+              python3 ./convert.py -i "../v6/${p%%:*}.strings" -o "/tmp/${p##*:}-en.json" -f flutter
+            done )
+          for c in ui packs packtags; do
+            if ! diff -q "/tmp/$c-en.json" "$out/$c/en.json" >/dev/null 2>&1; then
+              verdict=FAIL; reason="$c/en.json is not a faithful regen of v6 source"
+            fi
+          done
+          # 2. Every changed/added translation JSON must parse.
+          if [ "$verdict" = PASS ]; then
+            files=$( { git diff --name-only HEAD -- common/assets/translations; \
+                       git ls-files --others --exclude-standard -- common/assets/translations; } \
+                     | grep '\.json$' | sort -u )
+            for f in $files; do
+              if ! python3 -c "import json,sys; json.load(open(sys.argv[1], encoding='utf-8'))" "$f" 2>/dev/null; then
+                verdict=FAIL; reason="invalid JSON: $f"; break
+              fi
+            done
+          fi
+          echo "verdict=$verdict" >> "$GITHUB_OUTPUT"
+          echo "reason=$reason" >> "$GITHUB_OUTPUT"
+          echo "verdict=$verdict reason=$reason"
+
+      - name: Build PR body
+        id: body
+        if: steps.changes.outputs.has_changes == 'true'
+        env:
+          VERDICT: ${{ steps.gates.outputs.verdict }}
+          REASON: ${{ steps.gates.outputs.reason }}
+        run: |
+          set -euo pipefail
+          today=$(date -u +%Y-%m-%d)
+          sha=$(git -C deps/translate rev-parse --short HEAD)
+          locales=$( { git diff --name-only HEAD -- common/assets/translations; \
+                       git ls-files --others --exclude-standard -- common/assets/translations; } \
+                     | grep -oE '/[a-z0-9_]+\.json$' | tr -d '/' | sed 's/\.json$//' | sort -u | tr '\n' ' ')
+          nfiles=$( { git diff --name-only HEAD; git ls-files --others --exclude-standard; } | sort -u | wc -l | tr -d ' ')
+          {
+            echo "Automated translation sync ($today)."
+            echo
+            echo "Bumps \`deps/translate\` to \`$sha\` and regenerates the committed locale assets via \`make translate\`."
+            echo
+            if [ "${VERDICT}" = "PASS" ]; then
+              echo ":white_check_mark: Gate passed — eligible for auto-merge."
+            else
+              echo ":warning: Gate tripped — needs human review: ${REASON}"
+            fi
+            echo
+            echo "- changed files: \`$nfiles\`"
+            echo "- locales touched: ${locales:-none}"
+          } > /tmp/pr-body.md
+          {
+            echo 'body<<TRANSLATIONS_SYNC_BODY_EOF'
+            cat /tmp/pr-body.md
+            echo 'TRANSLATIONS_SYNC_BODY_EOF'
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Push branch
+        id: push
+        if: steps.changes.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          set -euo pipefail
+          today=$(date -u +%Y-%m-%d)
+          branch="automation/translations-sync/${today}"
+          if git ls-remote --exit-code --heads origin "${branch}" >/dev/null 2>&1; then
+            branch="${branch}-${{ github.run_id }}"
+          fi
+          hash=$(git -C deps/translate describe --abbrev=4 --always --tags --dirty)
+          git switch -c "${branch}"
+          git add -A
+          git commit -m "sync: update translate strings to: ${hash}"
+          git push origin "${branch}"
+          echo "branch=${branch}" >> "$GITHUB_OUTPUT"
+          echo "head_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Open PR
+        id: pr
+        if: steps.changes.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          REPO: ${{ github.repository }}
+          BRANCH: ${{ steps.push.outputs.branch }}
+          BODY: ${{ steps.body.outputs.body }}
+        run: |
+          set -euo pipefail
+          today=$(date -u +%Y-%m-%d)
+          # Close any stale open sync PR (match by branch prefix) so unattended
+          # needs-review PRs don't accumulate across daily runs.
+          old_prs=$(gh pr list --repo "$REPO" --state open \
+            --json number,headRefName \
+            --jq '.[] | select(.headRefName | startswith("automation/translations-sync/")) | .number')
+          for pr in $old_prs; do
+            gh pr close "$pr" --repo "$REPO" --delete-branch \
+              --comment "Superseded by today's translations sync." || true
+          done
+          default_branch=$(gh repo view "$REPO" --json defaultBranchRef --jq .defaultBranchRef.name)
+          pr_url=$(gh pr create \
+            --base "${default_branch}" \
+            --head "${BRANCH}" \
+            --title "Translations sync (${today})" \
+            --body "${BODY}")
+          echo "pr_url=${pr_url}" >> "$GITHUB_OUTPUT"
+          pr_number=$(echo "${pr_url}" | sed -E 's|.*/pull/([0-9]+).*|\1|')
+          echo "pr_number=${pr_number}" >> "$GITHUB_OUTPUT"
+
+      - name: Verify PR head unchanged before merge
+        id: stale-check
+        if: >-
+          steps.changes.outputs.has_changes == 'true' &&
+          steps.gates.outputs.verdict == 'PASS' &&
+          vars.TRANSLATIONS_SYNC_AUTOMERGE_PAUSED != 'true'
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          PR: ${{ steps.pr.outputs.pr_number }}
+          REPO: ${{ github.repository }}
+          PUSHED_HEAD: ${{ steps.push.outputs.head_sha }}
+        run: |
+          set -euo pipefail
+          current=$(gh pr view "$PR" --repo "$REPO" --json headRefOid --jq .headRefOid)
+          if [ "$current" != "$PUSHED_HEAD" ]; then
+            echo "PR head ($current) differs from pushed head ($PUSHED_HEAD); refusing stale merge"
+            exit 1
+          fi
+          echo "PR head matches pushed SHA: $PUSHED_HEAD"
+
+      - name: Squash-merge
+        if: >-
+          steps.changes.outputs.has_changes == 'true' &&
+          steps.gates.outputs.verdict == 'PASS' &&
+          vars.TRANSLATIONS_SYNC_AUTOMERGE_PAUSED != 'true'
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          PR: ${{ steps.pr.outputs.pr_number }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          # No self-approve: the App authors and merges this PR, and `main`
+          # requires no approving review.
+          gh pr merge "$PR" --repo "$REPO" --squash --delete-branch
+
+      - name: Summary
+        if: always()
+        env:
+          HAS_CHANGES: ${{ steps.changes.outputs.has_changes }}
+          VERDICT: ${{ steps.gates.outputs.verdict }}
+          REASON: ${{ steps.gates.outputs.reason }}
+          PR_URL: ${{ steps.pr.outputs.pr_url }}
+          KILL_SWITCH: ${{ vars.TRANSLATIONS_SYNC_AUTOMERGE_PAUSED }}
+        run: |
+          {
+            if [ "${HAS_CHANGES}" != "true" ]; then
+              echo "### No new translations"
+            else
+              echo "### Translations sync"
+              echo
+              echo "- PR: ${PR_URL}"
+              echo "- Gate verdict: \`${VERDICT}\`"
+              echo "- Reason: ${REASON}"
+              echo "- Kill-switch (TRANSLATIONS_SYNC_AUTOMERGE_PAUSED): \`${KILL_SWITCH:-unset}\`"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

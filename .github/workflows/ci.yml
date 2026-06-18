@@ -61,9 +61,12 @@ jobs:
     name: Flutter analyze
     runs-on: [self-hosted, macOS, ARM64, build-only]
     timeout-minutes: 45
+    # Skip for the automated translations-sync PRs: a translation-only diff
+    # can't affect the binary, so don't tie up the self-hosted pool on them.
     if: >-
-      github.event_name == 'workflow_dispatch' ||
-      github.event.pull_request.head.repo.full_name == github.repository
+      (github.event_name == 'workflow_dispatch' ||
+       github.event.pull_request.head.repo.full_name == github.repository) &&
+      !startsWith(github.head_ref, 'automation/translations-sync/')
     env:
       LANG: en_US.UTF-8
       LC_ALL: en_US.UTF-8
@@ -83,9 +86,12 @@ jobs:
     name: iOS build
     runs-on: [self-hosted, macOS, ARM64, build-only]
     timeout-minutes: 120
+    # Skip for the automated translations-sync PRs: a translation-only diff
+    # can't affect the binary, so don't tie up the self-hosted pool on them.
     if: >-
-      github.event_name == 'workflow_dispatch' ||
-      github.event.pull_request.head.repo.full_name == github.repository
+      (github.event_name == 'workflow_dispatch' ||
+       github.event.pull_request.head.repo.full_name == github.repository) &&
+      !startsWith(github.head_ref, 'automation/translations-sync/')
     env:
       LANG: en_US.UTF-8
       LC_ALL: en_US.UTF-8
@@ -110,9 +116,12 @@ jobs:
     name: Android assemble
     runs-on: [self-hosted, macOS, ARM64, build-only]
     timeout-minutes: 120
+    # Skip for the automated translations-sync PRs: a translation-only diff
+    # can't affect the binary, so don't tie up the self-hosted pool on them.
     if: >-
-      github.event_name == 'workflow_dispatch' ||
-      github.event.pull_request.head.repo.full_name == github.repository
+      (github.event_name == 'workflow_dispatch' ||
+       github.event.pull_request.head.repo.full_name == github.repository) &&
+      !startsWith(github.head_ref, 'automation/translations-sync/')
     env:
       LANG: en_US.UTF-8
       LC_ALL: en_US.UTF-8
