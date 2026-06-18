@@ -55,7 +55,7 @@ jobs:
 
       - name: Run appium AI explorer
         env:
-          AI_EXPLORER_BASE_URL: "http://10.44.1.11:1234/v1"
+          AI_EXPLORER_BASE_URL: "http://192.168.1.11:1234/v1"
           AI_EXPLORER_MODEL: "nvidia/nemotron-3-nano-4b"
           # Non-advisory by default: a critical finding (blank/broken/degraded
           # screen, broken navigation, stuck loading, frozen UI, error-state

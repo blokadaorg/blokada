@@ -1,4 +1,4 @@
-export const DEFAULT_AI_EXPLORER_BASE_URL = "http://10.44.1.11:1234/v1";
+export const DEFAULT_AI_EXPLORER_BASE_URL = "http://192.168.1.11:1234/v1";
 export const DEFAULT_AI_EXPLORER_MODEL = "nvidia/nemotron-3-nano-4b";
 
 function parseInteger(value, fallback, { min, max } = {}) {

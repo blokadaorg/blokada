@@ -125,7 +125,7 @@ without reinstalling by default.
 
 Optional overrides:
 
-- `AI_EXPLORER_BASE_URL=http://10.44.1.11:1234/v1` – OpenAI-compatible LM Studio endpoint (default).
+- `AI_EXPLORER_BASE_URL=http://192.168.1.11:1234/v1` – OpenAI-compatible LM Studio endpoint (default).
 - `AI_EXPLORER_MODEL=nvidia/nemotron-3-nano-4b` – default local model verified with LM Studio.
 - `AI_EXPLORER_API_KEY=...` – optional bearer token for OpenAI-compatible servers that require one.
 - `AI_EXPLORER_TIMEOUT_MS=720000` – wall-clock budget, default 12 minutes.
