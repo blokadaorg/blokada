@@ -648,6 +648,83 @@
 "family device label internet block" = "全部封鎖";
 "family device brief internet block" = "停止此裝置的所有網路存取。";
 
+// ===== Family: schedules, device controls, profile editor =====
+"universal action back" = "返回​";
+"family profile error used as default" = "目前於 %@ 上作為預設。請先變更該裝置的設定檔。";
+"family profile error used by rule" = "目前由 %@ 上的規則使用。請先移除該規則。";
+"family profile editor title" = "設定檔​";
+"family profile editor delete" = "刪除設定檔​";
+"family profile editor delete confirm title" = "刪除「%@」？";
+"family profile editor delete confirm message" = "從帳戶中移除此設定檔。";
+"family device managed by six" = "由 Blokada 6 管理。Family 不會在此裝置變更 DNS 或 VPN 設定。";
+"family device action open six" = "開啟 Blokada 6​";
+"family schedule section title" = "排程​";
+"family schedule section subtitle" = "於指定時段切換至其他設定檔。";
+"family schedule default row title" = "預設​";
+"family schedule default row subtitle" = "當無任何規則啟動時適用​";
+"family schedule add rule" = "新增規則​";
+"family schedule use label" = "啟用排程​";
+"family schedule active now" = "目前啟動 · 直到 %@​";
+"family device default profile" = "預設設定檔​";
+"family schedule paused hint" = "當排程關閉時，所有規則將被忽略並套用預設設定檔。";
+"family schedule rule editor title new" = "新規則​";
+"family schedule rule editor title edit" = "編輯規則​";
+"family schedule rule editor profile label" = "設定檔​";
+"family schedule rule editor profile new" = "+ 新增​";
+"family schedule rule editor profile new blocklists done" = "完成​";
+"family schedule rule editor profile empty subtitle" = "點擊 + 新增以建立此規則的設定檔​";
+"family schedule rule editor profile edit" = "編輯「%@」​";
+"family schedule rule editor override hint" = "當此規則生效時，此裝置將使用此設定檔，而不是其標準（%@）設定檔。";
+"family schedule rule editor days label" = "天數​";
+"family schedule rule editor preset weekdays" = "平日​";
+"family schedule rule editor preset weekends" = "週末​";
+"family schedule rule editor preset every" = "每天​";
+"family schedule rule editor times label" = "時段​";
+"family schedule rule editor times counter" = "%@ / 4​";
+"family schedule rule editor times add" = "新增其他時段​";
+"family schedule rule editor times wrap" = "↳ 次日結束​";
+"family schedule rule editor times from" = "從​";
+"family schedule rule editor times to" = "至​";
+"family schedule rule editor delete" = "刪除規則​";
+"family schedule template school name" = "學校​";
+"family schedule template bedtime name" = "就寢​";
+"family schedule days summary every" = "每天​";
+"family schedule days summary weekdays" = "週一至週五​";
+"family schedule days summary weekends" = "週六至週日​";
+"family schedule rule row more" = ", +%@ 更多​";
+"family schedule rule editor target label" = "此規則作用說明​";
+"family schedule rule editor target filter" = "切換設定檔​";
+"family schedule rule editor target filter brief" = "於此時段套用更嚴格的篩選設定檔。";
+"family schedule rule editor target block" = "無網際網路​";
+"family schedule rule editor target block brief" = "於此時段切斷所有網際網路存取。";
+"family schedule rule block title" = "無網際網路​";
+"family device now label" = "現在​";
+"family device now brief" = "此裝置目前正在執行的動作。";
+"family device now status filter" = "使用 %@ 篩選中​";
+"family device now status allow" = "網際網路完全開放​";
+"family device now status blocked" = "網際網路已阻擋​";
+"family device now source default" = "預設設定檔​";
+"family device now source schedule" = "來自排程​";
+"family device now source override" = "手動覆蓋​";
+"family device now until" = "直到 %@​";
+"family device now indefinite" = "直到您重新開啟​";
+"family device now footer" = "您可以點擊以暫停篩選或暫時阻擋網際網路。";
+"family device now footer override" = "您可以點擊以恢復，或切換至不同覆蓋。";
+"family device now sheet title" = "%@，目前狀態​";
+"family device now sheet brief" = "暫時變更篩選。結束後將由排程與預設設定檔恢復控制。";
+"family device action block" = "阻擋網際網路​";
+"family device action block brief" = "在此裝置暫時切斷所有網際網路。";
+"family device action pause" = "暫停篩選​";
+"family device action pause brief" = "暫時關閉篩選，所有內容皆允許。會自動恢復。";
+"family device action resume" = "立即恢復​";
+"family device override sheet block title" = "阻擋網際網路​";
+"family device override sheet block brief" = "此裝置將切斷所有網際網路存取。";
+"family device override sheet pause title" = "暫停篩選​";
+"family device override sheet pause brief" = "篩選將關閉並允許所有內容。會自動恢復。";
+"family device override duration hour" = "1 小時​";
+"family device override duration morning" = "直到明天早上​";
+"family device override duration indefinite" = "直到我重新開啟​";
+
 
 "family perms header" = "還有一件事";
 
@@ -787,8 +864,8 @@
 "freemium sheet safari header" = "在 Safari 上開始封鎖廣告";
 "freemium sheet safari desc" = "在 Safari 啟用我們的延伸功能，便能在瀏覽時獲得必備防護。它會封鎖煩人的廣告－包含 YouTube 上的影片廣告－讓您享受更乾淨、更快速的網頁體驗。";
 "freemium sheet safari cta" = "開啟 Safari";
-"freemium sheet safari setup later" = "Set up later";
-"freemium sheet safari setup later desc" = "Continue to other options";
+"freemium sheet safari setup later" = "稍後設定​";
+"freemium sheet safari setup later desc" = "繼續前往其他選項​";
 
 "dialog title activity rule" = "Blokada 應該如何處理 %@ 的流量？";
 "dialog exception add title" = "新增例外條件";
@@ -875,31 +952,31 @@
 "privacy pulse empty" = "尚無可顯示內容";
 
 
-"notification weekly report title" = "Privacy Shield Report";
-"notification weekly report body" = "Open Blokada to see your weekly report.";
-"notification weekly report refreshed title" = "Your weekly report is ready";
-"notification weekly report refreshed body" = "Open Blokada to view the latest details.";
-"notification weekly report cta" = "View report";
+"notification weekly report title" = "隱私護盾報告​";
+"notification weekly report body" = "開啟 Blokada 以查看您的每週報告。";
+"notification weekly report refreshed title" = "您的每週報告已準備完成​";
+"notification weekly report refreshed body" = "開啟 Blokada 以檢視最新詳細資訊。";
+"notification weekly report cta" = "查看報告​";
 
-"notification weekly report blocked increased title" = "Tracker activity increased";
-"notification weekly report blocked decreased title" = "Tracker activity decreased";
-"notification weekly report allowed increased title" = "Allowed traffic increased";
-"notification weekly report allowed decreased title" = "Allowed traffic decreased";
+"notification weekly report blocked increased title" = "追蹤活動增加​";
+"notification weekly report blocked decreased title" = "追蹤活動減少​";
+"notification weekly report allowed increased title" = "允許的流量增加​";
+"notification weekly report allowed decreased title" = "允許的流量減少​";
 
-"notification weekly report blocked totals body" = "Blocked traffic is %s% compared to last week.";
-"notification weekly report allowed totals body" = "Allowed traffic is %s% compared to last week.";
-"notification weekly report blocked totals body nopercent" = "Blocked traffic is %s compared to last week.";
-"notification weekly report allowed totals body nopercent" = "Allowed traffic is %s compared to last week.";
+"notification weekly report blocked totals body" = "已阻擋的流量與上週相比為 %s%。";
+"notification weekly report allowed totals body" = "允許的流量與上週相比為 %s%。";
+"notification weekly report blocked totals body nopercent" = "已阻擋的流量與上週相比為 %s。";
+"notification weekly report allowed totals body nopercent" = "允許的流量與上週相比為 %s。";
 
-"notification weekly report blocked toplist new title" = "New tracker in top list";
-"notification weekly report allowed toplist new title" = "New domain in top list";
-"notification weekly report blocked toplist up title" = "Tracker activity increased";
-"notification weekly report allowed toplist up title" = "Domain moved up";
-"notification weekly report blocked toplist down title" = "Tracker activity decreased";
-"notification weekly report allowed toplist down title" = "Domain moved down";
+"notification weekly report blocked toplist new title" = "頂部清單有新追蹤器​";
+"notification weekly report allowed toplist new title" = "頂部清單有新網域​";
+"notification weekly report blocked toplist up title" = "追蹤活動增加​";
+"notification weekly report allowed toplist up title" = "網域排名上升​";
+"notification weekly report blocked toplist down title" = "追蹤活動減少​";
+"notification weekly report allowed toplist down title" = "網域排名下降​";
 
-"notification weekly report toplist new body" = "Blokada is blocking %s — now ranked #%s. Tap to see more.";
-"notification weekly report toplist move body" = "%s moved to #%s (was #%s). Tap to see more.";
+"notification weekly report toplist new body" = "Blokada 正在阻擋 %s —— 現在排名第 #%s。點擊查看更多。";
+"notification weekly report toplist move body" = "%s 已移至第 #%s 位（原為 #%s）。點擊查看更多。";
 
-"notification weekly report action see more" = "See more";
-"notification weekly report action opt out" = "Turn off weekly reports";
+"notification weekly report action see more" = "查看更多​";
+"notification weekly report action opt out" = "關閉每週報告​";
