@@ -110,8 +110,11 @@ jobs:
       - name: Gate
         id: gates
         if: steps.changes.outputs.has_changes == 'true'
-        # Cheap, mechanical "is it OK" check. Always exits 0 — a failure just
-        # sets verdict=FAIL so the PR is still opened (for a human) but not merged.
+        # Cheap, mechanical "is it OK" check, and the AUTHORITATIVE pre-merge
+        # gate: the merge below fires immediately and does not wait on the PR's
+        # CI, so the en.json drift job there is only advisory on these PRs.
+        # Always exits 0 — a failure just sets verdict=FAIL so the PR is still
+        # opened (for a human) but not merged.
         run: |
           set +e
           verdict=PASS
@@ -129,10 +132,13 @@ jobs:
               verdict=FAIL; reason="$c/en.json is not a faithful regen of v6 source"
             fi
           done
-          # 2. Every changed/added translation JSON must parse.
+          # 2. Every changed/added JSON must parse. make translate writes JSON
+          #    under common/assets/translations AND android/app/src/main/assets/
+          #    translations, and all of it ships via `git add -A`, so validate
+          #    every changed/added .json (iOS/Android .strings/.xml aren't JSON).
           if [ "$verdict" = PASS ]; then
-            files=$( { git diff --name-only HEAD -- common/assets/translations; \
-                       git ls-files --others --exclude-standard -- common/assets/translations; } \
+            files=$( { git diff --name-only HEAD; \
+                       git ls-files --others --exclude-standard; } \
                      | grep '\.json$' | sort -u )
             for f in $files; do
               if ! python3 -c "import json,sys; json.load(open(sys.argv[1], encoding='utf-8'))" "$f" 2>/dev/null; then
