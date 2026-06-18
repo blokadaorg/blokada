@@ -9,8 +9,8 @@
 //
 //  @author Karol Gusak
 //
-// One of the tags used for searching blocklists
 
+// One of the tags used for searching blocklists
 "recommended" = "препоръчителни";
 // One of the tags used for searching blocklists
 "official" = "официални";

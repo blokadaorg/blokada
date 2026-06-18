@@ -648,6 +648,83 @@
 "family device label internet block" = "Alles blokkeren";
 "family device brief internet block" = "Stopt alle internettoegang op dit apparaat.";
 
+// ===== Family: schedules, device controls, profile editor =====
+"universal action back" = "Terug";
+"family profile error used as default" = "Gebruikt als standaard op %@. Wijzig eerst het profiel van dat apparaat.";
+"family profile error used by rule" = "Gebruikt door een regel op %@. Verwijder eerst die regel.";
+"family profile editor title" = "Profiel";
+"family profile editor delete" = "Profiel verwijderen";
+"family profile editor delete confirm title" = "\"%@\" verwijderen?";
+"family profile editor delete confirm message" = "Verwijdert dit profiel uit het account.";
+"family device managed by six" = "Beheerd in Blokada 6. Family zal geen DNS- of VPN-instellingen op dit apparaat wijzigen.";
+"family device action open six" = "Open Blokada 6 ";
+"family schedule section title" = "Schema";
+"family schedule section subtitle" = "Schakel over naar een ander profiel tijdens ingestelde tijden van de dag.";
+"family schedule default row title" = "Standaard";
+"family schedule default row subtitle" = "Toegepast als er geen regel actief is";
+"family schedule add rule" = "Regel toevoegen";
+"family schedule use label" = "Gebruik schema";
+"family schedule active now" = "Nu actief · tot %@";
+"family device default profile" = "Standaardprofiel";
+"family schedule paused hint" = "Als het schema is uitgeschakeld, worden alle regels genegeerd en geldt het standaardprofiel.";
+"family schedule rule editor title new" = "Nieuwe regel";
+"family schedule rule editor title edit" = "Regel bewerken";
+"family schedule rule editor profile label" = "Profiel";
+"family schedule rule editor profile new" = "+ Nieuw";
+"family schedule rule editor profile new blocklists done" = "Klaar";
+"family schedule rule editor profile empty subtitle" = "Tik op + Nieuw om een profiel voor deze regel te maken";
+"family schedule rule editor profile edit" = "\"%@\" bewerken";
+"family schedule rule editor override hint" = "Wanneer deze regel geldt, gebruikt het apparaat dit profiel in plaats van het standaard (%@).";
+"family schedule rule editor days label" = "Dagen";
+"family schedule rule editor preset weekdays" = "Weekdagen";
+"family schedule rule editor preset weekends" = "Weekend";
+"family schedule rule editor preset every" = "Elke dag";
+"family schedule rule editor times label" = "Tijden";
+"family schedule rule editor times counter" = "%@ van 4";
+"family schedule rule editor times add" = "Nog een tijd toevoegen";
+"family schedule rule editor times wrap" = "↳ eindigt volgende dag";
+"family schedule rule editor times from" = "Van";
+"family schedule rule editor times to" = "Tot";
+"family schedule rule editor delete" = "Regel verwijderen";
+"family schedule template school name" = "School";
+"family schedule template bedtime name" = "Bedtijd";
+"family schedule days summary every" = "Elke dag";
+"family schedule days summary weekdays" = "Ma–Vr";
+"family schedule days summary weekends" = "Za–Zo";
+"family schedule rule row more" = ", +%@ meer";
+"family schedule rule editor target label" = "Wat deze regel doet";
+"family schedule rule editor target filter" = "Profiel wisselen";
+"family schedule rule editor target filter brief" = "Pas een strenger filterprofiel toe tijdens dit tijdsvenster.";
+"family schedule rule editor target block" = "Geen internet";
+"family schedule rule editor target block brief" = "Sluit alle internettoegang af tijdens dit tijdsvenster.";
+"family schedule rule block title" = "Geen internet";
+"family device now label" = "NU";
+"family device now brief" = "Wat dit apparaat nu doet.";
+"family device now status filter" = "Filteren met %@";
+"family device now status allow" = "Internet volledig open";
+"family device now status blocked" = "Internet geblokkeerd";
+"family device now source default" = "Standaardprofiel";
+"family device now source schedule" = "Vanuit het schema";
+"family device now source override" = "Handmatige overschrijving";
+"family device now until" = "Tot %@";
+"family device now indefinite" = "Totdat je het weer inschakelt";
+"family device now footer" = "Je kunt tikken om het filteren te pauzeren of het internet tijdelijk te blokkeren.";
+"family device now footer override" = "Je kunt tikken om te hervatten of overschakelen naar een andere overschrijving.";
+"family device now sheet title" = "%@, op dit moment";
+"family device now sheet brief" = "Wijzig het filteren tijdelijk. Het schema en standaardprofiel nemen het automatisch weer over als het eindigt.";
+"family device action block" = "Internet blokkeren";
+"family device action block brief" = "Schakel tijdelijk alle internettoegang op dit apparaat uit.";
+"family device action pause" = "Filteren pauzeren";
+"family device action pause brief" = "Schakel het filter tijdelijk uit zodat alles is toegestaan. Wordt automatisch hervat.";
+"family device action resume" = "Nu hervatten";
+"family device override sheet block title" = "Internet blokkeren";
+"family device override sheet block brief" = "Alle internettoegang op dit apparaat wordt afgesloten.";
+"family device override sheet pause title" = "Filteren pauzeren";
+"family device override sheet pause brief" = "Filteren wordt uitgeschakeld en alles is toegestaan. Wordt automatisch hervat.";
+"family device override duration hour" = "Voor 1 uur";
+"family device override duration morning" = "Tot morgenochtend";
+"family device override duration indefinite" = "Totdat ik het weer inschakel";
+
 
 "family perms header" = "Nog één ding";
 
@@ -786,8 +863,8 @@
 "freemium sheet safari header" = "Begin met advertenties blokkeren in Safari";
 "freemium sheet safari desc" = "Schakel onze extensie in Safari in om essentiële bescherming te krijgen tijdens het browsen. Het blokkeert vervelende advertenties — inclusief video-advertenties op YouTube — zodat je kunt genieten van een schonere, snellere webervaring.";
 "freemium sheet safari cta" = "Open Safari";
-"freemium sheet safari setup later" = "Set up later";
-"freemium sheet safari setup later desc" = "Continue to other options";
+"freemium sheet safari setup later" = "Later instellen";
+"freemium sheet safari setup later desc" = "Doorgaan naar andere opties";
 
 "dialog title activity rule" = "Hoe moet Blokada verkeer naar %@ behandelen?";
 "dialog exception add title" = "Uitzondering toevoegen";
@@ -873,31 +950,31 @@
 "privacy pulse empty" = "Nog niets weer te geven";
 
 
-"notification weekly report title" = "Privacy Shield Report";
-"notification weekly report body" = "Open Blokada to see your weekly report.";
-"notification weekly report refreshed title" = "Your weekly report is ready";
-"notification weekly report refreshed body" = "Open Blokada to view the latest details.";
-"notification weekly report cta" = "View report";
+"notification weekly report title" = "Privacy Shield Rapport";
+"notification weekly report body" = "Open Blokada om je wekelijkse rapport te bekijken.";
+"notification weekly report refreshed title" = "Je wekelijkse rapport is klaar";
+"notification weekly report refreshed body" = "Open Blokada om de nieuwste details te bekijken.";
+"notification weekly report cta" = "Rapport bekijken";
 
-"notification weekly report blocked increased title" = "Tracker activity increased";
-"notification weekly report blocked decreased title" = "Tracker activity decreased";
-"notification weekly report allowed increased title" = "Allowed traffic increased";
-"notification weekly report allowed decreased title" = "Allowed traffic decreased";
+"notification weekly report blocked increased title" = "Trackeractiviteit gestegen";
+"notification weekly report blocked decreased title" = "Trackeractiviteit gedaald";
+"notification weekly report allowed increased title" = "Toegestane verkeer gestegen";
+"notification weekly report allowed decreased title" = "Toegestane verkeer gedaald";
 
-"notification weekly report blocked totals body" = "Blocked traffic is %s% compared to last week.";
-"notification weekly report allowed totals body" = "Allowed traffic is %s% compared to last week.";
-"notification weekly report blocked totals body nopercent" = "Blocked traffic is %s compared to last week.";
-"notification weekly report allowed totals body nopercent" = "Allowed traffic is %s compared to last week.";
+"notification weekly report blocked totals body" = "Geblokkeerd verkeer is %s% vergeleken met vorige week.";
+"notification weekly report allowed totals body" = "Toegestane verkeer is %s% vergeleken met vorige week.";
+"notification weekly report blocked totals body nopercent" = "Geblokkeerd verkeer is %s vergeleken met vorige week.";
+"notification weekly report allowed totals body nopercent" = "Toegestane verkeer is %s vergeleken met vorige week.";
 
-"notification weekly report blocked toplist new title" = "New tracker in top list";
-"notification weekly report allowed toplist new title" = "New domain in top list";
-"notification weekly report blocked toplist up title" = "Tracker activity increased";
-"notification weekly report allowed toplist up title" = "Domain moved up";
-"notification weekly report blocked toplist down title" = "Tracker activity decreased";
-"notification weekly report allowed toplist down title" = "Domain moved down";
+"notification weekly report blocked toplist new title" = "Nieuwe tracker in toplijst";
+"notification weekly report allowed toplist new title" = "Nieuw domein in toplijst";
+"notification weekly report blocked toplist up title" = "Trackeractiviteit gestegen";
+"notification weekly report allowed toplist up title" = "Domein gestegen";
+"notification weekly report blocked toplist down title" = "Trackeractiviteit gedaald";
+"notification weekly report allowed toplist down title" = "Domein gedaald";
 
-"notification weekly report toplist new body" = "Blokada is blocking %s — now ranked #%s. Tap to see more.";
-"notification weekly report toplist move body" = "%s moved to #%s (was #%s). Tap to see more.";
+"notification weekly report toplist new body" = "Blokada blokkeert %s — nu gerangschikt op #%s. Tik voor meer info.";
+"notification weekly report toplist move body" = "%s verplaatst naar #%s (was #%s). Tik voor meer info.";
 
-"notification weekly report action see more" = "See more";
-"notification weekly report action opt out" = "Turn off weekly reports";
+"notification weekly report action see more" = "Meer weergeven";
+"notification weekly report action opt out" = "Wekelijkse rapporten uitschakelen";

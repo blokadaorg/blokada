@@ -41,7 +41,6 @@
 "conn isssues details" = "- Check your Internet connection\n- Use only one Blokada app\n- Deactivate other VPNs";
 
 "universal action continue" = "Continue";
-"universal action back" = "Back";
 "universal action cancel" = "Cancel";
 "universal action close" = "Close";
 "universal action done" = "Done";
@@ -597,21 +596,32 @@
 "family fault link already" = "This device is already linked. Please unlink it using the parent app and try again.";
 "family profile dialog header" = "Select a profile to use for %@.";
 "family profile dialog header this" = "Select a profile to use for this device.";
+"family profile add" = "Which profile would you like to add?";
+"family profile template" = "Choose a template to get started.";
+
+// A name of a configuration profile, for parent device
+"family profile name parent" = "Parent";
+
+// A name of a configuration profile, for parent device
 "Parent" = "Parent";
+
+// A name of a configuration profile, for child device
+"family profile name child" = "Child";
+
+// A name of a configuration profile, for child device
 "Child" = "Child";
+
+// A name of a custom configuration profile template
+"family profile name custom" = "Custom";
+
+// A name of a custom configuration profile template
 "Custom" = "Custom";
+
 "family profile action add" = "Add new profile";
 "family profile action delete" = "Remove this profile";
 
 "family profile error use" = "This profile is currently in use. Ensure no device is using it before deletion.";
-"family profile error used as default" = "Used as default on %@. Change that device's profile first.";
-"family profile error used by rule" = "Used by a rule on %@. Remove that rule first.";
 "family profile error" = "Failed to delete this profile.";
-
-"family profile editor title" = "Profile";
-"family profile editor delete" = "Delete profile";
-"family profile editor delete confirm title" = "Delete \"%@\"?";
-"family profile editor delete confirm message" = "Removes this profile from the account.";
 
 // A name template for profile, like "Child Profile"
 "family profile template name" = "%@ Profile";
@@ -637,6 +647,83 @@
 "family device brief internet off" = "No content is blocked. The Internet is fully open.";
 "family device label internet block" = "Block All";
 "family device brief internet block" = "Stops all Internet access on the device.";
+
+// ===== Family: schedules, device controls, profile editor =====
+"universal action back" = "Back";
+"family profile error used as default" = "Used as default on %@. Change that device's profile first.";
+"family profile error used by rule" = "Used by a rule on %@. Remove that rule first.";
+"family profile editor title" = "Profile";
+"family profile editor delete" = "Delete profile";
+"family profile editor delete confirm title" = "Delete \"%@\"?";
+"family profile editor delete confirm message" = "Removes this profile from the account.";
+"family device managed by six" = "Managed in Blokada 6. Family will not change DNS or VPN settings on this device.";
+"family device action open six" = "Open Blokada 6";
+"family schedule section title" = "Schedule";
+"family schedule section subtitle" = "Switch to another profile during set times of day.";
+"family schedule default row title" = "Default";
+"family schedule default row subtitle" = "Applies when no rule is active";
+"family schedule add rule" = "Add rule";
+"family schedule use label" = "Use schedule";
+"family schedule active now" = "Active now · until %@";
+"family device default profile" = "Default profile";
+"family schedule paused hint" = "When the schedule is off, all rules are ignored and the Default profile applies.";
+"family schedule rule editor title new" = "New rule";
+"family schedule rule editor title edit" = "Edit rule";
+"family schedule rule editor profile label" = "Profile";
+"family schedule rule editor profile new" = "+ New";
+"family schedule rule editor profile new blocklists done" = "Done";
+"family schedule rule editor profile empty subtitle" = "Tap + New to create a profile for this rule";
+"family schedule rule editor profile edit" = "Edit \"%@\"";
+"family schedule rule editor override hint" = "When this rule applies, the device uses this profile instead of its standard (%@).";
+"family schedule rule editor days label" = "Days";
+"family schedule rule editor preset weekdays" = "Weekdays";
+"family schedule rule editor preset weekends" = "Weekends";
+"family schedule rule editor preset every" = "Every day";
+"family schedule rule editor times label" = "Times";
+"family schedule rule editor times counter" = "%@ of 4";
+"family schedule rule editor times add" = "Add another time";
+"family schedule rule editor times wrap" = "↳ ends next day";
+"family schedule rule editor times from" = "From";
+"family schedule rule editor times to" = "To";
+"family schedule rule editor delete" = "Delete rule";
+"family schedule template school name" = "School";
+"family schedule template bedtime name" = "Bedtime";
+"family schedule days summary every" = "Every day";
+"family schedule days summary weekdays" = "Mon–Fri";
+"family schedule days summary weekends" = "Sat–Sun";
+"family schedule rule row more" = ", +%@ more";
+"family schedule rule editor target label" = "What this rule does";
+"family schedule rule editor target filter" = "Switch profile";
+"family schedule rule editor target filter brief" = "Apply a stricter filtering profile during this window.";
+"family schedule rule editor target block" = "No internet";
+"family schedule rule editor target block brief" = "Cut off all internet access during this window.";
+"family schedule rule block title" = "No internet";
+"family device now label" = "NOW";
+"family device now brief" = "What this device is doing right now.";
+"family device now status filter" = "Filtering with %@";
+"family device now status allow" = "Internet fully open";
+"family device now status blocked" = "Internet blocked";
+"family device now source default" = "Default profile";
+"family device now source schedule" = "From the schedule";
+"family device now source override" = "Manual override";
+"family device now until" = "Until %@";
+"family device now indefinite" = "Until you turn it back on";
+"family device now footer" = "You can tap to pause filtering or block internet for a while.";
+"family device now footer override" = "You can tap to resume, or switch to a different override.";
+"family device now sheet title" = "%@, right now";
+"family device now sheet brief" = "Change the filtering temporarily. The schedule and default profile take over again when it ends.";
+"family device action block" = "Block internet";
+"family device action block brief" = "Cut off all internet on this device for a while.";
+"family device action pause" = "Pause filtering";
+"family device action pause brief" = "Temporarily turn filtering off so everything is allowed. It resumes automatically.";
+"family device action resume" = "Resume now";
+"family device override sheet block title" = "Block internet";
+"family device override sheet block brief" = "All internet access on this device will be cut off.";
+"family device override sheet pause title" = "Pause filtering";
+"family device override sheet pause brief" = "Filtering turns off and everything is allowed. It resumes automatically.";
+"family device override duration hour" = "For 1 hour";
+"family device override duration morning" = "Until tomorrow morning";
+"family device override duration indefinite" = "Until I turn it back on";
 
 
 "family perms header" = "One more thing";
@@ -693,50 +780,6 @@
 
 // Shown when profile is unknown. Keep it short.
 "family stats label profile unknown" = "Unknown";
-
-// Title of the per-device Schedule section on the Device detail screen.
-"family schedule section title" = "Schedule";
-// One-line explainer below the Schedule title. Locked microcopy.
-"family schedule section subtitle" = "Switch profiles by day and time. Times follow the device's local clock.";
-// Label of the row that shows the device's Default profile (fallback when no rule matches).
-"family schedule default row title" = "Default";
-"family schedule default row subtitle" = "Applies when no rule is active";
-// Button that opens the rule editor to create a new rule.
-"family schedule add rule" = "Add rule";
-// Toggle in the Schedule header that disables all rules.
-"family schedule use label" = "Use schedule";
-"family schedule paused hint" = "When the schedule is off, all rules are ignored and the Default profile applies.";
-// Rule editor sheet titles (create vs edit).
-"family schedule rule editor title new" = "New rule";
-"family schedule rule editor title edit" = "Edit rule";
-"family schedule rule editor profile label" = "Profile";
-"family schedule rule editor profile new" = "+ New";
-"family schedule rule editor profile new blocklists done" = "Done";
-"family schedule rule editor profile empty subtitle" = "Tap + New to create a profile for this rule";
-"family schedule rule editor profile edit" = "Edit \"%@\"";
-"family schedule rule editor override hint" = "When this rule applies, the device uses this profile instead of its standard (%@).";
-"family schedule rule editor days label" = "Days";
-"family schedule rule editor preset weekdays" = "Weekdays";
-"family schedule rule editor preset weekends" = "Weekends";
-"family schedule rule editor preset every" = "Every day";
-"family schedule rule editor times label" = "Times";
-// Counter in the Times field; %@ is the current window count (max 4).
-"family schedule rule editor times counter" = "%@ of 4";
-"family schedule rule editor times add" = "Add another time";
-// Hint shown beneath a wraparound window (end < start).
-"family schedule rule editor times wrap" = "↳ ends next day";
-"family schedule rule editor times from" = "From";
-"family schedule rule editor times to" = "To";
-// Destructive footer in the editor sheet (edit-only).
-"family schedule rule editor delete" = "Delete rule";
-// Seeded template profile names (shown verbatim until renamed).
-"family schedule template school name" = "School";
-"family schedule template bedtime name" = "Bedtime";
-"family schedule days summary every" = "Every day";
-"family schedule days summary weekdays" = "Mon–Fri";
-"family schedule days summary weekends" = "Sat–Sun";
-// Trailing suffix on a rule row when more windows exist than are shown. %@ is the overflow count.
-"family schedule rule row more" = ", +%@ more";
 
 // Shown when no blocklist was applied 
 "family stats label none" = "None";
