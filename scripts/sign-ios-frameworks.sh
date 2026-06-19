@@ -1,27 +1,33 @@
 #!/usr/bin/env bash
 #
-# Code-sign the add-to-app Flutter plugin xcframeworks before the host Xcode
-# archive embeds them.
+# Sign the add-to-app Flutter plugin XCFRAMEWORK BUNDLES (with a secure
+# timestamp) before the host Xcode archive consumes them.
 #
-# Why this exists:
+# Why this exists / what ITMS-91065 actually checks:
 #   `flutter build ios-framework` (see common/Makefile `build-ios`) emits every
-#   plugin as an UNSIGNED .xcframework. The host project embeds each with
-#   "Code Sign On Copy", but that runtime re-sign is unreliable for the device
-#   slice of a pre-built xcframework (flutter/flutter#148300, #179634), so the
-#   embedded framework can ship unsigned. App Store Connect then rejects the
-#   upload with ITMS-91065 ("Missing signature") for commonly-used SDKs such as
-#   sqflite (sqflite_darwin.framework), path_provider and shared_preferences.
+#   plugin as an UNSIGNED .xcframework. App Store Connect then rejects the upload
+#   with ITMS-91065 ("Missing signature") for commonly-used third-party SDKs such
+#   as sqflite (sqflite_darwin), path_provider and shared_preferences.
 #
-#   Signing the inner .framework of each slice here guarantees a valid signature
-#   is present regardless of whether Code-Sign-On-Copy runs: if Xcode re-signs on
-#   copy it harmlessly overwrites ours with the same Apple Distribution identity;
-#   if it skips the slice, our signature is what ships. Signing the .xcframework
-#   *wrapper* is NOT enough — it does not propagate to the inner frameworks that
-#   actually land in the app bundle.
+#   ITMS-91065 does NOT check the embedded framework's code signature — Xcode's
+#   embed/export step code-signs that on copy (verified separately by
+#   scripts/verify-ios-ipa-signatures.sh). It checks the XCFRAMEWORK's own
+#   *origin* signature, which the archive records into the IPA at
+#   `Signatures/<name>.xcframework-ios.signature` as `signed` / `isSecureTimestamp`.
+#   An unsigned .xcframework yields `signed=false` → ITMS-91065. (This is the
+#   feature documented in "Verifying the origin of your XCFrameworks", the page
+#   Apple's rejection email links to.)
 #
-# Scope: only used by the release archive targets in the root Makefile
-# (build-ios / build-ios-family / build-ios-six). Debug/simulator builds sign via
-# the normal dev identity on copy and do not go through here.
+#   The fix is Apple's canonical command — also the sqflite maintainer's accepted
+#   resolution (tekartik/sqflite#1129): sign the .xcframework *bundle* WITH
+#   `--timestamp`, so the recorded origin signature has `signed=true` AND
+#   `isSecureTimestamp=true`. Signing the inner per-slice .framework does NOT
+#   satisfy this (wrong artifact; the export re-signs it anyway) and additionally
+#   broke the archive's SignatureCollection step for Flutter (release 26.2.18).
+#
+# Scope: release archive targets only (build-ios / build-ios-family /
+#   build-ios-six). `--timestamp` contacts Apple's timestamp server, so this step
+#   needs network at build time.
 #
 # Override the signing identity or config via env:
 #   IOS_CODESIGN_IDENTITY="Apple Distribution: ... (TEAMID)"  CONFIG=Release
@@ -51,50 +57,49 @@ if ! security find-identity -v -p codesigning 2>/dev/null | grep -qF "$IDENTITY"
 	exit 1
 fi
 
-# Do NOT sign Flutter's own first-party outputs. Flutter.framework and
-# App.framework come out of `flutter build ios-framework` ALREADY signed
-# (io.flutter.flutter / io.flutter.flutter.app) and are not on the unsigned-
-# plugin list ITMS-91065 flags. Re-signing them here breaks the host archive:
-# Xcode's ProcessXCFramework → SignatureCollection task on Flutter.xcframework
-# fails with `signature-collection failed ... SWBUtil.CodeSignatureInfo.Error
-# error 0` → ** ARCHIVE FAILED ** (release 26.2.18 regression). The host
-# add-to-app embedding signs Flutter/App itself, so leave them untouched.
-# FlutterPluginRegistrant is a static, link-only framework — never embedded in
-# the app bundle, so ITMS-91065 cannot fire on it and signing it is pointless.
+# Do NOT sign Flutter's own first-party xcframeworks. Flutter.xcframework already
+# carries a valid origin signature (Google signs it) and re-signing it breaks the
+# archive's SignatureCollection step (release 26.2.18). App.xcframework is the
+# app's own Dart code and FlutterPluginRegistrant is static/link-only — neither
+# is a third-party SDK, so ITMS-91065 never flags them.
 EXCLUDED_XCFRAMEWORKS=(Flutter App FlutterPluginRegistrant)
 
-# Gather the framework list first (tolerating a transient find error via `|| true`)
-# so the producer pipeline's exit status can't abort the run mid-loop under
-# `pipefail`. Sort deepest-first so any nested frameworks are signed before their
-# container (inside-out signing); the awk field is the slash count = path depth.
-prune=()
-for x in "${EXCLUDED_XCFRAMEWORKS[@]}"; do
-	prune+=(-not -path "*/$x.xcframework/*")
-done
-frameworks="$(find "$FRAMEWORK_DIR" -type d -name '*.framework' "${prune[@]}" 2>/dev/null \
-	| awk '{ print gsub(/\//, "/"), $0 }' | sort -rn | cut -d' ' -f2- || true)"
+is_excluded() {
+	local n="$1" ex
+	for ex in "${EXCLUDED_XCFRAMEWORKS[@]}"; do
+		[ "$n" = "$ex" ] && return 0
+	done
+	return 1
+}
 
-if [ -z "$frameworks" ]; then
-	echo "error: no .framework bundles found under $FRAMEWORK_DIR" >&2
+echo "sign-ios-frameworks: signing $CONFIG plugin xcframeworks (with secure timestamp) as '$IDENTITY'"
+
+shopt -s nullglob
+signed=0
+for xcf in "$FRAMEWORK_DIR"/*.xcframework; do
+	name="$(basename "$xcf" .xcframework)"
+	is_excluded "$name" && continue
+
+	# Sign the bundle. `--timestamp` is REQUIRED: the origin signature must record
+	# isSecureTimestamp=true (codesign contacts Apple's TSA → needs network).
+	# `--force` is idempotent — overwrites any signature from a prior run.
+	codesign --force --timestamp -v --sign "$IDENTITY" "$xcf"
+
+	# Verify before the archive consumes it: a valid signature AND a secure
+	# timestamp present, so a TSA failure is caught here rather than at upload.
+	# `grep` reads a here-string (not a pipeline) to avoid a SIGPIPE/pipefail abort.
+	codesign --verify --strict "$xcf"
+	if ! grep -q '^Timestamp=' <<< "$(codesign -dvv "$xcf" 2>&1 || true)"; then
+		echo "error: $name.xcframework signed without a secure timestamp (Apple TSA unreachable?)" >&2
+		exit 1
+	fi
+	echo "  signed $name.xcframework (secure timestamp)"
+	signed=$((signed + 1))
+done
+
+if [ "$signed" -eq 0 ]; then
+	echo "error: no plugin .xcframework bundles found under $FRAMEWORK_DIR" >&2
 	exit 1
 fi
 
-echo "sign-ios-frameworks: signing $CONFIG plugin frameworks as '$IDENTITY'"
-
-# `codesign --force` is idempotent — the frameworks may already carry a
-# _CodeSignature from a prior run; re-signing cleanly overwrites it.
-signed=0
-while IFS= read -r fw; do
-	[ -z "$fw" ] && continue
-	codesign --force -v --sign "$IDENTITY" "$fw"
-	signed=$((signed + 1))
-done <<< "$frameworks"
-
-# Verify every framework before the host archive consumes them, so a corrupt
-# signature is caught here rather than at App Store upload.
-while IFS= read -r fw; do
-	[ -z "$fw" ] && continue
-	codesign --verify --strict "$fw"
-done <<< "$frameworks"
-
-echo "sign-ios-frameworks: signed & verified $signed framework(s)"
+echo "sign-ios-frameworks: signed & verified $signed plugin xcframework(s) with secure timestamp"
