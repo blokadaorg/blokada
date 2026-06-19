@@ -58,7 +58,7 @@ test-local:
 build:
 	$(MAKE) -C common/ build
 	$(MAKE) -C android/ build
-	$(MAKE) -C ios/ build
+	$(MAKE) build-ios
 
 # Build all android .aab apps from scratch (release)
 build-android:
