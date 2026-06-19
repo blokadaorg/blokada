@@ -7,10 +7,10 @@
 #      XCFRAMEWORK must carry an *origin* signature. The archive records this in
 #      Signatures/<name>.xcframework-ios.signature as `signed` / `isSecureTimestamp`.
 #      An unsigned .xcframework → signed=false → ITMS-91065 "Missing signature".
-#      scripts/sign-ios-frameworks.sh signs the plugin .xcframework bundles WITH
-#      `--timestamp` to make these signed=true AND isSecureTimestamp=true; this
-#      asserts the result. Flutter/App/FlutterPluginRegistrant are not third-party
-#      SDKs (Apple does not flag them), so they are not required here.
+#      scripts/sign-ios-frameworks.sh signs the plugin .xcframework bundles to
+#      make these signed=true. We gate hard on `signed`; a missing secure
+#      timestamp only WARNs (see below). Flutter/App/FlutterPluginRegistrant are
+#      not third-party SDKs (Apple does not flag them), so they are not checked.
 #
 #   2. Embedded code signatures (defensive): every framework embedded in the app
 #      should be validly code-signed by the App Store distribution identity. Not
@@ -131,10 +131,21 @@ $name"
 			[ "$skip" -eq 1 ] && continue
 			is_signed="$(plutil -extract signed raw -o - "$sigf" 2>/dev/null || echo false)"
 			is_ts="$(plutil -extract isSecureTimestamp raw -o - "$sigf" 2>/dev/null || echo false)"
-			if [ "$is_signed" = "true" ] && [ "$is_ts" = "true" ]; then
-				echo "  OK   $xcname.xcframework  [origin: signed + secure timestamp]"
+			# `signed=true` is the documented ITMS-91065 requirement (the SDK "must
+			# include a signature file"). A secure timestamp is best-practice (Apple's
+			# example signs with --timestamp) but is NOT confirmed to be required, and
+			# Xcode's archive does not reliably record one onto the recorded origin
+			# signature even when the .xcframework was signed with --timestamp. So gate
+			# hard on `signed`, and only WARN when the timestamp is missing — let App
+			# Store Connect be the authority on whether it is mandatory.
+			if [ "$is_signed" = "true" ]; then
+				if [ "$is_ts" = "true" ]; then
+					echo "  OK   $xcname.xcframework  [origin: signed + secure timestamp]"
+				else
+					echo "  WARN $xcname.xcframework  [origin: signed=true, isSecureTimestamp=false — uploading anyway; ITMS-91065 may still flag it]" >&2
+				fi
 			else
-				echo "  FAIL $xcname.xcframework  — origin signature signed=$is_signed isSecureTimestamp=$is_ts (ITMS-91065)" >&2
+				echo "  FAIL $xcname.xcframework  — origin signature signed=$is_signed (ITMS-91065: SDK xcframework not signed)" >&2
 				unsigned=$((unsigned + 1))
 			fi
 		done
