@@ -70,23 +70,38 @@ $name"
 		# `codesign --verify` fails both for a missing signature ("not signed at
 		# all" → ITMS-91065) and for a broken seal, so it is the right gate.
 		# Capture once (stderr carries the reason on failure).
+		#
+		# NB: everything below parses captured strings via here-strings / bash
+		# builtins, never `cmd | awk/grep/head`. With `set -o pipefail`, a
+		# downstream consumer that exits early (awk `exit`, grep -q, head) closes
+		# the pipe and the producer (e.g. codesign) dies with SIGPIPE → the
+		# pipeline returns 141 and `set -e` kills the whole script. That is
+		# exactly what broke the first release attempt (make ... Error 141).
 		if verr="$(codesign --verify --strict "$fw" 2>&1)"; then
-			authority="$(codesign -dvv "$fw" 2>&1 | awk -F'=' '/^Authority=/{print $2; exit}')"
-			if [ -n "$EXPECTED_AUTHORITY" ] && ! printf '%s' "$authority" | grep -qF "$EXPECTED_AUTHORITY"; then
-				echo "  FAIL $name  — signed by '${authority:-no authority}', expected authority containing '$EXPECTED_AUTHORITY'" >&2
-				unsigned=$((unsigned + 1))
+			info="$(codesign -dvv "$fw" 2>&1 || true)"
+			authority="$(awk -F'=' '/^Authority=/{print $2; exit}' <<< "$info")"
+			if [ -n "$EXPECTED_AUTHORITY" ]; then
+				case "$authority" in
+					*"$EXPECTED_AUTHORITY"*)
+						echo "  OK   $name  [${authority:-no authority line}]" ;;
+					*)
+						echo "  FAIL $name  — signed by '${authority:-no authority}', expected authority containing '$EXPECTED_AUTHORITY'" >&2
+						unsigned=$((unsigned + 1)) ;;
+				esac
 			else
 				echo "  OK   $name  [${authority:-no authority line}]"
 			fi
 		else
-			echo "  FAIL $name  — $(printf '%s' "$verr" | head -1)" >&2
+			echo "  FAIL $name  — ${verr%%$'\n'*}" >&2
 			unsigned=$((unsigned + 1))
 		fi
 	done <<< "$frameworks"
 
 	# Fail loudly if a framework we expect to be embedded is missing entirely.
+	# `grep` reads a here-string (not a pipeline), so its early exit on a match
+	# cannot trigger the SIGPIPE/pipefail trap described above.
 	for req in "${REQUIRED_FRAMEWORKS[@]}"; do
-		if ! printf '%s\n' "$seen" | grep -qx "$req"; then
+		if ! grep -qx "$req" <<< "$seen"; then
 			echo "  MISSING $req — expected to be embedded but not found in $ipa" >&2
 			unsigned=$((unsigned + 1))
 		fi
