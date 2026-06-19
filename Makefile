@@ -20,6 +20,7 @@ ADAPTY_VER := 3_8.0
 	translate \
 	build-android build-android-family build-android-six \
 	build-ios build-ios-family build-ios-six build-ios-six-debug \
+	sign-ios-frameworks \
 	version version-clean \
 	publish-android gplay-key-unpack gplay-key-clean \
 	publish-ios appstore-key-unpack appstore-key-clean fastlane-match \
@@ -57,7 +58,7 @@ test-local:
 build:
 	$(MAKE) -C common/ build
 	$(MAKE) -C android/ build
-	$(MAKE) -C ios/ build
+	$(MAKE) build-ios
 
 # Build all android .aab apps from scratch (release)
 build-android:
@@ -77,17 +78,27 @@ build-android-six:
 # Build all ios .ipa apps from scratch (release)
 build-ios:
 	$(MAKE) -C common/ build-ios
+	$(MAKE) sign-ios-frameworks
 	$(MAKE) -C ios/ build
 
 # Build ios family .ipa from scratch (release)
 build-ios-family:
 	$(MAKE) -C common/ build-ios
+	$(MAKE) sign-ios-frameworks
 	$(MAKE) -C ios/ build-family
 
 # Build ios six .ipa from scratch (release)
 build-ios-six:
 	$(MAKE) -C common/ build-ios
+	$(MAKE) sign-ios-frameworks
 	$(MAKE) -C ios/ build-six
+
+# Code-sign the unsigned Flutter plugin xcframeworks before the host archive
+# embeds them, so commonly-used SDKs (sqflite, path_provider, ...) ship with a
+# signature and App Store Connect accepts the upload (avoids ITMS-91065).
+# Release-only: debug/simulator builds sign via the dev identity on copy.
+sign-ios-frameworks:
+	./scripts/sign-ios-frameworks.sh
 
 # Build ios six .ipa from scratch (debug)
 build-ios-six-debug:
