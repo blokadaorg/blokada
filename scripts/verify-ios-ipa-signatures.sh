@@ -1,17 +1,20 @@
 #!/usr/bin/env bash
 #
-# Verify that every framework embedded in a built .ipa carries a valid code
-# signature, before it is uploaded to App Store Connect.
+# Verify a built .ipa is signed the way App Store Connect requires, before it is
+# uploaded. Two independent checks:
 #
-# Why this exists:
-#   scripts/sign-ios-frameworks.sh signs the *unsigned* third-party plugin
-#   xcframeworks (sqflite_darwin, path_provider, shared_preferences, Adapty*)
-#   to satisfy ITMS-91065, and deliberately does NOT touch Flutter's own
-#   Flutter.framework / App.framework (they ship pre-signed; re-signing them
-#   breaks Xcode's ProcessXCFramework/SignatureCollection step). This check
-#   proves that assumption end-to-end: it cracks open the final .ipa and
-#   confirms EVERY embedded framework — Flutter and App included — is signed,
-#   so a missing signature is caught here instead of by App Store Connect.
+#   1. ITMS-91065 (the real gate): each commonly-used third-party SDK's
+#      XCFRAMEWORK must carry an *origin* signature. The archive records this in
+#      Signatures/<name>.xcframework-ios.signature as `signed` / `isSecureTimestamp`.
+#      An unsigned .xcframework → signed=false → ITMS-91065 "Missing signature".
+#      scripts/sign-ios-frameworks.sh signs the plugin .xcframework bundles WITH
+#      `--timestamp` to make these signed=true AND isSecureTimestamp=true; this
+#      asserts the result. Flutter/App/FlutterPluginRegistrant are not third-party
+#      SDKs (Apple does not flag them), so they are not required here.
+#
+#   2. Embedded code signatures (defensive): every framework embedded in the app
+#      should be validly code-signed by the App Store distribution identity. Not
+#      what ITMS-91065 checks, but a cheap guard against an unsigned/ad-hoc slice.
 #
 # Usage: verify-ios-ipa-signatures.sh <path-to.ipa> [more.ipa ...]
 #
@@ -27,6 +30,11 @@ fi
 # Frameworks that MUST be present and signed in an add-to-app .ipa. Their
 # absence would make an "all signed" pass vacuously true, so assert them.
 REQUIRED_FRAMEWORKS=(Flutter.framework App.framework)
+
+# XCFrameworks NOT required to carry a third-party-SDK origin signature: Flutter
+# is already Google-signed, App is the app's own code, FlutterPluginRegistrant is
+# static/link-only. Keep in sync with sign-ios-frameworks.sh.
+EXCLUDED_XCFRAMEWORKS=(Flutter App FlutterPluginRegistrant)
 
 # A valid-but-wrong signature (ad-hoc, or a development cert) passes
 # `codesign --verify` yet App Store Connect still rejects it, so also assert the
@@ -106,6 +114,33 @@ $name"
 			unsigned=$((unsigned + 1))
 		fi
 	done
+
+	# --- ITMS-91065 gate: third-party SDK xcframework ORIGIN signatures ---
+	# Apple reads Signatures/<name>.xcframework-ios.signature, recorded by the
+	# archive. Each non-excluded (third-party SDK) xcframework must be signed=true
+	# AND isSecureTimestamp=true, else App Store Connect rejects with ITMS-91065.
+	sigdir="$workdir/Signatures"
+	if [ -d "$sigdir" ]; then
+		for sigf in "$sigdir"/*.xcframework-ios.signature; do
+			[ -e "$sigf" ] || continue
+			xcname="$(basename "$sigf" .xcframework-ios.signature)"
+			skip=0
+			for ex in "${EXCLUDED_XCFRAMEWORKS[@]}"; do
+				[ "$xcname" = "$ex" ] && skip=1
+			done
+			[ "$skip" -eq 1 ] && continue
+			is_signed="$(plutil -extract signed raw -o - "$sigf" 2>/dev/null || echo false)"
+			is_ts="$(plutil -extract isSecureTimestamp raw -o - "$sigf" 2>/dev/null || echo false)"
+			if [ "$is_signed" = "true" ] && [ "$is_ts" = "true" ]; then
+				echo "  OK   $xcname.xcframework  [origin: signed + secure timestamp]"
+			else
+				echo "  FAIL $xcname.xcframework  — origin signature signed=$is_signed isSecureTimestamp=$is_ts (ITMS-91065)" >&2
+				unsigned=$((unsigned + 1))
+			fi
+		done
+	else
+		echo "  WARNING: no Signatures/ in $ipa — cannot verify xcframework origin signatures (ITMS-91065)" >&2
+	fi
 
 	if [ "$unsigned" -ne 0 ]; then
 		echo "verify-ios-ipa-signatures: $unsigned unsigned/missing framework(s) in $ipa — App Store would reject (ITMS-91065)" >&2
