@@ -51,11 +51,27 @@ if ! security find-identity -v -p codesigning 2>/dev/null | grep -qF "$IDENTITY"
 	exit 1
 fi
 
+# Do NOT sign Flutter's own first-party outputs. Flutter.framework and
+# App.framework come out of `flutter build ios-framework` ALREADY signed
+# (io.flutter.flutter / io.flutter.flutter.app) and are not on the unsigned-
+# plugin list ITMS-91065 flags. Re-signing them here breaks the host archive:
+# Xcode's ProcessXCFramework → SignatureCollection task on Flutter.xcframework
+# fails with `signature-collection failed ... SWBUtil.CodeSignatureInfo.Error
+# error 0` → ** ARCHIVE FAILED ** (release 26.2.18 regression). The host
+# add-to-app embedding signs Flutter/App itself, so leave them untouched.
+# FlutterPluginRegistrant is a static, link-only framework — never embedded in
+# the app bundle, so ITMS-91065 cannot fire on it and signing it is pointless.
+EXCLUDED_XCFRAMEWORKS=(Flutter App FlutterPluginRegistrant)
+
 # Gather the framework list first (tolerating a transient find error via `|| true`)
 # so the producer pipeline's exit status can't abort the run mid-loop under
 # `pipefail`. Sort deepest-first so any nested frameworks are signed before their
 # container (inside-out signing); the awk field is the slash count = path depth.
-frameworks="$(find "$FRAMEWORK_DIR" -type d -name '*.framework' 2>/dev/null \
+prune=()
+for x in "${EXCLUDED_XCFRAMEWORKS[@]}"; do
+	prune+=(-not -path "*/$x.xcframework/*")
+done
+frameworks="$(find "$FRAMEWORK_DIR" -type d -name '*.framework' "${prune[@]}" 2>/dev/null \
 	| awk '{ print gsub(/\//, "/"), $0 }' | sort -rn | cut -d' ' -f2- || true)"
 
 if [ -z "$frameworks" ]; then

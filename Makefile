@@ -80,18 +80,21 @@ build-ios:
 	$(MAKE) -C common/ build-ios
 	$(MAKE) sign-ios-frameworks
 	$(MAKE) -C ios/ build
+	./scripts/verify-ios-ipa-signatures.sh "ios/Blokada Family.ipa" "ios/Blokada 6.ipa"
 
 # Build ios family .ipa from scratch (release)
 build-ios-family:
 	$(MAKE) -C common/ build-ios
 	$(MAKE) sign-ios-frameworks
 	$(MAKE) -C ios/ build-family
+	./scripts/verify-ios-ipa-signatures.sh "ios/Blokada Family.ipa"
 
 # Build ios six .ipa from scratch (release)
 build-ios-six:
 	$(MAKE) -C common/ build-ios
 	$(MAKE) sign-ios-frameworks
 	$(MAKE) -C ios/ build-six
+	./scripts/verify-ios-ipa-signatures.sh "ios/Blokada 6.ipa"
 
 # Code-sign the unsigned Flutter plugin xcframeworks before the host archive
 # embeds them, so commonly-used SDKs (sqflite, path_provider, ...) ship with a
