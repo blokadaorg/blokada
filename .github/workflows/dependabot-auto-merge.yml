@@ -69,7 +69,7 @@ jobs:
 
       - name: Checkout base
         if: steps.resolve.outputs.pr_number != ''
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 1
 

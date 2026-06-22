@@ -112,7 +112,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 1
 
@@ -139,7 +139,7 @@ jobs:
       BLOKADA_VERSION_NAME: ${{ needs.release_context.outputs.version_name }}
       BLOKADA_VERSION_CODE: ${{ needs.release_context.outputs.version_code }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           submodules: recursive
           fetch-depth: 1
@@ -191,7 +191,7 @@ jobs:
       LC_ALL: en_US.UTF-8
       FLAVOR: ${{ needs.release_context.outputs.flavor }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 1
 
@@ -229,7 +229,7 @@ jobs:
       BLOKADA_KEY_PWD: ${{ secrets.BLOKADA_KEY_PWD }}
       GRADLE_OPTS: -Dorg.gradle.unsafe.disable.watch-fs=true -Dorg.gradle.vfs.watch=false
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           submodules: recursive
           fetch-depth: 1
@@ -282,7 +282,7 @@ jobs:
       LC_ALL: en_US.UTF-8
       FLAVOR: ${{ needs.release_context.outputs.flavor }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 1
 
