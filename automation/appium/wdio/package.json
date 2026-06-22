@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@types/chai": "^5.2.3",
-    "@types/node": "^25.9.3",
+    "@types/node": "^26.0.0",
     "appium": "^3.5.0",
     "chai": "^6.2.2",
     "ts-node": "^10.9.2",
