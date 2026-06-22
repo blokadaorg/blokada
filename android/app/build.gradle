@@ -167,8 +167,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.7.1'
     implementation 'com.google.android.material:material:1.14.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.10.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.10.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.11.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.11.0'
     implementation 'androidx.preference:preference-ktx:1.2.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.browser:browser:1.10.0'
@@ -201,7 +201,7 @@ dependencies {
     sixImplementation fileTree(include: ['*.aar'], dir: 'wireguard-android/lib')
     sixImplementation "androidx.datastore:datastore-preferences:1.2.1"
     sixImplementation "androidx.annotation:annotation:1.10.0"
-    sixImplementation "androidx.lifecycle:lifecycle-runtime-ktx:2.10.0"
+    sixImplementation "androidx.lifecycle:lifecycle-runtime-ktx:2.11.0"
     sixImplementation "androidx.activity:activity-ktx:1.13.0"
     sixImplementation "androidx.fragment:fragment-ktx:1.8.9"
 
@@ -212,13 +212,13 @@ dependencies {
     // adapty-ui pulls androidx.compose.* without versions; under AGP 9 the
     // consumer must supply them. We don't author Compose — the BOM only pins
     // the versions for Adapty's prebuilt paywall UI.
-    sixImplementation platform('androidx.compose:compose-bom:2026.05.01')
+    sixImplementation platform('androidx.compose:compose-bom:2026.06.00')
     sixImplementation platform('io.adapty:adapty-bom:3.17.1')
     sixImplementation 'io.adapty:android-sdk'
     sixImplementation 'io.adapty:android-ui'
 
     // Firebase Cloud Messaging (v6 only)
-    sixImplementation platform('com.google.firebase:firebase-bom:34.14.1')
+    sixImplementation platform('com.google.firebase:firebase-bom:34.15.0')
     sixImplementation 'com.google.firebase:firebase-messaging'
 
     // test deps
