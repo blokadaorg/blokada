@@ -60,6 +60,15 @@ dependencies:
 
 dependency_overrides:
   intl: 0.20.2
+  # pigeon is HELD at 12 on purpose: pigeon 26 needs a native Swift/Kotlin codegen
+  # migration (setup->setUp call-site rename plus Kotlin enum / Swift PigeonError
+  # changes) judged disproportionate for a dev-only tool. The dependabot semver-major
+  # ignore and the flutter-dependencies group `exclude-patterns: [pigeon]` do NOT hold:
+  # grouping other bumps makes Dependabot's solver re-widen `pigeon: ^12.0.0` to
+  # `>=12.0.0 <27.0.0` and re-lock 26.3.2 (e.g. #1139), breaking `make gen-*` codegen.
+  # An override can't be widened by Dependabot, so it pins the lock. Drop this together
+  # with the ignore/exclude when the pigeon 26 native migration is scheduled.
+  pigeon: 12.0.1
   # adapty_flutter 3.17.0 (latest) hardcodes kotlinOptions.jvmTarget = '1.8' in its
   # android/build.gradle, but its Adapty native Android SDK (io.adapty:android-ui via
   # adapty-bom 3.17.1) is compiled for JVM 11 and exposes inline functions used by the
