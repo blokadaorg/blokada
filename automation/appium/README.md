@@ -290,7 +290,22 @@ If the session drops unexpectedly, first suspect device auto-lock or lost foregr
 
 ## Extending the Suite
 
-- Add specs under `automation/appium/wdio/src/specs/`.  
+- Add specs under `automation/appium/wdio/src/specs/` **and register them in the
+  explicit `specs` list in `wdio.conf.ts`** (the glob was replaced so spec order
+  is deterministic). Order by account state: inactive-account scenarios first,
+  active-account scenarios last, so the suite ends with the device active.
+- Control account state with `flows/account.ts`: `ensureAccountActive()` /
+  `ensureAccountInactive()` restore a dedicated account via the support-chat
+  command bus (`cc restore <id>`), reading the ids from the
+  `BLOKADA_ACTIVE_ACCOUNT_ID` / `BLOKADA_INACTIVE_ACCOUNT_ID` env (GitHub
+  secrets in CI). `sendChatCommand(...)` can fire any `cc`-prefixed command.
+  These ids are typed into the support chat (and echoed as a bubble), so they
+  can appear in failure page-source / screenshot artifacts — use dedicated
+  throwaway dev accounts, never a real customer account.
+- Golden screenshots: `support/golden.ts` `compareToGolden(name, opts)`. Goldens
+  live in `src/specs/smoke/__golden__/` and are device-resolution specific.
+  Generate/refresh a baseline with `UPDATE_GOLDEN=1 make appium-test` on the
+  target device, then commit the PNG.
 - Use `driver.execute('mobile: ...')` helpers for Settings navigation (DNS/VPN flows).  
 - Once stable, wire `make appium-test` into CI with a dedicated device lane.  
 - When the app exposes stable accessibility identifiers, update selectors to drop the localization fallbacks.

@@ -1,8 +1,9 @@
 import { driver } from "@wdio/globals";
 import { expect } from "chai";
 
-import { activateApp, switchToAppViaAppSwitcher } from "../../flows/app.js";
+import { activateApp, switchToAppViaAppSwitcher, terminateApp } from "../../flows/app.js";
 import { acceptNotificationAlert } from "../../flows/alerts.js";
+import { ensureAccountActive } from "../../flows/account.js";
 import { getProtectionState, tapPowerButton, waitForPowerButton, waitForProtectionActive, waitForProtectionInactive } from "../../flows/home.js";
 import { dismissIntroOverlayIfPresent, openDnsSettingsFromSheet, waitForDnsOnboardingDismiss, waitForDnsOnboardingSheet } from "../../flows/onboarding.js";
 import { enableDnsProfile, waitForSettingsForeground, SETTINGS_BUNDLE_ID } from "../../flows/settings.js";
@@ -16,6 +17,21 @@ const APP_DISPLAY_NAME =
   (process.env.APP_DISPLAY_NAME ?? process.env.APP_NAME ?? "").trim();
 
 describe("Smoke: DNS onboarding flow", () => {
+  before(async () => {
+    // Self-heal the shared device: the paywall spec leaves it on the inactive
+    // account, so restore the active account before this flow (which assumes a
+    // paid account). Order-independent across runs.
+    // Relaunch first to dismiss any leftover native modal (e.g. the Adapty
+    // paywall the prior spec presented) — activateApp alone cannot close it.
+    await terminateApp(APP_BUNDLE_ID);
+    await activateApp(APP_BUNDLE_ID);
+    await dismissRatePromptIfPresent(5000);
+    await acceptNotificationAlert();
+    await dismissIntroOverlayIfPresent();
+    await waitForPowerButton();
+    await ensureAccountActive();
+  });
+
   it("enables protection after provisioning DNS permissions", async () => {
     await activateApp(APP_BUNDLE_ID);
     await dismissRatePromptIfPresent(5000);

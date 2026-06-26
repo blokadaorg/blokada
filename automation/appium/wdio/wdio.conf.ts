@@ -9,7 +9,16 @@ const server = getAppiumServerConfig(process.env);
 
 const rawConfig = {
   runner: "local",
-  specs: ["./src/specs/smoke/**/*.ts"],
+  // Ordered by account-state lifecycle: inactive-account scenarios first,
+  // active-account scenarios last, so the suite ends in the active state (the
+  // default most scenarios / manual inspection expect) and mirrors the real
+  // user journey (inactive -> paywall -> activate). Each spec self-provisions
+  // its account state, so correctness is order-independent; this list just
+  // pins the resting state. New specs: insert in account-state order.
+  specs: [
+    "./src/specs/smoke/paywall.spec.ts", // inactive account
+    "./src/specs/smoke/dns-onboarding.spec.ts" // active account (leaves device active)
+  ],
   maxInstances: 1,
   hostname: server.host,
   port: server.port,
