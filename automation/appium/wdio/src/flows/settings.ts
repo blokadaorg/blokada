@@ -169,6 +169,21 @@ async function getNavigationTitle(): Promise<string | undefined> {
     if (typeof label === "string" && label.trim().length > 0) {
       return label;
     }
+    // iOS large-title screens (e.g. General on iOS 26) can leave the nav-bar's
+    // own name/label empty while still rendering the title as a StaticText child
+    // of the bar. Fall back to that so section-arrival checks don't see an empty
+    // title and wrongly conclude navigation failed.
+    const titleText = await navBar.$(
+      "-ios class chain:**/XCUIElementTypeStaticText[1]"
+    );
+    if (await titleText.isExisting()) {
+      for (const attr of ["name", "value", "label"] as const) {
+        const value = await titleText.getAttribute(attr);
+        if (typeof value === "string" && value.trim().length > 0) {
+          return value;
+        }
+      }
+    }
   } catch (_) {
     // Navigation bar not available; ignore.
   }
@@ -322,6 +337,23 @@ async function openSettingsSection(
 
     const title = (await getNavigationTitle())?.toLowerCase() ?? "";
     if (expectedTitleHints.some((hint) => title.includes(hint))) {
+      return;
+    }
+
+    // iOS (26 / iPhone) sometimes reports an empty nav-bar title for a
+    // freshly-pushed screen (large title not yet committed), which previously
+    // made us wrongly conclude the tap failed and back out — breaking the
+    // General -> VPN & Device Management -> DNS descent. If the row we just
+    // tapped is gone, we *did* navigate into the section, so accept it. A
+    // genuinely wrong destination is still caught by the next section's
+    // scroll-search (or the later profile / switch steps).
+    let navigatedAway = false;
+    try {
+      navigatedAway = !(await target.isDisplayed());
+    } catch {
+      navigatedAway = true; // stale element reference -> we left the screen
+    }
+    if (navigatedAway) {
       return;
     }
 
