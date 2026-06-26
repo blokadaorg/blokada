@@ -1,3 +1,5 @@
+import { execFileSync } from "node:child_process";
+
 import type { Options } from "@wdio/types";
 
 import { buildCapabilities } from "./scripts/lib/capabilities.mjs";
@@ -38,13 +40,49 @@ const rawConfig = {
   reporters: ["spec"],
   services: [],
   capabilities: [buildCapabilities(process.env)],
-  // Sleep the device screen when the run finishes so the CI iPhone is not
-  // left awake at full brightness between runs. Pairs with the wake step in
-  // `make appium-test` (relaunch before the run). Best-effort — a lock
-  // failure must never fail the suite.
+  // Wake the device before every worker session. `make appium-test` wakes the
+  // device once before the whole run, but the `after` hook below sleeps it after
+  // each spec file (each spec runs as its own sequential worker). Without this,
+  // the second spec's WebDriverAgent session can't launch the app on the locked
+  // screen ("...could not be, unlocked ... reason: Locked"). Re-waking here
+  // mirrors the Makefile's wake and keeps the suite robust to any spec count.
+  // Best-effort — never throw (WDA will still try to activate the app).
+  beforeSession: function () {
+    const udid = process.env.IOS_UDID;
+    if (!udid) return;
+    const bundleId = process.env.APP_BUNDLE_ID ?? "net.blocka.app";
+    try {
+      execFileSync(
+        "xcrun",
+        [
+          "devicectl",
+          "device",
+          "process",
+          "launch",
+          "--terminate-existing",
+          "--device",
+          udid,
+          bundleId
+        ],
+        { stdio: "ignore" }
+      );
+      console.warn("Pre-session: device woken");
+    } catch (error) {
+      console.warn(
+        `Pre-session device wake failed (continuing; WDA will activate): ${String(error)}`
+      );
+    }
+  },
+  // Sleep the device screen when each spec finishes so the CI iPhone is not
+  // left awake at full brightness between runs; `beforeSession` re-wakes it for
+  // the next spec, and the final spec leaves it asleep. Best-effort — a lock
+  // failure (or no active session) must never fail the suite.
   after: async function () {
-    // Log on both paths so every run's log proves this hook executed.
     console.warn("Post-run: locking device screen");
+    if (typeof browser === "undefined" || typeof browser.lock !== "function") {
+      console.warn("Post-run: no active session; skipping device lock");
+      return;
+    }
     try {
       await browser.lock();
       console.warn("Post-run: device screen locked");
