@@ -23,8 +23,11 @@
   "devDependencies": {
     "@types/chai": "^5.2.3",
     "@types/node": "^26.0.0",
+    "@types/pngjs": "^6.0.5",
     "appium": "^3.5.0",
     "chai": "^6.2.2",
+    "pixelmatch": "^7.1.0",
+    "pngjs": "^7.0.0",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^6.0.3"

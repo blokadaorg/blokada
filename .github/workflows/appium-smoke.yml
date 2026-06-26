@@ -50,6 +50,11 @@ jobs:
         env:
           IOS_AUTO_SELECT_FIRST: "1"
           SHOW_XCODE_LOG: "0"
+          # Dedicated dev accounts the specs restore via the support-chat command
+          # bus: paywall needs inactive (libre, non-freemium, non-family),
+          # DNS onboarding needs active (non-family).
+          BLOKADA_ACTIVE_ACCOUNT_ID: ${{ secrets.BLOKADA_ACTIVE_ACCOUNT_ID }}
+          BLOKADA_INACTIVE_ACCOUNT_ID: ${{ secrets.BLOKADA_INACTIVE_ACCOUNT_ID }}
         run: make appium-test
 
       - name: Upload appium screenshots on failure
