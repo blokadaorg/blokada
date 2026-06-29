@@ -292,8 +292,18 @@ If the session drops unexpectedly, first suspect device auto-lock or lost foregr
 
 - Add specs under `automation/appium/wdio/src/specs/` **and register them in the
   explicit `specs` list in `wdio.conf.ts`** (the glob was replaced so spec order
-  is deterministic). Order by account state: inactive-account scenarios first,
-  active-account scenarios last, so the suite ends with the device active.
+  is deterministic). **Group by account state: ALL inactive-account scenarios
+  first, then ALL active-account scenarios** (the list has `--- inactive ---` /
+  `--- active ---` markers). The suite ends with the device active (the last spec
+  leaves it active). Put a new spec in its account group — don't interleave.
+- **Why the grouping matters (cost):** an account restore is expensive (app
+  relaunch + support-chat command + network round trip, ~1 min). `ensureAccount*`
+  restores **only when the device isn't already on that account this run** — it
+  tracks the last-restored account in `output/.account-state` (reset once per run
+  by the `onPrepare` hook, so the first spec always restores and the device's
+  leftover state is never trusted). With scenarios grouped, the account is
+  restored just **once per group** (at the boundary), not once per spec. Interleaving
+  still passes but forces an extra restore at every switch, so keep groups intact.
 - Control account state with `flows/account.ts`: `ensureAccountActive()` /
   `ensureAccountInactive()` restore a dedicated account via the support-chat
   command bus (`cc restore <id>`), reading the ids from the
