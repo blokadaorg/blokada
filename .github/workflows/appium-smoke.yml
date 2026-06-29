@@ -57,6 +57,13 @@ jobs:
           BLOKADA_INACTIVE_ACCOUNT_ID: ${{ secrets.BLOKADA_INACTIVE_ACCOUNT_ID }}
         run: make appium-test
 
+      - name: Publish per-scenario summary
+        # Renders the per-scenario JUnit results (one row per spec, with timing)
+        # into the run summary. Never fails the job — the smoke step is the gate.
+        if: always()
+        continue-on-error: true
+        run: node automation/appium/wdio/scripts/junit-summary.mjs >> "$GITHUB_STEP_SUMMARY"
+
       - name: Upload appium screenshots on failure
         if: failure()
         uses: actions/upload-artifact@v7
@@ -72,6 +79,7 @@ jobs:
         with:
           name: appium-smoke-${{ github.run_id }}
           path: |
+            automation/appium/output/junit/*.xml
             automation/appium/output/*.xml
             automation/appium/output/*.log
             automation/appium/output/*.png

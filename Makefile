@@ -114,6 +114,7 @@ appium-test:
 	@set -euo pipefail; \
 	cd automation/appium/wdio && \
 	npm ci >/dev/null && \
+	rm -rf ../output/junit && mkdir -p ../output/junit && \
 	eval "$$(IOS_AUTO_SELECT_FIRST=1 node scripts/setup-session.mjs)"; \
 	export IOS_AUTO_SELECT_FIRST=1; \
 	$(MAKE) -C ../../../ios "$$APPIUM_APP_INSTALL_TARGET" IOS_UDID="$$IOS_UDID" IOS_DEVICE_NAME="$$IOS_DEVICE_NAME"; \
