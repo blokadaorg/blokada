@@ -13,16 +13,16 @@
     "lint": "echo \"No lint configured\""
   },
   "dependencies": {
-    "@wdio/cli": "^9.29.0",
-    "@wdio/globals": "^9.29.0",
-    "@wdio/local-runner": "^9.29.0",
-    "@wdio/mocha-framework": "^9.28.0",
-    "@wdio/spec-reporter": "^9.29.0",
+    "@wdio/cli": "^9.29.1",
+    "@wdio/globals": "^9.29.1",
+    "@wdio/local-runner": "^9.29.1",
+    "@wdio/mocha-framework": "^9.29.1",
+    "@wdio/spec-reporter": "^9.29.1",
     "webdriverio": "^9.0.5"
   },
   "devDependencies": {
     "@types/chai": "^5.2.3",
-    "@types/node": "^26.0.0",
+    "@types/node": "^26.0.1",
     "@types/pngjs": "^6.0.5",
     "appium": "^3.5.0",
     "chai": "^6.2.2",
