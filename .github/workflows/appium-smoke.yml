@@ -22,7 +22,9 @@ concurrency:
 jobs:
   smoke:
     runs-on: [self-hosted, macOS, ARM64, ios-physical]
-    timeout-minutes: 30
+    # Single device → scenarios run serially. Per-scenario steps add a little
+    # session-startup overhead over the old single run; allow headroom.
+    timeout-minutes: 45
     if: >-
       github.event_name == 'workflow_dispatch' ||
       (github.event.workflow_run.event == 'pull_request' &&
@@ -31,6 +33,13 @@ jobs:
     env:
       LANG: en_US.UTF-8
       LC_ALL: en_US.UTF-8
+      IOS_AUTO_SELECT_FIRST: "1"
+      SHOW_XCODE_LOG: "0"
+      # Dedicated dev accounts the specs restore via the support-chat command
+      # bus: paywall needs inactive (libre, non-freemium, non-family),
+      # the active-account scenarios need active (paid, non-family).
+      BLOKADA_ACTIVE_ACCOUNT_ID: ${{ secrets.BLOKADA_ACTIVE_ACCOUNT_ID }}
+      BLOKADA_INACTIVE_ACCOUNT_ID: ${{ secrets.BLOKADA_INACTIVE_ACCOUNT_ID }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -46,25 +55,44 @@ jobs:
           KEYCHAIN_PASSWORD: ${{ secrets.MAC_KEYCHAIN_PASSWORD }}
         run: security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/login.keychain-db
 
-      - name: "Run appium smoke (flavor: six)"
-        env:
-          IOS_AUTO_SELECT_FIRST: "1"
-          SHOW_XCODE_LOG: "0"
-          # Dedicated dev accounts the specs restore via the support-chat command
-          # bus: paywall needs inactive (libre, non-freemium, non-family),
-          # DNS onboarding needs active (non-family).
-          BLOKADA_ACTIVE_ACCOUNT_ID: ${{ secrets.BLOKADA_ACTIVE_ACCOUNT_ID }}
-          BLOKADA_INACTIVE_ACCOUNT_ID: ${{ secrets.BLOKADA_INACTIVE_ACCOUNT_ID }}
-        run: make appium-test
+      - name: Prepare app (build + install once)
+        # Builds + installs the app on the device once and resets JUnit output.
+        # The per-scenario steps below reuse this install (APP_INSTALL=0).
+        run: make appium-prepare
 
-      - name: Upload appium screenshots on failure
-        if: failure()
-        uses: actions/upload-artifact@v7
-        with:
-          name: appium-screenshots-${{ github.run_id }}
-          path: automation/appium/output/*.png
-          if-no-files-found: warn
-          retention-days: 14
+      # One step per scenario so each shows separately in the job timeline with
+      # its own pass/fail + duration. continue-on-error lets every scenario run
+      # even when an earlier one fails; the gate step at the end fails the job if
+      # any scenario failed. Order follows the account-state lifecycle.
+      - name: "smoke: paywall"
+        id: spec_paywall
+        continue-on-error: true
+        run: make appium-run-spec SPEC=./src/specs/smoke/paywall.spec.ts
+
+      - name: "smoke: dns-onboarding"
+        id: spec_dns
+        continue-on-error: true
+        run: make appium-run-spec SPEC=./src/specs/smoke/dns-onboarding.spec.ts
+
+      - name: "smoke: tab-navigation"
+        id: spec_tab
+        continue-on-error: true
+        run: make appium-run-spec SPEC=./src/specs/smoke/tab-navigation.spec.ts
+
+      - name: "smoke: settings-navigation"
+        id: spec_settings
+        continue-on-error: true
+        run: make appium-run-spec SPEC=./src/specs/smoke/settings-navigation.spec.ts
+
+      - name: "smoke: power-pause"
+        id: spec_power
+        continue-on-error: true
+        run: make appium-run-spec SPEC=./src/specs/smoke/power-pause.spec.ts
+
+      - name: Publish per-scenario summary
+        if: always()
+        continue-on-error: true
+        run: node automation/appium/wdio/scripts/junit-summary.mjs >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload appium smoke artifacts
         if: always()
@@ -72,8 +100,22 @@ jobs:
         with:
           name: appium-smoke-${{ github.run_id }}
           path: |
+            automation/appium/output/junit/*.xml
             automation/appium/output/*.xml
             automation/appium/output/*.log
             automation/appium/output/*.png
           if-no-files-found: warn
           retention-days: 14
+
+      - name: Smoke gate (fail if any scenario failed)
+        if: always()
+        run: |
+          fail=0
+          check() { if [ "$2" != "success" ]; then echo "::error::scenario $1 outcome=$2"; fail=1; fi; }
+          check paywall "${{ steps.spec_paywall.outcome }}"
+          check dns-onboarding "${{ steps.spec_dns.outcome }}"
+          check tab-navigation "${{ steps.spec_tab.outcome }}"
+          check settings-navigation "${{ steps.spec_settings.outcome }}"
+          check power-pause "${{ steps.spec_power.outcome }}"
+          if [ "$fail" -ne 0 ]; then echo "One or more smoke scenarios failed"; exit 1; fi
+          echo "All smoke scenarios passed"

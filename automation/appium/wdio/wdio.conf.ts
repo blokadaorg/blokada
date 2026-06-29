@@ -1,4 +1,5 @@
 import { execFileSync } from "node:child_process";
+import { resolve } from "node:path";
 
 import type { Options } from "@wdio/types";
 
@@ -9,21 +10,33 @@ const logLevel =
   (process.env.WDIO_LOG_LEVEL as Options.WebDriverLogTypes | undefined) ?? "info";
 const server = getAppiumServerConfig(process.env);
 
+// Ordered by account-state lifecycle: inactive-account scenarios first,
+// active-account scenarios last, so the suite ends in the active state (the
+// default most scenarios / manual inspection expect) and mirrors the real user
+// journey (inactive -> paywall -> activate). Each spec self-provisions its
+// account state, so correctness is order-independent; this list just pins the
+// resting state. New specs: insert in account-state order.
+const allSpecs = [
+  "./src/specs/smoke/paywall.spec.ts", // inactive account
+  "./src/specs/smoke/dns-onboarding.spec.ts", // active account; installs DNS profile, leaves protection ON
+  "./src/specs/smoke/tab-navigation.spec.ts", // active account; home-hub navigation (no state change)
+  "./src/specs/smoke/settings-navigation.spec.ts", // active account; settings sub-pages (no state change)
+  "./src/specs/smoke/power-pause.spec.ts" // active account; turns off then re-activates -> resting state
+];
+// CI runs one step per scenario (so each shows separately) by setting WDIO_SPEC
+// to a single spec path; when unset, the whole suite runs in order.
+const specFilter = process.env.WDIO_SPEC?.trim();
+
+// One JUnit file per scenario, consumed by scripts/junit-summary.mjs for the CI
+// run summary and uploaded as an artifact. The filename is namespaced by spec so
+// separate per-scenario wdio processes (each worker cid is 0-0) don't collide.
+const junitDir = resolve(process.cwd(), "..", "output", "junit");
+const junitSpecBase =
+  specFilter?.split("/").pop()?.replace(/\.spec\.ts$/, "") ?? "all";
+
 const rawConfig = {
   runner: "local",
-  // Ordered by account-state lifecycle: inactive-account scenarios first,
-  // active-account scenarios last, so the suite ends in the active state (the
-  // default most scenarios / manual inspection expect) and mirrors the real
-  // user journey (inactive -> paywall -> activate). Each spec self-provisions
-  // its account state, so correctness is order-independent; this list just
-  // pins the resting state. New specs: insert in account-state order.
-  specs: [
-    "./src/specs/smoke/paywall.spec.ts", // inactive account
-    "./src/specs/smoke/dns-onboarding.spec.ts", // active account; installs DNS profile, leaves protection ON
-    "./src/specs/smoke/tab-navigation.spec.ts", // active account; home-hub navigation (no state change)
-    "./src/specs/smoke/settings-navigation.spec.ts", // active account; settings sub-pages (no state change)
-    "./src/specs/smoke/power-pause.spec.ts" // active account; turns off then re-activates -> resting state
-  ],
+  specs: specFilter ? [specFilter] : allSpecs,
   maxInstances: 1,
   hostname: server.host,
   port: server.port,
@@ -40,7 +53,17 @@ const rawConfig = {
       transpileOnly: true
     }
   },
-  reporters: ["spec"],
+  reporters: [
+    "spec",
+    [
+      "junit",
+      {
+        outputDir: junitDir,
+        outputFileFormat: (options: { cid: string }) =>
+          `results-${junitSpecBase}-${options.cid}.xml`
+      }
+    ]
+  ],
   services: [],
   capabilities: [buildCapabilities(process.env)],
   // Wake the device before every worker session. `make appium-test` wakes the

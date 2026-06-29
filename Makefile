@@ -36,7 +36,7 @@ ADAPTY_VER := 3_8.0
 	adapty-paywalls \
 	appium-explore-session \
 	appium-ai-explore \
-	appium-test \
+	appium-test appium-prepare appium-run-spec \
 
 translate:
 	$(TRANSLATE_SCRIPT)
@@ -124,6 +124,36 @@ appium-test:
 		echo "appium-test: device wake FAILED (continuing; WDA will activate)" >&2; \
 	fi; \
 	node scripts/run-wdio.mjs
+
+# Prepare the device for per-scenario smoke runs: install deps, build + install
+# the app once, wake it, and reset the JUnit output dir. CI runs this once, then
+# `appium-run-spec SPEC=... APP_INSTALL=0` per scenario so each shows separately.
+appium-prepare:
+	@set -euo pipefail; \
+	cd automation/appium/wdio && \
+	npm ci >/dev/null && \
+	rm -rf ../output/junit && mkdir -p ../output/junit; \
+	eval "$$(IOS_AUTO_SELECT_FIRST=1 node scripts/setup-session.mjs)"; \
+	$(MAKE) -C ../../../ios "$$APPIUM_APP_INSTALL_TARGET" IOS_UDID="$$IOS_UDID" IOS_DEVICE_NAME="$$IOS_DEVICE_NAME"; \
+	echo "appium-prepare: waking device $$IOS_UDID ($$APP_BUNDLE_ID)" >&2; \
+	xcrun devicectl device process launch --terminate-existing --device "$$IOS_UDID" "$$APP_BUNDLE_ID" >/dev/null 2>&1 || true
+
+# Run a single smoke spec, e.g.:
+#   make appium-run-spec SPEC=./src/specs/smoke/paywall.spec.ts
+# Skips the app build/install by default (APP_INSTALL=0; run `appium-prepare`
+# first, or pass APP_INSTALL=1 for a standalone run). Writes a per-scenario JUnit
+# file under automation/appium/output/junit (consumed by scripts/junit-summary.mjs).
+appium-run-spec:
+	@set -euo pipefail; \
+	if [ -z "$(SPEC)" ]; then echo "appium-run-spec: set SPEC=./src/specs/smoke/<name>.spec.ts" >&2; exit 2; fi; \
+	cd automation/appium/wdio && \
+	[ -d node_modules ] || npm ci >/dev/null; \
+	export IOS_AUTO_SELECT_FIRST="$${IOS_AUTO_SELECT_FIRST:-1}"; \
+	eval "$$(node scripts/setup-session.mjs)"; \
+	if [ "$(or $(APP_INSTALL),0)" != "0" ]; then \
+		$(MAKE) -C ../../../ios "$$APPIUM_APP_INSTALL_TARGET" IOS_UDID="$$IOS_UDID" IOS_DEVICE_NAME="$$IOS_DEVICE_NAME"; \
+	fi; \
+	WDIO_SPEC="$(SPEC)" node scripts/run-wdio.mjs
 
 # Run the AI-driven exploratory pass against an already installed/onboarded app.
 # Intended CI usage: run this immediately after make appium-test with APP_INSTALL=0.
