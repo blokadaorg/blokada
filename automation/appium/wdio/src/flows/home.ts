@@ -85,3 +85,29 @@ export async function getProtectionState(): Promise<string | undefined> {
   const value = await element.getAttribute("value");
   return typeof value === "string" ? value.toLowerCase() : undefined;
 }
+
+// --- Pause action sheet ---
+// Tapping power while protection is ON (active, non-freemium account) opens an
+// action sheet to pause or turn off. Inactive / freemium taps toggle directly.
+
+const pauseSheetSelector = `~${AutomationIds.powerActionSheet}`;
+const turnOffSelector = `~${AutomationIds.powerActionTurnOff}`;
+const cancelActionSelector = `~${AutomationIds.powerActionCancel}`;
+
+export async function waitForPauseActionSheet(timeout = 10000): Promise<void> {
+  await (await $(pauseSheetSelector)).waitForExist({ timeout });
+}
+
+export async function tapTurnOff(): Promise<void> {
+  const action = await $(turnOffSelector);
+  await action.waitForExist({ timeout: 5000 });
+  await action.click();
+}
+
+/** Dismiss the pause action sheet if it is open (Cancel does not change state). */
+export async function cancelActionSheetIfPresent(): Promise<void> {
+  const action = await $(cancelActionSelector);
+  if (await action.isExisting()) {
+    await action.click();
+  }
+}

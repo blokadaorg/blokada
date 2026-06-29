@@ -19,7 +19,10 @@ const rawConfig = {
   // pins the resting state. New specs: insert in account-state order.
   specs: [
     "./src/specs/smoke/paywall.spec.ts", // inactive account
-    "./src/specs/smoke/dns-onboarding.spec.ts" // active account (leaves device active)
+    "./src/specs/smoke/dns-onboarding.spec.ts", // active account; installs DNS profile, leaves protection ON
+    "./src/specs/smoke/tab-navigation.spec.ts", // active account; home-hub navigation (no state change)
+    "./src/specs/smoke/settings-navigation.spec.ts", // active account; settings sub-pages (no state change)
+    "./src/specs/smoke/power-pause.spec.ts" // active account; turns off then re-activates -> resting state
   ],
   maxInstances: 1,
   hostname: server.host,
