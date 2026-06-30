@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:common/src/features/journal/domain/journal.dart';
+import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/common_card.dart';
 import 'package:common/src/shared/ui/common_clickable.dart';
@@ -94,15 +95,19 @@ class RecentActivityState extends State<RecentActivity>
                   color: context.theme.textPrimary,
                 ),
               ),
-              CommonClickable(
-                onTap: () {
-                  Navigation.open(Paths.activity);
-                },
-                child: Text(
-                  "privacy pulse timespan show all".i18n,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: context.theme.accent,
+              Semantics(
+                identifier: AutomationIds.recentActivityShowAll,
+                button: true,
+                child: CommonClickable(
+                  onTap: () {
+                    Navigation.open(Paths.activity);
+                  },
+                  child: Text(
+                    "privacy pulse timespan show all".i18n,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: context.theme.accent,
+                    ),
                   ),
                 ),
               ),

@@ -81,15 +81,34 @@ class ExceptionItemState extends State<ExceptionItem> {
         motion: const BehindMotion(),
         extentRatio: 0.3,
         children: [
-          SlidableAction(
+          CustomSlidableAction(
             onPressed: (c) {
               widget.onRemove(entry);
             },
             backgroundColor: Colors.red.withOpacity(0.95),
             foregroundColor: Colors.white,
-            icon: CupertinoIcons.delete,
-            label: "universal action delete".i18n,
-            //borderRadius: const BorderRadius.all(Radius.circular(8)),
+            // CustomSlidableAction (vs SlidableAction) so the delete control can
+            // carry a stable automation id; the icon+label child mirrors the
+            // previous look.
+            child: MergeSemantics(
+              child: Semantics(
+                identifier: AutomationIds.exceptionDelete,
+                label: "universal action delete".i18n,
+                button: true,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(CupertinoIcons.delete, color: Colors.white),
+                    const SizedBox(height: 4),
+                    Text(
+                      "universal action delete".i18n,
+                      style: const TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
         ],
       ),

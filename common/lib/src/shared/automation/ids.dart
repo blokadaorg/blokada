@@ -42,6 +42,26 @@ class AutomationIds {
   static const exceptionsTabAllowed = 'automation.exceptions_tab_allowed';
   static const exceptionItem = 'automation.exception_item';
 
+  // Add-exception dialog (settings top-bar "Add" -> domain field + Save) and the
+  // per-row swipe delete, so automation can add, verify and remove a custom rule.
+  static const exceptionAddButton = 'automation.exception_add_button';
+  static const exceptionDomainInput = 'automation.exception_domain_input';
+  static const exceptionSaveButton = 'automation.exception_save_button';
+  static const exceptionDelete = 'automation.exception_delete';
+
+  // Activity screen: the Privacy Pulse "Show All" entry, the search action + its
+  // input field, and a list row. screenActivity already marks the screen body.
+  static const recentActivityShowAll = 'automation.recent_activity_show_all';
+  static const activitySearch = 'automation.activity_search';
+  static const activitySearchField = 'automation.activity_search_field';
+  static const activityItem = 'automation.activity_item';
+
+  // Freemium upsell CTA (shared FreemiumScreen; e.g. the Advanced blocklists gate).
+  static const freemiumCta = 'automation.freemium_cta';
+
+  // Settings account header subscription-status label.
+  static const settingsAccountStatus = 'automation.settings_account_status';
+
   static const powerToggle = 'automation.power_toggle';
   static const powerActionSheet = 'automation.power_action_sheet';
   static const powerActionPauseFive = 'automation.power_action_pause_five';

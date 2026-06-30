@@ -1,4 +1,5 @@
 import 'package:common/src/shared/ui/dialog.dart';
+import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/features/journal/domain/journal.dart';
 import 'package:common/src/shared/ui/common_item.dart';
 import 'package:common/src/features/stats/ui/stats_filter_device.dart';
@@ -38,20 +39,24 @@ class StatsFilterState extends State<StatsFilter> {
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(12.0),
-          child: Material(
-            child: TextField(
-              controller: _ctrl,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: context.theme.bgColor,
-                focusColor: context.theme.bgColor,
-                hoverColor: context.theme.bgColor,
-                contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: context.theme.bgColor, width: 0.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: context.theme.bgColor, width: 0.0),
+          child: Semantics(
+            identifier: AutomationIds.activitySearchField,
+            textField: true,
+            child: Material(
+              child: TextField(
+                controller: _ctrl,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: context.theme.bgColor,
+                  focusColor: context.theme.bgColor,
+                  hoverColor: context.theme.bgColor,
+                  contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: context.theme.bgColor, width: 0.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: context.theme.bgColor, width: 0.0),
+                  ),
                 ),
               ),
             ),

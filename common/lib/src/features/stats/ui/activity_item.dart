@@ -1,4 +1,5 @@
 import 'package:common/src/features/journal/domain/journal.dart';
+import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/common_clickable.dart';
 import 'package:common/src/shared/ui/theme.dart';
@@ -21,7 +22,11 @@ class ActivityItem extends StatefulWidget {
 class ActivityItemState extends State<ActivityItem> {
   @override
   Widget build(BuildContext context) {
-    return CommonClickable(
+    return MergeSemantics(
+      child: Semantics(
+        identifier: AutomationIds.activityItem,
+        button: true,
+        child: CommonClickable(
       onTap: () {
         Navigation.open(Paths.deviceStatsDetail, arguments: widget.entry);
       },
@@ -65,6 +70,8 @@ class ActivityItemState extends State<ActivityItem> {
             ),
             const SizedBox(width: 6),
           ],
+        ),
+      ),
         ),
       ),
     );

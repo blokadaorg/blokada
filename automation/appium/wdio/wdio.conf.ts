@@ -33,13 +33,17 @@ const rawConfig = {
   specs: [
     // --- inactive account ---
     "./src/specs/smoke/paywall.spec.ts", // restores inactive (first spec of the run)
+    "./src/specs/smoke/freemium-gate.spec.ts", // Advanced upgrade gate (restore skipped)
     // --- active account (boundary: dns-onboarding pays the one active restore) ---
     "./src/specs/smoke/dns-onboarding.spec.ts", // restores active; installs DNS profile, leaves protection ON
     "./src/specs/smoke/cold-restart-persistence.spec.ts", // protection survives kill+relaunch (restore skipped)
     "./src/specs/smoke/tab-navigation.spec.ts", // home-hub navigation (restore skipped)
     "./src/specs/smoke/settings-navigation.spec.ts", // settings sub-pages (restore skipped)
+    "./src/specs/smoke/exceptions-crud.spec.ts", // add/verify/delete a custom exception (restore skipped)
+    "./src/specs/smoke/account-status.spec.ts", // account header shows active subscription (restore skipped)
     "./src/specs/smoke/blocklist-toggle.spec.ts", // toggle a filter option + restore (restore skipped)
     "./src/specs/smoke/privacy-pulse-range.spec.ts", // 24h<->7d toplist range toggle (restore skipped)
+    "./src/specs/smoke/activity.spec.ts", // Privacy Pulse -> Show All -> Activity screen (restore skipped)
     "./src/specs/smoke/power-pause.spec.ts" // turns off then re-activates -> resting state (restore skipped)
   ],
   maxInstances: 1,

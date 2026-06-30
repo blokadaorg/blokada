@@ -1,4 +1,5 @@
 import 'package:common/src/features/payment/domain/payment.dart';
+import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/minicard/minicard.dart';
 import 'package:common/src/features/modal/ui/blur_background.dart';
@@ -99,7 +100,11 @@ class _FreemiumScreenState extends State<FreemiumScreen>
               textAlign: TextAlign.start,
             ),
             const SizedBox(height: 32),
-            MiniCard(
+            MergeSemantics(
+              child: Semantics(
+                identifier: AutomationIds.freemiumCta,
+                button: true,
+                child: MiniCard(
                 onTap: () {
                   log(Markers.userTap).trace("tappedUpgrade", (m) async {
                     await _payment.openPaymentScreen(m, placement: widget.placement);
@@ -127,6 +132,8 @@ class _FreemiumScreenState extends State<FreemiumScreen>
                     ],
                   ),
                 )),
+              ),
+            ),
             const SizedBox(height: 8),
           ]),
         ),

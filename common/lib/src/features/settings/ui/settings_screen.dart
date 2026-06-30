@@ -116,7 +116,10 @@ class SettingsScreenState extends State<SettingsScreen> with Logging {
   }
 
   Widget? _getExceptionsAction(BuildContext context) {
-    return CommonClickable(
+    return Semantics(
+      identifier: AutomationIds.exceptionAddButton,
+      button: true,
+      child: CommonClickable(
         onTap: () {
           showAddExceptionDialog(context, onConfirm: (entry, blocked) {
             final trimmed = entry.trim();
@@ -137,6 +140,8 @@ class SettingsScreenState extends State<SettingsScreen> with Logging {
             color: context.theme.accent,
             fontSize: 17,
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

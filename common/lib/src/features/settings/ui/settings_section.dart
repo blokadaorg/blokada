@@ -142,11 +142,21 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                         ),
                       ),
                       Expanded(
-                        child: Text(_getAccountSubText(),
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                                color:
-                                    Core.act.isFamily ? Colors.white : context.theme.textPrimary)),
+                        // Explicit label so automation can read the status, with
+                        // ExcludeSemantics on the Text so VoiceOver doesn't announce
+                        // it twice (see the screenTitle note in top_bar.dart).
+                        child: Semantics(
+                          identifier: AutomationIds.settingsAccountStatus,
+                          label: _getAccountSubText(),
+                          child: ExcludeSemantics(
+                            child: Text(_getAccountSubText(),
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                                    color: Core.act.isFamily
+                                        ? Colors.white
+                                        : context.theme.textPrimary)),
+                          ),
+                        ),
                       ),
                       const SizedBox(width: 16),
                     ],
