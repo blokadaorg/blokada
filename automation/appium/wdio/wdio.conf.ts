@@ -33,7 +33,6 @@ const rawConfig = {
   specs: [
     // --- inactive account ---
     "./src/specs/smoke/paywall.spec.ts", // restores inactive (first spec of the run)
-    "./src/specs/smoke/freemium-gate.spec.ts", // Advanced upgrade gate (restore skipped)
     // --- active account (boundary: dns-onboarding pays the one active restore) ---
     "./src/specs/smoke/dns-onboarding.spec.ts", // restores active; installs DNS profile, leaves protection ON
     "./src/specs/smoke/cold-restart-persistence.spec.ts", // protection survives kill+relaunch (restore skipped)

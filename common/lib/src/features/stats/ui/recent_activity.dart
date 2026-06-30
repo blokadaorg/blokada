@@ -95,18 +95,20 @@ class RecentActivityState extends State<RecentActivity>
                   color: context.theme.textPrimary,
                 ),
               ),
-              Semantics(
-                identifier: AutomationIds.recentActivityShowAll,
-                button: true,
-                child: CommonClickable(
-                  onTap: () {
-                    Navigation.open(Paths.activity);
-                  },
-                  child: Text(
-                    "privacy pulse timespan show all".i18n,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: context.theme.accent,
+              MergeSemantics(
+                child: Semantics(
+                  identifier: AutomationIds.recentActivityShowAll,
+                  button: true,
+                  child: CommonClickable(
+                    onTap: () {
+                      Navigation.open(Paths.activity);
+                    },
+                    child: Text(
+                      "privacy pulse timespan show all".i18n,
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: context.theme.accent,
+                      ),
                     ),
                   ),
                 ),

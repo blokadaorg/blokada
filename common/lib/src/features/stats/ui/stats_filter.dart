@@ -39,23 +39,25 @@ class StatsFilterState extends State<StatsFilter> {
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(12.0),
-          child: Semantics(
-            identifier: AutomationIds.activitySearchField,
-            textField: true,
-            child: Material(
-              child: TextField(
-                controller: _ctrl,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: context.theme.bgColor,
-                  focusColor: context.theme.bgColor,
-                  hoverColor: context.theme.bgColor,
-                  contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: context.theme.bgColor, width: 0.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: context.theme.bgColor, width: 0.0),
+          child: MergeSemantics(
+            child: Semantics(
+              identifier: AutomationIds.activitySearchField,
+              textField: true,
+              child: Material(
+                child: TextField(
+                  controller: _ctrl,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: context.theme.bgColor,
+                    focusColor: context.theme.bgColor,
+                    hoverColor: context.theme.bgColor,
+                    contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: context.theme.bgColor, width: 0.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: context.theme.bgColor, width: 0.0),
+                    ),
                   ),
                 ),
               ),

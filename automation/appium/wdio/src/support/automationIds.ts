@@ -22,7 +22,6 @@ export const AutomationIds = {
   activitySearch: "automation.activity_search",
   activitySearchField: "automation.activity_search_field",
   activityItem: "automation.activity_item",
-  freemiumCta: "automation.freemium_cta",
   settingsAccountStatus: "automation.settings_account_status",
   retentionToggle: "automation.retention_toggle",
   homeSettings: "automation.home_settings",

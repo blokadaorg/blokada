@@ -56,9 +56,6 @@ class AutomationIds {
   static const activitySearchField = 'automation.activity_search_field';
   static const activityItem = 'automation.activity_item';
 
-  // Freemium upsell CTA (shared FreemiumScreen; e.g. the Advanced blocklists gate).
-  static const freemiumCta = 'automation.freemium_cta';
-
   // Settings account header subscription-status label.
   static const settingsAccountStatus = 'automation.settings_account_status';
 

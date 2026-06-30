@@ -313,23 +313,25 @@ void showAddExceptionDialog(
             const SizedBox(height: 16),
             ClipRRect(
               borderRadius: BorderRadius.circular(12.0),
-              child: Semantics(
-                identifier: AutomationIds.exceptionDomainInput,
-                textField: true,
-                child: Material(
-                  child: TextField(
-                    controller: _ctrl,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: context.theme.bgColor,
-                      focusColor: context.theme.bgColor,
-                      hoverColor: context.theme.bgColor,
-                      contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: context.theme.bgColor, width: 0.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: context.theme.bgColor, width: 0.0),
+              child: MergeSemantics(
+                child: Semantics(
+                  identifier: AutomationIds.exceptionDomainInput,
+                  textField: true,
+                  child: Material(
+                    child: TextField(
+                      controller: _ctrl,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: context.theme.bgColor,
+                        focusColor: context.theme.bgColor,
+                        hoverColor: context.theme.bgColor,
+                        contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: context.theme.bgColor, width: 0.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: context.theme.bgColor, width: 0.0),
+                        ),
                       ),
                     ),
                   ),
@@ -379,15 +381,17 @@ void showAddExceptionDialog(
       ValueListenableBuilder<bool>(
         valueListenable: _isBlocked,
         builder: (context, blocked, _) {
-          return Semantics(
-            identifier: AutomationIds.exceptionSaveButton,
-            button: true,
-            child: TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                onConfirm(_ctrl.text, blocked);
-              },
-              child: Text("universal action save".i18n),
+          return MergeSemantics(
+            child: Semantics(
+              identifier: AutomationIds.exceptionSaveButton,
+              button: true,
+              child: TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  onConfirm(_ctrl.text, blocked);
+                },
+                child: Text("universal action save".i18n),
+              ),
             ),
           );
         },

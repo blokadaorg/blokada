@@ -169,21 +169,25 @@ class ActivityScreenState extends State<ActivityScreen> with Logging {
   Widget? _getStatsAction(BuildContext context) {
     if (!_showStats) return null;
 
-    return Semantics(
-      identifier: AutomationIds.activitySearch,
-      button: true,
-      child: CommonClickable(
-        onTap: () {
-          showStatsFilterDialog(context, onConfirm: (filter) {
-            _filter.now = filter;
-          });
-        },
-        child: Text(
-          "universal action search".i18n,
-          style: TextStyle(
-            color: context.theme.accent,
-            fontSize: 17,
+    return MergeSemantics(
+      child: Semantics(
+        identifier: AutomationIds.activitySearch,
+        button: true,
+        child: CommonClickable(
+          onTap: () {
+            showStatsFilterDialog(context, onConfirm: (filter) {
+              _filter.now = filter;
+            });
+          },
+          child: Text(
+            "universal action search".i18n,
+            style: TextStyle(
+              color: context.theme.accent,
+              fontSize: 17,
+            ),
           ),
-        )));
+        ),
+      ),
+    );
   }
 }
