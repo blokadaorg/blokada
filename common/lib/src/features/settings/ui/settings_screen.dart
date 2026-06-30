@@ -116,34 +116,27 @@ class SettingsScreenState extends State<SettingsScreen> with Logging {
   }
 
   Widget? _getExceptionsAction(BuildContext context) {
-    return MergeSemantics(
-      child: Semantics(
-        identifier: AutomationIds.exceptionAddButton,
-        button: true,
-        child: CommonClickable(
-          onTap: () {
-            showAddExceptionDialog(context, onConfirm: (entry, blocked) {
-              final trimmed = entry.trim();
-              if (trimmed.isEmpty) return;
+    return CommonClickable(
+        onTap: () {
+          showAddExceptionDialog(context, onConfirm: (entry, blocked) {
+            final trimmed = entry.trim();
+            if (trimmed.isEmpty) return;
 
-              final isWildcard = trimmed.startsWith("*.");
-              final domain = isWildcard ? trimmed.substring(2) : trimmed;
-              if (domain.isEmpty) return;
+            final isWildcard = trimmed.startsWith("*.");
+            final domain = isWildcard ? trimmed.substring(2) : trimmed;
+            if (domain.isEmpty) return;
 
-              log(Markers.userTap).trace("addCustom", (m) async {
-                await _custom.addOrRemove(domain, isWildcard, m, gotBlocked: !blocked);
-              });
+            log(Markers.userTap).trace("addCustom", (m) async {
+              await _custom.addOrRemove(domain, isWildcard, m, gotBlocked: !blocked);
             });
-          },
-          child: Text(
-            "Add",
-            style: TextStyle(
-              color: context.theme.accent,
-              fontSize: 17,
-            ),
+          });
+        },
+        child: Text(
+          "Add",
+          style: TextStyle(
+            color: context.theme.accent,
+            fontSize: 17,
           ),
-        ),
-      ),
-    );
+        ));
   }
 }

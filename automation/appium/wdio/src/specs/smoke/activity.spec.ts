@@ -27,21 +27,30 @@ async function exists(selector: string): Promise<boolean> {
 // sits below the charts and top-domains, so it isn't in the tree until scrolled
 // into view. Swipe up until it renders. (Swiping up scrolls content up; pull-to-
 // refresh only triggers on a downward pull at the top, so this is safe.)
-async function scrollToShowAll(maxSwipes = 8): Promise<boolean> {
+async function scrollToShowAll(maxSwipes = 10): Promise<boolean> {
   for (let i = 0; i < maxSwipes; i += 1) {
-    if (await exists(showAllSelector)) return true;
+    if (await exists(showAllSelector)) {
+      const el = await $(showAllSelector);
+      const rect = await driver.getWindowRect();
+      const loc = await el.getLocation();
+      const size = await el.getSize();
+      // On first appearance the button sits flush against the bottom edge (only a few
+      // px tall), where a tap lands on the home indicator and misses. Require it to be
+      // comfortably clear of the bottom (and below the top bar) before tapping.
+      if (loc.y > 60 && loc.y + size.height < rect.height - 140) return true;
+    }
     const rect = await driver.getWindowRect();
     const x = Math.round(rect.width / 2);
     await driver.execute("mobile: dragFromToForDuration", {
       duration: 0.4,
       fromX: x,
-      fromY: Math.round(rect.height * 0.75),
+      fromY: Math.round(rect.height * 0.7),
       toX: x,
-      toY: Math.round(rect.height * 0.3)
+      toY: Math.round(rect.height * 0.35)
     });
     await driver.pause(400);
   }
-  return exists(showAllSelector);
+  return false;
 }
 
 // Reach the full Activity list via Privacy Pulse -> "Show All" — a route only made
