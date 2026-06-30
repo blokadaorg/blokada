@@ -22,8 +22,11 @@ const deleteSelector = `~${AutomationIds.exceptionDelete}`;
 // Throwaway domain, unique per run so a leftover from an interrupted run can't
 // collide (the spec deletes it either way). RFC-2606 reserved domain.
 const testDomain = `smoke-${Date.now()}.example.com`;
+// Match the domain with CONTAINS, not ==: the exception_item exposes its label as
+// the domain twice (an explicit Semantics(label:) plus the child Text, merged with a
+// newline), and long domains get middle-ellipsized in the visible Text.
 const rowSelector =
-  `-ios predicate string: name == '${AutomationIds.exceptionItem}' AND label == '${testDomain}'`;
+  `-ios predicate string: name == '${AutomationIds.exceptionItem}' AND label CONTAINS '${testDomain}'`;
 
 async function exists(selector: string): Promise<boolean> {
   try {
