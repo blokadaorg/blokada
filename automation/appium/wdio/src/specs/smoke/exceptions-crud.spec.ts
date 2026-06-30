@@ -52,16 +52,17 @@ describe("Smoke: custom exception add / verify / delete", () => {
     await openExceptionsSubPage(); // opens on the Blocked tab
 
     // Add: tap the top-bar Add action, type the domain, Save. The dialog's default
-    // segment is "Block", so the entry lands in the Blocked list. Tapping the field
-    // focuses the underlying TextField; `keys` then types into it (robust to the
-    // Semantics wrapper not being the editable element itself).
+    // segment is "Block", so the entry lands in the Blocked list. Use setValue (types
+    // via XCUITest typeText) rather than driver.keys() — the latter sends low-level
+    // key actions that WDA rejects when the string repeats a character ("Key Down ...
+    // must have a closing Key Up successor").
     await (await $(addButtonSelector)).waitForExist({ timeout: 15000 });
     await (await $(addButtonSelector)).click();
 
     const input = await $(domainInputSelector);
     await input.waitForExist({ timeout: 10000 });
     await input.click();
-    await driver.keys(testDomain);
+    await input.setValue(testDomain);
 
     await (await $(saveButtonSelector)).click();
 
