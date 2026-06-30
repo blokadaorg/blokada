@@ -1,6 +1,7 @@
 import { $, driver } from "@wdio/globals";
 
 import { AutomationIds } from "../support/automationIds.js";
+import { readCurrentAccount, writeCurrentAccount } from "../support/account-state.js";
 import { activateApp, terminateApp } from "./app.js";
 import { acceptNotificationAlert } from "./alerts.js";
 import { waitForPowerButton } from "./home.js";
@@ -160,23 +161,43 @@ export async function restoreAccount(accountId: string): Promise<void> {
 }
 
 /**
- * Ensure the device is on the active (paid) account. Does NOT wait on the power
- * toggle: an active account does not imply protection is ON — the DNS spec
- * turns protection on and that flow is the authoritative active-account check.
+ * Ensure the device is on the active (paid) account. Restores only when the
+ * device isn't already on it this run (see account-state.ts) — so when active
+ * scenarios are grouped together the restore runs just once for the whole group.
+ * Does NOT wait on the power toggle: an active account does not imply protection
+ * is ON — the DNS spec turns protection on and that flow is the authoritative
+ * active-account check.
  */
 export async function ensureAccountActive(): Promise<void> {
-  await restoreAccount(getAccountIds().active);
+  const { active } = getAccountIds();
+  if (readCurrentAccount() === active) {
+    console.warn(
+      "ensureAccountActive: device already on the active account this run; skipping restore."
+    );
+    return;
+  }
+  await restoreAccount(active);
+  writeCurrentAccount(active);
 }
 
 /**
  * Ensure the device is on the inactive (libre) account so the paywall appears
- * on the next power tap. Switching to libre clears Plus, so protection should
- * switch off; we wait for that as a coarse sanity check, but the paywall spec's
- * tap-power assertion is the authoritative inactive check (the power toggle's
- * value reflects protection on/off, not account state).
+ * on the next power tap. Restores only when the device isn't already on it this
+ * run (see account-state.ts). Switching to libre clears Plus, so protection
+ * should switch off; we wait for that as a coarse sanity check, but the paywall
+ * spec's tap-power assertion is the authoritative inactive check (the power
+ * toggle's value reflects protection on/off, not account state).
  */
 export async function ensureAccountInactive(): Promise<void> {
-  await restoreAccount(getAccountIds().inactive);
+  const { inactive } = getAccountIds();
+  if (readCurrentAccount() === inactive) {
+    console.warn(
+      "ensureAccountInactive: device already on the inactive account this run; skipping restore."
+    );
+    return;
+  }
+  await restoreAccount(inactive);
+  writeCurrentAccount(inactive);
   // Best-effort settle: switching to libre clears Plus so protection should go
   // off, but the toggle value reflects protection (not account) state, so this
   // is only a coarse signal — never fail here. The paywall spec's tap-power

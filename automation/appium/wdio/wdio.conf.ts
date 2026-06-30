@@ -5,6 +5,7 @@ import type { Options } from "@wdio/types";
 
 import { buildCapabilities } from "./scripts/lib/capabilities.mjs";
 import { getAppiumServerConfig } from "./scripts/lib/paths.mjs";
+import { resetAccountState } from "./src/support/account-state.js";
 
 const logLevel =
   (process.env.WDIO_LOG_LEVEL as Options.WebDriverLogTypes | undefined) ?? "info";
@@ -16,18 +17,27 @@ const junitDir = resolve(process.cwd(), "..", "output", "junit");
 
 const rawConfig = {
   runner: "local",
-  // Ordered by account-state lifecycle: inactive-account scenarios first,
-  // active-account scenarios last, so the suite ends in the active state (the
-  // default most scenarios / manual inspection expect) and mirrors the real
-  // user journey (inactive -> paywall -> activate). Each spec self-provisions
-  // its account state, so correctness is order-independent; this list just
-  // pins the resting state. New specs: insert in account-state order.
+  // GROUPED BY ACCOUNT STATE: all inactive-account scenarios first, then all
+  // active-account scenarios. Each spec's `before` calls ensureAccount{Inactive,
+  // Active}, which restores the account only when the device isn't already on it
+  // this run (tracked in output/.account-state, reset per run by onPrepare). So
+  // grouping means the account is restored just ONCE per group — at the boundary,
+  // not per spec — which is the bulk of the suite's time (each restore is an app
+  // relaunch + support-chat command + network round trip). The suite ends active
+  // (power-pause last), mirroring the real user journey (inactive -> paywall ->
+  // activate).
+  //
+  // ADD A NEW SPEC INTO ITS ACCOUNT GROUP: inactive specs above the boundary,
+  // active specs below it. Interleaving still passes (each ensureAccount* fixes
+  // its own state) but forces an extra restore at every switch.
   specs: [
-    "./src/specs/smoke/paywall.spec.ts", // inactive account
-    "./src/specs/smoke/dns-onboarding.spec.ts", // active account; installs DNS profile, leaves protection ON
-    "./src/specs/smoke/tab-navigation.spec.ts", // active account; home-hub navigation (no state change)
-    "./src/specs/smoke/settings-navigation.spec.ts", // active account; settings sub-pages (no state change)
-    "./src/specs/smoke/power-pause.spec.ts" // active account; turns off then re-activates -> resting state
+    // --- inactive account ---
+    "./src/specs/smoke/paywall.spec.ts", // restores inactive (first spec of the run)
+    // --- active account (boundary: dns-onboarding pays the one active restore) ---
+    "./src/specs/smoke/dns-onboarding.spec.ts", // restores active; installs DNS profile, leaves protection ON
+    "./src/specs/smoke/tab-navigation.spec.ts", // home-hub navigation (restore skipped)
+    "./src/specs/smoke/settings-navigation.spec.ts", // settings sub-pages (restore skipped)
+    "./src/specs/smoke/power-pause.spec.ts" // turns off then re-activates -> resting state (restore skipped)
   ],
   maxInstances: 1,
   hostname: server.host,
@@ -57,6 +67,12 @@ const rawConfig = {
   ],
   services: [],
   capabilities: [buildCapabilities(process.env)],
+  // Reset the per-run account tracker once, before any worker starts, so the
+  // first spec always restores (we can't trust the device's leftover state) and
+  // later same-account specs can skip the restore. See account-state.ts.
+  onPrepare: function () {
+    resetAccountState();
+  },
   // Wake the device before every worker session. `make appium-test` wakes the
   // device once before the whole run, but the `after` hook below sleeps it after
   // each spec file (each spec runs as its own sequential worker). Without this,
