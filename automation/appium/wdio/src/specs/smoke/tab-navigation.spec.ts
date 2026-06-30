@@ -12,10 +12,10 @@ registerFailureArtifacts();
 
 const APP_BUNDLE_ID = process.env.APP_BUNDLE_ID ?? "net.blocka.app";
 
-// V6 navigation is hub-and-spoke off Home (the bottom tab bar / `nav_*` ids are
-// dead code — TabWidget is never mounted). Each main screen is opened from Home
-// and popped back via the top-bar back control. Catches route/blank-screen/crash
-// regressions cheaply; runs on the active account and leaves protection unchanged.
+// V6 navigation is hub-and-spoke off Home: there is no bottom tab bar. Each main
+// screen is opened from Home and popped back via the top-bar back control. Catches
+// route/blank-screen/crash regressions cheaply; runs on the active account and
+// leaves protection unchanged.
 describe("Smoke: Home hub navigation", () => {
   before(async () => {
     await terminateApp(APP_BUNDLE_ID);

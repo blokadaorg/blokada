@@ -378,14 +378,6 @@ class TopBarController extends NavigatorObserver with ChangeNotifier, Logging {
     notifyListeners();
   }
 
-  hackyManualPopToFirst() {
-    if (nav.length == 1) return;
-    _pop();
-    ignoreRoutes = 1;
-    navigatorKey.currentState!.popUntil((route) => route.isFirst);
-    // will call didPop now
-  }
-
   _push(String title) {
     nav.add(title);
   }

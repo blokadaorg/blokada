@@ -31,8 +31,8 @@ export async function waitForScreen(
 
 /**
  * Tap a Home-hub entry control (gear / card button) and wait for its destination
- * screen to render. The V6 bottom tab bar (`nav_*` ids) is never mounted, so
- * Home is the only navigation hub — same path as `account.ts::openSettingsScreen`.
+ * screen to render. V6 has no bottom tab bar — Home is the only navigation hub,
+ * same path as `account.ts::openSettingsScreen`.
  */
 export async function openHubScreen(
   buttonId: string,
