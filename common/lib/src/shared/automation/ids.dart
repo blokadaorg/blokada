@@ -12,11 +12,6 @@ class AutomationIds {
   static const screenAdvanced = 'automation.screen_advanced';
   static const screenSettings = 'automation.screen_settings';
 
-  static const navHome = 'automation.nav_home';
-  static const navActivity = 'automation.nav_activity';
-  static const navAdvanced = 'automation.nav_advanced';
-  static const navSettings = 'automation.nav_settings';
-
   /// Top-bar title of every WithTopBar screen/sub-page. Stable chrome marker
   /// so automation can tell "real screen with a title" apart from its body
   /// content and detect a screen that rendered with no body (blank/broken).
