@@ -1,6 +1,7 @@
 import 'dart:io' as io;
 
 import 'package:common/src/features/customlist/domain/customlist.dart';
+import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/features/journal/domain/journal.dart';
 import 'package:common/src/features/activity/ui/activity_rule_dialog.dart';
 import 'package:common/src/features/support/ui/support_dialog.dart';
@@ -312,20 +313,26 @@ void showAddExceptionDialog(
             const SizedBox(height: 16),
             ClipRRect(
               borderRadius: BorderRadius.circular(12.0),
-              child: Material(
-                child: TextField(
-                  controller: _ctrl,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: context.theme.bgColor,
-                    focusColor: context.theme.bgColor,
-                    hoverColor: context.theme.bgColor,
-                    contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: context.theme.bgColor, width: 0.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: context.theme.bgColor, width: 0.0),
+              child: MergeSemantics(
+                child: Semantics(
+                  identifier: AutomationIds.exceptionDomainInput,
+                  textField: true,
+                  child: Material(
+                    child: TextField(
+                      controller: _ctrl,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: context.theme.bgColor,
+                        focusColor: context.theme.bgColor,
+                        hoverColor: context.theme.bgColor,
+                        contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: context.theme.bgColor, width: 0.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: context.theme.bgColor, width: 0.0),
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -374,12 +381,18 @@ void showAddExceptionDialog(
       ValueListenableBuilder<bool>(
         valueListenable: _isBlocked,
         builder: (context, blocked, _) {
-          return TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              onConfirm(_ctrl.text, blocked);
-            },
-            child: Text("universal action save".i18n),
+          return MergeSemantics(
+            child: Semantics(
+              identifier: AutomationIds.exceptionSaveButton,
+              button: true,
+              child: TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  onConfirm(_ctrl.text, blocked);
+                },
+                child: Text("universal action save".i18n),
+              ),
+            ),
           );
         },
       ),
