@@ -125,6 +125,9 @@ class DetailRoutes with Logging {
       trailing: (context, args) => _bypass.getBypassAction(context),
     ),
     DetailRoute(
+      // The end-chat trailing pops the current route, so Support must only
+      // ever render as a pushed route — never include it in a host's
+      // detailPaths or the pop would dismiss the whole two-pane screen.
       path: Paths.support,
       title: (_) => "support action chat".i18n,
       body: (context, args) => const SupportSection(),

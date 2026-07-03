@@ -151,7 +151,7 @@ class WithDetailPaneState extends State<WithDetailPane> implements DetailPaneHan
     final arguments =
         path == null ? null : (widget.paneArguments?.call(path, tapArguments) ?? tapArguments);
 
-    final pane = (route?.body == null)
+    final pane = ((route?.paneBody ?? route?.body) == null)
         ? (widget.placeholder ?? const DetailPanePlaceholder())
         : route!.buildPane(context, arguments);
 

@@ -36,11 +36,13 @@ class PrivacyPulseScreenState extends State<PrivacyPulseScreen> with Logging {
   var _showStats = false;
   var _isFreemium = false;
 
+  late final ReactionDisposer _autorunDisposer;
+
   @override
   void initState() {
     super.initState();
 
-    autorun((_) {
+    _autorunDisposer = autorun((_) {
       final retention = _device.retention;
       setState(() {
         // Show only if retention is enabled
@@ -49,6 +51,12 @@ class PrivacyPulseScreenState extends State<PrivacyPulseScreen> with Logging {
         _showStats = retention == "24h" || _isFreemium;
       });
     });
+  }
+
+  @override
+  void dispose() {
+    _autorunDisposer();
+    super.dispose();
   }
 
   @override

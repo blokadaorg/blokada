@@ -26,15 +26,23 @@ class AdvancedScreenState extends State<AdvancedScreen> with Logging {
 
   var _isFreemium = false;
 
+  late final ReactionDisposer _autorunDisposer;
+
   @override
   void initState() {
     super.initState();
 
-    autorun((_) {
+    _autorunDisposer = autorun((_) {
       setState(() {
         _isFreemium = _account.isFreemium;
       });
     });
+  }
+
+  @override
+  void dispose() {
+    _autorunDisposer();
+    super.dispose();
   }
 
   @override

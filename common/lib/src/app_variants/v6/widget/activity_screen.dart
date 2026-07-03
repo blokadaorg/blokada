@@ -33,11 +33,13 @@ class ActivityScreenState extends State<ActivityScreen> with Logging {
   var _showStats = false;
   var _isFreemium = false;
 
+  late final ReactionDisposer _autorunDisposer;
+
   @override
   void initState() {
     super.initState();
 
-    autorun((_) {
+    _autorunDisposer = autorun((_) {
       final retention = _device.retention;
       setState(() {
         // Show only if retention is enabled
@@ -46,6 +48,12 @@ class ActivityScreenState extends State<ActivityScreen> with Logging {
         _showStats = retention == "24h" || _isFreemium;
       });
     });
+  }
+
+  @override
+  void dispose() {
+    _autorunDisposer();
+    super.dispose();
   }
 
   @override
@@ -65,7 +73,15 @@ class ActivityScreenState extends State<ActivityScreen> with Logging {
       screenSemanticsId: AutomationIds.screenActivity,
       master: const StatsSection(deviceTag: null, isHeader: false),
       detailPaths: const {Paths.deviceStatsDetail},
-      trailing: (context, _) => _routes.statsFilterAction(context),
+      // MergeSemantics keeps the stable search id on the interactive node
+      // (a bare CommonClickable is invisible to WDA), as on the phone route.
+      trailing: (context, _) => MergeSemantics(
+        child: Semantics(
+          identifier: AutomationIds.activitySearch,
+          button: true,
+          child: _routes.statsFilterAction(context),
+        ),
+      ),
       overlay: _isFreemium
           ? FreemiumScreen(
               title: "freemium stats cta header".i18n,

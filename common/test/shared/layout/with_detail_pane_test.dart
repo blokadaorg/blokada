@@ -197,6 +197,47 @@ void main() {
           Core.get<DetailPaneHosts>().openInPane(Paths.settingsRetention, null), isFalse);
     });
 
+    testWidgets("a host covered by a pushed route stops accepting pane opens",
+        (tester) async {
+      await setSize(tester, const Size(1200, 800));
+      final navKey = GlobalKey<NavigatorState>();
+      await tester.pumpWidget(
+        ChangeNotifierProvider(
+          create: (_) => TopBarController(),
+          child: MaterialApp(
+            theme: ThemeData(extensions: const [_theme]),
+            navigatorKey: navKey,
+            home: const WithDetailPane(
+              title: "Bottom",
+              master: Text("bottom-master"),
+              detailPaths: {Paths.settingsExceptions},
+              initialDetail: Paths.settingsExceptions,
+            ),
+          ),
+        ),
+      );
+      final hosts = Core.get<DetailPaneHosts>();
+      expect(hosts.openInPane(Paths.settingsExceptions, null), isTrue);
+
+      navKey.currentState!.push(MaterialPageRoute(
+          builder: (_) => const WithDetailPane(
+                title: "Top",
+                master: Text("top-master"),
+                detailPaths: {Paths.settingsRetention},
+              )));
+      await tester.pumpAndSettle();
+
+      // The covered host is no longer current: its paths fall through to a
+      // push instead of mutating an invisible pane; the top host still
+      // claims its own paths.
+      expect(hosts.openInPane(Paths.settingsExceptions, null), isFalse);
+      expect(hosts.openInPane(Paths.settingsRetention, null), isTrue);
+
+      navKey.currentState!.pop();
+      await tester.pumpAndSettle();
+      expect(hosts.openInPane(Paths.settingsExceptions, null), isTrue);
+    });
+
     testWidgets("host trailing overrides the registry and shows in both modes",
         (tester) async {
       await setSize(tester, const Size(1200, 800));
