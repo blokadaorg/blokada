@@ -72,8 +72,7 @@ class WithDetailPane extends StatefulWidget {
     this.paneArguments,
     this.trailing,
     this.overlay,
-    // ignore: deprecated_member_use_from_same_package
-    this.maxWidth = maxContentWidthTablet,
+    this.maxWidth = maxContentWidthTwoPane,
   });
 
   @override

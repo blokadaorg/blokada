@@ -24,7 +24,6 @@ enum Paths {
   deviceStatsDetail("/device/stats/detail"),
   settings("/settings"),
   settingsExceptions("/settings/exceptions"),
-  settingsAccount("/settings/account"),
   settingsRetention("/settings/retention"),
   settingsVpnDevices("/settings/vpn"),
   settingsVpnBypass("/settings/bypass"),
@@ -40,7 +39,6 @@ enum Paths {
 }
 
 const maxContentWidth = 500.0;
-const maxContentWidthTablet = 1500.0;
 
 double getTopPadding(BuildContext context) {
   final topPadding = MediaQuery.of(context).padding.top;

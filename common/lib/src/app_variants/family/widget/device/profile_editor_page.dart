@@ -276,7 +276,6 @@ class _ProfileEditorPageState extends State<ProfileEditorPage> {
             final mq = MediaQuery.of(ctx);
             return FamilyFiltersSection(
                 profileId: widget.profileId,
-                primary: true,
                 showHeader: false,
                 topInset: mq.padding.top,
                 bottomInset: mq.padding.bottom);

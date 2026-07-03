@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 
 class FamilyFiltersSection extends StatefulWidget {
   final String? profileId;
-  final bool primary;
   /// When true (default) renders the big avatar + "Profil: <name>"
   /// title at the top of the list, matching the standalone
   /// device-detail Blocklists route. When the section is embedded
@@ -28,7 +27,6 @@ class FamilyFiltersSection extends StatefulWidget {
   const FamilyFiltersSection({
     Key? key,
     required this.profileId,
-    this.primary = true,
     this.showHeader = true,
     this.topInset = 0,
     this.bottomInset = 0,
@@ -75,7 +73,7 @@ class FamilyFiltersSectionState extends State<FamilyFiltersSection>
         _buildFilters(context) +
         <Widget>[SizedBox(height: widget.bottomInset)];
     return ListView(
-        primary: widget.primary,
+        primary: true,
         // topInset goes through ListView's own padding so the first
         // content sits below glass chrome but still scrolls under it.
         padding: EdgeInsets.only(top: widget.topInset),

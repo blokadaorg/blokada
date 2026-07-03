@@ -44,7 +44,7 @@ class AdvancedScreenState extends State<AdvancedScreen> with Logging {
       identifier: AutomationIds.screenAdvanced,
       child: WithTopBar(
         title: "main tab advanced".i18n,
-        maxWidth: expanded ? maxContentWidthTablet : maxContentWidth,
+        maxWidth: expanded ? maxContentWidthTwoPane : maxContentWidth,
         overlay: _isFreemium
             ? FreemiumScreen(
                 title: "freemium filters cta header".i18n,

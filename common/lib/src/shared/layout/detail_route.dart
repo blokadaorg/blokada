@@ -80,10 +80,6 @@ class DetailRoutes with Logging {
       title: (_) => "activity section header".i18n,
       body: (context, args) => StatsSection(
           deviceTag: (args as FamilyDevice).device.deviceTag, isHeader: false),
-      paneBody: (context, args) => StatsSection(
-          deviceTag: (args as FamilyDevice).device.deviceTag,
-          primary: false,
-          isHeader: false),
       trailing: (context, args) => statsFilterAction(context),
     ),
     DetailRoute(
@@ -91,8 +87,6 @@ class DetailRoutes with Logging {
       title: (_) => "family stats label blocklists".i18n,
       body: (context, args) => FamilyFiltersSection(
           profileId: (args as FamilyDevice).profile.profileId),
-      paneBody: (context, args) => FamilyFiltersSection(
-          profileId: (args as FamilyDevice).profile.profileId, primary: false),
     ),
     DetailRoute(
       path: Paths.deviceStatsDetail,
@@ -112,14 +106,12 @@ class DetailRoutes with Logging {
       path: Paths.settingsExceptions,
       title: (_) => "family stats title".i18n,
       body: (context, args) => const ExceptionsSection(),
-      paneBody: (context, args) => const ExceptionsSection(primary: false),
       trailing: (context, args) => _addExceptionAction(context),
     ),
     DetailRoute(
       path: Paths.settingsRetention,
       title: (_) => "activity section header".i18n,
       body: (context, args) => const RetentionSection(),
-      paneBody: (context, args) => const RetentionSection(primary: false),
     ),
     DetailRoute(
       path: Paths.settingsVpnDevices,
@@ -182,7 +174,7 @@ class DetailRoutes with Logging {
     }
 
     final entry = arguments as UiJournalEntry;
-    if (pane) return StatsDetailSection(entry: entry, primary: false);
+    if (pane) return StatsDetailSection(entry: entry);
 
     return DomainDetailSection(
       entry: UiJournalMainEntry(

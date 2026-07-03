@@ -36,6 +36,10 @@ const double kExpandedWindowMinWidth = 840.0;
 /// (e.g. 1200x500) does fit two panes.
 const double kExpandedWindowMinHeight = 500.0;
 
+/// Content width cap for two-pane (expanded) layouts, replacing the old
+/// maxContentWidthTablet.
+const double maxContentWidthTwoPane = 1500.0;
+
 /// Windows at least this wide present modal sheets as centered floating
 /// cards instead of bottom-anchored sheets (see FloatingModal). Narrower
 /// than the expanded boundary on purpose: 500-840pt windows keep a

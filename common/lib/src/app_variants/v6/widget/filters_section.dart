@@ -9,11 +9,9 @@ import 'package:common/src/platform/filter/filter.dart';
 import 'package:flutter/material.dart';
 
 class V6FiltersSection extends StatefulWidget {
-  final bool freemium;
 
   const V6FiltersSection({
     Key? key,
-    this.freemium = true,
   }) : super(key: key);
 
   @override
@@ -46,7 +44,7 @@ class V6FiltersSectionState extends State<V6FiltersSection> with Logging, Dispos
 
   /// Filter cards go two-per-row once the section is wide enough that a
   /// single stretched column reads worse than a grid; in practice only the
-  /// expanded-window content box (up to maxContentWidthTablet) crosses
+  /// expanded-window content box (up to maxContentWidthTwoPane) crosses
   /// this, since narrower layouts cap the box at maxContentWidth.
   static const double _twoColumnMinWidth = 700.0;
 

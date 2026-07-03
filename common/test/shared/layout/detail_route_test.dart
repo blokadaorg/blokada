@@ -147,8 +147,6 @@ void main() {
       for (final path in containerPaths) {
         expect(routes.resolve(path)!.body, isNull, reason: "$path");
       }
-      // Dead entry, never navigated to; deleted in cleanup.
-      expect(routes.resolve(Paths.settingsAccount), isNull);
       expect(routes.resolve(Paths.home), isNull);
     });
 
@@ -159,7 +157,7 @@ void main() {
       expect(body, isA<StatsSection>());
       expect((body as StatsSection).deviceTag, "example-tag");
       final pane = routes.resolve(Paths.deviceStats)!.buildPane(context, device());
-      expect((pane as StatsSection).primary, isFalse);
+      expect((pane as StatsSection).deviceTag, "example-tag");
     });
 
     testWidgets("deviceStatsDetail with Map args builds DomainDetailSection with parsed fields",
@@ -221,7 +219,6 @@ void main() {
       final context = await contextOf(tester);
       final pane = routes.resolve(Paths.deviceStatsDetail)!.buildPane(context, journalEntry());
       expect(pane, isA<StatsDetailSection>());
-      expect((pane as StatsDetailSection).primary, isFalse);
       // Map args (toplist navigation) keep DomainDetailSection in the pane too.
       final mapPane = routes
           .resolve(Paths.deviceStatsDetail)!

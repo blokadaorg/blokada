@@ -14,16 +14,12 @@ import 'package:flutter/material.dart';
 
 class StatsSection extends StatefulWidget {
   final DeviceTag? deviceTag;
-  final bool primary;
   final bool isHeader;
-  final bool freemium;
 
   const StatsSection({
     Key? key,
     required this.deviceTag,
     required this.isHeader,
-    this.primary = true,
-    this.freemium = true,
   }) : super(key: key);
 
   @override
