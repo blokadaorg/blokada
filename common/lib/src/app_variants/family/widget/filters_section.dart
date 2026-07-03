@@ -85,10 +85,10 @@ class FamilyFiltersSectionState extends State<FamilyFiltersSection>
   List<Widget> _buildFamilyHeader(BuildContext context) {
     // The big avatar + title is a centerpiece, so it must sit fully below the
     // glass TopBar. getTopPadding is tuned for list content that scrolls subtly
-    // under the glass and returns only 68 on notched phones; used here it
+    // under the glass and returns only 84 on notched phones; used here it
     // leaves the prominent avatar's top clipped under the bar (no-notch devices
-    // return 100 and happen to clear, which is why only phones show it). Clamp
-    // the clearance up to the bar height so the avatar always clears.
+    // return 116 and clear, which is why only phones show it). Clamp the
+    // clearance up to the bar height so the avatar always clears.
     const barHeight = 100.0; // keep in sync with TopBar.height (top_bar.dart)
     final topPadding = getTopPadding(context);
     final topClearance = topPadding < barHeight ? barHeight : topPadding;

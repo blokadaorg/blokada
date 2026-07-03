@@ -80,7 +80,6 @@ class ExceptionsSectionState extends State<ExceptionsSection>
           primary: true,
           children: [
             SizedBox(height: getTopPadding(context)),
-            const SizedBox(height: 16),
             CommonCard(
               padding: EdgeInsets.zero,
               child: Column(

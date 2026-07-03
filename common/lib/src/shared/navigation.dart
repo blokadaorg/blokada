@@ -40,11 +40,15 @@ enum Paths {
 
 const maxContentWidth = 500.0;
 
+/// Top inset for scrollable content under the 100pt glass TopBar: full bar
+/// height on no-notch devices, 68 on notched phones (their content scrolls
+/// subtly under the glass), plus a 16pt breathing gap so the first item
+/// never sits flush against the bar's bottom edge.
 double getTopPadding(BuildContext context) {
   final topPadding = MediaQuery.of(context).padding.top;
   final noNotch = topPadding < 30;
   final android = PlatformInfo().isSmallAndroid(context) ? 24.0 : 0.0;
-  return (noNotch ? 100 : 68) + android; // I don't get it either
+  return (noNotch ? 100 : 68) + android + 16;
 }
 
 class Navigation with Logging {
