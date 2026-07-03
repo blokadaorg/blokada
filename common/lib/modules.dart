@@ -16,6 +16,7 @@ import 'package:common/src/features/perm/domain/perm.dart';
 import 'package:common/src/features/rate/domain/rate.dart';
 import 'package:common/src/features/safari/domain/safari.dart';
 import 'package:common/src/features/support/domain/support.dart';
+import 'package:common/src/shared/layout/detail_route.dart';
 import 'package:common/src/shared/ui/top_bar.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/app_variants/family/module/auth/auth.dart';
@@ -165,6 +166,7 @@ class Modules with Logging {
     CommandStore().onRegister();
 
     Core.register<TopBarController>(TopBarController());
+    Core.register<DetailRoutes>(DetailRoutes());
   }
 
   start(Marker m, {required AppLaunchContext launchContext}) async {
