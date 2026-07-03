@@ -65,6 +65,12 @@ class WithDetailPane extends StatefulWidget {
   /// Content width cap in expanded (two-pane) mode.
   final double maxWidth;
 
+  /// Master width cap while no detail is selected (supporting-pane solo
+  /// state). Defaults to the single-pane content width; hosts whose master
+  /// lays its sections out in columns (Privacy Pulse) pass a wide cap so
+  /// the solo master can use the whole box.
+  final double soloMaxWidth;
+
   const WithDetailPane({
     super.key,
     required this.title,
@@ -78,6 +84,7 @@ class WithDetailPane extends StatefulWidget {
     this.trailing,
     this.overlay,
     this.maxWidth = maxContentWidthTwoPane,
+    this.soloMaxWidth = maxContentWidth,
   });
 
   @override
@@ -174,7 +181,7 @@ class WithDetailPaneState extends State<WithDetailPane> implements DetailPaneHan
       child: LayoutBuilder(builder: (context, constraints) {
         final total = constraints.maxWidth;
         final split = path != null;
-        final masterWidth = split ? total / 2 : math.min(maxContentWidth, total);
+        final masterWidth = split ? total / 2 : math.min(widget.soloMaxWidth, total);
         final paneWidth = split ? total / 2 : 0.0;
 
         final pane = !split

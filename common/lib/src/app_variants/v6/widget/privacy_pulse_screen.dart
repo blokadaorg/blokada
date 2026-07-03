@@ -7,6 +7,7 @@ import 'package:common/src/platform/account/account.dart';
 import 'package:common/src/shared/ui/freemium_screen.dart';
 import 'package:common/src/platform/device/device.dart';
 import 'package:common/src/shared/automation/ids.dart';
+import 'package:common/src/shared/layout/window_shape.dart';
 import 'package:common/src/shared/layout/with_detail_pane.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/with_top_bar.dart';
@@ -80,6 +81,10 @@ class PrivacyPulseScreenState extends State<PrivacyPulseScreen> with Logging {
         initialRange: widget.initialToplistRange,
       ),
       detailPaths: const {Paths.deviceStatsDetail},
+      // The pulse sections spread into two columns while solo, so give the
+      // master the whole box; it narrows (and the section collapses back to
+      // one column) when a domain detail splits the screen.
+      soloMaxWidth: maxContentWidthTwoPane,
       overlay: _isFreemium
           ? FreemiumScreen(
               title: "freemium activity cta header".i18n,

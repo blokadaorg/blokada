@@ -230,6 +230,15 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
     return content();
   }
 
+  /// Above this width the pulse sections spread over two columns (the
+  /// supporting-pane solo state on wide windows); when a domain detail
+  /// splits the screen the section narrows below it and collapses back to
+  /// the single column.
+  static const double _twoColumnMinWidth = 900.0;
+
+  /// Two 500pt columns + the 24pt gutter + the 12pt outer paddings.
+  static const double _twoColumnMaxWidth = 1048.0;
+
   Widget content() {
     final theme = Theme.of(context).extension<BlokadaTheme>()!;
     return Stack(
@@ -240,85 +249,139 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
             decoration: BoxDecoration(
               color: theme.bgColor,
             ),
-            child: Center(
-              child: Container(
-                constraints: const BoxConstraints(maxWidth: maxContentWidth),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                  child: PrimaryScrollController(
-                    controller: widget.controller,
-                    child: RefreshIndicator(
-                      displacement: 100.0,
-                      onRefresh: _pullToRefresh,
-                      child: ListView(
-                        controller: widget.controller,
-                        children: [
-                          SizedBox(height: getTopPadding(context)),
-                          if (_weeklyEvent != null) ...[
-                            Builder(builder: (context) {
-                              final event = _weeklyEvent!;
-                              final isToplist = event.type == WeeklyReportEventType.toplistChange;
-                              final timeLabel =
-                                  timeago.format(event.generatedAt, allowFromNow: true);
-                              return WeeklyReportCard(
-                                title: event.title,
-                                content: Text(
-                                  event.body,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: context.theme.textSecondary,
-                                    height: 1.3,
-                                  ),
-                                ),
-                                time: timeLabel,
-                                icon: _iconFor(event.icon),
-                                iconColor: context.theme.accent,
-                                onTap: isToplist ? _handleWeeklyReportTap : null,
-                                onDismiss: () => _dismissWeeklyReport(),
-                              );
-                            }),
-                            const SizedBox(height: 16),
+            child: LayoutBuilder(builder: (context, constraints) {
+              final twoColumns = constraints.maxWidth >= _twoColumnMinWidth;
+              return Center(
+                child: Container(
+                  constraints: BoxConstraints(
+                      maxWidth: twoColumns ? _twoColumnMaxWidth : maxContentWidth),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    child: PrimaryScrollController(
+                      controller: widget.controller,
+                      child: RefreshIndicator(
+                        displacement: 100.0,
+                        onRefresh: _pullToRefresh,
+                        child: ListView(
+                          controller: widget.controller,
+                          children: [
+                            SizedBox(height: getTopPadding(context)),
+                            if (twoColumns)
+                              _buildTwoColumnContent(context)
+                            else
+                              ..._buildSingleColumnContent(context),
+                            const SizedBox(height: 60),
                           ],
-                          MiniCard(
-                            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: PrivacyPulseCharts(
-                                stats: stats,
-                                counters: _counters,
-                                counterDelta: _counterDeltas[_toplistRange],
-                                statsReady: _hasStats,
-                                deltaReady: _deltaReady[_toplistRange] ?? false,
-                                sparklineSeries:
-                                    _toplistRange == ToplistRange.weekly ? _weeklySparkline : null,
-                                trailing: _buildToplistRangeToggle(context),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 12),
-                          TopDomains(
-                            headerKey: _topDomainsHeaderKey,
-                            highlight: _weeklyHighlight ?? _weeklyEvent?.toplistHighlight,
-                            range: _toplistRange,
-                            blockedDeltas: _blockedDeltas[_toplistRange],
-                            allowedDeltas: _allowedDeltas[_toplistRange],
-                            onRangeChanged: _setToplistRange,
-                          ),
-                          const SizedBox(height: 12),
-                          RecentActivity(),
-                          const SizedBox(height: 48),
-                          TotalCounter(stats: stats),
-                          const SizedBox(height: 60),
-                        ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ),
+              );
+            }),
           ),
         ),
       ],
+    );
+  }
+
+  List<Widget> _buildSingleColumnContent(BuildContext context) {
+    return [
+      ..._buildWeeklyCard(context),
+      _buildChartsCard(context),
+      const SizedBox(height: 12),
+      _buildTopDomains(),
+      const SizedBox(height: 12),
+      RecentActivity(),
+      const SizedBox(height: 48),
+      TotalCounter(stats: stats),
+    ];
+  }
+
+  /// Wide solo layout: charts (and the weekly banner) on the left, the
+  /// domain lists on the right, sharing one scroll position.
+  Widget _buildTwoColumnContent(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Column(
+            children: [
+              ..._buildWeeklyCard(context),
+              _buildChartsCard(context),
+              const SizedBox(height: 24),
+              TotalCounter(stats: stats),
+            ],
+          ),
+        ),
+        const SizedBox(width: 24),
+        Expanded(
+          child: Column(
+            children: [
+              _buildTopDomains(),
+              const SizedBox(height: 12),
+              RecentActivity(),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  List<Widget> _buildWeeklyCard(BuildContext context) {
+    if (_weeklyEvent == null) return const [];
+    return [
+      Builder(builder: (context) {
+        final event = _weeklyEvent!;
+        final isToplist = event.type == WeeklyReportEventType.toplistChange;
+        final timeLabel = timeago.format(event.generatedAt, allowFromNow: true);
+        return WeeklyReportCard(
+          title: event.title,
+          content: Text(
+            event.body,
+            style: TextStyle(
+              fontSize: 14,
+              color: context.theme.textSecondary,
+              height: 1.3,
+            ),
+          ),
+          time: timeLabel,
+          icon: _iconFor(event.icon),
+          iconColor: context.theme.accent,
+          onTap: isToplist ? _handleWeeklyReportTap : null,
+          onDismiss: () => _dismissWeeklyReport(),
+        );
+      }),
+      const SizedBox(height: 16),
+    ];
+  }
+
+  Widget _buildChartsCard(BuildContext context) {
+    return MiniCard(
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: PrivacyPulseCharts(
+          stats: stats,
+          counters: _counters,
+          counterDelta: _counterDeltas[_toplistRange],
+          statsReady: _hasStats,
+          deltaReady: _deltaReady[_toplistRange] ?? false,
+          sparklineSeries: _toplistRange == ToplistRange.weekly ? _weeklySparkline : null,
+          trailing: _buildToplistRangeToggle(context),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTopDomains() {
+    return TopDomains(
+      headerKey: _topDomainsHeaderKey,
+      highlight: _weeklyHighlight ?? _weeklyEvent?.toplistHighlight,
+      range: _toplistRange,
+      blockedDeltas: _blockedDeltas[_toplistRange],
+      allowedDeltas: _allowedDeltas[_toplistRange],
+      onRangeChanged: _setToplistRange,
     );
   }
 

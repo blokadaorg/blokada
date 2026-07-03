@@ -118,6 +118,7 @@ void main() {
       Object? initialDetailArguments,
       Object? Function(Paths path, Object? arguments)? paneArguments,
       Widget? Function(BuildContext context, Paths? shownDetail)? trailing,
+      double? soloMaxWidth,
     }) async {
       await tester.pumpWidget(
       ChangeNotifierProvider(
@@ -133,6 +134,7 @@ void main() {
             initialDetailArguments: initialDetailArguments,
             paneArguments: paneArguments,
             trailing: trailing,
+            soloMaxWidth: soloMaxWidth ?? maxContentWidth,
           ),
         ),
       ),
@@ -167,6 +169,19 @@ void main() {
       final masterBox = tester.getRect(find.text("master"));
       expect(masterBox.width, maxContentWidth);
       expect(masterBox.center.dx, closeTo(600, 1.0));
+    });
+
+    testWidgets("soloMaxWidth lets the master use the full box before a selection",
+        (tester) async {
+      await setSize(tester, const Size(1200, 800));
+
+      await pumpHost(tester, soloMaxWidth: 5000);
+      expect(tester.getRect(find.text("master")).width, closeTo(1200, 1.0));
+
+      // Selecting a detail still animates down to the 50/50 split.
+      await Navigation.open(Paths.settingsRetention);
+      await tester.pumpAndSettle();
+      expect(tester.getRect(find.text("master")).width, closeTo(600, 1.0));
     });
 
     testWidgets("selecting a detail animates the split in and keeps it", (tester) async {
