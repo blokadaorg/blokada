@@ -72,10 +72,16 @@ class WithDetailPane extends StatefulWidget {
   final double soloMaxWidth;
 
   /// Master fraction of the split. 0.5 suits masters with a single content
-  /// column; column-capable masters (Privacy Pulse) take 0.7 so the split
-  /// doesn't strand half the screen behind a 500pt column. The detail pane
-  /// never goes below a phone-ish minimum width.
+  /// column; column-capable masters (Privacy Pulse) take a larger share so
+  /// the split doesn't strand half the screen behind a 500pt column. The
+  /// detail pane never goes below a phone-ish minimum width.
   final double splitRatio;
+
+  /// Smallest master width worth splitting for. When the box is too narrow
+  /// (portrait iPads), detail opens fall through to a full-screen push and
+  /// a retained selection renders solo — a column-capable master collapsing
+  /// mid-animation reads as tearing, so it never splits there at all.
+  final double minSplitMasterWidth;
 
   const WithDetailPane({
     super.key,
@@ -92,6 +98,7 @@ class WithDetailPane extends StatefulWidget {
     this.maxWidth = maxContentWidthTwoPane,
     this.soloMaxWidth = maxContentWidth,
     this.splitRatio = 0.5,
+    this.minSplitMasterWidth = 0,
   });
 
   @override
@@ -108,6 +115,7 @@ class WithDetailPaneState extends State<WithDetailPane> implements DetailPaneHan
 
   ModalRoute? _route;
   bool _expanded = false;
+  bool _splitAllowed = true;
   Paths? _path;
   Object? _arguments;
 
@@ -131,7 +139,7 @@ class WithDetailPaneState extends State<WithDetailPane> implements DetailPaneHan
   }
 
   @override
-  bool get isActive => mounted && (_route?.isCurrent ?? true) && _expanded;
+  bool get isActive => mounted && (_route?.isCurrent ?? true) && _expanded && _splitAllowed;
 
   @override
   bool accepts(Paths path) => widget.detailPaths.contains(path);
@@ -147,6 +155,11 @@ class WithDetailPaneState extends State<WithDetailPane> implements DetailPaneHan
   @override
   Widget build(BuildContext context) {
     _expanded = windowShapeOf(context) == WindowShape.expanded;
+    // Mirror of the LayoutBuilder box below: the WithTopBar body spans the
+    // window and caps content at maxWidth.
+    final total = math.min(MediaQuery.sizeOf(context).width, widget.maxWidth);
+    _splitAllowed =
+        total - _paneWidthFor(total) >= widget.minSplitMasterWidth;
 
     final content = _expanded ? _buildTwoPane(context) : _buildSinglePane(context);
     final id = widget.screenSemanticsId;
@@ -166,6 +179,9 @@ class WithDetailPaneState extends State<WithDetailPane> implements DetailPaneHan
   static const _splitDuration = Duration(milliseconds: 250);
   static const _splitCurve = Curves.easeInOutCubic;
   static const _minPaneWidth = 360.0;
+
+  double _paneWidthFor(double total) =>
+      math.max(total * (1 - widget.splitRatio), _minPaneWidth);
 
   Widget _buildTwoPane(BuildContext context) {
     final path = _path ?? widget.initialDetail;
@@ -188,10 +204,7 @@ class WithDetailPaneState extends State<WithDetailPane> implements DetailPaneHan
       // during the reveal so it never squishes.
       child: LayoutBuilder(builder: (context, constraints) {
         final total = constraints.maxWidth;
-        final split = path != null;
-        final paneWidth =
-            split ? math.max(total * (1 - widget.splitRatio), _minPaneWidth) : 0.0;
-        final masterWidth = split ? total - paneWidth : math.min(widget.soloMaxWidth, total);
+        final split = path != null && _splitAllowed;
 
         final pane = !split
             ? null
@@ -199,38 +212,49 @@ class WithDetailPaneState extends State<WithDetailPane> implements DetailPaneHan
                 ? (widget.placeholder ?? const DetailPanePlaceholder())
                 : route!.buildPane(context, arguments);
 
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            AnimatedContainer(
-              duration: _splitDuration,
-              curve: _splitCurve,
-              width: masterWidth,
-              child: PaneSelection(
-                path: _path,
-                arguments: _arguments,
-                child: widget.master,
-              ),
-            ),
-            AnimatedContainer(
-              duration: _splitDuration,
-              curve: _splitCurve,
-              width: paneWidth,
-              child: pane == null
-                  ? null
-                  : ClipRect(
-                      child: OverflowBox(
-                        alignment: Alignment.centerRight,
-                        minWidth: paneWidth,
-                        maxWidth: paneWidth,
-                        child: PrimaryScrollController(
-                          controller: _paneScroll,
-                          child: pane,
+        // Widths derive from the live box every frame (t is the only
+        // animated value), so a window resize mid-animation can never
+        // overflow the Row the way lagging animated widths would.
+        return TweenAnimationBuilder<double>(
+          tween: Tween(end: split ? 1.0 : 0.0),
+          duration: _splitDuration,
+          curve: _splitCurve,
+          builder: (context, t, _) {
+            final paneTarget = _paneWidthFor(total);
+            final soloMaster = math.min(widget.soloMaxWidth, total);
+            final masterWidth = soloMaster + (total - paneTarget - soloMaster) * t;
+            final paneWidth = paneTarget * t;
+
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: masterWidth,
+                  child: PaneSelection(
+                    path: _path,
+                    arguments: _arguments,
+                    child: widget.master,
+                  ),
+                ),
+                SizedBox(
+                  width: paneWidth,
+                  child: pane == null
+                      ? null
+                      : ClipRect(
+                          child: OverflowBox(
+                            alignment: Alignment.centerRight,
+                            minWidth: paneTarget,
+                            maxWidth: paneTarget,
+                            child: PrimaryScrollController(
+                              controller: _paneScroll,
+                              child: pane,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-            ),
-          ],
+                ),
+              ],
+            );
+          },
         );
       }),
     );

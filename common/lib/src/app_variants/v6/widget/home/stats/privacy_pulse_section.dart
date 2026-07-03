@@ -230,11 +230,13 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
     return content();
   }
 
-  /// Above this width the pulse sections spread over two columns (the
-  /// supporting-pane solo state on wide windows); when a domain detail
-  /// splits the screen the section narrows below it and collapses back to
-  /// the single column.
-  static const double _twoColumnMinWidth = 900.0;
+  /// Above this width the pulse sections spread over two columns. Low
+  /// enough that both columns survive (shrunk to phone-ish width) next to
+  /// an open detail pane on landscape iPads. The screen also uses this as
+  /// its minSplitMasterWidth so the master never collapses to a single
+  /// column mid-split — where it can't keep two columns, details push
+  /// full-screen instead.
+  static const double twoColumnMinWidth = 780.0;
 
   /// Two 500pt columns + the 24pt gutter + the 12pt outer paddings.
   static const double _twoColumnMaxWidth = 1048.0;
@@ -250,7 +252,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
               color: theme.bgColor,
             ),
             child: LayoutBuilder(builder: (context, constraints) {
-              final twoColumns = constraints.maxWidth >= _twoColumnMinWidth;
+              final twoColumns = constraints.maxWidth >= twoColumnMinWidth;
               return Center(
                 child: Container(
                   constraints: BoxConstraints(
@@ -327,9 +329,9 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
         Expanded(
           child: Column(
             children: [
-              RecentActivity(),
-              const SizedBox(height: 24),
               TotalCounter(stats: stats),
+              const SizedBox(height: 24),
+              RecentActivity(),
             ],
           ),
         ),

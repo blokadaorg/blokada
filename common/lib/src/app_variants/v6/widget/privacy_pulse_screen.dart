@@ -86,8 +86,9 @@ class PrivacyPulseScreenState extends State<PrivacyPulseScreen> with Logging {
       // one column) when a domain detail splits the screen.
       soloMaxWidth: maxContentWidthTwoPane,
       // The two-column master carries the primary content; the domain
-      // detail is a single phone-width column, so it only needs ~30%.
-      splitRatio: 0.7,
+      // detail is a single column that fits its designed 500pt in ~40%.
+      splitRatio: 0.6,
+      minSplitMasterWidth: PrivacyPulseSectionState.twoColumnMinWidth,
       overlay: _isFreemium
           ? FreemiumScreen(
               title: "freemium activity cta header".i18n,

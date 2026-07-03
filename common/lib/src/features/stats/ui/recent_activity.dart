@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:common/src/features/journal/domain/journal.dart';
 import 'package:common/src/shared/automation/ids.dart';
-import 'package:common/src/shared/layout/detail_route.dart';
 import 'package:common/src/shared/layout/with_detail_pane.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/common_card.dart';
@@ -207,11 +206,14 @@ class RecentActivityState extends State<RecentActivity>
   }
 
   Widget _buildActivityItem(UiJournalEntry entry) {
-    // Highlight the entry whose domain detail is open in the pane.
-    final selectedDomain =
-        domainOfDetailArguments(PaneSelection.of(context)?.arguments)?.toLowerCase();
-    final isSelected = selectedDomain != null &&
-        entry.domainName.toLowerCase() == selectedDomain;
+    // Highlight the entry whose domain detail is open in the pane — only
+    // for selections that originated from a journal entry (this list), and
+    // matched on the entry itself, so a same-named toplist selection does
+    // not light this row up.
+    final selectionArguments = PaneSelection.of(context)?.arguments;
+    final isSelected = selectionArguments is UiJournalEntry &&
+        selectionArguments.domainName == entry.domainName &&
+        selectionArguments.timestamp == entry.timestamp;
 
     return CommonClickable(
       onTap: () {

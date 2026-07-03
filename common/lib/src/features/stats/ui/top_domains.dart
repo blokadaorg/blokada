@@ -98,9 +98,14 @@ class TopDomainsState extends State<TopDomains> {
             highlightBlocked == (_selectedTab == ToplistTab.blocked);
         String _normalized(UiToplistEntry e) =>
             (e.company ?? e.tld ?? '').toLowerCase();
-        // Highlight the row whose domain detail is open in the pane.
-        final selectedDomain =
-            domainOfDetailArguments(PaneSelection.of(context)?.arguments)?.toLowerCase();
+        // Highlight the row whose domain detail is open in the pane — only
+        // for selections that originated from a toplist row (Map arguments);
+        // a recent-activity selection must not light up a same-named domain
+        // here.
+        final selectionArguments = PaneSelection.of(context)?.arguments;
+        final selectedDomain = selectionArguments is Map
+            ? domainOfDetailArguments(selectionArguments)?.toLowerCase()
+            : null;
         final deltaMap = <String, ToplistDelta>{};
         if (deltas != null) {
           for (final d in deltas) {
@@ -269,16 +274,17 @@ class TopDomainsState extends State<TopDomains> {
           'range': widget.range == ToplistRange.weekly ? "7d" : "24h",
         });
       },
-      child: Padding(
-        padding: const EdgeInsets.only(left: 0, right: 12, top: 4, bottom: 4),
+      child: Container(
+        // Decoration sits on the outermost box so the selection tint covers
+        // the entire row, not an inset within its paddings.
+        padding: const EdgeInsets.only(left: 8, right: 12, top: 10, bottom: 10),
+        decoration: isSelected
+            ? BoxDecoration(
+                color: context.theme.accent.withOpacity(0.12),
+                borderRadius: BorderRadius.circular(8),
+              )
+            : null,
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-          decoration: isSelected
-              ? BoxDecoration(
-                  color: context.theme.accent.withOpacity(0.12),
-                  borderRadius: BorderRadius.circular(8),
-                )
-              : null,
           child: Row(
             children: [
               if (delta != null && delta.type != ToplistDeltaType.same) ...[

@@ -120,6 +120,7 @@ void main() {
       Widget? Function(BuildContext context, Paths? shownDetail)? trailing,
       double? soloMaxWidth,
       double? splitRatio,
+      double? minSplitMasterWidth,
     }) async {
       await tester.pumpWidget(
       ChangeNotifierProvider(
@@ -137,6 +138,7 @@ void main() {
             trailing: trailing,
             soloMaxWidth: soloMaxWidth ?? maxContentWidth,
             splitRatio: splitRatio ?? 0.5,
+            minSplitMasterWidth: minSplitMasterWidth ?? 0,
           ),
         ),
       ),
@@ -184,6 +186,37 @@ void main() {
       await Navigation.open(Paths.settingsRetention);
       await tester.pumpAndSettle();
       expect(tester.getRect(find.text("master")).width, closeTo(600, 1.0));
+    });
+
+    testWidgets("refuses to split when the master would fall below minSplitMasterWidth",
+        (tester) async {
+      // Portrait-ish box: 1032 - max(0.4*1032, 360) = 619 master, below the
+      // 780 floor, so detail opens fall through to a full-screen push and
+      // the master stays solo.
+      await setSize(tester, const Size(1032, 1376));
+      await pumpHost(tester,
+          soloMaxWidth: 5000, splitRatio: 0.6, minSplitMasterWidth: 780);
+
+      expect(
+          Core.get<DetailPaneHosts>().openInPane(Paths.settingsRetention, null), isFalse);
+      expect(find.text("pane:settingsRetention:-"), findsNothing);
+
+      // A wide-enough box accepts and splits as usual.
+      tester.view.physicalSize = const Size(1376, 1032);
+      await tester.pumpAndSettle();
+      expect(
+          Core.get<DetailPaneHosts>().openInPane(Paths.settingsRetention, null), isTrue);
+      await tester.pumpAndSettle();
+      expect(find.text("pane:settingsRetention:-"), findsOneWidget);
+
+      // Rotating back to the narrow box hides the split but keeps the
+      // selection for the next wide layout.
+      tester.view.physicalSize = const Size(1032, 1376);
+      await tester.pumpAndSettle();
+      expect(find.text("pane:settingsRetention:-"), findsNothing);
+      tester.view.physicalSize = const Size(1376, 1032);
+      await tester.pumpAndSettle();
+      expect(find.text("pane:settingsRetention:-"), findsOneWidget);
     });
 
     testWidgets("splitRatio sizes the panes, with a floor on the detail width",
