@@ -111,6 +111,17 @@ void main() {
     });
   });
 
+  group("domainOfDetailArguments", () {
+    test("extracts the shown domain from all deviceStatsDetail argument shapes", () {
+      expect(domainOfDetailArguments({'mainEntry': mainEntry(), 'domain': "sub.x.com"}),
+          "sub.x.com");
+      expect(domainOfDetailArguments({'mainEntry': mainEntry()}), "tracker.example.com");
+      expect(domainOfDetailArguments(journalEntry()), "ads.example.com");
+      expect(domainOfDetailArguments(null), isNull);
+      expect(domainOfDetailArguments("junk"), isNull);
+    });
+  });
+
   group("resolveByName", () {
     test("maps route names to entries and unknown names to null", () {
       final routes = DetailRoutes();

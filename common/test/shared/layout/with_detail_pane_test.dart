@@ -119,6 +119,7 @@ void main() {
       Object? Function(Paths path, Object? arguments)? paneArguments,
       Widget? Function(BuildContext context, Paths? shownDetail)? trailing,
       double? soloMaxWidth,
+      double? splitRatio,
     }) async {
       await tester.pumpWidget(
       ChangeNotifierProvider(
@@ -135,6 +136,7 @@ void main() {
             paneArguments: paneArguments,
             trailing: trailing,
             soloMaxWidth: soloMaxWidth ?? maxContentWidth,
+            splitRatio: splitRatio ?? 0.5,
           ),
         ),
       ),
@@ -182,6 +184,42 @@ void main() {
       await Navigation.open(Paths.settingsRetention);
       await tester.pumpAndSettle();
       expect(tester.getRect(find.text("master")).width, closeTo(600, 1.0));
+    });
+
+    testWidgets("splitRatio sizes the panes, with a floor on the detail width",
+        (tester) async {
+      await setSize(tester, const Size(1200, 800));
+      await pumpHost(tester,
+          initialDetail: Paths.settingsRetention, splitRatio: 0.7, soloMaxWidth: 5000);
+      await tester.pumpAndSettle();
+      expect(tester.getRect(find.text("master")).width, closeTo(840, 1.0));
+      expect(tester.getRect(find.text("pane:settingsRetention:-")).width, closeTo(360, 1.0));
+    });
+
+    testWidgets("PaneSelection exposes the shown detail to the master subtree",
+        (tester) async {
+      await setSize(tester, const Size(1200, 800));
+      await tester.pumpWidget(
+        ChangeNotifierProvider(
+          create: (_) => TopBarController(),
+          child: MaterialApp(
+            theme: ThemeData(extensions: const [_theme]),
+            home: WithDetailPane(
+              title: "Test",
+              master: Builder(builder: (context) {
+                final selection = PaneSelection.of(context);
+                return Text("sel:${selection?.path?.name}:${selection?.arguments ?? "-"}");
+              }),
+              detailPaths: const {Paths.settingsExceptions, Paths.settingsRetention},
+            ),
+          ),
+        ),
+      );
+      expect(find.text("sel:null:-"), findsOneWidget);
+
+      await Navigation.open(Paths.settingsRetention, arguments: "the-args");
+      await tester.pumpAndSettle();
+      expect(find.text("sel:settingsRetention:the-args"), findsOneWidget);
     });
 
     testWidgets("selecting a detail animates the split in and keeps it", (tester) async {

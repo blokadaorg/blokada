@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:common/src/features/journal/domain/journal.dart';
+import 'package:common/src/shared/layout/detail_route.dart';
+import 'package:common/src/shared/layout/with_detail_pane.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/common_card.dart';
 import 'package:common/src/shared/ui/common_clickable.dart';
@@ -96,6 +98,9 @@ class TopDomainsState extends State<TopDomains> {
             highlightBlocked == (_selectedTab == ToplistTab.blocked);
         String _normalized(UiToplistEntry e) =>
             (e.company ?? e.tld ?? '').toLowerCase();
+        // Highlight the row whose domain detail is open in the pane.
+        final selectedDomain =
+            domainOfDetailArguments(PaneSelection.of(context)?.arguments)?.toLowerCase();
         final deltaMap = <String, ToplistDelta>{};
         if (deltas != null) {
           for (final d in deltas) {
@@ -220,6 +225,8 @@ class TopDomainsState extends State<TopDomains> {
                         delta: limitedDeltas[_normalized(currentDomains[i])],
                         isHighlighted: highlightVisible &&
                             _normalized(currentDomains[i]) == highlightName,
+                        isSelected: selectedDomain != null &&
+                            _normalized(currentDomains[i]) == selectedDomain,
                       ),
                       if (i < currentDomains.length - 1) const CommonDivider(),
                     },
@@ -242,7 +249,7 @@ class TopDomainsState extends State<TopDomains> {
   }
 
   Widget _buildDomainItem(UiToplistEntry entry,
-      {ToplistDelta? delta, bool isHighlighted = false}) {
+      {ToplistDelta? delta, bool isHighlighted = false, bool isSelected = false}) {
     final domainName = entry.company ?? entry.tld ?? "Unknown";
 
     return CommonClickable(
@@ -265,7 +272,13 @@ class TopDomainsState extends State<TopDomains> {
       child: Padding(
         padding: const EdgeInsets.only(left: 0, right: 12, top: 4, bottom: 4),
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 6),
+          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+          decoration: isSelected
+              ? BoxDecoration(
+                  color: context.theme.accent.withOpacity(0.12),
+                  borderRadius: BorderRadius.circular(8),
+                )
+              : null,
           child: Row(
             children: [
               if (delta != null && delta.type != ToplistDeltaType.same) ...[

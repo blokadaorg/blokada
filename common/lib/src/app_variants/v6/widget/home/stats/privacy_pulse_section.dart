@@ -266,10 +266,18 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
                           controller: widget.controller,
                           children: [
                             SizedBox(height: getTopPadding(context)),
-                            if (twoColumns)
-                              _buildTwoColumnContent(context)
-                            else
-                              ..._buildSingleColumnContent(context),
+                            // Cross-fade the column-mode change so the
+                            // relayout during the master/detail width
+                            // animation doesn't read as tearing.
+                            AnimatedSwitcher(
+                              duration: const Duration(milliseconds: 200),
+                              child: KeyedSubtree(
+                                key: ValueKey(twoColumns),
+                                child: twoColumns
+                                    ? _buildTwoColumnContent(context)
+                                    : Column(children: _buildSingleColumnContent(context)),
+                              ),
+                            ),
                             const SizedBox(height: 60),
                           ],
                         ),
@@ -298,8 +306,9 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
     ];
   }
 
-  /// Wide solo layout: charts (and the weekly banner) on the left, the
-  /// domain lists on the right, sharing one scroll position.
+  /// Wide layout: charts and the top-domains list (the primary content) on
+  /// the left, recent activity and the all-time counter on the right, so
+  /// the columns carry comparable weight and share one scroll position.
   Widget _buildTwoColumnContent(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -309,8 +318,8 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
             children: [
               ..._buildWeeklyCard(context),
               _buildChartsCard(context),
-              const SizedBox(height: 24),
-              TotalCounter(stats: stats),
+              const SizedBox(height: 12),
+              _buildTopDomains(),
             ],
           ),
         ),
@@ -318,9 +327,9 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
         Expanded(
           child: Column(
             children: [
-              _buildTopDomains(),
-              const SizedBox(height: 12),
               RecentActivity(),
+              const SizedBox(height: 24),
+              TotalCounter(stats: stats),
             ],
           ),
         ),

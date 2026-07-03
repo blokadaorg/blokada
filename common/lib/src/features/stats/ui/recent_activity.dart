@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:common/src/features/journal/domain/journal.dart';
 import 'package:common/src/shared/automation/ids.dart';
+import 'package:common/src/shared/layout/detail_route.dart';
+import 'package:common/src/shared/layout/with_detail_pane.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/common_card.dart';
 import 'package:common/src/shared/ui/common_clickable.dart';
@@ -205,12 +207,24 @@ class RecentActivityState extends State<RecentActivity>
   }
 
   Widget _buildActivityItem(UiJournalEntry entry) {
+    // Highlight the entry whose domain detail is open in the pane.
+    final selectedDomain =
+        domainOfDetailArguments(PaneSelection.of(context)?.arguments)?.toLowerCase();
+    final isSelected = selectedDomain != null &&
+        entry.domainName.toLowerCase() == selectedDomain;
+
     return CommonClickable(
       onTap: () {
         Navigation.open(Paths.deviceStatsDetail, arguments: entry);
       },
-      child: Padding(
+      child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        decoration: isSelected
+            ? BoxDecoration(
+                color: context.theme.accent.withOpacity(0.12),
+                borderRadius: BorderRadius.circular(8),
+              )
+            : null,
         child: Row(
           children: [
             Expanded(

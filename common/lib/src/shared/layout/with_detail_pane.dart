@@ -71,6 +71,12 @@ class WithDetailPane extends StatefulWidget {
   /// the solo master can use the whole box.
   final double soloMaxWidth;
 
+  /// Master fraction of the split. 0.5 suits masters with a single content
+  /// column; column-capable masters (Privacy Pulse) take 0.7 so the split
+  /// doesn't strand half the screen behind a 500pt column. The detail pane
+  /// never goes below a phone-ish minimum width.
+  final double splitRatio;
+
   const WithDetailPane({
     super.key,
     required this.title,
@@ -85,6 +91,7 @@ class WithDetailPane extends StatefulWidget {
     this.overlay,
     this.maxWidth = maxContentWidthTwoPane,
     this.soloMaxWidth = maxContentWidth,
+    this.splitRatio = 0.5,
   });
 
   @override
@@ -158,6 +165,7 @@ class WithDetailPaneState extends State<WithDetailPane> implements DetailPaneHan
 
   static const _splitDuration = Duration(milliseconds: 250);
   static const _splitCurve = Curves.easeInOutCubic;
+  static const _minPaneWidth = 360.0;
 
   Widget _buildTwoPane(BuildContext context) {
     final path = _path ?? widget.initialDetail;
@@ -181,8 +189,9 @@ class WithDetailPaneState extends State<WithDetailPane> implements DetailPaneHan
       child: LayoutBuilder(builder: (context, constraints) {
         final total = constraints.maxWidth;
         final split = path != null;
-        final masterWidth = split ? total / 2 : math.min(widget.soloMaxWidth, total);
-        final paneWidth = split ? total / 2 : 0.0;
+        final paneWidth =
+            split ? math.max(total * (1 - widget.splitRatio), _minPaneWidth) : 0.0;
+        final masterWidth = split ? total - paneWidth : math.min(widget.soloMaxWidth, total);
 
         final pane = !split
             ? null
@@ -197,7 +206,11 @@ class WithDetailPaneState extends State<WithDetailPane> implements DetailPaneHan
               duration: _splitDuration,
               curve: _splitCurve,
               width: masterWidth,
-              child: widget.master,
+              child: PaneSelection(
+                path: _path,
+                arguments: _arguments,
+                child: widget.master,
+              ),
             ),
             AnimatedContainer(
               duration: _splitDuration,
@@ -208,8 +221,8 @@ class WithDetailPaneState extends State<WithDetailPane> implements DetailPaneHan
                   : ClipRect(
                       child: OverflowBox(
                         alignment: Alignment.centerRight,
-                        minWidth: total / 2,
-                        maxWidth: total / 2,
+                        minWidth: paneWidth,
+                        maxWidth: paneWidth,
                         child: PrimaryScrollController(
                           controller: _paneScroll,
                           child: pane,
@@ -221,5 +234,29 @@ class WithDetailPaneState extends State<WithDetailPane> implements DetailPaneHan
         );
       }),
     );
+  }
+}
+
+/// Exposes the host's current pane selection to the master subtree so list
+/// rows can highlight the item whose detail is open. Null path/arguments
+/// while nothing is selected (or outside a WithDetailPane master).
+class PaneSelection extends InheritedWidget {
+  final Paths? path;
+  final Object? arguments;
+
+  const PaneSelection({
+    super.key,
+    required this.path,
+    required this.arguments,
+    required super.child,
+  });
+
+  static PaneSelection? of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<PaneSelection>();
+  }
+
+  @override
+  bool updateShouldNotify(PaneSelection oldWidget) {
+    return path != oldWidget.path || arguments != oldWidget.arguments;
   }
 }

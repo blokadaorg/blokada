@@ -21,6 +21,21 @@ import 'package:common/src/shared/ui/dialog.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:flutter/material.dart';
 
+/// Domain shown by a deviceStatsDetail selection, so master list rows can
+/// highlight the entry whose detail pane is open. Mirrors the argument
+/// shapes DetailRoutes' domain-detail builder accepts.
+String? domainOfDetailArguments(Object? arguments) {
+  if (arguments is Map) {
+    final domain = arguments['domain'];
+    if (domain is String) return domain;
+    final mainEntry = arguments['mainEntry'];
+    if (mainEntry is UiJournalMainEntry) return mainEntry.domainName;
+    return null;
+  }
+  if (arguments is UiJournalEntry) return arguments.domainName;
+  return null;
+}
+
 /// One registry entry per navigable [Paths] value.
 ///
 /// Exists so a route's title, body and top-bar action are defined once.
