@@ -45,6 +45,13 @@ class WithDetailPane extends StatefulWidget {
   /// state every build.
   final Object? Function(Paths path, Object? arguments)? paneArguments;
 
+  /// Host-level top-bar action shown in both layout modes (e.g. Activity's
+  /// journal search, which belongs to the master list). When provided it
+  /// replaces the default of the shown detail route's registry trailing;
+  /// receives the shown detail path (null in single-pane mode or with no
+  /// selection).
+  final Widget? Function(BuildContext context, Paths? shownDetail)? trailing;
+
   /// Content width cap in expanded (two-pane) mode.
   final double maxWidth;
 
@@ -58,6 +65,7 @@ class WithDetailPane extends StatefulWidget {
     this.initialDetailArguments,
     this.placeholder,
     this.paneArguments,
+    this.trailing,
     // ignore: deprecated_member_use_from_same_package
     this.maxWidth = maxContentWidthTablet,
   });
@@ -125,6 +133,7 @@ class WithDetailPaneState extends State<WithDetailPane> implements DetailPaneHan
   Widget _buildSinglePane(BuildContext context) {
     return WithTopBar(
       title: widget.title,
+      topBarTrailing: widget.trailing?.call(context, null),
       child: widget.master,
     );
   }
@@ -143,7 +152,9 @@ class WithDetailPaneState extends State<WithDetailPane> implements DetailPaneHan
     return WithTopBar(
       title: widget.title,
       maxWidth: widget.maxWidth,
-      topBarTrailing: route?.trailing?.call(context, arguments),
+      topBarTrailing: widget.trailing != null
+          ? widget.trailing!(context, path)
+          : route?.trailing?.call(context, arguments),
       child: Row(
         children: [
           Expanded(

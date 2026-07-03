@@ -84,7 +84,7 @@ class DetailRoutes with Logging {
           deviceTag: (args as FamilyDevice).device.deviceTag,
           primary: false,
           isHeader: false),
-      trailing: (context, args) => _statsFilterAction(context),
+      trailing: (context, args) => statsFilterAction(context),
     ),
     DetailRoute(
       path: Paths.deviceFilters,
@@ -197,7 +197,9 @@ class DetailRoutes with Logging {
     );
   }
 
-  Widget _statsFilterAction(BuildContext context) {
+  /// Journal search/filter top-bar action. Public because ActivityScreen
+  /// also shows it as its host-level action for the master journal list.
+  Widget statsFilterAction(BuildContext context) {
     return CommonClickable(
         onTap: () {
           showStatsFilterDialog(context, onConfirm: (filter) {

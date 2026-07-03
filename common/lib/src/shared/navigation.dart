@@ -18,27 +18,26 @@ import 'package:common/src/shared/layout/window_shape.dart';
 import 'package:flutter/material.dart';
 
 enum Paths {
-  home("/", false),
-  device("/device", false),
-  deviceFilters("/device/filters", true),
-  deviceStats("/device/stats", true),
-  deviceStatsDetail("/device/stats/detail", true),
-  settings("/settings", false),
-  settingsExceptions("/settings/exceptions", true),
-  settingsAccount("/settings/account", true),
-  settingsRetention("/settings/retention", true),
-  settingsVpnDevices("/settings/vpn", true),
-  settingsVpnBypass("/settings/bypass", true),
-  support("/support", true), // Doesn't work in pane
+  home("/"),
+  device("/device"),
+  deviceFilters("/device/filters"),
+  deviceStats("/device/stats"),
+  deviceStatsDetail("/device/stats/detail"),
+  settings("/settings"),
+  settingsExceptions("/settings/exceptions"),
+  settingsAccount("/settings/account"),
+  settingsRetention("/settings/retention"),
+  settingsVpnDevices("/settings/vpn"),
+  settingsVpnBypass("/settings/bypass"),
+  support("/support"),
   // V6 tabs
-  activity("/activity", false),
-  privacyPulse("/privacyPulse", false),
-  advanced("/advanced", false);
+  activity("/activity"),
+  privacyPulse("/privacyPulse"),
+  advanced("/advanced");
 
   final String path;
-  final bool openInTablet;
 
-  const Paths(this.path, this.openInTablet);
+  const Paths(this.path);
 }
 
 /// Legacy tablet check kept as a delegate while screens migrate onto
@@ -59,9 +58,6 @@ double getTopPadding(BuildContext context) {
 }
 
 class Navigation with Logging {
-  static late bool isTabletMode;
-
-  static Function(Paths, Object?) openInTablet = (_, __) {};
   static Function(Paths? path) onNavigated = (_) {};
   // Track last navigated path directly from Navigation; StageStore is being phased out and
   // should not be treated as the source of truth for current UI route.
@@ -75,13 +71,6 @@ class Navigation with Logging {
     // unclaimed — including detail paths while no pane is visible — pushes
     // as a regular full-screen route.
     if (Core.get<DetailPaneHosts>().openInPane(path, arguments)) return;
-
-    // Legacy pane callback for screens not yet migrated to WithDetailPane;
-    // removed once v6 Activity and Privacy Pulse move over.
-    if (isTabletMode && path.openInTablet) {
-      openInTablet(path, arguments);
-      return;
-    }
 
     final ctrl = Core.get<TopBarController>();
     ctrl.navigatorKey.currentState!.pushNamed(path.path, arguments: arguments);

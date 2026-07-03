@@ -117,6 +117,7 @@ void main() {
       Paths? initialDetail,
       Object? initialDetailArguments,
       Object? Function(Paths path, Object? arguments)? paneArguments,
+      Widget? Function(BuildContext context, Paths? shownDetail)? trailing,
     }) async {
       await tester.pumpWidget(
       ChangeNotifierProvider(
@@ -131,6 +132,7 @@ void main() {
             initialDetail: initialDetail,
             initialDetailArguments: initialDetailArguments,
             paneArguments: paneArguments,
+            trailing: trailing,
           ),
         ),
       ),
@@ -161,7 +163,6 @@ void main() {
     });
 
     testWidgets("Navigation.open swaps the pane for accepted paths", (tester) async {
-      Navigation.isTabletMode = false;
       await setSize(tester, const Size(1200, 800));
 
       await pumpHost(tester, initialDetail: Paths.settingsExceptions);
@@ -196,8 +197,23 @@ void main() {
           Core.get<DetailPaneHosts>().openInPane(Paths.settingsRetention, null), isFalse);
     });
 
+    testWidgets("host trailing overrides the registry and shows in both modes",
+        (tester) async {
+      await setSize(tester, const Size(1200, 800));
+      await pumpHost(
+        tester,
+        initialDetail: Paths.settingsExceptions,
+        trailing: (context, shown) => Text("host-trailing:${shown?.name}"),
+      );
+      expect(find.text("host-trailing:settingsExceptions"), findsOneWidget);
+      expect(find.text("trailing:settingsExceptions"), findsNothing);
+
+      tester.view.physicalSize = const Size(400, 800);
+      await tester.pump();
+      expect(find.text("host-trailing:null"), findsOneWidget);
+    });
+
     testWidgets("pane selection survives a compact resize round-trip", (tester) async {
-      Navigation.isTabletMode = false;
       await setSize(tester, const Size(1200, 800));
 
       await pumpHost(tester, initialDetail: Paths.settingsExceptions);

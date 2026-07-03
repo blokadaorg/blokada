@@ -9,6 +9,7 @@ import 'package:common/src/platform/account/refresh/refresh.dart';
 import 'package:common/src/platform/device/device.dart';
 import 'package:common/src/platform/stage/stage.dart';
 import 'package:common/src/shared/navigation.dart';
+import 'package:common/src/shared/layout/detail_pane_host.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -20,6 +21,20 @@ import '../../tools.dart';
   MockSpec<AccountStore>(),
 ])
 import 'notification_test.mocks.dart';
+
+
+/// Swallows pane-routed paths like the old Navigation.openInTablet test
+/// stub did; Navigation.open records lastPath itself before dispatching.
+class _CatchAllPaneHost implements DetailPaneHandle {
+  @override
+  bool get isActive => true;
+
+  @override
+  bool accepts(Paths path) => true;
+
+  @override
+  void show(Paths path, Object? arguments) {}
+}
 
 void main() {
   group("command", () {
@@ -138,10 +153,9 @@ void main() {
         final store = NotificationActor();
         Core.register<NotificationActor>(store);
         Navigation.lastPath = null;
-        Navigation.isTabletMode = true;
-        Navigation.openInTablet = (path, arguments) {
-          Navigation.lastPath = path;
-        };
+        final hosts = DetailPaneHosts();
+        hosts.register(_CatchAllPaneHost());
+        Core.register<DetailPaneHosts>(hosts);
 
         await store.notificationTapped(m, "weeklyReport|OPT_OUT");
 
@@ -410,7 +424,6 @@ void main() {
     test("non-restore payment schedules activity logging reminder when retention is disabled",
         () async {
       await withTrace((m) async {
-        Navigation.isTabletMode = false;
         final stage = MockStageStore();
         when(stage.route).thenReturn(StageRouteState.init());
         final payment = _FakePaymentActor();
@@ -445,7 +458,6 @@ void main() {
 
     test("restore payment does not schedule activity logging reminder", () async {
       await withTrace((m) async {
-        Navigation.isTabletMode = false;
         final stage = MockStageStore();
         when(stage.route).thenReturn(StageRouteState.init());
         final payment = _FakePaymentActor();
@@ -473,7 +485,6 @@ void main() {
 
     test("enabled retention does not schedule activity logging reminder", () async {
       await withTrace((m) async {
-        Navigation.isTabletMode = false;
         final stage = MockStageStore();
         when(stage.route).thenReturn(StageRouteState.init());
         final payment = _FakePaymentActor();
@@ -502,7 +513,6 @@ void main() {
 
     test("enabling retention cancels pending activity logging reminder", () async {
       await withTrace((m) async {
-        Navigation.isTabletMode = false;
         final stage = MockStageStore();
         when(stage.route).thenReturn(StageRouteState.init());
         final payment = _FakePaymentActor();
@@ -547,10 +557,9 @@ void main() {
         final store = NotificationActor();
         Core.register<NotificationActor>(store);
         Navigation.lastPath = null;
-        Navigation.isTabletMode = true;
-        Navigation.openInTablet = (path, arguments) {
-          Navigation.lastPath = path;
-        };
+        final hosts = DetailPaneHosts();
+        hosts.register(_CatchAllPaneHost());
+        Core.register<DetailPaneHosts>(hosts);
 
         await store.notificationTapped(m, NotificationId.activityLoggingReminder.name);
 
@@ -575,10 +584,9 @@ void main() {
         final store = NotificationActor();
         Core.register<NotificationActor>(store);
         Navigation.lastPath = null;
-        Navigation.isTabletMode = true;
-        Navigation.openInTablet = (path, arguments) {
-          Navigation.lastPath = path;
-        };
+        final hosts = DetailPaneHosts();
+        hosts.register(_CatchAllPaneHost());
+        Core.register<DetailPaneHosts>(hosts);
 
         await store.notificationTapped(m, NotificationId.activityLoggingReminder.name);
         expect(Navigation.lastPath, isNull);
