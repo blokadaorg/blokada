@@ -11,12 +11,10 @@ import 'package:common/src/platform/filter/filter.dart';
 import 'package:flutter/material.dart';
 
 class V6FiltersSection extends StatefulWidget {
-  final bool twoColumns;
   final bool freemium;
 
   const V6FiltersSection({
     Key? key,
-    this.twoColumns = false,
     this.freemium = true,
   }) : super(key: key);
 
@@ -48,10 +46,22 @@ class V6FiltersSectionState extends State<V6FiltersSection> with Logging, Dispos
     disposeAll();
   }
 
+  /// Filter cards go two-per-row once the section is wide enough that a
+  /// single stretched column reads worse than a grid; in practice only the
+  /// expanded-window content box (up to maxContentWidthTablet) crosses
+  /// this, since narrower layouts cap the box at maxContentWidth.
+  static const double _twoColumnMinWidth = 700.0;
+
   @override
   Widget build(BuildContext context) {
+    return LayoutBuilder(builder: (context, constraints) {
+      return _buildSection(context, twoColumns: constraints.maxWidth >= _twoColumnMinWidth);
+    });
+  }
+
+  Widget _buildSection(BuildContext context, {required bool twoColumns}) {
     final padding = SizedBox(height: getTopPadding(context)) as Widget;
-    final filters = widget.twoColumns ? _buildFiltersPerRow(context) : _buildFilters(context);
+    final filters = twoColumns ? _buildFiltersPerRow(context) : _buildFilters(context);
 
     return Stack(
       children: [

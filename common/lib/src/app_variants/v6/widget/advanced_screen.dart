@@ -1,55 +1,26 @@
+import 'package:common/src/app_variants/v6/widget/filters_section.dart';
+import 'package:common/src/core/core.dart';
 import 'package:common/src/shared/automation/ids.dart';
+import 'package:common/src/shared/layout/window_shape.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/with_top_bar.dart';
-import 'package:common/src/core/core.dart';
-import 'package:common/src/app_variants/v6/widget/filters_section.dart';
 import 'package:flutter/material.dart';
 
-class AdvancedScreen extends StatefulWidget {
+/// v6 blocklists tab. Single build path: the content box widens on
+/// expanded windows and V6FiltersSection decides its own column count
+/// from the width it actually gets.
+class AdvancedScreen extends StatelessWidget {
   const AdvancedScreen({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => AdvancedScreenState();
-}
-
-class AdvancedScreenState extends State<AdvancedScreen> with Logging {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final isTablet = isTabletMode(context);
-
-    if (isTablet) return _buildForTablet(context);
-    return _buildForPhone(context);
-  }
-
-  Widget _buildForPhone(BuildContext context) {
+    final expanded = windowShapeOf(context) == WindowShape.expanded;
     return Semantics(
       identifier: AutomationIds.screenAdvanced,
       child: WithTopBar(
         title: "main tab advanced".i18n,
-        child: const V6FiltersSection(twoColumns: false),
-      ),
-    );
-  }
-
-  Widget _buildForTablet(BuildContext context) {
-    return Semantics(
-      identifier: AutomationIds.screenAdvanced,
-      child: WithTopBar(
-        title: "main tab advanced".i18n,
-        maxWidth: maxContentWidthTablet,
-        child: const Row(
-          children: [
-            Expanded(
-              flex: 1,
-              child: V6FiltersSection(twoColumns: true),
-            ),
-          ],
-        ),
+        maxWidth: expanded ? maxContentWidthTablet : maxContentWidth,
+        child: const V6FiltersSection(),
       ),
     );
   }

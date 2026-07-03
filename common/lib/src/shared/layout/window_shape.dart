@@ -23,17 +23,32 @@ enum WindowShape {
 /// window class boundary).
 const double kMediumWindowMinWidth = 600.0;
 
-/// Transitional [WindowShape.expanded] threshold, matching the legacy
-/// `isTabletMode` rule (strictly wider than 1000) so migrating screens
-/// render identically. The breakpoint-flip stage replaces this with the
-/// Material 3 expanded class (width >= 840) plus a height guard, so
-/// landscape phones and squat windows stay out of two-pane layouts.
-const double kLegacyExpandedMinWidth = 1000.0;
+/// Minimum width for [WindowShape.expanded] (Material 3 expanded window
+/// class boundary). Notably includes iPad 2/3 Split View (~980pt) and 11"
+/// iPad landscape splits, which the old `> 1000` rule wasted as a
+/// stretched single column.
+const double kExpandedWindowMinWidth = 840.0;
+
+/// Height guard for [WindowShape.expanded]: landscape phones (932x430)
+/// and squat macOS windows are wide but cannot fit the 100pt top bar plus
+/// a useful master-detail, so they stay [WindowShape.medium]. A plain
+/// shortestSide rule was rejected because a short-but-wide macOS window
+/// (e.g. 1200x500) does fit two panes.
+const double kExpandedWindowMinHeight = 500.0;
+
+/// Windows at least this wide present modal sheets as centered floating
+/// cards instead of bottom-anchored sheets (see FloatingModal). Narrower
+/// than the expanded boundary on purpose: 500-840pt windows keep a
+/// single-pane layout but already look wrong with a full-width bottom
+/// sheet.
+const double minWidthFloatingSheet = 500.0;
 
 /// Classifies a window size. Pure so breakpoint behavior is unit-testable;
 /// widget code should normally use [windowShapeOf].
 WindowShape windowShapeFor(Size size) {
-  if (size.width > kLegacyExpandedMinWidth) return WindowShape.expanded;
+  if (size.width >= kExpandedWindowMinWidth && size.height >= kExpandedWindowMinHeight) {
+    return WindowShape.expanded;
+  }
   if (size.width >= kMediumWindowMinWidth) return WindowShape.medium;
   return WindowShape.compact;
 }

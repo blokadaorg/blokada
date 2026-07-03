@@ -40,13 +40,6 @@ enum Paths {
   const Paths(this.path);
 }
 
-/// Legacy tablet check kept as a delegate while screens migrate onto
-/// [WindowShape]; deleted in the layout-overhaul cleanup stage.
-@Deprecated("Use windowShapeOf(context) == WindowShape.expanded instead")
-bool isTabletMode(BuildContext context) {
-  return windowShapeOf(context) == WindowShape.expanded;
-}
-
 const maxContentWidth = 500.0;
 const maxContentWidthTablet = 1500.0;
 
