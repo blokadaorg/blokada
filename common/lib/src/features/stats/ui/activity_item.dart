@@ -1,5 +1,6 @@
 import 'package:common/src/features/journal/domain/journal.dart';
 import 'package:common/src/shared/automation/ids.dart';
+import 'package:common/src/shared/layout/with_detail_pane.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/common_clickable.dart';
 import 'package:common/src/shared/ui/theme.dart';
@@ -22,11 +23,25 @@ class ActivityItem extends StatefulWidget {
 class ActivityItemState extends State<ActivityItem> {
   @override
   Widget build(BuildContext context) {
+    // Highlight this row while its detail is open in the pane; selections
+    // are journal entries, matched on the entry itself (domain + time).
+    final selectionArguments = PaneSelection.of(context)?.arguments;
+    final isSelected = selectionArguments is UiJournalEntry &&
+        selectionArguments.domainName == widget.entry.domainName &&
+        selectionArguments.timestamp == widget.entry.timestamp;
+
     return MergeSemantics(
       child: Semantics(
         identifier: AutomationIds.activityItem,
         button: true,
-        child: CommonClickable(
+        child: Container(
+          decoration: isSelected
+              ? BoxDecoration(
+                  color: context.theme.accent.withOpacity(0.12),
+                  borderRadius: BorderRadius.circular(8),
+                )
+              : null,
+          child: CommonClickable(
       onTap: () {
         Navigation.open(Paths.deviceStatsDetail, arguments: widget.entry);
       },
@@ -72,6 +87,7 @@ class ActivityItemState extends State<ActivityItem> {
           ],
         ),
       ),
+        ),
         ),
       ),
     );

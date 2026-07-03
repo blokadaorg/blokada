@@ -7,10 +7,11 @@ import 'package:common/src/shared/ui/freemium_screen.dart';
 import 'package:common/src/platform/device/device.dart';
 import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/layout/detail_route.dart';
+import 'package:common/src/shared/layout/detail_pane_placeholder.dart';
 import 'package:common/src/shared/layout/with_detail_pane.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/with_top_bar.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 /// v6 activity journal. With retention enabled (or freemium sample data)
@@ -73,6 +74,13 @@ class ActivityScreenState extends State<ActivityScreen> with Logging {
       screenSemanticsId: AutomationIds.screenActivity,
       master: const StatsSection(deviceTag: null, isHeader: false),
       detailPaths: const {Paths.deviceStatsDetail},
+      // A solo centered journal reads as empty on wide screens; keep the
+      // split visible with an inviting placeholder instead.
+      splitWhenUnselected: true,
+      placeholder: const DetailPanePlaceholder(
+        icon: CupertinoIcons.doc_text_search,
+        text: "Select an item to see details",
+      ),
       // MergeSemantics keeps the stable search id on the interactive node
       // (a bare CommonClickable is invisible to WDA), as on the phone route.
       trailing: (context, _) => MergeSemantics(

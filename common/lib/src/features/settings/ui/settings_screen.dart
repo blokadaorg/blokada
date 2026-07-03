@@ -1,15 +1,16 @@
 import 'package:common/src/core/core.dart';
 import 'package:common/src/features/settings/ui/settings_section.dart';
 import 'package:common/src/shared/automation/ids.dart';
+import 'package:common/src/shared/layout/detail_pane_placeholder.dart';
 import 'package:common/src/shared/layout/with_detail_pane.dart';
 import 'package:common/src/shared/navigation.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 /// Settings hub. On expanded windows the section list is the master pane
-/// and the selected sub-page (initially Exceptions) renders alongside it;
-/// trailing top-bar actions come from DetailRoutes per shown sub-page, so
-/// the Add-exception action appears whenever Exceptions is visible (the
-/// old hand-rolled pane only showed an action for Support). Support is
+/// with the selected sub-page alongside it; nothing is preselected (a
+/// silently-opened Exceptions pane with no highlighted row read as
+/// confusing), so the pane invites a selection instead. Trailing top-bar
+/// actions come from DetailRoutes per shown sub-page. Support is
 /// deliberately not a pane path — it never worked in the pane and now
 /// always pushes full-screen.
 class SettingsScreen extends StatelessWidget {
@@ -27,7 +28,11 @@ class SettingsScreen extends StatelessWidget {
         Paths.settingsVpnDevices,
         Paths.settingsVpnBypass,
       },
-      initialDetail: Paths.settingsExceptions,
+      splitWhenUnselected: true,
+      placeholder: const DetailPanePlaceholder(
+        icon: CupertinoIcons.slider_horizontal_3,
+        text: "Select an item to see details",
+      ),
     );
   }
 }

@@ -83,6 +83,12 @@ class WithDetailPane extends StatefulWidget {
   /// mid-animation reads as tearing, so it never splits there at all.
   final double minSplitMasterWidth;
 
+  /// Always show the split on expanded windows, with [placeholder] filling
+  /// the pane until something is selected. Suits single-column masters
+  /// (Activity journal, Settings) where a solo centered list reads as
+  /// empty; column-capable masters keep the supporting-pane solo default.
+  final bool splitWhenUnselected;
+
   const WithDetailPane({
     super.key,
     required this.title,
@@ -99,6 +105,7 @@ class WithDetailPane extends StatefulWidget {
     this.soloMaxWidth = maxContentWidth,
     this.splitRatio = 0.5,
     this.minSplitMasterWidth = 0,
+    this.splitWhenUnselected = false,
   });
 
   @override
@@ -204,7 +211,7 @@ class WithDetailPaneState extends State<WithDetailPane> implements DetailPaneHan
       // during the reveal so it never squishes.
       child: LayoutBuilder(builder: (context, constraints) {
         final total = constraints.maxWidth;
-        final split = path != null && _splitAllowed;
+        final split = (path != null || widget.splitWhenUnselected) && _splitAllowed;
 
         final pane = !split
             ? null

@@ -181,6 +181,7 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                                         icon: CupertinoIcons.shield_lefthalf_fill,
                                         text: "family stats title".i18n, // My exceptions
                                         automationId: AutomationIds.settingsExceptions,
+                                        path: Paths.settingsExceptions,
                                         onTap: () {
                                           Navigation.open(Paths.settingsExceptions);
                                         }),
@@ -189,6 +190,7 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                                         icon: CupertinoIcons.chart_bar,
                                         text: "activity section header".i18n,
                                         automationId: AutomationIds.settingsRetention,
+                                        path: Paths.settingsRetention,
                                         onTap: () {
                                           Navigation.open(Paths.settingsRetention);
                                         }),
@@ -199,6 +201,7 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                                               SettingsItem(
                                                   icon: CupertinoIcons.device_desktop,
                                                   text: "web vpn devices header".i18n,
+                                                  path: Paths.settingsVpnDevices,
                                                   onTap: () {
                                                     Navigation.open(Paths.settingsVpnDevices);
                                                   }),
@@ -212,6 +215,7 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                                               SettingsItem(
                                                   icon: Icons.web_stories_outlined,
                                                   text: "bypass section header".i18n,
+                                                  path: Paths.settingsVpnBypass,
                                                   onTap: () {
                                                     Navigation.open(Paths.settingsVpnBypass);
                                                   }),

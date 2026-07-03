@@ -121,6 +121,7 @@ void main() {
       double? soloMaxWidth,
       double? splitRatio,
       double? minSplitMasterWidth,
+      bool? splitWhenUnselected,
     }) async {
       await tester.pumpWidget(
       ChangeNotifierProvider(
@@ -139,6 +140,7 @@ void main() {
             soloMaxWidth: soloMaxWidth ?? maxContentWidth,
             splitRatio: splitRatio ?? 0.5,
             minSplitMasterWidth: minSplitMasterWidth ?? 0,
+            splitWhenUnselected: splitWhenUnselected ?? false,
           ),
         ),
       ),
@@ -173,6 +175,22 @@ void main() {
       final masterBox = tester.getRect(find.text("master"));
       expect(masterBox.width, maxContentWidth);
       expect(masterBox.center.dx, closeTo(600, 1.0));
+    });
+
+    testWidgets("splitWhenUnselected renders a 50/50 split with the placeholder",
+        (tester) async {
+      await setSize(tester, const Size(1200, 800));
+
+      await pumpHost(tester, splitWhenUnselected: true);
+      await tester.pumpAndSettle();
+
+      expect(find.byType(DetailPanePlaceholder), findsOneWidget);
+      expect(tester.getRect(find.text("master")).width, closeTo(600, 1.0));
+
+      await Navigation.open(Paths.settingsRetention);
+      await tester.pumpAndSettle();
+      expect(find.byType(DetailPanePlaceholder), findsNothing);
+      expect(find.text("pane:settingsRetention:-"), findsOneWidget);
     });
 
     testWidgets("soloMaxWidth lets the master use the full box before a selection",
