@@ -28,6 +28,7 @@ import 'package:common/src/features/plus/ui/vpn_devices_section.dart';
 import 'package:common/src/app_variants/v6/widget/activity_screen.dart';
 import 'package:common/src/app_variants/v6/widget/advanced_screen.dart';
 import 'package:common/src/app_variants/v6/widget/privacy_pulse_screen.dart';
+import 'package:common/src/shared/layout/window_shape.dart';
 import 'package:flutter/material.dart';
 
 enum Paths {
@@ -54,9 +55,11 @@ enum Paths {
   const Paths(this.path, this.openInTablet);
 }
 
+/// Legacy tablet check kept as a delegate while screens migrate onto
+/// [WindowShape]; deleted in the layout-overhaul cleanup stage.
+@Deprecated("Use windowShapeOf(context) == WindowShape.expanded instead")
 bool isTabletMode(BuildContext context) {
-  final screenWidth = MediaQuery.of(context).size.width;
-  return screenWidth > 1000;
+  return windowShapeOf(context) == WindowShape.expanded;
 }
 
 const maxContentWidth = 500.0;
