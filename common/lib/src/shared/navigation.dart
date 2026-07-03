@@ -12,6 +12,7 @@ import 'package:common/src/platform/stage/stage.dart';
 import 'package:common/src/app_variants/v6/widget/activity_screen.dart';
 import 'package:common/src/app_variants/v6/widget/advanced_screen.dart';
 import 'package:common/src/app_variants/v6/widget/privacy_pulse_screen.dart';
+import 'package:common/src/shared/layout/detail_pane_host.dart';
 import 'package:common/src/shared/layout/detail_route.dart';
 import 'package:common/src/shared/layout/window_shape.dart';
 import 'package:flutter/material.dart';
@@ -69,6 +70,14 @@ class Navigation with Logging {
   static open(Paths path, {Object? arguments}) async {
     onNavigated(path);
     lastPath = path;
+
+    // Two-pane screens (WithDetailPane) claim their detail paths; anything
+    // unclaimed — including detail paths while no pane is visible — pushes
+    // as a regular full-screen route.
+    if (Core.get<DetailPaneHosts>().openInPane(path, arguments)) return;
+
+    // Legacy pane callback for screens not yet migrated to WithDetailPane;
+    // removed once v6 Activity and Privacy Pulse move over.
     if (isTabletMode && path.openInTablet) {
       openInTablet(path, arguments);
       return;
