@@ -35,12 +35,9 @@ class ActivityItemState extends State<ActivityItem> {
         identifier: AutomationIds.activityItem,
         button: true,
         child: Container(
-          decoration: isSelected
-              ? BoxDecoration(
-                  color: context.theme.accent.withOpacity(0.12),
-                  borderRadius: BorderRadius.circular(8),
-                )
-              : null,
+          // Unified list-selection style: full-row square tint in the
+          // press-highlight color.
+          color: isSelected ? CommonClickableState.pressColor(context) : null,
           child: CommonClickable(
       onTap: () {
         Navigation.open(Paths.deviceStatsDetail, arguments: widget.entry);

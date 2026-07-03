@@ -257,7 +257,13 @@ class TopDomainsState extends State<TopDomains> {
       {ToplistDelta? delta, bool isHighlighted = false, bool isSelected = false}) {
     final domainName = entry.company ?? entry.tld ?? "Unknown";
 
-    return CommonClickable(
+    // Selection tint wraps the clickable so it covers the full row
+    // (including the tap padding), square, in the press-highlight color —
+    // the unified list-selection style.
+    return Container(
+      color: isSelected ? CommonClickableState.pressColor(context) : null,
+      child: CommonClickable(
+      tapBorderRadius: BorderRadius.zero,
       onTap: () {
         // Convert toplist entry to UiJournalMainEntry for navigation
         final mainEntry = UiJournalMainEntry(
@@ -274,18 +280,8 @@ class TopDomainsState extends State<TopDomains> {
           'range': widget.range == ToplistRange.weekly ? "7d" : "24h",
         });
       },
-      child: Container(
-        // Decoration sits on the outermost box so the selection tint covers
-        // the entire row, not an inset within its paddings.
-        padding: const EdgeInsets.only(left: 8, right: 12, top: 10, bottom: 10),
-        decoration: isSelected
-            ? BoxDecoration(
-                color: context.theme.accent.withOpacity(0.12),
-                borderRadius: BorderRadius.circular(8),
-              )
-            : null,
-        child: Container(
-          child: Row(
+      padding: const EdgeInsets.only(left: 8, right: 12, top: 10, bottom: 10),
+      child: Row(
             children: [
               if (delta != null && delta.type != ToplistDeltaType.same) ...[
                 SizedBox(
@@ -353,8 +349,7 @@ class TopDomainsState extends State<TopDomains> {
                 size: 16,
               ),
             ],
-          ),
-        ),
+      ),
       ),
     );
   }

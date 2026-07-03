@@ -215,18 +215,17 @@ class RecentActivityState extends State<RecentActivity>
         selectionArguments.domainName == entry.domainName &&
         selectionArguments.timestamp == entry.timestamp;
 
-    return CommonClickable(
+    // Unified list-selection style: full-row square tint in the
+    // press-highlight color, outside the clickable.
+    return Container(
+      color: isSelected ? CommonClickableState.pressColor(context) : null,
+      child: CommonClickable(
+      tapBorderRadius: BorderRadius.zero,
       onTap: () {
         Navigation.open(Paths.deviceStatsDetail, arguments: entry);
       },
-      child: Container(
+      child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        decoration: isSelected
-            ? BoxDecoration(
-                color: context.theme.accent.withOpacity(0.12),
-                borderRadius: BorderRadius.circular(8),
-              )
-            : null,
         child: Row(
           children: [
             Expanded(
@@ -258,6 +257,7 @@ class RecentActivityState extends State<RecentActivity>
             ),
           ],
         ),
+      ),
       ),
     );
   }

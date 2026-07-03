@@ -31,6 +31,10 @@ class CommonClickable extends StatefulWidget {
 const _pressHighlightDuration = Duration(milliseconds: 100);
 
 class CommonClickableState extends State<CommonClickable> {
+  /// Press-highlight color, exposed so list rows can paint a persistent
+  /// selection state in exactly the same color as the tap feedback.
+  static Color pressColor(BuildContext context) => context.theme.shadow.withOpacity(0.5);
+
   bool pressed = false;
 
   _onTapDown(TapDownDetails d) {
@@ -66,9 +70,7 @@ class CommonClickableState extends State<CommonClickable> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: widget.tapBorderRadius ?? BorderRadius.circular(12),
-          color: pressed
-              ? (widget.tapBgColor ?? context.theme.shadow.withOpacity(0.5))
-              : widget.bgColor,
+          color: pressed ? (widget.tapBgColor ?? pressColor(context)) : widget.bgColor,
         ),
         child: Padding(
           padding: widget.padding ?? const EdgeInsets.all(12.0),
