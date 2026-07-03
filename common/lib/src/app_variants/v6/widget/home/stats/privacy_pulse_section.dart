@@ -308,9 +308,10 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
     ];
   }
 
-  /// Wide layout: charts and the top-domains list (the primary content) on
-  /// the left, recent activity and the all-time counter on the right, so
-  /// the columns carry comparable weight and share one scroll position.
+  /// Wide layout: the chart pairs with the short recent-activity preview on
+  /// the left, while the tall top-domains list sits under the all-time
+  /// counter on the right, so the columns carry comparable weight and share
+  /// one scroll position.
   Widget _buildTwoColumnContent(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -321,7 +322,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
               ..._buildWeeklyCard(context),
               _buildChartsCard(context),
               const SizedBox(height: 12),
-              _buildTopDomains(),
+              RecentActivity(),
             ],
           ),
         ),
@@ -331,7 +332,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
             children: [
               TotalCounter(stats: stats),
               const SizedBox(height: 24),
-              RecentActivity(),
+              _buildTopDomains(),
             ],
           ),
         ),
