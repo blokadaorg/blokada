@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:common/src/core/core.dart';
 import 'package:common/src/shared/layout/detail_pane_host.dart';
 import 'package:common/src/shared/layout/detail_pane_placeholder.dart';
@@ -31,11 +33,14 @@ class WithDetailPane extends StatefulWidget {
   /// the global Paths.openInTablet flag). Anything else pushes normally.
   final Set<Paths> detailPaths;
 
-  /// Pane content before the user selects anything; null shows
-  /// [placeholder] instead.
+  /// Detail shown from the start (Settings opens Exceptions, Device opens
+  /// Stats). Null hosts (Activity, Privacy Pulse) render the master solo
+  /// until the user selects something — supporting-pane pattern.
   final Paths? initialDetail;
   final Object? initialDetailArguments;
 
+  /// Fallback pane content for the edge where a selected path has no
+  /// registered pane body; defaults to DetailPanePlaceholder.
   final Widget? placeholder;
 
   /// Lets the host refresh pane arguments on rebuild instead of reusing
@@ -144,16 +149,15 @@ class WithDetailPaneState extends State<WithDetailPane> implements DetailPaneHan
     );
   }
 
+  static const _splitDuration = Duration(milliseconds: 250);
+  static const _splitCurve = Curves.easeInOutCubic;
+
   Widget _buildTwoPane(BuildContext context) {
     final path = _path ?? widget.initialDetail;
     final route = path == null ? null : _routes.resolve(path);
     final tapArguments = _path != null ? _arguments : widget.initialDetailArguments;
     final arguments =
         path == null ? null : (widget.paneArguments?.call(path, tapArguments) ?? tapArguments);
-
-    final pane = ((route?.paneBody ?? route?.body) == null)
-        ? (widget.placeholder ?? const DetailPanePlaceholder())
-        : route!.buildPane(context, arguments);
 
     return WithTopBar(
       title: widget.title,
@@ -162,21 +166,53 @@ class WithDetailPaneState extends State<WithDetailPane> implements DetailPaneHan
       topBarTrailing: widget.trailing != null
           ? widget.trailing!(context, path)
           : route?.trailing?.call(context, arguments),
-      child: Row(
-        children: [
-          Expanded(
-            flex: 1,
-            child: widget.master,
-          ),
-          Expanded(
-            flex: 1,
-            child: PrimaryScrollController(
-              controller: _paneScroll,
-              child: pane,
+      // Supporting-pane pattern: with no selection the master keeps its
+      // comfortable single-pane width, centered — no empty half to justify.
+      // Selecting a detail animates the master aside while the pane slides
+      // in from the right; the pane content is laid out at its final width
+      // during the reveal so it never squishes.
+      child: LayoutBuilder(builder: (context, constraints) {
+        final total = constraints.maxWidth;
+        final split = path != null;
+        final masterWidth = split ? total / 2 : math.min(maxContentWidth, total);
+        final paneWidth = split ? total / 2 : 0.0;
+
+        final pane = !split
+            ? null
+            : ((route?.paneBody ?? route?.body) == null)
+                ? (widget.placeholder ?? const DetailPanePlaceholder())
+                : route!.buildPane(context, arguments);
+
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AnimatedContainer(
+              duration: _splitDuration,
+              curve: _splitCurve,
+              width: masterWidth,
+              child: widget.master,
             ),
-          ),
-        ],
-      ),
+            AnimatedContainer(
+              duration: _splitDuration,
+              curve: _splitCurve,
+              width: paneWidth,
+              child: pane == null
+                  ? null
+                  : ClipRect(
+                      child: OverflowBox(
+                        alignment: Alignment.centerRight,
+                        minWidth: total / 2,
+                        maxWidth: total / 2,
+                        child: PrimaryScrollController(
+                          controller: _paneScroll,
+                          child: pane,
+                        ),
+                      ),
+                    ),
+            ),
+          ],
+        );
+      }),
     );
   }
 }

@@ -154,12 +154,37 @@ void main() {
       expect(screenTitles(), findsOneWidget);
     });
 
-    testWidgets("expanded without initial detail shows the placeholder", (tester) async {
+    testWidgets("expanded without initial detail renders the master solo, centered",
+        (tester) async {
       await setSize(tester, const Size(1200, 800));
 
       await pumpHost(tester);
 
-      expect(find.byType(DetailPanePlaceholder), findsOneWidget);
+      // Supporting-pane pattern: no selection means no split and no
+      // placeholder — the master gets the comfortable single-pane width.
+      expect(find.byType(DetailPanePlaceholder), findsNothing);
+      expect(find.text("master"), findsOneWidget);
+      final masterBox = tester.getRect(find.text("master"));
+      expect(masterBox.width, maxContentWidth);
+      expect(masterBox.center.dx, closeTo(600, 1.0));
+    });
+
+    testWidgets("selecting a detail animates the split in and keeps it", (tester) async {
+      await setSize(tester, const Size(1200, 800));
+
+      await pumpHost(tester);
+      expect(find.text("pane:settingsRetention:-"), findsNothing);
+
+      await Navigation.open(Paths.settingsRetention);
+      await tester.pump();
+      // Mid-animation the pane is already mounted.
+      await tester.pump(const Duration(milliseconds: 100));
+      expect(find.text("pane:settingsRetention:-"), findsOneWidget);
+
+      await tester.pumpAndSettle();
+      // Settled: 50/50 split of the content box.
+      expect(tester.getRect(find.text("master")).width, closeTo(600, 1.0));
+      expect(tester.getRect(find.text("pane:settingsRetention:-")).width, closeTo(600, 1.0));
     });
 
     testWidgets("Navigation.open swaps the pane for accepted paths", (tester) async {
