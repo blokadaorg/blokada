@@ -350,6 +350,7 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                     icon: CupertinoIcons.chat_bubble_text,
                     text: "support action chat".i18n,
                     automationId: AutomationIds.settingsSupport,
+                    path: Paths.support,
                     onTap: () => Navigation.open(Paths.support)),
                 const CommonDivider(),
                 SettingsItem(

@@ -81,6 +81,7 @@ class Navigation with Logging {
         builder: (context) => WithTopBar(
           title: detail!.title(settings.arguments),
           topBarTrailing: detail.trailing?.call(context, settings.arguments),
+          maxWidth: detail.maxWidth,
           child: detail.body!(context, settings.arguments),
         ),
       );

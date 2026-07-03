@@ -10,9 +10,8 @@ import 'package:flutter/cupertino.dart';
 /// with the selected sub-page alongside it; nothing is preselected (a
 /// silently-opened Exceptions pane with no highlighted row read as
 /// confusing), so the pane invites a selection instead. Trailing top-bar
-/// actions come from DetailRoutes per shown sub-page. Support is
-/// deliberately not a pane path — it never worked in the pane and now
-/// always pushes full-screen.
+/// actions come from DetailRoutes per shown sub-page (End-chat only pops
+/// when Support was pushed, so chat is pane-safe too).
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
 
@@ -27,6 +26,7 @@ class SettingsScreen extends StatelessWidget {
         Paths.settingsRetention,
         Paths.settingsVpnDevices,
         Paths.settingsVpnBypass,
+        Paths.support,
       },
       splitWhenUnselected: true,
       placeholder: const DetailPanePlaceholder(

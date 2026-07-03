@@ -64,12 +64,18 @@ class DetailRoute {
   /// Top-bar trailing action for this route, if any.
   final Widget? Function(BuildContext context, Object? arguments)? trailing;
 
+  /// Content width cap when this route is pushed full-screen. Most detail
+  /// pages keep the standard single-column width; content-heavy ones
+  /// (domain details) opt into more room on wide windows.
+  final double maxWidth;
+
   const DetailRoute({
     required this.path,
     required this.title,
     this.body,
     this.paneBody,
     this.trailing,
+    this.maxWidth = maxContentWidth,
   });
 
   Widget buildPane(BuildContext context, Object? arguments) =>
@@ -110,6 +116,9 @@ class DetailRoutes with Logging {
           : "domain details section header".i18n,
       body: (context, args) => _domainDetail(args, pane: false),
       paneBody: (context, args) => _domainDetail(args, pane: true),
+      // Charts + rule cards + activity benefit from more than the standard
+      // column when pushed on a wide window.
+      maxWidth: 700,
     ),
     DetailRoute(
       path: Paths.settings,
@@ -140,9 +149,6 @@ class DetailRoutes with Logging {
       trailing: (context, args) => _bypass.getBypassAction(context),
     ),
     DetailRoute(
-      // The end-chat trailing pops the current route, so Support must only
-      // ever render as a pushed route — never include it in a host's
-      // detailPaths or the pop would dismiss the whole two-pane screen.
       path: Paths.support,
       title: (_) => "support action chat".i18n,
       body: (context, args) => const SupportSection(),
@@ -260,7 +266,12 @@ class DetailRoutes with Logging {
   Widget _endSupportAction(BuildContext context) {
     return CommonClickable(
         onTap: () {
-          Navigator.of(context).pop();
+          // Pop only when chat is its own pushed route; rendered in a
+          // detail pane there is nothing to pop (it would dismiss the whole
+          // two-pane screen) — ending the session resets the chat in place.
+          if (ModalRoute.of(context)?.settings.name == Paths.support.path) {
+            Navigator.of(context).pop();
+          }
           _support.clearSession(Markers.userTap);
         },
         child: Text("support action end".i18n,
