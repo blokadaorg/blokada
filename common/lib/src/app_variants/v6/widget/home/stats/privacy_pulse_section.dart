@@ -1,11 +1,9 @@
 import 'dart:async';
 
 import 'package:common/src/features/journal/domain/journal.dart';
-import 'package:common/src/features/payment/domain/payment.dart';
 import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/navigation.dart' show maxContentWidth, getTopPadding;
 import 'package:common/src/features/notification/domain/notification.dart';
-import 'package:common/src/shared/ui/freemium_screen.dart';
 import 'package:common/src/shared/ui/minicard/minicard.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/features/weekly/ui/weekly_report_card.dart';
@@ -320,13 +318,6 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
             ),
           ),
         ),
-        (_isFreemium)
-            ? FreemiumScreen(
-                title: "freemium activity cta header".i18n,
-                subtitle: "freemium activity cta desc".i18n,
-                placement: Placement.freemiumStats,
-              )
-            : Container(),
       ],
     );
   }

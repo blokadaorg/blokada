@@ -1,9 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:common/src/features/filter/domain/filter.dart';
-import 'package:common/src/features/payment/domain/payment.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/features/filter/ui/filter.dart';
-import 'package:common/src/shared/ui/freemium_screen.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/app_variants/family/module/profile/profile.dart';
 import 'package:common/src/platform/account/account.dart';
@@ -69,13 +67,6 @@ class V6FiltersSectionState extends State<V6FiltersSection> with Logging, Dispos
           ignoring: _isFreemium,
           child: ListView(primary: true, children: [padding] + filters),
         ),
-        (_isFreemium)
-            ? FreemiumScreen(
-                title: "freemium filters cta header".i18n,
-                subtitle: "freemium filters cta desc".i18n,
-                placement: Placement.freemiumFilters,
-              )
-            : Container(),
       ],
     );
   }

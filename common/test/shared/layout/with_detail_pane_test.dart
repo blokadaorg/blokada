@@ -231,6 +231,45 @@ void main() {
       expect(find.text("pane:settingsRetention:-"), findsOneWidget);
     });
 
+    testWidgets("overlay spans the full body in both modes, below the top bar",
+        (tester) async {
+      await setSize(tester, const Size(1200, 800));
+      await tester.pumpWidget(
+        ChangeNotifierProvider(
+          create: (_) => TopBarController(),
+          child: MaterialApp(
+            theme: ThemeData(extensions: const [_theme]),
+            home: WithDetailPane(
+              title: "Test",
+              master: const Text("master"),
+              detailPaths: const {Paths.settingsExceptions},
+              initialDetail: Paths.settingsExceptions,
+              overlay: const Text("overlay", key: Key("overlay")),
+            ),
+          ),
+        ),
+      );
+
+      // Present, and stretched over the whole body (both panes), not
+      // centered in a width-constrained content box.
+      expect(find.byKey(const Key("overlay")), findsOneWidget);
+      final overlaySize = tester.getSize(
+          find.ancestor(of: find.byKey(const Key("overlay")), matching: find.byType(Positioned)));
+      expect(overlaySize.width, 1200);
+
+      // The top bar stays above the overlay so navigation remains usable
+      // while a persistent gate is shown.
+      final stack = tester.widget<Stack>(find
+          .ancestor(of: find.byKey(const Key("overlay")), matching: find.byType(Stack))
+          .first);
+      expect(stack.children.last, isA<TopBar>());
+
+      // Compact mode keeps the overlay too.
+      tester.view.physicalSize = const Size(400, 800);
+      await tester.pump();
+      expect(find.byKey(const Key("overlay")), findsOneWidget);
+    });
+
     testWidgets("paneArguments hook refreshes arguments per build", (tester) async {
       await setSize(tester, const Size(1200, 800));
 

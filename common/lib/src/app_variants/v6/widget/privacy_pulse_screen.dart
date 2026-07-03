@@ -2,7 +2,9 @@ import 'package:common/src/app_variants/v6/widget/home/stats/privacy_pulse_secti
 import 'package:common/src/core/core.dart';
 import 'package:common/src/features/settings/ui/retention_section.dart';
 import 'package:common/src/features/stats/ui/top_domains.dart';
+import 'package:common/src/features/payment/domain/payment.dart';
 import 'package:common/src/platform/account/account.dart';
+import 'package:common/src/shared/ui/freemium_screen.dart';
 import 'package:common/src/platform/device/device.dart';
 import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/layout/with_detail_pane.dart';
@@ -32,6 +34,7 @@ class PrivacyPulseScreenState extends State<PrivacyPulseScreen> with Logging {
   late final _account = Core.get<AccountStore>();
 
   var _showStats = false;
+  var _isFreemium = false;
 
   @override
   void initState() {
@@ -42,7 +45,8 @@ class PrivacyPulseScreenState extends State<PrivacyPulseScreen> with Logging {
       setState(() {
         // Show only if retention is enabled
         // ... or if freemium since we show a sample data
-        _showStats = retention == "24h" || _account.isFreemium;
+        _isFreemium = _account.isFreemium;
+        _showStats = retention == "24h" || _isFreemium;
       });
     });
   }
@@ -68,6 +72,13 @@ class PrivacyPulseScreenState extends State<PrivacyPulseScreen> with Logging {
         initialRange: widget.initialToplistRange,
       ),
       detailPaths: const {Paths.deviceStatsDetail},
+      overlay: _isFreemium
+          ? FreemiumScreen(
+              title: "freemium activity cta header".i18n,
+              subtitle: "freemium activity cta desc".i18n,
+              placement: Placement.freemiumStats,
+            )
+          : null,
     );
   }
 }

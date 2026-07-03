@@ -1,7 +1,9 @@
 import 'package:common/src/core/core.dart';
 import 'package:common/src/features/settings/ui/retention_section.dart';
 import 'package:common/src/features/stats/ui/stats_section.dart';
+import 'package:common/src/features/payment/domain/payment.dart';
 import 'package:common/src/platform/account/account.dart';
+import 'package:common/src/shared/ui/freemium_screen.dart';
 import 'package:common/src/platform/device/device.dart';
 import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/layout/detail_route.dart';
@@ -29,6 +31,7 @@ class ActivityScreenState extends State<ActivityScreen> with Logging {
   late final _routes = Core.get<DetailRoutes>();
 
   var _showStats = false;
+  var _isFreemium = false;
 
   @override
   void initState() {
@@ -39,7 +42,8 @@ class ActivityScreenState extends State<ActivityScreen> with Logging {
       setState(() {
         // Show only if retention is enabled
         // ... or if freemium since we show a sample data
-        _showStats = retention == "24h" || _account.isFreemium;
+        _isFreemium = _account.isFreemium;
+        _showStats = retention == "24h" || _isFreemium;
       });
     });
   }
@@ -62,6 +66,13 @@ class ActivityScreenState extends State<ActivityScreen> with Logging {
       master: const StatsSection(deviceTag: null, isHeader: false),
       detailPaths: const {Paths.deviceStatsDetail},
       trailing: (context, _) => _routes.statsFilterAction(context),
+      overlay: _isFreemium
+          ? FreemiumScreen(
+              title: "freemium stats cta header".i18n,
+              subtitle: "freemium stats cta desc".i18n,
+              placement: Placement.freemiumActivity,
+            )
+          : null,
     );
   }
 }

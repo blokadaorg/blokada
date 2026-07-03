@@ -14,7 +14,6 @@ import 'package:common/src/app_variants/v6/widget/advanced_screen.dart';
 import 'package:common/src/app_variants/v6/widget/privacy_pulse_screen.dart';
 import 'package:common/src/shared/layout/detail_pane_host.dart';
 import 'package:common/src/shared/layout/detail_route.dart';
-import 'package:common/src/shared/layout/window_shape.dart';
 import 'package:flutter/material.dart';
 
 enum Paths {

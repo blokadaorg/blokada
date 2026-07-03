@@ -52,6 +52,11 @@ class WithDetailPane extends StatefulWidget {
   /// selection).
   final Widget? Function(BuildContext context, Paths? shownDetail)? trailing;
 
+  /// Forwarded to WithTopBar in both modes: a persistent gate (freemium)
+  /// spans the full body — both panes on expanded windows — while the top
+  /// bar stays usable above it.
+  final Widget? overlay;
+
   /// Content width cap in expanded (two-pane) mode.
   final double maxWidth;
 
@@ -66,6 +71,7 @@ class WithDetailPane extends StatefulWidget {
     this.placeholder,
     this.paneArguments,
     this.trailing,
+    this.overlay,
     // ignore: deprecated_member_use_from_same_package
     this.maxWidth = maxContentWidthTablet,
   });
@@ -134,6 +140,7 @@ class WithDetailPaneState extends State<WithDetailPane> implements DetailPaneHan
     return WithTopBar(
       title: widget.title,
       topBarTrailing: widget.trailing?.call(context, null),
+      overlay: widget.overlay,
       child: widget.master,
     );
   }
@@ -152,6 +159,7 @@ class WithDetailPaneState extends State<WithDetailPane> implements DetailPaneHan
     return WithTopBar(
       title: widget.title,
       maxWidth: widget.maxWidth,
+      overlay: widget.overlay,
       topBarTrailing: widget.trailing != null
           ? widget.trailing!(context, path)
           : route?.trailing?.call(context, arguments),
