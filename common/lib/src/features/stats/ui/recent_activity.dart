@@ -215,10 +215,10 @@ class RecentActivityState extends State<RecentActivity>
         selectionArguments.domainName == entry.domainName &&
         selectionArguments.timestamp == entry.timestamp;
 
-    // Unified list-selection style: full-row square tint in the
-    // press-highlight color, outside the clickable.
+    // Unified list-selection style: full-row square tint in the shared
+    // accent-derived selection color, outside the clickable.
     return Container(
-      color: isSelected ? CommonClickableState.pressColor(context) : null,
+      color: isSelected ? context.theme.selection : null,
       child: CommonClickable(
       tapBorderRadius: BorderRadius.zero,
       onTap: () {

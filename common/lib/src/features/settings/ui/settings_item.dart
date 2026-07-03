@@ -35,8 +35,8 @@ class SettingsItem extends StatelessWidget {
       children: [
         Container(
           // Unified list-selection style: full-row square tint in the
-          // press-highlight color.
-          color: isSelected ? CommonClickableState.pressColor(context) : null,
+          // shared accent-derived selection color.
+          color: isSelected ? context.theme.selection : null,
           child: CommonClickable(
           tapBorderRadius: BorderRadius.zero,
           onTap: onTap,

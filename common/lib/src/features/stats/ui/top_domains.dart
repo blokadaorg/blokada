@@ -258,10 +258,10 @@ class TopDomainsState extends State<TopDomains> {
     final domainName = entry.company ?? entry.tld ?? "Unknown";
 
     // Selection tint wraps the clickable so it covers the full row
-    // (including the tap padding), square, in the press-highlight color —
-    // the unified list-selection style.
+    // (including the tap padding), square, in the shared accent-derived
+    // selection color — the unified list-selection style.
     return Container(
-      color: isSelected ? CommonClickableState.pressColor(context) : null,
+      color: isSelected ? context.theme.selection : null,
       child: CommonClickable(
       tapBorderRadius: BorderRadius.zero,
       onTap: () {
@@ -280,7 +280,9 @@ class TopDomainsState extends State<TopDomains> {
           'range': widget.range == ToplistRange.weekly ? "7d" : "24h",
         });
       },
-      padding: const EdgeInsets.only(left: 8, right: 12, top: 10, bottom: 10),
+      // Matches the pre-refactor box: the clickable's default 12pt plus the
+      // old inner paddings (4+6 vertical, 12 trailing).
+      padding: const EdgeInsets.only(left: 12, right: 24, top: 22, bottom: 22),
       child: Row(
             children: [
               if (delta != null && delta.type != ToplistDeltaType.same) ...[
