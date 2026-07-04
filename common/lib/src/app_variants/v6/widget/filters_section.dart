@@ -69,15 +69,23 @@ class V6FiltersSectionState extends State<V6FiltersSection> with Logging, Dispos
     );
   }
 
-  /// Two independent columns (cards alternate left/right) so each column
-  /// flows tightly — pairing cards into Rows forced every pair to the
-  /// taller card's height and left dead space under the shorter one.
+  /// Two independent columns that each stack tightly (pairing cards into
+  /// Rows forced every pair to the taller card's height). Cards go to the
+  /// currently-shorter column by estimated height, so tall cards don't
+  /// pile up on one side.
   List<Widget> _buildFiltersTwoColumns(BuildContext context) {
-    final filters = _buildFilters(context);
     final left = <Widget>[];
     final right = <Widget>[];
-    for (var i = 0; i < filters.length; i += 1) {
-      (i.isEven ? left : right).add(filters[i]);
+    var leftHeight = 0.0;
+    var rightHeight = 0.0;
+    for (final (card, height) in _buildWeightedFilters(context)) {
+      if (leftHeight <= rightHeight) {
+        left.add(card);
+        leftHeight += height;
+      } else {
+        right.add(card);
+        rightHeight += height;
+      }
     }
     return [
       Row(
@@ -91,7 +99,14 @@ class V6FiltersSectionState extends State<V6FiltersSection> with Logging, Dispos
   }
 
   List<Widget> _buildFilters(BuildContext context) {
-    final filters = <Widget>[];
+    return _buildWeightedFilters(context).map((it) => it.$1).toList();
+  }
+
+  /// Cards paired with a rough height estimate so the wide layout can
+  /// balance its columns; only relative accuracy matters. Option rows
+  /// dominate a card's height, wrapped description lines add the rest.
+  List<(Widget, double)> _buildWeightedFilters(BuildContext context) {
+    final filters = <(Widget, double)>[];
     int i = 0;
     final colors = Core.act.isFamily ? _cardColorsFamily : _cardColorsV6;
     for (final filter in _knownFilters.get()) {
@@ -101,13 +116,23 @@ class V6FiltersSectionState extends State<V6FiltersSection> with Logging, Dispos
               ?.options ??
           [];
       try {
-        filters.add(_buildFilter(context, filter, selected, color: color));
+        filters.add((
+          _buildFilter(context, filter, selected, color: color),
+          _estimateFilterHeight(filter),
+        ));
       } catch (e) {
         print("ERROR: Unknown filter from API: '${filter.filterName}' - skipping. Add FilterDecor entry to filter_decor_defaults.dart");
         // Continue processing other filters instead of crashing
       }
     }
     return filters;
+  }
+
+  double _estimateFilterHeight(Filter filter) {
+    final texts = filterDecorDefaults
+        .firstWhereOrNull((it) => it.filterName == filter.filterName);
+    final descriptionLines = ((texts?.description.i18n.length ?? 80) / 60).ceilToDouble();
+    return 170 + descriptionLines * 22 + filter.options.length * 60;
   }
 
   final List<Color?> _cardColorsFamily = [
