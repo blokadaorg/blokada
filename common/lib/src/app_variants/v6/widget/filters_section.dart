@@ -57,7 +57,7 @@ class V6FiltersSectionState extends State<V6FiltersSection> with Logging, Dispos
 
   Widget _buildSection(BuildContext context, {required bool twoColumns}) {
     final padding = SizedBox(height: getTopPadding(context)) as Widget;
-    final filters = twoColumns ? _buildFiltersPerRow(context) : _buildFilters(context);
+    final filters = twoColumns ? _buildFiltersTwoColumns(context) : _buildFilters(context);
 
     return Stack(
       children: [
@@ -69,19 +69,25 @@ class V6FiltersSectionState extends State<V6FiltersSection> with Logging, Dispos
     );
   }
 
-  List<Widget> _buildFiltersPerRow(BuildContext context) {
+  /// Two independent columns (cards alternate left/right) so each column
+  /// flows tightly — pairing cards into Rows forced every pair to the
+  /// taller card's height and left dead space under the shorter one.
+  List<Widget> _buildFiltersTwoColumns(BuildContext context) {
     final filters = _buildFilters(context);
-    final rows = <Widget>[];
-    for (var i = 0; i < filters.length; i += 2) {
-      final row = <Widget>[];
-      if (i < filters.length) row.add(Expanded(child: filters[i]));
-      if (i + 1 < filters.length) row.add(Expanded(child: filters[i + 1]));
-      rows.add(Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: row,
-      ));
+    final left = <Widget>[];
+    final right = <Widget>[];
+    for (var i = 0; i < filters.length; i += 1) {
+      (i.isEven ? left : right).add(filters[i]);
     }
-    return rows;
+    return [
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(child: Column(children: left)),
+          Expanded(child: Column(children: right)),
+        ],
+      ),
+    ];
   }
 
   List<Widget> _buildFilters(BuildContext context) {
