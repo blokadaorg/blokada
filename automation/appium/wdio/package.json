@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@types/chai": "^5.2.3",
-    "@types/node": "^26.0.1",
+    "@types/node": "^26.1.0",
     "@types/pngjs": "^6.0.5",
     "@wdio/junit-reporter": "^9.29.1",
     "appium": "^3.5.0",
