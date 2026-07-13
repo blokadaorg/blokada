@@ -7,7 +7,7 @@ OUTPUT_DIR := build/pigeon/
 # Default target
 .DEFAULT_GOAL := build
 
-.PHONY: test test-local analyze clean pub gen-android gen-ios runner \
+.PHONY: test test-local analyze clean pub pub-verify gen-android gen-ios runner \
 	lib lib-debug \
         build-android build-ios build \
 	other-lib-ios-debug other-build-web
@@ -43,6 +43,14 @@ build-ios: pub gen-ios runner
 # Fetch dependencies from pubspec.yaml (flutter pub get)
 pub:
 	$(FLUTTER) pub get
+
+# Fail if the committed pubspec.lock is not a valid resolution under the pinned
+# Flutter. Plain `pub get` silently re-resolves and rewrites the lock instead, so
+# a lock generated on a different SDK (Dependabot's) otherwise lands unnoticed
+# and CI goes green against dependencies nobody committed. Pure check: it never
+# rewrites the lock.
+pub-verify:
+	$(FLUTTER) pub get --enforce-lockfile
 
 # Generate all necessary files for both platforms
 gen: gen-android gen-ios runner
