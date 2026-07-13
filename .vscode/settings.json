@@ -1,0 +1,16 @@
+{
+  // Point the Dart/Flutter extension at the fvm-pinned SDK (common/.fvmrc), not
+  // whatever Flutter happens to be on PATH. common/pubspec.yaml pins
+  // `flutter: '>=3.35.2 <3.36.0'` as a hard constraint, so an ambient SDK makes
+  // `pub get` fail outright.
+  //
+  // The symlink is created by fvm and is gitignored, so each checkout needs:
+  //   cd common && fvm use
+  "dart.flutterSdkPath": "common/.fvm/flutter_sdk",
+  "search.exclude": {
+    "**/.fvm": true
+  },
+  "files.watcherExclude": {
+    "**/.fvm": true
+  }
+}

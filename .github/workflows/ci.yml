@@ -76,6 +76,11 @@ jobs:
           submodules: recursive
           fetch-depth: 1
 
+      # Must run before `make pub`, which would rewrite a bad lock and hide it.
+      - name: Verify pubspec.lock resolves under the pinned Flutter
+        working-directory: common
+        run: make pub-verify
+
       - name: Analyze Flutter module
         working-directory: common
         run: |
