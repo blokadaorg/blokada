@@ -36,9 +36,16 @@ build-android: pub gen-android runner lib
 # under build/ios-framework/<config>/; the host picks <config> via
 # $(CONFIGURATION). precache first so a freshly installed SDK on CI has the iOS
 # engine artifacts. Replaces the old CocoaPods integration.
+# --no-codesign: Flutter 3.44 added native XCFramework signing to `build
+# ios-framework` and defaults it ON, which breaks whenever a machine holds more
+# than one identity for the team ("Multiple identities found for development
+# team ..."). We already sign these ourselves in `sign-ios-frameworks` (the
+# ITMS-91065 fix), so opt out and keep the pre-3.44 behaviour: Flutter emits
+# unsigned xcframeworks, our script signs them for release. Flutter's own
+# --codesign-identity is a candidate to replace that script later; not here.
 build-ios: pub gen-ios runner
 	$(FLUTTER) precache --ios
-	$(FLUTTER) build ios-framework --output=build/ios-framework --no-profile
+	$(FLUTTER) build ios-framework --output=build/ios-framework --no-profile --no-codesign
 
 # Fetch dependencies from pubspec.yaml (flutter pub get)
 pub:

@@ -21,18 +21,18 @@ version: 1.0.0+1
 # actually pin (.fvmrc). Without it, dependabot-core's infer_sdk_versions
 # defaults the flutter range to `any` and resolves with the newest stable
 # Flutter, producing a pubspec.lock that is unsatisfiable here (see #1149: it
-# locked meta 1.18.0 / matcher 0.12.19 / flex_color_scheme 8.4.0, none of which
-# resolve on 3.35.2, so every `pub get` silently re-resolved them away).
+# locked packages the pinned SDK could not resolve, so every `pub get` silently
+# re-resolved them away and CI went green on deps nobody committed).
 #
-# This is a HARD pin, both bounds: since the sdk floor is >=3.9.0, the package's
-# language version is 3.9, which is what makes pub enforce the flutter upper
-# bound too (dart-lang/pub#4310). `flutter pub get` outside [3.35.2, 3.36.0)
-# fails with "requires Flutter SDK version". That is deliberate — an off-SDK
-# resolve is what corrupted the lock in the first place. Use fvm (every make
-# target does). Bump both bounds in lockstep with .fvmrc on a Flutter upgrade.
+# This is a HARD pin, both bounds: the sdk floor puts the package's language
+# version at >=3.9, which is what makes pub enforce the flutter upper bound too
+# (dart-lang/pub#4310). `flutter pub get` outside [3.44.6, 3.45.0) fails with
+# "requires Flutter SDK version". That is deliberate — an off-SDK resolve is what
+# corrupted the lock in the first place. Use fvm (every make target does). Bump
+# both bounds in lockstep with .fvmrc on a Flutter upgrade.
 environment:
-  sdk: '>=3.9.0 <4.0.0'
-  flutter: '>=3.35.2 <3.36.0'
+  sdk: '>=3.12.0 <4.0.0'
+  flutter: '>=3.44.6 <3.45.0'
 
 dependencies:
   flutter:
@@ -65,8 +65,7 @@ dependencies:
   flutter_chat_core: ^2.6.0
   flutter_chat_ui: ^2.6.0
   logger: ^2.4.0
-  adapty_flutter: 3.17.0
-  input_code_field: ^2.0.2
+  adapty_flutter: 3.17.1
   flutter_linkify: ^6.0.0
   cached_network_image: ^3.3.1
   web_socket_channel: ^3.0.3
@@ -83,18 +82,6 @@ dependency_overrides:
   # An override can't be widened by Dependabot, so it pins the lock. Drop this together
   # with the ignore/exclude when the pigeon 26 native migration is scheduled.
   pigeon: 12.0.1
-  # adapty_flutter 3.17.0 (latest) hardcodes kotlinOptions.jvmTarget = '1.8' in its
-  # android/build.gradle, but its Adapty native Android SDK (io.adapty:android-ui via
-  # adapty-bom 3.17.1) is compiled for JVM 11 and exposes inline functions used by the
-  # native paywall/onboarding views. Kotlin refuses to inline JVM-11 bytecode into a
-  # JVM-1.8 target, so `flutter build aar` fails at :adapty_flutter:compileReleaseKotlin
-  # ("Cannot inline bytecode built with JVM target 11 ... built with JVM target 1.8").
-  # Pin to a blokadaorg fork of the 3.17.0 tag that only raises the plugin to JVM 11.
-  # Remove once upstream ships the fix: https://github.com/adaptyteam/AdaptySDK-Flutter
-  adapty_flutter:
-    git:
-      url: https://github.com/blokadaorg/AdaptySDK-Flutter.git
-      ref: 3755e279485487f82833fae01462799f87594c62
 
 dev_dependencies:
   flutter_test:
