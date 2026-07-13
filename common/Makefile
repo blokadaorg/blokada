@@ -84,7 +84,7 @@ lib-debug:
 
 # Build the iOS library (debug) - only for special cases
 other-lib-ios-debug:
-	$(FLUTTER) build ios-framework --no-profile --no-release --verbose --no-pub
+	$(FLUTTER) build ios-framework --no-profile --no-release --verbose --no-pub --no-codesign
 
 # Build web (not used yet)
 other-build-web:

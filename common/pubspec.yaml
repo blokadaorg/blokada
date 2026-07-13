@@ -61,7 +61,6 @@ dependencies:
   qr_flutter: ^4.1.0
   provider: ^6.1.2
   timeago: ^3.6.1
-  i18n_extension_importer: ^0.0.6
   flutter_chat_core: ^2.6.0
   flutter_chat_ui: ^2.6.0
   logger: ^2.4.0
