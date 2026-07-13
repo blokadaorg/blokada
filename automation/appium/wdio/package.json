@@ -31,7 +31,7 @@
     "pngjs": "^7.0.0",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^6.0.3"
+    "typescript": "^7.0.2"
   },
   "overrides": {
     "serialize-javascript": "^7.0.5"
