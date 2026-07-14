@@ -54,13 +54,6 @@ const rawConfig = {
   mochaOpts: {
     timeout: 600000
   },
-  autoCompileOpts: {
-    autoCompile: true,
-    tsNodeOpts: {
-      project: `${process.cwd()}/tsconfig.json`,
-      transpileOnly: true
-    }
-  },
   reporters: [
     "spec",
     [
