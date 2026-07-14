@@ -143,7 +143,7 @@ define run-mocked-app
 	mkdir -p "$$COMMON_DIR/.dart_tool"; \
 	printf 'MOCKED=true\nFLAVOR=%s\nACCOUNT_ID=%s\n' "$$FLAVOR" "$${ACCOUNT_ID:-}" > "$$DEFINES_FILE"; \
 	trap 'rm -f "$$DEFINES_FILE"' EXIT; \
-	( cd "$$COMMON_DIR" && fvm flutter build ios-framework --output=build/ios-framework --no-profile --no-release --dart-define-from-file=.dart_tool/dart-defines-mocked.env ); \
+	( cd "$$COMMON_DIR" && fvm flutter build ios-framework --output=build/ios-framework --no-profile --no-release --no-codesign --dart-define-from-file=.dart_tool/dart-defines-mocked.env ); \
 	$(MAKE) --no-print-directory _build-mocked SCHEME=$(1) DESTINATION="$$DEST"; \
 	xcrun simctl boot "$$UDID" 2>/dev/null || true; \
 	APP_DIR=$$($(MAKE) --no-print-directory print-build-dir-scheme SCHEME=$(1) DESTINATION="$$DEST"); \

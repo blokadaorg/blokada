@@ -21,7 +21,7 @@ import 'package:common/src/platform/stage/stage.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:input_code_field/input_code_field.dart';
+import 'package:common/src/shared/ui/vendor/input_code_field/input_code_field.dart';
 
 import 'package:common/src/features/lock/domain/lock.dart';
 import 'package:common/src/features/notification/domain/notification.dart';

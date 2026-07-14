@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:i18n_extension/i18n_extension.dart';
-import 'package:i18n_extension_importer/i18n_extension_importer.dart';
 import 'package:logger/logger.dart';
 import 'package:mocktail/mocktail.dart';
 
