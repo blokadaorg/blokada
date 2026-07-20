@@ -64,7 +64,7 @@ dependencies:
   flutter_chat_core: ^2.6.0
   flutter_chat_ui: ^2.6.0
   logger: ^2.4.0
-  adapty_flutter: 3.17.1
+  adapty_flutter: 4.0.2
   flutter_linkify: ^6.0.0
   cached_network_image: ^3.3.1
   web_socket_channel: ^3.0.3
