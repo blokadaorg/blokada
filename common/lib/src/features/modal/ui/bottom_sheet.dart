@@ -1,3 +1,4 @@
+import 'package:common/src/shared/layout/window_shape.dart';
 import 'dart:io';
 
 import 'package:common/src/features/modal/domain/modal.dart';
@@ -6,7 +7,6 @@ import 'package:common/src/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-const maxSheetWidth = 500.0;
 
 // Simply displays one of our predefined bottom sheets based on the Value that
 // can be modified by other parts of the app. Ensures widget context is provided.
@@ -124,7 +124,7 @@ Future<void> _showSheet(
 }) async {
   final screenWidth = MediaQuery.of(context).size.width;
 
-  if (screenWidth >= maxSheetWidth) {
+  if (screenWidth >= minWidthFloatingSheet) {
     return showCustomModalBottomSheet(
       context: context,
       duration: const Duration(milliseconds: 300),
@@ -157,7 +157,7 @@ class FloatingModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final factor = maxSheetWidth / screenWidth;
+    final factor = minWidthFloatingSheet / screenWidth;
 
     return Center(
       child: FractionallySizedBox(

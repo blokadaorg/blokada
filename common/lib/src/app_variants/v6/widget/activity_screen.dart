@@ -1,20 +1,24 @@
-import 'package:common/src/features/journal/domain/journal.dart';
-import 'package:common/src/shared/automation/ids.dart';
-import 'package:common/src/shared/navigation.dart';
-import 'package:common/src/shared/ui/common_clickable.dart';
-import 'package:common/src/features/settings/ui/retention_section.dart';
-import 'package:common/src/features/stats/ui/domain_detail_section.dart';
-import 'package:common/src/features/stats/ui/stats_detail_section.dart';
-import 'package:common/src/features/stats/ui/stats_filter.dart';
-import 'package:common/src/features/stats/ui/stats_section.dart';
-import 'package:common/src/shared/ui/theme.dart';
-import 'package:common/src/shared/ui/with_top_bar.dart';
 import 'package:common/src/core/core.dart';
+import 'package:common/src/features/settings/ui/retention_section.dart';
+import 'package:common/src/features/stats/ui/stats_section.dart';
+import 'package:common/src/features/payment/domain/payment.dart';
 import 'package:common/src/platform/account/account.dart';
+import 'package:common/src/shared/ui/freemium_screen.dart';
 import 'package:common/src/platform/device/device.dart';
-import 'package:flutter/material.dart';
+import 'package:common/src/shared/automation/ids.dart';
+import 'package:common/src/shared/layout/detail_route.dart';
+import 'package:common/src/shared/layout/detail_pane_placeholder.dart';
+import 'package:common/src/shared/layout/with_detail_pane.dart';
+import 'package:common/src/shared/navigation.dart';
+import 'package:common/src/shared/ui/with_top_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
+/// v6 activity journal. With retention enabled (or freemium sample data)
+/// the journal is the master pane and tapped domains render alongside it
+/// on expanded windows; without retention it renders the retention
+/// opt-in alone. The search action belongs to the journal list, so it
+/// shows in both layout modes regardless of the pane content.
 class ActivityScreen extends StatefulWidget {
   const ActivityScreen({Key? key}) : super(key: key);
 
@@ -24,170 +28,75 @@ class ActivityScreen extends StatefulWidget {
 
 class ActivityScreenState extends State<ActivityScreen> with Logging {
   final _device = Core.get<DeviceStore>();
-  late final _filter = Core.get<JournalFilterValue>();
   late final _account = Core.get<AccountStore>();
+  late final _routes = Core.get<DetailRoutes>();
 
   var _showStats = false;
+  var _isFreemium = false;
 
-  Paths _path = Paths.activity;
-  Object? _arguments;
+  late final ReactionDisposer _autorunDisposer;
 
   @override
   void initState() {
     super.initState();
 
-    Navigation.openInTablet = (path, arguments) {
-      if (!mounted) return;
-      setState(() {
-        _path = path;
-        _arguments = arguments;
-      });
-    };
-
-    autorun((_) {
+    _autorunDisposer = autorun((_) {
       final retention = _device.retention;
       setState(() {
         // Show only if retention is enabled
         // ... or if freemium since we show a sample data
-        _showStats = retention == "24h" || _account.isFreemium;
+        _isFreemium = _account.isFreemium;
+        _showStats = retention == "24h" || _isFreemium;
       });
     });
   }
 
   @override
+  void dispose() {
+    _autorunDisposer();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final isTablet = isTabletMode(context);
+    if (!_showStats) {
+      return Semantics(
+        identifier: AutomationIds.screenActivity,
+        child: WithTopBar(
+          title: "main tab activity".i18n,
+          child: const RetentionSection(),
+        ),
+      );
+    }
 
-    if (isTablet) return _buildForTablet(context);
-    return _buildForPhone(context);
-  }
-
-  Widget _buildForPhone(BuildContext context) {
-    return Semantics(
-      identifier: AutomationIds.screenActivity,
-      child: WithTopBar(
-        title: "main tab activity".i18n,
-        topBarTrailing: _getStatsAction(context),
-        child: Row(
-          children: [
-            Expanded(
-              flex: 1,
-              child: _buildStatsScreenPhone(context),
-            ),
-          ],
+    return WithDetailPane(
+      title: "main tab activity".i18n,
+      screenSemanticsId: AutomationIds.screenActivity,
+      master: const StatsSection(deviceTag: null, isHeader: false),
+      detailPaths: const {Paths.deviceStatsDetail},
+      // A solo centered journal reads as empty on wide screens; keep the
+      // split visible with an inviting placeholder instead.
+      splitWhenUnselected: true,
+      placeholder: const DetailPanePlaceholder(
+        icon: CupertinoIcons.doc_text_search,
+        text: "Select an item to see details",
+      ),
+      // MergeSemantics keeps the stable search id on the interactive node
+      // (a bare CommonClickable is invisible to WDA), as on the phone route.
+      trailing: (context, _) => MergeSemantics(
+        child: Semantics(
+          identifier: AutomationIds.activitySearch,
+          button: true,
+          child: _routes.statsFilterAction(context),
         ),
       ),
-    );
-  }
-
-  Widget _buildStatsScreenPhone(BuildContext context) {
-    if (_showStats) {
-      return const StatsSection(deviceTag: null, isHeader: false);
-    } else {
-      return const Row(
-        children: [
-          Expanded(
-            flex: 1,
-            child: RetentionSection(),
-          ),
-        ],
-      );
-    }
-  }
-
-  Widget _buildForTablet(BuildContext context) {
-    return Semantics(
-      identifier: AutomationIds.screenActivity,
-      child: WithTopBar(
-        title: "main tab activity".i18n,
-        maxWidth: _showStats ? maxContentWidthTablet : maxContentWidth,
-        topBarTrailing: _getStatsAction(context),
-        child: _buildStatsScreenTablet(context),
-      ),
-    );
-  }
-
-  Widget _buildStatsScreenTablet(BuildContext context) {
-    if (_showStats) {
-      return Row(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          const Expanded(
-            flex: 1,
-            child: StatsSection(deviceTag: null, isHeader: false),
-          ),
-          Expanded(
-            flex: 1,
-            child: _buildForPath(_path, _arguments),
-          ),
-        ],
-      );
-    } else {
-      return const Row(
-        children: [
-          Expanded(
-            flex: 1,
-            child: RetentionSection(),
-          ),
-        ],
-      );
-    }
-  }
-
-  Widget _buildForPath(Paths path, Object? arguments) {
-    switch (path) {
-      case Paths.deviceStatsDetail:
-        // Check if this is a Map argument (from toplist or subdomain navigation)
-        if (_arguments is Map) {
-          final args = _arguments as Map;
-          final mainEntry = args['mainEntry'] as UiJournalMainEntry;
-          final level = args['level'] as int? ?? 2; // Default to level 2
-          final domain = args['domain'] as String? ?? mainEntry.domainName;
-          final fetchToplist = args['fetchToplist'] as bool? ?? true;
-          final showToplistSection = args['showToplistSection'] as bool?;
-          final showRecentSection = args['showRecentSection'] as bool?;
-          final range = args['range'] as String?; // e.g. "24h" or "7d"
-
-          return DomainDetailSection(
-            entry: mainEntry,
-            level: level,
-            domain: domain,
-            fetchToplist: fetchToplist,
-            showToplistSection: showToplistSection,
-            showRecentSection: showRecentSection,
-            range: range ?? "24h",
-          );
-        }
-        // Normal entry from journal - use StatsDetailSection
-        final entry = _arguments as UiJournalEntry;
-        return StatsDetailSection(entry: entry, primary: false);
-      default:
-        return Container();
-    }
-  }
-
-  Widget? _getStatsAction(BuildContext context) {
-    if (!_showStats) return null;
-
-    return MergeSemantics(
-      child: Semantics(
-        identifier: AutomationIds.activitySearch,
-        button: true,
-        child: CommonClickable(
-          onTap: () {
-            showStatsFilterDialog(context, onConfirm: (filter) {
-              _filter.now = filter;
-            });
-          },
-          child: Text(
-            "universal action search".i18n,
-            style: TextStyle(
-              color: context.theme.accent,
-              fontSize: 17,
-            ),
-          ),
-        ),
-      ),
+      overlay: _isFreemium
+          ? FreemiumScreen(
+              title: "freemium stats cta header".i18n,
+              subtitle: "freemium stats cta desc".i18n,
+              placement: Placement.freemiumActivity,
+            )
+          : null,
     );
   }
 }

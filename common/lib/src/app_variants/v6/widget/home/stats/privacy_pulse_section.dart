@@ -1,11 +1,9 @@
 import 'dart:async';
 
 import 'package:common/src/features/journal/domain/journal.dart';
-import 'package:common/src/features/payment/domain/payment.dart';
 import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/navigation.dart' show maxContentWidth, getTopPadding;
 import 'package:common/src/features/notification/domain/notification.dart';
-import 'package:common/src/shared/ui/freemium_screen.dart';
 import 'package:common/src/shared/ui/minicard/minicard.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/features/weekly/ui/weekly_report_card.dart';
@@ -232,6 +230,17 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
     return content();
   }
 
+  /// Above this width the pulse sections spread over two columns. Low
+  /// enough that both columns survive (shrunk to phone-ish width) next to
+  /// an open detail pane on landscape iPads. The screen also uses this as
+  /// its minSplitMasterWidth so the master never collapses to a single
+  /// column mid-split — where it can't keep two columns, details push
+  /// full-screen instead.
+  static const double twoColumnMinWidth = 780.0;
+
+  /// Two 500pt columns + the 24pt gutter + the 12pt outer paddings.
+  static const double _twoColumnMaxWidth = 1048.0;
+
   Widget content() {
     final theme = Theme.of(context).extension<BlokadaTheme>()!;
     return Stack(
@@ -242,92 +251,149 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
             decoration: BoxDecoration(
               color: theme.bgColor,
             ),
-            child: Center(
-              child: Container(
-                constraints: const BoxConstraints(maxWidth: maxContentWidth),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                  child: PrimaryScrollController(
-                    controller: widget.controller,
-                    child: RefreshIndicator(
-                      displacement: 100.0,
-                      onRefresh: _pullToRefresh,
-                      child: ListView(
-                        controller: widget.controller,
-                        children: [
-                          SizedBox(height: getTopPadding(context)),
-                          if (_weeklyEvent != null) ...[
-                            Builder(builder: (context) {
-                              final event = _weeklyEvent!;
-                              final isToplist = event.type == WeeklyReportEventType.toplistChange;
-                              final timeLabel =
-                                  timeago.format(event.generatedAt, allowFromNow: true);
-                              return WeeklyReportCard(
-                                title: event.title,
-                                content: Text(
-                                  event.body,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: context.theme.textSecondary,
-                                    height: 1.3,
-                                  ),
-                                ),
-                                time: timeLabel,
-                                icon: _iconFor(event.icon),
-                                iconColor: context.theme.accent,
-                                onTap: isToplist ? _handleWeeklyReportTap : null,
-                                onDismiss: () => _dismissWeeklyReport(),
-                              );
-                            }),
-                            const SizedBox(height: 16),
-                          ],
-                          MiniCard(
-                            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: PrivacyPulseCharts(
-                                stats: stats,
-                                counters: _counters,
-                                counterDelta: _counterDeltas[_toplistRange],
-                                statsReady: _hasStats,
-                                deltaReady: _deltaReady[_toplistRange] ?? false,
-                                sparklineSeries:
-                                    _toplistRange == ToplistRange.weekly ? _weeklySparkline : null,
-                                trailing: _buildToplistRangeToggle(context),
+            child: LayoutBuilder(builder: (context, constraints) {
+              final twoColumns = constraints.maxWidth >= twoColumnMinWidth;
+              return Center(
+                child: Container(
+                  constraints: BoxConstraints(
+                      maxWidth: twoColumns ? _twoColumnMaxWidth : maxContentWidth),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    child: PrimaryScrollController(
+                      controller: widget.controller,
+                      child: RefreshIndicator(
+                        displacement: 100.0,
+                        onRefresh: _pullToRefresh,
+                        child: ListView(
+                          controller: widget.controller,
+                          children: [
+                            SizedBox(height: getTopPadding(context)),
+                            // Cross-fade the column-mode change so the
+                            // relayout during the master/detail width
+                            // animation doesn't read as tearing.
+                            AnimatedSwitcher(
+                              duration: const Duration(milliseconds: 200),
+                              child: KeyedSubtree(
+                                key: ValueKey(twoColumns),
+                                child: twoColumns
+                                    ? _buildTwoColumnContent(context)
+                                    : Column(children: _buildSingleColumnContent(context)),
                               ),
                             ),
-                          ),
-                          const SizedBox(height: 12),
-                          TopDomains(
-                            headerKey: _topDomainsHeaderKey,
-                            highlight: _weeklyHighlight ?? _weeklyEvent?.toplistHighlight,
-                            range: _toplistRange,
-                            blockedDeltas: _blockedDeltas[_toplistRange],
-                            allowedDeltas: _allowedDeltas[_toplistRange],
-                            onRangeChanged: _setToplistRange,
-                          ),
-                          const SizedBox(height: 12),
-                          RecentActivity(),
-                          const SizedBox(height: 48),
-                          TotalCounter(stats: stats),
-                          const SizedBox(height: 60),
-                        ],
+                            const SizedBox(height: 60),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ),
+              );
+            }),
           ),
         ),
-        (_isFreemium)
-            ? FreemiumScreen(
-                title: "freemium activity cta header".i18n,
-                subtitle: "freemium activity cta desc".i18n,
-                placement: Placement.freemiumStats,
-              )
-            : Container(),
       ],
+    );
+  }
+
+  List<Widget> _buildSingleColumnContent(BuildContext context) {
+    return [
+      ..._buildWeeklyCard(context),
+      _buildChartsCard(context),
+      const SizedBox(height: 12),
+      _buildTopDomains(),
+      const SizedBox(height: 12),
+      RecentActivity(),
+      const SizedBox(height: 48),
+      TotalCounter(stats: stats),
+    ];
+  }
+
+  /// Wide layout: the chart pairs with the short recent-activity preview on
+  /// the left, while the tall top-domains list sits under the all-time
+  /// counter on the right, so the columns carry comparable weight and share
+  /// one scroll position.
+  Widget _buildTwoColumnContent(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Column(
+            children: [
+              ..._buildWeeklyCard(context),
+              _buildChartsCard(context),
+              const SizedBox(height: 12),
+              RecentActivity(),
+            ],
+          ),
+        ),
+        const SizedBox(width: 24),
+        Expanded(
+          child: Column(
+            children: [
+              TotalCounter(stats: stats),
+              const SizedBox(height: 24),
+              _buildTopDomains(),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  List<Widget> _buildWeeklyCard(BuildContext context) {
+    if (_weeklyEvent == null) return const [];
+    return [
+      Builder(builder: (context) {
+        final event = _weeklyEvent!;
+        final isToplist = event.type == WeeklyReportEventType.toplistChange;
+        final timeLabel = timeago.format(event.generatedAt, allowFromNow: true);
+        return WeeklyReportCard(
+          title: event.title,
+          content: Text(
+            event.body,
+            style: TextStyle(
+              fontSize: 14,
+              color: context.theme.textSecondary,
+              height: 1.3,
+            ),
+          ),
+          time: timeLabel,
+          icon: _iconFor(event.icon),
+          iconColor: context.theme.accent,
+          onTap: isToplist ? _handleWeeklyReportTap : null,
+          onDismiss: () => _dismissWeeklyReport(),
+        );
+      }),
+      const SizedBox(height: 16),
+    ];
+  }
+
+  Widget _buildChartsCard(BuildContext context) {
+    return MiniCard(
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: PrivacyPulseCharts(
+          stats: stats,
+          counters: _counters,
+          counterDelta: _counterDeltas[_toplistRange],
+          statsReady: _hasStats,
+          deltaReady: _deltaReady[_toplistRange] ?? false,
+          sparklineSeries: _toplistRange == ToplistRange.weekly ? _weeklySparkline : null,
+          trailing: _buildToplistRangeToggle(context),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTopDomains() {
+    return TopDomains(
+      headerKey: _topDomainsHeaderKey,
+      highlight: _weeklyHighlight ?? _weeklyEvent?.toplistHighlight,
+      range: _toplistRange,
+      blockedDeltas: _blockedDeltas[_toplistRange],
+      allowedDeltas: _allowedDeltas[_toplistRange],
+      onRangeChanged: _setToplistRange,
     );
   }
 

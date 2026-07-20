@@ -60,6 +60,10 @@ class FilterWidgetState extends State<FilterWidget> {
               end: Alignment.bottomRight,
             )),
         child: Column(
+          // Stretch so the header block spans the card even when its widest
+          // line is short — the default centering floated cards with short,
+          // non-wrapping descriptions and read as a stray left indent.
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Padding(
               padding: const EdgeInsets.all(16.0),

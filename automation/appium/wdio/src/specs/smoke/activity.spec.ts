@@ -69,6 +69,26 @@ describe("Smoke: Activity screen", () => {
     await ensureAccountActive();
   });
 
+  // Poll until the button's position is stable (the scroll may still be
+  // settling), then dispatch a real coordinate tap at its current center —
+  // the reliable path for Flutter widgets that ignore WDA's element.click().
+  async function settleAndTapShowAll(): Promise<void> {
+    const el = await $(showAllSelector);
+    let prev = await el.getLocation();
+    for (let i = 0; i < 8; i += 1) {
+      await driver.pause(250);
+      const cur = await el.getLocation();
+      if (Math.abs(cur.y - prev.y) < 2 && Math.abs(cur.x - prev.x) < 2) break;
+      prev = cur;
+    }
+    const loc = await el.getLocation();
+    const size = await el.getSize();
+    await driver.execute("mobile: tap", {
+      x: Math.round(loc.x + size.width / 2),
+      y: Math.round(loc.y + size.height / 2)
+    });
+  }
+
   it("opens the full Activity list from Privacy Pulse", async () => {
     await openHubScreen(AutomationIds.homePrivacyPulse, AutomationIds.screenPrivacyPulse);
 
@@ -77,7 +97,22 @@ describe("Smoke: Activity screen", () => {
         "Recent Activity 'Show All' did not appear after scrolling the Privacy Pulse list."
       );
     }
-    await (await $(showAllSelector)).click();
+
+    // element.click() on Flutter buttons intermittently swallows the tap on
+    // physical devices (WDA reports success, the GestureDetector never fires
+    // — the same run went red on main with no code change), and the list can
+    // still be settling from the scroll when the coordinates are resolved.
+    // Wait for the button to stop moving, tap by fresh center coordinates,
+    // and retry if the Activity screen does not appear.
+    for (let attempt = 0; attempt < 3; attempt += 1) {
+      await settleAndTapShowAll();
+      const opened = await (await $(`~${AutomationIds.screenActivity}`))
+        .waitForExist({ timeout: 5000 })
+        .then(() => true)
+        .catch(() => false);
+      if (opened) break;
+      console.warn(`'Show All' tap did not navigate (attempt ${attempt + 1}); retrying.`);
+    }
 
     // The Activity screen body + top-bar title must render.
     await waitForScreen(AutomationIds.screenActivity);

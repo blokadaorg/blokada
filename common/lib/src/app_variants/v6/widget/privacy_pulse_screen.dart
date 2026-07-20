@@ -1,18 +1,23 @@
-import 'package:common/src/features/journal/domain/journal.dart';
-import 'package:common/src/shared/automation/ids.dart';
-import 'package:common/src/shared/navigation.dart';
-import 'package:common/src/features/settings/ui/retention_section.dart';
-import 'package:common/src/features/stats/ui/domain_detail_section.dart';
-import 'package:common/src/features/stats/ui/stats_detail_section.dart';
-import 'package:common/src/features/stats/ui/top_domains.dart';
-import 'package:common/src/shared/ui/with_top_bar.dart';
-import 'package:common/src/core/core.dart';
-import 'package:common/src/platform/account/account.dart';
-import 'package:common/src/platform/device/device.dart';
 import 'package:common/src/app_variants/v6/widget/home/stats/privacy_pulse_section.dart';
+import 'package:common/src/core/core.dart';
+import 'package:common/src/features/settings/ui/retention_section.dart';
+import 'package:common/src/features/stats/ui/top_domains.dart';
+import 'package:common/src/features/payment/domain/payment.dart';
+import 'package:common/src/platform/account/account.dart';
+import 'package:common/src/shared/ui/freemium_screen.dart';
+import 'package:common/src/platform/device/device.dart';
+import 'package:common/src/shared/automation/ids.dart';
+import 'package:common/src/shared/layout/window_shape.dart';
+import 'package:common/src/shared/layout/with_detail_pane.dart';
+import 'package:common/src/shared/navigation.dart';
+import 'package:common/src/shared/ui/with_top_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
+/// v6 Privacy Pulse (toplists/charts). With retention enabled (or
+/// freemium sample data) the pulse is the master pane and tapped domains
+/// render alongside it on expanded windows; without retention it renders
+/// the retention opt-in alone.
 class PrivacyPulseScreen extends StatefulWidget {
   final ToplistRange? initialToplistRange;
 
@@ -30,147 +35,67 @@ class PrivacyPulseScreenState extends State<PrivacyPulseScreen> with Logging {
   late final _account = Core.get<AccountStore>();
 
   var _showStats = false;
+  var _isFreemium = false;
 
-  Paths _path = Paths.privacyPulse;
-  Object? _arguments;
+  late final ReactionDisposer _autorunDisposer;
 
   @override
   void initState() {
     super.initState();
 
-    Navigation.openInTablet = (path, arguments) {
-      if (!mounted) return;
-      setState(() {
-        _path = path;
-        _arguments = arguments;
-      });
-    };
-
-    autorun((_) {
+    _autorunDisposer = autorun((_) {
       final retention = _device.retention;
       setState(() {
         // Show only if retention is enabled
         // ... or if freemium since we show a sample data
-        _showStats = retention == "24h" || _account.isFreemium;
+        _isFreemium = _account.isFreemium;
+        _showStats = retention == "24h" || _isFreemium;
       });
     });
   }
 
   @override
+  void dispose() {
+    _autorunDisposer();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final isTablet = isTabletMode(context);
-
-    if (isTablet) return _buildForTablet(context);
-    return _buildForPhone(context);
-  }
-
-  Widget _buildForPhone(BuildContext context) {
-    return Semantics(
-      identifier: AutomationIds.screenPrivacyPulse,
-      child: WithTopBar(
-        title: "privacy pulse section header".i18n,
-        child: Row(
-          children: [
-            Expanded(
-              flex: 1,
-              child: _buildStatsScreenPhone(context),
-            ),
-          ],
+    if (!_showStats) {
+      return Semantics(
+        identifier: AutomationIds.screenPrivacyPulse,
+        child: WithTopBar(
+          title: "privacy pulse section header".i18n,
+          child: const RetentionSection(),
         ),
-      ),
-    );
-  }
+      );
+    }
 
-  Widget _buildStatsScreenPhone(BuildContext context) {
-    if (_showStats) {
-      return PrivacyPulseSection(
+    return WithDetailPane(
+      title: "privacy pulse section header".i18n,
+      screenSemanticsId: AutomationIds.screenPrivacyPulse,
+      master: PrivacyPulseSection(
         autoRefresh: true,
         controller: ScrollController(),
         initialRange: widget.initialToplistRange,
-      );
-    } else {
-      return const Row(
-        children: [
-          Expanded(
-            flex: 1,
-            child: RetentionSection(),
-          ),
-        ],
-      );
-    }
-  }
-
-  Widget _buildForTablet(BuildContext context) {
-    return Semantics(
-      identifier: AutomationIds.screenPrivacyPulse,
-      child: WithTopBar(
-        title: "privacy pulse section header".i18n,
-        maxWidth: _showStats ? maxContentWidthTablet : maxContentWidth,
-        child: _buildStatsScreenTablet(context),
       ),
+      detailPaths: const {Paths.deviceStatsDetail},
+      // The pulse sections spread into two columns while solo, so give the
+      // master the whole box; it narrows (and the section collapses back to
+      // one column) when a domain detail splits the screen.
+      soloMaxWidth: maxContentWidthTwoPane,
+      // The two-column master carries the primary content; the domain
+      // detail is a single column that fits its designed 500pt in ~40%.
+      splitRatio: 0.6,
+      minSplitMasterWidth: PrivacyPulseSectionState.twoColumnMinWidth,
+      overlay: _isFreemium
+          ? FreemiumScreen(
+              title: "freemium activity cta header".i18n,
+              subtitle: "freemium activity cta desc".i18n,
+              placement: Placement.freemiumStats,
+            )
+          : null,
     );
-  }
-
-  Widget _buildStatsScreenTablet(BuildContext context) {
-    if (_showStats) {
-      return Row(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Expanded(
-            flex: 1,
-            child: PrivacyPulseSection(
-              autoRefresh: true,
-              controller: ScrollController(),
-              initialRange: widget.initialToplistRange,
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: _buildForPath(_path, _arguments),
-          ),
-        ],
-      );
-    } else {
-      return const Row(
-        children: [
-          Expanded(
-            flex: 1,
-            child: RetentionSection(),
-          ),
-        ],
-      );
-    }
-  }
-
-  Widget _buildForPath(Paths path, Object? arguments) {
-    switch (path) {
-      case Paths.deviceStatsDetail:
-        // Check if this is a Map argument (from toplist or subdomain navigation)
-        if (_arguments is Map) {
-          final args = _arguments as Map;
-          final mainEntry = args['mainEntry'] as UiJournalMainEntry;
-          final level = args['level'] as int? ?? 2; // Default to level 2
-          final domain = args['domain'] as String? ?? mainEntry.domainName;
-          final fetchToplist = args['fetchToplist'] as bool? ?? true;
-          final showToplistSection = args['showToplistSection'] as bool?;
-          final showRecentSection = args['showRecentSection'] as bool?;
-          final range = args['range'] as String?;
-
-          return DomainDetailSection(
-            entry: mainEntry,
-            level: level,
-            domain: domain,
-            fetchToplist: fetchToplist,
-            showToplistSection: showToplistSection,
-            showRecentSection: showRecentSection,
-            range: range ?? "24h",
-          );
-        }
-        // Normal entry from journal - use StatsDetailSection
-        final entry = _arguments as UiJournalEntry;
-        return StatsDetailSection(entry: entry, primary: false);
-      default:
-        return Container();
-    }
   }
 }

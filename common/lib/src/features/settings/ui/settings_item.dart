@@ -1,3 +1,5 @@
+import 'package:common/src/shared/layout/with_detail_pane.dart';
+import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/common_clickable.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:flutter/material.dart';
@@ -12,19 +14,30 @@ class SettingsItem extends StatelessWidget {
   /// dynamic exploration to understand which setting was opened.
   final String? automationId;
 
+  /// Pane path this row opens; rows with one highlight themselves with the
+  /// accent tint while their detail is shown in the pane.
+  final Paths? path;
+
   const SettingsItem(
       {super.key,
       required this.icon,
       required this.text,
       required this.onTap,
       this.unread = false,
-      this.automationId});
+      this.automationId,
+      this.path});
 
   @override
   Widget build(BuildContext context) {
+    final isSelected = path != null && PaneSelection.of(context)?.path == path;
+
     final child = Stack(
       children: [
-        CommonClickable(
+        Container(
+          // Unified list-selection style: full-row square tint in the
+          // shared accent-derived selection color.
+          color: isSelected ? context.theme.selection : null,
+          child: CommonClickable(
           tapBorderRadius: BorderRadius.zero,
           onTap: onTap,
           child: Row(
@@ -35,6 +48,7 @@ class SettingsItem extends StatelessWidget {
               const Spacer(),
               Icon(Icons.chevron_right, size: 24, color: context.theme.divider),
             ],
+          ),
           ),
         ),
         unread

@@ -1,4 +1,3 @@
-import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/shared/i18n/locales.dart';
 import 'package:common/src/core/core.dart';
@@ -38,7 +37,6 @@ class BlokadaApp extends StatelessWidget {
     final accentColor = Core.act.isFamily ? familyColor : plusColor;
     final freemiumColor = Color(0xFF48A9A6);
 
-    Navigation.isTabletMode = isTabletMode(context);
 
     return MaterialApp(
       scrollBehavior: BlokadaScrollBehavior(),

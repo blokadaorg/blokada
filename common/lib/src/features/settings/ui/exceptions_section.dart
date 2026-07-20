@@ -12,9 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class ExceptionsSection extends StatefulWidget {
-  final bool primary;
 
-  const ExceptionsSection({Key? key, this.primary = true}) : super(key: key);
+  const ExceptionsSection({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => ExceptionsSectionState();
@@ -78,10 +77,9 @@ class ExceptionsSectionState extends State<ExceptionsSection>
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: SlidableAutoCloseBehavior(
         child: ListView(
-          primary: widget.primary,
+          primary: true,
           children: [
             SizedBox(height: getTopPadding(context)),
-            const SizedBox(height: 16),
             CommonCard(
               padding: EdgeInsets.zero,
               child: Column(

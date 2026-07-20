@@ -1,10 +1,8 @@
 import 'package:common/src/features/customlist/domain/customlist.dart';
 import 'package:common/src/features/journal/domain/journal.dart';
-import 'package:common/src/features/payment/domain/payment.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/common_clickable.dart';
 import 'package:common/src/shared/ui/common_divider.dart';
-import 'package:common/src/shared/ui/freemium_screen.dart';
 import 'package:common/src/features/stats/ui/activity_item.dart';
 import 'package:common/src/features/stats/ui/stats_filter.dart';
 import 'package:common/src/shared/ui/theme.dart';
@@ -16,16 +14,12 @@ import 'package:flutter/material.dart';
 
 class StatsSection extends StatefulWidget {
   final DeviceTag? deviceTag;
-  final bool primary;
   final bool isHeader;
-  final bool freemium;
 
   const StatsSection({
     Key? key,
     required this.deviceTag,
     required this.isHeader,
-    this.primary = true,
-    this.freemium = true,
   }) : super(key: key);
 
   @override
@@ -181,13 +175,6 @@ class StatsSectionState extends State<StatsSection> with Disposables {
             ),
           ),
         ),
-        (_isFreemium)
-            ? FreemiumScreen(
-                title: "freemium stats cta header".i18n,
-                subtitle: "freemium stats cta desc".i18n,
-                placement: Placement.freemiumActivity,
-              )
-            : Container(),
       ],
     );
   }

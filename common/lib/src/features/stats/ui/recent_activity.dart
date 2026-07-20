@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:common/src/features/journal/domain/journal.dart';
 import 'package:common/src/shared/automation/ids.dart';
+import 'package:common/src/shared/layout/with_detail_pane.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/common_card.dart';
 import 'package:common/src/shared/ui/common_clickable.dart';
@@ -205,7 +206,21 @@ class RecentActivityState extends State<RecentActivity>
   }
 
   Widget _buildActivityItem(UiJournalEntry entry) {
-    return CommonClickable(
+    // Highlight the entry whose domain detail is open in the pane — only
+    // for selections that originated from a journal entry (this list), and
+    // matched on the entry itself, so a same-named toplist selection does
+    // not light this row up.
+    final selectionArguments = PaneSelection.of(context)?.arguments;
+    final isSelected = selectionArguments is UiJournalEntry &&
+        selectionArguments.domainName == entry.domainName &&
+        selectionArguments.timestamp == entry.timestamp;
+
+    // Unified list-selection style: full-row square tint in the shared
+    // accent-derived selection color, outside the clickable.
+    return Container(
+      color: isSelected ? context.theme.selection : null,
+      child: CommonClickable(
+      tapBorderRadius: BorderRadius.zero,
       onTap: () {
         Navigation.open(Paths.deviceStatsDetail, arguments: entry);
       },
@@ -242,6 +257,7 @@ class RecentActivityState extends State<RecentActivity>
             ),
           ],
         ),
+      ),
       ),
     );
   }

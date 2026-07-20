@@ -1,83 +1,57 @@
-import 'package:common/src/shared/ui/dialog.dart';
-import 'package:common/src/shared/automation/ids.dart';
-import 'package:common/src/features/customlist/domain/customlist.dart';
 import 'package:common/src/features/journal/domain/journal.dart';
 import 'package:common/src/features/support/domain/support.dart';
 import 'package:common/src/shared/route.dart';
-import 'package:common/src/shared/ui/common_clickable.dart';
-import 'package:common/src/features/settings/ui/exceptions_section.dart';
-import 'package:common/src/features/settings/ui/retention_section.dart';
 import 'package:common/src/features/settings/ui/settings_screen.dart';
-import 'package:common/src/features/stats/ui/domain_detail_section.dart';
 import 'package:common/src/features/stats/ui/top_domains.dart';
-import 'package:common/src/features/stats/ui/stats_filter.dart';
-import 'package:common/src/features/stats/ui/stats_section.dart';
-import 'package:common/src/features/support/ui/support_section.dart';
-import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/shared/ui/top_bar.dart';
 import 'package:common/src/shared/ui/with_top_bar.dart';
 import 'package:common/src/core/core.dart';
-import 'package:common/src/app_variants/family/module/device_v3/device.dart';
 import 'package:common/src/app_variants/family/module/family/family.dart';
 import 'package:common/src/app_variants/family/widget/device/device_screen.dart';
-import 'package:common/src/app_variants/family/widget/filters_section.dart';
 import 'package:common/src/platform/stage/stage.dart';
-import 'package:common/src/features/plus/ui/vpn_bypass_dialog.dart';
-import 'package:common/src/features/plus/ui/vpn_bypass_section.dart';
-import 'package:common/src/features/plus/ui/vpn_devices_section.dart';
 import 'package:common/src/app_variants/v6/widget/activity_screen.dart';
 import 'package:common/src/app_variants/v6/widget/advanced_screen.dart';
 import 'package:common/src/app_variants/v6/widget/privacy_pulse_screen.dart';
+import 'package:common/src/shared/layout/detail_pane_host.dart';
+import 'package:common/src/shared/layout/detail_route.dart';
 import 'package:flutter/material.dart';
 
 enum Paths {
-  home("/", false),
-  device("/device", false),
-  deviceFilters("/device/filters", true),
-  deviceStats("/device/stats", true),
-  deviceStatsDetail("/device/stats/detail", true),
-  settings("/settings", false),
-  settingsExceptions("/settings/exceptions", true),
-  settingsAccount("/settings/account", true),
-  settingsRetention("/settings/retention", true),
-  settingsVpnDevices("/settings/vpn", true),
-  settingsVpnBypass("/settings/bypass", true),
-  support("/support", true), // Doesn't work in pane
+  home("/"),
+  device("/device"),
+  deviceFilters("/device/filters"),
+  deviceStats("/device/stats"),
+  deviceStatsDetail("/device/stats/detail"),
+  settings("/settings"),
+  settingsExceptions("/settings/exceptions"),
+  settingsRetention("/settings/retention"),
+  settingsVpnDevices("/settings/vpn"),
+  settingsVpnBypass("/settings/bypass"),
+  support("/support"),
   // V6 tabs
-  activity("/activity", false),
-  privacyPulse("/privacyPulse", false),
-  advanced("/advanced", false);
+  activity("/activity"),
+  privacyPulse("/privacyPulse"),
+  advanced("/advanced");
 
   final String path;
-  final bool openInTablet;
 
-  const Paths(this.path, this.openInTablet);
-}
-
-bool isTabletMode(BuildContext context) {
-  final screenWidth = MediaQuery.of(context).size.width;
-  return screenWidth > 1000;
+  const Paths(this.path);
 }
 
 const maxContentWidth = 500.0;
-const maxContentWidthTablet = 1500.0;
 
+/// Top inset for scrollable content under the 100pt glass TopBar: full bar
+/// height on no-notch devices, 68 on notched phones (their content scrolls
+/// subtly under the glass), plus a 16pt breathing gap so the first item
+/// never sits flush against the bar's bottom edge.
 double getTopPadding(BuildContext context) {
   final topPadding = MediaQuery.of(context).padding.top;
   final noNotch = topPadding < 30;
   final android = PlatformInfo().isSmallAndroid(context) ? 24.0 : 0.0;
-  return (noNotch ? 100 : 68) + android; // I don't get it either
+  return (noNotch ? 100 : 68) + android + 16;
 }
 
 class Navigation with Logging {
-  late final _filter = Core.get<JournalFilterValue>();
-  late final _custom = Core.get<CustomlistActor>();
-  late final _support = Core.get<SupportActor>();
-  late final _bypass = Core.get<BypassAddDialog>();
-
-  static late bool isTabletMode;
-
-  static Function(Paths, Object?) openInTablet = (_, __) {};
   static Function(Paths? path) onNavigated = (_) {};
   // Track last navigated path directly from Navigation; StageStore is being phased out and
   // should not be treated as the source of truth for current UI route.
@@ -86,10 +60,11 @@ class Navigation with Logging {
   static open(Paths path, {Object? arguments}) async {
     onNavigated(path);
     lastPath = path;
-    if (isTabletMode && path.openInTablet) {
-      openInTablet(path, arguments);
-      return;
-    }
+
+    // Two-pane screens (WithDetailPane) claim their detail paths; anything
+    // unclaimed — including detail paths while no pane is visible — pushes
+    // as a regular full-screen route.
+    if (Core.get<DetailPaneHosts>().openInPane(path, arguments)) return;
 
     final ctrl = Core.get<TopBarController>();
     ctrl.navigatorKey.currentState!.pushNamed(path.path, arguments: arguments);
@@ -97,149 +72,29 @@ class Navigation with Logging {
 
   StandardRoute generateRoute(BuildContext context, RouteSettings settings,
       {required Widget homeContent}) {
+    // Detail routes (title, body, trailing action) are defined once in
+    // DetailRoutes, shared with the top-bar title stack and the tablet pane.
+    final detail = Core.get<DetailRoutes>().resolveByName(settings.name);
+    if (detail?.body != null) {
+      return StandardRoute(
+        settings: settings,
+        builder: (context) => WithTopBar(
+          title: detail!.title(settings.arguments),
+          topBarTrailing: detail.trailing?.call(context, settings.arguments),
+          maxWidth: detail.maxWidth,
+          child: detail.body!(context, settings.arguments),
+        ),
+      );
+    }
+
     if (settings.name == Paths.device.path) {
       final device = settings.arguments as FamilyDevice;
       return StandardRoute(
           settings: settings, builder: (context) => DeviceScreen(tag: device.device.deviceTag));
     }
 
-    if (settings.name == Paths.deviceStats.path) {
-      final device = settings.arguments as FamilyDevice;
-
-      return StandardRoute(
-        settings: settings,
-        builder: (context) => WithTopBar(
-          title: "activity section header".i18n,
-          topBarTrailing: _getStatsAction(context, device.device.deviceTag),
-          child: StatsSection(deviceTag: device.device.deviceTag, isHeader: false),
-        ),
-      );
-    }
-
-    if (settings.name == Paths.deviceFilters.path) {
-      final device = settings.arguments as FamilyDevice;
-
-      return StandardRoute(
-        settings: settings,
-        builder: (context) => WithTopBar(
-          title: "family stats label blocklists".i18n,
-          child: FamilyFiltersSection(profileId: device.profile.profileId),
-        ),
-      );
-    }
-
-    if (settings.name == Paths.deviceStatsDetail.path) {
-      // Check if this is a Map argument (from toplist or subdomain navigation)
-      if (settings.arguments is Map) {
-        final args = settings.arguments as Map;
-        final mainEntry = args['mainEntry'] as UiJournalMainEntry;
-        final level = args['level'] as int? ?? 2;
-        final domain = args['domain'] as String? ?? mainEntry.domainName;
-        final fetchToplist = args['fetchToplist'] as bool? ?? true;
-        final showToplistSection = args['showToplistSection'] as bool?;
-        final showRecentSection = args['showRecentSection'] as bool?;
-
-        final range = args['range'] as String? ?? "24h";
-
-        return StandardRoute(
-          settings: settings,
-          builder: (context) => WithTopBar(
-            title: Core.act.isFamily
-                ? "family device title details".i18n
-                : "domain details section header".i18n,
-            child: DomainDetailSection(
-              entry: mainEntry,
-              level: level,
-              domain: domain,
-              fetchToplist: fetchToplist,
-              showToplistSection: showToplistSection,
-              showRecentSection: showRecentSection,
-              range: range,
-            ),
-          ),
-        );
-      } else {
-        // Normal entry - convert to UiJournalMainEntry and use DomainDetailSection
-        final entry = settings.arguments as UiJournalEntry;
-        final mainEntry = UiJournalMainEntry(
-          domainName: entry.domainName,
-          requests: entry.requests,
-          action: entry.action,
-          listId: entry.listId,
-        );
-
-        return StandardRoute(
-          settings: settings,
-          builder: (context) => WithTopBar(
-            title: Core.act.isFamily
-                ? "family device title details".i18n
-                : "domain details section header".i18n,
-            child: DomainDetailSection(
-              entry: mainEntry,
-              level: 2, // Start at level 2 (subdomains)
-              domain: entry.domainName,
-              fetchToplist: false, // Don't fetch toplists for journal entries
-            ),
-          ),
-        );
-      }
-    }
-
     if (settings.name == Paths.settings.path) {
       return StandardRoute(settings: settings, builder: (context) => const SettingsScreen());
-    }
-
-    if (settings.name == Paths.settingsExceptions.path) {
-      return StandardRoute(
-        settings: settings,
-        builder: (context) => WithTopBar(
-          title: "family stats title".i18n,
-          topBarTrailing: _getExceptionsAction(context),
-          child: const ExceptionsSection(),
-        ),
-      );
-    }
-
-    if (settings.name == Paths.settingsRetention.path) {
-      return StandardRoute(
-        settings: settings,
-        builder: (context) => WithTopBar(
-          title: "activity section header".i18n,
-          child: const RetentionSection(),
-        ),
-      );
-    }
-
-    if (settings.name == Paths.settingsVpnDevices.path) {
-      return StandardRoute(
-        settings: settings,
-        builder: (context) => WithTopBar(
-          title: "web vpn devices header".i18n,
-          child: const VpnDevicesSection(),
-        ),
-      );
-    }
-
-    if (settings.name == Paths.settingsVpnBypass.path) {
-      return StandardRoute(
-        settings: settings,
-        builder: (context) => WithTopBar(
-          title: "bypass section header".i18n,
-          topBarTrailing: _bypass.getBypassAction(context),
-          child: const VpnBypassSection(),
-        ),
-      );
-    }
-
-    if (settings.name == Paths.support.path) {
-      return StandardRoute(
-        settings: settings,
-        builder: (context) => WithTopBar(
-          title: "support action chat".i18n,
-          topBarTrailing: _getSupportAction(context),
-          child: const SupportSection(),
-        ),
-      );
     }
 
     if (settings.name == Paths.activity.path) {
@@ -271,64 +126,6 @@ class Navigation with Logging {
     }
 
     return StandardRoute(settings: settings, builder: (context) => homeContent);
-  }
-
-  Widget? _getStatsAction(BuildContext context, DeviceTag tag) {
-    return CommonClickable(
-        onTap: () {
-          showStatsFilterDialog(context, onConfirm: (filter) {
-            _filter.now = filter;
-          });
-        },
-        child: Text(
-          "universal action search".i18n,
-          style: TextStyle(
-            color: context.theme.accent,
-            fontSize: 17,
-          ),
-        ));
-  }
-
-  Widget? _getExceptionsAction(BuildContext context) {
-    return MergeSemantics(
-      child: Semantics(
-        identifier: AutomationIds.exceptionAddButton,
-        button: true,
-        child: CommonClickable(
-          onTap: () {
-            showAddExceptionDialog(context, onConfirm: (entry, blocked) {
-              final trimmed = entry.trim();
-              if (trimmed.isEmpty) return;
-
-              final isWildcard = trimmed.startsWith("*.");
-              final domain = isWildcard ? trimmed.substring(2) : trimmed;
-              if (domain.isEmpty) return;
-
-              log(Markers.userTap).trace("addCustom", (m) async {
-                await _custom.addOrRemove(domain, isWildcard, m, gotBlocked: !blocked);
-              });
-            });
-          },
-          child: Text(
-            "Add",
-            style: TextStyle(
-              color: context.theme.accent,
-              fontSize: 17,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget? _getSupportAction(BuildContext context) {
-    return CommonClickable(
-        onTap: () {
-          Navigator.of(context).pop();
-          _support.clearSession(Markers.userTap);
-        },
-        child: Text("support action end".i18n,
-            style: const TextStyle(color: Colors.red, fontSize: 17)));
   }
 }
 
