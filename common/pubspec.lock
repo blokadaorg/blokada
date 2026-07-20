@@ -301,18 +301,18 @@ packages:
     dependency: "direct main"
     description:
       name: flex_color_scheme
-      sha256: "6e713c27a2ebe63393a44d4bf9cdd2ac81e112724a4c69905fc41cbf231af11d"
+      sha256: ab854146f201d2d62cc251fd525ef023b84182c4a0bfe4ae4c18ffc505b412d3
       url: "https://pub.dev"
     source: hosted
-    version: "8.3.1"
+    version: "8.4.0"
   flex_seed_scheme:
     dependency: transitive
     description:
       name: flex_seed_scheme
-      sha256: "828291a5a4d4283590541519d8b57821946660ac61d2e07d955f81cfcab22e5d"
+      sha256: a3183753bbcfc3af106224bff3ab3e1844b73f58062136b7499919f49f3667e7
       url: "https://pub.dev"
     source: hosted
-    version: "3.6.1"
+    version: "4.0.1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -1022,18 +1022,18 @@ packages:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_charts
-      sha256: "921bf0fbe3e0d41972d7145670dc2ade24d34e7c768bd10554bb7180d7a555f5"
+      sha256: b4cdec0d6065f4f2becb5103fee82db89cf315ab6508cd21bc39d60477ed29a7
       url: "https://pub.dev"
     source: hosted
-    version: "34.1.30"
+    version: "34.1.31"
   syncfusion_flutter_core:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: "91fdcf04d055c1f37d3fb7c1f7a9dded507de1d14b1a9580efb63c94a68d9f95"
+      sha256: "1997047ac91baa1e3c626394fa77e56d86bb00ab0d5de755ca73d617500aa948"
       url: "https://pub.dev"
     source: hosted
-    version: "34.1.30"
+    version: "34.1.31"
   synchronized:
     dependency: transitive
     description:
@@ -1172,4 +1172,4 @@ packages:
     version: "3.1.3"
 sdks:
   dart: ">=3.12.0 <3.16.0"
-  flutter: ">=3.44.6 <3.45.0"
+  flutter: ">=3.44.6"
