@@ -6,6 +6,7 @@ import type { Options } from "@wdio/types";
 import { buildCapabilities } from "./scripts/lib/capabilities.mjs";
 import { getAppiumServerConfig } from "./scripts/lib/paths.mjs";
 import { resetAccountState } from "./src/support/account-state.js";
+import { savePageSource, saveScreenshot } from "./src/support/artifacts.js";
 
 const logLevel =
   (process.env.WDIO_LOG_LEVEL as Options.WebDriverLogTypes | undefined) ?? "info";
@@ -103,6 +104,33 @@ const rawConfig = {
       console.warn(
         `Pre-session device wake failed (continuing; WDA will activate): ${String(error)}`
       );
+    }
+  },
+  // Capture a screenshot + page source when a HOOK fails. Specs screenshot
+  // their own failures, but a `before all` failure aborts the spec before any
+  // test body runs, so it previously produced NO visual evidence at all — the
+  // CI job even reported "No files were found with the provided path:
+  // output/*.png". The Apple-Account 2FA modal that blocked the device for four
+  // runs had to be reconstructed from Appium server logs for want of one frame.
+  // Best-effort: an artifact failure must never mask the hook's real error.
+  afterHook: async function (
+    test: { title?: string; parent?: string },
+    _context: unknown,
+    result: { error?: unknown }
+  ) {
+    if (!result?.error) return;
+    const slug =
+      `${test?.parent ?? ""}-${test?.title ?? "hook"}`
+        .replace(/[^a-z0-9]+/gi, "-")
+        .replace(/^-+|-+$/g, "")
+        .slice(0, 80)
+        .toLowerCase() || "hook";
+    try {
+      const shot = await saveScreenshot(`hook-failure-${slug}.png`);
+      const source = await savePageSource(`hook-failure-${slug}.xml`);
+      console.warn(`Hook failed; captured ${shot} and ${source}`);
+    } catch (error) {
+      console.warn(`Hook-failure artifact capture failed: ${String(error)}`);
     }
   },
   // Sleep the device screen when each spec finishes so the CI iPhone is not
