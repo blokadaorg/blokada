@@ -213,7 +213,7 @@ dependencies {
     // consumer must supply them. We don't author Compose — the BOM only pins
     // the versions for Adapty's prebuilt paywall UI.
     sixImplementation platform('androidx.compose:compose-bom:2026.06.01')
-    sixImplementation platform('io.adapty:adapty-bom:3.17.2')
+    sixImplementation platform('io.adapty:adapty-bom:4.0.0')
     sixImplementation 'io.adapty:android-sdk'
     sixImplementation 'io.adapty:android-ui'
 
