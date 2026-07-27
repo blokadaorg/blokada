@@ -53,6 +53,29 @@ async function scrollToShowAll(maxSwipes = 10): Promise<boolean> {
   return false;
 }
 
+// Wait until the button's frame is stationary (scroll fully settled), then tap its
+// center via `mobile: tap`. A plain element.click() here can land while the list is
+// still settling; iOS delivers the touch as a scroll-stop, Flutter's onTap never runs,
+// yet WDA reports the click as successful.
+async function tapShowAllSettled(maxProbes = 8): Promise<void> {
+  let prev = await (await $(showAllSelector)).getLocation();
+  for (let i = 0; i < maxProbes; i += 1) {
+    await driver.pause(300);
+    const el = await $(showAllSelector);
+    const loc = await el.getLocation();
+    if (Math.abs(loc.x - prev.x) <= 1 && Math.abs(loc.y - prev.y) <= 1) {
+      const size = await el.getSize();
+      await driver.execute("mobile: tap", {
+        x: Math.round(loc.x + size.width / 2),
+        y: Math.round(loc.y + size.height / 2)
+      });
+      return;
+    }
+    prev = loc;
+  }
+  throw new Error("Recent Activity 'Show All' did not stop moving; cannot tap reliably.");
+}
+
 // Reach the full Activity list via Privacy Pulse -> "Show All" — a route only made
 // reachable-by-test after the V6 nav cleanup — and confirm it renders (top-bar title
 // + screen body, catching route/blank/crash regressions). The search action is gated
@@ -77,7 +100,19 @@ describe("Smoke: Activity screen", () => {
         "Recent Activity 'Show All' did not appear after scrolling the Privacy Pulse list."
       );
     }
-    await (await $(showAllSelector)).click();
+    await tapShowAllSettled();
+
+    // Even a settled coordinate tap can be dropped; re-tap once if the screen has
+    // not appeared — but only if Show All is still on screen (its absence means
+    // navigation is already in flight, just slow).
+    const opened = await (await $(`~${AutomationIds.screenActivity}`))
+      .waitForExist({ timeout: 5000 })
+      .then(() => true)
+      .catch(() => false);
+    if (!opened && (await exists(showAllSelector))) {
+      console.warn("Show All tap produced no navigation within 5s; re-tapping once.");
+      await tapShowAllSettled();
+    }
 
     // The Activity screen body + top-bar title must render.
     await waitForScreen(AutomationIds.screenActivity);
