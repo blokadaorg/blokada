@@ -187,7 +187,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor'
 
     // Hopefully normal date api?
-    implementation 'net.danlew:android.joda:2.14.2'
+    implementation 'net.danlew:android.joda:2.14.2.1'
 
     // Biometric api to protect account id
     implementation "androidx.biometric:biometric-ktx:1.4.0-alpha02"
