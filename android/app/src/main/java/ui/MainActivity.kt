@@ -21,6 +21,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.view.WindowManager
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
@@ -83,6 +84,18 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.container_fragment, FlutterHomeFragment())
             .commit()
+
+        // Always-enabled callback: back is fully resolved by the Flutter side,
+        // never by the system (required since targetSdk 36 no longer delivers
+        // back events to the deprecated onBackPressed override).
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (stage.goBack()) return
+                lifecycleScope.launch {
+                    commands.execute(CommandName.BACK)
+                }
+            }
+        })
     }
 
     private var splashFallbackRunnable: Runnable? = null
@@ -172,16 +185,6 @@ class MainActivity : AppCompatActivity() {
         }
         context.unsetActivityContext()
         super.onDestroy()
-    }
-
-    @Deprecated("This method has been deprecated in favor of using the\n      {@link OnBackPressedDispatcher} via {@link #getOnBackPressedDispatcher()}.\n      The OnBackPressedDispatcher controls how back button events are dispatched\n      to one or more {@link OnBackPressedCallback} objects.")
-    override fun onBackPressed() {
-        if (stage.goBack()) return
-        lifecycleScope.launch {
-            commands.execute(CommandName.BACK)
-        }
-        return
-        super.onBackPressed()
     }
 
     @Deprecated("This method has been deprecated in favor of using the Activity Result API\n      which brings increased type safety via an {@link ActivityResultContract} and the prebuilt\n      contracts for common intents available in\n      {@link androidx.activity.result.contract.ActivityResultContracts}, provides hooks for\n      testing, and allow receiving results in separate, testable classes independent from your\n      activity. Use\n      {@link #registerForActivityResult(ActivityResultContract, ActivityResultCallback)}\n      with the appropriate {@link ActivityResultContract} and handling the result in the\n      {@link ActivityResultCallback#onActivityResult(Object) callback}.")
