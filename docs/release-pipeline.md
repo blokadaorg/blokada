@@ -10,8 +10,14 @@ promote-only release step:
   Android) and uploads them to Play **internal** and **TestFlight**. Nothing is
   published and nothing is submitted for review.
 - **Releasing** never builds. It takes a build number that is already uploaded
-  and promotes it: to Play `alpha` + `beta`, and to an App Store version that is
+  and releases it: to Play `alpha` + `beta`, and to an App Store version that is
   optionally submitted for review. Publishing is always a manual click.
+
+The pipeline stops at Play `alpha`/`beta` and at an App Store version in
+Pending Developer Release. **Neither reaches production.** Promoting an
+alpha/beta release to Play `production`, and releasing an approved App Store
+version, are console actions with no automation here at all — see
+[Reaching production](#reaching-production).
 
 The point is that the binary you ship is the exact binary that has been sitting
 on internal, not a fresh build that merely came from the same commit.
@@ -97,12 +103,21 @@ which is `669000000 + N` — but iOS does, because `deliver` looks a build up by
 Properties that matter:
 
 - **Forever increasing**, independent of any GitHub counter.
-- **Re-run safe** — a re-run allocates a *fresh* number, which is correct.
+- **Re-run safe** — *"Re-run all jobs"* re-runs `allocate` and takes a fresh
+  number, which is correct. *"Re-run failed jobs"* does **not**: it reuses the
+  cached output of the successful `allocate` job and carries the same number.
+  That is harmless when the upload never happened (the point of the re-run),
+  and a duplicate-version-code rejection from Play when it did. If an upload
+  succeeded, re-run *all* jobs.
 - **Atomic** — the tag push either wins or fails, so it doubles as the lock.
-- **Auditable** — `build/1042` points at the exact commit that produced it.
+- **Auditable** — `build/1042` points at the exact commit that produced it, and
+  `release.yml` puts the human-facing `26.7.1042` tag on that same commit
+  rather than on whatever `main` happens to be at release time.
 
 Failed runs leave an orphan `build/N` with no matching release tag. That is
-expected; numbers are cheap and gaps are meaningless.
+expected; numbers are cheap and gaps are meaningless. It does mean
+`build_number: latest` can name a build that was never uploaded — see
+[Releasing](#workflow-b--releaseyml).
 
 Rejected alternatives: `GITHUB_RUN_NUMBER` reuses values on re-run and resets to
 1 if the workflow file is ever renamed or recreated, which would send codes
@@ -127,12 +142,20 @@ Dependabot merges get proven end-to-end too.
 
 ```yaml
 concurrency:
-  group: ci-release
+  group: store-publish
   cancel-in-progress: false
 ```
 
 Cancelling mid-flight would strand a consumed build number and a half-finished
 upload, so runs queue instead.
+
+The group is **shared with `release.yml`**, deliberately. Both workflows write
+the same Play packages, and Play invalidates an open edit whose underlying app
+state changed, so a merge landing mid-release would break one side or the other
+with a confusing error. The consequence to accept: a merge to `main` that lands
+during a release waits for the whole release to finish before it starts
+building, and a release dispatched during a merge build waits for that build.
+Nothing is ever cancelled.
 
 Jobs:
 
@@ -166,7 +189,13 @@ minutes and at least two run concurrently, so a four-artifact matrix lands
 around 15-25 minutes wall-clock. That is comfortably absorbable.
 
 Consumes ~600 build numbers and ~600 `build/N` tags per year. The numbers are
-free; the tags are noise and can be pruned.
+free. **The tags are not noise and must not be pruned** — they are the
+counter's only persistent state. `highest()` reads them off the remote, so
+deleting the highest one makes the next allocation fall back to `--start 1000`
+and re-issue store codes that are already published, which Play will reject
+forever after. If tags are ever pruned anyway, the `--start` floor in
+`ci-release.yml` must be raised above the highest build number ever published,
+in the same commit.
 
 ## Workflow B — `release.yml`
 
@@ -174,7 +203,7 @@ Trigger: `workflow_dispatch` only.
 
 | Input | Default | Meaning |
 |---|---|---|
-| `build_number` | latest | Which already-uploaded build to promote |
+| `build_number` | latest | Which already-uploaded build to release |
 | `flavor` | `all` | `all`, `six`, `family` |
 | `platform` | `all` | `all`, `ios`, `android` |
 | `submit_ios_for_review` | **false** | Whether to submit the App Store version |
@@ -182,18 +211,95 @@ Trigger: `workflow_dispatch` only.
 Defaults give the standard sequence with no input at all. The flavor/platform
 narrowing is the manual-override path.
 
-This workflow **never builds**. Both stores support promoting an existing
+**`latest` resolves the newest *tag*, not the newest successful build.** The
+number is allocated before anything is built, so if that `ci-release` run
+failed, `build/N` is an orphan: nothing was uploaded under it and the release
+fails. Before dispatching with the default, check that the `ci-release` run for
+that build number was green. `build_number` also accepts an explicit number,
+which is the way to release a specific older build.
+
+This workflow **never builds**. Both stores support releasing an existing
 build:
 
-- **Android** — `--track internal --track_promote_to <alpha|beta> --version_code N --skip_upload_aab`
-- **iOS** — `deliver(build_number: N, skip_binary_upload: true)`
+- **Android** — write the target track directly:
+  `--track <alpha|beta> --version_codes_to_retain N --skip_upload_aab --skip_upload_apk`
+- **iOS** — `deliver(build_number: N, skip_binary_upload: true)`, then attach
+  the build to the version explicitly (see below)
 
-On success it pushes the record tag `26.7.1042`, using the version name read
-back from the `build/N` annotation rather than one recomputed from today's date.
+On success it pushes the record tag `26.7.1042` **on the commit `build/1042`
+points at**, not on `main` at release time — those differ by however many
+merges landed during the soak. The version name comes from the `build/N`
+annotation rather than being recomputed from today's date.
 
 Both `org.blokada.sex` and `org.blokada.family` have `alpha` and `beta` tracks
-in Play Console (confirmed 2026-07-28), so `promote_track` will not fail with
-`Cannot promote from track 'X' - track doesn't exist`.
+in Play Console (confirmed 2026-07-28).
+
+### Reaching production
+
+**The pipeline never touches production on either store.** `release.yml` ends
+with:
+
+- Play: a release on `alpha` and `beta`, submitted for review.
+- App Store: a version with the build attached, either still editable or — with
+  `submit_ios_for_review: true` and once approved — in Pending Developer
+  Release.
+
+Getting from there to users is entirely manual, in the two consoles:
+
+- **Play production** — Play Console → *Production* → *Create new release* →
+  add the reviewed version code → *Start rollout*. There is no make target, no
+  lane and no workflow input for this, by design.
+- **App Store** — App Store Connect → *Release this version*, because
+  `automatic_release: false`.
+
+"Publishing is always a manual click" refers to exactly these two actions.
+
+### Why Android writes the track instead of promoting
+
+The obvious mechanism — `--track internal --track_promote_to alpha` — only
+works for the newest build, which makes it useless here.
+
+`promote_track` (`supply/lib/supply/uploader.rb`) reads
+`client.tracks('internal').first.releases` and filters by version code. But
+every continuous upload calls `update_track`, which assigns
+`track.releases = [track_release]`, and Play's `edits.tracks.update` drops
+releases that are omitted. So the moment the next merge uploads build N+1,
+build N is no longer on internal, and promoting it fails with
+*"Track 'internal' doesn't have any releases"*. At 2-3 merges per working day
+that is the normal soak-then-release case, not an edge case.
+
+Writing the target track directly needs no source-track membership. With both
+uploads skipped, `perform_upload` starts from an empty `apk_version_codes`,
+`apk_version_codes.concat(version_codes_to_retain)` makes it `[N]`, and the
+non-empty branch calls `update_track` on the target track followed by
+`perform_upload_meta([N], <target>)` — so changelogs still attach exactly as
+they did on the promote path.
+
+`make promote-android` runs `scripts/verify-play-version-code.py` first, which
+lists the package's uploaded bundles and APKs over the Play API and fails
+naming the code if it is not among them. Without it, a code that was never
+uploaded surfaces as a generic Play track error that says nothing about where
+the code should have come from.
+
+### Why iOS attaches the build explicitly
+
+`deliver` selects a build **only** inside its submit-for-review step:
+`Runner#run` calls `submit_for_review` under
+`if options[:submit_for_review] && precheck_success` (runner.rb:71), and
+`options[:build_number]` is read nowhere else in deliver. With
+`submit_for_review: false` — the default — deliver would create the App Store
+version, upload the metadata, report success, and leave the version with **no
+binary attached**.
+
+So each promote lane attaches the build itself after `deliver`, using the same
+`Spaceship::ConnectAPI` calls deliver's own `select_build` uses: find the app by
+bundle id, take the editable App Store version for iOS, look the build up by
+`app_version` + `build_number`, select it on the version. Re-selecting an
+already-selected build is the same PATCH with the same value, so re-runs are
+safe. A build that has not finished processing fails with a message saying so.
+The step is skipped when `submit_for_review` is on, because deliver's own
+submit flow selects the build and then moves the version out of an editable
+state.
 
 ### Why the tag trigger is removed
 
@@ -215,9 +321,10 @@ old patches are <= 75, new ones start at 1000.
 |---|---|---|
 | `version` | both | unchanged |
 | `publish-android` | merge | internal only; **remove** the promote loop added on this branch, and add the metadata skip flags |
-| `promote-android` | release | **new** — the promote loop moves here, plus metadata/changelogs |
+| `promote-android` | release | **new** — preflight the code, then write `alpha`/`beta` directly with `--version_codes_to_retain`, plus metadata/changelogs |
 | `publish-ios-testflight` | merge | **new** — `upload_to_testflight` lane |
-| `promote-ios` | release | **renamed from `publish-ios`** — `deliver` with `build_number`, `skip_binary_upload`, optional `submit_for_review` |
+| `promote-ios` | release | **renamed from `publish-ios`** — `deliver` with `build_number`, `skip_binary_upload`, optional `submit_for_review`, then an explicit build attach |
+| `test-scripts` | neither | **new** — runs `test-build-number.sh` and `test-version.sh`; wired into PR CI on `ubuntu-latest` |
 
 ### iOS submission settings
 
@@ -236,25 +343,44 @@ relying on the console value, so CI is self-contained.
 
 ### Play release notes wrinkle
 
-This is the fiddliest part of the split. Promotion copies the whole release
-object, so a promoted release inherits the release notes of the internal
-release — and under this design the internal upload skips changelogs, so there
-are none. The release job must therefore upload changelogs against the promoted
-track, by passing `--metadata_path metadata/android-<flavor>` with
-`--skip_upload_images true --skip_upload_screenshots true` on the promote run.
+This is the fiddliest part of the split. The internal upload deliberately skips
+changelogs, so nothing the release step could inherit carries release notes.
+The release job therefore uploads changelogs against the track it writes, by
+passing `--metadata_path metadata/android-<flavor>` with
+`--skip_upload_images true --skip_upload_screenshots true`.
+
+That still works when the track is written directly rather than promoted:
+`perform_upload_meta` is called with the version codes and the track that
+`perform_upload` just updated, so it finds the release it created a moment
+earlier and attaches the notes to it.
 
 ## Platform behaviour this design depends on
 
 Verified against fastlane 2.232.0 as installed, not from documentation.
 
-- **`track_promote_to` does not remove the build from the source track.**
-  `promote_track` in `supply/lib/supply/uploader.rb` reads the release from the
-  source and calls only `client.update_track(track_promote_to, ...)`. This is
-  what allows one build to sit on internal, alpha and beta at once.
+- **`update_track` replaces a track's release list.** `uploader.rb#update_track`
+  assigns `track.releases = [track_release]`, and Play drops releases omitted
+  from `edits.tracks.update`. So internal only ever holds the newest build, and
+  `--track_promote_to` — which reads the source track's releases — can only
+  promote that one. This is why the release step writes the target track
+  directly instead.
+- **`version_codes_to_retain` alone is enough to write a track.**
+  `perform_upload` concatenates it into `apk_version_codes` after the (skipped)
+  uploads, so a non-empty list routes to `update_track` on `--track` and then
+  `perform_upload_meta(codes, track)`. No source track is read at any point.
 - **`rescue_changes_not_sent_for_review` defaults to `true`.** On a *"Please set
   the query parameter changesNotSentForReview to true"* refusal, supply silently
   re-commits with the flag set and exits 0 — a green run with an unsubmitted
-  build. Every promote run must set it to `false`.
+  build. Every release run must set it to `false`.
+- **`deliver` attaches a build only when submitting for review.**
+  `Runner#run` (runner.rb:71) calls `submit_for_review` under
+  `if options[:submit_for_review] && precheck_success`, and `build_number` is
+  consumed only inside `submit_for_review.rb`. With submit off, deliver uploads
+  metadata and reports success without attaching any binary, so the lane has to
+  attach it itself.
+- **`CommandLineHandler.convert_value` coerces `true`/`false` on the CLI.**
+  `fastlane <lane> submit_for_review:true` reaches the lane as the Ruby boolean
+  `true`, not the string, so lane options have to be compared with `.to_s`.
 - **`metadata_path` defaults to `(Dir["./fastlane/metadata/android"] + Dir["./metadata"]).first`.**
   This repo has `./metadata`, whose children are `android-six`, `ios-family`,
   etc. Omitting the flag makes supply treat those directory names as locale
@@ -262,34 +388,37 @@ Verified against fastlane 2.232.0 as installed, not from documentation.
 - **`deliver` refuses concurrent submissions** — `submit_for_review.rb` errors
   with *"A review submission is already in progress"*. Clean, legible failure.
 - **`workflow_dispatch` requires the workflow file on the default branch**;
-  `push` does not. This shapes the test plan below.
-- **TestFlight builds expire after 90 days**, so promote-only has a shelf life.
-  Irrelevant at 2-3 builds/day, but it means a very old build cannot be shipped.
+  `push` does not. This shaped the pre-merge validation below.
+- **TestFlight builds expire after 90 days.** This is an **iOS-only** limit: a
+  build older than 90 days is gone from TestFlight and cannot be attached to an
+  App Store version, so release-only has a shelf life on that platform.
+- **Android has no equivalent expiry, but internal membership is not durable.**
+  An uploaded bundle stays in Play's bundle explorer indefinitely and stays
+  releasable by version code for as long as it satisfies Play's minimum
+  `targetSdk` policy for new releases. What it does *not* keep is its place on
+  the internal track — the next merge evicts it (see `update_track` above) —
+  which is why nothing in the release path reads a source track.
 
-## Testing before merge
+## How this was validated before merge
 
-`ci-release.yml` is testable from the branch by temporarily widening its
-trigger:
+Historical record, not an instruction. Nothing here is pending.
 
-```yaml
-on:
-  push:
-    branches: [main, 'feat/release-pipeline']   # TEMPORARY
-```
+`ci-release.yml` was exercised from the branch by temporarily adding
+`feat/release-pipeline` to its `push.branches`. Push-triggered workflows run
+from the file on the pushed branch, so this ran the real flow rather than a
+simulation: real builds, real uploads, real build numbers. The run was green
+and allocated `build/1000`, annotated `26.7.1000`, with all four artifacts
+(six + family × iOS + Android) uploaded to Play internal and TestFlight. The
+branch trigger was then removed in `958d8f98`, and `ci-release.yml` fires on
+`main` only.
 
-Push-triggered workflows run from the file on the pushed branch, so this
-exercises the real flow: real builds, real uploads to Play internal and
-TestFlight, real build numbers.
+`release.yml` could not be dispatched before merge — `workflow_dispatch`
+requires the workflow file on the default branch. It is inert on `main` (it
+cannot fire by itself), so it lands unexercised by design; its first real run
+is the first release.
 
-`release.yml` cannot be dispatched before it is on `main`. Because it is
-dispatch-only it is **inert on main** — it cannot fire by itself — so merging it
-early is safe and is the only way to test the workflow wiring rather than just
-the make targets.
-
-Two things to accept while testing: internal testers will see branch builds, and
-build numbers get consumed (they are free).
-
-**Removing the temporary trigger is a required final commit before merge.**
+Accepted while validating: internal testers saw branch builds, and build
+numbers were consumed (they are free).
 
 ## Sequencing
 
@@ -321,9 +450,11 @@ point means picking a new counter above the highest published value.
 
 ## Known risks
 
-- Forgetting to remove the temporary branch trigger (mitigated by making it the
-  final commit).
 - The first post-migration run must produce a code above `669000015`; the
   starting value of 1000 gives a wide margin.
 - Store-listing changes reach production only via a release run, so a listing
   fix now requires a release rather than a merge.
+- Deleting `build/*` tags breaks the allocator irrecoverably. See
+  [Cost](#cost).
+- A release and a merge now serialise on one concurrency group, so a merge that
+  lands mid-release waits for the whole release to finish.
