@@ -246,7 +246,7 @@ promote-android:
 	fi
 	@PKG=$(if $(filter family,$(FLAVOR)),org.blokada.family,org.blokada.sex); \
 	STORE_CODE=$$(( $(VERSION_CODE_OFFSET) + $(BLOKADA_VERSION_CODE) )); \
-	./scripts/verify-play-version-code.py \
+	./scripts/verify-play-version-code.rb \
 	    --json-key blokada-gplay.json \
 	    --package-name "$$PKG" \
 	    --version-code $$STORE_CODE || exit 1; \
