@@ -227,9 +227,29 @@ Trigger: `workflow_dispatch` only.
 | `flavor` | `all` | `all`, `six`, `family` |
 | `platform` | `all` | `all`, `ios`, `android` |
 | `submit_ios_for_review` | **false** | Whether to submit the App Store version |
+| `ios_phased_release` | **true** | Ramp the iOS update over 7 days |
 
 Defaults give the standard sequence with no input at all. The flavor/platform
 narrowing is the manual-override path.
+
+The two iOS flags default opposite ways so that an unset value is the cautious
+answer for each: submitting for review takes an explicit opt-in, while the
+phased ramp takes an explicit opt-out.
+
+### iOS phased release
+
+`deliver` only touches the setting when the option is non-nil
+(`deliver/upload_metadata.rb:314`), so passing nothing leaves whatever App Store
+Connect happens to have on that version. This workflow always passes a real
+boolean instead, so the input decides rather than a per-version setting somebody
+clicked months ago. The consequence worth knowing: `false` does not mean "leave
+alone", it **deletes** an existing phased release.
+
+The ramp governs **automatic updates for existing users only** — anyone who
+updates by hand or installs fresh gets the build immediately regardless. It runs
+7 days, and it can be paused or pushed to everyone from App Store Connect once
+the release is out, so this input sets the starting position rather than an
+irreversible choice.
 
 **`latest` resolves the newest *tag*, not the newest successful build.** The
 number is allocated before anything is built, so if that `ci-release` run
