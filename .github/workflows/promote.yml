@@ -1,4 +1,4 @@
-name: Release
+name: Promote to Stores
 
 # Promotes a build that ci-release.yml already uploaded. Never builds, so the
 # binary that ships is the exact one that has been sitting on internal.
