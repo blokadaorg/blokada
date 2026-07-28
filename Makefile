@@ -208,34 +208,48 @@ publish-android:
 	--skip_upload_screenshots true
 	$(MAKE) gplay-key-clean
 
-# Promote an already-uploaded build to the review-gated tracks (use FLAVOR and
+# Release an already-uploaded build to the review-gated tracks (use FLAVOR and
 # BLOKADA_VERSION_CODE, the raw build number).
 #
 # A version code can only be *uploaded* once, so this references the existing
-# code rather than re-uploading -- hence --track_promote_to with
-# --skip_upload_aab. Despite the name, promoting does not remove the build from
-# the source track (supply/lib/supply/uploader.rb#promote_track only writes the
-# target track), so the build ends up on internal, alpha and beta.
+# code rather than re-uploading. It deliberately does NOT copy from internal
+# with --track_promote_to: supply's promote_track reads the source track's
+# release list, and every continuous upload replaces it wholesale
+# (supply/lib/supply/uploader.rb#update_track assigns `track.releases =
+# [track_release]`, and Play drops releases omitted from edits.tracks.update).
+# One merge later, build N is no longer on internal, and promoting it fails
+# with "Track 'internal' doesn't have any releases" -- at 2-3 merges a day
+# that is the normal soak-then-release case, not an edge case.
 #
-# Metadata and changelogs are NOT skipped here: promotion copies the release
-# object, and the internal release deliberately carries no notes, so release
-# notes have to be attached at this point.
+# Writing the target track directly needs no source-track membership. With
+# both uploads skipped, uploader.rb#perform_upload starts with an empty
+# apk_version_codes, then `apk_version_codes.concat(version_codes_to_retain)`
+# makes it [STORE_CODE]; that takes the non-empty branch, so it calls
+# update_track on --track (the target) and perform_upload_meta([STORE_CODE],
+# target), which attaches changelogs exactly as the promote path did.
+#
+# Metadata and changelogs are NOT skipped here: the internal release
+# deliberately carries no notes, so release notes have to be attached at this
+# point.
 promote-android:
 	$(MAKE) gplay-key-unpack
 	@if [ -z "$(BLOKADA_VERSION_CODE)" ]; then \
-	    echo "Error: BLOKADA_VERSION_CODE is not set. It is required to promote to: $(GPLAY_PROMOTE_TRACKS)"; \
+	    echo "Error: BLOKADA_VERSION_CODE is not set. It is required to release to: $(GPLAY_PROMOTE_TRACKS)"; \
 	    exit 1; \
 	fi
 	@PKG=$(if $(filter family,$(FLAVOR)),org.blokada.family,org.blokada.sex); \
 	STORE_CODE=$$(( $(VERSION_CODE_OFFSET) + $(BLOKADA_VERSION_CODE) )); \
+	./scripts/verify-play-version-code.py \
+	    --json-key blokada-gplay.json \
+	    --package-name "$$PKG" \
+	    --version-code $$STORE_CODE || exit 1; \
 	for track in $(GPLAY_PROMOTE_TRACKS); do \
-	    echo "==> Promoting store code $$STORE_CODE to '$$track' and submitting for review"; \
+	    echo "==> Releasing store code $$STORE_CODE to '$$track' and submitting for review"; \
 	    $(FASTLANE) supply \
 	        --package_name "$$PKG" \
 	        --json_key blokada-gplay.json \
-	        --track internal \
-	        --track_promote_to $$track \
-	        --version_code $$STORE_CODE \
+	        --track $$track \
+	        --version_codes_to_retain $$STORE_CODE \
 	        --metadata_path metadata/android-$(FLAVOR) \
 	        --skip_upload_aab true \
 	        --skip_upload_apk true \
