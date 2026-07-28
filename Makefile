@@ -23,7 +23,7 @@ ADAPTY_VER := 3_8.0
 	sign-ios-frameworks \
 	version version-clean \
 	publish-android promote-android gplay-key-unpack gplay-key-clean \
-	publish-ios publish-ios-testflight appstore-key-unpack appstore-key-clean fastlane-match \
+	promote-ios publish-ios-testflight appstore-key-unpack appstore-key-clean fastlane-match \
 	build-android-family-debug build-android-six-debug \
 	build-android-family-quick build-android-six-quick \
 	build-android-family-debug-quick build-android-six-debug-quick \
@@ -257,11 +257,21 @@ gplay-key-unpack:
 gplay-key-clean:
 	rm -rf blokada-gplay.json
 
-# Publish ios app to AppStore TestFlight (use FLAVOR param)
-publish-ios:
+# Attach an already-uploaded build to an App Store version (use FLAVOR,
+# BLOKADA_VERSION_CODE as the raw build number, BLOKADA_VERSION_NAME, and
+# SUBMIT_FOR_REVIEW=true|false). Never builds or uploads a binary.
+promote-ios:
 	$(MAKE) appstore-key-unpack
+	@if [ -z "$(BLOKADA_VERSION_CODE)" ] || [ -z "$(BLOKADA_VERSION_NAME)" ]; then \
+	    echo "Error: promote-ios needs BLOKADA_VERSION_CODE and BLOKADA_VERSION_NAME"; \
+	    exit 1; \
+	fi
 	@LANE=$(if $(filter family,$(FLAVOR)),publish_ios_family,publish_ios_six); \
-	cd ios/ && $(FASTLANE) $$LANE
+	STORE_CODE=$$(( $(VERSION_CODE_OFFSET) + $(BLOKADA_VERSION_CODE) )); \
+	cd ios/ && $(FASTLANE) $$LANE \
+	    build_number:$$STORE_CODE \
+	    version_name:$(BLOKADA_VERSION_NAME) \
+	    submit_for_review:$(if $(filter true,$(SUBMIT_FOR_REVIEW)),true,false)
 	$(MAKE) appstore-key-clean
 
 # Upload an already-built IPA to TestFlight (use FLAVOR param). Continuous

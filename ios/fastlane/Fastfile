@@ -37,30 +37,56 @@ platform :ios do
     build_app(workspace: "IOS.xcworkspace", scheme: "FamilyProd")
   end
 
-  lane :publish_ios_six do
-   deliver(
-      ipa: "Blokada 6.ipa",
+  # Release path: attach an already-uploaded build to an App Store version.
+  #
+  # skip_binary_upload with build_number promotes rather than re-uploads, so we
+  # ship the exact binary that has been on TestFlight. app_version must be the
+  # name baked in at build time -- deliver looks a build up by the pair.
+  #
+  # automatic_release: false leaves an approved build in Pending Developer
+  # Release. Publishing is always a manual click.
+  #
+  # Export compliance needs no entry here: ITSAppUsesNonExemptEncryption is
+  # already <false/> in Info-six.plist and Info-family.plist, so App Store
+  # Connect never asks.
+  lane :publish_ios_six do |options|
+    deliver(
       app_identifier: "net.blocka.app",
       metadata_path: "../metadata/ios-six/",
       api_key_path: "./blokada-appstore.json",
+      app_version: options[:version_name],
+      build_number: options[:build_number],
+      skip_binary_upload: true,
       skip_screenshots: true,
       skip_app_version_update: false,
       force: true, # skips verification of HTML preview file
-      run_precheck_before_submit: false # not supported through ASC API yet
-   )
+      run_precheck_before_submit: false, # not supported through ASC API yet
+      submit_for_review: options[:submit_for_review] == "true",
+      automatic_release: false,
+      submission_information: {
+        content_rights_contains_third_party_content: false
+      }
+    )
   end
 
-  lane :publish_ios_family do
-   deliver(
-      ipa: "Blokada Family.ipa",
+  lane :publish_ios_family do |options|
+    deliver(
       app_identifier: "net.blocka.app.family",
       metadata_path: "../metadata/ios-family/",
       api_key_path: "./blokada-appstore.json",
+      app_version: options[:version_name],
+      build_number: options[:build_number],
+      skip_binary_upload: true,
       skip_screenshots: true,
       skip_app_version_update: false,
-      force: true, # skips verification of HTML preview file
-      run_precheck_before_submit: false # not supported through ASC API yet
-   )
+      force: true,
+      run_precheck_before_submit: false,
+      submit_for_review: options[:submit_for_review] == "true",
+      automatic_release: false,
+      submission_information: {
+        content_rights_contains_third_party_content: false
+      }
+    )
   end
 
   # Continuous path: upload to TestFlight only, run on every merge to main.

@@ -217,7 +217,7 @@ old patches are <= 75, new ones start at 1000.
 | `publish-android` | merge | internal only; **remove** the promote loop added on this branch, and add the metadata skip flags |
 | `promote-android` | release | **new** — the promote loop moves here, plus metadata/changelogs |
 | `publish-ios-testflight` | merge | **new** — `upload_to_testflight` lane |
-| `publish-ios` | release | extend `deliver` with `build_number`, `skip_binary_upload`, optional `submit_for_review` |
+| `promote-ios` | release | **renamed from `publish-ios`** — `deliver` with `build_number`, `skip_binary_upload`, optional `submit_for_review` |
 
 ### iOS submission settings
 
