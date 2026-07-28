@@ -29,6 +29,19 @@ if [ "$CMD" = "resolve" ]; then
   TARGET=${1:-}
   [ -n "$TARGET" ] || usage
   shift || true
+
+  # The target is interpolated into a `git fetch` refspec and a `git tag -l`
+  # pattern, so it has to be a single build number and nothing else. `*` would
+  # otherwise match every build tag and print one `version_name=` line per tag
+  # into $GITHUB_OUTPUT.
+  if [ "$TARGET" != "latest" ]; then
+    case "$TARGET" in
+      *[!0-9]*)
+        echo "Error: build number must be 'latest' or a non-negative integer, got '$TARGET'" >&2
+        exit 2
+        ;;
+    esac
+  fi
 fi
 
 while [ $# -gt 0 ]; do

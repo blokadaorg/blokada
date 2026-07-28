@@ -75,6 +75,20 @@ if "$SCRIPT" resolve 4242 >/dev/null 2>&1; then
   echo "FAIL: resolve of a missing tag should exit non-zero"; exit 1
 fi
 
+# resolve must reject anything that is not `latest` or a plain integer. The
+# target is interpolated straight into a `git fetch` refspec and a
+# `git tag -l` pattern, so an unvalidated `*` matches every build tag and
+# emits a multi-line `version_name=` into $GITHUB_OUTPUT, which GitHub then
+# reads as an arbitrary set of step outputs.
+for bad in '*' 'build/2000' '2000 2001' '-1' '2000.0' 'latest '; do
+  if out=$("$SCRIPT" resolve "$bad" 2>&1); then
+    echo "FAIL: resolve should reject '$bad' but succeeded: $out"; exit 1
+  fi
+  echo "$out" | grep -q 'version_name=' && { echo "FAIL: resolve '$bad' leaked an output line: $out"; exit 1; }
+  echo "$out" | grep -q "must be 'latest' or a non-negative integer" \
+    || { echo "FAIL: resolve '$bad' gave no validation message: $out"; exit 1; }
+done
+
 # A single lost race (the remote rejects the first push of the number the
 # script picked) must be recovered silently: the delete-local-tag / re-read /
 # backoff branch runs once, and the allocator still returns a well-formed,
