@@ -111,7 +111,7 @@ Properties that matter:
   succeeded, re-run *all* jobs.
 - **Atomic** — the tag push either wins or fails, so it doubles as the lock.
 - **Auditable** — `build/1042` points at the exact commit that produced it, and
-  `release.yml` puts the human-facing `26.7.1042` tag on that same commit
+  `promote.yml` puts the human-facing `26.7.1042` tag on that same commit
   rather than on whatever `main` happens to be at release time.
 
 Failed runs leave an orphan `build/N` with no matching release tag. That is
@@ -149,7 +149,7 @@ concurrency:
 Cancelling mid-flight would strand a consumed build number and a half-finished
 upload, so runs queue instead.
 
-The group is **shared with `release.yml`**, deliberately. Both workflows write
+The group is **shared with `promote.yml`**, deliberately. Both workflows write
 the same Play packages, and Play invalidates an open edit whose underlying app
 state changed, so a merge landing mid-release would break one side or the other
 with a confusing error. The consequence to accept: a merge to `main` that lands
@@ -217,7 +217,7 @@ forever after. If tags are ever pruned anyway, the `--start` floor in
 `ci-release.yml` must be raised above the highest build number ever published,
 in the same commit.
 
-## Workflow B — `release.yml`
+## Workflow B — `promote.yml`
 
 Trigger: `workflow_dispatch` only.
 
@@ -256,7 +256,7 @@ in Play Console (confirmed 2026-07-28).
 
 ### Reaching production
 
-**The pipeline never touches production on either store.** `release.yml` ends
+**The pipeline never touches production on either store.** `promote.yml` ends
 with:
 
 - Play: a release on `alpha` and `beta`, submitted for review.
@@ -440,7 +440,7 @@ and allocated `build/1000`, annotated `26.7.1000`, with all four artifacts
 branch trigger was then removed in `958d8f98`, and `ci-release.yml` fires on
 `main` only.
 
-`release.yml` could not be dispatched before merge — `workflow_dispatch`
+`promote.yml` could not be dispatched before merge — `workflow_dispatch`
 requires the workflow file on the default branch. It is inert on `main` (it
 cannot fire by itself), so it lands unexercised by design; its first real run
 is the first release.
@@ -455,7 +455,7 @@ numbers were consumed (they are free).
 | 1 | Restructure the Play work: move promote out of `publish-android` into `promote-android` | Already written; wrong location under the new design |
 | 2 | Versioning: allocator + `YY.M.BUILD` | Foundational and irreversible — codes only ever go up |
 | 3 | `ci-release.yml` | Proves the upload path continuously |
-| 4 | `release.yml`, submit off by default | Safest last; needs real builds from step 3 to promote |
+| 4 | `promote.yml`, submit off by default | Safest last; needs real builds from step 3 to promote |
 
 ## Failure semantics
 
