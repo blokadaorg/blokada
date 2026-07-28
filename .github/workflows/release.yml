@@ -53,29 +53,37 @@ jobs:
 
       - name: Resolve build number
         id: r
+        env:
+          BUILD_NUMBER_INPUT: ${{ inputs.build_number }}
         run: |
           set -euo pipefail
-          ./scripts/build-number.sh resolve "${{ inputs.build_number }}" >> "$GITHUB_OUTPUT"
+          ./scripts/build-number.sh resolve "$BUILD_NUMBER_INPUT" >> "$GITHUB_OUTPUT"
           cat "$GITHUB_OUTPUT"
 
       - name: Compute flavor matrix
         id: matrix
+        env:
+          FLAVOR_INPUT: ${{ inputs.flavor }}
         run: |
           set -euo pipefail
-          if [ "${{ inputs.flavor }}" = "all" ]; then
+          if [ "$FLAVOR_INPUT" = "all" ]; then
             echo 'flavors=["six","family"]' >> "$GITHUB_OUTPUT"
           else
-            echo 'flavors=["${{ inputs.flavor }}"]' >> "$GITHUB_OUTPUT"
+            echo "flavors=[\"$FLAVOR_INPUT\"]" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Summary
+        env:
+          FLAVOR_INPUT: ${{ inputs.flavor }}
+          PLATFORM_INPUT: ${{ inputs.platform }}
+          SUBMIT_IOS_FOR_REVIEW_INPUT: ${{ inputs.submit_ios_for_review }}
         run: |
           {
             echo "### Release"
             echo "- build: \`${{ steps.r.outputs.build_number }}\`"
             echo "- version: \`${{ steps.r.outputs.version_name }}\`"
-            echo "- flavor: \`${{ inputs.flavor }}\` · platform: \`${{ inputs.platform }}\`"
-            echo "- submit iOS for review: \`${{ inputs.submit_ios_for_review }}\`"
+            echo "- flavor: \`$FLAVOR_INPUT\` · platform: \`$PLATFORM_INPUT\`"
+            echo "- submit iOS for review: \`$SUBMIT_IOS_FOR_REVIEW_INPUT\`"
           } >> "$GITHUB_STEP_SUMMARY"
 
   promote_android:
