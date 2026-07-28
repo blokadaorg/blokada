@@ -157,10 +157,17 @@ during a release waits for the whole release to finish before it starts
 building, and a release dispatched during a merge build waits for that build.
 
 `cancel-in-progress: false` protects the *running* job, not the queue. GitHub
-keeps at most one **pending** run per group: when a second merge lands while a
-release still holds `store-publish`, the first merge's pending run is cancelled
-outright, and that commit is never built or uploaded. Only the newest queued
-commit survives the wait.
+keeps at most one **pending** run per group, and a newly queued run evicts the
+one already waiting. That cuts both ways:
+
+- A second merge landing while a release holds `store-publish` cancels the first
+  merge's pending run, and that commit is never built or uploaded. Only the
+  newest queued commit survives the wait.
+- A release dispatched while a build holds the group is equally evictable: if a
+  merge lands after the dispatch, the pending **release** run is cancelled. This
+  is the direction that surprises people — the release simply disappears from
+  the queue rather than failing. Nothing is left half-done, since the release is
+  promote-only, but it has to be dispatched again.
 
 That partially undercuts the "no path filters, every commit on `main` is proven
 publishable" decision above: during a release window, intermediate commits can
