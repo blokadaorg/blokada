@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Report per-locale translation coverage for the primary languages.
 
-Run at release time (see .github/workflows/release-tag.yml). For each primary
+Run on every merge to main (see the translation_coverage job in
+.github/workflows/ci-release.yml). For each primary
 language in deps/translate/langs.js it compares the committed translation JSON
 under common/assets/translations/{ui,packs,packtags}/ against the English
 baseline (en.json) and reports the percentage of source keys that are present,

@@ -54,6 +54,34 @@ jobs:
             echo "- version: \`${{ steps.alloc.outputs.version_name }}\`"
           } >> "$GITHUB_STEP_SUMMARY"
 
+  translation_coverage:
+    # Informational only: report per-locale coverage for the primary languages
+    # to the run summary and warn (never fail) on anything below 100%, since
+    # translation lag is normal. Independent of the build jobs -- no needs on
+    # allocate, and nothing needs it -- so it runs in parallel and cannot
+    # block this run. Pure python3 -> ubuntu-latest, off the self-hosted pool.
+    #
+    # Moved here from the retired release-tag.yml so lag surfaces on every
+    # merge to main, days before release, instead of only at release time.
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+
+      # Coverage only reads deps/translate/langs.js; skip the heavy siblings.
+      # continue-on-error on both steps keeps this job from ever reddening a
+      # run: a red ci-release run means main is not publishable, and
+      # translation lag -- which is normal -- must never produce that signal.
+      - name: Init deps/translate submodule
+        continue-on-error: true
+        run: git submodule update --init --depth 1 deps/translate
+
+      - name: Report per-locale coverage
+        continue-on-error: true
+        run: python3 .github/scripts/translation_coverage.py
+
   android:
     needs: allocate
     runs-on: [self-hosted, macOS, ARM64, build-only]
