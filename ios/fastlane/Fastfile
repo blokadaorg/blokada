@@ -53,6 +53,16 @@ platform :ios do
   # app_version + build_number, and select it on the version. Selecting a build
   # that is already selected is the same PATCH with the same value, so re-runs
   # are safe.
+  #
+  # api_key_path is relative to the *fastlane folder*, not the project folder:
+  # Runner#execute wraps the whole lane in `Dir.chdir(FastlaneFolder.path)`
+  # (runner.rb:45), which is "./fastlane/" (fastlane_folder.rb:8-16), and
+  # try_switch_to_lane (runner.rb:185) does not chdir back. Only *actions* are
+  # moved up, by execute_action's `custom_dir ||= ".."` (runner.rb:218-229).
+  # So lane-body code like the line below runs in ios/fastlane/ while deliver
+  # runs in ios/ -- hence "../blokada-appstore.json" here but
+  # "./blokada-appstore.json" in the deliver calls. Both land on
+  # ios/blokada-appstore.json, where `make appstore-key-unpack` writes it.
   private_lane :attach_build do |options|
     require "spaceship"
 
@@ -130,7 +140,7 @@ platform :ios do
     # out of an editable state, so only do this on the non-submitting path.
     unless submit
       attach_build(
-        api_key_path: "./blokada-appstore.json",
+        api_key_path: "../blokada-appstore.json", # lane body, not an action -- see attach_build
         bundle_id: "net.blocka.app",
         version_name: options[:version_name],
         build_number: options[:build_number]
@@ -162,7 +172,7 @@ platform :ios do
     )
     unless submit
       attach_build(
-        api_key_path: "./blokada-appstore.json",
+        api_key_path: "../blokada-appstore.json", # lane body, not an action -- see attach_build
         bundle_id: "net.blocka.app.family",
         version_name: options[:version_name],
         build_number: options[:build_number]
