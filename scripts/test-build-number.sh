@@ -15,6 +15,37 @@ git remote add origin "$tmp/remote.git"
 git commit --quiet --allow-empty -m init
 git push --quiet origin HEAD:refs/heads/main
 
+# Installs a pre-receive hook on the throwaway remote that rejects the first
+# $1 pushes of any build/* tag (then accepts), so allocate's retry/backoff
+# path can be exercised deterministically instead of relying on a real race
+# between two concurrent processes.
+install_reject_hook() {
+  printf '%s' "$1" >"$tmp/reject-max"
+  printf '0' >"$tmp/reject-count"
+  cat >"$tmp/remote.git/hooks/pre-receive" <<HOOK
+#!/usr/bin/env bash
+max=\$(cat "$tmp/reject-max")
+count=\$(cat "$tmp/reject-count")
+while read -r old new ref; do
+  case "\$ref" in
+    refs/tags/build/*)
+      if [ "\$count" -lt "\$max" ]; then
+        count=\$((count + 1))
+        printf '%s' "\$count" >"$tmp/reject-count"
+        echo "simulated rejection \$count/\$max for \$ref" >&2
+        exit 1
+      fi
+      ;;
+  esac
+done
+exit 0
+HOOK
+  chmod +x "$tmp/remote.git/hooks/pre-receive"
+}
+remove_reject_hook() {
+  rm -f "$tmp/remote.git/hooks/pre-receive" "$tmp/reject-max" "$tmp/reject-count"
+}
+
 # First allocation starts at the floor.
 out=$("$SCRIPT" allocate --start 1000)
 echo "$out" | grep -qx 'build_number=1000' || { echo "FAIL: first allocate: $out"; exit 1; }
@@ -43,5 +74,33 @@ echo "$out" | grep -qx 'build_number=2000' || { echo "FAIL: resolve latest: $out
 if "$SCRIPT" resolve 4242 >/dev/null 2>&1; then
   echo "FAIL: resolve of a missing tag should exit non-zero"; exit 1
 fi
+
+# A single lost race (the remote rejects the first push of the number the
+# script picked) must be recovered silently: the delete-local-tag / re-read /
+# backoff branch runs once, and the allocator still returns a well-formed,
+# usable result. --start is well above every number used above so the
+# outcome does not depend on prior test ordering.
+install_reject_hook 1
+out=$("$SCRIPT" allocate --start 5500 2>"$tmp/retry.err")
+echo "$out" | grep -qx 'build_number=5500' || { echo "FAIL: retry recovery: $out"; exit 1; }
+grep -q 'was taken, retrying' "$tmp/retry.err" || { echo "FAIL: retry branch not exercised: $(cat "$tmp/retry.err")"; exit 1; }
+remove_reject_hook
+
+# A permanently rejected push (protected tag, revoked credentials, network
+# down -- not a race at all) must exhaust all 5 attempts, exit non-zero, and
+# surface the real git error rather than just the generic retry message.
+# `sleep` is stubbed to keep the exhausted-backoff path from costing 15s of
+# real wall-clock time; it is exported so the child build-number.sh process
+# (also bash) picks it up too.
+install_reject_hook 99
+sleep() { :; }
+export -f sleep
+if err=$("$SCRIPT" allocate --start 6000 2>&1 >/dev/null); then
+  echo "FAIL: allocate should fail when every push is permanently rejected"; exit 1
+fi
+unset -f sleep
+echo "$err" | grep -q 'could not allocate a build number after 5 attempts' || { echo "FAIL: missing final-failure message: $err"; exit 1; }
+echo "$err" | grep -q 'simulated rejection' || { echo "FAIL: real push error not surfaced on terminal failure: $err"; exit 1; }
+remove_reject_hook
 
 echo "PASS: build-number.sh"

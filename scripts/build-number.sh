@@ -50,6 +50,7 @@ highest() {
 
 case "$CMD" in
   allocate)
+    last_push_err=""
     for attempt in 1 2 3 4 5; do
       last=$(highest || true)
       next=$(( ${last:-$((START - 1))} + 1 ))
@@ -57,18 +58,28 @@ case "$CMD" in
       version="$(date +%y).$(date +%-m).$next"
 
       git tag -a "build/$next" -m "$version" 2>/dev/null || git tag -f -a "build/$next" -m "$version"
-      if git push --quiet "$REMOTE" "build/$next" 2>/dev/null; then
+      # Capture the real push output instead of discarding it: a lost race
+      # (expected, quiet) and a genuine infrastructure failure (auth, network,
+      # protected tag) look identical unless we keep the message around for
+      # the terminal failure below.
+      if push_err=$(git push --quiet "$REMOTE" "build/$next" 2>&1); then
         echo "build_number=$next"
         echo "version_name=$version"
         exit 0
       fi
 
-      # Someone else took it. Drop the local tag and re-read.
+      # Someone else took it (or a real failure). Drop the local tag and
+      # re-read; stay quiet here since a lost race is normal on every attempt
+      # but the last one.
       git tag -d "build/$next" >/dev/null 2>&1 || true
       echo "build/$next was taken, retrying ($attempt/5)" >&2
+      last_push_err="$push_err"
       sleep "$attempt"
     done
     echo "Error: could not allocate a build number after 5 attempts" >&2
+    if [ -n "$last_push_err" ]; then
+      echo "Last push error: $last_push_err" >&2
+    fi
     exit 1
     ;;
 
@@ -78,10 +89,17 @@ case "$CMD" in
       [ -n "$TARGET" ] || { echo "Error: no build/* tags on $REMOTE" >&2; exit 1; }
     fi
 
-    git fetch --quiet "$REMOTE" "refs/tags/build/$TARGET:refs/tags/build/$TARGET" 2>/dev/null || true
+    # `+` forces the local ref to match the remote even if a stale local
+    # build/$TARGET already exists (e.g. a persistent self-hosted checkout),
+    # rather than silently keeping the diverged local one.
+    fetch_err=""
+    fetch_err=$(git fetch --quiet "$REMOTE" "+refs/tags/build/$TARGET:refs/tags/build/$TARGET" 2>&1) || true
     version=$(git tag -l --format='%(contents:subject)' "build/$TARGET")
     if [ -z "$version" ]; then
       echo "Error: build/$TARGET not found, or carries no version annotation" >&2
+      if [ -n "$fetch_err" ]; then
+        echo "Fetch error: $fetch_err" >&2
+      fi
       exit 1
     fi
 
