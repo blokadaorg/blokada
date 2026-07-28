@@ -1,0 +1,163 @@
+name: Release
+
+# Promotes a build that ci-release.yml already uploaded. Never builds, so the
+# binary that ships is the exact one that has been sitting on internal.
+#
+# workflow_dispatch only: the version name is an output of the build (it
+# contains the build number), so it cannot be declared by a tag up front.
+on:
+  workflow_dispatch:
+    inputs:
+      build_number:
+        description: "Build number to promote, or 'latest'"
+        required: true
+        default: "latest"
+        type: string
+      flavor:
+        description: "Flavor to release"
+        required: true
+        default: "all"
+        type: choice
+        options: [all, six, family]
+      platform:
+        description: "Platform to release"
+        required: true
+        default: "all"
+        type: choice
+        options: [all, ios, android]
+      submit_ios_for_review:
+        description: "Submit the App Store version for review (never publishes)"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write # pushes the record tag
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  resolve:
+    runs-on: [self-hosted, macOS, ARM64, build-only]
+    timeout-minutes: 10
+    outputs:
+      build_number: ${{ steps.r.outputs.build_number }}
+      version_name: ${{ steps.r.outputs.version_name }}
+      flavors: ${{ steps.matrix.outputs.flavors }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+
+      - name: Resolve build number
+        id: r
+        run: |
+          set -euo pipefail
+          ./scripts/build-number.sh resolve "${{ inputs.build_number }}" >> "$GITHUB_OUTPUT"
+          cat "$GITHUB_OUTPUT"
+
+      - name: Compute flavor matrix
+        id: matrix
+        run: |
+          set -euo pipefail
+          if [ "${{ inputs.flavor }}" = "all" ]; then
+            echo 'flavors=["six","family"]' >> "$GITHUB_OUTPUT"
+          else
+            echo 'flavors=["${{ inputs.flavor }}"]' >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Summary
+        run: |
+          {
+            echo "### Release"
+            echo "- build: \`${{ steps.r.outputs.build_number }}\`"
+            echo "- version: \`${{ steps.r.outputs.version_name }}\`"
+            echo "- flavor: \`${{ inputs.flavor }}\` · platform: \`${{ inputs.platform }}\`"
+            echo "- submit iOS for review: \`${{ inputs.submit_ios_for_review }}\`"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  promote_android:
+    needs: resolve
+    if: ${{ inputs.platform == 'all' || inputs.platform == 'android' }}
+    runs-on: [self-hosted, macOS, ARM64, build-only]
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        flavor: ${{ fromJSON(needs.resolve.outputs.flavors) }}
+    env:
+      LANG: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
+      FLAVOR: ${{ matrix.flavor }}
+      BLOKADA_VERSION_CODE: ${{ needs.resolve.outputs.build_number }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+
+      - name: Promote to alpha and beta
+        env:
+          BLOKADA_GPLAY_KEY_BASE64: ${{ secrets.BLOKADA_GPLAY_KEY_BASE64 }}
+        run: make promote-android FLAVOR="$FLAVOR"
+
+      - name: Clean Google Play key
+        if: always()
+        run: make gplay-key-clean
+
+  promote_ios:
+    needs: resolve
+    if: ${{ inputs.platform == 'all' || inputs.platform == 'ios' }}
+    runs-on: [self-hosted, macOS, ARM64, build-only]
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        flavor: ${{ fromJSON(needs.resolve.outputs.flavors) }}
+    env:
+      LANG: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
+      FLAVOR: ${{ matrix.flavor }}
+      BLOKADA_VERSION_CODE: ${{ needs.resolve.outputs.build_number }}
+      BLOKADA_VERSION_NAME: ${{ needs.resolve.outputs.version_name }}
+      SUBMIT_FOR_REVIEW: ${{ inputs.submit_ios_for_review }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+
+      - name: Attach build to App Store version
+        env:
+          BLOKADA_APPSTORE_KEY_BASE64: ${{ secrets.BLOKADA_APPSTORE_KEY_BASE64 }}
+        run: make promote-ios FLAVOR="$FLAVOR"
+
+      - name: Clean App Store key
+        if: always()
+        run: make appstore-key-clean
+
+  tag:
+    needs: [resolve, promote_android, promote_ios]
+    # Only tag a complete, successful release of everything.
+    if: >-
+      ${{
+        always() &&
+        inputs.flavor == 'all' && inputs.platform == 'all' &&
+        needs.promote_android.result == 'success' &&
+        needs.promote_ios.result == 'success'
+      }}
+    runs-on: [self-hosted, macOS, ARM64, build-only]
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+
+      - name: Push record tag
+        run: |
+          set -euo pipefail
+          git config user.email "ci@blokada.org"
+          git config user.name "blokada-ci"
+          VERSION="${{ needs.resolve.outputs.version_name }}"
+          git tag -a "$VERSION" -m "Released by $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          git push origin "$VERSION"
