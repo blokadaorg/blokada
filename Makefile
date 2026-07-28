@@ -16,7 +16,7 @@ ADAPTY_VER := 3_8.0
 # Default target 
 .DEFAULT_GOAL := build
  
-.PHONY: clean test test-local build \
+.PHONY: clean test test-local test-scripts build \
 	translate \
 	build-android build-android-family build-android-six \
 	build-ios build-ios-family build-ios-six build-ios-six-debug \
@@ -53,6 +53,13 @@ test:
 
 test-local:
 	$(MAKE) -C common/ test-local
+
+# Release-pipeline invariants that cannot be recovered from once broken:
+# store codes only ever go up, and the offset is applied exactly once. Needs
+# only bash, git and python3, so PR CI runs it off the self-hosted pool.
+test-scripts:
+	./scripts/test-build-number.sh
+	./scripts/test-version.sh
 
 # Build everything from scratch
 build:
