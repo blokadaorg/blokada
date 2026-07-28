@@ -111,6 +111,15 @@ platform :ios do
   # automatic_release: false leaves an approved build in Pending Developer
   # Release. Publishing is always a manual click.
   #
+  # phased_release is passed as a real boolean on every run, never left nil.
+  # deliver only touches the setting when the option is non-nil
+  # (deliver/upload_metadata.rb:314), so nil means "leave whatever App Store
+  # Connect has" -- true creates the 7-day ramp, and false DELETES an existing
+  # one. Being explicit means the workflow input decides, rather than a stale
+  # per-version setting somebody clicked months ago. Note the ramp only governs
+  # automatic updates for existing users; manual updates and fresh installs get
+  # the build immediately either way.
+  #
   # Export compliance needs no entry here: ITSAppUsesNonExemptEncryption is
   # already <false/> in Info-six.plist and Info-family.plist, so App Store
   # Connect never asks.
@@ -132,6 +141,7 @@ platform :ios do
       run_precheck_before_submit: false, # not supported through ASC API yet
       submit_for_review: submit,
       automatic_release: false,
+      phased_release: options[:phased_release].to_s == "true",
       submission_information: {
         content_rights_contains_third_party_content: false
       }
@@ -166,6 +176,7 @@ platform :ios do
       run_precheck_before_submit: false,
       submit_for_review: submit,
       automatic_release: false,
+      phased_release: options[:phased_release].to_s == "true",
       submission_information: {
         content_rights_contains_third_party_content: false
       }

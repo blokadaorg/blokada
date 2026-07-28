@@ -30,6 +30,11 @@ on:
         required: false
         default: false
         type: boolean
+      ios_phased_release:
+        description: "Ramp the iOS update over 7 days (automatic updates only)"
+        required: false
+        default: true
+        type: boolean
 
 permissions:
   contents: write # pushes the record tag
@@ -83,6 +88,7 @@ jobs:
           FLAVOR_INPUT: ${{ inputs.flavor }}
           PLATFORM_INPUT: ${{ inputs.platform }}
           SUBMIT_IOS_FOR_REVIEW_INPUT: ${{ inputs.submit_ios_for_review }}
+          IOS_PHASED_RELEASE_INPUT: ${{ inputs.ios_phased_release }}
         run: |
           {
             echo "### Release"
@@ -90,6 +96,7 @@ jobs:
             echo "- version: \`${{ steps.r.outputs.version_name }}\`"
             echo "- flavor: \`$FLAVOR_INPUT\` · platform: \`$PLATFORM_INPUT\`"
             echo "- submit iOS for review: \`$SUBMIT_IOS_FOR_REVIEW_INPUT\`"
+            echo "- iOS phased release: \`$IOS_PHASED_RELEASE_INPUT\`"
           } >> "$GITHUB_STEP_SUMMARY"
 
   promote_android:
@@ -140,6 +147,7 @@ jobs:
       BLOKADA_VERSION_CODE: ${{ needs.resolve.outputs.build_number }}
       BLOKADA_VERSION_NAME: ${{ needs.resolve.outputs.version_name }}
       SUBMIT_FOR_REVIEW: ${{ inputs.submit_ios_for_review }}
+      PHASED_RELEASE: ${{ inputs.ios_phased_release }}
     steps:
       - uses: actions/checkout@v7
         with:
