@@ -1,0 +1,147 @@
+name: CI Release
+
+# Every merge to main is built and shipped to internal channels, so main is
+# continuously proven publishable -- PR CI never archives, signs or uploads,
+# which is how the ITMS-91065 regression reached a release.
+#
+# No path filters on purpose: filtering would leave commits on main that were
+# never proven, which is the gap this closes.
+on:
+  push:
+    branches:
+      - main
+      # TEMPORARY: lets the flow be exercised before merge. Push-triggered
+      # workflows run from the file on the pushed branch, unlike
+      # workflow_dispatch which requires the file on the default branch.
+      # REMOVE THIS LINE BEFORE MERGING.
+      - feat/release-pipeline
+
+permissions:
+  contents: write # pushes build/* tags
+
+# Queue rather than cancel: cancelling mid-flight strands a consumed build
+# number and a half-finished upload.
+concurrency:
+  group: ci-release
+  cancel-in-progress: false
+
+jobs:
+  allocate:
+    runs-on: [self-hosted, macOS, ARM64, build-only]
+    timeout-minutes: 10
+    outputs:
+      build_number: ${{ steps.alloc.outputs.build_number }}
+      version_name: ${{ steps.alloc.outputs.version_name }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+
+      - name: Allocate build number
+        id: alloc
+        run: |
+          set -euo pipefail
+          git config user.email "ci@blokada.org"
+          git config user.name "blokada-ci"
+          ./scripts/build-number.sh allocate --start 1000 >> "$GITHUB_OUTPUT"
+          cat "$GITHUB_OUTPUT"
+
+      - name: Summary
+        run: |
+          {
+            echo "### Build"
+            echo "- number: \`${{ steps.alloc.outputs.build_number }}\`"
+            echo "- version: \`${{ steps.alloc.outputs.version_name }}\`"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  android:
+    needs: allocate
+    runs-on: [self-hosted, macOS, ARM64, build-only]
+    timeout-minutes: 240
+    strategy:
+      fail-fast: false
+      matrix:
+        flavor: [six, family]
+    env:
+      LANG: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
+      FLAVOR: ${{ matrix.flavor }}
+      BLOKADA_VERSION_NAME: ${{ needs.allocate.outputs.version_name }}
+      BLOKADA_VERSION_CODE: ${{ needs.allocate.outputs.build_number }}
+      BLOKADA_KEYSTORE_BASE64: ${{ secrets.BLOKADA_KEYSTORE_BASE64 }}
+      BLOKADA_KEYSTORE_PWD: ${{ secrets.BLOKADA_KEYSTORE_PWD }}
+      BLOKADA_KEY_PWD: ${{ secrets.BLOKADA_KEY_PWD }}
+      GRADLE_OPTS: -Dorg.gradle.unsafe.disable.watch-fs=true -Dorg.gradle.vfs.watch=false
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          submodules: recursive
+          fetch-depth: 1
+
+      - name: Build Android AAB
+        run: |
+          set -euo pipefail
+          if [ "$FLAVOR" = "family" ]; then
+            make ci-build-android-family
+          else
+            make ci-build-android-six
+          fi
+
+      - name: Upload to Play internal
+        env:
+          BLOKADA_GPLAY_KEY_BASE64: ${{ secrets.BLOKADA_GPLAY_KEY_BASE64 }}
+        run: make publish-android FLAVOR="$FLAVOR"
+
+      - name: Clean secrets
+        if: always()
+        run: |
+          make gplay-key-clean
+          rm -f android/keystore.jks
+
+  ios:
+    needs: allocate
+    runs-on: [self-hosted, macOS, ARM64, build-only]
+    timeout-minutes: 240
+    strategy:
+      fail-fast: false
+      matrix:
+        flavor: [six, family]
+    env:
+      LANG: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
+      FLAVOR: ${{ matrix.flavor }}
+      BLOKADA_VERSION_NAME: ${{ needs.allocate.outputs.version_name }}
+      BLOKADA_VERSION_CODE: ${{ needs.allocate.outputs.build_number }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          submodules: recursive
+          fetch-depth: 1
+
+      - name: Unlock login keychain for codesign
+        env:
+          KEYCHAIN_PASSWORD: ${{ secrets.MAC_KEYCHAIN_PASSWORD }}
+        run: |
+          if [ -n "$KEYCHAIN_PASSWORD" ]; then
+            security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/login.keychain-db
+          else
+            echo "MAC_KEYCHAIN_PASSWORD is not set; leaving keychain as-is."
+          fi
+
+      - name: Build iOS IPA
+        run: |
+          set -euo pipefail
+          if [ "$FLAVOR" = "family" ]; then
+            make ci-build-ios-family
+          else
+            make ci-build-ios-six
+          fi
+
+      - name: Upload to TestFlight
+        env:
+          BLOKADA_APPSTORE_KEY_BASE64: ${{ secrets.BLOKADA_APPSTORE_KEY_BASE64 }}
+        run: make publish-ios-testflight FLAVOR="$FLAVOR"
+
+      - name: Clean App Store key
+        if: always()
+        run: make appstore-key-clean
