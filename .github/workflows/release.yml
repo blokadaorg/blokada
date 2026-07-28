@@ -34,14 +34,20 @@ on:
 permissions:
   contents: write # pushes the record tag
 
+# Shared with ci-release.yml: both workflows write the same Play packages, and
+# Play invalidates an open edit whose underlying app state changed, so a merge
+# landing mid-release would break one side or the other. Never cancel -- a
+# merge queues behind a release instead.
 concurrency:
-  group: release
+  group: store-publish
   cancel-in-progress: false
 
 jobs:
   resolve:
     runs-on: [self-hosted, macOS, ARM64, build-only]
     timeout-minutes: 10
+    permissions:
+      contents: read # only reads tags to resolve the build number
     outputs:
       build_number: ${{ steps.r.outputs.build_number }}
       version_name: ${{ steps.r.outputs.version_name }}
@@ -91,6 +97,8 @@ jobs:
     if: ${{ inputs.platform == 'all' || inputs.platform == 'android' }}
     runs-on: [self-hosted, macOS, ARM64, build-only]
     timeout-minutes: 60
+    permissions:
+      contents: read # releases with its own secrets, never pushes to the repo
     strategy:
       fail-fast: false
       matrix:
@@ -105,7 +113,7 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Promote to alpha and beta
+      - name: Release to alpha and beta
         env:
           BLOKADA_GPLAY_KEY_BASE64: ${{ secrets.BLOKADA_GPLAY_KEY_BASE64 }}
         run: make promote-android FLAVOR="$FLAVOR"
@@ -119,6 +127,8 @@ jobs:
     if: ${{ inputs.platform == 'all' || inputs.platform == 'ios' }}
     runs-on: [self-hosted, macOS, ARM64, build-only]
     timeout-minutes: 60
+    permissions:
+      contents: read # releases with its own secrets, never pushes to the repo
     strategy:
       fail-fast: false
       matrix:
@@ -156,16 +166,29 @@ jobs:
       }}
     runs-on: [self-hosted, macOS, ARM64, build-only]
     timeout-minutes: 10
+    permissions:
+      contents: write # pushes the record tag
     steps:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 1
 
       - name: Push record tag
+        env:
+          BUILD_NUMBER: ${{ needs.resolve.outputs.build_number }}
+          VERSION: ${{ needs.resolve.outputs.version_name }}
         run: |
           set -euo pipefail
           git config user.email "ci@blokada.org"
           git config user.name "blokada-ci"
-          VERSION="${{ needs.resolve.outputs.version_name }}"
-          git tag -a "$VERSION" -m "Released by $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          # Tag the commit the build was actually cut from, not this run's
+          # checkout. The dispatch ref is main HEAD at release time, while the
+          # build being released may be days and many merges older -- tagging
+          # HEAD would make 26.7.N name a commit that never shipped.
+          # --depth 1 keeps the fetch to just that one commit on the shallow
+          # checkout; ^{} dereferences the annotated tag to it.
+          git fetch --quiet --depth 1 origin "+refs/tags/build/$BUILD_NUMBER:refs/tags/build/$BUILD_NUMBER"
+          BUILD_SHA=$(git rev-parse "refs/tags/build/$BUILD_NUMBER^{}")
+          echo "Tagging $VERSION at $BUILD_SHA (build/$BUILD_NUMBER)"
+          git tag -a "$VERSION" -m "Released by $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" "$BUILD_SHA"
           git push origin "$VERSION"

@@ -16,8 +16,13 @@ permissions:
 
 # Queue rather than cancel: cancelling mid-flight strands a consumed build
 # number and a half-finished upload.
+#
+# Shared with release.yml: both workflows write the same Play packages, and
+# Play invalidates an open edit whose underlying app state changed, so a merge
+# landing mid-release would break one side or the other. A merge queues behind
+# a release rather than cancelling it.
 concurrency:
-  group: ci-release
+  group: store-publish
   cancel-in-progress: false
 
 jobs:
