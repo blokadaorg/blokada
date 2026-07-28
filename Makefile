@@ -8,29 +8,26 @@ IOS_PROJECT_FILE := ios/IOS.xcodeproj/project.pbxproj
 
 TRANSLATE_SCRIPT := ./scripts/sync-translations.sh
 
-CI_BUILD_DIR := /tmp/build
-
 ADAPTY_DIR := ~/Downloads
 ADAPTY_VER := 3_8.0
  
 # Default target 
 .DEFAULT_GOAL := build
  
-.PHONY: clean test test-local build \
+.PHONY: clean test test-local test-scripts build \
 	translate \
 	build-android build-android-family build-android-six \
 	build-ios build-ios-family build-ios-six build-ios-six-debug \
 	sign-ios-frameworks \
 	version version-clean \
-	publish-android gplay-key-unpack gplay-key-clean \
-	publish-ios appstore-key-unpack appstore-key-clean fastlane-match \
+	publish-android promote-android gplay-key-unpack gplay-key-clean \
+	promote-ios publish-ios-testflight appstore-key-unpack appstore-key-clean fastlane-match \
 	build-android-family-debug build-android-six-debug \
 	build-android-family-quick build-android-six-quick \
 	build-android-family-debug-quick build-android-six-debug-quick \
 	gen regen android regen-android regen-ios \
 	install-family install-family-debug \
 	install-six install-six-debug uninstall \
-	ci-copy-source ci-test \
 	ci-build-android-family ci-build-android-six \
 	ci-build-ios-family ci-build-ios-six \
 	adapty-paywalls \
@@ -53,6 +50,13 @@ test:
 
 test-local:
 	$(MAKE) -C common/ test-local
+
+# Release-pipeline invariants that cannot be recovered from once broken:
+# store codes only ever go up, and the offset is applied exactly once. Needs
+# only bash, git and python3, so PR CI runs it off the self-hosted pool.
+test-scripts:
+	./scripts/test-build-number.sh
+	./scripts/test-version.sh
 
 # Build everything from scratch
 build:
@@ -156,14 +160,24 @@ appium-explore-session:
 	node scripts/explore.mjs --jsonl
 
 
+# Offset that keeps our store codes above legacy Blokada 5 builds. Defined here
+# rather than in version.py so promote-android can compute the same store code
+# from a raw build number without duplicating the constant.
+VERSION_CODE_OFFSET := 669000000
+
 # Set version in proper files for all apps (use NAME and CODE params, or env vars)
 version:
 	@VERSION_NAME_ARG=$(if $(NAME),$(NAME),$(BLOKADA_VERSION_NAME)); \
 	VERSION_CODE_ARG=$(if $(CODE),$(CODE),$(BLOKADA_VERSION_CODE)); \
+	if [ -z "$$VERSION_CODE_ARG" ]; then \
+	    echo "Error: version needs CODE= or BLOKADA_VERSION_CODE (raw build number)"; \
+	    exit 1; \
+	fi; \
+	STORE_CODE=$$(( $(VERSION_CODE_OFFSET) + VERSION_CODE_ARG )); \
 	$(VERSION_SCRIPT) --android-file $(ANDROID_PROJECT_FILE) \
 		--xcodeproj-file $(IOS_PROJECT_FILE) \
 		--version-name $$VERSION_NAME_ARG \
-		--version-code $$VERSION_CODE_ARG
+		--version-code $$STORE_CODE
 
 # Restore files changed with version numbers
 version-clean:
@@ -171,7 +185,18 @@ version-clean:
 	git restore $(IOS_PROJECT_FILE)
 
 
-# Publish android app to Google Play internal channel (use FLAVOR param)
+# Tracks that a release promotes an existing build to. "alpha" is closed
+# testing and "beta" is open testing -- Play's default track ids, which we
+# never renamed. Unlike internal, both require review.
+GPLAY_PROMOTE_TRACKS ?= alpha beta
+
+# Upload the AAB to the Google Play internal track (use FLAVOR param).
+#
+# This is the continuous path, run on every merge to main. Internal only, and
+# no store listing: alpha/beta require review, and listing changes are reviewed
+# too, so neither belongs on a per-merge upload. All four skip flags are
+# explicit because --metadata_path defaults to ./metadata, whose children are
+# android-six/ios-family/etc and would be read as locale codes.
 publish-android:
 	$(MAKE) gplay-key-unpack
 	@AAB=$(if $(filter family,$(FLAVOR)),familyRelease/app-family-release.aab,sixRelease/app-six-release.aab); \
@@ -180,7 +205,62 @@ publish-android:
 	--package_name "$$PKG" \
 	--json_key blokada-gplay.json \
 	--metadata_path metadata/android-$(FLAVOR) \
-	--track internal
+	--track internal \
+	--skip_upload_metadata true \
+	--skip_upload_changelogs true \
+	--skip_upload_images true \
+	--skip_upload_screenshots true
+	$(MAKE) gplay-key-clean
+
+# Release an already-uploaded build to the review-gated tracks (use FLAVOR and
+# BLOKADA_VERSION_CODE, the raw build number).
+#
+# A version code can only be *uploaded* once, so this references the existing
+# code rather than re-uploading. It deliberately does NOT copy from internal
+# with --track_promote_to: supply's promote_track reads the source track's
+# release list, and every continuous upload replaces it wholesale
+# (supply/lib/supply/uploader.rb#update_track assigns `track.releases =
+# [track_release]`, and Play drops releases omitted from edits.tracks.update).
+# One merge later, build N is no longer on internal, and promoting it fails
+# with "Track 'internal' doesn't have any releases" -- at 2-3 merges a day
+# that is the normal soak-then-release case, not an edge case.
+#
+# Writing the target track directly needs no source-track membership. With
+# both uploads skipped, uploader.rb#perform_upload starts with an empty
+# apk_version_codes, then `apk_version_codes.concat(version_codes_to_retain)`
+# makes it [STORE_CODE]; that takes the non-empty branch, so it calls
+# update_track on --track (the target) and perform_upload_meta([STORE_CODE],
+# target), which attaches changelogs exactly as the promote path did.
+#
+# Metadata and changelogs are NOT skipped here: the internal release
+# deliberately carries no notes, so release notes have to be attached at this
+# point.
+promote-android:
+	$(MAKE) gplay-key-unpack
+	@if [ -z "$(BLOKADA_VERSION_CODE)" ]; then \
+	    echo "Error: BLOKADA_VERSION_CODE is not set. It is required to release to: $(GPLAY_PROMOTE_TRACKS)"; \
+	    exit 1; \
+	fi
+	@PKG=$(if $(filter family,$(FLAVOR)),org.blokada.family,org.blokada.sex); \
+	STORE_CODE=$$(( $(VERSION_CODE_OFFSET) + $(BLOKADA_VERSION_CODE) )); \
+	./scripts/verify-play-version-code.rb \
+	    --json-key blokada-gplay.json \
+	    --package-name "$$PKG" \
+	    --version-code $$STORE_CODE || exit 1; \
+	for track in $(GPLAY_PROMOTE_TRACKS); do \
+	    echo "==> Releasing store code $$STORE_CODE to '$$track' and submitting for review"; \
+	    $(FASTLANE) supply \
+	        --package_name "$$PKG" \
+	        --json_key blokada-gplay.json \
+	        --track $$track \
+	        --version_codes_to_retain $$STORE_CODE \
+	        --metadata_path metadata/android-$(FLAVOR) \
+	        --skip_upload_aab true \
+	        --skip_upload_apk true \
+	        --skip_upload_images true \
+	        --skip_upload_screenshots true \
+	        --rescue_changes_not_sent_for_review false || exit 1; \
+	done
 	$(MAKE) gplay-key-clean
 
 # Unpack Google Play api key for publishing (use env var)
@@ -195,10 +275,28 @@ gplay-key-unpack:
 gplay-key-clean:
 	rm -rf blokada-gplay.json
 
-# Publish ios app to AppStore TestFlight (use FLAVOR param)
-publish-ios:
+# Attach an already-uploaded build to an App Store version (use FLAVOR,
+# BLOKADA_VERSION_CODE as the raw build number, BLOKADA_VERSION_NAME, and
+# SUBMIT_FOR_REVIEW=true|false). Never builds or uploads a binary.
+promote-ios:
 	$(MAKE) appstore-key-unpack
+	@if [ -z "$(BLOKADA_VERSION_CODE)" ] || [ -z "$(BLOKADA_VERSION_NAME)" ]; then \
+	    echo "Error: promote-ios needs BLOKADA_VERSION_CODE and BLOKADA_VERSION_NAME"; \
+	    exit 1; \
+	fi
 	@LANE=$(if $(filter family,$(FLAVOR)),publish_ios_family,publish_ios_six); \
+	STORE_CODE=$$(( $(VERSION_CODE_OFFSET) + $(BLOKADA_VERSION_CODE) )); \
+	cd ios/ && $(FASTLANE) $$LANE \
+	    build_number:$$STORE_CODE \
+	    version_name:$(BLOKADA_VERSION_NAME) \
+	    submit_for_review:$(if $(filter true,$(SUBMIT_FOR_REVIEW)),true,false)
+	$(MAKE) appstore-key-clean
+
+# Upload an already-built IPA to TestFlight (use FLAVOR param). Continuous
+# path; creates no App Store version and submits nothing.
+publish-ios-testflight:
+	$(MAKE) appstore-key-unpack
+	@LANE=$(if $(filter family,$(FLAVOR)),upload_testflight_family,upload_testflight_six); \
 	cd ios/ && $(FASTLANE) $$LANE
 	$(MAKE) appstore-key-clean
 
@@ -291,13 +389,6 @@ uninstall:
 	$(MAKE) -C android/ uninstall
 
 
-# CI: Copy the workspace out of volume to prevent weird filesystem issues
-ci-copy-source:
-	@echo "Copying source files to $(CI_BUILD_DIR)..."
-	@rm -rf $(CI_BUILD_DIR)
-	@mkdir -p $(CI_BUILD_DIR)
-	@cp -r . $(CI_BUILD_DIR)
-
 # CI: build android family app from scratch
 ci-build-android-family:
 	$(MAKE) version
@@ -317,10 +408,6 @@ ci-build-ios-family:
 ci-build-ios-six:
 	$(MAKE) version
 	$(MAKE) build-ios-six
-
-ci-test:
-	$(MAKE) clean
-	$(MAKE) test
 
 # Put Adapty fallback paywalls in the right places. uses DIR
 adapty-paywalls:
