@@ -8,8 +8,6 @@ IOS_PROJECT_FILE := ios/IOS.xcodeproj/project.pbxproj
 
 TRANSLATE_SCRIPT := ./scripts/sync-translations.sh
 
-CI_BUILD_DIR := /tmp/build
-
 ADAPTY_DIR := ~/Downloads
 ADAPTY_VER := 3_8.0
  
@@ -30,7 +28,6 @@ ADAPTY_VER := 3_8.0
 	gen regen android regen-android regen-ios \
 	install-family install-family-debug \
 	install-six install-six-debug uninstall \
-	ci-copy-source \
 	ci-build-android-family ci-build-android-six \
 	ci-build-ios-family ci-build-ios-six \
 	adapty-paywalls \
@@ -391,13 +388,6 @@ install-six-debug:
 uninstall: 
 	$(MAKE) -C android/ uninstall
 
-
-# CI: Copy the workspace out of volume to prevent weird filesystem issues
-ci-copy-source:
-	@echo "Copying source files to $(CI_BUILD_DIR)..."
-	@rm -rf $(CI_BUILD_DIR)
-	@mkdir -p $(CI_BUILD_DIR)
-	@cp -r . $(CI_BUILD_DIR)
 
 # CI: build android family app from scratch
 ci-build-android-family:
