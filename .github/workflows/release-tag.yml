@@ -281,6 +281,9 @@ jobs:
       LANG: en_US.UTF-8
       LC_ALL: en_US.UTF-8
       FLAVOR: ${{ needs.release_context.outputs.flavor }}
+      # Needed to attach the uploaded build to the closed/open tracks. This is
+      # the same value build_android baked into the AAB via `make version`.
+      BLOKADA_VERSION_CODE: ${{ needs.release_context.outputs.version_code }}
     steps:
       - uses: actions/checkout@v7
         with:

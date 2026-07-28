@@ -171,9 +171,26 @@ version-clean:
 	git restore $(IOS_PROJECT_FILE)
 
 
-# Publish android app to Google Play internal channel (use FLAVOR param)
+# Tracks that receive the same build after the internal upload. "alpha" is
+# closed testing and "beta" is open testing -- Play's default track ids, which
+# we never renamed. Unlike internal, both require review, and the promote runs
+# below are what submit them.
+GPLAY_PROMOTE_TRACKS ?= alpha beta
+
+# Publish android app to Google Play (use FLAVOR param).
+#
+# Uploads the AAB to internal once, then attaches that same version code to
+# each promote track. A version code can only be *uploaded* once, so the extra
+# tracks must reference it rather than re-upload -- hence --track_promote_to
+# with --skip_upload_aab. Despite the name, promoting does not remove the build
+# from the source track (supply/lib/supply/uploader.rb#promote_track only
+# writes the target track), so the build ends up on internal, alpha and beta.
 publish-android:
 	$(MAKE) gplay-key-unpack
+	@if [ -z "$(BLOKADA_VERSION_CODE)" ]; then \
+	    echo "Error: BLOKADA_VERSION_CODE is not set. It is required to promote the build to: $(GPLAY_PROMOTE_TRACKS)"; \
+	    exit 1; \
+	fi
 	@AAB=$(if $(filter family,$(FLAVOR)),familyRelease/app-family-release.aab,sixRelease/app-six-release.aab); \
 	PKG=$(if $(filter family,$(FLAVOR)),org.blokada.family,org.blokada.sex); \
 	$(FASTLANE) supply --aab android/app/build/outputs/bundle/$$AAB \
@@ -181,6 +198,23 @@ publish-android:
 	--json_key blokada-gplay.json \
 	--metadata_path metadata/android-$(FLAVOR) \
 	--track internal
+	@PKG=$(if $(filter family,$(FLAVOR)),org.blokada.family,org.blokada.sex); \
+	for track in $(GPLAY_PROMOTE_TRACKS); do \
+	    echo "==> Promoting version code $(BLOKADA_VERSION_CODE) to '$$track' and submitting for review"; \
+	    $(FASTLANE) supply \
+	        --package_name "$$PKG" \
+	        --json_key blokada-gplay.json \
+	        --track internal \
+	        --track_promote_to $$track \
+	        --version_code $(BLOKADA_VERSION_CODE) \
+	        --skip_upload_aab true \
+	        --skip_upload_apk true \
+	        --skip_upload_metadata true \
+	        --skip_upload_changelogs true \
+	        --skip_upload_images true \
+	        --skip_upload_screenshots true \
+	        --rescue_changes_not_sent_for_review false || exit 1; \
+	done
 	$(MAKE) gplay-key-clean
 
 # Unpack Google Play api key for publishing (use env var)
