@@ -10,11 +10,6 @@ on:
   push:
     branches:
       - main
-      # TEMPORARY: lets the flow be exercised before merge. Push-triggered
-      # workflows run from the file on the pushed branch, unlike
-      # workflow_dispatch which requires the file on the default branch.
-      # REMOVE THIS LINE BEFORE MERGING.
-      - feat/release-pipeline
 
 permissions:
   contents: write # pushes build/* tags
