@@ -103,4 +103,31 @@ echo "$err" | grep -q 'could not allocate a build number after 5 attempts' || { 
 echo "$err" | grep -q 'simulated rejection' || { echo "FAIL: real push error not surfaced on terminal failure: $err"; exit 1; }
 remove_reject_hook
 
+# resolve latest against a remote that cannot be reached at all (bad path,
+# no network, no credentials -- not a race, not an empty repo) must surface
+# git's real ls-remote error. It must NOT be reported as "no build/* tags",
+# which means something categorically different: a reachable remote that
+# genuinely has no builds yet.
+bogus_remote="$tmp/does-not-exist-$$.git"
+if err=$("$SCRIPT" resolve latest --remote "$bogus_remote" 2>&1 >/dev/null); then
+  echo "FAIL: resolve latest against an unreachable remote should exit non-zero"; exit 1
+fi
+echo "$err" | grep -q 'no build/\* tags' && { echo "FAIL: unreachable remote misreported as empty-but-reachable: $err"; exit 1; }
+echo "$err" | grep -qi 'does not appear to be a git repository' || { echo "FAIL: real ls-remote error not surfaced: $err"; exit 1; }
+
+# Credentials embedded in a remote URL must never reach the printed
+# diagnostics, even when git's own error text would otherwise include them
+# verbatim (unlike the common https:// libcurl transport, which already
+# sanitizes its own error text, a malformed git:// URL echoes the raw
+# "user:pass@host" straight into "unable to look up ..."). Port 1 on
+# loopback fails instantly (connection/lookup refused) with no dependency on
+# real network access, so this stays fast and deterministic.
+secret="s3cr3t-token-do-not-leak"
+cred_remote="git://x-access-token:${secret}@127.0.0.1:1/repo.git"
+if err=$("$SCRIPT" resolve latest --remote "$cred_remote" 2>&1 >/dev/null); then
+  echo "FAIL: resolve latest against a bogus credentialed remote should exit non-zero"; exit 1
+fi
+echo "$err" | grep -qF "$secret" && { echo "FAIL: credential leaked into diagnostics: $err"; exit 1; }
+echo "$err" | grep -qi 'ls-remote error' || { echo "FAIL: expected an ls-remote error to still be reported: $err"; exit 1; }
+
 echo "PASS: build-number.sh"
