@@ -155,7 +155,20 @@ state changed, so a merge landing mid-release would break one side or the other
 with a confusing error. The consequence to accept: a merge to `main` that lands
 during a release waits for the whole release to finish before it starts
 building, and a release dispatched during a merge build waits for that build.
-Nothing is ever cancelled.
+
+`cancel-in-progress: false` protects the *running* job, not the queue. GitHub
+keeps at most one **pending** run per group: when a second merge lands while a
+release still holds `store-publish`, the first merge's pending run is cancelled
+outright, and that commit is never built or uploaded. Only the newest queued
+commit survives the wait.
+
+That partially undercuts the "no path filters, every commit on `main` is proven
+publishable" decision above: during a release window, intermediate commits can
+be skipped. What still holds is that whatever *does* get built is built from a
+real commit on `main` with nothing filtered out of it, and the skipped commits
+are covered by the later build that supersedes them — a regression introduced
+in a skipped commit still surfaces, just attributed to the newer build number.
+Bisecting a release window to a single commit is the thing that stops working.
 
 Jobs:
 
@@ -275,11 +288,19 @@ non-empty branch calls `update_track` on the target track followed by
 `perform_upload_meta([N], <target>)` — so changelogs still attach exactly as
 they did on the promote path.
 
-`make promote-android` runs `scripts/verify-play-version-code.py` first, which
-lists the package's uploaded bundles and APKs over the Play API and fails
-naming the code if it is not among them. Without it, a code that was never
-uploaded surfaces as a generic Play track error that says nothing about where
-the code should have come from.
+`make promote-android` runs `scripts/verify-play-version-code.rb` first, which
+lists the package's uploaded bundles and APKs and fails naming the code if it
+is not among them. Without it, a code that was never uploaded surfaces as a
+generic Play track error that says nothing about where the code should have
+come from.
+
+It uses fastlane's own client — `Supply::Client#aab_version_codes` and
+`#apks_version_codes` (`supply/lib/supply/client.rb:268-283`), authenticated by
+`Supply::Client.make_from_config` from the same `blokada-gplay.json` supply
+uses. It opens and deletes a throwaway edit of its own, because the check has
+to finish before supply opens the edit it will commit. Every error path —
+auth, network, unexpected response — exits non-zero, so a broken check blocks
+the release rather than waving it through.
 
 ### Why iOS attaches the build explicitly
 
