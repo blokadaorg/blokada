@@ -100,11 +100,11 @@ def main():
     # Remove any suffix after a "/" from the version name (e.g., "1.2.3/debug" becomes "1.2.3")
     clean_version_name = re.sub(r'/.*', '', args.version_name)
 
-    # Add constant to our version code to be above legacy builds
-    code = 669000000 + args.version_code
-
-    update_android_version(args.android_file, clean_version_name, code)
-    update_ios_project_version(args.xcodeproj_file, clean_version_name, code)
+    # The caller supplies the final store code. The offset that keeps us above
+    # legacy Blokada 5 builds lives in the Makefile (VERSION_CODE_OFFSET), so
+    # that promote steps can compute the same value without duplicating it.
+    update_android_version(args.android_file, clean_version_name, args.version_code)
+    update_ios_project_version(args.xcodeproj_file, clean_version_name, args.version_code)
 
 if __name__ == "__main__":
     main()

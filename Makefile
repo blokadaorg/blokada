@@ -22,7 +22,7 @@ ADAPTY_VER := 3_8.0
 	build-ios build-ios-family build-ios-six build-ios-six-debug \
 	sign-ios-frameworks \
 	version version-clean \
-	publish-android gplay-key-unpack gplay-key-clean \
+	publish-android promote-android gplay-key-unpack gplay-key-clean \
 	publish-ios appstore-key-unpack appstore-key-clean fastlane-match \
 	build-android-family-debug build-android-six-debug \
 	build-android-family-quick build-android-six-quick \
@@ -156,14 +156,24 @@ appium-explore-session:
 	node scripts/explore.mjs --jsonl
 
 
+# Offset that keeps our store codes above legacy Blokada 5 builds. Defined here
+# rather than in version.py so promote-android can compute the same store code
+# from a raw build number without duplicating the constant.
+VERSION_CODE_OFFSET := 669000000
+
 # Set version in proper files for all apps (use NAME and CODE params, or env vars)
 version:
 	@VERSION_NAME_ARG=$(if $(NAME),$(NAME),$(BLOKADA_VERSION_NAME)); \
 	VERSION_CODE_ARG=$(if $(CODE),$(CODE),$(BLOKADA_VERSION_CODE)); \
+	if [ -z "$$VERSION_CODE_ARG" ]; then \
+	    echo "Error: version needs CODE= or BLOKADA_VERSION_CODE (raw build number)"; \
+	    exit 1; \
+	fi; \
+	STORE_CODE=$$(( $(VERSION_CODE_OFFSET) + VERSION_CODE_ARG )); \
 	$(VERSION_SCRIPT) --android-file $(ANDROID_PROJECT_FILE) \
 		--xcodeproj-file $(IOS_PROJECT_FILE) \
 		--version-name $$VERSION_NAME_ARG \
-		--version-code $$VERSION_CODE_ARG
+		--version-code $$STORE_CODE
 
 # Restore files changed with version numbers
 version-clean:
@@ -171,46 +181,64 @@ version-clean:
 	git restore $(IOS_PROJECT_FILE)
 
 
-# Tracks that receive the same build after the internal upload. "alpha" is
-# closed testing and "beta" is open testing -- Play's default track ids, which
-# we never renamed. Unlike internal, both require review, and the promote runs
-# below are what submit them.
+# Tracks that a release promotes an existing build to. "alpha" is closed
+# testing and "beta" is open testing -- Play's default track ids, which we
+# never renamed. Unlike internal, both require review.
 GPLAY_PROMOTE_TRACKS ?= alpha beta
 
-# Publish android app to Google Play (use FLAVOR param).
+# Upload the AAB to the Google Play internal track (use FLAVOR param).
 #
-# Uploads the AAB to internal once, then attaches that same version code to
-# each promote track. A version code can only be *uploaded* once, so the extra
-# tracks must reference it rather than re-upload -- hence --track_promote_to
-# with --skip_upload_aab. Despite the name, promoting does not remove the build
-# from the source track (supply/lib/supply/uploader.rb#promote_track only
-# writes the target track), so the build ends up on internal, alpha and beta.
+# This is the continuous path, run on every merge to main. Internal only, and
+# no store listing: alpha/beta require review, and listing changes are reviewed
+# too, so neither belongs on a per-merge upload. All four skip flags are
+# explicit because --metadata_path defaults to ./metadata, whose children are
+# android-six/ios-family/etc and would be read as locale codes.
 publish-android:
 	$(MAKE) gplay-key-unpack
-	@if [ -z "$(BLOKADA_VERSION_CODE)" ]; then \
-	    echo "Error: BLOKADA_VERSION_CODE is not set. It is required to promote the build to: $(GPLAY_PROMOTE_TRACKS)"; \
-	    exit 1; \
-	fi
 	@AAB=$(if $(filter family,$(FLAVOR)),familyRelease/app-family-release.aab,sixRelease/app-six-release.aab); \
 	PKG=$(if $(filter family,$(FLAVOR)),org.blokada.family,org.blokada.sex); \
 	$(FASTLANE) supply --aab android/app/build/outputs/bundle/$$AAB \
 	--package_name "$$PKG" \
 	--json_key blokada-gplay.json \
 	--metadata_path metadata/android-$(FLAVOR) \
-	--track internal
+	--track internal \
+	--skip_upload_metadata true \
+	--skip_upload_changelogs true \
+	--skip_upload_images true \
+	--skip_upload_screenshots true
+	$(MAKE) gplay-key-clean
+
+# Promote an already-uploaded build to the review-gated tracks (use FLAVOR and
+# BLOKADA_VERSION_CODE, the raw build number).
+#
+# A version code can only be *uploaded* once, so this references the existing
+# code rather than re-uploading -- hence --track_promote_to with
+# --skip_upload_aab. Despite the name, promoting does not remove the build from
+# the source track (supply/lib/supply/uploader.rb#promote_track only writes the
+# target track), so the build ends up on internal, alpha and beta.
+#
+# Metadata and changelogs are NOT skipped here: promotion copies the release
+# object, and the internal release deliberately carries no notes, so release
+# notes have to be attached at this point.
+promote-android:
+	$(MAKE) gplay-key-unpack
+	@if [ -z "$(BLOKADA_VERSION_CODE)" ]; then \
+	    echo "Error: BLOKADA_VERSION_CODE is not set. It is required to promote to: $(GPLAY_PROMOTE_TRACKS)"; \
+	    exit 1; \
+	fi
 	@PKG=$(if $(filter family,$(FLAVOR)),org.blokada.family,org.blokada.sex); \
+	STORE_CODE=$$(( $(VERSION_CODE_OFFSET) + $(BLOKADA_VERSION_CODE) )); \
 	for track in $(GPLAY_PROMOTE_TRACKS); do \
-	    echo "==> Promoting version code $(BLOKADA_VERSION_CODE) to '$$track' and submitting for review"; \
+	    echo "==> Promoting store code $$STORE_CODE to '$$track' and submitting for review"; \
 	    $(FASTLANE) supply \
 	        --package_name "$$PKG" \
 	        --json_key blokada-gplay.json \
 	        --track internal \
 	        --track_promote_to $$track \
-	        --version_code $(BLOKADA_VERSION_CODE) \
+	        --version_code $$STORE_CODE \
+	        --metadata_path metadata/android-$(FLAVOR) \
 	        --skip_upload_aab true \
 	        --skip_upload_apk true \
-	        --skip_upload_metadata true \
-	        --skip_upload_changelogs true \
 	        --skip_upload_images true \
 	        --skip_upload_screenshots true \
 	        --rescue_changes_not_sent_for_review false || exit 1; \
