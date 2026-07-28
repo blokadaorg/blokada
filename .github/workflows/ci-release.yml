@@ -29,6 +29,8 @@ jobs:
   allocate:
     runs-on: [self-hosted, macOS, ARM64, build-only]
     timeout-minutes: 10
+    permissions:
+      contents: write # pushes the build/N tag
     outputs:
       build_number: ${{ steps.alloc.outputs.build_number }}
       version_name: ${{ steps.alloc.outputs.version_name }}
@@ -65,6 +67,8 @@ jobs:
     # merge to main, days before release, instead of only at release time.
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    permissions:
+      contents: read # only checks out, inits a submodule, and reports -- never pushes
     steps:
       - uses: actions/checkout@v7
         with:
@@ -86,6 +90,8 @@ jobs:
     needs: allocate
     runs-on: [self-hosted, macOS, ARM64, build-only]
     timeout-minutes: 240
+    permissions:
+      contents: read # builds and uploads with its own secrets, never pushes to the repo
     strategy:
       fail-fast: false
       matrix:
@@ -130,6 +136,8 @@ jobs:
     needs: allocate
     runs-on: [self-hosted, macOS, ARM64, build-only]
     timeout-minutes: 240
+    permissions:
+      contents: read # builds and uploads with its own secrets, never pushes to the repo
     strategy:
       fail-fast: false
       matrix:
