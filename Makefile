@@ -23,7 +23,7 @@ ADAPTY_VER := 3_8.0
 	sign-ios-frameworks \
 	version version-clean \
 	publish-android promote-android gplay-key-unpack gplay-key-clean \
-	publish-ios appstore-key-unpack appstore-key-clean fastlane-match \
+	publish-ios publish-ios-testflight appstore-key-unpack appstore-key-clean fastlane-match \
 	build-android-family-debug build-android-six-debug \
 	build-android-family-quick build-android-six-quick \
 	build-android-family-debug-quick build-android-six-debug-quick \
@@ -261,6 +261,14 @@ gplay-key-clean:
 publish-ios:
 	$(MAKE) appstore-key-unpack
 	@LANE=$(if $(filter family,$(FLAVOR)),publish_ios_family,publish_ios_six); \
+	cd ios/ && $(FASTLANE) $$LANE
+	$(MAKE) appstore-key-clean
+
+# Upload an already-built IPA to TestFlight (use FLAVOR param). Continuous
+# path; creates no App Store version and submits nothing.
+publish-ios-testflight:
+	$(MAKE) appstore-key-unpack
+	@LANE=$(if $(filter family,$(FLAVOR)),upload_testflight_family,upload_testflight_six); \
 	cd ios/ && $(FASTLANE) $$LANE
 	$(MAKE) appstore-key-clean
 

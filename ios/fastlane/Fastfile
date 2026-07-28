@@ -62,4 +62,31 @@ platform :ios do
       run_precheck_before_submit: false # not supported through ASC API yet
    )
   end
+
+  # Continuous path: upload to TestFlight only, run on every merge to main.
+  #
+  # Deliberately NOT deliver. deliver creates an App Store version record per
+  # run, which would produce hundreds of junk versions and hard-fail with
+  # "You cannot create a new version of the App in the current state" whenever
+  # a release is sitting in Pending Developer Release. TestFlight needs no
+  # version record.
+  lane :upload_testflight_six do
+    upload_to_testflight(
+      ipa: "Blokada 6.ipa",
+      app_identifier: "net.blocka.app",
+      api_key_path: "./blokada-appstore.json",
+      skip_submission: true,                    # no external beta review
+      skip_waiting_for_build_processing: true   # keep CI fast
+    )
+  end
+
+  lane :upload_testflight_family do
+    upload_to_testflight(
+      ipa: "Blokada Family.ipa",
+      app_identifier: "net.blocka.app.family",
+      api_key_path: "./blokada-appstore.json",
+      skip_submission: true,
+      skip_waiting_for_build_processing: true
+    )
+  end
 end
