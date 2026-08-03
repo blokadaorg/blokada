@@ -30,8 +30,13 @@ on:
         required: false
         default: false
         type: boolean
+      public_release:
+        description: "Release to the public: Family publishes once approved, Android goes to production (Six 1%, Family 100%). Six always waits for a manual release."
+        required: false
+        default: false
+        type: boolean
       ios_phased_release:
-        description: "Ramp the iOS update over 7 days (automatic updates only)"
+        description: "iOS only. Ramp Blokada 6 over 7 days for auto-updating users. Untick for a hotfix that must reach everyone at once. Family always releases to all users. App Store Connect locks this once the build is approved, so it cannot be changed later."
         required: false
         default: true
         type: boolean
@@ -88,6 +93,7 @@ jobs:
           FLAVOR_INPUT: ${{ inputs.flavor }}
           PLATFORM_INPUT: ${{ inputs.platform }}
           SUBMIT_IOS_FOR_REVIEW_INPUT: ${{ inputs.submit_ios_for_review }}
+          PUBLIC_RELEASE_INPUT: ${{ inputs.public_release }}
           IOS_PHASED_RELEASE_INPUT: ${{ inputs.ios_phased_release }}
         run: |
           {
@@ -96,7 +102,8 @@ jobs:
             echo "- version: \`${{ steps.r.outputs.version_name }}\`"
             echo "- flavor: \`$FLAVOR_INPUT\` · platform: \`$PLATFORM_INPUT\`"
             echo "- submit iOS for review: \`$SUBMIT_IOS_FOR_REVIEW_INPUT\`"
-            echo "- iOS phased release: \`$IOS_PHASED_RELEASE_INPUT\`"
+            echo "- release to public: \`$PUBLIC_RELEASE_INPUT\`"
+            echo "- iOS phased release (Six): \`$IOS_PHASED_RELEASE_INPUT\`"
           } >> "$GITHUB_STEP_SUMMARY"
 
   promote_android:
@@ -115,12 +122,13 @@ jobs:
       LC_ALL: en_US.UTF-8
       FLAVOR: ${{ matrix.flavor }}
       BLOKADA_VERSION_CODE: ${{ needs.resolve.outputs.build_number }}
+      PUBLIC_RELEASE: ${{ inputs.public_release }}
     steps:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 1
 
-      - name: Release to alpha and beta
+      - name: Release to testing tracks, and production when public
         env:
           BLOKADA_GPLAY_KEY_BASE64: ${{ secrets.BLOKADA_GPLAY_KEY_BASE64 }}
         run: make promote-android FLAVOR="$FLAVOR"
@@ -147,6 +155,7 @@ jobs:
       BLOKADA_VERSION_CODE: ${{ needs.resolve.outputs.build_number }}
       BLOKADA_VERSION_NAME: ${{ needs.resolve.outputs.version_name }}
       SUBMIT_FOR_REVIEW: ${{ inputs.submit_ios_for_review }}
+      PUBLIC_RELEASE: ${{ inputs.public_release }}
       PHASED_RELEASE: ${{ inputs.ios_phased_release }}
     steps:
       - uses: actions/checkout@v7
