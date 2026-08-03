@@ -107,17 +107,14 @@ function highRiskHits(bumps) {
 }
 
 // Classifies one open Dependabot PR. Returns null when the PR would auto-merge
-// (no major, only allowlisted files, not github-actions, no high-risk package) —
-// i.e. nothing for the human/agent to validate.
+// (no major, only allowlisted files, no high-risk package) — i.e. nothing for
+// the human/agent to validate.
 function classifyPr(pr, detail) {
   const bumps = extractBumps(detail.title ?? "", detail.body ?? "");
   const majors = bumps.filter((b) => b.major);
   const risk = highRiskHits(bumps);
   const files = (detail.files ?? []).map((f) => f.path);
   const offlist = files.filter((f) => !ALLOWED_FILES_REGEX.test(f));
-  const isGithubActions = pr.headRefName.startsWith(
-    "dependabot/github_actions/"
-  );
 
   const reasons = [];
   if (majors.length) {
@@ -135,9 +132,13 @@ function classifyPr(pr, detail) {
   if (offlist.length) {
     reasons.push(`touches non-dependency file(s): ${offlist.join(", ")}`);
   }
-  if (isGithubActions) {
-    reasons.push("github-actions ecosystem bump (supply-chain risk)");
-  }
+  // No github-actions carve-out: dependabot-auto-merge.yml dropped its
+  // "human review required (supply-chain risk)" branch-prefix case in #1115,
+  // so action bumps flow through the same path as every other ecosystem and
+  // the major-bump gate above is the one real guard. Dependabot only bumps an
+  // action already in the repo, so a bump cannot introduce a new publisher.
+  // Re-adding a reason here would queue every patch/minor action bump that the
+  // workflow auto-merges anyway.
 
   if (!reasons.length) return null;
 

@@ -57,6 +57,31 @@ jobs:
             common/assets/translations/packs/en.json \
             common/assets/translations/packtags/en.json
 
+  release_scripts:
+    name: Release script tests
+    # Covers the two release-pipeline invariants that are unrecoverable once
+    # broken: monotonic store version codes, and the offset applied exactly
+    # once. bash + git + python3 only, so it runs on ubuntu-latest rather than
+    # taking a slot on the self-hosted pool.
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.pull_request.head.repo.full_name == github.repository
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+
+      # The allocator tests push tags to a throwaway local remote.
+      - name: Configure git identity
+        run: |
+          git config --global user.email "ci@blokada.org"
+          git config --global user.name "blokada-ci"
+
+      - name: Run build-number and version tests
+        run: make test-scripts
+
   flutter_analyze:
     name: Flutter analyze
     runs-on: [self-hosted, macOS, ARM64, build-only]
@@ -75,6 +100,11 @@ jobs:
         with:
           submodules: recursive
           fetch-depth: 1
+
+      # Must run before `make pub`, which would rewrite a bad lock and hide it.
+      - name: Verify pubspec.lock resolves under the pinned Flutter
+        working-directory: common
+        run: make pub-verify
 
       - name: Analyze Flutter module
         working-directory: common

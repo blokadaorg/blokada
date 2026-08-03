@@ -25,9 +25,9 @@ fi
 make get
 make gen
 if [ -z "$1" ]; then
-	fvm flutter build ios-framework --output=build/ios-framework --no-profile --no-debug
+	fvm flutter build ios-framework --output=build/ios-framework --no-profile --no-debug --no-codesign
 else
-	fvm flutter build ios-framework --output=build/ios-framework --no-release --no-profile
+	fvm flutter build ios-framework --output=build/ios-framework --no-release --no-profile --no-codesign
 fi
 echo $version > build/.version
 

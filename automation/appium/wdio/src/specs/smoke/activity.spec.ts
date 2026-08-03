@@ -53,6 +53,29 @@ async function scrollToShowAll(maxSwipes = 10): Promise<boolean> {
   return false;
 }
 
+// Wait until the button's frame is stationary (scroll fully settled), then tap its
+// center via `mobile: tap`. A plain element.click() here can land while the list is
+// still settling; iOS delivers the touch as a scroll-stop, Flutter's onTap never runs,
+// yet WDA reports the click as successful.
+async function tapShowAllSettled(maxProbes = 8): Promise<void> {
+  let prev = await (await $(showAllSelector)).getLocation();
+  for (let i = 0; i < maxProbes; i += 1) {
+    await driver.pause(300);
+    const el = await $(showAllSelector);
+    const loc = await el.getLocation();
+    if (Math.abs(loc.x - prev.x) <= 1 && Math.abs(loc.y - prev.y) <= 1) {
+      const size = await el.getSize();
+      await driver.execute("mobile: tap", {
+        x: Math.round(loc.x + size.width / 2),
+        y: Math.round(loc.y + size.height / 2)
+      });
+      return;
+    }
+    prev = loc;
+  }
+  throw new Error("Recent Activity 'Show All' did not stop moving; cannot tap reliably.");
+}
+
 // Reach the full Activity list via Privacy Pulse -> "Show All" — a route only made
 // reachable-by-test after the V6 nav cleanup — and confirm it renders (top-bar title
 // + screen body, catching route/blank/crash regressions). The search action is gated
@@ -69,26 +92,6 @@ describe("Smoke: Activity screen", () => {
     await ensureAccountActive();
   });
 
-  // Poll until the button's position is stable (the scroll may still be
-  // settling), then dispatch a real coordinate tap at its current center —
-  // the reliable path for Flutter widgets that ignore WDA's element.click().
-  async function settleAndTapShowAll(): Promise<void> {
-    const el = await $(showAllSelector);
-    let prev = await el.getLocation();
-    for (let i = 0; i < 8; i += 1) {
-      await driver.pause(250);
-      const cur = await el.getLocation();
-      if (Math.abs(cur.y - prev.y) < 2 && Math.abs(cur.x - prev.x) < 2) break;
-      prev = cur;
-    }
-    const loc = await el.getLocation();
-    const size = await el.getSize();
-    await driver.execute("mobile: tap", {
-      x: Math.round(loc.x + size.width / 2),
-      y: Math.round(loc.y + size.height / 2)
-    });
-  }
-
   it("opens the full Activity list from Privacy Pulse", async () => {
     await openHubScreen(AutomationIds.homePrivacyPulse, AutomationIds.screenPrivacyPulse);
 
@@ -97,21 +100,18 @@ describe("Smoke: Activity screen", () => {
         "Recent Activity 'Show All' did not appear after scrolling the Privacy Pulse list."
       );
     }
+    await tapShowAllSettled();
 
-    // element.click() on Flutter buttons intermittently swallows the tap on
-    // physical devices (WDA reports success, the GestureDetector never fires
-    // — the same run went red on main with no code change), and the list can
-    // still be settling from the scroll when the coordinates are resolved.
-    // Wait for the button to stop moving, tap by fresh center coordinates,
-    // and retry if the Activity screen does not appear.
-    for (let attempt = 0; attempt < 3; attempt += 1) {
-      await settleAndTapShowAll();
-      const opened = await (await $(`~${AutomationIds.screenActivity}`))
-        .waitForExist({ timeout: 5000 })
-        .then(() => true)
-        .catch(() => false);
-      if (opened) break;
-      console.warn(`'Show All' tap did not navigate (attempt ${attempt + 1}); retrying.`);
+    // Even a settled coordinate tap can be dropped; re-tap once if the screen has
+    // not appeared — but only if Show All is still on screen (its absence means
+    // navigation is already in flight, just slow).
+    const opened = await (await $(`~${AutomationIds.screenActivity}`))
+      .waitForExist({ timeout: 5000 })
+      .then(() => true)
+      .catch(() => false);
+    if (!opened && (await exists(showAllSelector))) {
+      console.warn("Show All tap produced no navigation within 5s; re-tapping once.");
+      await tapShowAllSettled();
     }
 
     // The Activity screen body + top-bar title must render.

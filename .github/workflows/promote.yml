@@ -1,0 +1,202 @@
+name: Promote to Stores
+
+# Promotes a build that ci-release.yml already uploaded. Never builds, so the
+# binary that ships is the exact one that has been sitting on internal.
+#
+# workflow_dispatch only: the version name is an output of the build (it
+# contains the build number), so it cannot be declared by a tag up front.
+on:
+  workflow_dispatch:
+    inputs:
+      build_number:
+        description: "Build number to promote, or 'latest'"
+        required: true
+        default: "latest"
+        type: string
+      flavor:
+        description: "Flavor to release"
+        required: true
+        default: "all"
+        type: choice
+        options: [all, six, family]
+      platform:
+        description: "Platform to release"
+        required: true
+        default: "all"
+        type: choice
+        options: [all, ios, android]
+      submit_ios_for_review:
+        description: "Submit the App Store version for review (never publishes)"
+        required: false
+        default: false
+        type: boolean
+      ios_phased_release:
+        description: "Ramp the iOS update over 7 days (automatic updates only)"
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: write # pushes the record tag
+
+# Shared with ci-release.yml: both workflows write the same Play packages, and
+# Play invalidates an open edit whose underlying app state changed, so a merge
+# landing mid-release would break one side or the other. Never cancel -- a
+# merge queues behind a release instead.
+concurrency:
+  group: store-publish
+  cancel-in-progress: false
+
+jobs:
+  resolve:
+    runs-on: [self-hosted, macOS, ARM64, build-only]
+    timeout-minutes: 10
+    permissions:
+      contents: read # only reads tags to resolve the build number
+    outputs:
+      build_number: ${{ steps.r.outputs.build_number }}
+      version_name: ${{ steps.r.outputs.version_name }}
+      flavors: ${{ steps.matrix.outputs.flavors }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+
+      - name: Resolve build number
+        id: r
+        env:
+          BUILD_NUMBER_INPUT: ${{ inputs.build_number }}
+        run: |
+          set -euo pipefail
+          ./scripts/build-number.sh resolve "$BUILD_NUMBER_INPUT" >> "$GITHUB_OUTPUT"
+          cat "$GITHUB_OUTPUT"
+
+      - name: Compute flavor matrix
+        id: matrix
+        env:
+          FLAVOR_INPUT: ${{ inputs.flavor }}
+        run: |
+          set -euo pipefail
+          if [ "$FLAVOR_INPUT" = "all" ]; then
+            echo 'flavors=["six","family"]' >> "$GITHUB_OUTPUT"
+          else
+            echo "flavors=[\"$FLAVOR_INPUT\"]" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Summary
+        env:
+          FLAVOR_INPUT: ${{ inputs.flavor }}
+          PLATFORM_INPUT: ${{ inputs.platform }}
+          SUBMIT_IOS_FOR_REVIEW_INPUT: ${{ inputs.submit_ios_for_review }}
+          IOS_PHASED_RELEASE_INPUT: ${{ inputs.ios_phased_release }}
+        run: |
+          {
+            echo "### Release"
+            echo "- build: \`${{ steps.r.outputs.build_number }}\`"
+            echo "- version: \`${{ steps.r.outputs.version_name }}\`"
+            echo "- flavor: \`$FLAVOR_INPUT\` · platform: \`$PLATFORM_INPUT\`"
+            echo "- submit iOS for review: \`$SUBMIT_IOS_FOR_REVIEW_INPUT\`"
+            echo "- iOS phased release: \`$IOS_PHASED_RELEASE_INPUT\`"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  promote_android:
+    needs: resolve
+    if: ${{ inputs.platform == 'all' || inputs.platform == 'android' }}
+    runs-on: [self-hosted, macOS, ARM64, build-only]
+    timeout-minutes: 60
+    permissions:
+      contents: read # releases with its own secrets, never pushes to the repo
+    strategy:
+      fail-fast: false
+      matrix:
+        flavor: ${{ fromJSON(needs.resolve.outputs.flavors) }}
+    env:
+      LANG: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
+      FLAVOR: ${{ matrix.flavor }}
+      BLOKADA_VERSION_CODE: ${{ needs.resolve.outputs.build_number }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+
+      - name: Release to alpha and beta
+        env:
+          BLOKADA_GPLAY_KEY_BASE64: ${{ secrets.BLOKADA_GPLAY_KEY_BASE64 }}
+        run: make promote-android FLAVOR="$FLAVOR"
+
+      - name: Clean Google Play key
+        if: always()
+        run: make gplay-key-clean
+
+  promote_ios:
+    needs: resolve
+    if: ${{ inputs.platform == 'all' || inputs.platform == 'ios' }}
+    runs-on: [self-hosted, macOS, ARM64, build-only]
+    timeout-minutes: 60
+    permissions:
+      contents: read # releases with its own secrets, never pushes to the repo
+    strategy:
+      fail-fast: false
+      matrix:
+        flavor: ${{ fromJSON(needs.resolve.outputs.flavors) }}
+    env:
+      LANG: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
+      FLAVOR: ${{ matrix.flavor }}
+      BLOKADA_VERSION_CODE: ${{ needs.resolve.outputs.build_number }}
+      BLOKADA_VERSION_NAME: ${{ needs.resolve.outputs.version_name }}
+      SUBMIT_FOR_REVIEW: ${{ inputs.submit_ios_for_review }}
+      PHASED_RELEASE: ${{ inputs.ios_phased_release }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+
+      - name: Attach build to App Store version
+        env:
+          BLOKADA_APPSTORE_KEY_BASE64: ${{ secrets.BLOKADA_APPSTORE_KEY_BASE64 }}
+        run: make promote-ios FLAVOR="$FLAVOR"
+
+      - name: Clean App Store key
+        if: always()
+        run: make appstore-key-clean
+
+  tag:
+    needs: [resolve, promote_android, promote_ios]
+    # Only tag a complete, successful release of everything.
+    if: >-
+      ${{
+        always() &&
+        inputs.flavor == 'all' && inputs.platform == 'all' &&
+        needs.promote_android.result == 'success' &&
+        needs.promote_ios.result == 'success'
+      }}
+    runs-on: [self-hosted, macOS, ARM64, build-only]
+    timeout-minutes: 10
+    permissions:
+      contents: write # pushes the record tag
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+
+      - name: Push record tag
+        env:
+          BUILD_NUMBER: ${{ needs.resolve.outputs.build_number }}
+          VERSION: ${{ needs.resolve.outputs.version_name }}
+        run: |
+          set -euo pipefail
+          git config user.email "ci@blokada.org"
+          git config user.name "blokada-ci"
+          # Tag the commit the build was actually cut from, not this run's
+          # checkout. The dispatch ref is main HEAD at release time, while the
+          # build being released may be days and many merges older -- tagging
+          # HEAD would make 26.7.N name a commit that never shipped.
+          # --depth 1 keeps the fetch to just that one commit on the shallow
+          # checkout; ^{} dereferences the annotated tag to it.
+          git fetch --quiet --depth 1 origin "+refs/tags/build/$BUILD_NUMBER:refs/tags/build/$BUILD_NUMBER"
+          BUILD_SHA=$(git rev-parse "refs/tags/build/$BUILD_NUMBER^{}")
+          echo "Tagging $VERSION at $BUILD_SHA (build/$BUILD_NUMBER)"
+          git tag -a "$VERSION" -m "Released by $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" "$BUILD_SHA"
+          git push origin "$VERSION"

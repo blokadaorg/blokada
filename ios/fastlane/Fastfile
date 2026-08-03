@@ -37,29 +37,184 @@ platform :ios do
     build_app(workspace: "IOS.xcworkspace", scheme: "FamilyProd")
   end
 
-  lane :publish_ios_six do
-   deliver(
-      ipa: "Blokada 6.ipa",
+  # Attaches an already-uploaded build to the App Store version deliver just
+  # created or updated.
+  #
+  # deliver only ever selects a build inside its submit-for-review step:
+  # runner.rb:71 runs submit_for_review only when options[:submit_for_review]
+  # is set, and options[:build_number] is read nowhere else in deliver. So on
+  # the default (submit off) path deliver creates the version, uploads the
+  # metadata, reports success -- and leaves the version with no binary. This
+  # closes that gap; submitting for review stays opt-in.
+  #
+  # The API shape follows deliver's own select_build
+  # (deliver/lib/deliver/submit_for_review.rb): find the app by bundle id, take
+  # the editable App Store version for the platform, look the build up by
+  # app_version + build_number, and select it on the version. Selecting a build
+  # that is already selected is the same PATCH with the same value, so re-runs
+  # are safe.
+  #
+  # api_key_path is relative to the *fastlane folder*, not the project folder:
+  # Runner#execute wraps the whole lane in `Dir.chdir(FastlaneFolder.path)`
+  # (runner.rb:45), which is "./fastlane/" (fastlane_folder.rb:8-16), and
+  # try_switch_to_lane (runner.rb:185) does not chdir back. Only *actions* are
+  # moved up, by execute_action's `custom_dir ||= ".."` (runner.rb:218-229).
+  # So lane-body code like the line below runs in ios/fastlane/ while deliver
+  # runs in ios/ -- hence "../blokada-appstore.json" here but
+  # "./blokada-appstore.json" in the deliver calls. Both land on
+  # ios/blokada-appstore.json, where `make appstore-key-unpack` writes it.
+  private_lane :attach_build do |options|
+    require "spaceship"
+
+    api_key_path = options[:api_key_path]
+    bundle_id = options[:bundle_id]
+    version_name = options[:version_name]
+    build_number = options[:build_number]
+
+    Spaceship::ConnectAPI.token = Spaceship::ConnectAPI::Token.from_json_file(api_key_path)
+    platform = Spaceship::ConnectAPI::Platform::IOS
+
+    app = Spaceship::ConnectAPI::App.find(bundle_id)
+    UI.user_error!("Could not find app '#{bundle_id}' on App Store Connect") if app.nil?
+
+    version = app.get_edit_app_store_version(platform: platform)
+    UI.user_error!("No editable App Store version for '#{bundle_id}' -- deliver should have created one") if version.nil?
+
+    build = Spaceship::ConnectAPI::Build.all(
+      app_id: app.id,
+      version: version_name,
+      build_number: build_number,
+      platform: platform
+    ).first
+
+    if build.nil?
+      UI.user_error!("Build #{version_name} (#{build_number}) does not exist for '#{bundle_id}'. " \
+                     "It has to be uploaded to TestFlight by a ci-release run before it can be released.")
+    end
+
+    unless build.processing_state == Spaceship::ConnectAPI::Build::ProcessingState::VALID
+      UI.user_error!("Build #{version_name} (#{build_number}) is '#{build.processing_state}', not " \
+                     "'#{Spaceship::ConnectAPI::Build::ProcessingState::VALID}', so it cannot be attached yet. " \
+                     "Wait for App Store Connect to finish processing it and re-run the release.")
+    end
+
+    version.select_build(build_id: build.id)
+    UI.success("Attached build #{version_name} (#{build_number}) to App Store version #{version.version_string}")
+  end
+
+  # Release path: attach an already-uploaded build to an App Store version.
+  #
+  # skip_binary_upload with build_number promotes rather than re-uploads, so we
+  # ship the exact binary that has been on TestFlight. app_version must be the
+  # name baked in at build time -- deliver looks a build up by the pair.
+  #
+  # automatic_release: false leaves an approved build in Pending Developer
+  # Release. Publishing is always a manual click.
+  #
+  # phased_release is passed as a real boolean on every run, never left nil.
+  # deliver only touches the setting when the option is non-nil
+  # (deliver/upload_metadata.rb:314), so nil means "leave whatever App Store
+  # Connect has" -- true creates the 7-day ramp, and false DELETES an existing
+  # one. Being explicit means the workflow input decides, rather than a stale
+  # per-version setting somebody clicked months ago. Note the ramp only governs
+  # automatic updates for existing users; manual updates and fresh installs get
+  # the build immediately either way.
+  #
+  # Export compliance needs no entry here: ITSAppUsesNonExemptEncryption is
+  # already <false/> in Info-six.plist and Info-family.plist, so App Store
+  # Connect never asks.
+  lane :publish_ios_six do |options|
+    # .to_s, not == "true": fastlane's CommandLineHandler.convert_value turns
+    # the CLI's `submit_for_review:true` into the Ruby boolean true before the
+    # lane ever sees it, so comparing against the string is always false.
+    submit = options[:submit_for_review].to_s == "true"
+    deliver(
       app_identifier: "net.blocka.app",
       metadata_path: "../metadata/ios-six/",
       api_key_path: "./blokada-appstore.json",
+      app_version: options[:version_name],
+      build_number: options[:build_number],
+      skip_binary_upload: true,
       skip_screenshots: true,
       skip_app_version_update: false,
       force: true, # skips verification of HTML preview file
-      run_precheck_before_submit: false # not supported through ASC API yet
-   )
+      run_precheck_before_submit: false, # not supported through ASC API yet
+      submit_for_review: submit,
+      automatic_release: false,
+      phased_release: options[:phased_release].to_s == "true",
+      submission_information: {
+        content_rights_contains_third_party_content: false
+      }
+    )
+    # deliver's submit flow selects the build itself and then moves the version
+    # out of an editable state, so only do this on the non-submitting path.
+    unless submit
+      attach_build(
+        api_key_path: "../blokada-appstore.json", # lane body, not an action -- see attach_build
+        bundle_id: "net.blocka.app",
+        version_name: options[:version_name],
+        build_number: options[:build_number]
+      )
+    end
   end
 
-  lane :publish_ios_family do
-   deliver(
-      ipa: "Blokada Family.ipa",
+  lane :publish_ios_family do |options|
+    # .to_s, not == "true": fastlane's CommandLineHandler.convert_value turns
+    # the CLI's `submit_for_review:true` into the Ruby boolean true before the
+    # lane ever sees it, so comparing against the string is always false.
+    submit = options[:submit_for_review].to_s == "true"
+    deliver(
       app_identifier: "net.blocka.app.family",
       metadata_path: "../metadata/ios-family/",
       api_key_path: "./blokada-appstore.json",
+      app_version: options[:version_name],
+      build_number: options[:build_number],
+      skip_binary_upload: true,
       skip_screenshots: true,
       skip_app_version_update: false,
-      force: true, # skips verification of HTML preview file
-      run_precheck_before_submit: false # not supported through ASC API yet
-   )
+      force: true,
+      run_precheck_before_submit: false,
+      submit_for_review: submit,
+      automatic_release: false,
+      phased_release: options[:phased_release].to_s == "true",
+      submission_information: {
+        content_rights_contains_third_party_content: false
+      }
+    )
+    unless submit
+      attach_build(
+        api_key_path: "../blokada-appstore.json", # lane body, not an action -- see attach_build
+        bundle_id: "net.blocka.app.family",
+        version_name: options[:version_name],
+        build_number: options[:build_number]
+      )
+    end
+  end
+
+  # Continuous path: upload to TestFlight only, run on every merge to main.
+  #
+  # Deliberately NOT deliver. deliver creates an App Store version record per
+  # run, which would produce hundreds of junk versions and hard-fail with
+  # "You cannot create a new version of the App in the current state" whenever
+  # a release is sitting in Pending Developer Release. TestFlight needs no
+  # version record.
+  lane :upload_testflight_six do
+    upload_to_testflight(
+      ipa: "Blokada 6.ipa",
+      app_identifier: "net.blocka.app",
+      api_key_path: "./blokada-appstore.json",
+      skip_submission: true,                    # no external beta review
+      skip_waiting_for_build_processing: true   # keep CI fast
+    )
+  end
+
+  lane :upload_testflight_family do
+    upload_to_testflight(
+      ipa: "Blokada Family.ipa",
+      app_identifier: "net.blocka.app.family",
+      api_key_path: "./blokada-appstore.json",
+      skip_submission: true,
+      skip_waiting_for_build_processing: true
+    )
   end
 end

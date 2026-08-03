@@ -21,7 +21,7 @@ node automation/dep-validate/queue.mjs
 
 Prints JSON: `queue` (open Dependabot PRs needing validation) and `advisories` (unscanned ecosystems). Each PR entry carries `reasons`, `majors`, `highRiskPackages`, and `surfaces` (e.g. `payment`, `platform-bridge`, `protection`, `messaging`, `build-system`) precomputed from the bump. Validate one PR per run; take the PR number as input for headless runs.
 
-A queue entry means: the auto-merge workflow would hand it to a human (major bump, non-allowlist file, or github-actions), or it carries a high-risk package (Adapty, Firebase, WireGuard, pigeon, gradle/AGP) at any bump level. Advisories are version-drift notes only — there is no PR to check out, so you surface them, you do not run the loop on them.
+A queue entry means: the auto-merge workflow would hand it to a human (major bump or non-allowlist file), or it carries a high-risk package (Adapty, Firebase, WireGuard, pigeon, gradle/AGP) at any bump level. Advisories are version-drift notes only — there is no PR to check out, so you surface them, you do not run the loop on them.
 
 ## 2. The validation loop
 

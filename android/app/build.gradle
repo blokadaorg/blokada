@@ -45,7 +45,7 @@ android {
     defaultConfig {
         applicationId "org.blokada" // Not a real name, see flavors below
         minSdkVersion 28
-        targetSdkVersion 35
+        targetSdkVersion 36
         versionCode 1
         versionName "dev"
 
@@ -162,11 +162,11 @@ repositories {
 
 dependencies {
     // androidx and kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:2.4.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:2.4.10"
     implementation 'androidx.core:core-ktx:1.19.0'
     implementation 'androidx.appcompat:appcompat:1.7.1'
     implementation 'com.google.android.material:material:1.14.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.2'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.11.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.11.0'
     implementation 'androidx.preference:preference-ktx:1.2.1'
@@ -187,7 +187,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor'
 
     // Hopefully normal date api?
-    implementation 'net.danlew:android.joda:2.14.2'
+    implementation 'net.danlew:android.joda:2.14.2.1'
 
     // Biometric api to protect account id
     implementation "androidx.biometric:biometric-ktx:1.4.0-alpha02"
@@ -212,13 +212,13 @@ dependencies {
     // adapty-ui pulls androidx.compose.* without versions; under AGP 9 the
     // consumer must supply them. We don't author Compose — the BOM only pins
     // the versions for Adapty's prebuilt paywall UI.
-    sixImplementation platform('androidx.compose:compose-bom:2026.06.00')
-    sixImplementation platform('io.adapty:adapty-bom:3.17.1')
+    sixImplementation platform('androidx.compose:compose-bom:2026.06.01')
+    sixImplementation platform('io.adapty:adapty-bom:3.17.2')
     sixImplementation 'io.adapty:android-sdk'
     sixImplementation 'io.adapty:android-ui'
 
     // Firebase Cloud Messaging (v6 only)
-    sixImplementation platform('com.google.firebase:firebase-bom:34.15.0')
+    sixImplementation platform('com.google.firebase:firebase-bom:34.17.0')
     sixImplementation 'com.google.firebase:firebase-messaging'
 
     // test deps

@@ -151,10 +151,18 @@ make regen-ios      # clean and regenerate for iOS
 
 ## Version Management
 
+Versions are `YY.M.BUILD` and are computed by CI, not chosen by hand. See
+`docs/release-pipeline.md`.
+
 ```bash
-make version NAME=6.24.0 CODE=624000
+# CODE is the raw build number; VERSION_CODE_OFFSET (669000000) is added for you
+make version NAME=26.7.1042 CODE=1042
 # Or via env vars: BLOKADA_VERSION_NAME / BLOKADA_VERSION_CODE
 ```
+
+Never pass a CODE far above the current build counter: store codes must
+increase monotonically, so an inflated value permanently strands every later
+release below it.
 
 ## Platform Build Notes
 
