@@ -11,12 +11,14 @@ promote-only release step:
   published and nothing is submitted for review.
 - **Releasing** never builds. It takes a build number that is already uploaded
   and releases it: to Play `alpha` + `beta`, and to an App Store version that is
-  optionally submitted for review. Publishing is always a manual click.
+  optionally submitted for review.
 
-The pipeline stops at Play `alpha`/`beta` and at an App Store version in
-Pending Developer Release. **Neither reaches production.** Promoting an
-alpha/beta release to Play `production`, and releasing an approved App Store
-version, are console actions with no automation here at all — see
+By default the pipeline stops at Play `alpha`/`beta` and at an App Store version
+in Pending Developer Release, and **neither reaches production**. The
+`public_release` input is what takes the live step: it sends both Android
+flavors to Play `production` and lets the Family App Store version publish
+itself once approved. Blokada 6 on the App Store is never published
+automatically — that click is always ours. See
 [Reaching production](#reaching-production).
 
 The point is that the binary you ship is the exact binary that has been sitting
@@ -227,29 +229,110 @@ Trigger: `workflow_dispatch` only.
 | `flavor` | `all` | `all`, `six`, `family` |
 | `platform` | `all` | `all`, `ios`, `android` |
 | `submit_ios_for_review` | **false** | Whether to submit the App Store version |
-| `ios_phased_release` | **true** | Ramp the iOS update over 7 days |
+| `public_release` | **false** | Take the live step — see below |
+| `ios_phased_release` | **true** | Ramp Blokada 6 over 7 days; untick for a hotfix |
 
 Defaults give the standard sequence with no input at all. The flavor/platform
 narrowing is the manual-override path.
 
-The two iOS flags default opposite ways so that an unset value is the cautious
-answer for each: submitting for review takes an explicit opt-in, while the
-phased ramp takes an explicit opt-out.
+The flags default in opposite directions so that an unset value is the cautious
+answer for each. `submit_ios_for_review` and `public_release` need an explicit
+`true`: nothing is submitted, and nothing reaches the public. `ios_phased_release`
+needs an explicit `false`: the ramp is the safe default, and turning it off is
+the deliberate hotfix choice.
 
-### iOS phased release
+### `public_release`
 
-`deliver` only touches the setting when the option is non-nil
-(`deliver/upload_metadata.rb:314`), so passing nothing leaves whatever App Store
-Connect happens to have on that version. This workflow always passes a real
-boolean instead, so the input decides rather than a per-version setting somebody
-clicked months ago. The consequence worth knowing: `false` does not mean "leave
-alone", it **deletes** an existing phased release.
+| | `false` | `true` |
+|---|---|---|
+| **iOS six** | ramp per `ios_phased_release` · manual release | *identical* |
+| **iOS family** | all users · manual release | all users · **auto-release once approved** |
+| **Android six** | `alpha` + `beta` | `alpha` + `beta` + **`production` @ 1%** |
+| **Android family** | `alpha` + `beta` | `alpha` + `beta` + **`production` @ 100%** |
+
+The flag is about **family**: it is how we take the smaller live step. Family is
+the lower-traffic app, so it goes out first and goes out whole — full rollout,
+publishing itself once approved. Six never changes behaviour with the flag on
+iOS at all; on Play it gains a production release that starts at 1%.
+
+Default `false` matters because the flag decides whether Play production is
+written. An input nobody thought about must not publish.
+
+### iOS phased release and automatic release
+
+Six ramps over 7 days unless `ios_phased_release` is unticked, and always waits
+for a manual release click. Family never ramps — that is fixed in the lane, not
+an input — and `public_release` decides whether it publishes itself once
+approved.
+
+**Why the ramp is a dispatch-time input and not something to fix later.** App
+Store Connect greys the phased-release checkboxes out once Apple approves the
+build — verified on a real Pending Developer Release version on 2026-08-03,
+which contradicts Apple's own help page listing Pending Developer Release among
+the statuses where the option is available; read that list as "at submission
+time". The API refuses too: `PATCH /v1/appStoreVersionPhasedReleases` returns
+409 *"You cannot change the state of a phased release in the current version
+state"*. Releasing and then clicking *Release to all users* does work, but only
+once the version has Ready for Distribution status — so a hotfix that must not
+trickle out over a week has to say so when the release is dispatched, or accept
+going live at 1% first and being accelerated by hand.
+
+`upload_metadata.rb:314` skips the phased setting only when the option is
+`nil` — but `deliver`'s ConfigItem for `phased_release` carries
+`default_value: false` (`deliver/options.rb:221-226`), so it is **never nil in
+practice**. Omitting it is the same as passing `false`, and `false` does not
+mean "leave alone", it **deletes** an existing phased release. Dropping the
+explicit `phased_release: true` from `publish_ios_six` would therefore silently
+remove six's ramp, not inherit whatever App Store Connect has.
+
+`automatic_release` is the one that genuinely honours nil: it has no
+`default_value`. Both are written out explicitly anyway, so the lane decides
+rather than a per-version setting somebody clicked months ago.
 
 The ramp governs **automatic updates for existing users only** — anyone who
 updates by hand or installs fresh gets the build immediately regardless. It runs
 7 days, and it can be paused or pushed to everyone from App Store Connect once
-the release is out, so this input sets the starting position rather than an
-irreversible choice.
+the release is out, so it sets the starting position rather than an irreversible
+choice.
+
+### The App Store state gate
+
+`ensure_promotable` runs before `deliver` in both promote lanes and decides
+whether the release may start at all, from the newest version record's
+`appVersionState`:
+
+| State | Action |
+|---|---|
+| *(none)*, `READY_FOR_DISTRIBUTION`, `REPLACED_WITH_NEW_VERSION` | proceed — nothing pending |
+| `PREPARE_FOR_SUBMISSION`, `DEVELOPER_REJECTED`, `REJECTED`, `METADATA_REJECTED`, `INVALID_BINARY` | proceed — editable |
+| `WAITING_FOR_REVIEW`, `IN_REVIEW` | cancel the submission, then proceed |
+| everything else | fail, naming the state |
+
+The table (`ios/fastlane/release_state.rb`) is **fail-closed**: an unlisted state
+blocks the release, so a new or renamed Apple state produces a legible refusal
+rather than an unpredictable mutation. Refusals are emitted as GitHub
+`::error` annotations so the run page names the state instead of showing
+`Process completed with exit code 2`.
+
+**Why this exists.** `get_edit_app_store_version` counts `WAITING_FOR_REVIEW` as
+editable, so `ensure_version!` will happily rename a submission that is already
+in review to the version name of the build being promoted, upload metadata over
+it, and only fail later when `select_build` refuses to swap the binary. Run
+`30808857877` did exactly that to 26.8.1007.
+
+**Why not `reject_if_possible`.** deliver's own flag cancels an in-progress
+submission, but `Runner#run` calls it *after* `verify_version`, so the rename
+has already happened, and its wait loop has no timeout. The lane does the same
+cancellation earlier and bounded to 5 minutes, and leaves the flag off.
+
+The cancellation only runs when `submit_ios_for_review` is on. A run that pulled
+a submitted version out of review and put nothing back in its place would be
+worse than a refusal.
+
+An **approved** version cannot be cancelled at all: its review submission is
+`COMPLETE`, so `get_in_progress_review_submission` no longer returns it and
+there is no API to un-approve. `PENDING_DEVELOPER_RELEASE` therefore fails with
+a message telling the operator to release or reject it by hand.
 
 **`latest` resolves the newest *tag*, not the newest successful build.** The
 number is allocated before anything is built, so if that `ci-release` run
@@ -276,23 +359,50 @@ in Play Console (confirmed 2026-07-28).
 
 ### Reaching production
 
-**The pipeline never touches production on either store.** `promote.yml` ends
-with:
+Without `public_release`, the pipeline never touches production on either store.
+`promote.yml` ends with:
 
 - Play: a release on `alpha` and `beta`, submitted for review.
 - App Store: a version with the build attached, either still editable or — with
   `submit_ios_for_review: true` and once approved — in Pending Developer
   Release.
 
-Getting from there to users is entirely manual, in the two consoles:
+With `public_release: true` it goes further:
 
-- **Play production** — Play Console → *Production* → *Create new release* →
-  add the reviewed version code → *Start rollout*. There is no make target, no
-  lane and no workflow input for this, by design.
-- **App Store** — App Store Connect → *Release this version*, because
-  `automatic_release: false`.
+- **Play production** is written directly by `promote-android`, for both
+  flavors, in the same run as `alpha`/`beta`. Six starts at a 1% staged rollout;
+  family goes out at 100%.
+- **The Family App Store version** is created with `automatic_release: true`, so
+  Apple publishes it as soon as review passes.
 
-"Publishing is always a manual click" refers to exactly these two actions.
+What stays manual, always:
+
+- **Blokada 6 on the App Store** — App Store Connect → *Release this version*,
+  because six keeps `automatic_release: false`. This is the one click the
+  pipeline will never make.
+- **Raising six's Play rollout** — Play Console → *Production* → the staged
+  release → increase the percentage. Play has no time-based ramp, so nothing
+  raises it on a schedule. `GPLAY_SIX_PRODUCTION_ROLLOUT` sets only the starting
+  fraction.
+
+  **This is not optional maintenance — it gates the next public release of
+  six.** A track cannot hold two in-progress staged rollouts: Play's own
+  guidance is that you cannot create a new release while an earlier one is
+  still rolling out, and it has to be completed, halted or discarded first.
+
+  `scripts/verify-play-version-code.rb --check-production-rollout` refuses the
+  run up front when production still holds one, naming the version code and the
+  percentage it is stuck at. The flag is passed only when the run would write
+  production. Without it the rejection would land at the production write —
+  *after* `alpha` and `beta` had been written, leaving the release
+  half-applied. A rollout of the code being promoted does not block its own
+  re-run.
+
+Leaving an approved App Store version un-released has a cost worth knowing: it
+sits in `PENDING_DEVELOPER_RELEASE`, and no new version can be created for that
+app until it is released or rejected — so the next promote run for that flavor
+fails the state gate. Family avoids this by publishing itself; six does not, and
+that is the trade for keeping the click.
 
 ### Why Android writes the track instead of promoting
 
@@ -369,19 +479,30 @@ old patches are <= 75, new ones start at 1000.
 |---|---|---|
 | `version` | both | unchanged |
 | `publish-android` | merge | internal only; **remove** the promote loop added on this branch, and add the metadata skip flags |
-| `promote-android` | release | **new** — preflight the code, then write `alpha`/`beta` directly with `--version_codes_to_retain`, plus metadata/changelogs |
+| `promote-android` | release | **new** — preflight the code, then write `alpha`/`beta` (and `production` when `PUBLIC_RELEASE=true`) directly with `--version_codes_to_retain`, plus metadata/changelogs |
 | `publish-ios-testflight` | merge | **new** — `upload_to_testflight` lane |
-| `promote-ios` | release | **renamed from `publish-ios`** — `deliver` with `build_number`, `skip_binary_upload`, optional `submit_for_review`, then an explicit build attach |
-| `test-scripts` | neither | **new** — runs `test-build-number.sh` and `test-version.sh`; wired into PR CI on `ubuntu-latest` |
+| `promote-ios` | release | **renamed from `publish-ios`** — state gate, then `deliver` with `build_number`, `skip_binary_upload`, optional `submit_for_review`, then an explicit build attach |
+| `test-scripts` | neither | **new** — runs `test-build-number.sh`, `test-version.sh` and `test-release-state.rb`; wired into PR CI on `ubuntu-latest` |
 
 ### iOS submission settings
+
+Six:
 
 ```ruby
 submit_for_review: <input>,        # default false
 automatic_release: false,          # → "Pending Developer Release", manual click
+phased_release: <input>,           # default true, unticked only for a hotfix
+reject_if_possible: false,         # the state gate already did it, earlier
 submission_information: {
   content_rights_contains_third_party_content: false
 }
+```
+
+Family differs in exactly two places:
+
+```ruby
+automatic_release: <public_release>,  # publishes itself once approved
+phased_release: false,                # always all users at once
 ```
 
 Export compliance needs **nothing**: `ITSAppUsesNonExemptEncryption` is already
@@ -435,6 +556,22 @@ Verified against fastlane 2.232.0 as installed, not from documentation.
   codes; the explicit skip flags avoid this regardless.
 - **`deliver` refuses concurrent submissions** — `submit_for_review.rb` errors
   with *"A review submission is already in progress"*. Clean, legible failure.
+- **spaceship treats `WAITING_FOR_REVIEW` as an editable state.**
+  `App#get_edit_app_store_version` filters on `PREPARE_FOR_SUBMISSION`,
+  `DEVELOPER_REJECTED`, `REJECTED`, `METADATA_REJECTED`, `WAITING_FOR_REVIEW`
+  and `INVALID_BINARY`, so `ensure_version!` will rename a version that is
+  already in review instead of refusing. This is why the state gate runs first.
+- **`reject_if_possible` runs too late to help.** `Runner#run` calls
+  `reject_version_if_possible` *after* `verify_version`, and the poll loop
+  inside it has no timeout.
+- **An approved version has no cancellable submission.**
+  `App#get_in_progress_review_submission` filters on `WAITING_FOR_REVIEW`,
+  `IN_REVIEW` and `UNRESOLVED_ISSUES`; a `COMPLETE` submission is invisible to
+  it, and nothing in the API un-approves a version.
+- **`--rollout` strictly between 0 and 1 forces a staged release.**
+  `Uploader#update_track` sets `status: inProgress` and `user_fraction` only in
+  that range; omitting the flag leaves `release_status` at its `completed`
+  default, which is a 100% release. Play has no time-based ramp at all.
 - **`workflow_dispatch` requires the workflow file on the default branch**;
   `push` does not. This shaped the pre-merge validation below.
 - **TestFlight builds expire after 90 days.** This is an **iOS-only** limit: a
