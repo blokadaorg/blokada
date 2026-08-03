@@ -106,9 +106,12 @@ jobs:
         # with the next run that does carry translation content.
         run: |
           set -euo pipefail
+          # Two steps on purpose: the git calls stay under `pipefail` so a real
+          # failure is loud, and the `|| true` covers only grep's "matched
+          # nothing" exit 1 (i.e. the gitlink was the whole diff).
           changed=$( { git diff --name-only HEAD; \
-                       git ls-files --others --exclude-standard; } \
-                     | grep -vxF 'deps/translate' | sort -u || true )
+                       git ls-files --others --exclude-standard; } | sort -u )
+          changed=$(printf '%s\n' "$changed" | grep -vxF 'deps/translate' || true)
           if [ -z "$changed" ]; then
             echo "has_changes=false" >> "$GITHUB_OUTPUT"
             echo "No new translations — exiting cleanly."
