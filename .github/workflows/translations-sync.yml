@@ -98,13 +98,24 @@ jobs:
 
       - name: Check for changes
         id: changes
+        # The deps/translate gitlink is excluded on purpose: when the new
+        # translate commits only touch locales the app doesn't ship (anything
+        # outside langs.js, e.g. Basque), `make translate` regenerates every
+        # asset byte-identically and the submodule pointer is the only diff.
+        # That is a no-op sync — don't open a PR for it; the pin rides along
+        # with the next run that does carry translation content.
         run: |
           set -euo pipefail
-          if git diff --quiet HEAD && [ -z "$(git ls-files --others --exclude-standard)" ]; then
+          changed=$( { git diff --name-only HEAD; \
+                       git ls-files --others --exclude-standard; } \
+                     | grep -vxF 'deps/translate' | sort -u || true )
+          if [ -z "$changed" ]; then
             echo "has_changes=false" >> "$GITHUB_OUTPUT"
             echo "No new translations — exiting cleanly."
           else
             echo "has_changes=true" >> "$GITHUB_OUTPUT"
+            echo "Changed:"
+            printf '%s\n' "$changed"
           fi
 
       - name: Gate
@@ -160,9 +171,14 @@ jobs:
           set -euo pipefail
           today=$(date -u +%Y-%m-%d)
           sha=$(git -C deps/translate rev-parse --short HEAD)
+          # sed, not grep: a `grep` that matches nothing exits 1 and, under
+          # `pipefail`, kills the step before the `${locales:-none}` fallback
+          # below can ever be used. It also has to accept the hyphenated and
+          # mixed-case locale filenames (pt-BR.json, zh-Hant.json), which the
+          # old `[a-z0-9_]+` class silently dropped.
           locales=$( { git diff --name-only HEAD -- common/assets/translations; \
                        git ls-files --others --exclude-standard -- common/assets/translations; } \
-                     | grep -oE '/[a-z0-9_]+\.json$' | tr -d '/' | sed 's/\.json$//' | sort -u | tr '\n' ' ')
+                     | sed -n 's|.*/\([^/]*\)\.json$|\1|p' | sort -u | tr '\n' ' ')
           nfiles=$( { git diff --name-only HEAD; git ls-files --others --exclude-standard; } | sort -u | wc -l | tr -d ' ')
           {
             echo "Automated translation sync ($today)."
