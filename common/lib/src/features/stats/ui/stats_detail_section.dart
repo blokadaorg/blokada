@@ -18,9 +18,8 @@ import 'package:flutter/services.dart';
 
 class StatsDetailSection extends StatefulWidget {
   final UiJournalEntry entry;
-  final bool primary;
 
-  const StatsDetailSection({super.key, required this.entry, this.primary = true});
+  const StatsDetailSection({super.key, required this.entry});
 
   @override
   State<StatefulWidget> createState() => StatsDetailSectionState();
@@ -51,7 +50,7 @@ class StatsDetailSectionState extends State<StatsDetailSection> with Logging {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: ListView(
-        primary: widget.primary,
+        primary: true,
         children: [
           SizedBox(height: getTopPadding(context)),
           CommonCard(

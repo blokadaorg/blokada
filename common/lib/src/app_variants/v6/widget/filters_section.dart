@@ -1,9 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:common/src/features/filter/domain/filter.dart';
-import 'package:common/src/features/payment/domain/payment.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/features/filter/ui/filter.dart';
-import 'package:common/src/shared/ui/freemium_screen.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/app_variants/family/module/profile/profile.dart';
 import 'package:common/src/platform/account/account.dart';
@@ -11,13 +9,9 @@ import 'package:common/src/platform/filter/filter.dart';
 import 'package:flutter/material.dart';
 
 class V6FiltersSection extends StatefulWidget {
-  final bool twoColumns;
-  final bool freemium;
 
   const V6FiltersSection({
     Key? key,
-    this.twoColumns = false,
-    this.freemium = true,
   }) : super(key: key);
 
   @override
@@ -48,10 +42,22 @@ class V6FiltersSectionState extends State<V6FiltersSection> with Logging, Dispos
     disposeAll();
   }
 
+  /// Filter cards go two-per-row once the section is wide enough that a
+  /// single stretched column reads worse than a grid; in practice only the
+  /// expanded-window content box (up to maxContentWidthTwoPane) crosses
+  /// this, since narrower layouts cap the box at maxContentWidth.
+  static const double _twoColumnMinWidth = 700.0;
+
   @override
   Widget build(BuildContext context) {
+    return LayoutBuilder(builder: (context, constraints) {
+      return _buildSection(context, twoColumns: constraints.maxWidth >= _twoColumnMinWidth);
+    });
+  }
+
+  Widget _buildSection(BuildContext context, {required bool twoColumns}) {
     final padding = SizedBox(height: getTopPadding(context)) as Widget;
-    final filters = widget.twoColumns ? _buildFiltersPerRow(context) : _buildFilters(context);
+    final filters = twoColumns ? _buildFiltersTwoColumns(context) : _buildFilters(context);
 
     return Stack(
       children: [
@@ -59,34 +65,48 @@ class V6FiltersSectionState extends State<V6FiltersSection> with Logging, Dispos
           ignoring: _isFreemium,
           child: ListView(primary: true, children: [padding] + filters),
         ),
-        (_isFreemium)
-            ? FreemiumScreen(
-                title: "freemium filters cta header".i18n,
-                subtitle: "freemium filters cta desc".i18n,
-                placement: Placement.freemiumFilters,
-              )
-            : Container(),
       ],
     );
   }
 
-  List<Widget> _buildFiltersPerRow(BuildContext context) {
-    final filters = _buildFilters(context);
-    final rows = <Widget>[];
-    for (var i = 0; i < filters.length; i += 2) {
-      final row = <Widget>[];
-      if (i < filters.length) row.add(Expanded(child: filters[i]));
-      if (i + 1 < filters.length) row.add(Expanded(child: filters[i + 1]));
-      rows.add(Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: row,
-      ));
+  /// Two independent columns that each stack tightly (pairing cards into
+  /// Rows forced every pair to the taller card's height). Cards go to the
+  /// currently-shorter column by estimated height, so tall cards don't
+  /// pile up on one side.
+  List<Widget> _buildFiltersTwoColumns(BuildContext context) {
+    final left = <Widget>[];
+    final right = <Widget>[];
+    var leftHeight = 0.0;
+    var rightHeight = 0.0;
+    for (final (card, height) in _buildWeightedFilters(context)) {
+      if (leftHeight <= rightHeight) {
+        left.add(card);
+        leftHeight += height;
+      } else {
+        right.add(card);
+        rightHeight += height;
+      }
     }
-    return rows;
+    return [
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(child: Column(children: left)),
+          Expanded(child: Column(children: right)),
+        ],
+      ),
+    ];
   }
 
   List<Widget> _buildFilters(BuildContext context) {
-    final filters = <Widget>[];
+    return _buildWeightedFilters(context).map((it) => it.$1).toList();
+  }
+
+  /// Cards paired with a rough height estimate so the wide layout can
+  /// balance its columns; only relative accuracy matters. Option rows
+  /// dominate a card's height, wrapped description lines add the rest.
+  List<(Widget, double)> _buildWeightedFilters(BuildContext context) {
+    final filters = <(Widget, double)>[];
     int i = 0;
     final colors = Core.act.isFamily ? _cardColorsFamily : _cardColorsV6;
     for (final filter in _knownFilters.get()) {
@@ -96,13 +116,23 @@ class V6FiltersSectionState extends State<V6FiltersSection> with Logging, Dispos
               ?.options ??
           [];
       try {
-        filters.add(_buildFilter(context, filter, selected, color: color));
+        filters.add((
+          _buildFilter(context, filter, selected, color: color),
+          _estimateFilterHeight(filter),
+        ));
       } catch (e) {
         print("ERROR: Unknown filter from API: '${filter.filterName}' - skipping. Add FilterDecor entry to filter_decor_defaults.dart");
         // Continue processing other filters instead of crashing
       }
     }
     return filters;
+  }
+
+  double _estimateFilterHeight(Filter filter) {
+    final texts = filterDecorDefaults
+        .firstWhereOrNull((it) => it.filterName == filter.filterName);
+    final descriptionLines = ((texts?.description.i18n.length ?? 80) / 60).ceilToDouble();
+    return 170 + descriptionLines * 22 + filter.options.length * 60;
   }
 
   final List<Color?> _cardColorsFamily = [

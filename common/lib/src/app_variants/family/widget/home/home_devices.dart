@@ -1,6 +1,7 @@
 import 'package:common/src/shared/ui/dialog.dart';
 import 'package:common/src/features/modal/domain/modal.dart';
 import 'package:common/src/shared/navigation.dart';
+import 'package:common/src/shared/layout/window_shape.dart';
 import 'package:common/src/shared/ui/minicard/minicard.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
@@ -59,7 +60,7 @@ class HomeDevicesState extends State<HomeDevices> with TickerProviderStateMixin,
   Widget build(BuildContext context) {
     final devices = _getDevices(context);
 
-    if (!isTabletMode(context) || devices.length < 2) {
+    if (windowShapeOf(context) != WindowShape.expanded || devices.length < 2) {
       // One pane view
       return Container(
         constraints: const BoxConstraints(maxWidth: maxContentWidth),

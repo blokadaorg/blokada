@@ -10,11 +10,19 @@ class WithTopBar extends StatefulWidget {
   final double maxWidth;
   final Widget child;
 
+  /// Full-bleed layer above the width-constrained content but below the
+  /// top bar chrome. Exists for persistent gates (freemium): the gate must
+  /// blur and center over the WHOLE body — both panes on expanded windows,
+  /// not the section it used to be embedded in — while the title and back
+  /// affordance stay tappable so the user can still navigate away.
+  final Widget? overlay;
+
   const WithTopBar({
     super.key,
     required this.title,
     this.topBarTrailing,
     this.maxWidth = maxContentWidth,
+    this.overlay,
     required this.child,
   });
 
@@ -58,6 +66,7 @@ class WithTopBarState extends State<WithTopBar> {
                 child: widget.child,
               ),
             ),
+            if (widget.overlay != null) Positioned.fill(child: widget.overlay!),
             TopBar(title: widget.title, trailing: widget.topBarTrailing),
           ],
         ),

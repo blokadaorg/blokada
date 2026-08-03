@@ -11,9 +11,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class RetentionSection extends StatefulWidget {
-  final bool primary;
 
-  const RetentionSection({Key? key, this.primary = true}) : super(key: key);
+  const RetentionSection({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => RetentionSectionState();
@@ -49,7 +48,7 @@ class RetentionSectionState extends State<RetentionSection> with Logging {
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: ListView(
-          primary: widget.primary,
+          primary: true,
           children: [
             SizedBox(height: getTopPadding(context)),
             CommonCard(

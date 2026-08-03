@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 
 class FamilyFiltersSection extends StatefulWidget {
   final String? profileId;
-  final bool primary;
   /// When true (default) renders the big avatar + "Profil: <name>"
   /// title at the top of the list, matching the standalone
   /// device-detail Blocklists route. When the section is embedded
@@ -28,7 +27,6 @@ class FamilyFiltersSection extends StatefulWidget {
   const FamilyFiltersSection({
     Key? key,
     required this.profileId,
-    this.primary = true,
     this.showHeader = true,
     this.topInset = 0,
     this.bottomInset = 0,
@@ -75,7 +73,7 @@ class FamilyFiltersSectionState extends State<FamilyFiltersSection>
         _buildFilters(context) +
         <Widget>[SizedBox(height: widget.bottomInset)];
     return ListView(
-        primary: widget.primary,
+        primary: true,
         // topInset goes through ListView's own padding so the first
         // content sits below glass chrome but still scrolls under it.
         padding: EdgeInsets.only(top: widget.topInset),
@@ -87,10 +85,10 @@ class FamilyFiltersSectionState extends State<FamilyFiltersSection>
   List<Widget> _buildFamilyHeader(BuildContext context) {
     // The big avatar + title is a centerpiece, so it must sit fully below the
     // glass TopBar. getTopPadding is tuned for list content that scrolls subtly
-    // under the glass and returns only 68 on notched phones; used here it
+    // under the glass and returns only 84 on notched phones; used here it
     // leaves the prominent avatar's top clipped under the bar (no-notch devices
-    // return 100 and happen to clear, which is why only phones show it). Clamp
-    // the clearance up to the bar height so the avatar always clears.
+    // return 116 and clear, which is why only phones show it). Clamp the
+    // clearance up to the bar height so the avatar always clears.
     const barHeight = 100.0; // keep in sync with TopBar.height (top_bar.dart)
     final topPadding = getTopPadding(context);
     final topClearance = topPadding < barHeight ? barHeight : topPadding;

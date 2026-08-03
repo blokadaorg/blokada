@@ -98,3 +98,11 @@ class BlokadaTheme extends ThemeExtension<BlokadaTheme> {
     );
   }
 }
+
+
+/// Accent-derived tint for persistently selected list rows (the open
+/// detail in a two-pane layout) — distinct from the neutral gray press
+/// feedback so "chosen" and "being tapped" read differently.
+extension BlokadaThemeSelection on BlokadaTheme {
+  Color get selection => accent.withOpacity(0.18);
+}

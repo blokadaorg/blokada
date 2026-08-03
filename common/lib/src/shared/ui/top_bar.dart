@@ -2,11 +2,11 @@ import 'dart:math' as math;
 import 'dart:ui';
 
 import 'package:common/src/shared/automation/ids.dart';
+import 'package:common/src/shared/layout/detail_route.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/route.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
-import 'package:common/src/app_variants/family/module/family/family.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -286,42 +286,10 @@ class TopBarController extends NavigatorObserver with ChangeNotifier, Logging {
         Navigation.lastPath = path;
       }
 
-      if (s.name == Paths.device.path) {
-        final device = s.arguments as FamilyDevice;
-        title = device.displayName;
-      } else if (s.name == Paths.deviceFilters.path) {
-        title = "family stats label blocklists".i18n;
-      } else if (s.name == Paths.deviceStats.path) {
-        title = "activity section header".i18n;
-      } else if (s.name == Paths.deviceStatsDetail.path) {
-        title = Core.act.isFamily
-            ? "family device title details".i18n
-            : "domain details section header".i18n;
-      } else if (s.name == Paths.settings.path) {
-        if (Core.act.isFamily) {
-          title = "account action my account".i18n;
-        } else {
-          title = "main tab settings".i18n;
-        }
-      } else if (s.name == Paths.settingsExceptions.path) {
-        title = "family stats title".i18n;
-      } else if (s.name == Paths.settingsRetention.path) {
-        title = "activity section header".i18n;
-      } else if (s.name == Paths.settingsVpnDevices.path) {
-        title = "web vpn devices header".i18n;
-      } else if (s.name == Paths.settingsVpnBypass.path) {
-        title = "bypass section header".i18n;
-      } else if (s.name == Paths.support.path) {
-        title = "support action chat".i18n;
-      } else if (s.name == Paths.activity.path) {
-        title = "main tab activity".i18n;
-      } else if (s.name == Paths.privacyPulse.path) {
-        title = "privacy pulse section header".i18n;
-      } else if (s.name == Paths.advanced.path) {
-        title = "main tab advanced".i18n;
-      } else {
-        title = "main tab home".i18n;
-      }
+      // Titles are defined once in DetailRoutes (shared with generateRoute
+      // and the tablet pane); anything unregistered is the home route.
+      final detail = Core.get<DetailRoutes>().resolveByName(s.name);
+      title = detail?.title(s.arguments) ?? "main tab home".i18n;
 
       if (userGesture) {
         waitingPush = title;
