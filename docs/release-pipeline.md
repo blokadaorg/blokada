@@ -10,8 +10,8 @@ promote-only release step:
   Android) and uploads them to Play **internal** and **TestFlight**. Nothing is
   published and nothing is submitted for review.
 - **Releasing** never builds. It takes a build number that is already uploaded
-  and releases it: to Play `alpha` + `beta`, and to an App Store version that is
-  optionally submitted for review.
+  and releases it: to Play `alpha` + `beta`, and to an App Store version that
+  is submitted for review.
 
 By default the pipeline stops at Play `alpha`/`beta` and at an App Store version
 in Pending Developer Release, and **neither reaches production**. The
@@ -228,27 +228,33 @@ Trigger: `workflow_dispatch` only.
 | `build_number` | latest | Which already-uploaded build to release |
 | `flavor` | `all` | `all`, `six`, `family` |
 | `platform` | `all` | `all`, `ios`, `android` |
-| `submit_ios_for_review` | **false** | Whether to submit the App Store version |
-| `public_release` | **false** | Take the live step — see below |
+| `public_release` | **false** | Go live once approved — see below |
 | `ios_phased_release` | **true** | Ramp Blokada 6 over 7 days; untick for a hotfix |
 
 Defaults give the standard sequence with no input at all. The flavor/platform
 narrowing is the manual-override path.
 
-The flags default in opposite directions so that an unset value is the cautious
-answer for each. `submit_ios_for_review` and `public_release` need an explicit
-`true`: nothing is submitted, and nothing reaches the public. `ios_phased_release`
-needs an explicit `false`: the ramp is the safe default, and turning it off is
-the deliberate hotfix choice.
+Both flags default in the cautious direction. `public_release` needs an explicit
+`true`: nothing goes live on its own. `ios_phased_release` needs an explicit
+`false`: the ramp is the safe default, and turning it off is the deliberate
+hotfix choice.
+
+**Submitting for review is not an input.** Every promote run submits both iOS
+apps. What `public_release` decides is what happens *after* Apple approves.
 
 ### `public_release`
 
+Both iOS apps are submitted for review either way. The flag decides what
+happens once Apple approves, and whether Play production is written.
+
 | | `false` | `true` |
 |---|---|---|
-| **iOS six** | ramp per `ios_phased_release` · manual release | *identical* |
-| **iOS family** | all users · manual release | all users · **auto-release once approved** |
+| **iOS six** | submitted · waits for your Release click | *identical* |
+| **iOS family** | submitted · waits for your Release click | submitted · **releases itself on approval** |
 | **Android six** | `alpha` + `beta` | `alpha` + `beta` + **`production` @ 1%** |
 | **Android family** | `alpha` + `beta` | `alpha` + `beta` + **`production` @ 100%** |
+
+Six's ramp is orthogonal — `ios_phased_release` governs it in both columns.
 
 The flag is about **family**: it is how we take the smaller live step. Family is
 the lower-traffic app, so it goes out first and goes out whole — full rollout,
@@ -325,9 +331,8 @@ submission, but `Runner#run` calls it *after* `verify_version`, so the rename
 has already happened, and its wait loop has no timeout. The lane does the same
 cancellation earlier and bounded to 5 minutes, and leaves the flag off.
 
-The cancellation only runs when `submit_ios_for_review` is on. A run that pulled
-a submitted version out of review and put nothing back in its place would be
-worse than a refusal.
+Cancelling is unconditional because every run resubmits: something always goes
+back into review in place of what was taken out.
 
 An **approved** version cannot be cancelled at all: its review submission is
 `COMPLETE`, so `get_in_progress_review_submission` no longer returns it and
@@ -363,9 +368,8 @@ Without `public_release`, the pipeline never touches production on either store.
 `promote.yml` ends with:
 
 - Play: a release on `alpha` and `beta`, submitted for review.
-- App Store: a version with the build attached, either still editable or — with
-  `submit_ios_for_review: true` and once approved — in Pending Developer
-  Release.
+- App Store: a version submitted for review, and once approved sitting in
+  Pending Developer Release.
 
 With `public_release: true` it goes further:
 
@@ -439,25 +443,24 @@ to finish before supply opens the edit it will commit. Every error path —
 auth, network, unexpected response — exits non-zero, so a broken check blocks
 the release rather than waving it through.
 
-### Why iOS attaches the build explicitly
+### Why every promote run submits for review
 
 `deliver` selects a build **only** inside its submit-for-review step:
 `Runner#run` calls `submit_for_review` under
 `if options[:submit_for_review] && precheck_success` (runner.rb:71), and
-`options[:build_number]` is read nowhere else in deliver. With
-`submit_for_review: false` — the default — deliver would create the App Store
-version, upload the metadata, report success, and leave the version with **no
-binary attached**.
+`options[:build_number]` is read nowhere else in deliver. So a "stage it but do
+not submit" mode would create the App Store version, upload the metadata,
+report success, and leave the version with **no binary attached** — and it
+needed a hand-written build attach afterwards to make up for it.
 
-So each promote lane attaches the build itself after `deliver`, using the same
-`Spaceship::ConnectAPI` calls deliver's own `select_build` uses: find the app by
-bundle id, take the editable App Store version for iOS, look the build up by
-`app_version` + `build_number`, select it on the version. Re-selecting an
-already-selected build is the same PATCH with the same value, so re-runs are
-safe. A build that has not finished processing fails with a message saying so.
-The step is skipped when `submit_for_review` is on, because deliver's own
-submit flow selects the build and then moves the version out of an editable
-state.
+Making submission unconditional deletes that whole path. Promoting is
+submitting; the only decision left is what happens after Apple approves, which
+is what `public_release` answers.
+
+The build is still checked before anything is touched — `ensure_promotable`
+looks it up by `app_version` + `build_number` and requires
+`processingState == VALID` — because deliver would otherwise discover a missing
+or still-processing build only after cancelling whatever was in review.
 
 ### Why the tag trigger is removed
 
@@ -481,7 +484,7 @@ old patches are <= 75, new ones start at 1000.
 | `publish-android` | merge | internal only; **remove** the promote loop added on this branch, and add the metadata skip flags |
 | `promote-android` | release | **new** — preflight the code, then write `alpha`/`beta` (and `production` when `PUBLIC_RELEASE=true`) directly with `--version_codes_to_retain`, plus metadata/changelogs |
 | `publish-ios-testflight` | merge | **new** — `upload_to_testflight` lane |
-| `promote-ios` | release | **renamed from `publish-ios`** — state gate, then `deliver` with `build_number`, `skip_binary_upload`, optional `submit_for_review`, then an explicit build attach |
+| `promote-ios` | release | **renamed from `publish-ios`** — state gate, then `deliver` with `build_number`, `skip_binary_upload` and `submit_for_review` |
 | `test-scripts` | neither | **new** — runs `test-build-number.sh`, `test-version.sh` and `test-release-state.rb`; wired into PR CI on `ubuntu-latest` |
 
 ### iOS submission settings
@@ -489,7 +492,7 @@ old patches are <= 75, new ones start at 1000.
 Six:
 
 ```ruby
-submit_for_review: <input>,        # default false
+submit_for_review: true,           # promoting is submitting
 automatic_release: false,          # → "Pending Developer Release", manual click
 phased_release: <input>,           # default true, unticked only for a hotfix
 reject_if_possible: false,         # the state gate already did it, earlier

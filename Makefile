@@ -306,16 +306,20 @@ gplay-key-unpack:
 gplay-key-clean:
 	rm -rf blokada-gplay.json
 
-# Attach an already-uploaded build to an App Store version (use FLAVOR,
-# BLOKADA_VERSION_CODE as the raw build number, BLOKADA_VERSION_NAME,
-# SUBMIT_FOR_REVIEW=true|false, PUBLIC_RELEASE=true|false and
+# Attach an already-uploaded build to an App Store version and submit it for
+# review (use FLAVOR, BLOKADA_VERSION_CODE as the raw build number,
+# BLOKADA_VERSION_NAME, PUBLIC_RELEASE=true|false and
 # PHASED_RELEASE=true|false). Never builds or uploads a binary.
 #
-# The flags default in opposite directions on purpose, so that an unset
-# variable is the cautious answer for each. SUBMIT_FOR_REVIEW and
-# PUBLIC_RELEASE need an explicit "true": nothing is submitted, and family does
-# not publish itself. PHASED_RELEASE needs an explicit "false": six's 7-day
-# ramp is the safe default and turning it off is the deliberate hotfix choice.
+# Every run submits: promoting is submitting. What PUBLIC_RELEASE decides is
+# what happens after Apple approves -- family releases itself, or waits for a
+# human like six always does.
+#
+# The two flags default in opposite directions on purpose, so that an unset
+# variable is the cautious answer for each. PUBLIC_RELEASE needs an explicit
+# "true": family does not publish itself. PHASED_RELEASE needs an explicit
+# "false": six's 7-day ramp is the safe default and turning it off is the
+# deliberate hotfix choice.
 #
 # PHASED_RELEASE governs six only -- family always releases to all users at
 # once. It has to be decided here rather than in App Store Connect because the
@@ -331,7 +335,6 @@ promote-ios:
 	cd ios/ && $(FASTLANE) $$LANE \
 	    build_number:$$STORE_CODE \
 	    version_name:$(BLOKADA_VERSION_NAME) \
-	    submit_for_review:$(if $(filter true,$(SUBMIT_FOR_REVIEW)),true,false) \
 	    public_release:$(if $(filter true,$(PUBLIC_RELEASE)),true,false) \
 	    phased_release:$(if $(filter false,$(PHASED_RELEASE)),false,true)
 	$(MAKE) appstore-key-clean
