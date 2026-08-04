@@ -113,8 +113,15 @@ platform :ios do
     ).first
 
     if build.nil?
-      refuse.call("#{bundle_id}: build #{version_name} (#{options[:build_number]}) does not exist. " \
-                  "It has to be uploaded to TestFlight by a ci-release run before it can be released.")
+      refuse.call("#{bundle_id}: build #{version_name} (#{options[:build_number]}) is not on " \
+                  "TestFlight. Either no ci-release run ever uploaded it -- a build tag is " \
+                  "allocated before anything is built, so it can name a build that never " \
+                  "shipped -- or it was uploaded moments ago and App Store Connect has not " \
+                  "made it queryable yet, which takes a few minutes. Promoting 'latest' right " \
+                  "after a merge hits the second case every time: the tag is allocated when " \
+                  "that merge's ci-release starts, and this run queues behind it on the " \
+                  "store-publish concurrency group, so it targets a binary that is seconds old. " \
+                  "Check the ci-release run for this build number, then re-run in a few minutes.")
     end
 
     unless build.processing_state == Spaceship::ConnectAPI::Build::ProcessingState::VALID
