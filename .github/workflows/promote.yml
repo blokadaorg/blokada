@@ -25,18 +25,13 @@ on:
         default: "all"
         type: choice
         options: [all, ios, android]
-      submit_ios_for_review:
-        description: "Submit the App Store version for review (never publishes)"
-        required: false
-        default: false
-        type: boolean
       public_release:
-        description: "Release to the public: Family publishes once approved, Android goes to production (Six 1%, Family 100%). Six always waits for a manual release."
+        description: "Go live once approved. OFF: Android stops at alpha+beta, and both iOS apps wait in App Store Connect for you to press Release. ON: Android also goes to production (Six at 1%, Family at 100%) and Family releases itself the moment Apple approves it. Blokada 6 always waits for you either way. Both apps are always submitted for review."
         required: false
         default: false
         type: boolean
       ios_phased_release:
-        description: "iOS only. Ramp Blokada 6 over 7 days for auto-updating users. Untick for a hotfix that must reach everyone at once. Family always releases to all users. App Store Connect locks this once the build is approved, so it cannot be changed later."
+        description: "iOS only, Blokada 6 only. Roll the update out to auto-updating users over 7 days. Untick for a hotfix that has to reach everyone at once. Family always goes to all users. App Store Connect locks this in once Apple approves the build, so it cannot be changed afterwards."
         required: false
         default: true
         type: boolean
@@ -92,7 +87,6 @@ jobs:
         env:
           FLAVOR_INPUT: ${{ inputs.flavor }}
           PLATFORM_INPUT: ${{ inputs.platform }}
-          SUBMIT_IOS_FOR_REVIEW_INPUT: ${{ inputs.submit_ios_for_review }}
           PUBLIC_RELEASE_INPUT: ${{ inputs.public_release }}
           IOS_PHASED_RELEASE_INPUT: ${{ inputs.ios_phased_release }}
         run: |
@@ -101,8 +95,7 @@ jobs:
             echo "- build: \`${{ steps.r.outputs.build_number }}\`"
             echo "- version: \`${{ steps.r.outputs.version_name }}\`"
             echo "- flavor: \`$FLAVOR_INPUT\` · platform: \`$PLATFORM_INPUT\`"
-            echo "- submit iOS for review: \`$SUBMIT_IOS_FOR_REVIEW_INPUT\`"
-            echo "- release to public: \`$PUBLIC_RELEASE_INPUT\`"
+            echo "- go live once approved: \`$PUBLIC_RELEASE_INPUT\`"
             echo "- iOS phased release (Six): \`$IOS_PHASED_RELEASE_INPUT\`"
           } >> "$GITHUB_STEP_SUMMARY"
 
@@ -154,7 +147,6 @@ jobs:
       FLAVOR: ${{ matrix.flavor }}
       BLOKADA_VERSION_CODE: ${{ needs.resolve.outputs.build_number }}
       BLOKADA_VERSION_NAME: ${{ needs.resolve.outputs.version_name }}
-      SUBMIT_FOR_REVIEW: ${{ inputs.submit_ios_for_review }}
       PUBLIC_RELEASE: ${{ inputs.public_release }}
       PHASED_RELEASE: ${{ inputs.ios_phased_release }}
     steps:
@@ -162,7 +154,7 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Attach build to App Store version
+      - name: Submit the App Store version for review
         env:
           BLOKADA_APPSTORE_KEY_BASE64: ${{ secrets.BLOKADA_APPSTORE_KEY_BASE64 }}
         run: make promote-ios FLAVOR="$FLAVOR"

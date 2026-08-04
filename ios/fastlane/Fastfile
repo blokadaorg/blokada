@@ -70,8 +70,15 @@ platform :ios do
   # was asked to promote, so the caller can skip deliver entirely -- see the
   # idempotence note in the cancel branch.
   #
-  # api_key_path is relative to the *fastlane folder*, not the project folder --
-  # see attach_build for why.
+  # api_key_path is relative to the *fastlane folder*, not the project folder:
+  # Runner#execute wraps the whole lane in `Dir.chdir(FastlaneFolder.path)`
+  # (runner.rb:45), which is "./fastlane/" (fastlane_folder.rb:8-16), and
+  # try_switch_to_lane (runner.rb:185) does not chdir back. Only *actions* are
+  # moved up, by execute_action's `custom_dir ||= ".."` (runner.rb:218-229). So
+  # lane-body code like the call below runs in ios/fastlane/ while deliver runs
+  # in ios/ -- hence "../blokada-appstore.json" at the call sites but
+  # "./blokada-appstore.json" in the deliver calls. Both land on
+  # ios/blokada-appstore.json, where `make appstore-key-unpack` writes it.
   private_lane :ensure_promotable do |options|
     require "spaceship"
 
@@ -96,8 +103,8 @@ platform :ios do
     # Cancelling a review submission is irreversible -- Apple has no un-cancel
     # -- so a run that cancelled and only then discovered its build was missing
     # or still processing would leave the app with nothing in review at all.
-    # deliver never checks this on the submit path either: attach_build, which
-    # does, is skipped there.
+    # deliver does not check it either: its select_build fails on a build that
+    # is missing or still processing, but only after the cancellation.
     build = Spaceship::ConnectAPI::Build.all(
       app_id: app.id,
       version: version_name,
@@ -155,15 +162,8 @@ platform :ios do
         next :already_submitted
       end
 
-      # Cancelling without resubmitting would pull a finished submission out of
-      # review and put nothing back, which is worse than refusing to run.
-      unless options[:submit].to_s == "true"
-        refuse.call("#{bundle_id}: version #{version.version_string} is " \
-                    "#{version.app_version_state}. Promoting #{version_name} would have to cancel " \
-                    "that submission and would put nothing back in its place, so re-run with " \
-                    "'Submit the App Store version for review' enabled to replace it.")
-      end
-
+      # Safe to cancel unconditionally: every promote run submits, so something
+      # always goes back into review in place of what is taken out.
       UI.important("#{bundle_id}: cancelling the review submission for #{version.version_string} " \
                    "so #{version_name} can replace it")
 
@@ -213,76 +213,19 @@ platform :ios do
     :proceed
   end
 
-  # Attaches an already-uploaded build to the App Store version deliver just
-  # created or updated.
-  #
-  # deliver only ever selects a build inside its submit-for-review step:
-  # runner.rb:71 runs submit_for_review only when options[:submit_for_review]
-  # is set, and options[:build_number] is read nowhere else in deliver. So on
-  # the default (submit off) path deliver creates the version, uploads the
-  # metadata, reports success -- and leaves the version with no binary. This
-  # closes that gap; submitting for review stays opt-in.
-  #
-  # The API shape follows deliver's own select_build
-  # (deliver/lib/deliver/submit_for_review.rb): find the app by bundle id, take
-  # the editable App Store version for the platform, look the build up by
-  # app_version + build_number, and select it on the version. Selecting a build
-  # that is already selected is the same PATCH with the same value, so re-runs
-  # are safe.
-  #
-  # api_key_path is relative to the *fastlane folder*, not the project folder:
-  # Runner#execute wraps the whole lane in `Dir.chdir(FastlaneFolder.path)`
-  # (runner.rb:45), which is "./fastlane/" (fastlane_folder.rb:8-16), and
-  # try_switch_to_lane (runner.rb:185) does not chdir back. Only *actions* are
-  # moved up, by execute_action's `custom_dir ||= ".."` (runner.rb:218-229).
-  # So lane-body code like the line below runs in ios/fastlane/ while deliver
-  # runs in ios/ -- hence "../blokada-appstore.json" here but
-  # "./blokada-appstore.json" in the deliver calls. Both land on
-  # ios/blokada-appstore.json, where `make appstore-key-unpack` writes it.
-  private_lane :attach_build do |options|
-    require "spaceship"
-
-    api_key_path = options[:api_key_path]
-    bundle_id = options[:bundle_id]
-    version_name = options[:version_name]
-    build_number = options[:build_number]
-
-    Spaceship::ConnectAPI.token = Spaceship::ConnectAPI::Token.from_json_file(api_key_path)
-    platform = Spaceship::ConnectAPI::Platform::IOS
-
-    app = Spaceship::ConnectAPI::App.find(bundle_id)
-    UI.user_error!("Could not find app '#{bundle_id}' on App Store Connect") if app.nil?
-
-    version = app.get_edit_app_store_version(platform: platform)
-    UI.user_error!("No editable App Store version for '#{bundle_id}' -- deliver should have created one") if version.nil?
-
-    build = Spaceship::ConnectAPI::Build.all(
-      app_id: app.id,
-      version: version_name,
-      build_number: build_number,
-      platform: platform
-    ).first
-
-    if build.nil?
-      UI.user_error!("Build #{version_name} (#{build_number}) does not exist for '#{bundle_id}'. " \
-                     "It has to be uploaded to TestFlight by a ci-release run before it can be released.")
-    end
-
-    unless build.processing_state == Spaceship::ConnectAPI::Build::ProcessingState::VALID
-      UI.user_error!("Build #{version_name} (#{build_number}) is '#{build.processing_state}', not " \
-                     "'#{Spaceship::ConnectAPI::Build::ProcessingState::VALID}', so it cannot be attached yet. " \
-                     "Wait for App Store Connect to finish processing it and re-run the release.")
-    end
-
-    version.select_build(build_id: build.id)
-    UI.success("Attached build #{version_name} (#{build_number}) to App Store version #{version.version_string}")
-  end
-
-  # Release path: attach an already-uploaded build to an App Store version.
+  # Release path: attach an already-uploaded build to an App Store version and
+  # send it to Apple.
   #
   # skip_binary_upload with build_number promotes rather than re-uploads, so we
   # ship the exact binary that has been on TestFlight. app_version must be the
   # name baked in at build time -- deliver looks a build up by the pair.
+  #
+  # submit_for_review is not an input: promoting *is* submitting. That also
+  # keeps the lane simple, because deliver only ever selects a build inside its
+  # submit step (runner.rb:71 gates submit_for_review, and build_number is read
+  # nowhere else). A "stage without submitting" mode would leave the version
+  # with no binary attached and needed a hand-written build attach to make up
+  # for it; always submitting deletes that whole path.
   #
   # Six always waits for a manual release click, and ramps over 7 days unless
   # the run says otherwise: it is the larger app, so the ramp is the safety net
@@ -316,19 +259,13 @@ platform :ios do
   # already <false/> in Info-six.plist and Info-family.plist, so App Store
   # Connect never asks.
   lane :publish_ios_six do |options|
-    # .to_s, not == "true": fastlane's CommandLineHandler.convert_value turns
-    # the CLI's `submit_for_review:true` into the Ruby boolean true before the
-    # lane ever sees it, so comparing against the string is always false.
-    submit = options[:submit_for_review].to_s == "true"
-
     # next, not return: a lane body is a block. :already_submitted means this
     # exact version is in review, so there is nothing left for deliver to do.
     if ensure_promotable(
-      api_key_path: "../blokada-appstore.json", # lane body, not an action -- see attach_build
+      api_key_path: "../blokada-appstore.json", # lane body, not an action -- see ensure_promotable
       bundle_id: "net.blocka.app",
       version_name: options[:version_name],
-      build_number: options[:build_number],
-      submit: submit
+      build_number: options[:build_number]
     ) == :already_submitted
       next
     end
@@ -344,7 +281,7 @@ platform :ios do
       skip_app_version_update: false,
       force: true, # skips verification of HTML preview file
       run_precheck_before_submit: false, # not supported through ASC API yet
-      submit_for_review: submit,
+      submit_for_review: true, # promoting is submitting -- see the lane comment
       automatic_release: false, # six is always released by hand
       phased_release: options[:phased_release].to_s != "false", # 7-day ramp unless a hotfix says no
       reject_if_possible: false, # ensure_promotable already did it, earlier and bounded
@@ -352,33 +289,21 @@ platform :ios do
         content_rights_contains_third_party_content: false
       }
     )
-    # deliver's submit flow selects the build itself and then moves the version
-    # out of an editable state, so only do this on the non-submitting path.
-    unless submit
-      attach_build(
-        api_key_path: "../blokada-appstore.json", # lane body, not an action -- see attach_build
-        bundle_id: "net.blocka.app",
-        version_name: options[:version_name],
-        build_number: options[:build_number]
-      )
-    end
   end
 
   lane :publish_ios_family do |options|
     # .to_s, not == "true": fastlane's CommandLineHandler.convert_value turns
-    # the CLI's `submit_for_review:true` into the Ruby boolean true before the
+    # the CLI's `public_release:true` into the Ruby boolean true before the
     # lane ever sees it, so comparing against the string is always false.
-    submit = options[:submit_for_review].to_s == "true"
     public_release = options[:public_release].to_s == "true"
 
     # next, not return: a lane body is a block. :already_submitted means this
     # exact version is in review, so there is nothing left for deliver to do.
     if ensure_promotable(
-      api_key_path: "../blokada-appstore.json", # lane body, not an action -- see attach_build
+      api_key_path: "../blokada-appstore.json", # lane body, not an action -- see ensure_promotable
       bundle_id: "net.blocka.app.family",
       version_name: options[:version_name],
-      build_number: options[:build_number],
-      submit: submit
+      build_number: options[:build_number]
     ) == :already_submitted
       next
     end
@@ -394,7 +319,7 @@ platform :ios do
       skip_app_version_update: false,
       force: true,
       run_precheck_before_submit: false,
-      submit_for_review: submit,
+      submit_for_review: true, # promoting is submitting -- see the lane comment
       automatic_release: public_release, # the live step: publish once approved
       phased_release: false, # family always goes to all users at once
       reject_if_possible: false, # ensure_promotable already did it, earlier and bounded
@@ -402,14 +327,6 @@ platform :ios do
         content_rights_contains_third_party_content: false
       }
     )
-    unless submit
-      attach_build(
-        api_key_path: "../blokada-appstore.json", # lane body, not an action -- see attach_build
-        bundle_id: "net.blocka.app.family",
-        version_name: options[:version_name],
-        build_number: options[:build_number]
-      )
-    end
   end
 
   # Continuous path: upload to TestFlight only, run on every merge to main.
