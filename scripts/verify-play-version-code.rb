@@ -44,6 +44,10 @@ parser = OptionParser.new do |opts|
   opts.on("--package-name PKG", "Play package name") { |v| options[:package_name] = v }
   opts.on("--version-code CODE", Integer,
           "Store version code (VERSION_CODE_OFFSET + raw build number)") { |v| options[:version_code] = v }
+  opts.on("--check-production-rollout",
+          "Also refuse if production still holds an unfinished staged rollout") do
+    options[:check_production_rollout] = true
+  end
 end
 
 begin
@@ -90,10 +94,29 @@ rescue StandardError => e
 end
 
 codes = nil
+stalled_rollout = nil
 begin
   codes = (client.aab_version_codes + client.apks_version_codes).map(&:to_i)
+
+  # A track cannot hold two staged rollouts. Play refuses a new release while an
+  # earlier one is still rolling out -- it has to be completed, halted or
+  # discarded first -- and `make promote-android` writes alpha and beta before
+  # production, so discovering that at the production write leaves the run
+  # half-applied. Nothing in this pipeline finishes a rollout (raising it is a
+  # deliberate human decision), so the previous release's 1% ramp is a standing
+  # precondition of the next public release. Check it before any track is
+  # written.
+  if options[:check_production_rollout]
+    releases = client.tracks("production").first&.releases || []
+    stalled_rollout = releases.find do |release|
+      # A re-run that writes the same code again is not blocked by its own
+      # rollout -- same idempotence rule the iOS gate applies.
+      release.status == "inProgress" &&
+        !(release.version_codes || []).map(&:to_i).include?(version_code)
+    end
+  end
 rescue StandardError => e
-  fail_with("could not list uploaded artifacts for #{package_name}: #{e.message}")
+  fail_with("could not read the release state of #{package_name}: #{e.message}")
 ensure
   # Read-only check: never leave the throwaway edit hanging around. A failure to
   # clean it up must not mask the result of the check itself. This still runs
@@ -115,6 +138,20 @@ unless codes.include?(version_code)
     "       Check that the ci-release run for this build number finished " \
     "successfully.\n" \
     "       Highest uploaded code for this package: #{newest}."
+  )
+end
+
+if stalled_rollout
+  rolling = (stalled_rollout.version_codes || []).join(", ")
+  percent = ((stalled_rollout.user_fraction || 0) * 100).round(2)
+  fail_with(
+    "#{package_name} still has an unfinished staged rollout on production, so Play will " \
+    "not accept a new release there.\n" \
+    "       Rolling out: version code #{rolling} at #{percent}% of users.\n" \
+    "       Finish it (Play Console -> Production -> the staged release -> raise to 100%) " \
+    "or halt it, then re-run this release.\n" \
+    "       Refusing now rather than after alpha and beta have been written, which would " \
+    "leave this release half-applied."
   )
 end
 

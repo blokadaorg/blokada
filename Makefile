@@ -57,6 +57,7 @@ test-local:
 test-scripts:
 	./scripts/test-build-number.sh
 	./scripts/test-version.sh
+	./scripts/test-release-state.rb
 
 # Build everything from scratch
 build:
@@ -187,8 +188,25 @@ version-clean:
 
 # Tracks that a release promotes an existing build to. "alpha" is closed
 # testing and "beta" is open testing -- Play's default track ids, which we
-# never renamed. Unlike internal, both require review.
+# never renamed. Unlike internal, both require review. "production" is appended
+# only when PUBLIC_RELEASE=true.
 GPLAY_PROMOTE_TRACKS ?= alpha beta
+
+# The tracks a given run actually writes. Assigned once so the error message
+# and the loop below can never disagree about what the run would touch.
+GPLAY_TRACKS = $(GPLAY_PROMOTE_TRACKS) $(if $(filter true,$(PUBLIC_RELEASE)),production)
+
+# Fraction of users a Blokada 6 production release starts at. Raising it is a
+# manual Play Console action -- Play has no time-based ramp, so there is no
+# Android equivalent of the iOS 7-day phased release and a staged rollout
+# percentage is the closest thing.
+#
+# Family does not use this: it is the smaller app, and releasing it is exactly
+# how we take a whole live step, so it goes out at 100%. supply only forces a
+# staged rollout when the value is strictly between 0 and 1
+# (supply/lib/supply/uploader.rb#update_track); passing no --rollout at all
+# leaves release_status at its "completed" default, which is that full release.
+GPLAY_SIX_PRODUCTION_ROLLOUT ?= 0.01
 
 # Upload the AAB to the Google Play internal track (use FLAVOR param).
 #
@@ -235,10 +253,17 @@ publish-android:
 # Metadata and changelogs are NOT skipped here: the internal release
 # deliberately carries no notes, so release notes have to be attached at this
 # point.
+#
+# production is written only when PUBLIC_RELEASE=true, and only six starts at a
+# fraction of users -- see GPLAY_SIX_PRODUCTION_ROLLOUT above.
+#
+# Replacing a release that is already in review needs nothing extra: update_track
+# assigns track.releases = [track_release] and Play drops releases omitted from
+# edits.tracks.update, so writing a track supersedes whatever sat on it.
 promote-android:
 	$(MAKE) gplay-key-unpack
 	@if [ -z "$(BLOKADA_VERSION_CODE)" ]; then \
-	    echo "Error: BLOKADA_VERSION_CODE is not set. It is required to release to: $(GPLAY_PROMOTE_TRACKS)"; \
+	    echo "Error: BLOKADA_VERSION_CODE is not set. It is required to release to: $(GPLAY_TRACKS)"; \
 	    exit 1; \
 	fi
 	@PKG=$(if $(filter family,$(FLAVOR)),org.blokada.family,org.blokada.sex); \
@@ -246,13 +271,19 @@ promote-android:
 	./scripts/verify-play-version-code.rb \
 	    --json-key blokada-gplay.json \
 	    --package-name "$$PKG" \
-	    --version-code $$STORE_CODE || exit 1; \
-	for track in $(GPLAY_PROMOTE_TRACKS); do \
-	    echo "==> Releasing store code $$STORE_CODE to '$$track' and submitting for review"; \
+	    --version-code $$STORE_CODE \
+	    $(if $(filter true,$(PUBLIC_RELEASE)),--check-production-rollout) || exit 1; \
+	for track in $(GPLAY_TRACKS); do \
+	    ROLLOUT=""; \
+	    if [ "$$track" = "production" ] && [ "$(FLAVOR)" != "family" ]; then \
+	        ROLLOUT="--rollout $(GPLAY_SIX_PRODUCTION_ROLLOUT)"; \
+	    fi; \
+	    echo "==> Releasing store code $$STORE_CODE to '$$track' $${ROLLOUT:+at $(GPLAY_SIX_PRODUCTION_ROLLOUT) rollout }and submitting for review"; \
 	    $(FASTLANE) supply \
 	        --package_name "$$PKG" \
 	        --json_key blokada-gplay.json \
 	        --track $$track \
+	        $$ROLLOUT \
 	        --version_codes_to_retain $$STORE_CODE \
 	        --metadata_path metadata/android-$(FLAVOR) \
 	        --skip_upload_aab true \
@@ -277,12 +308,18 @@ gplay-key-clean:
 
 # Attach an already-uploaded build to an App Store version (use FLAVOR,
 # BLOKADA_VERSION_CODE as the raw build number, BLOKADA_VERSION_NAME,
-# SUBMIT_FOR_REVIEW=true|false and PHASED_RELEASE=true|false). Never builds or
-# uploads a binary.
+# SUBMIT_FOR_REVIEW=true|false, PUBLIC_RELEASE=true|false and
+# PHASED_RELEASE=true|false). Never builds or uploads a binary.
 #
-# The two flags default opposite ways on purpose, so an unset variable is the
-# safe answer for each: submitting for review needs an explicit "true", while
-# the phased 7-day rollout needs an explicit "false" to turn off.
+# The flags default in opposite directions on purpose, so that an unset
+# variable is the cautious answer for each. SUBMIT_FOR_REVIEW and
+# PUBLIC_RELEASE need an explicit "true": nothing is submitted, and family does
+# not publish itself. PHASED_RELEASE needs an explicit "false": six's 7-day
+# ramp is the safe default and turning it off is the deliberate hotfix choice.
+#
+# PHASED_RELEASE governs six only -- family always releases to all users at
+# once. It has to be decided here rather than in App Store Connect because the
+# console greys the setting out once Apple approves the build.
 promote-ios:
 	$(MAKE) appstore-key-unpack
 	@if [ -z "$(BLOKADA_VERSION_CODE)" ] || [ -z "$(BLOKADA_VERSION_NAME)" ]; then \
@@ -295,6 +332,7 @@ promote-ios:
 	    build_number:$$STORE_CODE \
 	    version_name:$(BLOKADA_VERSION_NAME) \
 	    submit_for_review:$(if $(filter true,$(SUBMIT_FOR_REVIEW)),true,false) \
+	    public_release:$(if $(filter true,$(PUBLIC_RELEASE)),true,false) \
 	    phased_release:$(if $(filter false,$(PHASED_RELEASE)),false,true)
 	$(MAKE) appstore-key-clean
 

@@ -13,6 +13,15 @@
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
 
+# Required here rather than inside the lane that uses them. fastlane evaluates
+# this file with `eval(data, binding, "Fastfile")` -- a *relative* filename --
+# so require_relative resolves against the current directory instead of a real
+# file path. That is fine at parse time, which FastFile#parse wraps in a chdir
+# to the fastlane folder, but a require_relative left in a lane body resolves
+# at call time and raises LoadError from any other working directory.
+require_relative "release_state"
+require_relative "ci_annotation"
+
 default_platform(:ios)
 
 platform :ios do
@@ -35,6 +44,173 @@ platform :ios do
   desc "Family: build release"
   lane :build_ios_family do
     build_app(workspace: "IOS.xcworkspace", scheme: "FamilyProd")
+  end
+
+  # Refuses to start a release App Store Connect is not in a state to accept,
+  # and clears the one state that can be cleared.
+  #
+  # This exists because deliver mishandles a version that is already in review.
+  # get_edit_app_store_version (spaceship connect_api/models/app.rb) counts
+  # WAITING_FOR_REVIEW as editable, so ensure_version! renames the submission
+  # sitting in review to the version name of the build being promoted, uploads
+  # metadata over it, and only fails much later when select_build refuses to
+  # swap the binary. Run 30808857877 did precisely that to 26.8.1007.
+  #
+  # deliver has reject_if_possible, which cancels an in-progress submission --
+  # but Runner#run calls it *after* verify_version, so the rename has already
+  # landed by then, and its wait loop has no timeout at all. This does the same
+  # cancellation earlier and bounded, which is why reject_if_possible stays off
+  # in both lanes below.
+  #
+  # An approved version cannot be handled here: once the review submission is
+  # COMPLETE, get_in_progress_review_submission no longer returns it and there
+  # is no API to un-approve. Those states fail with an explicit message instead.
+  #
+  # Returns :already_submitted when the version in review is the one this run
+  # was asked to promote, so the caller can skip deliver entirely -- see the
+  # idempotence note in the cancel branch.
+  #
+  # api_key_path is relative to the *fastlane folder*, not the project folder --
+  # see attach_build for why.
+  private_lane :ensure_promotable do |options|
+    require "spaceship"
+
+    bundle_id = options[:bundle_id]
+    version_name = options[:version_name]
+
+    Spaceship::ConnectAPI.token = Spaceship::ConnectAPI::Token.from_json_file(options[:api_key_path])
+    platform = Spaceship::ConnectAPI::Platform::IOS
+
+    app = Spaceship::ConnectAPI::App.find(bundle_id)
+    UI.user_error!("Could not find app '#{bundle_id}' on App Store Connect") if app.nil?
+
+    # Every refusal goes through here so the run page always names the state,
+    # rather than leaving "Process completed with exit code 2" as the only
+    # visible output.
+    refuse = lambda do |message|
+      CiAnnotation.error(title: "Cannot promote #{bundle_id}", message: message)
+      UI.user_error!(message)
+    end
+
+    # The replacement build is validated FIRST, before anything is mutated.
+    # Cancelling a review submission is irreversible -- Apple has no un-cancel
+    # -- so a run that cancelled and only then discovered its build was missing
+    # or still processing would leave the app with nothing in review at all.
+    # deliver never checks this on the submit path either: attach_build, which
+    # does, is skipped there.
+    build = Spaceship::ConnectAPI::Build.all(
+      app_id: app.id,
+      version: version_name,
+      build_number: options[:build_number],
+      platform: platform
+    ).first
+
+    if build.nil?
+      refuse.call("#{bundle_id}: build #{version_name} (#{options[:build_number]}) does not exist. " \
+                  "It has to be uploaded to TestFlight by a ci-release run before it can be released.")
+    end
+
+    unless build.processing_state == Spaceship::ConnectAPI::Build::ProcessingState::VALID
+      refuse.call("#{bundle_id}: build #{version_name} (#{options[:build_number]}) is " \
+                  "'#{build.processing_state}', not " \
+                  "'#{Spaceship::ConnectAPI::Build::ProcessingState::VALID}'. Wait for App Store " \
+                  "Connect to finish processing it and re-run.")
+    end
+
+    # Asks App Store Connect for pending versions by state instead of sorting
+    # client-side. get_latest_app_store_version sorts by
+    # Date.parse(created_date) -- calendar-day granularity, and sort_by is not
+    # stable -- so a live version created the same day as a pending one can win
+    # the sort and hide it, which would let the gate wave through the exact
+    # rename it exists to prevent.
+    pending = lambda do
+      classified = app
+                   .get_app_store_versions(filter: {
+                                             platform: platform,
+                                             appVersionState: ReleaseState::PENDING.join(",")
+                                           })
+                   .map { |v| [v, *ReleaseState.classify(v.app_version_state)] }
+
+      strictest = ReleaseState.strictest(classified.map { |(_, act, _)| act })
+      classified.find { |(_, act, _)| act == strictest }
+    end
+
+    current = pending.call
+    version, action, reason = current || [nil, :proceed, nil]
+
+    if action == :blocked
+      refuse.call("#{bundle_id}: version #{version.version_string} is " \
+                  "#{version.app_version_state} -- #{reason}")
+    end
+
+    if action == :cancel
+      # Idempotence. Re-dispatching the same build after an unrelated leg of the
+      # release failed is routine, and the version in review is then the one
+      # this run would submit. Cancelling it would restart the Apple review
+      # queue for no reason, so the run stops here instead. A version string
+      # identifies a build in this pipeline -- 26.8.1009 is always 669001009 --
+      # so matching names mean matching binaries.
+      if version.version_string == version_name
+        UI.success("#{bundle_id}: #{version_name} is already in review -- nothing to do")
+        next :already_submitted
+      end
+
+      # Cancelling without resubmitting would pull a finished submission out of
+      # review and put nothing back, which is worse than refusing to run.
+      unless options[:submit].to_s == "true"
+        refuse.call("#{bundle_id}: version #{version.version_string} is " \
+                    "#{version.app_version_state}. Promoting #{version_name} would have to cancel " \
+                    "that submission and would put nothing back in its place, so re-run with " \
+                    "'Submit the App Store version for review' enabled to replace it.")
+      end
+
+      UI.important("#{bundle_id}: cancelling the review submission for #{version.version_string} " \
+                   "so #{version_name} can replace it")
+
+      submission = app.get_in_progress_review_submission(platform: platform)
+      if submission.nil?
+        refuse.call("#{bundle_id}: version #{version.version_string} is " \
+                    "#{version.app_version_state} but App Store Connect reports no cancellable " \
+                    "review submission. Cancel it by hand and re-run.")
+      end
+      submission.cancel_submission
+
+      # Cancellation is not instant, and the submission leaves the in-progress
+      # filter (CANCELING is not one of its states) before the version leaves
+      # review -- so poll the version state itself, not the submission.
+      cleared = false
+      attempts = 20 # 20 x 15s = 5 minutes
+      attempts.times do |attempt|
+        fresh_version, fresh_action, fresh_reason = pending.call || []
+
+        if fresh_action == :blocked
+          refuse.call("#{bundle_id}: cancelling #{version.version_string} left it in " \
+                      "#{fresh_version.app_version_state} -- #{fresh_reason}")
+        end
+
+        # Only an editable version record proves the cancellation landed. An
+        # empty response is not evidence of anything -- treating "no pending
+        # version" as success here would hand a still-in-review version to
+        # deliver, which is the failure this lane exists to prevent.
+        if fresh_version && fresh_action == :proceed
+          cleared = true
+          break
+        end
+
+        UI.message("Waiting for the cancellation to take effect...")
+        sleep(15) unless attempt == attempts - 1
+      end
+
+      unless cleared
+        refuse.call("#{bundle_id}: cancellation of #{version.version_string} did not take effect " \
+                    "within 5 minutes. Check App Store Connect and re-run.")
+      end
+
+      UI.success("Cancelled the previous submission")
+    end
+
+    UI.success("#{bundle_id}: ready to promote #{version_name}")
+    :proceed
   end
 
   # Attaches an already-uploaded build to the App Store version deliver just
@@ -108,17 +284,33 @@ platform :ios do
   # ship the exact binary that has been on TestFlight. app_version must be the
   # name baked in at build time -- deliver looks a build up by the pair.
   #
-  # automatic_release: false leaves an approved build in Pending Developer
-  # Release. Publishing is always a manual click.
+  # Six always waits for a manual release click, and ramps over 7 days unless
+  # the run says otherwise: it is the larger app, so the ramp is the safety net
+  # and the click is ours. Family never ramps -- it is the smaller app, and
+  # releasing it is precisely how we take a whole live step -- and
+  # public_release decides whether it publishes itself once approved. That
+  # makes family the only thing in this pipeline that can reach users without a
+  # human clicking anything.
   #
-  # phased_release is passed as a real boolean on every run, never left nil.
-  # deliver only touches the setting when the option is non-nil
-  # (deliver/upload_metadata.rb:314), so nil means "leave whatever App Store
-  # Connect has" -- true creates the 7-day ramp, and false DELETES an existing
-  # one. Being explicit means the workflow input decides, rather than a stale
-  # per-version setting somebody clicked months ago. Note the ramp only governs
-  # automatic updates for existing users; manual updates and fresh installs get
-  # the build immediately either way.
+  # The ramp is a lane option rather than something to fix afterwards in App
+  # Store Connect: the console greys the phased-release checkboxes out once
+  # Apple approves the build (verified on a real Pending Developer Release
+  # version, 2026-08-03), and the API refuses to change the state too --
+  # PATCH /v1/appStoreVersionPhasedReleases returns 409 "You cannot change the
+  # state of a phased release in the current version state". Releasing and then
+  # clicking "Release to all users" works, but only once the version is live,
+  # so a hotfix that must not trickle out has to say so at dispatch time.
+  #
+  # Both are stated explicitly on every run. upload_metadata.rb:314 skips the
+  # phased setting only when the option is nil, but deliver's ConfigItem for
+  # phased_release carries default_value: false (deliver/options.rb:221-226),
+  # so it is never nil in practice -- omitting it does not mean "leave whatever
+  # App Store Connect has", it means false, which DELETES an existing ramp.
+  # (automatic_release has no default_value and genuinely is nil when omitted.)
+  # Writing both out means the lane decides, rather than a stale per-version
+  # setting somebody clicked months ago or a default nobody read. Note the ramp
+  # only governs automatic updates for existing users; manual updates and fresh
+  # installs get the build immediately either way.
   #
   # Export compliance needs no entry here: ITSAppUsesNonExemptEncryption is
   # already <false/> in Info-six.plist and Info-family.plist, so App Store
@@ -128,6 +320,19 @@ platform :ios do
     # the CLI's `submit_for_review:true` into the Ruby boolean true before the
     # lane ever sees it, so comparing against the string is always false.
     submit = options[:submit_for_review].to_s == "true"
+
+    # next, not return: a lane body is a block. :already_submitted means this
+    # exact version is in review, so there is nothing left for deliver to do.
+    if ensure_promotable(
+      api_key_path: "../blokada-appstore.json", # lane body, not an action -- see attach_build
+      bundle_id: "net.blocka.app",
+      version_name: options[:version_name],
+      build_number: options[:build_number],
+      submit: submit
+    ) == :already_submitted
+      next
+    end
+
     deliver(
       app_identifier: "net.blocka.app",
       metadata_path: "../metadata/ios-six/",
@@ -140,8 +345,9 @@ platform :ios do
       force: true, # skips verification of HTML preview file
       run_precheck_before_submit: false, # not supported through ASC API yet
       submit_for_review: submit,
-      automatic_release: false,
-      phased_release: options[:phased_release].to_s == "true",
+      automatic_release: false, # six is always released by hand
+      phased_release: options[:phased_release].to_s != "false", # 7-day ramp unless a hotfix says no
+      reject_if_possible: false, # ensure_promotable already did it, earlier and bounded
       submission_information: {
         content_rights_contains_third_party_content: false
       }
@@ -163,6 +369,20 @@ platform :ios do
     # the CLI's `submit_for_review:true` into the Ruby boolean true before the
     # lane ever sees it, so comparing against the string is always false.
     submit = options[:submit_for_review].to_s == "true"
+    public_release = options[:public_release].to_s == "true"
+
+    # next, not return: a lane body is a block. :already_submitted means this
+    # exact version is in review, so there is nothing left for deliver to do.
+    if ensure_promotable(
+      api_key_path: "../blokada-appstore.json", # lane body, not an action -- see attach_build
+      bundle_id: "net.blocka.app.family",
+      version_name: options[:version_name],
+      build_number: options[:build_number],
+      submit: submit
+    ) == :already_submitted
+      next
+    end
+
     deliver(
       app_identifier: "net.blocka.app.family",
       metadata_path: "../metadata/ios-family/",
@@ -175,8 +395,9 @@ platform :ios do
       force: true,
       run_precheck_before_submit: false,
       submit_for_review: submit,
-      automatic_release: false,
-      phased_release: options[:phased_release].to_s == "true",
+      automatic_release: public_release, # the live step: publish once approved
+      phased_release: false, # family always goes to all users at once
+      reject_if_possible: false, # ensure_promotable already did it, earlier and bounded
       submission_information: {
         content_rights_contains_third_party_content: false
       }

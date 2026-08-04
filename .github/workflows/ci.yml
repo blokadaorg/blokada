@@ -59,10 +59,11 @@ jobs:
 
   release_scripts:
     name: Release script tests
-    # Covers the two release-pipeline invariants that are unrecoverable once
-    # broken: monotonic store version codes, and the offset applied exactly
-    # once. bash + git + python3 only, so it runs on ubuntu-latest rather than
-    # taking a slot on the self-hosted pool.
+    # Covers the release-pipeline invariants that are expensive once broken:
+    # monotonic store version codes, the offset applied exactly once, and the
+    # App Store state table that decides whether a promote run may start.
+    # bash + git + python3 + ruby only -- all preinstalled on ubuntu-latest, so
+    # this runs there rather than taking a slot on the self-hosted pool.
     runs-on: ubuntu-latest
     timeout-minutes: 10
     if: >-
@@ -79,7 +80,7 @@ jobs:
           git config --global user.email "ci@blokada.org"
           git config --global user.name "blokada-ci"
 
-      - name: Run build-number and version tests
+      - name: Run build-number, version and release-state tests
         run: make test-scripts
 
   flutter_analyze:
