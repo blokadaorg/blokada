@@ -24,6 +24,34 @@ const FILES = [
 ];
 
 let failed = false;
+
+// The pubspec pins adapty_flutter exactly, but a dependency_overrides entry
+// points it at the vendored copy in common/vendor/adapty_flutter (a stub
+// podspec works around flutter/flutter#184590). A Dependabot bump edits only
+// the pin, so without this check the app would silently keep building the old
+// vendored version — the same illusory-bump trap as an unenforced lockfile.
+const pubspec = readFileSync(resolve("common/pubspec.yaml"), "utf8");
+const pinned = pubspec.match(/^\s{2}adapty_flutter:\s*(\S+)\s*$/m)?.[1];
+const vendored = readFileSync(
+  resolve("common/vendor/adapty_flutter/pubspec.yaml"),
+  "utf8",
+).match(/^version:\s*(\S+)\s*$/m)?.[1];
+if (!pinned || !vendored) {
+  console.error(
+    `FAIL  adapty_flutter version not found (pubspec pin: ${pinned}, vendored: ${vendored})`,
+  );
+  failed = true;
+} else if (pinned !== vendored) {
+  console.error(
+    `FAIL  adapty_flutter pin ${pinned} != vendored copy ${vendored} — ` +
+      "refresh common/vendor/adapty_flutter from the new pub.dev release " +
+      "(keep the stub podspec and BlokadaVendorAlias.swift patches)",
+  );
+  failed = true;
+} else {
+  console.log(`OK    adapty_flutter ${pinned} matches vendored copy`);
+}
+
 for (const rel of FILES) {
   const path = resolve(rel);
   let json;

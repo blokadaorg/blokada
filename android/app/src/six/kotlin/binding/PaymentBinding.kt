@@ -28,9 +28,10 @@ import com.adapty.models.AdaptyProfileParameters
 import com.adapty.models.AdaptyPurchaseParameters
 import com.adapty.models.AdaptyPurchaseResult
 import com.adapty.models.AdaptySubscriptionUpdateParameters
-import com.adapty.ui.AdaptyPaywallView
+import com.adapty.ui.AdaptyFlowView
 import com.adapty.ui.AdaptyUI
-import com.adapty.ui.listeners.AdaptyUiEventListener
+import com.adapty.ui.listeners.AdaptyFlowDefaultEventListener
+import com.adapty.ui.listeners.AdaptyFlowEventListener
 import com.adapty.utils.AdaptyLogLevel
 import com.adapty.utils.AdaptyResult
 import com.adapty.utils.FileLocation
@@ -48,7 +49,11 @@ import ui.MainActivity
 import ui.shouldUseCenteredAdaptyPaywall
 import utils.Intents
 
-object PaymentBinding : PaymentOps, AdaptyUiEventListener {
+// Extends the SDK's default listener (not the raw interface) so the callbacks
+// we don't care about — 4.0's analytics, app-rate and permission-request flow
+// actions — keep Adapty's default behaviour, e.g. the permission callback is
+// invoked properly instead of hanging the flow.
+object PaymentBinding : PaymentOps, AdaptyFlowDefaultEventListener() {
 
     private val flutter by lazy { FlutterService }
     private val context by lazy { ContextService }
@@ -60,7 +65,7 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
     private var _retry = true
 
     private var _currentSubscription: CurrentSubscription? = null
-    private var _currentView: AdaptyPaywallView? = null
+    private var _currentView: AdaptyFlowView? = null
     private var _currentViewForPlacementId: String? = null
 
     private val _scope = CoroutineScope(Dispatchers.Main)
@@ -238,18 +243,22 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
             ?: callback(Result.failure(Exception("No activity context")))
     }
 
-    private suspend fun fetchPaywall(placementId: String): AdaptyPaywallView {
+    private suspend fun fetchPaywall(placementId: String): AdaptyFlowView {
         return suspendCoroutine { continuation ->
-            Adapty.getPaywall(
+            Adapty.getFlow(
                 placementId,
-                locale = translate.getLocale(),
                 loadTimeout = 10.seconds
             ) { result ->
                 when (result) {
                     is AdaptyResult.Success -> {
-                        val paywall = result.value
-                        // the requested paywall
-                        AdaptyUI.getViewConfiguration(paywall, loadTimeout = 10.seconds) { result ->
+                        val flow = result.value
+                        // Since 4.0 the flow is localized when its configuration is
+                        // built, so the locale moved here from the fetch call.
+                        AdaptyUI.getFlowConfiguration(
+                            flow,
+                            locale = translate.getLocale(),
+                            loadTimeout = 10.seconds
+                        ) { result ->
                             when (result) {
                                 is AdaptyResult.Success -> {
                                     if (!context.hasActivityContext()) {
@@ -260,17 +269,17 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
                                                 )
                                             )
                                         )
-                                        return@getViewConfiguration
+                                        return@getFlowConfiguration
                                     }
 
                                     try {
                                         val activity = context.requireActivity() as MainActivity
-                                        val viewConfiguration = result.value
+                                        val flowConfiguration = result.value
                                         // use loaded configuration
                                         val view =
-                                            AdaptyUI.getPaywallView(
+                                            AdaptyUI.getFlowView(
                                                 activity,
-                                                viewConfiguration,
+                                                flowConfiguration,
                                                 null,
                                                 this,
                                             )
@@ -336,7 +345,7 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
         callback(Result.success(Unit))
     }
 
-    // AdaptyUiEventListener implemented from here downward
+    // AdaptyFlowEventListener implemented from here downward
 
     override fun onPurchaseFinished(
         purchaseResult: AdaptyPurchaseResult,
@@ -384,10 +393,10 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
         return retry
     }
 
-    override fun onPaywallClosed() {
+    override fun onFlowClosed() {
     }
 
-    override fun onPaywallShown(context: Context) {
+    override fun onFlowShown(context: Context) {
     }
 
     override fun onPurchaseFailure(
@@ -400,8 +409,18 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
         handleFailure(restore = false, temporary = false)
     }
 
-    override fun onRenderingError(error: AdaptyError, context: Context) {
+    override fun onError(error: AdaptyError, context: Context) {
+        // 4.0 folds the old onRenderingError into this callback. Keep the 3.x
+        // behaviour: log only; purchase/restore/product failures arrive via
+        // their own callbacks.
         logError("Failed rendering adapty", error)
+    }
+
+    override fun onBackPressed(context: Context): Boolean {
+        // 4.0 consumes the system back press by default so it no longer closes
+        // the flow. Return false to restore the 3.x behaviour: the press
+        // propagates to the dialog fragment, which dismisses the paywall.
+        return false
     }
 
     override fun onRestoreFailure(error: AdaptyError, context: Context) {
@@ -421,8 +440,8 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
     override fun onAwaitingPurchaseParams(
         product: AdaptyPaywallProduct,
         context: Context,
-        onPurchaseParamsReceived: AdaptyUiEventListener.PurchaseParamsCallback
-    ): AdaptyUiEventListener.PurchaseParamsCallback.IveBeenInvoked {
+        onPurchaseParamsReceived: AdaptyFlowEventListener.PurchaseParamsCallback
+    ): AdaptyFlowEventListener.PurchaseParamsCallback.IveBeenInvoked {
         // TODO: no support for downgrading yet
         val sub = _currentSubscription
         if (sub != null) {
@@ -437,7 +456,7 @@ object PaymentBinding : PaymentOps, AdaptyUiEventListener {
         } else {
             onPurchaseParamsReceived(AdaptyPurchaseParameters.Empty)
         }
-        return AdaptyUiEventListener.PurchaseParamsCallback.IveBeenInvoked
+        return AdaptyFlowEventListener.PurchaseParamsCallback.IveBeenInvoked
     }
 
     private fun closePaymentScreen(isError: Boolean) {

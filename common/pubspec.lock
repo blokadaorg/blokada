@@ -12,11 +12,10 @@ packages:
   adapty_flutter:
     dependency: "direct main"
     description:
-      name: adapty_flutter
-      sha256: "1b4c125dc862bb4e4fd0383252e3597157d8dbd962df1d3bfd2cc6fcda3e891d"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.17.1"
+      path: "vendor/adapty_flutter"
+      relative: true
+    source: path
+    version: "4.0.3"
   analyzer:
     dependency: transitive
     description:
@@ -1172,4 +1171,4 @@ packages:
     version: "3.1.3"
 sdks:
   dart: ">=3.12.0 <3.16.0"
-  flutter: ">=3.44.6"
+  flutter: ">=3.44.6 <3.45.0"

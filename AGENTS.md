@@ -178,8 +178,12 @@ This commonly fixes generated-signature mismatches after API changes.
 
 ### iOS
 - Fastlane for automation and deployment. Native dependencies use Swift Package
-  Manager (Firebase, Factory, CodeScanner); the Flutter module is embedded as
-  prebuilt xcframeworks from `make -C common build-ios`. No CocoaPods.
+  Manager (Firebase, Factory, CodeScanner); the Flutter module is consumed as a
+  local Swift package (`common/build/ios-spm/FlutterNativeIntegration`) from
+  `make -C common build-ios`. App schemes flip Debug/Release via a
+  `flutter_integration.sh prebuild` pre-action. The host has no CocoaPods; the
+  module build still runs a vestigial pods pass (flutter/flutter#184590) served
+  by the stub podspec in `common/vendor/adapty_flutter`.
 - **iOS 14+ Flutter Debug Limitation**: Flutter debug mode apps cannot launch
   directly on device without Xcode/Flutter tooling. The `make -C ios run`
   target defaults to Release mode to bypass this.

@@ -20,20 +20,20 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ProgressBar
 import binding.PaymentBinding
-import com.adapty.ui.AdaptyPaywallView
+import com.adapty.ui.AdaptyFlowView
 
 class AdaptyPaymentFragment : BottomSheetFragment(skipSwipeable = true) {
 
     private val payment by lazy { PaymentBinding }
 
-    var adaptyView: AdaptyPaywallView? = null
+    var adaptyView: AdaptyFlowView? = null
     private var didAttachAdaptyView = false
 
     companion object {
         private const val PAYWALL_MOUNT_DELAY_MS = 320L
         private const val PAYWALL_FADE_DURATION_MS = 450L
 
-        fun newInstance(view: AdaptyPaywallView): AdaptyPaymentFragment {
+        fun newInstance(view: AdaptyFlowView): AdaptyPaymentFragment {
             val fragment = AdaptyPaymentFragment()
             fragment.adaptyView = view
             return fragment

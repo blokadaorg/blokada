@@ -23,7 +23,7 @@ import android.widget.FrameLayout
 import android.widget.ProgressBar
 import androidx.fragment.app.DialogFragment
 import binding.PaymentBinding
-import com.adapty.ui.AdaptyPaywallView
+import com.adapty.ui.AdaptyFlowView
 import org.blokada.R
 
 /**
@@ -34,14 +34,14 @@ class AdaptyPaymentTabletDialogFragment : DialogFragment() {
 
     private val payment by lazy { PaymentBinding }
 
-    var adaptyView: AdaptyPaywallView? = null
+    var adaptyView: AdaptyFlowView? = null
     private var didAttachAdaptyView = false
 
     companion object {
         private const val PAYWALL_MOUNT_DELAY_MS = 320L
         private const val PAYWALL_FADE_DURATION_MS = 450L
 
-        fun newInstance(view: AdaptyPaywallView): AdaptyPaymentTabletDialogFragment {
+        fun newInstance(view: AdaptyFlowView): AdaptyPaymentTabletDialogFragment {
             val fragment = AdaptyPaymentTabletDialogFragment()
             fragment.adaptyView = view
             return fragment
