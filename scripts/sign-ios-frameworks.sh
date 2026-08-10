@@ -4,10 +4,11 @@
 # timestamp) before the host Xcode archive consumes them.
 #
 # Why this exists / what ITMS-91065 actually checks:
-#   `flutter build ios-framework` (see common/Makefile `build-ios`) emits every
-#   plugin as an UNSIGNED .xcframework. App Store Connect then rejects the upload
-#   with ITMS-91065 ("Missing signature") for commonly-used third-party SDKs such
-#   as sqflite (sqflite_darwin), path_provider and shared_preferences.
+#   `flutter build swift-package` (see common/Makefile `build-ios`) emits the
+#   prebuilt third-party xcframeworks UNSIGNED (--no-codesign; plugins that ship
+#   Swift packages are compiled from source by the host instead and are not
+#   affected). App Store Connect rejects uploads containing unsigned prebuilt
+#   third-party SDKs with ITMS-91065 ("Missing signature").
 #
 #   ITMS-91065 does NOT check the embedded framework's code signature — Xcode's
 #   embed/export step code-signs that on copy (verified separately by
@@ -41,7 +42,9 @@ IDENTITY="${IOS_CODESIGN_IDENTITY:-Apple Distribution: Blocka AB (HQH5AFGB68)}"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(dirname "$SCRIPT_DIR")"
-FRAMEWORK_DIR="$ROOT_DIR/common/build/ios-framework/$CONFIG"
+# Prebuilt artifacts live under Frameworks/ (Flutter, App) with CocoaPods-built
+# third-party xcframeworks one level down in Frameworks/CocoaPods/.
+FRAMEWORK_DIR="$ROOT_DIR/common/build/ios-spm/FlutterNativeIntegration/$CONFIG/Frameworks"
 
 if [ ! -d "$FRAMEWORK_DIR" ]; then
 	echo "error: $FRAMEWORK_DIR not found — run 'make -C common build-ios' first." >&2
@@ -76,7 +79,7 @@ echo "sign-ios-frameworks: signing $CONFIG plugin xcframeworks (with secure time
 
 shopt -s nullglob
 signed=0
-for xcf in "$FRAMEWORK_DIR"/*.xcframework; do
+for xcf in "$FRAMEWORK_DIR"/*.xcframework "$FRAMEWORK_DIR"/CocoaPods/*.xcframework; do
 	name="$(basename "$xcf" .xcframework)"
 	is_excluded "$name" && continue
 

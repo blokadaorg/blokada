@@ -61,16 +61,19 @@ fastlane match development
 ```
 
 iOS native dependencies use Swift Package Manager, resolved by Xcode (Firebase,
-Factory, CodeScanner). The Flutter module is consumed as prebuilt xcframeworks:
-`make -C common build-ios` produces them under `common/build/ios-framework/`,
-which the host project links and embeds. If iOS deps look stale, rebuild with:
+Factory, CodeScanner). The Flutter module is consumed as a local Swift package:
+`make -C common build-ios` produces `common/build/ios-spm/FlutterNativeIntegration`,
+which the host project depends on. Each app scheme runs
+`flutter_integration.sh prebuild` as a pre-action to select Debug/Release
+artifacts. If iOS deps look stale, rebuild with:
 ```
 $ make -C common build-ios
 ```
 
 To debug the embedded Flutter engine (`flutter attach`, breakpoints) set the
-LLDB init file once, per https://docs.flutter.dev/to/ios-add-to-app-embed-setup
-("Use frameworks > Set LLDB Init File").
+scheme's LLDB Init File to
+`$(FLUTTER_SWIFT_PACKAGE_OUTPUT)/Scripts/flutter_lldbinit`, per
+https://docs.flutter.dev/add-to-app/ios/project-setup.
 
 Now see fastlane/README.md for more details on how to build the apps.
 

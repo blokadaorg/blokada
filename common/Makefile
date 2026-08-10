@@ -31,21 +31,22 @@ build: pub gen-android gen-ios runner lib
 # Build the Android library from scratch (release)
 build-android: pub gen-android runner lib
 
-# Build the add-to-app iOS frameworks the host Xcode project links and embeds.
-# Produces Flutter/App/FlutterPluginRegistrant and one xcframework per plugin
-# under build/ios-framework/<config>/; the host picks <config> via
-# $(CONFIGURATION). precache first so a freshly installed SDK on CI has the iOS
-# engine artifacts. Replaces the old CocoaPods integration.
-# --no-codesign: Flutter 3.44 added native XCFramework signing to `build
-# ios-framework` and defaults it ON, which breaks whenever a machine holds more
+# Build the add-to-app Swift package the host Xcode project depends on.
+# Produces build/ios-spm/FlutterNativeIntegration (App/Flutter xcframeworks per
+# mode plus plugin source packages) and build/ios-spm/Scripts (the
+# flutter_integration.sh the host's scheme pre-actions and build phases run).
+# The host picks Debug/Release via the FlutterPluginRegistrant symlink, flipped
+# by `flutter_integration.sh prebuild`. Replaces `build ios-framework`, which
+# forces CocoaPods and cannot build SwiftPM-only plugins (adapty_flutter 4.x
+# ships no podspec). precache first so a freshly installed SDK on CI has the
+# iOS engine artifacts.
+# --no-codesign: signing defaults ON and breaks whenever a machine holds more
 # than one identity for the team ("Multiple identities found for development
-# team ..."). We already sign these ourselves in `sign-ios-frameworks` (the
-# ITMS-91065 fix), so opt out and keep the pre-3.44 behaviour: Flutter emits
-# unsigned xcframeworks, our script signs them for release. Flutter's own
-# --codesign-identity is a candidate to replace that script later; not here.
+# team ..."). We already sign the prebuilt xcframeworks ourselves in
+# `sign-ios-frameworks` (the ITMS-91065 fix), so opt out.
 build-ios: pub gen-ios runner
 	$(FLUTTER) precache --ios
-	$(FLUTTER) build ios-framework --output=build/ios-framework --no-profile --no-codesign
+	$(FLUTTER) build swift-package --platform ios --output=build/ios-spm --build-mode debug --build-mode release --no-codesign
 
 # Fetch dependencies from pubspec.yaml (flutter pub get)
 pub:
@@ -84,7 +85,7 @@ lib-debug:
 
 # Build the iOS library (debug) - only for special cases
 other-lib-ios-debug:
-	$(FLUTTER) build ios-framework --no-profile --no-release --verbose --no-pub --no-codesign
+	$(FLUTTER) build swift-package --platform ios --output=build/ios-spm --build-mode debug --verbose --no-codesign
 
 # Build web (not used yet)
 other-build-web:

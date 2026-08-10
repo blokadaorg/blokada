@@ -110,9 +110,10 @@ print-product-name-scheme:
 # The MOCKED/FLAVOR/ACCOUNT_ID defines are baked into the prebuilt mocked
 # App.xcframework by run-mocked-app (via --dart-define-from-file, which keeps the
 # account id out of argv / `ps`), so this host build just embeds it — no defines
-# are passed to xcodebuild. NOTE: this overwrites the shared Debug framework at
-# common/build/ios-framework/Debug with a mocked App; run `make -C common
-# build-ios` to restore the non-mocked frameworks before a normal Debug build.
+# are passed to xcodebuild. NOTE: this overwrites the shared Debug artifacts in
+# common/build/ios-spm/FlutterNativeIntegration/Debug with a mocked App; run
+# `make -C common build-ios` to restore the non-mocked package before a normal
+# Debug build.
 _build-mocked:
 	$(call xcode-build,build,$(SCHEME),Debug,$(DESTINATION),)
 
@@ -143,7 +144,7 @@ define run-mocked-app
 	mkdir -p "$$COMMON_DIR/.dart_tool"; \
 	printf 'MOCKED=true\nFLAVOR=%s\nACCOUNT_ID=%s\n' "$$FLAVOR" "$${ACCOUNT_ID:-}" > "$$DEFINES_FILE"; \
 	trap 'rm -f "$$DEFINES_FILE"' EXIT; \
-	( cd "$$COMMON_DIR" && fvm flutter build ios-framework --output=build/ios-framework --no-profile --no-release --no-codesign --dart-define-from-file=.dart_tool/dart-defines-mocked.env ); \
+	( cd "$$COMMON_DIR" && fvm flutter build swift-package --platform ios --output=build/ios-spm --build-mode debug --no-codesign --dart-define-from-file=.dart_tool/dart-defines-mocked.env ); \
 	$(MAKE) --no-print-directory _build-mocked SCHEME=$(1) DESTINATION="$$DEST"; \
 	xcrun simctl boot "$$UDID" 2>/dev/null || true; \
 	APP_DIR=$$($(MAKE) --no-print-directory print-build-dir-scheme SCHEME=$(1) DESTINATION="$$DEST"); \
