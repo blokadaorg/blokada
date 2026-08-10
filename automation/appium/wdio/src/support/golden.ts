@@ -65,6 +65,61 @@ function artifactPath(name: string, suffix: string): string {
   return resolve(outputDir, `${name.replace(/\.png$/i, "")}-${suffix}.png`);
 }
 
+export interface StableScreenOptions {
+  /** Consecutive frames must differ by at most this fraction (default 0.001). */
+  maxDiffRatio?: number;
+  /** Delay between frames in ms (default 600). */
+  intervalMs?: number;
+  /** Frames captured before giving up and proceeding anyway (default 12). */
+  attempts?: number;
+  /** Top band ignored so the status-bar clock never destabilizes (default 0.06). */
+  maskTopRatio?: number;
+}
+
+/**
+ * Wait until the screen stops changing: capture frames until two consecutive
+ * ones are (near-)identical, then return. Needed for the Adapty paywall since
+ * SDK 4: the flow runtime finishes its presentation (content slide-in and
+ * status-bar handoff) later than any fixed post-present pause reliably covers,
+ * and a mid-transition frame fails the golden comparison with everything
+ * shifted by the status-bar height. On timeout it proceeds with a warning and
+ * lets compareToGolden report the real mismatch.
+ */
+export async function waitForStableScreen(
+  options: StableScreenOptions = {}
+): Promise<void> {
+  const maxDiffRatio = options.maxDiffRatio ?? 0.001;
+  const intervalMs = options.intervalMs ?? 600;
+  const attempts = options.attempts ?? 12;
+  const maskTopRatio = options.maskTopRatio ?? 0.06;
+
+  let prev: PNG | null = null;
+  for (let i = 0; i < attempts; i++) {
+    const frame = PNG.sync.read(
+      Buffer.from(await driver.takeScreenshot(), "base64")
+    );
+    applyMasks(frame, { maskTopRatio });
+    if (prev && prev.width === frame.width && prev.height === frame.height) {
+      const numDiffPixels = pixelmatch(
+        prev.data,
+        frame.data,
+        undefined,
+        frame.width,
+        frame.height,
+        { threshold: 0.1 }
+      );
+      if (numDiffPixels / (frame.width * frame.height) <= maxDiffRatio) {
+        return;
+      }
+    }
+    prev = frame;
+    await driver.pause(intervalMs);
+  }
+  console.warn(
+    `waitForStableScreen: screen still changing after ${attempts} frames; proceeding`
+  );
+}
+
 /**
  * Capture the current screen and compare it to a committed golden image.
  *
