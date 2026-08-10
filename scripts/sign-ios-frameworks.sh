@@ -101,8 +101,12 @@ for xcf in "$FRAMEWORK_DIR"/*.xcframework "$FRAMEWORK_DIR"/CocoaPods/*.xcframewo
 done
 
 if [ "$signed" -eq 0 ]; then
-	echo "error: no plugin .xcframework bundles found under $FRAMEWORK_DIR" >&2
-	exit 1
+	# Legitimate since Adapty 4.x: every plugin is vended as a Swift source
+	# package, so no prebuilt third-party xcframeworks remain here (Xcode
+	# resolves and signs SPM dependencies itself). The directory check above
+	# still catches a wrong/missing build.
+	echo "sign-ios-frameworks: no prebuilt plugin xcframeworks to sign (all plugins are Swift packages)"
+	exit 0
 fi
 
 echo "sign-ios-frameworks: signed & verified $signed plugin xcframework(s) with secure timestamp"
