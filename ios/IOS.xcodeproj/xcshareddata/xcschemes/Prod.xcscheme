@@ -12,6 +12,13 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES"
             buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "47729E0122F447C800B9B36B"
+               BuildableName = "Blokada 6.app"
+               BlueprintName = "Prod"
+               ReferencedContainer = "container:IOS.xcodeproj">
+            </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
       <PreActions>

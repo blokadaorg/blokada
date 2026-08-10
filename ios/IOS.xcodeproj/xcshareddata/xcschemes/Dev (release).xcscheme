@@ -13,6 +13,13 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES"
             buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4E8651052A3C968B0060AFB1"
+               BuildableName = "Dev.app"
+               BlueprintName = "Dev"
+               ReferencedContainer = "container:IOS.xcodeproj">
+            </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
       <PreActions>

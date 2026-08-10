@@ -12,6 +12,13 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES"
             buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4EBF3B072A80E55900F637BB"
+               BuildableName = "FamilyDev.app"
+               BlueprintName = "FamilyDev"
+               ReferencedContainer = "container:IOS.xcodeproj">
+            </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
       <PreActions>

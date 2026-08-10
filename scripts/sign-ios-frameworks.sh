@@ -77,9 +77,11 @@ is_excluded() {
 
 echo "sign-ios-frameworks: signing $CONFIG plugin xcframeworks (with secure timestamp) as '$IDENTITY'"
 
-shopt -s nullglob
+# Discover recursively (-prune keeps us out of bundle internals) rather than
+# globbing fixed subdirectories, so a prebuilt xcframework emitted under a new
+# layout can never silently skip signing.
 signed=0
-for xcf in "$FRAMEWORK_DIR"/*.xcframework "$FRAMEWORK_DIR"/CocoaPods/*.xcframework; do
+while IFS= read -r xcf; do
 	name="$(basename "$xcf" .xcframework)"
 	is_excluded "$name" && continue
 
@@ -98,7 +100,7 @@ for xcf in "$FRAMEWORK_DIR"/*.xcframework "$FRAMEWORK_DIR"/CocoaPods/*.xcframewo
 	fi
 	echo "  signed $name.xcframework (secure timestamp)"
 	signed=$((signed + 1))
-done
+done < <(find "$FRAMEWORK_DIR" -type d -name '*.xcframework' -prune)
 
 if [ "$signed" -eq 0 ]; then
 	# Legitimate since Adapty 4.x: every plugin is vended as a Swift source

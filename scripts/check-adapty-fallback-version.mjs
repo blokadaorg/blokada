@@ -31,25 +31,34 @@ let failed = false;
 // the pin, so without this check the app would silently keep building the old
 // vendored version — the same illusory-bump trap as an unenforced lockfile.
 const pubspec = readFileSync(resolve("common/pubspec.yaml"), "utf8");
-const pinned = pubspec.match(/^\s{2}adapty_flutter:\s*(\S+)\s*$/m)?.[1];
+// Require a version-shaped value so the bare `adapty_flutter:` key under
+// dependency_overrides (a path block, no inline value) can never match,
+// regardless of section order or indentation.
+const pinned = pubspec.match(/^\s+adapty_flutter:\s*(\d\S*)\s*$/m)?.[1];
 const vendored = readFileSync(
   resolve("common/vendor/adapty_flutter/pubspec.yaml"),
   "utf8",
 ).match(/^version:\s*(\S+)\s*$/m)?.[1];
-if (!pinned || !vendored) {
+const stubPodspec = readFileSync(
+  resolve("common/vendor/adapty_flutter/ios/adapty_flutter.podspec"),
+  "utf8",
+).match(/s\.version\s*=\s*'([^']+)'/)?.[1];
+if (!pinned || !vendored || !stubPodspec) {
   console.error(
-    `FAIL  adapty_flutter version not found (pubspec pin: ${pinned}, vendored: ${vendored})`,
+    `FAIL  adapty_flutter version not found (pubspec pin: ${pinned}, ` +
+      `vendored: ${vendored}, stub podspec: ${stubPodspec})`,
   );
   failed = true;
-} else if (pinned !== vendored) {
+} else if (pinned !== vendored || pinned !== stubPodspec) {
   console.error(
-    `FAIL  adapty_flutter pin ${pinned} != vendored copy ${vendored} — ` +
-      "refresh common/vendor/adapty_flutter from the new pub.dev release " +
-      "(keep the stub podspec and BlokadaVendorAlias.swift patches)",
+    `FAIL  adapty_flutter versions out of lockstep: pin ${pinned}, vendored ` +
+      `${vendored}, stub podspec ${stubPodspec} — refresh ` +
+      "common/vendor/adapty_flutter from the new pub.dev release and keep " +
+      "the stub podspec (bump its s.version) and BlokadaVendorAlias.swift",
   );
   failed = true;
 } else {
-  console.log(`OK    adapty_flutter ${pinned} matches vendored copy`);
+  console.log(`OK    adapty_flutter ${pinned} matches vendored copy and stub podspec`);
 }
 
 for (const rel of FILES) {

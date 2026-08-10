@@ -14,6 +14,16 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIFlows
   AdaptyUIFlowView? _paymentView;
   String? _paymentViewForPlacementId;
 
+  // Set while closePaymentScreen dismisses a view, so flowViewDidDisappear can
+  // tell an app-initiated dismissal (already reported to the actor, possibly
+  // as an error) from one the user or the flow performed natively.
+  String? _dismissingViewId;
+
+  void _dropCachedView() {
+    _paymentView = null;
+    _paymentViewForPlacementId = null;
+  }
+
   @override
   init(Marker m, String apiKey, String? accountId, bool verboseLogs) async {
     _adaptyUi.setFlowsEventsObserver(this);
@@ -77,18 +87,19 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIFlows
     } catch (_) {
       // AdaptyUIFlowView is single-use; drop the spent view so the next
       // open recreates it instead of re-presenting a view that already failed.
-      _paymentView = null;
-      _paymentViewForPlacementId = null;
+      _dropCachedView();
       rethrow;
     }
   }
 
   @override
   closePaymentScreen(bool isError, {AdaptyUIFlowView? view}) async {
-    await view?.dismiss();
-    if (view == null) await _paymentView?.dismiss();
-    _paymentView = null;
-    _paymentViewForPlacementId = null;
+    final dismissing = view ?? _paymentView;
+    // Only invalidate the cache when it holds the view being dismissed —
+    // preload() may have already cached a fresh view for another placement.
+    if (view == null || _paymentView?.id == view.id) _dropCachedView();
+    _dismissingViewId = dismissing?.id;
+    await dismissing?.dismiss();
     await _actor.handleScreenClosed(Markers.ui, isError: isError);
   }
 
@@ -204,10 +215,17 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIFlows
     // again. This fires for every dismissal path, including swipe-down which
     // bypasses closePaymentScreen; drop the cache so the next open recreates
     // the view instead of presenting a spent one.
-    if (_paymentView?.id == view.id) {
-      _paymentView = null;
-      _paymentViewForPlacementId = null;
+    if (_paymentView?.id == view.id) _dropCachedView();
+    if (_dismissingViewId == view.id) {
+      // closePaymentScreen initiated this dismissal and reports the close
+      // itself, with the right isError.
+      _dismissingViewId = null;
+      return;
     }
+    // The dismissal bypassed closePaymentScreen (swipe-down, flow-internal
+    // close): reset the actor, or _isOpened stays true and the paywall can
+    // never be reopened. handleScreenClosed no-ops when already closed.
+    _actor.handleScreenClosed(Markers.ui, isError: false);
   }
 
   @override
