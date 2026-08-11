@@ -72,14 +72,19 @@ dependencies:
 
 dependency_overrides:
   intl: 0.20.2
-  # Vendored copy of the pub.dev package (minus example/) with ONE addition: a
-  # stub ios/adapty_flutter.podspec. adapty_flutter 4.x is SwiftPM-only, but
-  # Flutter modules still run a CocoaPods pass whose generated
-  # FlutterPluginRegistrant pod hard-depends on every plugin
-  # (flutter/flutter#184590) — without a podspec `pod install` fails. Keep the
-  # vendored version in lockstep with the `adapty_flutter` pin above (checked
-  # by scripts/check-adapty-fallback-version.mjs); drop the override when the
-  # upstream issue is fixed in the pinned Flutter.
+  # Vendored copy of the pub.dev package (minus example/) with three patches:
+  # 1. stub ios/adapty_flutter.podspec — adapty_flutter 4.x is SwiftPM-only,
+  #    but Flutter modules still run a CocoaPods pass whose generated
+  #    FlutterPluginRegistrant pod hard-depends on every plugin
+  #    (flutter/flutter#184590) — without a podspec `pod install` fails.
+  # 2. BlokadaVendorAlias.swift — upstream pluginClass only exists as an
+  #    @objc name; the generated Swift registrant needs a Swift name.
+  # 3. ios Package.swift pins AdaptySDK-iOS to the blokadaorg fork (4.0.2 +
+  #    restored includeBackground gate) until the translucent-footer
+  #    regression is fixed upstream.
+  # Keep the vendored version in lockstep with the `adapty_flutter` pin above
+  # (checked by scripts/check-adapty-fallback-version.mjs); drop patches as
+  # their upstream fixes land.
   adapty_flutter:
     path: vendor/adapty_flutter
   # pigeon is HELD at 12 on purpose: pigeon 26 needs a native Swift/Kotlin codegen

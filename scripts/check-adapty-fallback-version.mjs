@@ -54,7 +54,10 @@ if (!pinned || !vendored || !stubPodspec) {
     `FAIL  adapty_flutter versions out of lockstep: pin ${pinned}, vendored ` +
       `${vendored}, stub podspec ${stubPodspec} — refresh ` +
       "common/vendor/adapty_flutter from the new pub.dev release and keep " +
-      "the stub podspec (bump its s.version) and BlokadaVendorAlias.swift",
+      "the vendor patches: stub podspec (bump its s.version), " +
+      "BlokadaVendorAlias.swift, and the ios Package.swift AdaptySDK-iOS " +
+      "pin (blokadaorg fork until the footer-gate regression is fixed " +
+      "upstream)",
   );
   failed = true;
 } else {

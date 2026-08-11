@@ -10,9 +10,16 @@ let package = Package(
         .library(name: "adapty-flutter", targets: ["adapty_flutter"]),
     ],
     dependencies: [
-        // Pinned exactly to the iOS 4.0.2 stable release; the Flutter bridge (AdaptyPlugin) targets this
-        // exact native version, so we must not resolve to newer 4.x releases it wasn't built against.
-        .package(url: "https://github.com/adaptyteam/AdaptySDK-iOS.git", exact: "4.0.2"),
+        // BLOKADA VENDOR PATCH: blokadaorg fork of AdaptySDK-iOS at the 4.0.2 tag
+        // plus one commit restoring the includeBackground gate on static decorator
+        // backgrounds (upstream regression darkens translucent paywall footers —
+        // see branch blokada/4.0.2-footer-include-background-gate). Pinned by
+        // revision for reproducibility. Upstream pin was `exact: "4.0.2"`; return
+        // to it when Adapty ships the fix.
+        .package(
+            url: "https://github.com/blokadaorg/AdaptySDK-iOS.git",
+            revision: "caf82a13d050855fe725a151e29a1e214f9f65cd"
+        ),
     ],
     targets: [
         .target(
