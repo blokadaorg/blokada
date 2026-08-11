@@ -253,10 +253,13 @@ object PaymentBinding : PaymentOps, AdaptyFlowDefaultEventListener() {
                     is AdaptyResult.Success -> {
                         val flow = result.value
                         // Since 4.0 the flow is localized when its configuration is
-                        // built, so the locale moved here from the fetch call.
+                        // built, so the locale moved here from the fetch call. Pass
+                        // the dashboard localization id (bare language code, e.g.
+                        // "es"): 4.0 matches it exactly, so a region tag like
+                        // "es-ES" silently falls back to English.
                         AdaptyUI.getFlowConfiguration(
                             flow,
-                            locale = translate.getLocale(),
+                            locale = translate.getLocale().substringBefore("-"),
                             loadTimeout = 10.seconds
                         ) { result ->
                             when (result) {

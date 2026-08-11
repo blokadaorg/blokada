@@ -106,10 +106,13 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIFlows
   Future<AdaptyUIFlowView> _createPaywall(Marker m, Placement placement) async {
     final flow = await _fetchFlow(m, placement);
     // Since 4.0 a flow is localized when its view is built; without an explicit
-    // locale it renders in `en` regardless of device language.
+    // locale it renders in `en` regardless of device language. The value must
+    // be a localization id as configured in the dashboard (bare language code,
+    // e.g. `es`): unlike the 3.x fetch-time matching, 4.0 resolves it with an
+    // exact lookup, so a region-tagged `es_es` silently falls back to English.
     return await _adaptyUi.createFlowView(
       flow: flow,
-      locale: I18n.localeStr,
+      locale: I18n.languageOnly,
       preloadProducts: false,
     );
   }
