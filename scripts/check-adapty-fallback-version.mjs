@@ -15,7 +15,7 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import process from "node:process";
 
-const MIN_VERSION = 9;
+const MIN_VERSION = 10;
 
 const FILES = [
   "common/assets/fallbacks/ios.json",
