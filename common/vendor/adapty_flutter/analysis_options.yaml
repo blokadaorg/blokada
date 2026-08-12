@@ -1,0 +1,6 @@
+analyzer:
+  # ... other analyzer settings ...
+
+dart_code_metrics:
+  rules:
+  line_length: 120

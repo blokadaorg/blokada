@@ -9,7 +9,7 @@ IOS_PROJECT_FILE := ios/IOS.xcodeproj/project.pbxproj
 TRANSLATE_SCRIPT := ./scripts/sync-translations.sh
 
 ADAPTY_DIR := ~/Downloads
-ADAPTY_VER := 3_8.0
+ADAPTY_VER := 4_0_0
  
 # Default target 
 .DEFAULT_GOAL := build

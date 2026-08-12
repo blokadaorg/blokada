@@ -1,0 +1,54 @@
+import com.android.Version
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
+apply plugin: 'com.android.library'
+
+def agpMajor = Version.ANDROID_GRADLE_PLUGIN_VERSION.tokenize('.')[0] as int
+def builtInKotlinOff = project.hasProperty('android.builtInKotlin') &&
+        !Boolean.parseBoolean(project.property('android.builtInKotlin').toString())
+if (agpMajor < 9 || builtInKotlinOff) {
+    apply plugin: 'kotlin-android'
+}
+
+rootProject.allprojects {
+    repositories {
+        google()
+    }
+}
+
+android {
+    compileSdk = 35
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+    defaultConfig {
+        minSdk = 21
+    }
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+
+    if (project.android.hasProperty("namespace")) {
+        namespace = 'com.adapty.flutter'
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_11
+    }
+}
+
+dependencies {
+    implementation platform('io.adapty:adapty-bom:4.0.1')
+    implementation 'io.adapty:android-sdk'
+    implementation 'io.adapty:android-ui'
+    implementation 'io.adapty:android-ui-video'
+    implementation 'io.adapty.internal:crossplatform:4.0.2'
+}

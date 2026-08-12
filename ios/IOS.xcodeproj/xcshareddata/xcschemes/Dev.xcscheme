@@ -21,6 +21,24 @@
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
+      <PreActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Flutter Prebuild"
+               scriptText = "/bin/sh $FLUTTER_SWIFT_PACKAGE_OUTPUT/Scripts/flutter_integration.sh prebuild">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "4E8651052A3C968B0060AFB1"
+                     BuildableName = "Dev.app"
+                     BlueprintName = "Dev"
+                     ReferencedContainer = "container:IOS.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+      </PreActions>
    </BuildAction>
    <TestAction
       buildConfiguration = "Debug"

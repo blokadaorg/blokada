@@ -123,9 +123,17 @@ describe("Smoke: paywall on inactive account", () => {
     await waitForPaywall();
 
     // Adapty settles the presented view (start.dart sleeps ~3s for non-freemium).
+    // Since SDK 4 the flow holds a stable intermediate layout for a few seconds
+    // (content shifted by the status-bar height) before its final reflow, so a
+    // fixed pause or a wait-for-quiescence both capture the wrong plateau —
+    // retry the comparison itself until the settled frame matches.
     await driver.pause(4000);
     await saveScreenshot("paywall.png");
-    await compareToGolden("paywall.png", { maskTopRatio: 0.06 });
+    await compareToGolden("paywall.png", {
+      maskTopRatio: 0.06,
+      retries: 6,
+      retryDelayMs: 2000,
+    });
   });
 
   after(async () => {

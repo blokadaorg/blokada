@@ -21,6 +21,16 @@ export interface GoldenOptions {
   maskRegions?: Array<{ x: number; y: number; w: number; h: number }>;
   /** Per-pixel colour delta sensitivity passed to pixelmatch (default 0.1). */
   threshold?: number;
+  /**
+   * Recapture-and-compare attempts after a mismatch (default 0). Use when the
+   * screen is expected to reach the golden state but holds intermediate stable
+   * plateaus first (the Adapty 4 flow presents shifted with the status bar
+   * hidden for a few seconds before its final reflow), which defeats any
+   * fixed-delay or wait-for-quiescence strategy.
+   */
+  retries?: number;
+  /** Delay between retry captures in ms (default 2000). */
+  retryDelayMs?: number;
 }
 
 function maskRect(png: PNG, x: number, y: number, w: number, h: number): void {
@@ -78,7 +88,11 @@ export async function compareToGolden(
   options: GoldenOptions = {}
 ): Promise<void> {
   const goldenPath = resolve(goldenDir, name);
-  const actualPng = PNG.sync.read(
+  const retries = options.retries ?? 0;
+  const retryDelayMs = options.retryDelayMs ?? 2000;
+  const maxDiffRatio = options.maxDiffRatio ?? 0.02;
+
+  let actualPng = PNG.sync.read(
     Buffer.from(await driver.takeScreenshot(), "base64")
   );
 
@@ -97,48 +111,66 @@ export async function compareToGolden(
     );
   }
 
-  const goldenPng = PNG.sync.read(readFileSync(goldenPath));
-  if (goldenPng.width !== actualPng.width || goldenPng.height !== actualPng.height) {
-    const actualPath = artifactPath(name, "actual");
-    writePng(actualPath, actualPng);
-    throw new Error(
-      `Golden ${goldenPng.width}x${goldenPng.height} != actual ` +
-        `${actualPng.width}x${actualPng.height} for "${name}". Device or ` +
-        `orientation changed; regenerate with UPDATE_GOLDEN=1.`
+  for (let attempt = 0; ; attempt++) {
+    const goldenPng = PNG.sync.read(readFileSync(goldenPath));
+    if (goldenPng.width !== actualPng.width || goldenPng.height !== actualPng.height) {
+      const actualPath = artifactPath(name, "actual");
+      writePng(actualPath, actualPng);
+      throw new Error(
+        `Golden ${goldenPng.width}x${goldenPng.height} != actual ` +
+          `${actualPng.width}x${actualPng.height} for "${name}". Device or ` +
+          `orientation changed; regenerate with UPDATE_GOLDEN=1.`
+      );
+    }
+
+    const maskedActual = new PNG({ width: actualPng.width, height: actualPng.height });
+    actualPng.data.copy(maskedActual.data);
+    applyMasks(goldenPng, options);
+    applyMasks(maskedActual, options);
+
+    const { width, height } = goldenPng;
+    const diff = new PNG({ width, height });
+    const numDiffPixels = pixelmatch(
+      goldenPng.data,
+      maskedActual.data,
+      diff.data,
+      width,
+      height,
+      { threshold: options.threshold ?? 0.1 }
     );
-  }
+    const ratio = numDiffPixels / (width * height);
 
-  applyMasks(goldenPng, options);
-  applyMasks(actualPng, options);
+    if (ratio <= maxDiffRatio) {
+      console.warn(
+        `Golden match for "${name}": ${(ratio * 100).toFixed(2)}% diff ` +
+          `(<= ${(maxDiffRatio * 100).toFixed(2)}%)` +
+          (attempt > 0 ? ` after ${attempt} retr${attempt === 1 ? "y" : "ies"}.` : ".")
+      );
+      return;
+    }
 
-  const { width, height } = goldenPng;
-  const diff = new PNG({ width, height });
-  const numDiffPixels = pixelmatch(
-    goldenPng.data,
-    actualPng.data,
-    diff.data,
-    width,
-    height,
-    { threshold: options.threshold ?? 0.1 }
-  );
-  const ratio = numDiffPixels / (width * height);
-  const maxDiffRatio = options.maxDiffRatio ?? 0.02;
+    if (attempt < retries) {
+      console.warn(
+        `Golden mismatch for "${name}" (${(ratio * 100).toFixed(2)}%), ` +
+          `retrying in ${retryDelayMs}ms (${attempt + 1}/${retries})...`
+      );
+      await driver.pause(retryDelayMs);
+      actualPng = PNG.sync.read(
+        Buffer.from(await driver.takeScreenshot(), "base64")
+      );
+      continue;
+    }
 
-  if (ratio > maxDiffRatio) {
     const diffPath = artifactPath(name, "diff");
     const actualPath = artifactPath(name, "actual");
     writePng(diffPath, diff);
-    writePng(actualPath, actualPng);
+    writePng(actualPath, maskedActual);
     throw new Error(
       `Golden mismatch for "${name}": ${(ratio * 100).toFixed(2)}% pixels ` +
-        `differ (max ${(maxDiffRatio * 100).toFixed(2)}%). See ${diffPath} and ` +
-        `${actualPath}. If this is an intentional change, regenerate with ` +
-        `UPDATE_GOLDEN=1.`
+        `differ (max ${(maxDiffRatio * 100).toFixed(2)}%)` +
+        (retries > 0 ? ` after ${retries} retries` : "") +
+        `. See ${diffPath} and ${actualPath}. If this is an intentional ` +
+        `change, regenerate with UPDATE_GOLDEN=1.`
     );
   }
-
-  console.warn(
-    `Golden match for "${name}": ${(ratio * 100).toFixed(2)}% diff ` +
-      `(<= ${(maxDiffRatio * 100).toFixed(2)}%).`
-  );
 }

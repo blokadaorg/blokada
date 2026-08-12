@@ -64,7 +64,7 @@ dependencies:
   flutter_chat_core: ^2.6.0
   flutter_chat_ui: ^2.6.0
   logger: ^2.4.0
-  adapty_flutter: 3.17.1
+  adapty_flutter: 4.0.3
   flutter_linkify: ^6.0.0
   cached_network_image: ^3.3.1
   web_socket_channel: ^3.0.3
@@ -72,6 +72,21 @@ dependencies:
 
 dependency_overrides:
   intl: 0.20.2
+  # Vendored copy of the pub.dev package (minus example/) with three patches:
+  # 1. stub ios/adapty_flutter.podspec — adapty_flutter 4.x is SwiftPM-only,
+  #    but Flutter modules still run a CocoaPods pass whose generated
+  #    FlutterPluginRegistrant pod hard-depends on every plugin
+  #    (flutter/flutter#184590) — without a podspec `pod install` fails.
+  # 2. BlokadaVendorAlias.swift — upstream pluginClass only exists as an
+  #    @objc name; the generated Swift registrant needs a Swift name.
+  # 3. ios Package.swift pins AdaptySDK-iOS to the blokadaorg fork (4.0.2 +
+  #    restored includeBackground gate) until the translucent-footer
+  #    regression is fixed upstream.
+  # Keep the vendored version in lockstep with the `adapty_flutter` pin above
+  # (checked by scripts/check-adapty-fallback-version.mjs); drop patches as
+  # their upstream fixes land.
+  adapty_flutter:
+    path: vendor/adapty_flutter
   # pigeon is HELD at 12 on purpose: pigeon 26 needs a native Swift/Kotlin codegen
   # migration (setup->setUp call-site rename plus Kotlin enum / Swift PigeonError
   # changes) judged disproportionate for a dev-only tool. The dependabot semver-major
@@ -96,6 +111,12 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 
 flutter:
+  # adapty_flutter 4.x ships its iOS SDK as a Swift package only (no podspec),
+  # which `flutter build ios-framework` cannot build; the swift-package build
+  # path requires this flag on every machine that builds the module.
+  config:
+    enable-swift-package-manager: true
+
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

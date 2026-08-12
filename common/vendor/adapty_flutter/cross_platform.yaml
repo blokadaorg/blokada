@@ -1,0 +1,1853 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "https://adapty.io/crossPlatform/4.0.2/schema"
+title: "Cross Platform Format"
+
+$requests:
+  ### activate ###
+  Activate.Request: #request
+    type: object
+    required: [method, configuration]
+    properties:
+      method: { const: "activate" }
+      configuration: { $ref: "#/$defs/AdaptyConfiguration" }
+
+  Activate.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { const: true }
+
+  ### createFlowView ###
+  AdaptyUICreateFlowView.Request: #request
+    type: object
+    required:
+      - method
+      - flow
+    properties:
+      method: { const: "adapty_ui_create_flow_view" }
+      flow: { $ref: "#/$defs/AdaptyFlow" }
+      locale: { $ref: "#/$defs/AdaptyLocale" }
+      load_timeout: { type: number, description: "seconds" }
+      preload_products: { type: boolean, default: false }
+      custom_tags: { $ref: "#/$defs/AdaptyUI.CustomTagsValues" }
+      custom_timers: { $ref: "#/$defs/AdaptyUI.CustomTimersValues" }
+      custom_assets: { $ref: "#/$defs/AdaptyUI.CustomAssets" }
+      product_purchase_parameters:
+        {
+          $ref: "#/$defs/AdaptyUI.ProductPurchaseParameters",
+          description: "Android Only",
+        }
+      enable_safe_area_paddings: { type: boolean, default: true, description: "Android Only" }
+
+  AdaptyUICreateFlowView.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { $ref: "#/$defs/AdaptyUI.FlowView" }
+
+  ### createOnboardingView ###
+  AdaptyUICreateOnboardingView.Request: #request
+    type: object
+    required:
+      - method
+      - onboarding
+    properties:
+      method: { const: "adapty_ui_create_onboarding_view" }
+      onboarding: { $ref: "#/$defs/AdaptyOnboarding" }
+      external_urls_presentation: { $ref: "#/$defs/AdaptyWebPresentation" }
+
+  AdaptyUICreateOnboardingView.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { $ref: "#/$defs/AdaptyUI.OnboardingView" }
+
+  ### dismissOnboardingView ###
+  AdaptyUIDismissOnboardingView.Request: #request
+    type: object
+    required: [method, id]
+    properties:
+      method: { const: "adapty_ui_dismiss_onboarding_view" }
+      id: { type: string, description: "View Id" }
+      destroy: { type: boolean, default: false }
+
+  AdaptyUIDismissOnboardingView.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { const: true }
+
+  ### dismissFlowView ###
+  AdaptyUIDismissFlowView.Request: #request
+    type: object
+    required: [method, id]
+    properties:
+      method: { const: "adapty_ui_dismiss_flow_view" }
+      id: { type: string, description: "View Id" }
+      destroy: { type: boolean, default: false }
+
+  AdaptyUIDismissFlowView.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { const: true }
+
+  ### presentOnboardingView ###
+  AdaptyUIPresentOnboardingView.Request: #request
+    type: object
+    required: [method, id]
+    properties:
+      method: { const: "adapty_ui_present_onboarding_view" }
+      id: { type: string, description: "View Id" }
+      ios_presentation_style: { $ref: "#/$defs/AdaptyUI.IOSPresentationStyle" }
+
+  AdaptyUIPresentOnboardingView.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { const: true }
+
+  ### presentFlowView ###
+  AdaptyUIPresentFlowView.Request: #request
+    type: object
+    required: [method, id]
+    properties:
+      method: { const: "adapty_ui_present_flow_view" }
+      id: { type: string, description: "View Id" }
+      ios_presentation_style: { $ref: "#/$defs/AdaptyUI.IOSPresentationStyle" }
+
+  AdaptyUIPresentFlowView.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { const: true }
+
+  ### adaptyUIShowDialog ###
+  AdaptyUIShowDialog.Request: #request
+    type: object
+    required: [method, id, configuration]
+    properties:
+      method: { const: "adapty_ui_show_dialog" }
+      id: { type: string, description: "View Id" }
+      configuration: { $ref: "#/$defs/AdaptyUI.DialogConfiguration" }
+
+  AdaptyUIShowDialog.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { $ref: "#/$defs/AdaptyUI.DialogActionType" }
+
+  ### adaptyUIOpenUrl ###
+  AdaptyUIOpenUrl.Request: #request
+    type: object
+    required: [method, url]
+    properties:
+      method: { const: "adapty_ui_open_url" }
+      url: { type: string }
+      open_in: { $ref: "#/$defs/AdaptyWebPresentation", default: "browser_out_app" }
+
+  AdaptyUIOpenUrl.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { const: true }
+
+  ### adaptyUIRequestAppReview ###
+  AdaptyUIRequestAppReview.Request: #request
+    type: object
+    required: [method]
+    properties:
+      method: { const: "adapty_ui_request_app_review" }
+
+  AdaptyUIRequestAppReview.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { const: true }
+
+  ### getOnboarding ###
+  GetOnboarding.Request: #request
+    type: object
+    required: [method, placement_id]
+    properties:
+      method: { const: "get_onboarding" }
+      placement_id: { type: string }
+      locale: { $ref: "#/$defs/AdaptyLocale" }
+      fetch_policy: { $ref: "#/$defs/AdaptyPlacementFetchPolicy" }
+      load_timeout: { type: number, description: "seconds" }
+
+  GetOnboarding.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { $ref: "#/$defs/AdaptyOnboarding" }
+
+  ### getOnboardingForDefaultAudience ###
+  GetOnboardingForDefaultAudience.Request: #request
+    type: object
+    required: [method, placement_id]
+    properties:
+      method: { const: "get_onboarding_for_default_audience" }
+      placement_id: { type: string }
+      locale: { $ref: "#/$defs/AdaptyLocale" }
+      fetch_policy: { $ref: "#/$defs/AdaptyPlacementFetchPolicy" }
+
+  GetOnboardingForDefaultAudience.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { $ref: "#/$defs/AdaptyOnboarding" }
+
+  ### getFlow ###
+  GetFlow.Request: #request
+    type: object
+    required: [method, placement_id]
+    properties:
+      method: { const: "get_flow" }
+      placement_id: { type: string }
+      fetch_policy: { $ref: "#/$defs/AdaptyPlacementFetchPolicy" }
+      load_timeout: { type: number, description: "seconds" }
+
+  GetFlow.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { $ref: "#/$defs/AdaptyFlow" }
+
+  ### getFlowForDefaultAudience ###
+  GetFlowForDefaultAudience.Request: #request
+    type: object
+    required: [method, placement_id]
+    properties:
+      method: { const: "get_flow_for_default_audience" }
+      placement_id: { type: string }
+      fetch_policy: { $ref: "#/$defs/AdaptyPlacementFetchPolicy" }
+
+  GetFlowForDefaultAudience.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { $ref: "#/$defs/AdaptyFlow" }
+
+  ### getPaywallProducts ###
+  GetPaywallProducts.Request: #request
+    type: object
+    required: [method, flow]
+    properties:
+      method: { const: "get_paywall_products" }
+      flow: { $ref: "#/$defs/AdaptyFlow" }
+
+  GetPaywallProducts.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success:
+            {
+              type: array,
+              items: { $ref: "#/$defs/AdaptyPaywallProduct.Response" },
+            }
+
+  ### getProfile ###
+  GetProfile.Request: #request
+    type: object
+    required: [method]
+    properties:
+      method: { const: "get_profile" }
+
+  GetProfile.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { $ref: "#/$defs/AdaptyProfile" }
+
+  ### identify ###
+  Identify.Request: #request
+    type: object
+    required: [method, customer_user_id]
+    properties:
+      method: { const: "identify" }
+      customer_user_id: { type: string }
+      parameters: { $ref: "#/$defs/CustomerIdentityParameters" } 
+
+  Identify.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { const: true }
+
+  ### isActivated ###
+  IsActivated.Request: #request
+    type: object
+    required: [method]
+    properties:
+      method: { const: "is_activated" }
+
+  IsActivated.Response: #response
+    type: object
+    required: [success]
+    properties:
+      success: { type: boolean }
+
+  ### getLogLevel ###
+  GetLogLevel.Request: #request
+    type: object
+    required: [method]
+    properties:
+      method: { const: "get_log_level" }
+
+  GetLogLevel.Response: #response
+    type: object
+    required: [success]
+    properties:
+      success: { $ref: "#/$defs/AdaptyLog.Level" }
+
+  ### setLogLevel ###
+  SetLogLevel.Request: #request
+    type: object
+    required: [method, value]
+    properties:
+      method: { const: "set_log_level" }
+      value: { $ref: "#/$defs/AdaptyLog.Level" }
+
+  SetLogLevel.Response: #response
+    type: object
+    required: [success]
+    properties:
+      success: { const: true }
+
+  ### logout ###
+  Logout.Request: #request
+    type: object
+    required: [method]
+    properties:
+      method: { const: "logout" }
+
+  Logout.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { const: true }
+
+  ### logShowFlow ###
+  LogShowFlow.Request: #request
+    type: object
+    required: [method, flow]
+    properties:
+      method: { const: "log_show_flow" }
+      flow: { $ref: "#/$defs/AdaptyFlow" }
+
+  LogShowFlow.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { const: true }
+
+  ### makePurchase ###
+  MakePurchase.Request: #request
+    type: object
+    required: [method, product]
+    properties:
+      method: { const: "make_purchase" }
+      product: { $ref: "#/$defs/AdaptyPaywallProduct.Request" }
+      parameters:
+        {
+          $ref: "#/$defs/AdaptyPurchaseParameters",
+          description: "Android Only",
+        }
+
+  MakePurchase.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { $ref: "#/$defs/AdaptyPurchaseResult" }
+
+  OpenWebPaywall.Request: #request
+    type: object
+    required: [method]
+    oneOf:
+      - required: [product]
+      - required: [paywall]
+    properties:
+      method: { const: "open_web_paywall" }
+      product: { $ref: "#/$defs/AdaptyPaywallProduct.Request" }
+      paywall: { $ref: "#/$defs/AdaptyFlowPaywall" }
+      open_in: { $ref: "#/$defs/AdaptyWebPresentation", default: "browser_out_app" }
+
+  OpenWebPaywall.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { const: true }
+
+  CreateWebPaywallUrl.Request: #request
+    type: object
+    required: [method]
+    oneOf:
+      - required: [product]
+      - required: [paywall]
+    properties:
+      method: { const: "create_web_paywall_url" }
+      product: { $ref: "#/$defs/AdaptyPaywallProduct.Request" }
+      paywall: { $ref: "#/$defs/AdaptyFlowPaywall" }
+
+  CreateWebPaywallUrl.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { type: string }
+
+  ### getCurrentInstallationStatus ###
+  GetCurrentInstallationStatus.Request: #request
+    type: object
+    required: [method]
+    properties:
+      method: { const: "get_current_installation_status" }
+
+  GetCurrentInstallationStatus.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { $ref: "#/$defs/AdaptyInstallationStatus" }
+
+  ### presentCodeRedemptionSheet ###
+  PresentCodeRedemptionSheet.Request: #request
+    type: object
+    required: [method]
+    properties:
+      method: { const: "present_code_redemption_sheet" }
+
+  PresentCodeRedemptionSheet.Response: #response
+    type: object
+    required: [success]
+    properties:
+      success: { const: true }
+
+  ### reportTransaction ###
+  ReportTransaction.Request: #request
+    type: object
+    required: [method, transaction_id]
+    properties:
+      method: { const: "report_transaction" }
+      variation_id: { type: string }
+      transaction_id: { type: string }
+
+  ReportTransaction.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { const: true }
+
+  ### restorePurchases ###
+  RestorePurchases.Request: #request
+    type: object
+    required: [method]
+    properties:
+      method: { const: "restore_purchases" }
+
+  RestorePurchases.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { $ref: "#/$defs/AdaptyProfile" }
+
+  ### getSDKVersion ###
+  GetSDKVersion.Request: #request
+    type: object
+    required: [method]
+    properties:
+      method: { const: "get_sdk_version" }
+
+  GetSDKVersion.Response: #response
+    type: object
+    required: [success]
+    properties:
+      success: { type: string }
+
+  ### setFallback ###
+  SetFallback.Request: #request
+    type: object
+    required: [method]
+    properties:
+      method: { const: "set_fallback" }
+    oneOf:
+      - required: [asset_id]
+        properties:
+          asset_id: { type: string }
+      - required: [path]
+        properties:
+          path: { type: string }
+
+  SetFallback.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { const: true }
+
+  ### setIntegrationIdentifier ###
+  SetIntegrationIdentifier.Request: #request
+    type: object
+    required: [method, key_values]
+    properties:
+      method: { const: "set_integration_identifiers" }
+      key_values:
+        type: object
+        additionalProperties:
+          type: string
+          nullable: false
+
+  SetIntegrationIdentifier.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { const: true }
+
+  ### updateAttributionData ###
+  UpdateAttributionData.Request: #request
+    type: object
+    required: [method, attribution, source]
+    properties:
+      method: { const: "update_attribution_data" }
+      attribution: { type: string }
+      source: { type: string }
+
+  UpdateAttributionData.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { const: true }
+
+  ### updateCollectingRefundDataConsent ###
+  UpdateCollectingRefundDataConsent.Request: #request
+    type: object
+    required: [method, consent]
+    properties:
+      method: { const: "update_collecting_refund_data_consent" }
+      consent: { type: boolean }
+
+  UpdateCollectingRefundDataConsent.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { const: true }
+
+  ### updateProfile ###
+  UpdateProfile.Request: #request
+    type: object
+    required: [method, params]
+    properties:
+      method: { const: "update_profile" }
+      params: { $ref: "#/$defs/AdaptyProfileParameters" }
+
+  UpdateProfile.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { const: true }
+
+  ### updateRefundPreference ###
+  UpdateRefundPreference.Request: #request
+    type: object
+    required: [method, refund_preference]
+    properties:
+      method: { const: "update_refund_preference" }
+      refund_preference: { $ref: "#/$defs/AdaptyRefundPreference" }
+
+  UpdateRefundPreference.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { const: true }
+
+  ### flowViewDidAnswerPermission ###
+  FlowViewDidAnswerPermission.Request: #request
+    type: object
+    required: [method, event_id, status]
+    properties:
+      method: { const: "flow_view_did_answer_permission" }
+      event_id: { type: string }
+      status: { type: string, enum: ["granted", "denied"] }
+      detail: { type: string }
+
+  FlowViewDidAnswerPermission.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { const: true }
+
+  ### observerPurchaseDidStart ###
+  ObserverPurchaseDidStart.Request: #request
+    type: object
+    required: [method, event_id]
+    properties:
+      method: { const: "observer_purchase_did_start" }
+      event_id: { type: string }
+
+  ObserverPurchaseDidStart.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { const: true }
+
+  ### observerPurchaseDidFinish ###
+  ObserverPurchaseDidFinish.Request: #request
+    type: object
+    required: [method, event_id]
+    properties:
+      method: { const: "observer_purchase_did_finish" }
+      event_id: { type: string }
+
+  ObserverPurchaseDidFinish.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { const: true }
+
+  ### observerRestoreDidStart ###
+  ObserverRestoreDidStart.Request: #request
+    type: object
+    required: [method, event_id]
+    properties:
+      method: { const: "observer_restore_did_start" }
+      event_id: { type: string }
+
+  ObserverRestoreDidStart.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { const: true }
+
+  ### observerRestoreDidFinish ###
+  ObserverRestoreDidFinish.Request: #request
+    type: object
+    required: [method, event_id]
+    properties:
+      method: { const: "observer_restore_did_finish" }
+      event_id: { type: string }
+
+  ObserverRestoreDidFinish.Response: #response
+    type: object
+    oneOf:
+      - required: [error]
+        properties:
+          error: { $ref: "#/$defs/AdaptyError" }
+      - required: [success]
+        properties:
+          success: { const: true }
+
+$events:
+  FlowViewEvent.DidAskPermission:
+    type: object
+    required: [id, view, event_id, permission]
+    properties:
+      id: { const: "flow_view_did_ask_permission" }
+      view: { $ref: "#/$defs/AdaptyUI.FlowView" }
+      event_id: { type: string }
+      permission: { $ref: "#/$defs/AdaptyUI.Permission" }
+      custom_args:
+        type: object
+        additionalProperties: { type: string }
+
+  FlowViewEvent.DidRequestAppReview:
+    type: object
+    required: [id, view]
+    properties:
+      id: { const: "flow_view_did_request_app_review" }
+      view: { $ref: "#/$defs/AdaptyUI.FlowView" }
+
+  FlowViewEvent.ObserverDidInitiatePurchase:
+    type: object
+    required: [id, view, event_id, product]
+    properties:
+      id: { const: "flow_view_observer_did_initiate_purchase" }
+      view: { $ref: "#/$defs/AdaptyUI.FlowView" }
+      event_id: { type: string }
+      product: { $ref: "#/$defs/AdaptyPaywallProduct.Response" }
+
+  FlowViewEvent.ObserverDidInitiateRestore:
+    type: object
+    required: [id, view, event_id]
+    properties:
+      id: { const: "flow_view_observer_did_initiate_restore" }
+      view: { $ref: "#/$defs/AdaptyUI.FlowView" }
+      event_id: { type: string }
+
+  FlowViewEvent.DidReceiveAnalyticEvent:
+    type: object
+    required: [id, view, name, params]
+    properties:
+      id: { const: "flow_view_did_receive_analytic_event" }
+      view: { $ref: "#/$defs/AdaptyUI.FlowView" }
+      name: { type: string }
+      params: { type: object }
+
+  Event.DidLoadLatestProfile:
+    type: object
+    required: [id, profile]
+    properties:
+      id: { const: "did_load_latest_profile" }
+      profile: { $ref: "#/$defs/AdaptyProfile" }
+
+  Event.OnInstallationDetailsSuccess:
+    type: object
+    required: [id, details]
+    properties:
+      id: { const: "on_installation_details_success" }
+      details: { $ref: "#/$defs/AdaptyInstallationDetails" }
+
+  Event.OnInstallationDetailsFail:
+    type: object
+    required: [id, error]
+    properties:
+      id: { const: "on_installation_details_fail" }
+      error: { $ref: "#/$defs/AdaptyError" }
+
+  FlowViewEvent.DidAppear:
+    type: object
+    required: [id, view]
+    properties:
+      id: { const: "flow_view_did_appear" }
+      view: { $ref: "#/$defs/AdaptyUI.FlowView" }
+
+  FlowViewEvent.DidDisappear:
+    type: object
+    required: [id, view]
+    properties:
+      id: { const: "flow_view_did_disappear" }
+      view: { $ref: "#/$defs/AdaptyUI.FlowView" }
+
+  FlowViewEvent.DidUserAction:
+    type: object
+    required: [id, view, action]
+    properties:
+      id: { const: "flow_view_did_perform_action" }
+      view: { $ref: "#/$defs/AdaptyUI.FlowView" }
+      action: { $ref: "#/$defs/AdaptyUI.UserAction" }
+
+  FlowViewEvent.DidSelectProduct:
+    type: object
+    required: [id, view, product_id]
+    properties:
+      id: { const: "flow_view_did_select_product" }
+      view: { $ref: "#/$defs/AdaptyUI.FlowView" }
+      product_id: { type: string }
+
+  FlowViewEvent.WillPurchase:
+    type: object
+    required: [id, view, product]
+    properties:
+      id: { const: "flow_view_did_start_purchase" }
+      view: { $ref: "#/$defs/AdaptyUI.FlowView" }
+      product: { $ref: "#/$defs/AdaptyPaywallProduct.Response" }
+
+  FlowViewEvent.DidPurchase:
+    type: object
+    required: [id, view, product, purchased_result]
+    properties:
+      id: { const: "flow_view_did_finish_purchase" }
+      view: { $ref: "#/$defs/AdaptyUI.FlowView" }
+      product: { $ref: "#/$defs/AdaptyPaywallProduct.Response" }
+      purchased_result: { $ref: "#/$defs/AdaptyPurchaseResult" }
+
+  FlowViewEvent.DidFailPurchase:
+    type: object
+    required: [id, view, product, error]
+    properties:
+      id: { const: "flow_view_did_fail_purchase" }
+      view: { $ref: "#/$defs/AdaptyUI.FlowView" }
+      product: { $ref: "#/$defs/AdaptyPaywallProduct.Response" }
+      error: { $ref: "#/$defs/AdaptyError" }
+
+  FlowViewEvent.WillRestorePurchase:
+    type: object
+    required: [id, view]
+    properties:
+      id: { const: "flow_view_did_start_restore" }
+      view: { $ref: "#/$defs/AdaptyUI.FlowView" }
+
+  FlowViewEvent.DidRestorePurchase:
+    type: object
+    required: [id, view, profile]
+    properties:
+      id: { const: "flow_view_did_finish_restore" }
+      view: { $ref: "#/$defs/AdaptyUI.FlowView" }
+      profile: { $ref: "#/$defs/AdaptyProfile" }
+
+  FlowViewEvent.DidFailRestorePurchase:
+    type: object
+    required: [id, view, error]
+    properties:
+      id: { const: "flow_view_did_fail_restore" }
+      view: { $ref: "#/$defs/AdaptyUI.FlowView" }
+      error: { $ref: "#/$defs/AdaptyError" }
+
+  FlowViewEvent.DidReceiveError:
+    type: object
+    required: [id, view, error]
+    properties:
+      id: { const: "flow_view_did_receive_error" }
+      view: { $ref: "#/$defs/AdaptyUI.FlowView" }
+      error: { $ref: "#/$defs/AdaptyError" }
+
+  FlowViewEvent.DidFailLoadingProducts:
+    type: object
+    required: [id, view, error]
+    properties:
+      id: { const: "flow_view_did_fail_loading_products" }
+      view: { $ref: "#/$defs/AdaptyUI.FlowView" }
+      error: { $ref: "#/$defs/AdaptyError" }
+
+  FlowViewEvent.DidFinishWebPaymentNavigation:
+    type: object
+    required: [id, view]
+    properties:
+      id: { const: "flow_view_did_finish_web_payment_navigation" }
+      view: { $ref: "#/$defs/AdaptyUI.FlowView" }
+      product: { $ref: "#/$defs/AdaptyPaywallProduct.Response" }
+      error: { $ref: "#/$defs/AdaptyError" }
+
+  OnboardingViewEvent.DidFailWithError:
+    type: object
+    required: [id, view, error]
+    properties:
+      id: { const: "onboarding_did_fail_with_error" }
+      view: { $ref: "#/$defs/AdaptyUI.OnboardingView" }
+      error: { $ref: "#/$defs/AdaptyError" }
+
+  OnboardingViewEvent.OnAnalyticsEvent:
+    type: object
+    required: [id, view, meta, event]
+    properties:
+      id: { const: "onboarding_on_analytics_action" }
+      view: { $ref: "#/$defs/AdaptyUI.OnboardingView" }
+      meta: { $ref: "#/$defs/AdaptyUI.OnboardingMeta" }
+      event:
+        type: object
+        required: [name]
+        properties:
+          name:
+            oneOf:
+              - type: string
+                description: any value for unknown event
+              - enum:
+                  - onboarding_started
+                  - screen_presented
+                  - screen_completed
+                  - second_screen_presented
+                  - registration_screen_presented
+                  - products_screen_presented
+                  - user_email_collected
+                  - onboarding_completed
+          element_id: { type: string }
+          reply: { type: string }
+
+  OnboardingViewEvent.DidFinishLoading:
+    type: object
+    required: [id, view, meta]
+    properties:
+      id: { const: "onboarding_did_finish_loading" }
+      view: { $ref: "#/$defs/AdaptyUI.OnboardingView" }
+      meta: { $ref: "#/$defs/AdaptyUI.OnboardingMeta" }
+
+  OnboardingViewEvent.OnCloseAction:
+    type: object
+    required: [id, view, meta, action_id]
+    properties:
+      id: { const: "onboarding_on_close_action" }
+      view: { $ref: "#/$defs/AdaptyUI.OnboardingView" }
+      meta: { $ref: "#/$defs/AdaptyUI.OnboardingMeta" }
+      action_id: { type: string }
+
+  OnboardingViewEvent.OnCustomAction:
+    type: object
+    required: [id, view, meta, action_id]
+    properties:
+      id: { const: "onboarding_on_custom_action" }
+      view: { $ref: "#/$defs/AdaptyUI.OnboardingView" }
+      meta: { $ref: "#/$defs/AdaptyUI.OnboardingMeta" }
+      action_id: { type: string }
+
+  OnboardingViewEvent.OnPaywallAction:
+    type: object
+    required: [id, view, meta, action_id]
+    properties:
+      id: { const: "onboarding_on_paywall_action" }
+      view: { $ref: "#/$defs/AdaptyUI.OnboardingView" }
+      meta: { $ref: "#/$defs/AdaptyUI.OnboardingMeta" }
+      action_id: { type: string }
+
+  OnboardingViewEvent.OnStateUpdatedAction:
+    type: object
+    required: [id, view, meta, action]
+    properties:
+      id: { const: "onboarding_on_state_updated_action" }
+      view: { $ref: "#/$defs/AdaptyUI.OnboardingView" }
+      meta: { $ref: "#/$defs/AdaptyUI.OnboardingMeta" }
+      action:
+        type: object
+        required: [element_id, element_type, value]
+        oneOf:
+          - properties:
+              element_id: { type: string }
+              element_type: { const: select }
+              value: { $ref: "#/$defs/AdaptyUI.OnboardingsStateParams" }
+          - properties:
+              element_id: { type: string }
+              element_type: { const: multi_select }
+              value:
+                type: array
+                items: { $ref: "#/$defs/AdaptyUI.OnboardingsStateParams" }
+          - properties:
+              element_id: { type: string }
+              element_type: { const: input }
+              value:
+                type: object
+                required: [type, value]
+                oneOf:
+                  - properties:
+                      type: { enum: [text, email] }
+                      value: { type: string }
+                  - properties:
+                      type: { const: number }
+                      value: { type: number }
+          - properties:
+              element_id: { type: string }
+              element_type: { const: date_picker }
+              value:
+                type: object
+                properties:
+                  day: { type: integer }
+                  month: { type: integer }
+                  year: { type: integer }
+
+$defs:
+  ### Entities ###
+
+  AdaptyError: #response
+    type: object
+    required: [adapty_code, message]
+    properties:
+      adapty_code: { type: integer }
+      message: { type: string }
+      detail: { type: string }
+
+  AdaptyLog.Level: #request #response
+    type: string
+    enum:
+      - error
+      - warn
+      - info
+      - verbose
+      - debug
+
+  AdaptyLocale:
+    type: string
+    example: "en"
+
+  UUID:
+    type: string
+    format: uuid
+    pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+    description: "UUID in RFC 4122 format"
+    example: "123e4567-e89b-12d3-a456-426614174000"
+
+  Date: #response #request
+    type: string
+    format: "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+
+  AdaptyConfiguration: #request
+    type: object
+    required: [api_key]
+    properties:
+      api_key: { type: string }
+      customer_user_id: { type: string }
+      customer_identity_parameters: { $ref: "#/$defs/CustomerIdentityParameters" }    
+      observer_mode: { type: boolean, default: false }
+      apple_idfa_collection_disabled: { type: boolean, default: false }
+      google_adid_collection_disabled: { type: boolean, default: false }
+      google_enable_pending_prepaid_plans: { type: boolean, default: false }
+      google_local_access_level_allowed: { type: boolean, default: false }
+      ip_address_collection_disabled: { type: boolean, default: false }
+      clear_data_on_backup: { type: boolean, default: false }
+      server_cluster: { type: string, enum: ["default", "eu", "cn"] }
+      backend_proxy_host: { type: string }
+      backend_proxy_port: { type: integer }
+      log_level: { $ref: "#/$defs/AdaptyLog.Level" }
+      cross_platform_sdk_name: { type: string }
+      cross_platform_sdk_version: { type: string }
+      activate_ui: { type: boolean, default: false }
+      media_cache:
+        type: object
+        properties:
+          memory_storage_total_cost_limit:
+            { type: integer, description: "bytes" }
+          memory_storage_count_limit: { type: integer }
+          disk_storage_size_limit: { type: integer, description: "bytes" }
+
+  CustomerIdentityParameters: #request
+    type: object
+    properties:
+      app_account_token: { $ref: "#/$defs/UUID", description: "iOS Only" }
+      obfuscated_account_id: { type: string, description: "Android Only" }
+      obfuscated_profile_id: { type: string, description: "Android Only" }     
+
+  AdaptyPaywallProduct.Response: #response
+    type: object
+    required:
+      - vendor_product_id
+      - adapty_product_id
+      - access_level_id
+      - product_type
+      - paywall_product_index
+      - paywall_variation_id
+      - paywall_ab_test_name
+      - paywall_name
+      - localized_description
+      - localized_title
+      - is_family_shareable # iOS Only
+      - price
+    properties:
+      vendor_product_id: { type: string }
+      flow_product_id: { type: string }
+      adapty_product_id: { type: string }
+      access_level_id: { type: string }
+      product_type: { type: string }
+      paywall_product_index: { type: integer }
+      paywall_variation_id: { type: string }
+      paywall_ab_test_name: { type: string }
+      paywall_name: { type: string }
+      web_purchase_url: { type: string }
+      localized_description: { type: string }
+      localized_title: { type: string }
+      is_family_shareable:
+        { type: boolean, default: false, description: "iOS Only" }
+      region_code: { type: string }
+      price: { $ref: "#/$defs/AdaptyPrice" }
+      subscription: { $ref: "#/$defs/AdaptyPaywallProduct.Subscription" }
+      payload_data: { type: string }
+
+  AdaptyPrice: #response
+    type: object
+    required: [amount]
+    properties:
+      amount: { type: number }
+      currency_code: { type: string }
+      currency_symbol: { type: string }
+      localized_string: { type: string }
+
+  AdaptyPaywallProduct.Subscription: #response
+    type: object
+    required:
+      - group_identifier # iOS Only
+      - period
+      - renewal_type # Android Only
+      - base_plan_id # Android Only
+    properties:
+      group_identifier: { type: string, description: "iOS Only" }
+      period: { $ref: "#/$defs/AdaptySubscriptionPeriod" }
+      localized_period: { type: string }
+      offer: { $ref: "#/$defs/AdaptySubscriptionOffer" }
+      renewal_type: # Android Only
+        type: string
+        enum:
+          - prepaid
+          - autorenewable
+        default: autorenewable
+        description: "Android Only"
+      base_plan_id: { type: string, description: "Android Only" } # Android Only
+
+  AdaptyPaywallProduct.Request: #request
+    type: object
+    required:
+      - vendor_product_id
+      - adapty_product_id
+      - access_level_id
+      - product_type
+      - paywall_product_index
+      - paywall_variation_id
+      - paywall_ab_test_name
+      - paywall_name
+    properties:
+      vendor_product_id: { type: string }
+      adapty_product_id: { type: string }
+      access_level_id: { type: string }
+      product_type: { type: string }
+      paywall_product_index: { type: integer }
+      subscription_offer_identifier:
+        { $ref: "#/$defs/AdaptySubscriptionOffer.Identifier" }
+      paywall_variation_id: { type: string }
+      paywall_ab_test_name: { type: string }
+      paywall_name: { type: string }
+      web_purchase_url: { type: string }
+      payload_data: { type: string }
+
+  AdaptySubscriptionOffer: #response
+    type: object
+    required:
+      - offer_identifier
+      - phases
+    properties:
+      offer_identifier: { $ref: "#/$defs/AdaptySubscriptionOffer.Identifier" }
+      phases:
+        type: array
+        items: { $ref: "#/$defs/AdaptySubscriptionOffer.Phase" }
+      offer_tags: # Android Only
+        type: array
+        items: { type: string }
+        description: Android Only
+
+  AdaptySubscriptionOffer.Phase:
+    type: object
+    required:
+      - price
+      - subscription_period
+      - number_of_periods
+      - payment_mode
+    properties:
+      price: { $ref: "#/$defs/AdaptyPrice" }
+      number_of_periods: { type: integer }
+      payment_mode: { $ref: "#/$defs/AdaptySubscriptionOffer.PaymentMode" }
+      subscription_period: { $ref: "#/$defs/AdaptySubscriptionPeriod" }
+      localized_subscription_period: { type: string }
+      localized_number_of_periods: { type: string }
+
+  AdaptyOnboarding: #request #response
+    type: object
+    required:
+      - placement
+      - onboarding_id
+      - onboarding_name
+      - variation_id
+      - onboarding_builder
+      - response_created_at
+      - request_locale
+    properties:
+      placement: { $ref: "#/$defs/AdaptyPlacement" }
+      onboarding_id: { type: string }
+      onboarding_name: { type: string }
+      variation_id: { type: string }
+      remote_config: { $ref: "#/$defs/AdaptyRemoteConfig" }
+      onboarding_builder:
+        type: object
+        required: [config_url]
+        properties:
+          config_url: { type: string }
+      payload_data: { type: string }
+      response_created_at: { type: integer }
+      request_locale: { $ref: "#/$defs/AdaptyLocale" }
+
+  AdaptyFlow: #request #response
+    type: object
+    required:
+      - placement
+      - flow_id
+      - flow_name
+      - variation_id
+      - variations
+      - response_created_at
+    properties:
+      placement: { $ref: "#/$defs/AdaptyPlacement" }
+      flow_id: { type: string }
+      flow_name: { type: string }
+      variation_id: { type: string }
+      remote_configs: 
+        type: array
+        items: { $ref: "#/$defs/AdaptyRemoteConfig" }
+      flow_version_id: { type: string }
+      variations:
+        type: array
+        items: { $ref: "#/$defs/AdaptyFlowPaywall" }
+      payload_data: { type: string }
+      response_created_at: { type: integer }
+
+  AdaptyFlowPaywall: #request #response
+    type: object
+    required:
+      - placement
+      - paywall_id
+      - paywall_name
+      - variation_id
+      - products
+    properties:
+      placement: { $ref: "#/$defs/AdaptyPlacement" }
+      paywall_id: { type: string }
+      paywall_name: { type: string }
+      variation_id: { type: string }
+      products:
+        type: array
+        items: { $ref: "#/$defs/AdaptyFlowPaywall.ProductReference" }
+      web_purchase_url: { type: string }
+
+  AdaptyPlacement: #request #response
+    type: object
+    required:
+      - developer_id
+      - audience_name
+      - revision
+      - ab_test_name
+      - placement_audience_version_id
+    properties:
+      developer_id: { type: string }
+      audience_name: { type: string }
+      revision: { type: integer }
+      ab_test_name: { type: string }
+      is_tracking_purchases: { type: boolean, default: false }
+      placement_audience_version_id: { type: string }
+
+  AdaptyPlacementFetchPolicy: #request
+    type: object
+    oneOf:
+      - required: [type]
+        properties:
+          type:
+            type: string
+            enum:
+              - reload_revalidating_cache_data
+              - return_cache_data_else_load
+      - required: [type, max_age]
+        properties:
+          type:
+            type: string
+            const: return_cache_data_if_not_expired_else_load
+          max_age:
+            type: number
+            description: "seconds"
+
+  AdaptyRemoteConfig: #request #response
+    type: object
+    required: [lang, data]
+    properties:
+      lang: { $ref: "#/$defs/AdaptyLocale" }
+      data: { type: string, description: "custom JSON string" }
+
+  AdaptyFlowPaywall.ProductReference: #request #response
+    type: object
+    required:
+      - vendor_product_id
+      - adapty_product_id
+      - access_level_id
+      - product_type
+    properties:
+      flow_product_id: { type: string }
+      vendor_product_id: { type: string }
+      adapty_product_id: { type: string }
+      access_level_id: { type: string }
+      product_type: { type: string }
+      promotional_offer_id: { type: string, description: "iOS Only" }
+      win_back_offer_id: { type: string, description: "iOS Only" }
+      base_plan_id: { type: string, description: "Android Only" }
+      offer_id: { type: string, description: "Android Only" }
+
+  AdaptySubscriptionPeriod: #response
+    type: object
+    required: [unit, number_of_units]
+    properties:
+      unit: { $ref: "#/$defs/AdaptySubscriptionPeriod.Unit" }
+      number_of_units: { type: integer }
+
+  AdaptySubscriptionPeriod.Unit: #response
+    type: string
+    enum:
+      - day
+      - week
+      - month
+      - year
+      - unknown
+
+  AdaptyProfile: #response #event
+    type: object
+    required:
+      - profile_id
+      - segment_hash
+      - is_test_user
+      - timestamp
+    properties:
+      profile_id: { type: string }
+      customer_user_id: { type: string }
+      segment_hash: { type: string }
+      custom_attributes: { $ref: "#/$defs/AdaptyProfile.CustomAttributes" }
+      paid_access_levels:
+        type: object
+        additionalProperties: { $ref: "#/$defs/AdaptyProfile.AccessLevel" }
+      subscriptions:
+        type: object
+        additionalProperties: { $ref: "#/$defs/AdaptyProfile.Subscription" }
+      non_subscriptions:
+        type: object
+        additionalProperties:
+          type: array
+          items: { $ref: "#/$defs/AdaptyProfile.NonSubscription" }
+      timestamp: { type: integer }
+      is_test_user: { type: boolean }
+      applied_attribution_sources:
+        type: array
+        items: { type: string }
+
+  AdaptyProfile.AccessLevel: #response
+    type: object
+    required:
+      - id
+      - is_active
+      - vendor_product_id
+      - store
+      - activated_at
+      - is_lifetime
+      - will_renew
+      - is_in_grace_period
+      - is_refund
+    properties:
+      id: { type: string }
+      is_active: { type: boolean }
+      vendor_product_id: { type: string }
+      store: { type: string }
+      activated_at: { $ref: "#/$defs/Date" }
+      renewed_at: { $ref: "#/$defs/Date" }
+      expires_at: { $ref: "#/$defs/Date" }
+      is_lifetime: { type: boolean }
+      active_introductory_offer_type: { type: string }
+      active_promotional_offer_type: { type: string }
+      active_promotional_offer_id: { type: string }
+      offer_id: { type: string }
+      will_renew: { type: boolean }
+      is_in_grace_period: { type: boolean }
+      unsubscribed_at: { $ref: "#/$defs/Date" }
+      billing_issue_detected_at: { $ref: "#/$defs/Date" }
+      starts_at: { $ref: "#/$defs/Date" }
+      cancellation_reason: { type: string }
+      is_refund: { type: boolean }
+
+  AdaptyProfile.NonSubscription: #response
+    type: object
+    required:
+      - purchase_id
+      - store
+      - vendor_product_id
+      - purchased_at
+      - is_sandbox
+      - is_refund
+      - is_consumable
+    properties:
+      purchase_id: { type: string }
+      store: { type: string }
+      vendor_product_id: { type: string }
+      vendor_transaction_id: { type: string }
+      purchased_at: { $ref: "#/$defs/Date" }
+      is_sandbox: { type: boolean }
+      is_refund: { type: boolean }
+      is_consumable: { type: boolean }
+
+  AdaptyProfile.Subscription: #response
+    type: object
+    required:
+      - store
+      - vendor_product_id
+      - vendor_transaction_id
+      - vendor_original_transaction_id
+      - is_active
+      - is_lifetime
+      - activated_at
+      - is_in_grace_period
+      - is_refund
+      - is_sandbox
+      - will_renew
+    properties:
+      store: { type: string }
+      vendor_product_id: { type: string }
+      vendor_transaction_id: { type: string }
+      vendor_original_transaction_id: { type: string }
+      is_active: { type: boolean }
+      is_lifetime: { type: boolean }
+      activated_at: { $ref: "#/$defs/Date" }
+      renewed_at: { $ref: "#/$defs/Date" }
+      expires_at: { $ref: "#/$defs/Date" }
+      starts_at: { $ref: "#/$defs/Date" }
+      unsubscribed_at: { $ref: "#/$defs/Date" }
+      billing_issue_detected_at: { $ref: "#/$defs/Date" }
+      is_in_grace_period: { type: boolean }
+      is_refund: { type: boolean }
+      is_sandbox: { type: boolean }
+      will_renew: { type: boolean }
+      active_introductory_offer_type: { type: string }
+      active_promotional_offer_type: { type: string }
+      active_promotional_offer_id: { type: string }
+      offer_id: { type: string }
+      cancellation_reason: { type: string }
+
+  AdaptyProfile.CustomAttributes:
+    type: object
+    additionalProperties:
+      oneOf:
+        - type: string
+          nullable: false
+        - type: number
+          format: double
+          nullable: false
+
+  AdaptyProfile.Gender: #request
+    type: string
+    enum:
+      - f
+      - m
+      - o
+    description: |
+      * `f` - female
+      * `m` - male
+      * `o` - other
+
+  AdaptyProfileParameters: #request
+    type: object
+    properties:
+      first_name: { type: string }
+      last_name: { type: string }
+      gender: { $ref: "#/$defs/AdaptyProfile.Gender" }
+      birthday: { type: string, format: "YYYY-MM-dd" }
+      email: { type: string }
+      phone_number: { type: string }
+      att_status: { type: integer, description: "iOS Only" }
+      custom_attributes: { $ref: "#/$defs/AdaptyProfile.CustomAttributes" }
+      analytics_disabled: { type: boolean }
+
+  AdaptySubscriptionOffer.Identifier: #request #response
+    type: string
+    oneOf:
+      - required: [type]
+        properties:
+          id: { type: string } # Required for Android
+          type: { type: string, const: introductory }
+      - required: [id, type]
+        properties:
+          id: { type: string }
+          type: { type: string, enum: [promotional, win_back] }
+      - required: [type] # iOS Only
+        properties:
+          id: { type: string }
+          type: { type: string, const: code }
+
+  AdaptySubscriptionOffer.PaymentMode: #response
+    type: string
+    enum:
+      - pay_as_you_go
+      - pay_up_front
+      - free_trial
+      - unknown
+
+  AdaptyPurchaseResult: #response
+    type: object
+    oneOf:
+      - required: [type]
+        properties:
+          type: { type: string, enum: ["pending", "user_cancelled"] }
+      - required: [type, profile]
+        properties:
+          type: { type: string, const: "success" }
+          profile: { $ref: "#/$defs/AdaptyProfile" }
+          apple_jws_transaction: { type: string }
+          google_purchase_token: { type: string }
+
+
+  AdaptyInstallationStatus: #response #event
+    type: object
+    oneOf:
+      - required: [status]
+        properties:
+          status: { type: string, enum: ["not_available", "not_determined"] }
+      - required: [status, details]
+        properties:
+          status: { type: string, const: "determined" }
+          details: { $ref: "#/$defs/AdaptyInstallationDetails" }
+
+  AdaptyInstallationDetails: #response #event
+    type: object
+    required: [ install_time, app_launch_count]
+    properties:
+      install_id:  { type: string }
+      install_time: { $ref: "#/$defs/Date", nullable: false }
+      app_launch_count: { type: integer, nullable: false }
+      payload:  { type: string }
+
+  AdaptyUI.CustomAssets:
+    type: array
+    items:
+      oneOf:
+        - $ref: "#/$assets/Color"
+        - $ref: "#/$assets/ColorGradient"
+        - $ref: "#/$assets/Image"
+        - $ref: "#/$assets/Video"
+
+  AdaptyUI.FlowView: #response #event
+    type: object
+    required:
+      - id
+      - placement_id
+      - variation_id
+    properties:
+      id: { type: string }
+      placement_id: { type: string }
+      variation_id: { type: string }
+      locale:
+        {
+          $ref: "#/$defs/AdaptyLocale",
+          description: "Localization the view was built with; the flow default when none was requested",
+        }
+
+  AdaptyUI.OnboardingView: #response #event
+    type: object
+    required:
+      - id
+      - placement_id
+      - variation_id
+    properties:
+      id: { type: string }
+      placement_id: { type: string }
+      variation_id: { type: string }
+
+  AdaptyUI.UserAction: #event
+    type: object
+    oneOf:
+      - required: [type]
+        properties:
+          type: { type: string, enum: [close, system_back] }
+      - required: [type, value, open_in]
+        properties:
+          type: { type: string, const: "open_url" }
+          value: { type: string }
+          open_in: { $ref: "#/$defs/AdaptyWebPresentation" }
+      - required: [type, value]
+        properties:
+          type: { type: string, const: "custom" }
+          value: { type: string }
+
+  AdaptyUI.Permission: #event
+    description: "Permission identifier requested by a flow. The values below are the
+      known cross-platform set; any string is valid — unknown or Android-only ids
+      (e.g. \"phone\", \"sms\") and future values pass through unchanged."
+    anyOf:
+      - enum:
+          - push
+          - camera
+          - microphone
+          - location_when_use
+          - location_always
+          - location_full_accuracy
+          - photos
+          - contacts
+          - tracking
+          - calendar
+          - bluetooth
+          - motion
+          - reminders
+          - speech
+          - media_library
+          - local_network
+          - focus_status
+          - homekit
+          - health
+          - siri
+          - music
+      - type: string
+
+  AdaptyUI.CustomTagsValues: #request
+    type: object
+    additionalProperties: { type: string, nullable: false }
+
+  AdaptyUI.CustomTimersValues: #request
+    type: object
+    additionalProperties: { $ref: "#/$defs/Date", nullable: false }
+
+  AdaptyUI.ProductPurchaseParameters:  #request
+    type: object
+    propertyNames: { description: "key is adapty_product_id" }
+    additionalProperties: { 
+      $ref: "#/$defs/AdaptyPurchaseParameters", 
+      nullable: false 
+    }
+
+  AdaptyUI.IOSPresentationStyle:
+    type: string
+    enum:
+      - full_screen
+      - page_sheet
+
+  AdaptyWebPresentation: #request
+    type: string
+    enum:
+      - browser_out_app
+      - browser_in_app
+
+  AdaptyUI.DialogConfiguration: #request
+    type: object
+    required: [default_action_title]
+    properties:
+      title: { type: string }
+      content: { type: string }
+      default_action_title: { type: string }
+      secondary_action_title: { type: string }
+
+  AdaptyUI.DialogActionType:
+    type: string
+    enum:
+      - primary
+      - secondary
+  
+  AdaptyPurchaseParameters:  #request
+    type: object
+    properties:
+      subscription_update_params:
+        {
+          $ref: "#/$defs/AdaptySubscriptionUpdateParameters",
+          description: "Android Only",
+        }
+      is_offer_personalized: { type: boolean, description: "Android Only" }
+      
+
+  AdaptySubscriptionUpdateParameters: #request # Android Only
+    type: object
+    required:
+      - old_sub_vendor_product_id
+      - replacement_mode
+    properties:
+      old_sub_vendor_product_id: { type: string }
+      replacement_mode:
+        type: string
+        enum:
+          - charge_full_price
+          - deferred
+          - without_proration
+          - charge_prorated_price
+          - with_time_proration
+
+  AdaptyRefundPreference:
+    type: string
+    enum:
+      - no_preference
+      - grant
+      - decline
+
+  AdaptyUI.OnboardingMeta: #event
+    type: object
+    required: [onboarding_id, screen_cid, screen_index, total_screens]
+    properties:
+      onboarding_id: { type: string }
+      screen_cid: { type: string }
+      screen_index: { type: integer }
+      total_screens: { type: integer }
+
+  AdaptyUI.OnboardingsStateParams: #event
+    type: object
+    required: [id, value, label]
+    properties:
+      id: { type: string }
+      value: { type: string }
+      label: { type: string }
+
+$assets:
+  Color:
+    type: object
+    required: [id, type, value]
+    properties:
+      id: { type: string }
+      type: { const: color }
+      value: { $ref: "#/$assets/Color.Hex" }
+
+  Color.Hex:
+    type: string
+    pattern: "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{8})$"
+    description: RRGGBB or RRGGBBAA
+
+  ColorGradient:
+    type: object
+    required: [id, type, values, points]
+    properties:
+      id: { type: string }
+      type:
+        type: string
+        enum:
+          - linear-gradient
+      values:
+        type: array
+        items:
+          type: object
+          required: [color, p]
+          properties:
+            color: { $ref: "#/$assets/Color.Hex" }
+            p: { type: number }
+      points:
+        type: object
+        required: [x0, y0, x1, y1]
+        properties:
+          x0: { type: number }
+          y0: { type: number }
+          x1: { type: number }
+          y1: { type: number }
+
+  Image:
+    type: object
+    required: [id, type]
+    properties:
+      id: { type: string }
+      type: { const: image }
+    oneOf:
+      - required: [value]
+        properties:
+          value: { type: string, contentEncoding: base64 }
+      - required: [asset_id]
+        properties:
+          asset_id: { type: string }
+      - required: [path]
+        properties:
+          path: { type: string }
+
+  Video:
+    type: object
+    required: [id, type]
+    properties:
+      id: { type: string }
+      type: { const: video }
+      h_res: { type: number }
+      v_res: { type: number }
+    oneOf:
+      - required: [asset_id]
+        properties:
+          asset_id: { type: string }
+      - required: [path]
+        properties:
+          path: { type: string }

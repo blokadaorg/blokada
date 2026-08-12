@@ -4,19 +4,29 @@ part of 'payment.dart';
 // We are waiting for the flutter SDK to add support for android prorate modes.
 // After that, we can drop the android SDK.
 // This is handled through flutter platform channel (the other class).
-class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIObserver {
+class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIFlowsEventsObserver {
   late final _stage = Core.get<StageStore>();
   late final _actor = Core.get<PaymentActor>(); // Circular dep
 
   late final _adapty = Adapty();
   late final _adaptyUi = AdaptyUI();
 
-  AdaptyUIPaywallView? _paymentView;
+  AdaptyUIFlowView? _paymentView;
   String? _paymentViewForPlacementId;
+
+  // Set while closePaymentScreen dismisses a view, so flowViewDidDisappear can
+  // tell an app-initiated dismissal (already reported to the actor, possibly
+  // as an error) from one the user or the flow performed natively.
+  String? _dismissingViewId;
+
+  void _dropCachedView() {
+    _paymentView = null;
+    _paymentViewForPlacementId = null;
+  }
 
   @override
   init(Marker m, String apiKey, String? accountId, bool verboseLogs) async {
-    _adaptyUi.setObserver(this);
+    _adaptyUi.setFlowsEventsObserver(this);
 
     // Adapty 3.17 made withCustomerUserId require a non-null String. accountId
     // can be null at activation (anonymous start); only bind it when present,
@@ -35,7 +45,7 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIObser
     // Set Adapty fallback for any connection problems situations
     try {
       final assetId = Core.act.platform == PlatformType.iOS ? "ios" : "android";
-      await _adapty.setFallbackPaywalls("assets/fallbacks/$assetId.json");
+      await _adapty.setFallback("assets/fallbacks/$assetId.json");
     } catch (e, s) {
       log(m).e(msg: "Adapty: Failed setting fallback, ignore", err: e, stack: s);
     }
@@ -75,43 +85,48 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIObser
     try {
       await _paymentView!.present();
     } catch (_) {
-      // AdaptyUIPaywallView is single-use; drop the spent view so the next
+      // AdaptyUIFlowView is single-use; drop the spent view so the next
       // open recreates it instead of re-presenting a view that already failed.
-      _paymentView = null;
-      _paymentViewForPlacementId = null;
+      _dropCachedView();
       rethrow;
     }
   }
 
   @override
-  closePaymentScreen(bool isError, {AdaptyUIPaywallView? view}) async {
-    await view?.dismiss();
-    if (view == null) await _paymentView?.dismiss();
-    _paymentView = null;
+  closePaymentScreen(bool isError, {AdaptyUIFlowView? view}) async {
+    final dismissing = view ?? _paymentView;
+    // Only invalidate the cache when it holds the view being dismissed —
+    // preload() may have already cached a fresh view for another placement.
+    if (view == null || _paymentView?.id == view.id) _dropCachedView();
+    _dismissingViewId = dismissing?.id;
+    await dismissing?.dismiss();
     await _actor.handleScreenClosed(Markers.ui, isError: isError);
   }
 
-  Future<AdaptyUIPaywallView> _createPaywall(Marker m, Placement placement) async {
-    final paywall = await _fetchPaywall(m, placement);
-    return await _adaptyUi.createPaywallView(
-      paywall: paywall,
+  Future<AdaptyUIFlowView> _createPaywall(Marker m, Placement placement) async {
+    final flow = await _fetchFlow(m, placement);
+    // Since 4.0 a flow is localized when its view is built; without an explicit
+    // locale it renders in `en` regardless of device language. The value must
+    // be a localization id as configured in the dashboard (bare language code,
+    // e.g. `es`): unlike the 3.x fetch-time matching, 4.0 resolves it with an
+    // exact lookup, so a region-tagged `es_es` silently falls back to English.
+    return await _adaptyUi.createFlowView(
+      flow: flow,
+      locale: I18n.languageOnly,
       preloadProducts: false,
     );
   }
 
-  Future<AdaptyPaywall> _fetchPaywall(Marker m, Placement placement) async {
-    return await log(m).trace("fetchPaywall", (m) async {
-      final paywall = await _adapty.getPaywall(
-        placementId: placement.id,
-        locale: I18n.localeStr,
-      );
-      return paywall;
+  Future<AdaptyFlow> _fetchFlow(Marker m, Placement placement) async {
+    return await log(m).trace("fetchFlow", (m) async {
+      final flow = await _adapty.getFlow(placementId: placement.id);
+      return flow;
     });
   }
 
   @override
-  void paywallViewDidFinishPurchase(
-      AdaptyUIPaywallView view, AdaptyPaywallProduct product, AdaptyPurchaseResult purchaseResult) {
+  void flowViewDidFinishPurchase(
+      AdaptyUIFlowView view, AdaptyPaywallProduct product, AdaptyPurchaseResult purchaseResult) {
     switch (purchaseResult) {
       case AdaptyPurchaseResultSuccess(profile: final profile):
         // successful purchase
@@ -130,15 +145,17 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIObser
   }
 
   @override
-  void paywallViewDidFinishRestore(AdaptyUIPaywallView view, AdaptyProfile profile) {
+  void flowViewDidFinishRestore(AdaptyUIFlowView view, AdaptyProfile profile) {
     closePaymentScreen(false, view: view);
     _actor.checkoutSuccessfulPayment(profile.profileId, restore: true);
   }
 
   @override
-  void paywallViewDidPerformAction(AdaptyUIPaywallView view, AdaptyUIAction action) {
+  void flowViewDidPerformAction(AdaptyUIFlowView view, AdaptyUIAction action) {
     switch (action) {
       case const CloseAction():
+      // Since 4.0 the Android system back button no longer dismisses the flow
+      // by default; keep closing it ourselves to preserve the old behaviour.
       case const AndroidSystemBackAction():
         closePaymentScreen(false, view: view);
         break;
@@ -151,52 +168,71 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIObser
   }
 
   @override
-  void paywallViewDidFailLoadingProducts(AdaptyUIPaywallView view, AdaptyError error) {
+  void flowViewDidFailLoadingProducts(AdaptyUIFlowView view, AdaptyError error) {
     closePaymentScreen(true, view: view);
     _actor.handleFailure(Markers.ui, "Failed loading products", error, temporary: true);
   }
 
   @override
-  void paywallViewDidFailPurchase(
-      AdaptyUIPaywallView view, AdaptyPaywallProduct product, AdaptyError error) {
+  void flowViewDidFailPurchase(AdaptyUIFlowView view, AdaptyPaywallProduct product, AdaptyError error) {
     closePaymentScreen(true, view: view);
     _actor.handleFailure(Markers.ui, "Failed purchase", error);
   }
 
   @override
-  void paywallViewDidFailRendering(AdaptyUIPaywallView view, AdaptyError error) {
-    //closePaymentScreen(view: view);
-    //_handleFailure(Markers.ui, "Failed rendering", error, temporary: true);
-    log(Markers.ui).e(msg: "Failed rendering adapty", err: error);
+  void flowViewDidReceiveError(AdaptyUIFlowView view, AdaptyError error) {
+    // 4.0 folds the old rendering-failure callback into this one. Keep the
+    // 3.x behaviour: log only, don't tear down — the view may still render,
+    // and purchase/restore/product failures arrive via their own callbacks.
+    log(Markers.ui).e(msg: "Adapty flow error", err: error);
   }
 
   @override
-  void paywallViewDidFailRestore(AdaptyUIPaywallView view, AdaptyError error) {
+  void flowViewDidFailRestore(AdaptyUIFlowView view, AdaptyError error) {
     closePaymentScreen(true, view: view);
     _actor.handleFailure(Markers.ui, "Failed restore", error, restore: true);
   }
 
   @override
-  void paywallViewDidSelectProduct(AdaptyUIPaywallView view, String productId) {}
+  void flowViewDidSelectProduct(AdaptyUIFlowView view, String productId) {}
 
   @override
-  void paywallViewDidStartPurchase(AdaptyUIPaywallView view, AdaptyPaywallProduct product) {}
+  void flowViewDidStartPurchase(AdaptyUIFlowView view, AdaptyPaywallProduct product) {}
 
   @override
-  void paywallViewDidStartRestore(AdaptyUIPaywallView view) {}
+  void flowViewDidStartRestore(AdaptyUIFlowView view) {}
 
   @override
-  void paywallViewDidFinishWebPaymentNavigation(
-    AdaptyUIPaywallView view,
+  void flowViewDidFinishWebPaymentNavigation(
+    AdaptyUIFlowView view,
     AdaptyPaywallProduct? product,
     AdaptyError? error,
   ) {}
 
   @override
-  void paywallViewDidAppear(AdaptyUIPaywallView view) {}
+  void flowViewDidAppear(AdaptyUIFlowView view) {}
 
   @override
-  void paywallViewDidDisappear(AdaptyUIPaywallView view) {}
+  void flowViewDidDisappear(AdaptyUIFlowView view) {
+    // Since 4.0 a dismissed view is released natively and cannot be presented
+    // again. This fires for every dismissal path, including swipe-down which
+    // bypasses closePaymentScreen; drop the cache so the next open recreates
+    // the view instead of presenting a spent one.
+    if (_paymentView?.id == view.id) _dropCachedView();
+    if (_dismissingViewId == view.id) {
+      // closePaymentScreen initiated this dismissal and reports the close
+      // itself, with the right isError.
+      _dismissingViewId = null;
+      return;
+    }
+    // The dismissal bypassed closePaymentScreen (swipe-down, flow-internal
+    // close): reset the actor, or _isOpened stays true and the paywall can
+    // never be reopened. handleScreenClosed no-ops when already closed.
+    _actor.handleScreenClosed(Markers.ui, isError: false);
+  }
+
+  @override
+  void flowViewDidReceiveAnalyticEvent(AdaptyUIFlowView view, String name, Map<String, dynamic> params) {}
 
   @override
   Future<void> setCustomAttributes(Marker m, Map<String, dynamic> attributes) async {
