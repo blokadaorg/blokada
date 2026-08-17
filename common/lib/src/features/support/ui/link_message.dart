@@ -87,28 +87,28 @@ class LinkMessage extends StatelessWidget {
           )
         : null;
 
+    // In the sent bubble the accent IS the bubble background, so links use
+    // the bubble's text color (underline marks them); accent stays readable
+    // on the received bubble's gray. Underline must match the text color
+    // explicitly, or the engine paints it black.
+    final linkColor = isSentByMe
+        ? (paragraphStyle?.color ?? theme.colors.onPrimary)
+        : context.theme.accent;
+
     final textContent = Linkify(
       onOpen: onOpenLink,
       text: message.text,
-      linkStyle: TextStyle(color: context.theme.accent),
-      style: _isOnlyEmoji
-          ? paragraphStyle?.copyWith(fontSize: onlyEmojiFontSize)
-          : paragraphStyle,
+      linkStyle: TextStyle(color: linkColor, decorationColor: linkColor),
+      style: _isOnlyEmoji ? paragraphStyle?.copyWith(fontSize: onlyEmojiFontSize) : paragraphStyle,
     );
 
     return Container(
       padding: _isOnlyEmoji
-          ? EdgeInsets.symmetric(
-              horizontal: (padding?.horizontal ?? 0) / 2,
-              vertical: 0,
-            )
+          ? EdgeInsets.symmetric(horizontal: (padding?.horizontal ?? 0) / 2, vertical: 0)
           : padding,
       decoration: _isOnlyEmoji
           ? null
-          : BoxDecoration(
-              color: backgroundColor,
-              borderRadius: borderRadius ?? theme.shape,
-            ),
+          : BoxDecoration(color: backgroundColor, borderRadius: borderRadius ?? theme.shape),
       child: _buildContentBasedOnPosition(
         context: context,
         textContent: textContent,
@@ -175,23 +175,19 @@ class LinkMessage extends StatelessWidget {
 
   TextStyle? _resolveParagraphStyle(bool isSentByMe, ChatTheme theme) {
     if (isSentByMe) {
-      return sentTextStyle ??
-          theme.typography.bodyMedium.copyWith(color: theme.colors.onPrimary);
+      return sentTextStyle ?? theme.typography.bodyMedium.copyWith(color: theme.colors.onPrimary);
     }
-    return receivedTextStyle ??
-        theme.typography.bodyMedium.copyWith(color: theme.colors.onSurface);
+    return receivedTextStyle ?? theme.typography.bodyMedium.copyWith(color: theme.colors.onSurface);
   }
 
   TextStyle? _resolveTimeStyle(bool isSentByMe, ChatTheme theme) {
     if (isSentByMe) {
       return timeStyle ??
           theme.typography.labelSmall.copyWith(
-            color:
-                _isOnlyEmoji ? theme.colors.onSurface : theme.colors.onPrimary,
+            color: _isOnlyEmoji ? theme.colors.onSurface : theme.colors.onPrimary,
           );
     }
-    return timeStyle ??
-        theme.typography.labelSmall.copyWith(color: theme.colors.onSurface);
+    return timeStyle ?? theme.typography.labelSmall.copyWith(color: theme.colors.onSurface);
   }
 }
 
@@ -236,17 +232,13 @@ class TimeAndStatus extends StatelessWidget {
       spacing: 2,
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (showTime && time != null)
-          Text(timeFormat.format(time!.toLocal()), style: textStyle),
+        if (showTime && time != null) Text(timeFormat.format(time!.toLocal()), style: textStyle),
         if (showStatus && status != null)
           if (status == MessageStatus.sending)
             SizedBox(
               width: 6,
               height: 6,
-              child: CircularProgressIndicator(
-                color: textStyle?.color,
-                strokeWidth: 2,
-              ),
+              child: CircularProgressIndicator(color: textStyle?.color, strokeWidth: 2),
             )
           else
             Icon(getIconForStatus(status!), color: textStyle?.color, size: 12),
