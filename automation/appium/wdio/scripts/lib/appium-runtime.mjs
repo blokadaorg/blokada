@@ -10,6 +10,9 @@ const WDA_KEYBOARD_PATCH_MARKER =
   "Blokada: preserve current iOS keyboard preferences during Appium sessions.";
 const WDA_KEYBOARD_PREFERENCES_TARGET =
   "  [FBConfiguration configureDefaultKeyboardPreferences];";
+// Pinned: driver 12.x bundles WebDriverAgent 16.x, whose UITestingUITests.m
+// no longer contains the keyboard-preferences line the patch above anchors on.
+const XCUITEST_DRIVER_VERSION = "10.28.1";
 
 export function parseBooleanFlag(value, fallback = false) {
   if (value == null || value === "") {
@@ -316,7 +319,10 @@ export async function ensureAppiumRuntime(options = {}) {
   }
 
   log("Installing Appium xcuitest driver into the repo-local Appium home...");
-  const installResult = runAppiumCli(["driver", "install", "xcuitest"], env);
+  const installResult = runAppiumCli(
+    ["driver", "install", `xcuitest@${XCUITEST_DRIVER_VERSION}`],
+    env
+  );
   if (installResult.status !== 0) {
     throw new Error(
       installResult.stderr || installResult.stdout || "Failed to install Appium xcuitest driver."
