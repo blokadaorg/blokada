@@ -608,10 +608,10 @@ packages:
     dependency: "direct main"
     description:
       name: mobx
-      sha256: "25ea9a3ee69243d578fb6288721d8eeb18550d0391c32f896d377d994154bff2"
+      sha256: a14558d22e2d3b0edf9151c75b67638c3907123046e96e1d1ee05e23c6a82a56
       url: "https://pub.dev"
     source: hosted
-    version: "2.6.0"
+    version: "2.6.1"
   mobx_codegen:
     dependency: "direct dev"
     description:
@@ -1021,18 +1021,18 @@ packages:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_charts
-      sha256: fd8cc7a91ff192e908051eb3743130b0da8eb1ab348f893662d3566a43385697
+      sha256: "8b66e5c1f42d3d212d554be1f505ef0c1c8c1ec9e029d084af9b7e3e0b0b84d0"
       url: "https://pub.dev"
     source: hosted
-    version: "34.2.3"
+    version: "34.2.4"
   syncfusion_flutter_core:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: e7f8efe88922e19b83cd5f008f552442b304f40ff84e5037425e9042e1f1a1bd
+      sha256: "28dadd040c4893fc5f9c475bd963b99d7dc0f6b8e6c0b559cbad060dd9168d06"
       url: "https://pub.dev"
     source: hosted
-    version: "34.2.3"
+    version: "34.2.4"
   synchronized:
     dependency: transitive
     description:
