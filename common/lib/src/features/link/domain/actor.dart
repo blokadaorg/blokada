@@ -3,7 +3,9 @@ part of 'link.dart';
 const _keyAcc = "account-id=ACCOUNTID";
 const _keyUA = "USERAGENT";
 
-final _linkTemplates = {
+// Public so tests can assert the per-platform coverage: a missing template for
+// the running platform only blows up at startup, in _prepareTemplates.
+final linkTemplates = {
   // Primary links
   LinkTemplate(LinkId.support, null, null,
       "https://app.blokada.org/support?user-agent=$_keyUA&$_keyAcc"),
@@ -22,8 +24,13 @@ final _linkTemplates = {
       "https://go.blokada.org/privacy_family"),
   LinkTemplate(
       LinkId.privacyCloud, null, null, "https://go.blokada.org/privacy_cloud"),
-  LinkTemplate(LinkId.manageSubscriptions, null, null,
+  // Subscriptions are managed by whichever store sold them, so this one link
+  // has to differ per platform (iOS also gets an in-app StoreKit sheet, see
+  // StageBinding.doOpenLink).
+  LinkTemplate(LinkId.manageSubscriptions, PlatformType.iOS, null,
       "https://apps.apple.com/account/subscriptions"),
+  LinkTemplate(LinkId.manageSubscriptions, PlatformType.android, null,
+      "https://play.google.com/store/account/subscriptions?package=org.blokada.sex"),
   LinkTemplate(LinkId.credits, null, null, "https://blokada.org/"),
   // Less important (mostly legacy) links
   LinkTemplate(LinkId.whyVpn, null, null, "https://go.blokada.org/vpn"),
@@ -93,7 +100,7 @@ class LinkActor with Logging, Actor {
       try {
         // Find the correct link template
         LinkTemplate? template;
-        var links = _linkTemplates.filter((e) => e.id == id);
+        var links = linkTemplates.filter((e) => e.id == id);
         if (links.length > 1) {
           template =
               links.firstWhereOrNull((e) => e.platform == p && e.flavor == f);

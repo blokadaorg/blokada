@@ -5,6 +5,7 @@ import 'dart:ui' as ui;
 
 import 'package:collection/collection.dart';
 import 'package:common/src/features/api/domain/api.dart';
+import 'package:common/src/features/link/domain/link.dart';
 import 'package:common/src/features/payment/domain/payment.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/i18n/locales.dart';

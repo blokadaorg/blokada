@@ -13,6 +13,7 @@
 import Foundation
 import Factory
 import Combine
+import StoreKit
 import UIKit
 
 extension StageModal: Identifiable {
@@ -159,9 +160,29 @@ class StageBinding: StageOps {
     }
 
     func doOpenLink(url: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        if let link = URL(string: url) {
-          UIApplication.shared.open(link)
+        guard let link = URL(string: url) else {
+            completion(.success(()))
+            return
         }
+        // Subscription management is presented in-app (StoreKit sheet) rather
+        // than bouncing to the App Store; fall back to the URL if the OS is
+        // too old, no scene is active, or the sheet fails.
+        if #available(iOS 15.0, *),
+           url == "https://apps.apple.com/account/subscriptions",
+           let scene = UIApplication.shared.connectedScenes
+               .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+            Task { @MainActor in
+                do {
+                    try await AppStore.showManageSubscriptions(in: scene)
+                } catch {
+                    BlockaLogger.w("Stage", "showManageSubscriptions failed: \(error), opening URL")
+                    await UIApplication.shared.open(link)
+                }
+                completion(.success(()))
+            }
+            return
+        }
+        UIApplication.shared.open(link)
         completion(.success(()))
     }
 

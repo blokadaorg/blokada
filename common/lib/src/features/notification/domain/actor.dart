@@ -21,6 +21,7 @@ class NotificationActor with Logging, Actor {
   late final _stats = Core.get<StatsStore>();
   Paths? _pendingNotificationPath;
   Object? _pendingNotificationArgs;
+  Future<void> Function(Marker)? _pendingNotificationAction;
   var _notificationNavInFlight = false;
 
   // When a user taps the weekly-report "Turn off" notification action we
@@ -271,6 +272,18 @@ class NotificationActor with Logging, Actor {
         return;
       }
 
+      if (id == NotificationId.accountRescue) {
+        // The whole point of the rescue push is to get the user back to the
+        // store subscription screen, so the tap goes straight there instead of
+        // opening any in-app route.
+        await _queueNotificationAction(
+          m,
+          trigger: "notificationTapped:accountRescue",
+          action: (m) => _stage.openLink(LinkId.manageSubscriptions, m),
+        );
+        return;
+      }
+
       final isOnPrivacyPulse = Navigation.lastPath == Paths.privacyPulse;
       if (id == NotificationId.supportNewMessage) {
         // await sleepAsync(const Duration(seconds: 1));
@@ -312,7 +325,32 @@ class NotificationActor with Logging, Actor {
     }
   }
 
+  // Like _queueNotificationNavigation but for side effects that need the
+  // foreground modules started (links are populated by LinkActor.onStart,
+  // paywalls need PaymentActor). Runs once the app becomes foreground.
+  Future<void> _queueNotificationAction(
+    Marker m, {
+    required String trigger,
+    required Future<void> Function(Marker) action,
+  }) async {
+    _pendingNotificationAction = action;
+    if (_stage.route.isForeground()) {
+      await _tryOpenPendingNotification(m, trigger: trigger);
+    }
+  }
+
   Future<void> _tryOpenPendingNotification(Marker m, {required String trigger}) async {
+    final action = _pendingNotificationAction;
+    if (action != null) {
+      _pendingNotificationAction = null;
+      try {
+        await action(m);
+      } catch (e, s) {
+        log(m).e(msg: "Failed to run notification action", err: e, stack: s);
+      }
+      log(m).pair("notificationActionTrigger", trigger);
+    }
+
     final path = _pendingNotificationPath;
     if (path == null) return;
     if (_notificationNavInFlight) return;
