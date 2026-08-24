@@ -18,6 +18,7 @@ class NotificationActor with Logging, Actor {
   late final _device = Core.get<DeviceStore>();
   late final _payment = Core.get<PaymentActor>();
   late final _weeklyReport = Core.get<WeeklyReportActor>();
+  late final _stats = Core.get<StatsStore>();
   Paths? _pendingNotificationPath;
   Object? _pendingNotificationArgs;
   var _notificationNavInFlight = false;
@@ -375,6 +376,10 @@ class NotificationActor with Logging, Actor {
         log(m).pair("event_id", event.eventId);
         return;
       }
+      if (event.type == "account_rescue") {
+        await _handleAccountRescue(m, event);
+        return;
+      }
       if (event.type != "weekly_update") return;
 
       final when = _resolveScheduleHint(event.scheduleHint);
@@ -394,6 +399,39 @@ class NotificationActor with Logging, Actor {
         final body = _buildWeeklyReportBody(reportEvent);
         await showWithBody(NotificationId.weeklyReport, m, body, when: when);
       });
+    });
+  }
+
+  // The retention rescue push: the server knows only that the subscription is
+  // lapsing, so the app fills in the fresh countdown and the blocked total.
+  Future<void> _handleAccountRescue(Marker m, FcmEvent event) async {
+    await log(m).trace('accountRescue:fcmHandle', (m) async {
+      log(m).pair('event_id', event.eventId);
+      // Fresh expiry is needed for the countdown; the same fetch also drops
+      // the message if the subscription renewed after the server sent it.
+      await _account.fetch(m);
+      final activeUntil = _account.account?.jsonAccount.activeUntil;
+      final days = resolveRescueDays(
+        activeUntil == null ? null : DateTime.tryParse(activeUntil),
+        DateTime.now(),
+      );
+      if (days == null) {
+        log(m).w('accountRescue:notification:notExpiring');
+        return;
+      }
+
+      int? totalBlocked;
+      try {
+        await _stats.fetch(m).timeout(const Duration(seconds: 8));
+        totalBlocked = _stats.stats.totalBlocked;
+      } catch (e) {
+        log(m).w('accountRescue:stats:unavailable: $e');
+      }
+
+      final devices = event.extrasMap['devices'] ?? '1';
+      final body = buildAccountRescueBody(totalBlocked: totalBlocked, devices: devices, days: days);
+      final when = _resolveScheduleHint(event.scheduleHint);
+      await showWithBody(NotificationId.accountRescue, m, body, when: when);
     });
   }
 
@@ -492,4 +530,36 @@ DateTime? resolveNotificationScheduleHint(String? scheduleHint, DateTime now) {
   );
   if (todayAtHour.isAfter(localNow)) return todayAtHour;
   return todayAtHour.add(const Duration(days: 1));
+}
+
+/// Longest countdown a rescue notification may claim. Anything further out
+/// means the subscription renewed after the server sent the rescue.
+const rescueMaxDays = 30;
+
+/// Days of protection left, rounded up. Null when the account is already
+/// expired (the expiry notification covers that) or when expiry is more than
+/// [rescueMaxDays] away, which means the subscription renewed after the
+/// server sent the rescue and the message is stale.
+int? resolveRescueDays(DateTime? activeUntil, DateTime now) {
+  if (activeUntil == null) return null;
+  final remaining = activeUntil.difference(now);
+  if (remaining.isNegative || remaining == Duration.zero) return null;
+  final days = (remaining.inMinutes / Duration.minutesPerDay).ceil();
+  if (days > rescueMaxDays) return null;
+  return days;
+}
+
+/// The rescue notification payload, encoded the same way as the weekly report
+/// one: the native side renders the `title` / `body` pair out of it. Falls back
+/// to the stats-free copy when the blocked total could not be fetched.
+String buildAccountRescueBody({
+  required int? totalBlocked,
+  required String devices,
+  required int days,
+}) {
+  final title = "notification account rescue title".i18n;
+  final body = totalBlocked == null
+      ? "notification account rescue body short".i18n.withParams(devices, days)
+      : "notification account rescue body".i18n.withParams(totalBlocked, devices, days);
+  return jsonEncode({"title": title, "body": body});
 }

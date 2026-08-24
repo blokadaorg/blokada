@@ -22,6 +22,7 @@ enum NotificationId {
   weeklyReport,
   weeklyRefresh,
   activityLoggingReminder,
+  accountRescue,
 }
 
 enum NotificationEventType {
