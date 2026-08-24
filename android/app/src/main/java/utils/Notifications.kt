@@ -20,6 +20,7 @@ import org.blokada.R
 import service.Localised
 import service.NOTIF_WEEKLY_REPORT
 import service.NOTIF_ACTIVITY_LOGGING_REMINDER
+import service.NOTIF_ACCOUNT_RESCUE
 import ui.MainActivity
 
 private const val IMPORTANCE_NONE = 0
@@ -283,6 +284,30 @@ class ActivityLoggingReminderNotification(
 
         val intentActivity = Intent(ctx, MainActivity::class.java)
         intentActivity.putExtra("notificationId", NOTIF_ACTIVITY_LOGGING_REMINDER)
+        val piActivity = ctx.getPendingIntentForActivity(intentActivity, 0)
+        b.setContentIntent(piActivity)
+    }
+)
+
+// Sent to a user whose subscription is about to lapse. Title and body are
+// composed in Dart (account stats and days left), so there is no fallback copy
+// here — the receiver drops the notification if either is missing.
+class AccountRescueNotification(
+    private val title: String,
+    private val body: String
+) : NotificationPrototype(
+    27, NotificationChannels.BLOCKA,
+    create = { ctx ->
+        val b = NotificationCompat.Builder(ctx)
+        b.setContentTitle(title)
+        b.setContentText(body)
+        b.setStyle(NotificationCompat.BigTextStyle().bigText(body))
+        b.setSmallIcon(R.drawable.ic_stat_blokada)
+        b.setPriority(NotificationCompat.PRIORITY_MAX)
+        b.setVibrate(LongArray(0))
+
+        val intentActivity = Intent(ctx, MainActivity::class.java)
+        intentActivity.putExtra("notificationId", NOTIF_ACCOUNT_RESCUE)
         val piActivity = ctx.getPendingIntentForActivity(intentActivity, 0)
         b.setContentIntent(piActivity)
     }
