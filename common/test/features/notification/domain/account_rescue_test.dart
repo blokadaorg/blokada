@@ -37,8 +37,25 @@ void main() {
       expect(resolveRescueDays(null, now), isNull);
     });
 
+    test("returns null when less than a day is left, to avoid 'in 0 days'", () {
+      expect(resolveRescueDays(now.add(const Duration(seconds: 30)), now), isNull);
+    });
+
     test("returns null when expiry is beyond the rescue window (renewed after send)", () {
       expect(resolveRescueDays(now.add(const Duration(days: 40)), now), isNull);
+    });
+  });
+
+  group("resolveRescueDevices", () {
+    test("keeps a positive count", () {
+      expect(resolveRescueDevices("3"), "3");
+    });
+
+    test("falls back to one device for missing, zero or non-numeric values", () {
+      expect(resolveRescueDevices(null), "1");
+      expect(resolveRescueDevices("null"), "1");
+      expect(resolveRescueDevices("0"), "1");
+      expect(resolveRescueDevices("abc"), "1");
     });
   });
 

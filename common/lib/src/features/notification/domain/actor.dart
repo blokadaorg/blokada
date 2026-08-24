@@ -423,12 +423,15 @@ class NotificationActor with Logging, Actor {
       int? totalBlocked;
       try {
         await _stats.fetch(m).timeout(const Duration(seconds: 8));
-        totalBlocked = _stats.stats.totalBlocked;
+        // "Blokada has blocked 0 ads and trackers" argues against renewing, so
+        // a device that never filtered anything gets the stats-free copy.
+        final blocked = _stats.stats.totalBlocked;
+        if (blocked > 0) totalBlocked = blocked;
       } catch (e) {
         log(m).w('accountRescue:stats:unavailable: $e');
       }
 
-      final devices = event.extrasMap['devices'] ?? '1';
+      final devices = resolveRescueDevices(event.extrasMap['devices']);
       final body = buildAccountRescueBody(totalBlocked: totalBlocked, devices: devices, days: days);
       final when = _resolveScheduleHint(event.scheduleHint);
       await showWithBody(NotificationId.accountRescue, m, body, when: when);
@@ -545,8 +548,18 @@ int? resolveRescueDays(DateTime? activeUntil, DateTime now) {
   final remaining = activeUntil.difference(now);
   if (remaining.isNegative || remaining == Duration.zero) return null;
   final days = (remaining.inMinutes / Duration.minutesPerDay).ceil();
-  if (days > rescueMaxDays) return null;
+  // Under a minute left rounds down to zero, and "ends in 0 days" reads broken.
+  if (days <= 0 || days > rescueMaxDays) return null;
   return days;
+}
+
+/// The device count for the rescue copy. The server sends it as a free-form
+/// extras string, so anything that is not a positive number (absent, "null",
+/// "0", junk) falls back to one device rather than reaching the notification.
+String resolveRescueDevices(String? raw) {
+  final parsed = int.tryParse(raw?.trim() ?? "");
+  if (parsed == null || parsed <= 0) return "1";
+  return "$parsed";
 }
 
 /// The rescue notification payload, encoded the same way as the weekly report
