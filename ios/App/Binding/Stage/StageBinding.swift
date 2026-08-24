@@ -166,21 +166,27 @@ class StageBinding: StageOps {
         }
         // Subscription management is presented in-app (StoreKit sheet) rather
         // than bouncing to the App Store; fall back to the URL if the OS is
-        // too old, no scene is active, or the sheet fails.
-        if #available(iOS 15.0, *),
-           url == "https://apps.apple.com/account/subscriptions",
-           let scene = UIApplication.shared.connectedScenes
-               .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
-            Task { @MainActor in
-                do {
-                    try await AppStore.showManageSubscriptions(in: scene)
-                } catch {
-                    BlockaLogger.w("Stage", "showManageSubscriptions failed: \(error), opening URL")
-                    await UIApplication.shared.open(link)
+        // too old, no scene is active, or the sheet fails. Each fallback is
+        // logged, otherwise "it opened Safari instead" is undiagnosable.
+        if url == "https://apps.apple.com/account/subscriptions" {
+            if #available(iOS 15.0, *) {
+                if let scene = UIApplication.shared.connectedScenes
+                    .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+                    Task { @MainActor in
+                        do {
+                            try await AppStore.showManageSubscriptions(in: scene)
+                        } catch {
+                            BlockaLogger.w("Stage", "showManageSubscriptions failed: \(error), opening URL")
+                            await UIApplication.shared.open(link)
+                        }
+                        completion(.success(()))
+                    }
+                    return
                 }
-                completion(.success(()))
+                BlockaLogger.w("Stage", "No foreground-active scene, opening subscriptions URL")
+            } else {
+                BlockaLogger.w("Stage", "Manage subscriptions sheet needs iOS 15, opening URL")
             }
-            return
         }
         UIApplication.shared.open(link)
         completion(.success(()))

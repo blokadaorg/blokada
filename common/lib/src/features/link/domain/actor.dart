@@ -31,6 +31,10 @@ final linkTemplates = {
       "https://apps.apple.com/account/subscriptions"),
   LinkTemplate(LinkId.manageSubscriptions, PlatformType.android, null,
       "https://play.google.com/store/account/subscriptions?package=org.blokada.sex"),
+  // Catch-all for platforms that are neither (desktop, unknown): keeps the
+  // pre-split behavior instead of failing template preparation at startup.
+  LinkTemplate(LinkId.manageSubscriptions, null, null,
+      "https://apps.apple.com/account/subscriptions"),
   LinkTemplate(LinkId.credits, null, null, "https://blokada.org/"),
   // Less important (mostly legacy) links
   LinkTemplate(LinkId.whyVpn, null, null, "https://go.blokada.org/vpn"),
@@ -42,6 +46,27 @@ final linkTemplates = {
   LinkTemplate(
       LinkId.howToRestore, null, null, "https://go.blokada.org/vpnrestore"),
 };
+
+/// Picks the template a given platform/flavor should use, most specific first.
+///
+/// Kept total on purpose: template preparation runs at startup, so a
+/// combination no template names must still resolve to something rather than
+/// throwing and taking the app down with it.
+LinkTemplate selectLinkTemplate(
+    Iterable<LinkTemplate> candidates, PlatformType platform, Flavor flavor) {
+  // 1. Both match — the only fully explicit choice.
+  var template = candidates
+      .firstWhereOrNull((e) => e.platform == platform && e.flavor == flavor);
+  // 2. Either matches — a template scoped to just a platform or just a flavor.
+  template ??=
+      candidates.firstWhereOrNull((e) => e.platform == platform || e.flavor == flavor);
+  // 3. The unscoped catch-all, if the set carries one.
+  template ??=
+      candidates.firstWhereOrNull((e) => e.platform == null && e.flavor == null);
+  // Nothing matched: any template beats no link at all. Throws (and so fails
+  // loudly at startup) only when the id has no templates whatsoever.
+  return template ?? candidates.first;
+}
 
 class LinkActor with Logging, Actor {
   late final _channel = Core.get<LinkChannel>();
@@ -99,18 +124,8 @@ class LinkActor with Logging, Actor {
     for (var id in LinkId.values) {
       try {
         // Find the correct link template
-        LinkTemplate? template;
-        var links = linkTemplates.filter((e) => e.id == id);
-        if (links.length > 1) {
-          template =
-              links.firstWhereOrNull((e) => e.platform == p && e.flavor == f);
-          template ??=
-              links.firstWhere((e) => e.platform == p || e.flavor == f);
-        } else {
-          template = links.first;
-        }
-
-        templates[id] = template;
+        templates[id] =
+            selectLinkTemplate(linkTemplates.filter((e) => e.id == id), p, f);
       } catch (e) {
         throw Exception("Failed to prepare link template for $id: $e");
       }

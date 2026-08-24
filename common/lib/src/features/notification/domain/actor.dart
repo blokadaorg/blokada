@@ -279,7 +279,7 @@ class NotificationActor with Logging, Actor {
         await _queueNotificationAction(
           m,
           trigger: "notificationTapped:accountRescue",
-          action: (m) => _stage.openLink(LinkId.manageSubscriptions, m),
+          action: _openManageSubscriptions,
         );
         return;
       }
@@ -343,11 +343,12 @@ class NotificationActor with Logging, Actor {
     final action = _pendingNotificationAction;
     if (action != null) {
       _pendingNotificationAction = null;
-      try {
-        await action(m);
-      } catch (e, s) {
-        log(m).e(msg: "Failed to run notification action", err: e, stack: s);
-      }
+      // Deliberately not awaited. This drain also runs from onStart, which
+      // executes inside the sequential module start loop — and the module the
+      // action waits for (LinkModule) starts later in that same loop, so
+      // awaiting the retry here would block the startup it depends on and then
+      // time out. The retry never throws, so nothing is left unhandled.
+      unawaited(_runNotificationActionWithRetry(m, action));
       log(m).pair("notificationActionTrigger", trigger);
     }
 
@@ -371,6 +372,36 @@ class NotificationActor with Logging, Actor {
       _notificationNavInFlight = false;
       log(m).pair("notificationNavTrigger", trigger);
       log(m).pair("notificationNavPath", path);
+    }
+  }
+
+  // A tear-off rather than an inline closure, so the action runs with the
+  // marker of whichever drain finally executes it, not the one from tap time.
+  Future<void> _openManageSubscriptions(Marker m) =>
+      _stage.openLink(LinkId.manageSubscriptions, m);
+
+  // The tap can arrive before the module backing the action has started:
+  // NotificationModule is registered — and therefore started — ahead of
+  // LinkModule (see modules.dart), and StageStore.openLink throws
+  // "Link not found" until LinkActor has populated its link map. Retrying
+  // across that start window keeps a cold-start tap from being dropped.
+  Future<void> _runNotificationActionWithRetry(
+      Marker m, Future<void> Function(Marker) action) async {
+    const attempts = 20;
+    const delay = Duration(milliseconds: 500);
+
+    for (var i = 0; i < attempts; i++) {
+      try {
+        await action(m);
+        return;
+      } catch (e, s) {
+        final isLastAttempt = i == attempts - 1;
+        if (isLastAttempt) {
+          log(m).e(msg: "Failed to run notification action", err: e, stack: s);
+          return;
+        }
+        await sleepAsync(delay);
+      }
     }
   }
 
