@@ -182,7 +182,7 @@ dependencies {
 
     // http and rest
     implementation 'com.squareup.retrofit2:retrofit:3.0.0'
-    implementation platform('com.squareup.okhttp3:okhttp-bom:5.4.0')
+    implementation platform('com.squareup.okhttp3:okhttp-bom:5.5.0')
     implementation 'com.squareup.okhttp3:okhttp'
     implementation 'com.squareup.okhttp3:logging-interceptor'
 
@@ -213,12 +213,12 @@ dependencies {
     // consumer must supply them. We don't author Compose — the BOM only pins
     // the versions for Adapty's prebuilt paywall UI.
     sixImplementation platform('androidx.compose:compose-bom:2026.08.00')
-    sixImplementation platform('io.adapty:adapty-bom:4.0.2')
+    sixImplementation platform('io.adapty:adapty-bom:4.1.0')
     sixImplementation 'io.adapty:android-sdk'
     sixImplementation 'io.adapty:android-ui'
 
     // Firebase Cloud Messaging (v6 only)
-    sixImplementation platform('com.google.firebase:firebase-bom:34.17.0')
+    sixImplementation platform('com.google.firebase:firebase-bom:34.18.0')
     sixImplementation 'com.google.firebase:firebase-messaging'
 
     // test deps
