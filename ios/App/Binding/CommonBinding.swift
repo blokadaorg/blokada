@@ -415,6 +415,17 @@ class CommonBinding: CommonOps {
             }
         }
 
+        if id == NOTIF_ACCOUNT_RESCUE {
+            guard let payload = AccountRescuePayload.from(json: body),
+                  !(payload.title?.isEmpty ?? true),
+                  !(payload.body?.isEmpty ?? true) else {
+                return Future<Ignored, Error> { promise in
+                    promise(.failure("invalid account rescue payload"))
+                }
+                .eraseToAnyPublisher()
+            }
+        }
+
         var calendar = Calendar.current
         calendar.timeZone = TimeZone.current
         let date = calendar.dateComponents(
