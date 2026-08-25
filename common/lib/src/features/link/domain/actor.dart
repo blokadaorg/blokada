@@ -30,8 +30,12 @@ final linkTemplates = {
   // two in sync).
   LinkTemplate(LinkId.manageSubscriptions, PlatformType.iOS, null,
       "https://apps.apple.com/account/subscriptions"),
-  LinkTemplate(LinkId.manageSubscriptions, PlatformType.android, null,
+  // Android lands on the Play subscriptions list filtered by the current app,
+  // so the package id has to stay flavor-specific if Family ever reuses this.
+  LinkTemplate(LinkId.manageSubscriptions, PlatformType.android, Flavor.v6,
       "https://play.google.com/store/account/subscriptions?package=org.blokada.sex"),
+  LinkTemplate(LinkId.manageSubscriptions, PlatformType.android, Flavor.family,
+      "https://play.google.com/store/account/subscriptions?package=org.blokada.family"),
   // Catch-all for platforms that are neither (desktop, unknown): keeps the
   // pre-split behavior instead of failing template preparation at startup.
   LinkTemplate(LinkId.manageSubscriptions, null, null,

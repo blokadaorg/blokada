@@ -14,8 +14,12 @@ void main() {
     final android = _for(LinkId.manageSubscriptions)
         .where((t) => t.platform == PlatformType.android);
     expect(ios.single.url, "https://apps.apple.com/account/subscriptions");
-    expect(android.single.url,
+    expect(
+        android.firstWhere((t) => t.flavor == Flavor.v6).url,
         "https://play.google.com/store/account/subscriptions?package=org.blokada.sex");
+    expect(
+        android.firstWhere((t) => t.flavor == Flavor.family).url,
+        "https://play.google.com/store/account/subscriptions?package=org.blokada.family");
   });
 
   group("selectLinkTemplate", () {
@@ -24,6 +28,8 @@ void main() {
           "https://apps.apple.com/account/subscriptions");
       expect(_select(LinkId.manageSubscriptions, PlatformType.android, Flavor.v6),
           "https://play.google.com/store/account/subscriptions?package=org.blokada.sex");
+      expect(_select(LinkId.manageSubscriptions, PlatformType.android, Flavor.family),
+          "https://play.google.com/store/account/subscriptions?package=org.blokada.family");
     });
 
     test("falls back to the unscoped catch-all on an unnamed platform", () {
