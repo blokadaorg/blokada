@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:common/src/core/core.dart';
 import 'package:common/src/features/notification/domain/notification.dart';
+import 'package:common/src/features/payment/domain/payment.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:i18n_extension/i18n_extension.dart';
 
@@ -82,5 +83,9 @@ void main() {
     });
     expect(event.extrasMap["devices"], "3");
     expect(FcmEvent.fromJson({"type": "x"}).extrasMap, isEmpty);
+  });
+
+  test("Placement.winback id matches the Adapty dashboard placement", () {
+    expect(Placement.winback.id, "winback");
   });
 }

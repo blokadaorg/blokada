@@ -284,6 +284,17 @@ class NotificationActor with Logging, Actor {
         return;
       }
 
+      if (id == NotificationId.accountExpired) {
+        // Lapsed users land on the win-back placement; Adapty applies the
+        // configured Apple/Google win-back offer to eligible profiles.
+        await _queueNotificationAction(
+          m,
+          trigger: "notificationTapped:winback",
+          action: _openWinbackPaywall,
+        );
+        return;
+      }
+
       final isOnPrivacyPulse = Navigation.lastPath == Paths.privacyPulse;
       if (id == NotificationId.supportNewMessage) {
         // await sleepAsync(const Duration(seconds: 1));
@@ -379,6 +390,11 @@ class NotificationActor with Logging, Actor {
   // marker of whichever drain finally executes it, not the one from tap time.
   Future<void> _openManageSubscriptions(Marker m) =>
       _stage.openLink(LinkId.manageSubscriptions, m);
+
+  // Same tear-off reasoning as above. openPaymentScreen awaits the payment
+  // preload completer, so a cold-start tap presents once Adapty is ready.
+  Future<void> _openWinbackPaywall(Marker m) =>
+      _payment.openPaymentScreen(m, placement: Placement.winback);
 
   // The tap can arrive before the module backing the action has started:
   // NotificationModule is registered — and therefore started — ahead of
