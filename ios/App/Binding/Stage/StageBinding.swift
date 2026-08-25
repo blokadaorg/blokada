@@ -161,6 +161,7 @@ class StageBinding: StageOps {
 
     func doOpenLink(url: String, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let link = URL(string: url) else {
+            BlockaLogger.w("Stage", "Ignoring unparseable link URL")
             completion(.success(()))
             return
         }
@@ -168,6 +169,10 @@ class StageBinding: StageOps {
         // than bouncing to the App Store; fall back to the URL if the OS is
         // too old, no scene is active, or the sheet fails. Each fallback is
         // logged, otherwise "it opened Safari instead" is undiagnosable.
+        // The literal below must stay in lockstep with the iOS
+        // LinkId.manageSubscriptions template in
+        // common/lib/src/features/link/domain/actor.dart — a change there that
+        // is not mirrored here silently downgrades the sheet to Safari.
         if url == "https://apps.apple.com/account/subscriptions" {
             if #available(iOS 15.0, *) {
                 if let scene = UIApplication.shared.connectedScenes

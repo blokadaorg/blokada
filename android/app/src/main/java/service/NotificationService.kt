@@ -83,6 +83,16 @@ private const val WEEKLY_REPORT_REFRESH_BODY = "Your weekly report is updated."
                 return
             }
         }
+        // The rescue copy is composed in Dart, so a malformed body would only
+        // surface as an empty notification at alarm time, long after the cause
+        // is traceable. Reject it here as well as in the receiver.
+        if (notificationId == NOTIF_ACCOUNT_RESCUE) {
+            val payload = AccountRescuePayload.fromJson(body)
+            if (payload == null || payload.title.isNullOrEmpty() || payload.body.isNullOrEmpty()) {
+                Log.e("NotificationService", "Skipping account rescue scheduling due to invalid payload")
+                return
+            }
+        }
         val ctx = context.requireAppContext()
         val intent = Intent(ctx, NotificationAlarmReceiver::class.java)
         intent.putExtra("id", notificationId)

@@ -393,8 +393,16 @@ class NotificationActor with Logging, Actor {
 
   // Same tear-off reasoning as above. openPaymentScreen awaits the payment
   // preload completer, so a cold-start tap presents once Adapty is ready.
-  Future<void> _openWinbackPaywall(Marker m) =>
-      _payment.openPaymentScreen(m, placement: Placement.winback);
+  Future<void> _openWinbackPaywall(Marker m) async {
+    // A cold start from the expired notification also runs the account refresh,
+    // which shows the one-shot accountExpired modal at the same moment — and two
+    // presentations racing on iOS can leave the paywall never shown, so retire
+    // the modal and wait for the dismissal before presenting Adapty.
+    if (_stage.route.modal == StageModal.accountExpired) {
+      await _stage.dismissModal(m);
+    }
+    await _payment.openPaymentScreen(m, placement: Placement.winback);
+  }
 
   // The tap can arrive before the module backing the action has started:
   // NotificationModule is registered — and therefore started — ahead of
@@ -494,7 +502,15 @@ class NotificationActor with Logging, Actor {
       log(m).pair('event_id', event.eventId);
       // Fresh expiry is needed for the countdown; the same fetch also drops
       // the message if the subscription renewed after the server sent it.
-      await _account.fetch(m);
+      // A stalled fetch must not fall through to the cached account: a stale
+      // active_until would put a wrong day count in front of the user, so a
+      // slow backend drops the push instead.
+      try {
+        await _account.fetch(m).timeout(const Duration(seconds: 10));
+      } on TimeoutException {
+        log(m).w('accountRescue:accountFetchTimeout');
+        return;
+      }
       final activeUntil = _account.account?.jsonAccount.activeUntil;
       final days = resolveRescueDays(
         activeUntil == null ? null : DateTime.tryParse(activeUntil),

@@ -26,7 +26,8 @@ final linkTemplates = {
       LinkId.privacyCloud, null, null, "https://go.blokada.org/privacy_cloud"),
   // Subscriptions are managed by whichever store sold them, so this one link
   // has to differ per platform (iOS also gets an in-app StoreKit sheet, see
-  // StageBinding.doOpenLink).
+  // StageBinding.doOpenLink, which matches on this exact URL string — keep the
+  // two in sync).
   LinkTemplate(LinkId.manageSubscriptions, PlatformType.iOS, null,
       "https://apps.apple.com/account/subscriptions"),
   LinkTemplate(LinkId.manageSubscriptions, PlatformType.android, null,

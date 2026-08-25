@@ -14,6 +14,8 @@ import 'package:common/src/platform/account/account.dart' hide AccountId;
 import 'package:common/src/platform/account/refresh/refresh.dart';
 import 'package:common/src/platform/device/device.dart';
 import 'package:common/src/features/stats/ui/top_domains.dart';
+// StageModal lives in the generated channel, not in stage.dart's exports.
+import 'package:common/src/platform/stage/channel.pg.dart' show StageModal;
 import 'package:common/src/platform/stage/stage.dart';
 import 'package:common/src/platform/stats/api.dart' as platform_stats;
 import 'package:common/src/platform/stats/stats.dart';
