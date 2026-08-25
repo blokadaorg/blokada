@@ -62,10 +62,14 @@ LinkTemplate selectLinkTemplate(
   // 1. Both match — the only fully explicit choice.
   var template = candidates
       .firstWhereOrNull((e) => e.platform == platform && e.flavor == flavor);
-  // 2. Either matches — a template scoped to just a platform or just a flavor.
+  // 2. Scoped to this platform only. A template that names another platform
+  //    is never a candidate, no matter the flavor.
   template ??=
-      candidates.firstWhereOrNull((e) => e.platform == platform || e.flavor == flavor);
-  // 3. The unscoped catch-all, if the set carries one.
+      candidates.firstWhereOrNull((e) => e.platform == platform && e.flavor == null);
+  // 3. Scoped to this flavor only, on any platform.
+  template ??=
+      candidates.firstWhereOrNull((e) => e.platform == null && e.flavor == flavor);
+  // 4. The unscoped catch-all, if the set carries one.
   template ??=
       candidates.firstWhereOrNull((e) => e.platform == null && e.flavor == null);
   // Nothing matched: any template beats no link at all. Throws (and so fails

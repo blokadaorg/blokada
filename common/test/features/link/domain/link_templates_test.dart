@@ -45,13 +45,19 @@ void main() {
           "https://go.blokada.org/kb_ios");
     });
 
-    // Pre-existing quirk, pinned here so changing it stays a deliberate act:
-    // pass 2 accepts a platform OR flavor match, and the iOS/v6 entry is
-    // declared first, so Android v6 gets the iOS knowledge base rather than
-    // kb_android. Untouched by this change — see the report.
-    test("keeps the existing android/v6 knowledgeBase resolution", () {
+    test("never picks another platform's template on a flavor match", () {
+      // Regression for the platform-vs-flavor precedence bug (issue-tracker#341):
+      // the android entry has no flavor, and the flavored iOS entries must not
+      // win just because their flavor matches.
       expect(_select(LinkId.knowledgeBase, PlatformType.android, Flavor.v6),
-          "https://go.blokada.org/kb_ios");
+          "https://go.blokada.org/kb_android");
+      expect(_select(LinkId.knowledgeBase, PlatformType.android, Flavor.family),
+          "https://go.blokada.org/kb_android");
+    });
+
+    test("flavor-only templates resolve on any platform", () {
+      expect(_select(LinkId.tos, PlatformType.android, Flavor.family),
+          "https://go.blokada.org/terms_family");
     });
 
     test("every link id resolves on every platform and flavor", () {
