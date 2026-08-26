@@ -699,6 +699,9 @@
     <string name="notification_weekly_report_body">Otwórz Blokadę, aby zobaczyć swój cotygodniowy raport.</string>
     <string name="notification_weekly_report_refreshed_title">Twój cotygodniowy raport jest gotowy</string>
     <string name="notification_weekly_report_refreshed_body">Otwórz Blokadę, aby zobaczyć najnowsze szczegóły.</string>
+    <string name="notification_account_rescue_title">Twoja ochrona wkrótce wygaśnie</string>
+    <string name="notification_account_rescue_body">Blokada zablokowała %s reklam i trackerów od momentu konfiguracji. Ochrona na %s urządzeniach wygaśnie za %s dni.</string>
+    <string name="notification_account_rescue_body_short">Ochrona na %s urządzeniach wygaśnie za %s dni.</string>
     <string name="notification_weekly_report_cta">Zobacz raport</string>
     <string name="notification_weekly_report_blocked_increased_title">Aktywność trackerów wzrosła</string>
     <string name="notification_weekly_report_blocked_decreased_title">Aktywność trackerów spadła</string>

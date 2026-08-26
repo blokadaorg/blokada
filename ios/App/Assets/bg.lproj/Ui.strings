@@ -665,7 +665,7 @@
 "family schedule add rule" = "Добавяне на правило";
 "family schedule use label" = "Използвай график";
 "family schedule active now" = "Активно сега · до %@";
-"family device default profile" = "Стандартен профил";
+"family device default profile" = "Профил по подразбиране";
 "family schedule paused hint" = "Когато графикът е изключен, всички правила се игнорират и се прилага профилът по подразбиране.";
 "family schedule rule editor title new" = "Ново правило";
 "family schedule rule editor title edit" = "Редактиране на правило";
@@ -704,26 +704,26 @@
 "family device now status allow" = "Интернетът е напълно разрешен";
 "family device now status blocked" = "Интернетът е блокиран";
 "family device now source default" = "Профил по подразбиране";
-"family device now source schedule" = "From the schedule";
+"family device now source schedule" = "От графика";
 "family device now source override" = "Ръчно превключване";
 "family device now until" = "До %@";
 "family device now indefinite" = "Докато не го включите отново";
 "family device now footer" = "Можете да докоснете, за да поставите филтрирането на пауза, или да блокирате интернета за известно време.";
-"family device now footer override" = "You can tap to resume, or switch to a different override.";
-"family device now sheet title" = "%@, right now";
-"family device now sheet brief" = "Change the filtering temporarily. The schedule and default profile take over again when it ends.";
-"family device action block" = "Block internet";
-"family device action block brief" = "Cut off all internet on this device for a while.";
-"family device action pause" = "Pause filtering";
-"family device action pause brief" = "Temporarily turn filtering off so everything is allowed. It resumes automatically.";
-"family device action resume" = "Resume now";
-"family device override sheet block title" = "Block internet";
-"family device override sheet block brief" = "All internet access on this device will be cut off.";
-"family device override sheet pause title" = "Pause filtering";
-"family device override sheet pause brief" = "Filtering turns off and everything is allowed. It resumes automatically.";
-"family device override duration hour" = "For 1 hour";
-"family device override duration morning" = "Until tomorrow morning";
-"family device override duration indefinite" = "Until I turn it back on";
+"family device now footer override" = "Можете да докоснете, за да продължите, или да изберете друг заместващ режим.";
+"family device now sheet title" = "%@, в момента";
+"family device now sheet brief" = "Променете временно настройките за филтриране. След като този период приключи, графикът и профилът по подразбиране ще влязат отново в сила.";
+"family device action block" = "Блокирай интернет";
+"family device action block brief" = "Изключване за известно време достъпа до интернет на това устройство.";
+"family device action pause" = "Паузирай на филтрирането";
+"family device action pause brief" = "Временно деактивирайте филтрирането, за да се разреши достъпът до всичко. То ще се възстанови автоматично.";
+"family device action resume" = "Възобновяване";
+"family device override sheet block title" = "Блокиране на интернет";
+"family device override sheet block brief" = "Достъпът до интернет на това устройство ще бъде прекъснат.";
+"family device override sheet pause title" = "Паузиране на филтрирането";
+"family device override sheet pause brief" = "Филтрирането се изключва и всичко е разрешено. То ще се възстанови автоматично.";
+"family device override duration hour" = "За 1 час";
+"family device override duration morning" = "До утре сутринта";
+"family device override duration indefinite" = "Докато не го включа отново";
 
 
 "family perms header" = "Още едно нещо";
@@ -954,6 +954,9 @@
 "notification weekly report body" = "Отвори Blokada, за да видите седмичния си доклад.";
 "notification weekly report refreshed title" = "Вашият седмичен отчет е готов";
 "notification weekly report refreshed body" = "Отворите Blokada, за да видите последните подробности.";
+"notification account rescue title" = "Your protection ends soon";
+"notification account rescue body" = "Blokada has blocked %s ads and trackers since you set it up. Protection on %s devices ends in %s days.";
+"notification account rescue body short" = "Protection on %s devices ends in %s days.";
 "notification weekly report cta" = "Вижте доклада";
 
 "notification weekly report blocked increased title" = "Активността на тракерите се е увеличила";

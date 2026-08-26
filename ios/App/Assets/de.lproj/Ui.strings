@@ -954,6 +954,9 @@
 "notification weekly report body" = "Öffne Blokada, um deinen Wochenbericht zu sehen.";
 "notification weekly report refreshed title" = "Dein Wochenbericht ist bereit";
 "notification weekly report refreshed body" = "Öffne Blokada, um die neuesten Details zu sehen.";
+"notification account rescue title" = "Dein Schutz endet bald.";
+"notification account rescue body" = "Blokada hat seit der Einrichtung %s Werbeanzeigen und Tracker blockiert. Der Schutz auf %s Geräten endet in %s Tagen.";
+"notification account rescue body short" = "Der Schutz auf %s Geräten endet in %s Tagen.";
 "notification weekly report cta" = "Bericht anzeigen";
 
 "notification weekly report blocked increased title" = "Tracker-Aktivität gestiegen";

@@ -699,6 +699,9 @@
     <string name="notification_weekly_report_body">Open Blokada om je wekelijkse rapport te bekijken.</string>
     <string name="notification_weekly_report_refreshed_title">Je wekelijkse rapport is klaar</string>
     <string name="notification_weekly_report_refreshed_body">Open Blokada om de nieuwste details te bekijken.</string>
+    <string name="notification_account_rescue_title">Je bescherming eindigt binnenkort.</string>
+    <string name="notification_account_rescue_body">Blokada heeft sinds de installatie %s advertenties en trackers geblokkeerd. Bescherming op %s apparaten eindigt over %s dagen.</string>
+    <string name="notification_account_rescue_body_short">Bescherming op %s apparaten eindigt over %s dagen.</string>
     <string name="notification_weekly_report_cta">Rapport bekijken</string>
     <string name="notification_weekly_report_blocked_increased_title">Trackeractiviteit gestegen</string>
     <string name="notification_weekly_report_blocked_decreased_title">Trackeractiviteit gedaald</string>
