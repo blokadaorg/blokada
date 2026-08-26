@@ -699,6 +699,9 @@
     <string name="notification_weekly_report_body">Buka Blokada untuk melihat laporan mingguan Anda.</string>
     <string name="notification_weekly_report_refreshed_title">Laporan mingguan Anda sudah siap</string>
     <string name="notification_weekly_report_refreshed_body">Buka Blokada untuk melihat detail terbaru.</string>
+    <string name="notification_account_rescue_title">Your protection ends soon</string>
+    <string name="notification_account_rescue_body">Blokada has blocked %s ads and trackers since you set it up. Protection on %s devices ends in %s days.</string>
+    <string name="notification_account_rescue_body_short">Protection on %s devices ends in %s days.</string>
     <string name="notification_weekly_report_cta">Lihat laporan</string>
     <string name="notification_weekly_report_blocked_increased_title">Aktivitas pelacak meningkat</string>
     <string name="notification_weekly_report_blocked_decreased_title">Aktivitas pelacak menurun</string>

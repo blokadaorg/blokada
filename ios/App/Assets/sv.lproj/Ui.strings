@@ -954,6 +954,9 @@
 "notification weekly report body" = "Öppna Blokada för att se din veckorapport.";
 "notification weekly report refreshed title" = "Din veckorapport är klar";
 "notification weekly report refreshed body" = "Öppna Blokada för att visa de senaste detaljerna.";
+"notification account rescue title" = "Ditt skydd upphör snart.";
+"notification account rescue body" = "Blokada har blockerat %s annonser och spårare sedan du satte upp det. Skyddet på %s enheter upphör om %s dagar.";
+"notification account rescue body short" = "Skyddet på %s enheter upphör om %s dagar.";
 "notification weekly report cta" = "Visa rapporten";
 
 "notification weekly report blocked increased title" = "Tracker-aktiviteten har ökat";

@@ -699,6 +699,9 @@
     <string name="notification_weekly_report_body">Ouvrez Blokada pour consulter votre rapport hebdomadaire.</string>
     <string name="notification_weekly_report_refreshed_title">Votre rapport hebdomadaire est prêt</string>
     <string name="notification_weekly_report_refreshed_body">Ouvrez Blokada pour consulter les dernières informations.</string>
+    <string name="notification_account_rescue_title">Votre protection se termine bientôt.</string>
+    <string name="notification_account_rescue_body">Blokada a bloqué %s publicités et traqueurs depuis sa configuration. La protection sur %s appareils se termine dans %s jours.</string>
+    <string name="notification_account_rescue_body_short">La protection sur %s appareils se termine dans %s jours.</string>
     <string name="notification_weekly_report_cta">Consulter le rapport</string>
     <string name="notification_weekly_report_blocked_increased_title">L\'activité des traqueurs a augmenté</string>
     <string name="notification_weekly_report_blocked_decreased_title">L\'activité du tracker a diminué</string>
