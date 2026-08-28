@@ -64,7 +64,7 @@ dependencies:
   flutter_chat_core: ^2.6.0
   flutter_chat_ui: ^2.6.0
   logger: ^2.4.0
-  adapty_flutter: 4.0.3
+  adapty_flutter: 4.0.4
   flutter_linkify: ^6.0.0
   cached_network_image: ^3.3.1
   web_socket_channel: ^3.0.3
@@ -79,7 +79,7 @@ dependency_overrides:
   #    (flutter/flutter#184590) — without a podspec `pod install` fails.
   # 2. BlokadaVendorAlias.swift — upstream pluginClass only exists as an
   #    @objc name; the generated Swift registrant needs a Swift name.
-  # 3. ios Package.swift pins AdaptySDK-iOS to the blokadaorg fork (4.0.2 +
+  # 3. ios Package.swift pins AdaptySDK-iOS to the blokadaorg fork (4.0.3 +
   #    restored includeBackground gate) until the translucent-footer
   #    regression is fixed upstream.
   # Keep the vendored version in lockstep with the `adapty_flutter` pin above

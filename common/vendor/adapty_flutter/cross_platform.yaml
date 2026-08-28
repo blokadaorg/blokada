@@ -1,5 +1,5 @@
 $schema: "https://json-schema.org/draft/2020-12/schema"
-$id: "https://adapty.io/crossPlatform/4.0.2/schema"
+$id: "https://adapty.io/crossPlatform/4.0.3/schema"
 title: "Cross Platform Format"
 
 $requests:

@@ -15,7 +15,7 @@ packages:
       path: "vendor/adapty_flutter"
       relative: true
     source: path
-    version: "4.0.3"
+    version: "4.0.4"
   analyzer:
     dependency: transitive
     description:
