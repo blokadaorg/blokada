@@ -58,26 +58,29 @@ class QrScanSheetMacosState extends State<QrScanSheetMacos> with Logging {
   Future<void> _handleLink(String url) async {
     if (url.isEmpty) return;
 
+    // Validated before the sheet closes, so a malformed link still gets the
+    // inline error. Past this point requestLink can raise the confirmation
+    // dialog, and the pop below would then close that dialog instead.
+    if (parseFamilyLinkToken(url) == null) {
+      setState(() {
+        _errorMessage = "Invalid link. Please check and try again.".i18n;
+      });
+      return;
+    }
+
     setState(() {
       _isProcessing = true;
       _errorMessage = null;
     });
 
+    Navigator.of(context).pop();
     try {
       await log(Markers.userTap).trace("macosLinkSubmit", (m) async {
-        await _familyLink.link(url, m);
+        await _familyLink.requestLink(url, m);
       });
-
-      if (mounted) {
-        Navigator.of(context).pop();
-      }
     } catch (e) {
-      if (mounted) {
-        setState(() {
-          _errorMessage = "Invalid link. Please check and try again.".i18n;
-          _isProcessing = false;
-        });
-      }
+      // The sheet is gone, so there is nowhere left to show this.
+      log(Markers.userTap).e(msg: "macosLinkSubmit failed", err: e);
     }
   }
 

@@ -23,3 +23,12 @@ class ParentDeviceProtectionOwnerValue extends Value<ParentDeviceProtectionOwner
 class FamilyLinkedMode extends Value<bool> {
   FamilyLinkedMode() : super(load: () => false);
 }
+
+/// The enrolment token from an incoming link, parked until the UI is mounted
+/// and the user has answered. Deliberately in-memory: a link the user never
+/// answered must not survive an app restart.
+class PendingLinkValue extends NullableAsyncValue<String> {
+  PendingLinkValue() : super(sensitive: true) {
+    load = (Marker m) async => null;
+  }
+}

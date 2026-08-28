@@ -13,10 +13,8 @@ class FamilyCommand with Command {
   Future<void> cmdLink(Marker m, dynamic args) async {
     final url = args[0] as String;
 
-    // When entering from a camera app qr code scan, this will be called
-    // by the OS very early, and since onStartApp is executed async to not
-    // block the UI thread, we need to wait for the app to be ready.
-    await sleepAsync(const Duration(seconds: 3));
-    return await _actor.link(url, m);
+    // A camera-app QR scan calls this before the app is ready, so the link is
+    // parked. The family UI resolves it once mounted, a real readiness signal.
+    return await _actor.requestLink(url, m);
   }
 }

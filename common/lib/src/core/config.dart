@@ -12,7 +12,9 @@ class CoreConfig {
   Duration refreshVeryFrequent = const Duration(seconds: 5);
   Duration refreshOnHome = const Duration(seconds: 15);
 
-  bool obfuscateSensitiveParams = false;
+  // Starts on in release so a cold start cannot log a token before ConfigActor
+  // resolves the log level. ConfigActor only ever relaxes this.
+  bool obfuscateSensitiveParams = kReleaseMode;
 
   CoreConfig();
 

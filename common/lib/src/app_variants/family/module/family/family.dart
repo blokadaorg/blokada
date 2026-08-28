@@ -33,6 +33,7 @@ class FamilyModule with Module {
     await register(ParentDeviceProtectionOwnerValue());
     await register(FamilyActor());
     await register(FamilyLinkedMode());
+    await register(PendingLinkValue());
     await register(LinkActor());
     await register(FamilyCommand());
     await register(FamilySheetActor());
