@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:common/src/features/link/domain/link.dart';
 import 'package:common/src/features/notification/domain/notification.dart';
 import 'package:common/src/features/payment/domain/payment.dart';
 import 'package:common/src/core/core.dart';
@@ -386,6 +387,36 @@ void main() {
         expect(opened, 1);
         expect(Navigation.lastPath, Paths.privacyPulse);
         Navigation.onNavigated = (_) {};
+      });
+    });
+
+    test("account rescue tap survives a cold start until the app is foreground", () async {
+      await withTrace((m) async {
+        final stage = MockStageStore();
+        var route = StageRouteState.init();
+        when(stage.route).thenAnswer((_) => route);
+        when(stage.openLink(any, any)).thenAnswer((_) async {});
+        Core.register<StageStore>(stage);
+        Core.register<AccountStore>(MockAccountStore());
+        Core.register<DeviceStore>(_MockDeviceStore());
+        Core.register<PaymentActor>(_FakePaymentActor());
+        Core.register(NotificationsValue());
+        Core.register<WeeklyReportActor>(_FakeWeeklyReportActor(_weeklyEvent()));
+
+        final ops = MockNotificationChannel();
+        Core.register<NotificationChannel>(ops);
+
+        final store = NotificationActor();
+        Core.register<NotificationActor>(store);
+
+        await store.notificationTapped(m, NotificationId.accountRescue.name);
+        verifyNever(stage.openLink(LinkId.manageSubscriptions, any));
+
+        route = StageRouteState.init().newFg();
+        await store.onStart(m);
+        await Future<void>.delayed(Duration.zero);
+
+        verify(stage.openLink(LinkId.manageSubscriptions, any)).called(1);
       });
     });
 

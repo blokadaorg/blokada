@@ -18,8 +18,10 @@ class NotificationActor with Logging, Actor {
   late final _device = Core.get<DeviceStore>();
   late final _payment = Core.get<PaymentActor>();
   late final _weeklyReport = Core.get<WeeklyReportActor>();
+  late final _stats = Core.get<StatsStore>();
   Paths? _pendingNotificationPath;
   Object? _pendingNotificationArgs;
+  Future<void> Function(Marker)? _pendingNotificationAction;
   var _notificationNavInFlight = false;
 
   // When a user taps the weekly-report "Turn off" notification action we
@@ -270,6 +272,29 @@ class NotificationActor with Logging, Actor {
         return;
       }
 
+      if (id == NotificationId.accountRescue) {
+        // The whole point of the rescue push is to get the user back to the
+        // store subscription screen, so the tap goes straight there instead of
+        // opening any in-app route.
+        await _queueNotificationAction(
+          m,
+          trigger: "notificationTapped:accountRescue",
+          action: _openManageSubscriptions,
+        );
+        return;
+      }
+
+      if (id == NotificationId.accountExpired) {
+        // Lapsed users land on the win-back placement; Adapty applies the
+        // configured Apple/Google win-back offer to eligible profiles.
+        await _queueNotificationAction(
+          m,
+          trigger: "notificationTapped:winback",
+          action: _openWinbackPaywall,
+        );
+        return;
+      }
+
       final isOnPrivacyPulse = Navigation.lastPath == Paths.privacyPulse;
       if (id == NotificationId.supportNewMessage) {
         // await sleepAsync(const Duration(seconds: 1));
@@ -311,7 +336,33 @@ class NotificationActor with Logging, Actor {
     }
   }
 
+  // Like _queueNotificationNavigation but for side effects that need the
+  // foreground modules started (links are populated by LinkActor.onStart,
+  // paywalls need PaymentActor). Runs once the app becomes foreground.
+  Future<void> _queueNotificationAction(
+    Marker m, {
+    required String trigger,
+    required Future<void> Function(Marker) action,
+  }) async {
+    _pendingNotificationAction = action;
+    if (_stage.route.isForeground()) {
+      await _tryOpenPendingNotification(m, trigger: trigger);
+    }
+  }
+
   Future<void> _tryOpenPendingNotification(Marker m, {required String trigger}) async {
+    final action = _pendingNotificationAction;
+    if (action != null) {
+      _pendingNotificationAction = null;
+      // Deliberately not awaited. This drain also runs from onStart, which
+      // executes inside the sequential module start loop — and the module the
+      // action waits for (LinkModule) starts later in that same loop, so
+      // awaiting the retry here would block the startup it depends on and then
+      // time out. The retry never throws, so nothing is left unhandled.
+      unawaited(_runNotificationActionWithRetry(m, action));
+      log(m).pair("notificationActionTrigger", trigger);
+    }
+
     final path = _pendingNotificationPath;
     if (path == null) return;
     if (_notificationNavInFlight) return;
@@ -332,6 +383,49 @@ class NotificationActor with Logging, Actor {
       _notificationNavInFlight = false;
       log(m).pair("notificationNavTrigger", trigger);
       log(m).pair("notificationNavPath", path);
+    }
+  }
+
+  // A tear-off rather than an inline closure, so the action runs with the
+  // marker of whichever drain finally executes it, not the one from tap time.
+  Future<void> _openManageSubscriptions(Marker m) =>
+      _stage.openLink(LinkId.manageSubscriptions, m);
+
+  // Same tear-off reasoning as above. openPaymentScreen awaits the payment
+  // preload completer, so a cold-start tap presents once Adapty is ready.
+  Future<void> _openWinbackPaywall(Marker m) async {
+    // A cold start from the expired notification also runs the account refresh,
+    // which shows the one-shot accountExpired modal at the same moment — and two
+    // presentations racing on iOS can leave the paywall never shown, so retire
+    // the modal and wait for the dismissal before presenting Adapty.
+    if (_stage.route.modal == StageModal.accountExpired) {
+      await _stage.dismissModal(m);
+    }
+    await _payment.openPaymentScreen(m, placement: Placement.winback);
+  }
+
+  // The tap can arrive before the module backing the action has started:
+  // NotificationModule is registered — and therefore started — ahead of
+  // LinkModule (see modules.dart), and StageStore.openLink throws
+  // "Link not found" until LinkActor has populated its link map. Retrying
+  // across that start window keeps a cold-start tap from being dropped.
+  Future<void> _runNotificationActionWithRetry(
+      Marker m, Future<void> Function(Marker) action) async {
+    const attempts = 20;
+    const delay = Duration(milliseconds: 500);
+
+    for (var i = 0; i < attempts; i++) {
+      try {
+        await action(m);
+        return;
+      } catch (e, s) {
+        final isLastAttempt = i == attempts - 1;
+        if (isLastAttempt) {
+          log(m).e(msg: "Failed to run notification action", err: e, stack: s);
+          return;
+        }
+        await sleepAsync(delay);
+      }
     }
   }
 
@@ -375,6 +469,10 @@ class NotificationActor with Logging, Actor {
         log(m).pair("event_id", event.eventId);
         return;
       }
+      if (event.type == "account_rescue") {
+        await _handleAccountRescue(m, event);
+        return;
+      }
       if (event.type != "weekly_update") return;
 
       final when = _resolveScheduleHint(event.scheduleHint);
@@ -394,6 +492,50 @@ class NotificationActor with Logging, Actor {
         final body = _buildWeeklyReportBody(reportEvent);
         await showWithBody(NotificationId.weeklyReport, m, body, when: when);
       });
+    });
+  }
+
+  // The retention rescue push: the server knows only that the subscription is
+  // lapsing, so the app fills in the fresh countdown and the blocked total.
+  Future<void> _handleAccountRescue(Marker m, FcmEvent event) async {
+    await log(m).trace('accountRescue:fcmHandle', (m) async {
+      log(m).pair('event_id', event.eventId);
+      // Fresh expiry is needed for the countdown; the same fetch also drops
+      // the message if the subscription renewed after the server sent it.
+      // A stalled fetch must not fall through to the cached account: a stale
+      // active_until would put a wrong day count in front of the user, so a
+      // slow backend drops the push instead.
+      try {
+        await _account.fetch(m).timeout(const Duration(seconds: 10));
+      } on TimeoutException {
+        log(m).w('accountRescue:accountFetchTimeout');
+        return;
+      }
+      final activeUntil = _account.account?.jsonAccount.activeUntil;
+      final days = resolveRescueDays(
+        activeUntil == null ? null : DateTime.tryParse(activeUntil),
+        DateTime.now(),
+      );
+      if (days == null) {
+        log(m).w('accountRescue:notification:notExpiring');
+        return;
+      }
+
+      int? totalBlocked;
+      try {
+        await _stats.fetch(m).timeout(const Duration(seconds: 8));
+        // "Blokada has blocked 0 ads and trackers" argues against renewing, so
+        // a device that never filtered anything gets the stats-free copy.
+        final blocked = _stats.stats.totalBlocked;
+        if (blocked > 0) totalBlocked = blocked;
+      } catch (e) {
+        log(m).w('accountRescue:stats:unavailable: $e');
+      }
+
+      final devices = resolveRescueDevices(event.extrasMap['devices']);
+      final body = buildAccountRescueBody(totalBlocked: totalBlocked, devices: devices, days: days);
+      final when = _resolveScheduleHint(event.scheduleHint);
+      await showWithBody(NotificationId.accountRescue, m, body, when: when);
     });
   }
 
@@ -492,4 +634,46 @@ DateTime? resolveNotificationScheduleHint(String? scheduleHint, DateTime now) {
   );
   if (todayAtHour.isAfter(localNow)) return todayAtHour;
   return todayAtHour.add(const Duration(days: 1));
+}
+
+/// Longest countdown a rescue notification may claim. Anything further out
+/// means the subscription renewed after the server sent the rescue.
+const rescueMaxDays = 30;
+
+/// Days of protection left, rounded up. Null when the account is already
+/// expired (the expiry notification covers that) or when expiry is more than
+/// [rescueMaxDays] away, which means the subscription renewed after the
+/// server sent the rescue and the message is stale.
+int? resolveRescueDays(DateTime? activeUntil, DateTime now) {
+  if (activeUntil == null) return null;
+  final remaining = activeUntil.difference(now);
+  if (remaining.isNegative || remaining == Duration.zero) return null;
+  final days = (remaining.inMinutes / Duration.minutesPerDay).ceil();
+  // Under a minute left rounds down to zero, and "ends in 0 days" reads broken.
+  if (days <= 0 || days > rescueMaxDays) return null;
+  return days;
+}
+
+/// The device count for the rescue copy. The server sends it as a free-form
+/// extras string, so anything that is not a positive number (absent, "null",
+/// "0", junk) falls back to one device rather than reaching the notification.
+String resolveRescueDevices(String? raw) {
+  final parsed = int.tryParse(raw?.trim() ?? "");
+  if (parsed == null || parsed <= 0) return "1";
+  return "$parsed";
+}
+
+/// The rescue notification payload, encoded the same way as the weekly report
+/// one: the native side renders the `title` / `body` pair out of it. Falls back
+/// to the stats-free copy when the blocked total could not be fetched.
+String buildAccountRescueBody({
+  required int? totalBlocked,
+  required String devices,
+  required int days,
+}) {
+  final title = "notification account rescue title".i18n;
+  final body = totalBlocked == null
+      ? "notification account rescue body short".i18n.withParams(devices, days)
+      : "notification account rescue body".i18n.withParams(totalBlocked, devices, days);
+  return jsonEncode({"title": title, "body": body});
 }

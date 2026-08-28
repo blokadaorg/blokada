@@ -14,7 +14,8 @@ enum Placement {
   freemiumStats("stats_freemium"),
   freemiumActivity("activity_freemium"),
   freemiumFilters("filters_freemium"),
-  freemiumWeekly("sheet_weekly_freemium");
+  freemiumWeekly("sheet_weekly_freemium"),
+  winback("winback");
 
   final String id;
 

@@ -5,6 +5,7 @@ import 'dart:ui' as ui;
 
 import 'package:collection/collection.dart';
 import 'package:common/src/features/api/domain/api.dart';
+import 'package:common/src/features/link/domain/link.dart';
 import 'package:common/src/features/payment/domain/payment.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/i18n/locales.dart';
@@ -13,8 +14,11 @@ import 'package:common/src/platform/account/account.dart' hide AccountId;
 import 'package:common/src/platform/account/refresh/refresh.dart';
 import 'package:common/src/platform/device/device.dart';
 import 'package:common/src/features/stats/ui/top_domains.dart';
+// StageModal lives in the generated channel, not in stage.dart's exports.
+import 'package:common/src/platform/stage/channel.pg.dart' show StageModal;
 import 'package:common/src/platform/stage/stage.dart';
 import 'package:common/src/platform/stats/api.dart' as platform_stats;
+import 'package:common/src/platform/stats/stats.dart';
 import 'package:common/src/platform/stats/toplist_store.dart';
 import 'package:common/src/platform/stats/weekly_comparison.dart' as weekly_comparison;
 import 'package:meta/meta.dart';

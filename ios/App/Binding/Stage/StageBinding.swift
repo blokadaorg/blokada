@@ -13,6 +13,7 @@
 import Foundation
 import Factory
 import Combine
+import StoreKit
 import UIKit
 
 extension StageModal: Identifiable {
@@ -159,9 +160,40 @@ class StageBinding: StageOps {
     }
 
     func doOpenLink(url: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        if let link = URL(string: url) {
-          UIApplication.shared.open(link)
+        guard let link = URL(string: url) else {
+            BlockaLogger.w("Stage", "Ignoring unparseable link URL")
+            completion(.success(()))
+            return
         }
+        // Subscription management is presented in-app (StoreKit sheet) rather
+        // than bouncing to the App Store; fall back to the URL if the OS is
+        // too old, no scene is active, or the sheet fails. Each fallback is
+        // logged, otherwise "it opened Safari instead" is undiagnosable.
+        // The literal below must stay in lockstep with the iOS
+        // LinkId.manageSubscriptions template in
+        // common/lib/src/features/link/domain/actor.dart — a change there that
+        // is not mirrored here silently downgrades the sheet to Safari.
+        if url == "https://apps.apple.com/account/subscriptions" {
+            if #available(iOS 15.0, *) {
+                if let scene = UIApplication.shared.connectedScenes
+                    .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+                    Task { @MainActor in
+                        do {
+                            try await AppStore.showManageSubscriptions(in: scene)
+                        } catch {
+                            BlockaLogger.w("Stage", "showManageSubscriptions failed: \(error), opening URL")
+                            await UIApplication.shared.open(link)
+                        }
+                        completion(.success(()))
+                    }
+                    return
+                }
+                BlockaLogger.w("Stage", "No foreground-active scene, opening subscriptions URL")
+            } else {
+                BlockaLogger.w("Stage", "Manage subscriptions sheet needs iOS 15, opening URL")
+            }
+        }
+        UIApplication.shared.open(link)
         completion(.success(()))
     }
 

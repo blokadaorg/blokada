@@ -26,6 +26,7 @@ let NOTIF_SUPPORT_NEWMSG = "supportNewMessage"
 let NOTIF_WEEKLY_REFRESH = "weeklyRefresh"
 let NOTIF_WEEKLY_REPORT = "weeklyReport"
 let NOTIF_ACTIVITY_LOGGING_REMINDER = "activityLoggingReminder"
+let NOTIF_ACCOUNT_RESCUE = "accountRescue"
 let WEEKLY_REPORT_BACKGROUND_LEAD_MS = 60 * 60 * 1000
 
 let WEEKLY_REPORT_CATEGORY = "WEEKLY_REPORT_CATEGORY"
@@ -80,6 +81,19 @@ struct WeeklyReportPayload: Codable {
     static func from(json: String?) -> WeeklyReportPayload? {
         guard let json = json, let data = json.data(using: .utf8) else { return nil }
         return try? JSONDecoder().decode(WeeklyReportPayload.self, from: data)
+    }
+}
+
+// The account rescue copy is composed in Dart (it interpolates the account
+// stats and the days left), so the native side only carries it through as a
+// JSON body, the same way the weekly report does.
+struct AccountRescuePayload: Codable {
+    let title: String?
+    let body: String?
+
+    static func from(json: String?) -> AccountRescuePayload? {
+        guard let json = json, let data = json.data(using: .utf8) else { return nil }
+        return try? JSONDecoder().decode(AccountRescuePayload.self, from: data)
     }
 }
 
@@ -151,6 +165,22 @@ func mapNotificationToUser(_ id: String, _ body: String?) -> UNMutableNotificati
     } else if id == NOTIF_ACTIVITY_LOGGING_REMINDER {
         content.title = "Privacy Pulse"
         content.body = body ?? "Enable activity logging to receive your weekly Privacy Pulse reports."
+    } else if id == NOTIF_ACCOUNT_RESCUE {
+        guard let payload = AccountRescuePayload.from(json: body),
+              let title = payload.title, !title.isEmpty,
+              let notificationBody = payload.body, !notificationBody.isEmpty else {
+            // Same belt-and-braces as the weekly report: Dart only schedules
+            // this with both fields filled in, so an empty payload means a
+            // stale or malformed message and we leave the content empty.
+            BlockaLogger.w("Notif", "Dropping account rescue with empty payload")
+            content.title = ""
+            content.body = ""
+            content.userInfo = ["id": id]
+            content.sound = .default
+            return content
+        }
+        content.title = title
+        content.body = notificationBody
     } else {
         content.title = L10n.notificationGenericHeader
         content.subtitle = L10n.notificationGenericSubtitle

@@ -24,4 +24,18 @@ class FcmEvent {
       extras: json['extras']?.toString(),
     );
   }
+
+  /// Server-supplied extras (a JSON object encoded as a string). Empty when
+  /// absent or malformed; callers treat every value as optional.
+  Map<String, String> get extrasMap {
+    final raw = extras;
+    if (raw == null || raw.isEmpty) return const {};
+    try {
+      final decoded = jsonDecode(raw);
+      if (decoded is Map) {
+        return decoded.map((k, v) => MapEntry(k.toString(), v.toString()));
+      }
+    } catch (_) {}
+    return const {};
+  }
 }

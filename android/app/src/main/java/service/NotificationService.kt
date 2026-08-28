@@ -29,6 +29,7 @@ import utils.NotificationChannels
 import utils.NotificationPrototype
 import utils.OnboardingNotification
 import utils.QuickSettingsNotification
+import utils.AccountRescueNotification
 import utils.ActivityLoggingReminderNotification
 import utils.WeeklyReportNotification
 import java.util.Calendar
@@ -46,6 +47,7 @@ val NOTIF_NEW_MESSAGE = "supportNewMessage"
 val NOTIF_QUICKSETTINGS = "quickSettings" // Shown while QS is changing app status
 val NOTIF_WEEKLY_REPORT = "weeklyReport"
 val NOTIF_ACTIVITY_LOGGING_REMINDER = "activityLoggingReminder"
+val NOTIF_ACCOUNT_RESCUE = "accountRescue"
 private const val WEEKLY_REPORT_BACKGROUND_LEAD_MS = 60 * 60 * 1000L
 private const val WEEKLY_REPORT_REFRESH_TITLE = "Weekly report updated"
 private const val WEEKLY_REPORT_REFRESH_BODY = "Your weekly report is updated."
@@ -78,6 +80,16 @@ private const val WEEKLY_REPORT_REFRESH_BODY = "Your weekly report is updated."
             val payload = WeeklyReportPayload.fromJson(body)
             if (payload == null || payload.title.isNullOrEmpty() || payload.body.isNullOrEmpty()) {
                 Log.e("NotificationService", "Skipping weekly report scheduling due to invalid payload")
+                return
+            }
+        }
+        // The rescue copy is composed in Dart, so a malformed body would only
+        // surface as an empty notification at alarm time, long after the cause
+        // is traceable. Reject it here as well as in the receiver.
+        if (notificationId == NOTIF_ACCOUNT_RESCUE) {
+            val payload = AccountRescuePayload.fromJson(body)
+            if (payload == null || payload.title.isNullOrEmpty() || payload.body.isNullOrEmpty()) {
+                Log.e("NotificationService", "Skipping account rescue scheduling due to invalid payload")
                 return
             }
         }
@@ -176,6 +188,15 @@ class NotificationAlarmReceiver : BroadcastReceiver() {
             }
             NOTIF_ACTIVITY_LOGGING_REMINDER ->
                 ActivityLoggingReminderNotification(intent.getStringExtra("body"))
+            NOTIF_ACCOUNT_RESCUE -> {
+                val payload = AccountRescuePayload.fromJson(intent.getStringExtra("body"))
+                if (payload == null || payload.title.isNullOrEmpty() || payload.body.isNullOrEmpty()) {
+                    Log.e("NotificationService", "Skipping account rescue display due to invalid payload")
+                    null
+                } else {
+                    AccountRescueNotification(payload.title, payload.body)
+                }
+            }
             else -> null
         }
 
@@ -195,6 +216,7 @@ private fun notificationIntId(notificationId: String): Int? {
         NOTIF_QUICKSETTINGS -> 9
         NOTIF_WEEKLY_REPORT -> 25
         NOTIF_ACTIVITY_LOGGING_REMINDER -> 26
+        NOTIF_ACCOUNT_RESCUE -> 27
         else -> null
     }
 }
@@ -243,6 +265,27 @@ data class WeeklyReportPayload(
                 )
             } catch (e: Exception) {
                 Log.e("NotificationService", "Failed to parse weekly report payload: ${e.message}")
+                null
+            }
+        }
+    }
+}
+
+// The account rescue copy is composed in Dart (it interpolates the account
+// stats and the days left), so the native side only carries it through as a
+// JSON body, the same way the weekly report does.
+data class AccountRescuePayload(val title: String?, val body: String?) {
+    companion object {
+        fun fromJson(body: String?): AccountRescuePayload? {
+            if (body == null) return null
+            return try {
+                val json = JSONObject(body)
+                AccountRescuePayload(
+                    title = json.optString("title", null),
+                    body = json.optString("body", null),
+                )
+            } catch (e: Exception) {
+                Log.e("NotificationService", "Failed to parse account rescue payload: ${e.message}")
                 null
             }
         }
