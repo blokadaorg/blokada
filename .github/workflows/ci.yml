@@ -168,3 +168,14 @@ jobs:
 
       - name: Assemble Android debug apps
         run: make -C android apk-family-debug apk-six-debug
+
+      # Release assembles run R8. A native-dependency bump that only breaks
+      # under shrinking passes the debug assemble above and surfaces only on
+      # CI Release — #1222 (adapty-bom 4.1.0 renaming a class the vendored
+      # Flutter bridge references) merged green and broke every release build
+      # that followed. No keystore env here, so the APKs are unsigned.
+      - name: Build Flutter Android release library
+        run: make -C common lib
+
+      - name: Assemble Android release apps (R8)
+        run: make -C android apk-family apk-six
