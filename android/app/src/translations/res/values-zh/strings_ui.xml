@@ -699,6 +699,9 @@
     <string name="notification_weekly_report_body">開啟 Blokada 以查看您的每週報告。</string>
     <string name="notification_weekly_report_refreshed_title">您的每週報告已準備完成​</string>
     <string name="notification_weekly_report_refreshed_body">開啟 Blokada 以檢視最新詳細資訊。</string>
+    <string name="notification_account_rescue_title">您的保護即將結束。</string>
+    <string name="notification_account_rescue_body">自您啟用以來，Blokada 已阻擋 %s 個廣告和追蹤器。%s 台裝置上的保護將於 %s 天後結束。</string>
+    <string name="notification_account_rescue_body_short">%s 台裝置上的保護將於 %s 天後結束。</string>
     <string name="notification_weekly_report_cta">查看報告​</string>
     <string name="notification_weekly_report_blocked_increased_title">追蹤活動增加​</string>
     <string name="notification_weekly_report_blocked_decreased_title">追蹤活動減少​</string>
