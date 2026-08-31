@@ -594,6 +594,9 @@
 
 "family notification subtitle" = "Familjeskyddet är avstängt";
 "family fault link already" = "Den här enheten är redan länkad. Vänligen ta bort länkningen med appen för föräldrar och försök igen.";
+"family link confirm header" = "Länka denna enhet till en ny familj?";
+"family link confirm body" = "Den här enheten kommer att hanteras av den som skickade denna länk. De kommer att kunna se vilka webbplatser den besöker och styra vad den kan komma åt.";
+"family link confirm action" = "Länka enhet";
 "family profile dialog header" = "Välj en profil att använda för %@.";
 "family profile dialog header this" = "Välj en profil att använda med den här enheten.";
 "family profile add" = "Vilken profil vill du lägga till?";

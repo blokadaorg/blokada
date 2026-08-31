@@ -464,6 +464,9 @@
     <string name="toplist_tld_unknown">unknown</string>
     <string name="family_notification_subtitle">Family protection is off</string>
     <string name="family_fault_link_already">This device is already linked. Please unlink it using the parent app and try again.</string>
+    <string name="family_link_confirm_header">Link this device to a new family?</string>
+    <string name="family_link_confirm_body">This device will be managed by whoever sent you this link. They will be able to see the sites it visits and control what it can access.</string>
+    <string name="family_link_confirm_action">Link device</string>
     <string name="family_profile_dialog_header">Select a profile to use for %1$s.</string>
     <string name="family_profile_dialog_header_this">Select a profile to use for this device.</string>
     <string name="family_profile_add">Which profile would you like to add?</string>

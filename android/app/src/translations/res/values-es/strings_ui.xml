@@ -464,6 +464,9 @@
     <string name="toplist_tld_unknown">desconocido</string>
     <string name="family_notification_subtitle">La protección familiar está desactivada</string>
     <string name="family_fault_link_already">Este dispositivo ya está enlazado. Por favor, desvincularlo usando la aplicación padre e inténtelo de nuevo.</string>
+    <string name="family_link_confirm_header">Link this device to a new family?</string>
+    <string name="family_link_confirm_body">This device will be managed by whoever sent you this link. They will be able to see the sites it visits and control what it can access.</string>
+    <string name="family_link_confirm_action">Link device</string>
     <string name="family_profile_dialog_header">Selecciona un perfil para usar para %1$s.</string>
     <string name="family_profile_dialog_header_this">Seleccione un perfil para usar en este dispositivo.</string>
     <string name="family_profile_add">¿Qué perfil te gustaría añadir?</string>

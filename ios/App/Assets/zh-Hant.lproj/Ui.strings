@@ -594,6 +594,9 @@
 
 "family notification subtitle" = "家庭防護已關閉";
 "family fault link already" = "此裝置已連結。請利用家長端應用程式取消連結再重試。";
+"family link confirm header" = "要將此裝置連結至新家庭嗎？";
+"family link confirm body" = "此裝置將由發送此連結的人進行管理。他們將能看到此裝置造訪的網站，並控制其可存取的內容。";
+"family link confirm action" = "連結裝置";
 "family profile dialog header" = "選擇要用於 %@ 的設定檔。";
 "family profile dialog header this" = "選擇要用於此裝置的設定檔。";
 "family profile add" = "您想新增哪一個設定檔？";

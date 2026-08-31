@@ -464,6 +464,9 @@
     <string name="toplist_tld_unknown">Onbekend</string>
     <string name="family_notification_subtitle">Gezinsbescherming is uitgeschakeld</string>
     <string name="family_fault_link_already">Dit apparaat is al gekoppeld. Ontkoppel het via de bovenliggende app en probeer het opnieuw.</string>
+    <string name="family_link_confirm_header">Dit apparaat koppelen aan een nieuw gezin?</string>
+    <string name="family_link_confirm_body">Dit apparaat zal worden beheerd door degene die jou deze link heeft gestuurd. Zij kunnen de websites zien die het bezoekt en bepalen wat het kan openen.</string>
+    <string name="family_link_confirm_action">Apparaat koppelen</string>
     <string name="family_profile_dialog_header">Selecteer een profiel om te gebruiken voor %1$s.</string>
     <string name="family_profile_dialog_header_this">Selecteer een profiel om te gebruiken voor dit apparaat.</string>
     <string name="family_profile_add">Welk profiel wilt u toevoegen?</string>

@@ -464,6 +464,9 @@
     <string name="toplist_tld_unknown">未知</string>
     <string name="family_notification_subtitle">家庭防護已關閉</string>
     <string name="family_fault_link_already">此裝置已連結。請利用家長端應用程式取消連結再重試。</string>
+    <string name="family_link_confirm_header">要將此裝置連結至新家庭嗎？</string>
+    <string name="family_link_confirm_body">此裝置將由發送此連結的人進行管理。他們將能看到此裝置造訪的網站，並控制其可存取的內容。</string>
+    <string name="family_link_confirm_action">連結裝置</string>
     <string name="family_profile_dialog_header">選擇要用於 %1$s 的設定檔。</string>
     <string name="family_profile_dialog_header_this">選擇要用於此裝置的設定檔。</string>
     <string name="family_profile_add">您想新增哪一個設定檔？</string>

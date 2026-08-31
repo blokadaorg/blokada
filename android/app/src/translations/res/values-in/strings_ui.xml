@@ -464,6 +464,9 @@
     <string name="toplist_tld_unknown">tidak diketahui</string>
     <string name="family_notification_subtitle">Perlindungan Keluarga nonaktif</string>
     <string name="family_fault_link_already">Perangkat ini telah terhubung. Untuk memutuskan tautan silakan gunakan aplikasi induk dan coba lagi.</string>
+    <string name="family_link_confirm_header">Link this device to a new family?</string>
+    <string name="family_link_confirm_body">This device will be managed by whoever sent you this link. They will be able to see the sites it visits and control what it can access.</string>
+    <string name="family_link_confirm_action">Link device</string>
     <string name="family_profile_dialog_header">Pilih profile yang akan digunakan untuk %1$s.</string>
     <string name="family_profile_dialog_header_this">Pilih profil untuk digunakan di perangkat ini.</string>
     <string name="family_profile_add">Profil mana yang ingin Anda tambahkan?</string>

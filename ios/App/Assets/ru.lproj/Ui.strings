@@ -594,6 +594,9 @@
 
 "family notification subtitle" = "Защита семьи отключена";
 "family fault link already" = "Это устройство уже связано. Пожалуйста, отсоедините его с помощью родительского приложения и повторите попытку.";
+"family link confirm header" = "Link this device to a new family?";
+"family link confirm body" = "This device will be managed by whoever sent you this link. They will be able to see the sites it visits and control what it can access.";
+"family link confirm action" = "Link device";
 "family profile dialog header" = "Выберите профиль, который будет использоваться для %@.";
 "family profile dialog header this" = "Выберите профиль, который будет использоваться для этого устройства.";
 "family profile add" = "Какой профиль вы хотите добавить?";

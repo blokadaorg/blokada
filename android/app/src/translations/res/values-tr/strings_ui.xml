@@ -464,6 +464,9 @@
     <string name="toplist_tld_unknown">bilinmeyen</string>
     <string name="family_notification_subtitle">Aile koruması kapalı</string>
     <string name="family_fault_link_already">Bu cihaz zaten bağlı. Lütfen ana uygulamayı kullanarak bağlantısını kaldırın ve tekrar deneyin.</string>
+    <string name="family_link_confirm_header">Link this device to a new family?</string>
+    <string name="family_link_confirm_body">This device will be managed by whoever sent you this link. They will be able to see the sites it visits and control what it can access.</string>
+    <string name="family_link_confirm_action">Link device</string>
     <string name="family_profile_dialog_header">%1$s için kullanılacak bir profil seçin.</string>
     <string name="family_profile_dialog_header_this">Bu cihaz için kullanılacak bir profil seçin.</string>
     <string name="family_profile_add">Hangi profili eklemek istersiniz?</string>

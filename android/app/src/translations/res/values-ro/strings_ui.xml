@@ -464,6 +464,9 @@
     <string name="toplist_tld_unknown">necunoscut</string>
     <string name="family_notification_subtitle">Protecția familială este dezactivată</string>
     <string name="family_fault_link_already">Acest dispozitiv este deja conectat. Te rugăm să îl deconectezi folosind aplicația părinte și să încerci din nou.</string>
+    <string name="family_link_confirm_header">Link this device to a new family?</string>
+    <string name="family_link_confirm_body">This device will be managed by whoever sent you this link. They will be able to see the sites it visits and control what it can access.</string>
+    <string name="family_link_confirm_action">Link device</string>
     <string name="family_profile_dialog_header">Selectează un profil de utilizat pentru %1$s.</string>
     <string name="family_profile_dialog_header_this">Selectează un profil de utilizat pentru acest dispozitiv.</string>
     <string name="family_profile_add">Ce profil dorești să adaugi?</string>
