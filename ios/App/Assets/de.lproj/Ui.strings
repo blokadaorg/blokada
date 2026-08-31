@@ -594,6 +594,9 @@
 
 "family notification subtitle" = "Familienschutz aus";
 "family fault link already" = "Dieses Gerät ist bereits verknüpft. Bitte entfernen Sie die Verknüpfung mit der übergeordneten App und versuchen Sie es erneut.";
+"family link confirm header" = "Dieses Gerät mit einer neuen Familie verknüpfen?";
+"family link confirm body" = "Dieses Gerät wird von der Person verwaltet, die dir diesen Link gesendet hat. Sie kann die besuchten Seiten einsehen und kontrollieren, auf welche Inhalte das Gerät zugreifen kann.";
+"family link confirm action" = "Gerät verknüpfen";
 "family profile dialog header" = "Wähle ein Profil für %@.";
 "family profile dialog header this" = "Wählen Sie ein Profil für dieses Gerät.";
 "family profile add" = "Welches Profil möchten Sie hinzufügen?";

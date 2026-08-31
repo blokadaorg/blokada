@@ -594,6 +594,9 @@
 
 "family notification subtitle" = "Aile koruması kapalı";
 "family fault link already" = "Bu cihaz zaten bağlı. Lütfen ana uygulamayı kullanarak bağlantısını kaldırın ve tekrar deneyin.";
+"family link confirm header" = "Link this device to a new family?";
+"family link confirm body" = "This device will be managed by whoever sent you this link. They will be able to see the sites it visits and control what it can access.";
+"family link confirm action" = "Link device";
 "family profile dialog header" = "%@ için kullanılacak bir profil seçin.";
 "family profile dialog header this" = "Bu cihaz için kullanılacak bir profil seçin.";
 "family profile add" = "Hangi profili eklemek istersiniz?";

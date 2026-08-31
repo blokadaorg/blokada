@@ -594,6 +594,9 @@
 
 "family notification subtitle" = "Gezinsbescherming is uitgeschakeld";
 "family fault link already" = "Dit apparaat is al gekoppeld. Ontkoppel het via de bovenliggende app en probeer het opnieuw.";
+"family link confirm header" = "Dit apparaat koppelen aan een nieuw gezin?";
+"family link confirm body" = "Dit apparaat zal worden beheerd door degene die jou deze link heeft gestuurd. Zij kunnen de websites zien die het bezoekt en bepalen wat het kan openen.";
+"family link confirm action" = "Apparaat koppelen";
 "family profile dialog header" = "Selecteer een profiel om te gebruiken voor %@.";
 "family profile dialog header this" = "Selecteer een profiel om te gebruiken voor dit apparaat.";
 "family profile add" = "Welk profiel wilt u toevoegen?";

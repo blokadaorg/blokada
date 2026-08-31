@@ -464,6 +464,9 @@
     <string name="toplist_tld_unknown">ismeretlen</string>
     <string name="family_notification_subtitle">A családi védelem ki van kapcsolva</string>
     <string name="family_fault_link_already">Ez az eszköz már össze van kapcsolva. Kérjük, válaszd le a szülői alkalmazásban, majd próbáld újra.</string>
+    <string name="family_link_confirm_header">Link this device to a new family?</string>
+    <string name="family_link_confirm_body">This device will be managed by whoever sent you this link. They will be able to see the sites it visits and control what it can access.</string>
+    <string name="family_link_confirm_action">Link device</string>
     <string name="family_profile_dialog_header">Válassz profilt ehhez: %1$s.</string>
     <string name="family_profile_dialog_header_this">Válassz profilt ehhez az eszközhöz.</string>
     <string name="family_profile_add">Melyik profilt szeretnéd hozzáadni?</string>

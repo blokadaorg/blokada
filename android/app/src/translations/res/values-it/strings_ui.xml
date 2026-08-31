@@ -464,6 +464,9 @@
     <string name="toplist_tld_unknown">sconosciuto</string>
     <string name="family_notification_subtitle">La protezione famiglia è disattivata</string>
     <string name="family_fault_link_already">Questo dispositivo è già collegato. Si prega di scollegarlo utilizzando l\'app genitore e riprovare.</string>
+    <string name="family_link_confirm_header">Collega questo dispositivo a una nuova famiglia?</string>
+    <string name="family_link_confirm_body">Questo dispositivo sarà gestito da chi ti ha inviato questo collegamento. Potrà vedere i siti che visiti e controllare a cosa può accedere.</string>
+    <string name="family_link_confirm_action">Collega dispositivo</string>
     <string name="family_profile_dialog_header">Seleziona un profilo da usare per %1$s.</string>
     <string name="family_profile_dialog_header_this">Seleziona un profilo da usare per questo dispositivo.</string>
     <string name="family_profile_add">Quale profilo vorresti aggiungere?</string>

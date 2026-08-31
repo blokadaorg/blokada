@@ -464,6 +464,9 @@
     <string name="toplist_tld_unknown">neznámé</string>
     <string name="family_notification_subtitle">Ochrana rodiny je vypnutá</string>
     <string name="family_fault_link_already">Toto zařízení je již propojeno. Zrušte jeho propojení pomocí nadřazené aplikace a zkuste to znovu.</string>
+    <string name="family_link_confirm_header">Link this device to a new family?</string>
+    <string name="family_link_confirm_body">This device will be managed by whoever sent you this link. They will be able to see the sites it visits and control what it can access.</string>
+    <string name="family_link_confirm_action">Link device</string>
     <string name="family_profile_dialog_header">Vyberte profil, který chcete použít pro %1$s.</string>
     <string name="family_profile_dialog_header_this">Vyberte profil, který chcete použít pro toto zařízení.</string>
     <string name="family_profile_add">Který profil si přejete přidat?</string>
