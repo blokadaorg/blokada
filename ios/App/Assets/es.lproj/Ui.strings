@@ -594,9 +594,9 @@
 
 "family notification subtitle" = "La protección familiar está desactivada";
 "family fault link already" = "Este dispositivo ya está enlazado. Por favor, desvincularlo usando la aplicación padre e inténtelo de nuevo.";
-"family link confirm header" = "Link this device to a new family?";
-"family link confirm body" = "This device will be managed by whoever sent you this link. They will be able to see the sites it visits and control what it can access.";
-"family link confirm action" = "Link device";
+"family link confirm header" = "¿Vincular este dispositivo a una nueva familia?";
+"family link confirm body" = "Este dispositivo será gestionado por quien te envió este enlace. Podrán ver los sitios que visita y controlar lo que puede acceder.";
+"family link confirm action" = "Vincular dispositivo";
 "family profile dialog header" = "Selecciona un perfil para usar para %@.";
 "family profile dialog header this" = "Seleccione un perfil para usar en este dispositivo.";
 "family profile add" = "¿Qué perfil te gustaría añadir?";
