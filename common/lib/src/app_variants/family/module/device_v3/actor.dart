@@ -30,6 +30,7 @@ class AlreadyLinkedException implements Exception {
 class DeviceActor with Logging, Actor {
   late final _devices = Core.get<DeviceApi>();
   late final _thisDevice = Core.get<ThisDevice>();
+  late final _wasSetUp = Core.get<WasSetUp>();
   late final _nextAlias = Core.get<NameGenerator>();
   late final _profiles = Core.get<ProfileActor>();
 
@@ -79,7 +80,12 @@ class DeviceActor with Logging, Actor {
           m);
 
       await _thisDevice.change(m, newDevice);
+      await _wasSetUp.change(m, true);
       devices = await _devices.fetch(m);
+    } else {
+      // Backfill for installs predating WasSetUp: a device that is already in
+      // the account is set up, whatever the flag currently says.
+      await _wasSetUp.change(m, true);
     }
   }
 
@@ -130,21 +136,19 @@ class DeviceActor with Logging, Actor {
     return d;
   }
 
-  setThisDeviceForLinked(DeviceTag tag, String token, Marker m) async {
+  setThisDeviceForLinked(DeviceTag tag, String token, Marker m,
+      {bool confirmed = false}) async {
     final devices = await _devices.fetchByToken(tag, token, m);
     final d = devices.firstWhereOrNull((it) => it.deviceTag == tag);
     if (d == null) throw Exception("Device $tag not found");
 
-    final thisDevice = await _thisDevice.now();
+    final thisDevice = await _thisDevice.fetch(m);
     if (thisDevice?.deviceTag == tag) return;
 
-    // If we were linked to another device, we cant change it now
-    if (thisDevice != null) {
-      // If the linked device got deleted, allow to re-link
-      final confirmedThisDevice = devices
-          .firstWhereOrNull((it) => it.deviceTag == thisDevice.deviceTag);
-      if (confirmedThisDevice != null) throw AlreadyLinkedException();
-    }
+    // Re-homing onto another account needs the user's answer. Compared against
+    // locally persisted state, not the incoming token's device list.
+    if (thisDevice != null && !confirmed) throw AlreadyLinkedException();
+
     await _thisDevice.change(m, d);
   }
 

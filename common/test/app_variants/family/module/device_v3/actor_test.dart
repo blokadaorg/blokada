@@ -21,7 +21,10 @@ JsonDevice _device({
       modeUntil: modeUntil,
       retention: '24h',
       profileId: profileId,
-    );
+    )
+      // late field, only assigned by fromJson. Persisting calls toJson, so a
+      // constructor-built fixture needs it set explicitly.
+      ..lastHeartbeat = '2026-01-01T00:00:00Z';
 
 JsonProfile _profile(String id) => JsonProfile(
       profileId: id,
@@ -98,4 +101,93 @@ void main() {
       });
     });
   });
+  group('DeviceActor.setThisDeviceForLinked re-home guard', () {
+    test('refuses an unconfirmed re-home onto a different account', () async {
+      await withTrace((m) async {
+        Core.register<DeviceApi>(_ListingDeviceApi([_device(tag: 'attacker-tag')]));
+
+        Core.register<Persistence>(Persistence(isSecure: false));
+        final thisDevice = ThisDevice();
+        Core.register<ThisDevice>(thisDevice);
+        // This device already belongs to another family account. That tag is
+        // absent from the incoming account's list, which is exactly the case
+        // the old guard could not see.
+        await thisDevice.change(m, _device(tag: 'victim-tag'));
+
+        final actor = DeviceActor();
+
+        await expectLater(
+          actor.setThisDeviceForLinked('attacker-tag', 'token', m),
+          throwsA(isA<AlreadyLinkedException>()),
+        );
+
+        final after = await thisDevice.fetch(m);
+        expect(after?.deviceTag, 'victim-tag');
+      });
+    });
+
+    test('allows a confirmed re-home', () async {
+      await withTrace((m) async {
+        Core.register<DeviceApi>(_ListingDeviceApi([_device(tag: 'new-tag')]));
+
+        Core.register<Persistence>(Persistence(isSecure: false));
+        final thisDevice = ThisDevice();
+        Core.register<ThisDevice>(thisDevice);
+        await thisDevice.change(m, _device(tag: 'old-tag'));
+
+        final actor = DeviceActor();
+        await actor.setThisDeviceForLinked('new-tag', 'token', m, confirmed: true);
+
+        final after = await thisDevice.fetch(m);
+        expect(after?.deviceTag, 'new-tag');
+      });
+    });
+
+    test('is idempotent for the tag already persisted', () async {
+      await withTrace((m) async {
+        final same = _device(tag: 'same-tag');
+        Core.register<DeviceApi>(_ListingDeviceApi([same]));
+
+        Core.register<Persistence>(Persistence(isSecure: false));
+        final thisDevice = ThisDevice();
+        Core.register<ThisDevice>(thisDevice);
+        await thisDevice.change(m, same);
+
+        final actor = DeviceActor();
+        await actor.setThisDeviceForLinked('same-tag', 'token', m);
+
+        final after = await thisDevice.fetch(m);
+        expect(after?.deviceTag, 'same-tag');
+      });
+    });
+
+    test('links a fresh device with no confirmation', () async {
+      await withTrace((m) async {
+        Core.register<DeviceApi>(_ListingDeviceApi([_device(tag: 'fresh-tag')]));
+
+        Core.register<Persistence>(Persistence(isSecure: false));
+        final thisDevice = ThisDevice();
+        Core.register<ThisDevice>(thisDevice);
+
+        final actor = DeviceActor();
+        await actor.setThisDeviceForLinked('fresh-tag', 'token', m);
+
+        final after = await thisDevice.fetch(m);
+        expect(after?.deviceTag, 'fresh-tag');
+      });
+    });
+  });
+
+}
+
+/// Returns a fixed device list for fetchByToken, standing in for the account
+/// that the incoming enrolment token belongs to.
+class _ListingDeviceApi extends DeviceApi {
+  final List<JsonDevice> devices;
+  _ListingDeviceApi(this.devices);
+
+  @override
+  Future<List<JsonDevice>> fetchByToken(
+          DeviceTag tag, String token, Marker m) async =>
+      devices;
 }

@@ -10,6 +10,13 @@ class SelectedDeviceTag extends NullableAsyncValue<DeviceTag> {
   }
 }
 
+/// True once this device has been set up, as a linked child or as a parent
+/// with its own controller device. Never cleared on token expiry, so a wiped
+/// token cannot make a set up device look fresh to the link confirmation.
+class WasSetUp extends BoolPersistedValue {
+  WasSetUp() : super("was_set_up");
+}
+
 class SlidableOnboarding extends BoolPersistedValue {
   SlidableOnboarding() : super("slidable_onboarding");
 }

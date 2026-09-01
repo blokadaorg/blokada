@@ -507,13 +507,15 @@ void showErrorDialog(BuildContext context, String? description) {
   );
 }
 
-void showDefaultDialog(
+// Returns when the dialog closes, including a barrier dismissal that answered
+// neither action, so callers that must react to "no answer" can await it.
+Future<void> showDefaultDialog(
   context, {
   required Text title,
   required Widget Function(BuildContext) content,
   required List<Widget> Function(BuildContext) actions,
 }) {
-  io.Platform.isIOS || io.Platform.isMacOS
+  return io.Platform.isIOS || io.Platform.isMacOS
       ? showCupertinoDialog<String>(
           context: context,
           barrierDismissible: true,

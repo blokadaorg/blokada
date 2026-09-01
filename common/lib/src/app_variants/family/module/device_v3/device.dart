@@ -20,6 +20,7 @@ class DeviceModule with Module {
   @override
   onCreateModule() async {
     await register(CurrentToken());
+    await register(WasSetUp());
     await register(SelectedDeviceTag());
     await register(SlidableOnboarding());
     await register(NameGenerator());

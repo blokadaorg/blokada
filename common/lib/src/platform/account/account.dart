@@ -264,6 +264,19 @@ abstract class AccountStoreBase with Store, Logging, Actor, Emitter {
     }
   }
 
+  /// Whether an active account is stored on this device, read from
+  /// persistence rather than from the loaded state. Callers that must decide
+  /// before startup has resolved the account cannot use [type], which reports
+  /// libre while unresolved.
+  Future<bool> hasActivePersistedAccount(Marker m) async {
+    try {
+      return (await _readPersistedAccount(m)).type.isActive();
+    } catch (e) {
+      // Nothing stored, or unreadable: this device has no account of its own.
+      return false;
+    }
+  }
+
   Future<AccountState> _readPersistedAccount(Marker m) async {
     final accJson = await _persistence.loadJson(m, keyAccount, isBackup: true);
     final jsonAccount = JsonAccount.fromJson(accJson);

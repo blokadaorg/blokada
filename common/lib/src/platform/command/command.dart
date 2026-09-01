@@ -172,14 +172,8 @@ class CommandStore with Logging, Actor implements CommandEvents {
   _executeUrl(String url, Marker m) async {
     try {
       if (url.startsWith(familyLinkBase)) {
-        // Family link device
-        final tag = url.split("tag=").last.split("&").first.trim();
-        final name = url.split("name=").last.urlDecode.trim();
-        if (tag.isEmpty || name.isEmpty) {
-          throw Exception("Unknown familyLink token parameters");
-        }
-
-        return await onCommandWithParam("FAMILYLINK", tag, m);
+        // Validated properly in LinkActor; here we only route.
+        return await onCommandWithParam("FAMILYLINK", url, m);
         // } else if (url.startsWith(onboardLinkBase)) {
         //   // Show onboard
         //   final screen = url.split("screen=").last.trim();

@@ -28,7 +28,7 @@ class AuthActor with Logging, Actor {
   _recheckToken(Marker m) async {
     final token = await _currentToken.fetch(m);
     if (token != null) {
-      log(Markers.auth).i("current token is $token");
+      log(Markers.auth).i("found a current token");
       try {
         useToken(token, m);
         startHeartbeat();
