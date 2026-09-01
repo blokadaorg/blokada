@@ -594,9 +594,9 @@
 
 "family notification subtitle" = "La protection familiale est désactivée";
 "family fault link already" = "Cet appareil est déjà lié. Veuillez le dissocier en utilisant l'application parent et réessayez.";
-"family link confirm header" = "Lier cet appareil à une nouvelle famille ?";
-"family link confirm body" = "Cet appareil sera géré par la personne qui vous a envoyé ce lien. Elle pourra voir les sites qu'il visite et contrôler ce à quoi il peut accéder.";
-"family link confirm action" = "Lier l'appareil";
+"family link confirm header" = "Associer cet appareil à une nouvelle famille ?";
+"family link confirm body" = "Cet appareil sera géré par la personne qui vous a envoyé ce lien. Elle pourra voir les sites qu'il consulte et contrôler les contenus auxquels il a accès.";
+"family link confirm action" = "Associer l'appareil";
 "family profile dialog header" = "Sélectionnez un profil à utiliser pour %@.";
 "family profile dialog header this" = "Sélectionnez un profil à utiliser pour cet appareil.";
 "family profile add" = "Quel profil souhaitez-vous ajouter ?";
