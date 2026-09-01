@@ -464,6 +464,9 @@
     <string name="toplist_tld_unknown">不明</string>
     <string name="family_notification_subtitle">ファミリー保護はオフです</string>
     <string name="family_fault_link_already">このデバイスはすでにリンクされています。親アプリからリンク解除し、再度お試しください。</string>
+    <string name="family_link_confirm_header">Link this device to a new family?</string>
+    <string name="family_link_confirm_body">This device will be managed by whoever sent you this link. They will be able to see the sites it visits and control what it can access.</string>
+    <string name="family_link_confirm_action">Link device</string>
     <string name="family_profile_dialog_header">%1$sに使用するプロフィールを選択してください。</string>
     <string name="family_profile_dialog_header_this">このデバイスに使用するプロフィールを選択してください。</string>
     <string name="family_profile_add">追加したいプロフィールを選んでください。</string>

@@ -10,15 +10,15 @@ let package = Package(
         .library(name: "adapty-flutter", targets: ["adapty_flutter"]),
     ],
     dependencies: [
-        // BLOKADA VENDOR PATCH: blokadaorg fork of AdaptySDK-iOS at the 4.0.2 tag
-        // plus one commit restoring the includeBackground gate on static decorator
-        // backgrounds (upstream regression darkens translucent paywall footers —
-        // see branch blokada/4.0.2-footer-include-background-gate). Pinned by
-        // revision for reproducibility. Upstream pin was `exact: "4.0.2"`; return
-        // to it when Adapty ships the fix.
+        // BLOKADA VENDOR PATCH: fork of AdaptySDK-iOS at the 4.0.3 tag + restored
+        // includeBackground gate (branch blokada/4.0.3-footer-include-background-gate).
+        // The upstream regression darkens translucent paywall footers; the fork adds
+        // one commit restoring the gate on static decorator backgrounds. Pinned by
+        // revision for reproducibility. Upstream pin was `exact: "4.0.3"`; return to
+        // it when Adapty ships the fix.
         .package(
             url: "https://github.com/blokadaorg/AdaptySDK-iOS.git",
-            revision: "caf82a13d050855fe725a151e29a1e214f9f65cd"
+            revision: "ce0a55a84555019cf6a71e859697c59d827a0ac1"
         ),
     ],
     targets: [

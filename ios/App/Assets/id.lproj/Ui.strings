@@ -594,6 +594,9 @@
 
 "family notification subtitle" = "Perlindungan Keluarga nonaktif";
 "family fault link already" = "Perangkat ini telah terhubung. Untuk memutuskan tautan silakan gunakan aplikasi induk dan coba lagi.";
+"family link confirm header" = "Link this device to a new family?";
+"family link confirm body" = "This device will be managed by whoever sent you this link. They will be able to see the sites it visits and control what it can access.";
+"family link confirm action" = "Link device";
 "family profile dialog header" = "Pilih profile yang akan digunakan untuk %@.";
 "family profile dialog header this" = "Pilih profil untuk digunakan di perangkat ini.";
 "family profile add" = "Profil mana yang ingin Anda tambahkan?";

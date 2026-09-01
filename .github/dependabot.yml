@@ -51,6 +51,12 @@ updates:
         applies-to: version-updates
         patterns:
           - "*"
+        # Same trap as pigeon in the pub group: a grouped PR is recreated
+        # whenever one of its members merges, so an ignored dependency can be
+        # dragged back in through the group. Exclude the Adapty BOM here so the
+        # ignore rule below is the only thing that decides when it moves.
+        exclude-patterns:
+          - "io.adapty:adapty-bom"
         update-types:
           - "minor"
           - "patch"
@@ -58,6 +64,16 @@ updates:
         applies-to: security-updates
         patterns:
           - "*"
+    ignore:
+      # The Adapty BOM is not an independent dependency: it must equal the BOM
+      # that common/vendor/adapty_flutter/android/build.gradle pins, because the
+      # crossplatform bridge is compiled against that exact native release.
+      # Bumping it alone breaks the release build under R8 — 4.1.0 renamed
+      # AdaptyAttributionSource with no alias and #1222 went green on debug CI
+      # while `:app:minifySixReleaseWithR8` failed on CI Release. It is bumped
+      # together with the vendored adapty_flutter, never alone; remove this when
+      # the plugin upgrade makes the BOM independently bumpable.
+      - dependency-name: "io.adapty:adapty-bom"
 
   - package-ecosystem: "npm"
     directory: "/ios/BlockaWebExtension"

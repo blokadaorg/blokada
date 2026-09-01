@@ -464,6 +464,9 @@
     <string name="toplist_tld_unknown">unbekannt</string>
     <string name="family_notification_subtitle">Familienschutz aus</string>
     <string name="family_fault_link_already">Dieses Gerät ist bereits verknüpft. Bitte entfernen Sie die Verknüpfung mit der übergeordneten App und versuchen Sie es erneut.</string>
+    <string name="family_link_confirm_header">Dieses Gerät mit einer neuen Familie verknüpfen?</string>
+    <string name="family_link_confirm_body">Dieses Gerät wird von der Person verwaltet, die dir diesen Link gesendet hat. Sie kann die besuchten Seiten einsehen und kontrollieren, auf welche Inhalte das Gerät zugreifen kann.</string>
+    <string name="family_link_confirm_action">Gerät verknüpfen</string>
     <string name="family_profile_dialog_header">Wähle ein Profil für %1$s.</string>
     <string name="family_profile_dialog_header_this">Wählen Sie ein Profil für dieses Gerät.</string>
     <string name="family_profile_add">Welches Profil möchten Sie hinzufügen?</string>

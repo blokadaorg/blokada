@@ -594,6 +594,9 @@
 
 "family notification subtitle" = "Perheiden suojelu on pois päältä";
 "family fault link already" = "Tämä laite on jo yhdistetty. Poista linkitys vanhemman sovelluksella ja yritä uudelleen.";
+"family link confirm header" = "Link this device to a new family?";
+"family link confirm body" = "This device will be managed by whoever sent you this link. They will be able to see the sites it visits and control what it can access.";
+"family link confirm action" = "Link device";
 "family profile dialog header" = "Valitse profiili käytettäväksi kohteelle %@.";
 "family profile dialog header this" = "Valitse profiili tämän laitteen käyttöön.";
 "family profile add" = "Minkä profiilin haluat lisätä?";

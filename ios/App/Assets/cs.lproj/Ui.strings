@@ -594,6 +594,9 @@
 
 "family notification subtitle" = "Ochrana rodiny je vypnutá";
 "family fault link already" = "Toto zařízení je již propojeno. Zrušte jeho propojení pomocí nadřazené aplikace a zkuste to znovu.";
+"family link confirm header" = "Link this device to a new family?";
+"family link confirm body" = "This device will be managed by whoever sent you this link. They will be able to see the sites it visits and control what it can access.";
+"family link confirm action" = "Link device";
 "family profile dialog header" = "Vyberte profil, který chcete použít pro %@.";
 "family profile dialog header this" = "Vyberte profil, který chcete použít pro toto zařízení.";
 "family profile add" = "Který profil si přejete přidat?";

@@ -594,6 +594,9 @@
 
 "family notification subtitle" = "Ochrona rodziny wyłączona";
 "family fault link already" = "To urządzenie jest już połączone. Odłącz je za pomocą aplikacji rodzica i spróbuj ponownie.";
+"family link confirm header" = "Połączyć to urządzenie z nową rodziną?";
+"family link confirm body" = "To urządzenie będzie zarządzane przez osobę, która wysłała Ci ten link. Będzie ona mogła zobaczyć odwiedzane przez nie strony oraz kontrolować, do czego ma dostęp.";
+"family link confirm action" = "Połącz urządzenie";
 "family profile dialog header" = "Wybierz profil dla %@.";
 "family profile dialog header this" = "Wybierz profil dla tego urządzenia.";
 "family profile add" = "Który profil chcesz dodać?";

@@ -464,6 +464,9 @@
     <string name="toplist_tld_unknown">неизвестно</string>
     <string name="family_notification_subtitle">Защита семьи отключена</string>
     <string name="family_fault_link_already">Это устройство уже связано. Пожалуйста, отсоедините его с помощью родительского приложения и повторите попытку.</string>
+    <string name="family_link_confirm_header">Привязать это устройство к новой семье?</string>
+    <string name="family_link_confirm_body">Это устройство будет управляться тем, кто отправил вам эту ссылку. Этот человек сможет видеть сайты, которые вы посещаете, и контролировать, к каким ресурсам у устройства будет доступ.</string>
+    <string name="family_link_confirm_action">Привязать устройство</string>
     <string name="family_profile_dialog_header">Выберите профиль, который будет использоваться для %1$s.</string>
     <string name="family_profile_dialog_header_this">Выберите профиль, который будет использоваться для этого устройства.</string>
     <string name="family_profile_add">Какой профиль вы хотите добавить?</string>

@@ -14,7 +14,7 @@
 # fixed in the pinned Flutter SDK.
 Pod::Spec.new do |s|
   s.name             = 'adapty_flutter'
-  s.version          = '4.0.3'
+  s.version          = '4.0.4'
   s.summary          = 'CocoaPods resolution stub for the SwiftPM-only Adapty Flutter plugin.'
   s.description      = 'Satisfies the generated FlutterPluginRegistrant pod dependency; never shipped.'
   s.homepage         = 'https://adapty.io'

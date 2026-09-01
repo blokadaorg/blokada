@@ -594,6 +594,9 @@
 
 "family notification subtitle" = "الحماية العائلية متوقفة";
 "family fault link already" = "هذا الجهاز مرتبط بالفعل. يرجى إلغاء الربط عبر تطبيق الوالد والمحاولة مرة أخرى.";
+"family link confirm header" = "ربط هذا الجهاز بعائلة جديدة؟";
+"family link confirm body" = "سيتم إدارة هذا الجهاز من قبل الشخص الذي أرسل لك هذا الرابط. سيكون بإمكانه رؤية المواقع التي يزورها الجهاز والتحكم فيما يمكنه الوصول إليه.";
+"family link confirm action" = "ربط الجهاز";
 "family profile dialog header" = "حدد ملف تعريف لاستخدامه مع %@.";
 "family profile dialog header this" = "حدد ملف تعريف لاستخدامه مع هذا الجهاز.";
 "family profile add" = "أي ملف تعريف ترغب في إضافته؟";

@@ -464,6 +464,9 @@
     <string name="toplist_tld_unknown">غير معروف</string>
     <string name="family_notification_subtitle">الحماية العائلية متوقفة</string>
     <string name="family_fault_link_already">هذا الجهاز مرتبط بالفعل. يرجى إلغاء الربط عبر تطبيق الوالد والمحاولة مرة أخرى.</string>
+    <string name="family_link_confirm_header">ربط هذا الجهاز بعائلة جديدة؟</string>
+    <string name="family_link_confirm_body">سيتم إدارة هذا الجهاز من قبل الشخص الذي أرسل لك هذا الرابط. سيكون بإمكانه رؤية المواقع التي يزورها الجهاز والتحكم فيما يمكنه الوصول إليه.</string>
+    <string name="family_link_confirm_action">ربط الجهاز</string>
     <string name="family_profile_dialog_header">حدد ملف تعريف لاستخدامه مع %1$s.</string>
     <string name="family_profile_dialog_header_this">حدد ملف تعريف لاستخدامه مع هذا الجهاز.</string>
     <string name="family_profile_add">أي ملف تعريف ترغب في إضافته؟</string>

@@ -594,6 +594,9 @@
 
 "family notification subtitle" = "La protezione famiglia è disattivata";
 "family fault link already" = "Questo dispositivo è già collegato. Si prega di scollegarlo utilizzando l'app genitore e riprovare.";
+"family link confirm header" = "Collega questo dispositivo a una nuova famiglia?";
+"family link confirm body" = "Questo dispositivo sarà gestito da chi ti ha inviato questo collegamento. Potrà vedere i siti che visiti e controllare a cosa può accedere.";
+"family link confirm action" = "Collega dispositivo";
 "family profile dialog header" = "Seleziona un profilo da usare per %@.";
 "family profile dialog header this" = "Seleziona un profilo da usare per questo dispositivo.";
 "family profile add" = "Quale profilo vorresti aggiungere?";

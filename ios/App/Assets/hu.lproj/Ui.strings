@@ -594,6 +594,9 @@
 
 "family notification subtitle" = "A családi védelem ki van kapcsolva";
 "family fault link already" = "Ez az eszköz már össze van kapcsolva. Kérjük, válaszd le a szülői alkalmazásban, majd próbáld újra.";
+"family link confirm header" = "Link this device to a new family?";
+"family link confirm body" = "This device will be managed by whoever sent you this link. They will be able to see the sites it visits and control what it can access.";
+"family link confirm action" = "Link device";
 "family profile dialog header" = "Válassz profilt ehhez: %@.";
 "family profile dialog header this" = "Válassz profilt ehhez az eszközhöz.";
 "family profile add" = "Melyik profilt szeretnéd hozzáadni?";
