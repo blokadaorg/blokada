@@ -1,3 +1,11 @@
+# 4.0.4
+
+- [Android] `restorePurchases()` no longer fails with `noPurchasesToRestore` when there is nothing to restore. It now completes successfully with the current `AdaptyProfile` — check the access level status in the returned profile instead of catching an error. `AdaptyErrorCode.noPurchasesToRestore` is deprecated on Android.
+- [Android] Restore now uses currently owned purchases only. The native SDK moved to Google Play Billing Library 8, which removed the purchase history API. Purchases made through Adapty are unaffected, but subscriptions that expired before Adapty was integrated can no longer be imported from the device.
+- Fixed text elements in paywalls and flows losing their color and background when the builder sends them under the `text_color` and `text_background` keys. The old `color` and `background` keys are still read, so views built before the change keep rendering as they did. Fixed on both platforms.
+- [iOS] Native iOS SDK dependency pinned to `4.0.3`.
+- [Android] Native Android SDK dependency bumped to `4.0.2`.
+
 # 4.0.3
 
 - `AdaptyUI.createFlowView` and `AdaptyUIFlowPlatformView` now accept a `locale` — the localization the flow view is rendered with. Since 4.0.0 a flow is localized when its view is built, and there was no way to choose that localization from Dart. Requires the native iOS 4.0.2 and Android 4.0.1 releases.

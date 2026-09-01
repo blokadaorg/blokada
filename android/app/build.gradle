@@ -213,7 +213,10 @@ dependencies {
     // consumer must supply them. We don't author Compose — the BOM only pins
     // the versions for Adapty's prebuilt paywall UI.
     sixImplementation platform('androidx.compose:compose-bom:2026.08.00')
-    sixImplementation platform('io.adapty:adapty-bom:4.1.0')
+    // Must equal the BOM in common/vendor/adapty_flutter/android/build.gradle: the
+    // crossplatform bridge is compiled against that exact native release, so a newer
+    // BOM breaks R8 in release builds (4.1.0 renamed AdaptyAttributionSource — #1222).
+    sixImplementation platform('io.adapty:adapty-bom:4.0.2')
     sixImplementation 'io.adapty:android-sdk'
     sixImplementation 'io.adapty:android-ui'
 
