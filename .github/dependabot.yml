@@ -23,6 +23,7 @@ updates:
         # with the ignore when the pigeon 26 native migration is scheduled.
         exclude-patterns:
           - "pigeon"
+          - "cached_network_image"
         update-types:
           - "minor"
           - "patch"
@@ -36,6 +37,12 @@ updates:
       # dev-only codegen tool; held — see closed PR #1106. Remove this when
       # that migration is scheduled.
       - dependency-name: "pigeon"
+        update-types: ["version-update:semver-major"]
+      # cached_network_image 4.0.0 breaks on-device navigation (settings screen
+      # never renders; smoke red on run #… 2026-09-02) and drags in the new
+      # material_ui / cupertino_ui split-out packages. Held at 3.x until 4.x is
+      # dep-validated on device. Remove when that lands. See the #1238 revert.
+      - dependency-name: "cached_network_image"
         update-types: ["version-update:semver-major"]
 
   - package-ecosystem: "gradle"

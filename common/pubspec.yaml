@@ -66,7 +66,7 @@ dependencies:
   logger: ^2.4.0
   adapty_flutter: 4.0.4
   flutter_linkify: ^6.0.0
-  cached_network_image: ">=3.3.1 <5.0.0"
+  cached_network_image: ">=3.3.1 <4.0.0" # 4.0.0 breaks navigation on device (drags material_ui/cupertino_ui); see #1238 revert
   web_socket_channel: ^3.0.3
   meta: ^1.15.0
 
