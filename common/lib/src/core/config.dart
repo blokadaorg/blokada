@@ -8,9 +8,10 @@ class CoreConfig {
   // How long one lapse owns the "account expired" notification. The backend
   // restamps active_until on every repeat webhook for a lapsed account, so the
   // expiry cannot key the guard; this floor does. Longer than any restamp
-  // burst, far shorter than the shortest paid plan, and a renewal clears the
-  // mark anyway.
-  Duration accountExpiredNotificationCooldown = const Duration(days: 7);
+  // burst, and short enough that it cannot reach the next lapse of the shortest
+  // billing period sold, which is weekly. A renewal clears the mark anyway, but
+  // only if the app sees it, so the floor does not lean on that.
+  Duration accountExpiredNotificationCooldown = const Duration(hours: 72);
   Duration deviceRefreshCooldown = const Duration(seconds: 60);
   Duration plusLeaseRefreshCooldown = const Duration(seconds: 60);
   Duration plusGatewayRefreshCooldown = const Duration(seconds: 60);
