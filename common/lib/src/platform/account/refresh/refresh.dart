@@ -119,6 +119,7 @@ abstract class AccountRefreshStoreBase with Store, Logging, Actor, Cooldown, Emi
 
   JsonAccRefreshMeta _metadata = JsonAccRefreshMeta();
   bool _metadataLoaded = false;
+  Future<void>? _metadataLoading;
 
   // Init the account with a retry loop. Can be called multiple times if failed.
   @override
@@ -329,8 +330,11 @@ abstract class AccountRefreshStoreBase with Store, Logging, Actor, Cooldown, Emi
       return;
     }
 
+    // Claim this lapse before awaiting anything. Nothing serializes the FCM
+    // handler, so a burst of pushes would otherwise all pass the check above
+    // while the first one is still waiting on the channel.
+    _metadata.expiryNotifiedAt = now.toUtc().toIso8601String();
     await _notification.show(_accountExpiryNotificationId(), m);
-    _metadata.expiryNotifiedAt = now.toIso8601String();
     await _saveMetadata(m);
   }
 
@@ -357,13 +361,29 @@ abstract class AccountRefreshStoreBase with Store, Logging, Actor, Cooldown, Emi
     return null;
   }
 
-  Future<void> _ensureMetadataLoaded(Marker m) async {
-    if (_metadataLoaded) return;
-    final metadataJson = await _persistence.load(m, _keyRefresh);
-    if (metadataJson != null) {
-      _metadata = JsonAccRefreshMeta.fromJson(jsonDecode(metadataJson));
+  Future<void> _ensureMetadataLoaded(Marker m) {
+    if (_metadataLoaded) return Future.value();
+    return _metadataLoading ??= _loadMetadata(m);
+  }
+
+  Future<void> _loadMetadata(Marker m) async {
+    try {
+      final metadataJson = await _persistence.load(m, _keyRefresh);
+      // A new account may have been created while this load was in flight; its
+      // fresh metadata wins over the blob we just read.
+      if (_metadataLoaded) return;
+      if (metadataJson != null) {
+        _metadata = JsonAccRefreshMeta.fromJson(jsonDecode(metadataJson));
+      }
+    } catch (e) {
+      // A corrupt blob must not take down the expiry event with it: start over
+      // rather than throw before the account is even refreshed.
+      log(m).w("could not read refresh metadata, starting fresh: $e");
+      _metadata = JsonAccRefreshMeta();
+    } finally {
+      _metadataLoaded = true;
+      _metadataLoading = null;
     }
-    _metadataLoaded = true;
   }
 
   static DateTime? _parseDate(String? value) {
@@ -394,14 +414,26 @@ abstract class AccountRefreshStoreBase with Store, Logging, Actor, Cooldown, Emi
         callback: onTimerFired,
       ));
 
-      _notification.show(id, when: expiration.expiration, m);
       log(m).pair("notificationId", id);
       log(m).pair("notificationDate", expiration.expiration);
 
-      // A future expiry means the previous lapse is over, which is what
-      // re-arms the immediate notification after a renewal.
-      _metadata.expiryScheduledFor = expiration.expiration.toIso8601String();
-      _metadata.expiryNotifiedAt = null;
+      try {
+        await _notification.show(id, when: expiration.expiration, m);
+      } catch (e) {
+        // Nothing was scheduled, so do not record one: the immediate
+        // notification is the fallback for exactly this case.
+        log(m).w("could not schedule expiry notification: $e");
+        return;
+      }
+
+      _metadata.expiryScheduledFor = expiration.expiration.toUtc().toIso8601String();
+      // Only a genuinely future expiry ends the lapse and re-arms the immediate
+      // notification. An "expiring" account is seconds from lapsing, and a
+      // restamped active_until can land there on a slow device clock; clearing
+      // the mark then would announce the same lapse twice.
+      if (expiration.status == AccountStatus.active) {
+        _metadata.expiryNotifiedAt = null;
+      }
       await _saveMetadata(m);
     } else {
       await _scheduler.stop(m, _keyTimer);
@@ -418,15 +450,4 @@ abstract class AccountRefreshStoreBase with Store, Logging, Actor, Cooldown, Emi
   _saveMetadata(Marker m) async {
     await _persistence.save(m, _keyRefresh, jsonEncode(_metadata.toJson()));
   }
-}
-
-DateTime? resolveAccountExpirySchedule(String? activeUntil, DateTime now) {
-  final value = activeUntil?.trim();
-  if (value == null || value.isEmpty) return null;
-
-  final parsed = DateTime.tryParse(value);
-  if (parsed == null) return null;
-  if (!parsed.isAfter(now)) return null;
-
-  return parsed;
 }
