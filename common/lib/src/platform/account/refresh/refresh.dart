@@ -118,6 +118,7 @@ abstract class AccountRefreshStoreBase with Store, Logging, Actor, Cooldown, Emi
   bool _initSuccessful = false;
 
   JsonAccRefreshMeta _metadata = JsonAccRefreshMeta();
+  bool _metadataLoaded = false;
 
   // Init the account with a retry loop. Can be called multiple times if failed.
   @override
@@ -174,14 +175,11 @@ abstract class AccountRefreshStoreBase with Store, Logging, Actor, Cooldown, Emi
         log(m).i("creating new account");
         await _account.createAccount(m);
         _metadata = JsonAccRefreshMeta();
+        _metadataLoaded = true;
         await _persistence.delete(m, _keyRefresh);
         await syncAccount(_account.account, m);
       } else {
-        final metadataJson = await _persistence.load(m, _keyRefresh);
-        if (metadataJson != null) {
-          _metadata = JsonAccRefreshMeta.fromJson(jsonDecode(metadataJson));
-        }
-
+        await _ensureMetadataLoaded(m);
         await syncAccount(_account.account ?? cachedAccount, m);
       }
 
@@ -224,7 +222,7 @@ abstract class AccountRefreshStoreBase with Store, Logging, Actor, Cooldown, Emi
       final hasExp = account.jsonAccount.activeUntil != null;
       DateTime? exp = hasExp ? DateTime.parse(account.jsonAccount.activeUntil!) : null;
       expiration = expiration.update(expiration: exp);
-      _updateTimer(m);
+      await _updateTimer(m);
 
       // Track the previous account type so that we can notice when user upgrades
       final prev = _metadata.previousAccountType;
@@ -292,7 +290,7 @@ abstract class AccountRefreshStoreBase with Store, Logging, Actor, Cooldown, Emi
       } else {
         // Even when not refreshing, recheck the expiration on foreground
         expiration = expiration.update();
-        _updateTimer(m);
+        await _updateTimer(m);
       }
     });
   }
@@ -300,6 +298,9 @@ abstract class AccountRefreshStoreBase with Store, Logging, Actor, Cooldown, Emi
   @action
   Future<void> onAccountExpiryEvent(Marker m) async {
     return await log(m).trace("onAccountExpiryEvent", (m) async {
+      // A background FCM can land before init() ran, and the guard below must
+      // not read (or save over) defaults.
+      await _ensureMetadataLoaded(m);
       // Account-expiry FCM events signal that account state changed remotely.
       await _account.fetch(m);
       await syncAccount(_account.account, m);
@@ -308,13 +309,67 @@ abstract class AccountRefreshStoreBase with Store, Logging, Actor, Cooldown, Emi
   }
 
   Future<void> _maybeShowImmediateAccountExpiryNotification(Marker m) async {
+    // Leaving linked mode has to re-arm this, so never record anything here.
     if (_shouldSkipExpiryNotification()) return;
 
     final activeUntil = _account.account?.jsonAccount.activeUntil;
-    final scheduledAt = resolveAccountExpirySchedule(activeUntil, DateTime.now());
-    if (scheduledAt != null) return;
+    final now = DateTime.now();
+    final parsed = _parseDate(activeUntil);
+    // No usable expiry means no expiry to announce.
+    if (parsed == null) {
+      log(m).i("accountExpiry:skipNotification:noExpiry");
+      return;
+    }
+    // Still active, the scheduled notification owns this one.
+    if (parsed.isAfter(now)) return;
+
+    final reason = _expiryNotificationSkipReason(now);
+    if (reason != null) {
+      log(m).pair("skipNotification", reason);
+      return;
+    }
 
     await _notification.show(_accountExpiryNotificationId(), m);
+    _metadata.expiryNotifiedAt = now.toIso8601String();
+    await _saveMetadata(m);
+  }
+
+  // One lapse gets one notification. The backend restamps active_until on every
+  // repeat webhook for a lapsed account, so the expiry itself cannot key this;
+  // a time floor can, and a renewal clears the mark in _updateTimer.
+  String? _expiryNotificationSkipReason(DateTime now) {
+    final cooldown = Core.config.accountExpiredNotificationCooldown;
+
+    final notifiedAt = _parseDate(_metadata.expiryNotifiedAt);
+    if (notifiedAt != null && now.difference(notifiedAt) < cooldown) {
+      return "alreadyNotified";
+    }
+
+    // The scheduled notification for this lapse has already been delivered by
+    // the OS, so an immediate one now would be the same lapse announced twice.
+    final scheduledFor = _parseDate(_metadata.expiryScheduledFor);
+    if (scheduledFor != null &&
+        !scheduledFor.isAfter(now) &&
+        now.difference(scheduledFor) < cooldown) {
+      return "alreadyScheduled";
+    }
+
+    return null;
+  }
+
+  Future<void> _ensureMetadataLoaded(Marker m) async {
+    if (_metadataLoaded) return;
+    final metadataJson = await _persistence.load(m, _keyRefresh);
+    if (metadataJson != null) {
+      _metadata = JsonAccRefreshMeta.fromJson(jsonDecode(metadataJson));
+    }
+    _metadataLoaded = true;
+  }
+
+  static DateTime? _parseDate(String? value) {
+    final trimmed = value?.trim();
+    if (trimmed == null || trimmed.isEmpty) return null;
+    return DateTime.tryParse(trimmed);
   }
 
   NotificationId _accountExpiryNotificationId() {
@@ -325,7 +380,7 @@ abstract class AccountRefreshStoreBase with Store, Logging, Actor, Cooldown, Emi
     return Core.act.isFamily && _linkedMode.now;
   }
 
-  void _updateTimer(Marker m) async {
+  Future<void> _updateTimer(Marker m) async {
     final id = _accountExpiryNotificationId();
     final shouldSkipNotification = _shouldSkipExpiryNotification();
 
@@ -342,6 +397,12 @@ abstract class AccountRefreshStoreBase with Store, Logging, Actor, Cooldown, Emi
       _notification.show(id, when: expiration.expiration, m);
       log(m).pair("notificationId", id);
       log(m).pair("notificationDate", expiration.expiration);
+
+      // A future expiry means the previous lapse is over, which is what
+      // re-arms the immediate notification after a renewal.
+      _metadata.expiryScheduledFor = expiration.expiration.toIso8601String();
+      _metadata.expiryNotifiedAt = null;
+      await _saveMetadata(m);
     } else {
       await _scheduler.stop(m, _keyTimer);
       log(m).pair("timer", null);
