@@ -532,8 +532,7 @@ class NotificationActor with Logging, Actor {
         log(m).w('accountRescue:stats:unavailable: $e');
       }
 
-      final devices = resolveRescueDevices(event.extrasMap['devices']);
-      final body = buildAccountRescueBody(totalBlocked: totalBlocked, devices: devices, days: days);
+      final body = buildAccountRescueBody(totalBlocked: totalBlocked);
       final when = _resolveScheduleHint(event.scheduleHint);
       await showWithBody(NotificationId.accountRescue, m, body, when: when);
     });
@@ -654,30 +653,24 @@ int? resolveRescueDays(DateTime? activeUntil, DateTime now) {
   return days;
 }
 
-/// The device count for the rescue copy. The server sends it as a free-form
-/// extras string, so anything that is not a positive number (absent, "null",
-/// "0", junk) falls back to one device rather than reaching the notification.
-String resolveRescueDevices(String? raw) {
-  final parsed = int.tryParse(raw?.trim() ?? "");
-  if (parsed == null || parsed <= 0) return "1";
-  return "$parsed";
-}
-
 /// The rescue notification payload, encoded the same way as the weekly report
-/// one: the native side renders the `title` / `body` pair out of it. Falls back
-/// to the stats-free copy when the blocked total could not be fetched.
+/// one: the native side renders the `title` / `body` pair out of it. The copy
+/// is a call to action (the tap opens the store subscription screen); the
+/// blocked total is the only variable, and it drops to the stats-free CTA when
+/// that total could not be fetched. The device count and day countdown were
+/// removed from the copy: the server can only count Family devices, so every
+/// v6 rescue recipient reported zero, and the title already says the
+/// protection ends soon. [resolveRescueDays] still gates the send.
 String buildAccountRescueBody({
   required int? totalBlocked,
-  required String devices,
-  required int days,
 }) {
   final title = "notification account rescue title".i18n;
   // Abbreviate the count (1.23M / 12.3K) the same way the stats counter does —
   // a long-subscribed user can be well over a million blocked by expiry.
   final body = totalBlocked == null
-      ? "notification account rescue body short".i18n.withParams(devices, days)
+      ? "notification account rescue body short".i18n
       : "notification account rescue body"
           .i18n
-          .withParams(StatsStoreBase.formatCounter(totalBlocked), devices, days);
+          .withParams(StatsStoreBase.formatCounter(totalBlocked));
   return jsonEncode({"title": title, "body": body});
 }
