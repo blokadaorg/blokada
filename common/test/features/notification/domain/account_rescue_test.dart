@@ -47,30 +47,17 @@ void main() {
     });
   });
 
-  group("resolveRescueDevices", () {
-    test("keeps a positive count", () {
-      expect(resolveRescueDevices("3"), "3");
-    });
-
-    test("falls back to one device for missing, zero or non-numeric values", () {
-      expect(resolveRescueDevices(null), "1");
-      expect(resolveRescueDevices("null"), "1");
-      expect(resolveRescueDevices("0"), "1");
-      expect(resolveRescueDevices("abc"), "1");
-    });
-  });
-
   group("buildAccountRescueBody", () {
-    test("includes blocked count when available", () {
-      final json = jsonDecode(buildAccountRescueBody(totalBlocked: 12345, devices: "3", days: 7));
+    test("includes the abbreviated blocked count as a call to action", () {
+      final json = jsonDecode(buildAccountRescueBody(totalBlocked: 12345));
       expect(json["title"], "Your protection ends soon");
       expect(json["body"],
-          "Blokada has blocked 12345 ads and trackers since you set it up. Protection on 3 devices ends in 7 days.");
+          "Blokada has blocked 12.3K ads and trackers since you set it up. Tap to review your subscription.");
     });
 
-    test("falls back to the short body without stats", () {
-      final json = jsonDecode(buildAccountRescueBody(totalBlocked: null, devices: "1", days: 2));
-      expect(json["body"], "Protection on 1 devices ends in 2 days.");
+    test("falls back to the stats-free call to action without stats", () {
+      final json = jsonDecode(buildAccountRescueBody(totalBlocked: null));
+      expect(json["body"], "Keep your protection active. Tap to review your subscription.");
     });
   });
 
