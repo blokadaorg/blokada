@@ -65,7 +65,7 @@ void main() {
       final json = jsonDecode(buildAccountRescueBody(totalBlocked: 12345, devices: "3", days: 7));
       expect(json["title"], "Your protection ends soon");
       expect(json["body"],
-          "Blokada has blocked 12345 ads and trackers since you set it up. Protection on 3 devices ends in 7 days.");
+          "Blokada has blocked 12.3K ads and trackers since you set it up. Protection on 3 devices ends in 7 days.");
     });
 
     test("falls back to the short body without stats", () {

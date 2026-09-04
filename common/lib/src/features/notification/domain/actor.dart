@@ -672,8 +672,12 @@ String buildAccountRescueBody({
   required int days,
 }) {
   final title = "notification account rescue title".i18n;
+  // Abbreviate the count (1.23M / 12.3K) the same way the stats counter does —
+  // a long-subscribed user can be well over a million blocked by expiry.
   final body = totalBlocked == null
       ? "notification account rescue body short".i18n.withParams(devices, days)
-      : "notification account rescue body".i18n.withParams(totalBlocked, devices, days);
+      : "notification account rescue body"
+          .i18n
+          .withParams(StatsStoreBase.formatCounter(totalBlocked), devices, days);
   return jsonEncode({"title": title, "body": body});
 }
