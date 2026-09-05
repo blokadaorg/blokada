@@ -958,8 +958,8 @@
 "notification weekly report refreshed title" = "تقريرك الأسبوعي جاهز";
 "notification weekly report refreshed body" = "افتح Blokada للاطلاع على أحدث التفاصيل.";
 "notification account rescue title" = "ستنتهي حمايتك قريبًا";
-"notification account rescue body" = "قامت Blokada بحظر %s من الإعلانات والمتعقبات منذ إعدادك لها. ستنتهي الحماية على %s من الأجهزة خلال %s أيام.";
-"notification account rescue body short" = "ستنتهي الحماية على %s من الأجهزة خلال %s أيام.";
+"notification account rescue body" = "لقد قامت Blokada بحظر %s من الإعلانات والمتعقبات منذ إعدادك لها. اضغط لمراجعة اشتراكك.";
+"notification account rescue body short" = "أبقِ الحماية مفعلة لديك. اضغط لمراجعة اشتراكك.";
 "notification weekly report cta" = "عرض التقرير";
 
 "notification weekly report blocked increased title" = "نشاط المتتبع ازداد";

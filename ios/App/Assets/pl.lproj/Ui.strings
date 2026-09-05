@@ -958,8 +958,8 @@
 "notification weekly report refreshed title" = "Twój cotygodniowy raport jest gotowy";
 "notification weekly report refreshed body" = "Otwórz Blokadę, aby zobaczyć najnowsze szczegóły.";
 "notification account rescue title" = "Twoja ochrona wkrótce wygaśnie";
-"notification account rescue body" = "Blokada zablokowała %s reklam i trackerów od momentu konfiguracji. Ochrona na %s urządzeniach wygaśnie za %s dni.";
-"notification account rescue body short" = "Ochrona na %s urządzeniach wygaśnie za %s dni.";
+"notification account rescue body" = "Blokada zablokowała %s reklam i trackerów od momentu konfiguracji. Stuknij, aby przejrzeć swoją subskrypcję.";
+"notification account rescue body short" = "Utrzymaj swoją ochronę aktywną. Stuknij, aby przejrzeć swoją subskrypcję.";
 "notification weekly report cta" = "Zobacz raport";
 
 "notification weekly report blocked increased title" = "Aktywność trackerów wzrosła";

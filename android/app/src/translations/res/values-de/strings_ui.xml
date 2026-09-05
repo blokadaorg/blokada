@@ -703,8 +703,8 @@
     <string name="notification_weekly_report_refreshed_title">Dein Wochenbericht ist bereit</string>
     <string name="notification_weekly_report_refreshed_body">Öffne Blokada, um die neuesten Details zu sehen.</string>
     <string name="notification_account_rescue_title">Dein Schutz endet bald.</string>
-    <string name="notification_account_rescue_body">Blokada hat seit der Einrichtung %s Werbeanzeigen und Tracker blockiert. Der Schutz auf %s Geräten endet in %s Tagen.</string>
-    <string name="notification_account_rescue_body_short">Der Schutz auf %s Geräten endet in %s Tagen.</string>
+    <string name="notification_account_rescue_body">Blokada hat seit deiner Einrichtung %s Werbeanzeigen und Tracker blockiert. Tippe, um dein Abonnement zu überprüfen.</string>
+    <string name="notification_account_rescue_body_short">Halte deinen Schutz aktiv. Tippe, um dein Abonnement zu überprüfen.</string>
     <string name="notification_weekly_report_cta">Bericht anzeigen</string>
     <string name="notification_weekly_report_blocked_increased_title">Tracker-Aktivität gestiegen</string>
     <string name="notification_weekly_report_blocked_decreased_title">Tracker-Aktivität gesunken</string>
