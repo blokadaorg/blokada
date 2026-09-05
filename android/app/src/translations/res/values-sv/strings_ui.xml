@@ -703,8 +703,8 @@
     <string name="notification_weekly_report_refreshed_title">Din veckorapport är klar</string>
     <string name="notification_weekly_report_refreshed_body">Öppna Blokada för att visa de senaste detaljerna.</string>
     <string name="notification_account_rescue_title">Ditt skydd upphör snart.</string>
-    <string name="notification_account_rescue_body">Blokada har blockerat %s annonser och spårare sedan du satte upp det. Skyddet på %s enheter upphör om %s dagar.</string>
-    <string name="notification_account_rescue_body_short">Skyddet på %s enheter upphör om %s dagar.</string>
+    <string name="notification_account_rescue_body">Blokada har blockerat %s annonser och spårare sedan du satte upp den. Tryck för att granska din prenumeration.</string>
+    <string name="notification_account_rescue_body_short">Behåll ditt skydd aktivt. Tryck för att granska din prenumeration.</string>
     <string name="notification_weekly_report_cta">Visa rapporten</string>
     <string name="notification_weekly_report_blocked_increased_title">Tracker-aktiviteten har ökat</string>
     <string name="notification_weekly_report_blocked_decreased_title">Tracker-aktiviteten har minskat</string>

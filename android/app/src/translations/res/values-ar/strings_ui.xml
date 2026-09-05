@@ -703,8 +703,8 @@
     <string name="notification_weekly_report_refreshed_title">تقريرك الأسبوعي جاهز</string>
     <string name="notification_weekly_report_refreshed_body">افتح Blokada للاطلاع على أحدث التفاصيل.</string>
     <string name="notification_account_rescue_title">ستنتهي حمايتك قريبًا</string>
-    <string name="notification_account_rescue_body">قامت Blokada بحظر %s من الإعلانات والمتعقبات منذ إعدادك لها. ستنتهي الحماية على %s من الأجهزة خلال %s أيام.</string>
-    <string name="notification_account_rescue_body_short">ستنتهي الحماية على %s من الأجهزة خلال %s أيام.</string>
+    <string name="notification_account_rescue_body">لقد قامت Blokada بحظر %s من الإعلانات والمتعقبات منذ إعدادك لها. اضغط لمراجعة اشتراكك.</string>
+    <string name="notification_account_rescue_body_short">أبقِ الحماية مفعلة لديك. اضغط لمراجعة اشتراكك.</string>
     <string name="notification_weekly_report_cta">عرض التقرير</string>
     <string name="notification_weekly_report_blocked_increased_title">نشاط المتتبع ازداد</string>
     <string name="notification_weekly_report_blocked_decreased_title">نشاط المتتبع انخفض</string>
