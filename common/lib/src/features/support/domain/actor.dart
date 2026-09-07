@@ -58,6 +58,9 @@ class SupportActor with Logging, Actor {
     }
   }
 
+  /// Session start that is already running, if any.
+  Future<void>? _startingSession;
+
   _loadChatHistory(Marker m, List<JsonSupportHistoryItem> history) async {
     await _chatHistory.fetch(m);
     messages = _chatHistory.present?.messages ?? [];
@@ -92,7 +95,26 @@ class SupportActor with Logging, Actor {
     onChange();
   }
 
-  startSession(Marker m, {SupportEvent? event}) async {
+  /// Starts a session, or joins the one that is already starting.
+  ///
+  /// Joining matters because the session id is cleared before the create call
+  /// and only stored when it returns: anything that checks "do we have a
+  /// session?" during that round trip would otherwise start a second one. The
+  /// support screen does exactly that — it re-arms a debounced
+  /// [maybeStartSession] on every rebuild — which showed up as the opening
+  /// greeting arriving twice on an install with no stored session.
+  Future<void> startSession(Marker m, {SupportEvent? event}) {
+    final pending = _startingSession;
+    if (pending != null) return pending;
+
+    final starting = _startSession(m, event: event);
+    _startingSession = starting;
+    return starting.whenComplete(() {
+      if (identical(_startingSession, starting)) _startingSession = null;
+    });
+  }
+
+  Future<void> _startSession(Marker m, {SupportEvent? event}) async {
     await loadOrInit(m, event: event);
     clearSession(m);
     final session = await _api.createSession(m, language, event: event);
