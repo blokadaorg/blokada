@@ -5,6 +5,7 @@ import 'package:common/src/features/api/domain/api.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/account/account.dart';
 import 'package:common/src/platform/account/api.dart';
+import 'package:common/src/platform/account/refresh/json.dart';
 import 'package:common/src/platform/account/refresh/refresh.dart';
 import 'package:common/src/platform/stage/channel.pg.dart';
 import 'package:common/src/platform/stage/stage.dart';
@@ -400,25 +401,175 @@ void main() {
         ));
       });
     });
+
+    // The reported bug: repeat dispatches for one lapse, all carrying the same
+    // active_until, each showing the notification again.
+    test("onAccountExpiryEvent notifies once for repeated events", () async {
+      await withTrace((m) async {
+        final subject = _expirySubject(expiredAt: _agoUtc(const Duration(hours: 1)));
+
+        await subject.store.onAccountExpiryEvent(m);
+        await subject.store.onAccountExpiryEvent(m);
+
+        verify(subject.notification.show(NotificationId.accountExpired, any)).called(1);
+      });
+    });
+
+    // The mark is the expiry, not the string carrying it.
+    test("onAccountExpiryEvent matches a stored expiry written in another offset", () async {
+      await withTrace((m) async {
+        final expiry = _agoUtc(const Duration(hours: 1));
+        // The same instant, expressed as +02:00 instead of Z.
+        final shifted = expiry.add(const Duration(hours: 2)).toIso8601String();
+        final sameInstant = "${shifted.replaceFirst("Z", "")}+02:00";
+
+        final subject = _expirySubject(
+          expiredAt: expiry,
+          metadata: {"expiryNotifiedFor": sameInstant},
+        );
+
+        await subject.store.onAccountExpiryEvent(m);
+
+        verifyNever(subject.notification.show(NotificationId.accountExpired, any));
+      });
+    });
+
+    test("onAccountExpiryEvent notifies again after a renewal and a later expiry", () async {
+      await withTrace((m) async {
+        final subject = _expirySubject(expiredAt: _agoUtc(const Duration(hours: 1)));
+
+        await subject.store.onAccountExpiryEvent(m);
+
+        // Renewed: a future expiry is scheduled, which ends the lapse.
+        subject.account.account = _accountState(
+          activeUntil: DateTime.now().toUtc().add(const Duration(days: 30)),
+          type: AccountType.plus,
+          active: true,
+        );
+        await subject.store.onAccountExpiryEvent(m);
+
+        // Lapsed again.
+        subject.account.account = _accountState(
+          activeUntil: _agoUtc(const Duration(minutes: 1)),
+          type: AccountType.libre,
+          active: false,
+        );
+        await subject.store.onAccountExpiryEvent(m);
+
+        verify(subject.notification.show(NotificationId.accountExpired, any)).called(2);
+      });
+    });
+
+    test("onAccountExpiryEvent does not notify when active_until is missing", () async {
+      await withTrace((m) async {
+        final subject = _expirySubject(expiredAt: _agoUtc(const Duration(hours: 1)));
+        subject.account.account = AccountState(
+          Fixtures.accountId,
+          JsonAccount(
+            id: Fixtures.accountId,
+            activeUntil: null,
+            type: AccountType.libre.name,
+            active: false,
+          ),
+        );
+
+        await subject.store.onAccountExpiryEvent(m);
+
+        verifyNever(subject.notification.show(NotificationId.accountExpired, any));
+      });
+    });
+
+    // Nothing serializes the FCM handler, so a burst must not slip two
+    // notifications past the check while the first is still in flight.
+    test("onAccountExpiryEvent notifies once for events that overlap", () async {
+      await withTrace((m) async {
+        final subject = _expirySubject(expiredAt: _agoUtc(const Duration(hours: 1)));
+
+        await Future.wait([
+          subject.store.onAccountExpiryEvent(m),
+          subject.store.onAccountExpiryEvent(m),
+        ]);
+
+        verify(subject.notification.show(NotificationId.accountExpired, any)).called(1);
+      });
+    });
+
+    // The mark must not survive a notification that was never shown, or the
+    // lapse is silenced for good.
+    test("onAccountExpiryEvent retries after the notification failed to show", () async {
+      await withTrace((m) async {
+        final subject = _expirySubject(expiredAt: _agoUtc(const Duration(hours: 1)));
+        when(subject.notification.show(NotificationId.accountExpired, any))
+            .thenAnswer((_) async => throw Exception("no permission"));
+
+        await expectLater(subject.store.onAccountExpiryEvent(m), throwsA(isA<Exception>()));
+
+        when(subject.notification.show(NotificationId.accountExpired, any))
+            .thenAnswer((_) async {});
+        await subject.store.onAccountExpiryEvent(m);
+
+        verify(subject.notification.show(NotificationId.accountExpired, any)).called(2);
+      });
+    });
+
+    test("onAccountExpiryEvent survives corrupt stored metadata", () async {
+      await withTrace((m) async {
+        final subject = _expirySubject(
+          expiredAt: _agoUtc(const Duration(hours: 1)),
+          rawMetadata: "{not json",
+        );
+
+        await subject.store.onAccountExpiryEvent(m);
+
+        verify(subject.account.fetch(any)).called(1);
+        verify(subject.notification.show(NotificationId.accountExpired, any)).called(1);
+      });
+    });
+
+    // Scheduling used to be unawaited, so a failure was dropped on the floor.
+    // It is now visible, and must still not take syncAccount down with it.
+    test("syncAccount survives a scheduled notification that could not be armed", () async {
+      await withTrace((m) async {
+        final expiry = DateTime.now().toUtc().add(const Duration(days: 3));
+        final subject = _expirySubject(expiredAt: expiry, type: AccountType.plus, active: true);
+        when(subject.notification.show(any, any, when: anyNamed('when')))
+            .thenAnswer((_) async => throw Exception("no permission"));
+
+        await subject.store.syncAccount(subject.account.account, m);
+
+        expect(subject.store.expiration.status, AccountStatus.active);
+      });
+    });
   });
 
-  group("resolveAccountExpirySchedule", () {
-    final now = DateTime.utc(2026, 2, 24, 10, 0, 0);
+  group("JsonAccRefreshMeta", () {
+    test("round trips the expiry guard field", () {
+      final meta = JsonAccRefreshMeta(
+        previousAccountType: AccountType.plus,
+        seenExpiredDialog: true,
+        expiryNotifiedFor: "2026-02-23T11:30:00.000Z",
+      );
 
-    test("returns date when active_until is in the future", () {
-      final scheduled = resolveAccountExpirySchedule("2026-02-24T12:00:00Z", now);
-      expect(scheduled?.toUtc(), DateTime.utc(2026, 2, 24, 12, 0, 0));
+      final decoded = JsonAccRefreshMeta.fromJson(jsonDecode(jsonEncode(meta.toJson())));
+
+      expect(decoded.previousAccountType, AccountType.plus);
+      expect(decoded.seenExpiredDialog, true);
+      expect(decoded.expiryNotifiedFor, "2026-02-23T11:30:00.000Z");
     });
 
-    test("returns null when active_until is now or in the past", () {
-      expect(resolveAccountExpirySchedule("2026-02-24T10:00:00Z", now), isNull);
-      expect(resolveAccountExpirySchedule("2026-02-24T09:59:59Z", now), isNull);
+    test("reads metadata that predates the expiry guard field", () {
+      final decoded = JsonAccRefreshMeta.fromJson({
+        "previousAccountType": AccountType.plus.toSimpleString(),
+        "seenExpiredDialog": true,
+      });
+
+      expect(decoded.expiryNotifiedFor, isNull);
     });
 
-    test("returns null when active_until is absent or invalid", () {
-      expect(resolveAccountExpirySchedule(null, now), isNull);
-      expect(resolveAccountExpirySchedule("", now), isNull);
-      expect(resolveAccountExpirySchedule("invalid", now), isNull);
+    test("treats a non-string stored timestamp as absent", () {
+      final decoded = JsonAccRefreshMeta.fromJson({"expiryNotifiedFor": 42});
+
+      expect(decoded.expiryNotifiedFor, isNull);
     });
   });
 }
@@ -492,6 +643,46 @@ Future<void> _expectInvalidCachedAccountCreatesFreshAccount(int code) async {
     expect(account.account?.id, newAccountId);
     expect(account.account?.type, AccountType.libre);
   });
+}
+
+DateTime _agoUtc(Duration ago) => DateTime.now().toUtc().subtract(ago);
+
+class _ExpirySubject {
+  final AccountRefreshStore store;
+  final _TestAccountStore account;
+  final MockNotificationActor notification;
+
+  _ExpirySubject(this.store, this.account, this.notification);
+}
+
+// A store wired for the expiry-notification paths, with persistence that
+// answers with the given stored metadata.
+_ExpirySubject _expirySubject({
+  required DateTime expiredAt,
+  AccountType type = AccountType.libre,
+  bool active = false,
+  Map<String, dynamic>? metadata,
+  String? rawMetadata,
+}) {
+  final account = _TestAccountStore();
+  account.account = _accountState(activeUntil: expiredAt, type: type, active: active);
+  when(account.fetch(any)).thenAnswer((_) async {});
+  Core.register<AccountStore>(account);
+
+  final notification = MockNotificationActor();
+  final persistence = MockPersistence();
+  when(
+    persistence.load(any, "account:refresh"),
+  ).thenAnswer(
+    (_) async => rawMetadata ?? (metadata == null ? null : jsonEncode(metadata)),
+  );
+  Core.register<NotificationActor>(notification);
+  Core.register<Persistence>(persistence);
+  Core.register<StageStore>(MockStageStore());
+  Core.register<Scheduler>(MockScheduler());
+  Core.register<PlusActor>(MockPlusActor());
+
+  return _ExpirySubject(AccountRefreshStore(), account, notification);
 }
 
 class _TestAccountStore extends MockAccountStore {
