@@ -324,7 +324,7 @@ abstract class AccountRefreshStoreBase with Store, Logging, Actor, Cooldown, Emi
     // Still active, the scheduled notification owns this one.
     if (parsed.isAfter(now)) return;
 
-    final reason = _expiryNotificationSkipReason(now);
+    final reason = _expiryNotificationSkipReason(parsed, now);
     if (reason != null) {
       log(m).pair("skipNotification", reason);
       return;
@@ -333,28 +333,41 @@ abstract class AccountRefreshStoreBase with Store, Logging, Actor, Cooldown, Emi
     // Claim this lapse before awaiting anything. Nothing serializes the FCM
     // handler, so a burst of pushes would otherwise all pass the check above
     // while the first one is still waiting on the channel.
-    _metadata.expiryNotifiedAt = now.toUtc().toIso8601String();
-    await _notification.show(_accountExpiryNotificationId(), m);
+    final claimed = _metadata.expiryNotifiedFor;
+    _metadata.expiryNotifiedFor = parsed.toUtc().toIso8601String();
+    try {
+      await _notification.show(_accountExpiryNotificationId(), m);
+    } catch (e) {
+      // Nothing was shown, so give the claim back. Left standing it would be
+      // persisted by the next _saveMetadata and silence this lapse for good.
+      _metadata.expiryNotifiedFor = claimed;
+      rethrow;
+    }
     await _saveMetadata(m);
   }
 
-  // One lapse gets one notification. The backend restamps active_until on every
-  // repeat webhook for a lapsed account, so the expiry itself cannot key this;
-  // a time floor can, and a renewal clears the mark in _updateTimer.
-  String? _expiryNotificationSkipReason(DateTime now) {
-    final cooldown = Core.config.accountExpiredNotificationCooldown;
-
-    final notifiedAt = _parseDate(_metadata.expiryNotifiedAt);
-    if (notifiedAt != null && now.difference(notifiedAt) < cooldown) {
+  // One lapse gets one notification, keyed by the expiry it announces rather
+  // than by when it was announced. The value is stable for a lapse and, by
+  // construction, different for the next one, so nothing needs re-arming on
+  // renewal and the client is indifferent to how often the server dispatches.
+  String? _expiryNotificationSkipReason(DateTime expiry, DateTime now) {
+    // Instants, not the raw strings: a formatting change on the server side
+    // must not defeat the match.
+    final notifiedFor = _parseDate(_metadata.expiryNotifiedFor);
+    if (notifiedFor != null && notifiedFor.isAtSameMomentAs(expiry)) {
       return "alreadyNotified";
     }
 
-    // The scheduled notification for this lapse has already been delivered by
-    // the OS, so an immediate one now would be the same lapse announced twice.
+    // The OS notification scheduled for this same expiry has just fired, so
+    // announcing it again now would be the one lapse seen twice. Bounded,
+    // because arming an alarm is not delivering one: Android drops pending
+    // alarms on reboot and _updateTimer will not re-arm an account that has
+    // already expired, which leaves this push as the only thing that can
+    // announce that lapse.
     final scheduledFor = _parseDate(_metadata.expiryScheduledFor);
     if (scheduledFor != null &&
-        !scheduledFor.isAfter(now) &&
-        now.difference(scheduledFor) < cooldown) {
+        scheduledFor.isAtSameMomentAs(expiry) &&
+        now.difference(expiry) < Core.config.accountExpiryScheduledGrace) {
       return "alreadyScheduled";
     }
 
@@ -427,13 +440,6 @@ abstract class AccountRefreshStoreBase with Store, Logging, Actor, Cooldown, Emi
       }
 
       _metadata.expiryScheduledFor = expiration.expiration.toUtc().toIso8601String();
-      // Only a genuinely future expiry ends the lapse and re-arms the immediate
-      // notification. An "expiring" account is seconds from lapsing, and a
-      // restamped active_until can land there on a slow device clock; clearing
-      // the mark then would announce the same lapse twice.
-      if (expiration.status == AccountStatus.active) {
-        _metadata.expiryNotifiedAt = null;
-      }
       await _saveMetadata(m);
     } else {
       await _scheduler.stop(m, _keyTimer);

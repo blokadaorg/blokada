@@ -5,13 +5,13 @@ class CoreConfig {
   Duration accountExpiringTimeSpan = const Duration(seconds: 30);
   Duration accountRefreshCooldown = const Duration(seconds: 60);
 
-  // How long one lapse owns the "account expired" notification. The backend
-  // restamps active_until on every repeat webhook for a lapsed account, so the
-  // expiry cannot key the guard; this floor does. Longer than any restamp
-  // burst, and short enough that it cannot reach the next lapse of the shortest
-  // billing period sold, which is weekly. A renewal clears the mark anyway, but
-  // only if the app sees it, so the floor does not lean on that.
-  Duration accountExpiredNotificationCooldown = const Duration(hours: 72);
+  // How long after an expiry the OS notification scheduled for it is assumed to
+  // have been delivered, so the push announcing the same expiry stays quiet.
+  // Bounded because arming an alarm is not delivering one: Android drops
+  // pending alarms on reboot and nothing re-arms them for an account that has
+  // already expired, leaving the push as the only thing that can announce that
+  // lapse. Past this window it does, rather than trusting the record.
+  Duration accountExpiryScheduledGrace = const Duration(hours: 6);
   Duration deviceRefreshCooldown = const Duration(seconds: 60);
   Duration plusLeaseRefreshCooldown = const Duration(seconds: 60);
   Duration plusGatewayRefreshCooldown = const Duration(seconds: 60);

@@ -402,6 +402,8 @@ void main() {
       });
     });
 
+    // The reported bug: repeat dispatches for one lapse, all carrying the same
+    // active_until, each showing the notification again.
     test("onAccountExpiryEvent notifies once for repeated events", () async {
       await withTrace((m) async {
         final subject = _expirySubject(expiredAt: _agoUtc(const Duration(hours: 1)));
@@ -413,22 +415,22 @@ void main() {
       });
     });
 
-    // The backend restamps active_until to now on every repeat webhook for a
-    // lapsed account, so each event carries a different expiry string. This is
-    // the actual reported bug.
-    test("onAccountExpiryEvent does not renotify when active_until is restamped", () async {
+    // The mark is the expiry, not the string carrying it.
+    test("onAccountExpiryEvent matches a stored expiry written in another offset", () async {
       await withTrace((m) async {
-        final subject = _expirySubject(expiredAt: _agoUtc(const Duration(hours: 2)));
+        final expiry = _agoUtc(const Duration(hours: 1));
+        // The same instant, expressed as +02:00 instead of Z.
+        final shifted = expiry.add(const Duration(hours: 2)).toIso8601String();
+        final sameInstant = "${shifted.replaceFirst("Z", "")}+02:00";
 
-        await subject.store.onAccountExpiryEvent(m);
-        subject.account.account = _accountState(
-          activeUntil: _agoUtc(const Duration(seconds: 1)),
-          type: AccountType.libre,
-          active: false,
+        final subject = _expirySubject(
+          expiredAt: expiry,
+          metadata: {"expiryNotifiedFor": sameInstant},
         );
+
         await subject.store.onAccountExpiryEvent(m);
 
-        verify(subject.notification.show(NotificationId.accountExpired, any)).called(1);
+        verifyNever(subject.notification.show(NotificationId.accountExpired, any));
       });
     });
 
@@ -436,9 +438,10 @@ void main() {
       "onAccountExpiryEvent skips the immediate notification after the scheduled one fired",
       () async {
         await withTrace((m) async {
+          final expiry = _agoUtc(const Duration(minutes: 5));
           final subject = _expirySubject(
-            expiredAt: _agoUtc(const Duration(minutes: 5)),
-            metadata: {"expiryScheduledFor": _agoUtc(const Duration(minutes: 5)).toIso8601String()},
+            expiredAt: expiry,
+            metadata: {"expiryScheduledFor": expiry.toIso8601String()},
           );
 
           await subject.store.onAccountExpiryEvent(m);
@@ -448,14 +451,17 @@ void main() {
       },
     );
 
-    test("onAccountExpiryEvent notifies again once the cooldown elapsed", () async {
+    // Having armed the alarm is not proof it was delivered: Android drops
+    // pending alarms on reboot and never re-arms them for an expired account.
+    // Past the grace window the push announces the lapse rather than trusting
+    // the record.
+    test("onAccountExpiryEvent notifies when the scheduled alarm is too old to vouch for",
+        () async {
       await withTrace((m) async {
+        final expiry = _agoUtc(const Duration(days: 2));
         final subject = _expirySubject(
-          expiredAt: _agoUtc(const Duration(days: 30)),
-          metadata: {
-            "expiryNotifiedAt": _agoUtc(const Duration(days: 8)).toIso8601String(),
-            "expiryScheduledFor": _agoUtc(const Duration(days: 30)).toIso8601String(),
-          },
+          expiredAt: expiry,
+          metadata: {"expiryScheduledFor": expiry.toIso8601String()},
         );
 
         await subject.store.onAccountExpiryEvent(m);
@@ -524,29 +530,21 @@ void main() {
       });
     });
 
-    // A restamped active_until can land seconds in the future on a slow device
-    // clock, which makes the account "expiring" rather than expired. That must
-    // not count as a renewal.
-    test("onAccountExpiryEvent does not renotify when a restamp lands just in the future",
-        () async {
+    // The mark must not survive a notification that was never shown, or the
+    // lapse is silenced for good.
+    test("onAccountExpiryEvent retries after the notification failed to show", () async {
       await withTrace((m) async {
         final subject = _expirySubject(expiredAt: _agoUtc(const Duration(hours: 1)));
+        when(subject.notification.show(NotificationId.accountExpired, any))
+            .thenAnswer((_) async => throw Exception("no permission"));
+
+        await expectLater(subject.store.onAccountExpiryEvent(m), throwsA(isA<Exception>()));
+
+        when(subject.notification.show(NotificationId.accountExpired, any))
+            .thenAnswer((_) async {});
         await subject.store.onAccountExpiryEvent(m);
 
-        subject.account.account = _accountState(
-          activeUntil: DateTime.now().toUtc().add(const Duration(seconds: 5)),
-          type: AccountType.libre,
-          active: false,
-        );
-        await subject.store.onAccountExpiryEvent(m);
-        subject.account.account = _accountState(
-          activeUntil: _agoUtc(const Duration(seconds: 1)),
-          type: AccountType.libre,
-          active: false,
-        );
-        await subject.store.onAccountExpiryEvent(m);
-
-        verify(subject.notification.show(NotificationId.accountExpired, any)).called(1);
+        verify(subject.notification.show(NotificationId.accountExpired, any)).called(2);
       });
     });
 
@@ -604,7 +602,7 @@ void main() {
       final meta = JsonAccRefreshMeta(
         previousAccountType: AccountType.plus,
         seenExpiredDialog: true,
-        expiryNotifiedAt: "2026-02-23T11:30:00.000Z",
+        expiryNotifiedFor: "2026-02-23T11:30:00.000Z",
         expiryScheduledFor: "2026-02-20T11:30:00.000Z",
       );
 
@@ -612,7 +610,7 @@ void main() {
 
       expect(decoded.previousAccountType, AccountType.plus);
       expect(decoded.seenExpiredDialog, true);
-      expect(decoded.expiryNotifiedAt, "2026-02-23T11:30:00.000Z");
+      expect(decoded.expiryNotifiedFor, "2026-02-23T11:30:00.000Z");
       expect(decoded.expiryScheduledFor, "2026-02-20T11:30:00.000Z");
     });
 
@@ -622,14 +620,14 @@ void main() {
         "seenExpiredDialog": true,
       });
 
-      expect(decoded.expiryNotifiedAt, isNull);
+      expect(decoded.expiryNotifiedFor, isNull);
       expect(decoded.expiryScheduledFor, isNull);
     });
 
     test("treats a non-string stored timestamp as absent", () {
-      final decoded = JsonAccRefreshMeta.fromJson({"expiryNotifiedAt": 42});
+      final decoded = JsonAccRefreshMeta.fromJson({"expiryNotifiedFor": 42});
 
-      expect(decoded.expiryNotifiedAt, isNull);
+      expect(decoded.expiryNotifiedFor, isNull);
     });
   });
 }

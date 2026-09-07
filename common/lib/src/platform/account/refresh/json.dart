@@ -4,12 +4,12 @@ class JsonAccRefreshMeta {
   late AccountType? previousAccountType;
   late bool seenExpiredDialog;
 
-  /// When the immediate expiry notification was last shown, ISO-8601.
+  /// The expiry the immediate notification last announced, ISO-8601.
   ///
-  /// Not keyed by the expiry itself: the backend restamps active_until to now
-  /// on every repeat webhook for a lapsed account, so a per-expiry key would be
-  /// a different value every time. A time floor is what actually dedupes.
-  late String? expiryNotifiedAt;
+  /// Keyed by what was announced rather than when, so one lapse gets one
+  /// notification however many times the server dispatches for it, and the
+  /// next lapse re-arms itself by carrying a different active_until.
+  late String? expiryNotifiedFor;
 
   /// The expiry the OS notification was last scheduled for, ISO-8601.
   ///
@@ -20,14 +20,14 @@ class JsonAccRefreshMeta {
   JsonAccRefreshMeta({
     this.previousAccountType,
     this.seenExpiredDialog = false,
-    this.expiryNotifiedAt,
+    this.expiryNotifiedFor,
     this.expiryScheduledFor,
   });
 
   JsonAccRefreshMeta.fromJson(Map<String, dynamic> json) {
     previousAccountType = accountTypeFromName(json['previousAccountType']);
     seenExpiredDialog = json['seenExpiredDialog'] ?? false;
-    expiryNotifiedAt = _string(json['expiryNotifiedAt']);
+    expiryNotifiedFor = _string(json['expiryNotifiedFor']);
     expiryScheduledFor = _string(json['expiryScheduledFor']);
   }
 
@@ -35,7 +35,7 @@ class JsonAccRefreshMeta {
     final data = <String, dynamic>{};
     data['previousAccountType'] = previousAccountType?.toSimpleString();
     data['seenExpiredDialog'] = seenExpiredDialog;
-    data['expiryNotifiedAt'] = expiryNotifiedAt;
+    data['expiryNotifiedFor'] = expiryNotifiedFor;
     data['expiryScheduledFor'] = expiryScheduledFor;
     return data;
   }
