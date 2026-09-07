@@ -24,6 +24,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
+import androidx.core.view.doOnLayout
 import androidx.lifecycle.lifecycleScope
 import binding.CommandBinding
 import binding.CommonBinding
@@ -100,7 +101,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Re-dispatches window insets once the Flutter view tree has a real height.
+     * Re-dispatches window insets once the view tree has been measured.
      *
      * Below Android 11 Flutter has no typed ime() inset to read, so it decides
      * whether the window's bottom inset is a keyboard by comparing it against
@@ -109,13 +110,14 @@ class MainActivity : AppCompatActivity() {
      * navigation bar as a keyboard: every screen then keeps a phantom bottom
      * inset, and its content stops short of the navigation bar, until some
      * later inset change happens to correct it. See issue-tracker#152.
+     *
+     * Keyed on this activity's own layout rather than on Flutter's first frame,
+     * which is a process-wide latch: after an activity recreate that latch is
+     * already set, so it would fire back synchronously here, before layout, and
+     * never again.
      */
     private fun requestApplyInsetsOnceLaidOut() {
-        StartupContextService.addFirstFlutterFrameListener {
-            runOnUiThread {
-                window.decorView.post { ViewCompat.requestApplyInsets(window.decorView) }
-            }
-        }
+        window.decorView.doOnLayout { ViewCompat.requestApplyInsets(it) }
     }
 
     private var splashFallbackRunnable: Runnable? = null
