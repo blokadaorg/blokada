@@ -324,9 +324,15 @@ abstract class AccountRefreshStoreBase with Store, Logging, Actor, Cooldown, Emi
     // Still active, the scheduled notification owns this one.
     if (parsed.isAfter(now)) return;
 
-    final reason = _expiryNotificationSkipReason(parsed, now);
-    if (reason != null) {
-      log(m).pair("skipNotification", reason);
+    // One lapse gets one notification, keyed by the expiry it announces rather
+    // than by when it was announced. The value is stable for a lapse and, by
+    // construction, different for the next one, so nothing needs re-arming on
+    // renewal and the client is indifferent to how often the server dispatches.
+    // Instants, not the raw strings: a formatting change on the server side
+    // must not defeat the match.
+    final notifiedFor = _parseDate(_metadata.expiryNotifiedFor);
+    if (notifiedFor != null && notifiedFor.isAtSameMomentAs(parsed)) {
+      log(m).pair("skipNotification", "alreadyNotified");
       return;
     }
 
@@ -344,34 +350,6 @@ abstract class AccountRefreshStoreBase with Store, Logging, Actor, Cooldown, Emi
       rethrow;
     }
     await _saveMetadata(m);
-  }
-
-  // One lapse gets one notification, keyed by the expiry it announces rather
-  // than by when it was announced. The value is stable for a lapse and, by
-  // construction, different for the next one, so nothing needs re-arming on
-  // renewal and the client is indifferent to how often the server dispatches.
-  String? _expiryNotificationSkipReason(DateTime expiry, DateTime now) {
-    // Instants, not the raw strings: a formatting change on the server side
-    // must not defeat the match.
-    final notifiedFor = _parseDate(_metadata.expiryNotifiedFor);
-    if (notifiedFor != null && notifiedFor.isAtSameMomentAs(expiry)) {
-      return "alreadyNotified";
-    }
-
-    // The OS notification scheduled for this same expiry has just fired, so
-    // announcing it again now would be the one lapse seen twice. Bounded,
-    // because arming an alarm is not delivering one: Android drops pending
-    // alarms on reboot and _updateTimer will not re-arm an account that has
-    // already expired, which leaves this push as the only thing that can
-    // announce that lapse.
-    final scheduledFor = _parseDate(_metadata.expiryScheduledFor);
-    if (scheduledFor != null &&
-        scheduledFor.isAtSameMomentAs(expiry) &&
-        now.difference(expiry) < Core.config.accountExpiryScheduledGrace) {
-      return "alreadyScheduled";
-    }
-
-    return null;
   }
 
   Future<void> _ensureMetadataLoaded(Marker m) {
@@ -433,14 +411,10 @@ abstract class AccountRefreshStoreBase with Store, Logging, Actor, Cooldown, Emi
       try {
         await _notification.show(id, when: expiration.expiration, m);
       } catch (e) {
-        // Nothing was scheduled, so do not record one: the immediate
-        // notification is the fallback for exactly this case.
+        // Awaited so a failed schedule is at least visible; it used to be
+        // dropped on the floor. The immediate notification is the fallback.
         log(m).w("could not schedule expiry notification: $e");
-        return;
       }
-
-      _metadata.expiryScheduledFor = expiration.expiration.toUtc().toIso8601String();
-      await _saveMetadata(m);
     } else {
       await _scheduler.stop(m, _keyTimer);
       log(m).pair("timer", null);

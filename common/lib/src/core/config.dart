@@ -4,14 +4,6 @@ class CoreConfig {
   Duration appStartFailWait = const Duration(seconds: 5);
   Duration accountExpiringTimeSpan = const Duration(seconds: 30);
   Duration accountRefreshCooldown = const Duration(seconds: 60);
-
-  // How long after an expiry the OS notification scheduled for it is assumed to
-  // have been delivered, so the push announcing the same expiry stays quiet.
-  // Bounded because arming an alarm is not delivering one: Android drops
-  // pending alarms on reboot and nothing re-arms them for an account that has
-  // already expired, leaving the push as the only thing that can announce that
-  // lapse. Past this window it does, rather than trusting the record.
-  Duration accountExpiryScheduledGrace = const Duration(hours: 6);
   Duration deviceRefreshCooldown = const Duration(seconds: 60);
   Duration plusLeaseRefreshCooldown = const Duration(seconds: 60);
   Duration plusGatewayRefreshCooldown = const Duration(seconds: 60);
