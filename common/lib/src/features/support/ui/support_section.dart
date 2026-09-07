@@ -27,6 +27,13 @@ class SupportSectionState extends State<SupportSection> {
   /// a chat would close the keyboard after every message.
   final _composerFocus = FocusNode();
 
+  /// Built once, so every rebuild hands flutter_chat_ui the identical widget
+  /// the way its own `const Composer()` default does. A fresh instance per
+  /// rebuild makes the composer re-measure itself after each frame and push a
+  /// new height into the chat list — once per frame while the keyboard
+  /// animates, which stutters the whole conversation.
+  late final _composer = SupportComposer(focusNode: _composerFocus);
+
   @override
   void initState() {
     super.initState();
@@ -82,8 +89,7 @@ class SupportSectionState extends State<SupportSection> {
         // showUserNames: true,
         // emptyState: Center(child: Text("support placeholder".i18n)),
         builders: Builders(
-          composerBuilder: (context) =>
-              SupportComposer(focusNode: _composerFocus),
+          composerBuilder: (context) => _composer,
           chatAnimatedListBuilder: (context, itemBuilder) {
             return ChatAnimatedListReversed(itemBuilder: itemBuilder);
           },
