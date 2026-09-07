@@ -20,9 +20,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
-import android.view.WindowManager
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import binding.CommandBinding
@@ -55,13 +55,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Edge-to-edge. Do NOT add FLAG_LAYOUT_NO_LIMITS here: it zeroes the
+        // window's content insets, so below Android 11 (where Flutter derives
+        // the keyboard height from them rather than from the typed ime()
+        // inset) the soft keyboard would silently cover the chat composer.
+        // See issue-tracker#152.
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        window.apply {
-            setFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-            )
-        }
         context.setActivityContext(this)
         TranslationService.setup()
         sheet.onShowFragment = { fragment ->
@@ -85,6 +84,8 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.container_fragment, FlutterHomeFragment())
             .commit()
 
+        requestApplyInsetsOnceLaidOut()
+
         // Always-enabled callback: back is fully resolved by the Flutter side,
         // never by the system (required since targetSdk 36 no longer delivers
         // back events to the deprecated onBackPressed override).
@@ -96,6 +97,25 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    /**
+     * Re-dispatches window insets once the Flutter view tree has a real height.
+     *
+     * Below Android 11 Flutter has no typed ime() inset to read, so it decides
+     * whether the window's bottom inset is a keyboard by comparing it against
+     * the root view's height. The first dispatch reaches FlutterView before this
+     * activity has been measured (height 0), which makes that check treat the
+     * navigation bar as a keyboard: every screen then keeps a phantom bottom
+     * inset, and its content stops short of the navigation bar, until some
+     * later inset change happens to correct it. See issue-tracker#152.
+     */
+    private fun requestApplyInsetsOnceLaidOut() {
+        StartupContextService.addFirstFlutterFrameListener {
+            runOnUiThread {
+                window.decorView.post { ViewCompat.requestApplyInsets(window.decorView) }
+            }
+        }
     }
 
     private var splashFallbackRunnable: Runnable? = null
