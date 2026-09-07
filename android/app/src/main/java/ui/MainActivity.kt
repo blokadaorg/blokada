@@ -16,10 +16,12 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.view.WindowManager
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -56,12 +58,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Edge-to-edge. Do NOT add FLAG_LAYOUT_NO_LIMITS here: it zeroes the
-        // window's content insets, so below Android 11 (where Flutter derives
-        // the keyboard height from them rather than from the typed ime()
-        // inset) the soft keyboard would silently cover the chat composer.
-        // See issue-tracker#152.
         WindowCompat.setDecorFitsSystemWindows(window, false)
+        configureSoftInputHandling()
         context.setActivityContext(this)
         TranslationService.setup()
         sheet.onShowFragment = { fragment ->
@@ -85,7 +83,7 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.container_fragment, FlutterHomeFragment())
             .commit()
 
-        requestApplyInsetsOnceLaidOut()
+        if (needsLegacyKeyboardInsets) requestApplyInsetsOnceLaidOut()
 
         // Always-enabled callback: back is fully resolved by the Flutter side,
         // never by the system (required since targetSdk 36 no longer delivers
@@ -98,6 +96,34 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    /**
+     * Android 11 is where Flutter starts reading the typed ime() inset and
+     * animating the keyboard from it; below that it has to work the keyboard
+     * height out of the window's content insets instead.
+     */
+    private val needsLegacyKeyboardInsets: Boolean
+        get() = Build.VERSION.SDK_INT < Build.VERSION_CODES.R
+
+    /**
+     * Makes the soft keyboard visible to Flutter on Android 10 and below.
+     *
+     * There, the keyboard height only reaches Flutter through the window's
+     * content insets, which FLAG_LAYOUT_NO_LIMITS zeroes and which the IME only
+     * moves under adjustResize. Without both of those the keyboard silently
+     * covered the support chat composer (issue-tracker#152).
+     *
+     * Android 11+ keeps the historical no-limits window untouched: it already
+     * had a working keyboard, and it animates that keyboard itself, so letting
+     * the window resize under it only made the animation stutter.
+     */
+    private fun configureSoftInputHandling() {
+        if (needsLegacyKeyboardInsets) {
+            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        } else {
+            window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        }
     }
 
     /**
