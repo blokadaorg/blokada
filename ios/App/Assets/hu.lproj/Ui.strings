@@ -959,8 +959,8 @@
 "notification weekly report refreshed title" = "Your weekly report is ready";
 "notification weekly report refreshed body" = "Open Blokada to view the latest details.";
 "notification account rescue title" = "Your protection ends soon";
-"notification account rescue body" = "Blokada has blocked %s ads and trackers since you set it up. Protection on %s devices ends in %s days.";
-"notification account rescue body short" = "Protection on %s devices ends in %s days.";
+"notification account rescue body" = "Blokada has blocked %s ads and trackers since you set it up. Tap to review your subscription.";
+"notification account rescue body short" = "Keep your protection active. Tap to review your subscription.";
 "notification weekly report cta" = "View report";
 
 "notification weekly report blocked increased title" = "Tracker activity increased";

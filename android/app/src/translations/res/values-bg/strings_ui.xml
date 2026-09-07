@@ -703,8 +703,8 @@
     <string name="notification_weekly_report_refreshed_title">Вашият седмичен отчет е готов</string>
     <string name="notification_weekly_report_refreshed_body">Отворите Blokada, за да видите последните подробности.</string>
     <string name="notification_account_rescue_title">Your protection ends soon</string>
-    <string name="notification_account_rescue_body">Blokada has blocked %s ads and trackers since you set it up. Protection on %s devices ends in %s days.</string>
-    <string name="notification_account_rescue_body_short">Protection on %s devices ends in %s days.</string>
+    <string name="notification_account_rescue_body">Blokada has blocked %s ads and trackers since you set it up. Tap to review your subscription.</string>
+    <string name="notification_account_rescue_body_short">Keep your protection active. Tap to review your subscription.</string>
     <string name="notification_weekly_report_cta">Вижте доклада</string>
     <string name="notification_weekly_report_blocked_increased_title">Активността на тракерите се е увеличила</string>
     <string name="notification_weekly_report_blocked_decreased_title">Активността на тракерите се е намалила</string>

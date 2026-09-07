@@ -960,8 +960,8 @@
 "notification weekly report refreshed title" = "您的每週報告已準備完成​";
 "notification weekly report refreshed body" = "開啟 Blokada 以檢視最新詳細資訊。";
 "notification account rescue title" = "您的保護即將結束。";
-"notification account rescue body" = "自您啟用以來，Blokada 已阻擋 %s 個廣告和追蹤器。%s 台裝置上的保護將於 %s 天後結束。";
-"notification account rescue body short" = "%s 台裝置上的保護將於 %s 天後結束。";
+"notification account rescue body" = "自您設置後，Blokada 已阻擋 %s 條廣告和追蹤器。點擊以檢視您的訂閱。";
+"notification account rescue body short" = "請保持您的保護啟動。點擊以檢視您的訂閱。";
 "notification weekly report cta" = "查看報告​";
 
 "notification weekly report blocked increased title" = "追蹤活動增加​";

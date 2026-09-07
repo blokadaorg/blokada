@@ -958,8 +958,8 @@
 "notification weekly report refreshed title" = "Ваш еженедельный отчет готов";
 "notification weekly report refreshed body" = "Откройте Blokada, чтобы узнать последние детали.";
 "notification account rescue title" = "Ваша защита скоро закончится";
-"notification account rescue body" = "С момента установки Blokada заблокировала рекламы и трекеров: %s. Защита на %s устройствах закончится через %s дней.";
-"notification account rescue body short" = "Срок действия защиты на %s устройствах истекает через %s дней.";
+"notification account rescue body" = "С момента настройки Blokada заблокировала %s рекламы и трекеров. Нажмите, чтобы просмотреть вашу подписку.";
+"notification account rescue body short" = "Держите защиту активной. Нажмите, чтобы проверить вашу подписку.";
 "notification weekly report cta" = "Просмотр отчета";
 
 "notification weekly report blocked increased title" = "Активность трекеров увеличилась";
