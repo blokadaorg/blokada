@@ -45,7 +45,7 @@ dependencies:
   mobx: ^2.1.0
   flutter_mobx: ^2.0.6+4
   countup: ^0.1.4
-  i18n_extension: ^15.1.1
+  i18n_extension: ">=15.1.1 <17.0.0"
   relative_scale: ^2.0.0
   get_it: ">=7.7.0 <10.0.0"
   collection: ^1.17.0
