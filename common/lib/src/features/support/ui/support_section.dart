@@ -1,6 +1,7 @@
 import 'package:common/src/features/support/domain/support.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/features/support/ui/link_message.dart';
+import 'package:common/src/features/support/ui/support_composer.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/stage/stage.dart';
@@ -21,12 +22,30 @@ class SupportSectionState extends State<SupportSection> {
   late final _sessionInitDebounce =
       Debounce(const Duration(milliseconds: 1200));
 
+  /// Owned here (not by the composer) so a send can hand focus straight back:
+  /// submitting with the keyboard's send key drops focus by default, which in
+  /// a chat would close the keyboard after every message.
+  final _composerFocus = FocusNode();
+
+  /// Built once, so every rebuild hands flutter_chat_ui the identical widget
+  /// the way its own `const Composer()` default does. A fresh instance per
+  /// rebuild makes the composer re-measure itself after each frame and push a
+  /// new height into the chat list — once per frame while the keyboard
+  /// animates, which stutters the whole conversation.
+  late final _composer = SupportComposer(focusNode: _composerFocus);
+
   @override
   void initState() {
     super.initState();
     _actor.onChange = _refresh;
     _actor.loadOrInit(Markers.support);
     _refresh();
+  }
+
+  @override
+  void dispose() {
+    _composerFocus.dispose();
+    super.dispose();
   }
 
   _refresh() {
@@ -70,6 +89,7 @@ class SupportSectionState extends State<SupportSection> {
         // showUserNames: true,
         // emptyState: Center(child: Text("support placeholder".i18n)),
         builders: Builders(
+          composerBuilder: (context) => _composer,
           chatAnimatedListBuilder: (context, itemBuilder) {
             return ChatAnimatedListReversed(itemBuilder: itemBuilder);
           },
@@ -97,5 +117,8 @@ class SupportSectionState extends State<SupportSection> {
 
   void _handleSendPressed(String message) {
     _actor.sendMessage(message, Markers.support);
+    // Cancels the unfocus that the keyboard's send action would otherwise do,
+    // which Flutter explicitly supports from this callback.
+    _composerFocus.requestFocus();
   }
 }

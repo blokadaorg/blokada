@@ -39,6 +39,18 @@ class PlatformInfo {
     return getCurrentPlatformType() == PlatformType.android &&
         MediaQuery.of(context).size.height < 750;
   }
+
+  /// Bottom room reserved on short Android phones so content clears the
+  /// navigation bar.
+  ///
+  /// Drops to zero while the soft keyboard is up: the keyboard already covers
+  /// the navigation bar, so keeping the reserve would strand a dead band
+  /// between the keyboard and whatever sits above it — visible as a gap under
+  /// the support chat composer (issue-tracker#152).
+  double androidBottomReserve(BuildContext context) {
+    if (!isSmallAndroid(context)) return 0;
+    return MediaQuery.of(context).viewInsets.bottom > 0 ? 0 : 44;
+  }
 }
 
 enum PlatformType { web, iOS, android, macOS, fuchsia, linux, windows, unknown }

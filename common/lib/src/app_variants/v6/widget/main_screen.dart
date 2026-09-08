@@ -31,7 +31,7 @@ class V6MainScreenState extends State<V6MainScreen> {
           children: [
             Padding(
               padding: EdgeInsets.only(
-                  bottom: PlatformInfo().isSmallAndroid(context) ? 44 : 0),
+                  bottom: PlatformInfo().androidBottomReserve(context)),
               child: Navigator(
                 key: widget.ctrl.navigatorKey,
                 observers: [widget.ctrl, widget.nav],

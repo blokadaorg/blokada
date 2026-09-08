@@ -34,7 +34,7 @@ class FamilyMainScreenState extends State<FamilyMainScreen> {
             const FamilyAnimatedBg(),
             Padding(
               padding: EdgeInsets.only(
-                  bottom: PlatformInfo().isSmallAndroid(context) ? 44 : 0),
+                  bottom: PlatformInfo().androidBottomReserve(context)),
               child: Navigator(
                 key: widget.ctrl.navigatorKey,
                 observers: [widget.ctrl, widget.nav],

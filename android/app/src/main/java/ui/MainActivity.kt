@@ -16,6 +16,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -23,7 +24,9 @@ import android.view.View
 import android.view.WindowManager
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
+import androidx.core.view.doOnLayout
 import androidx.lifecycle.lifecycleScope
 import binding.CommandBinding
 import binding.CommonBinding
@@ -56,12 +59,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        window.apply {
-            setFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-            )
-        }
+        configureSoftInputHandling()
         context.setActivityContext(this)
         TranslationService.setup()
         sheet.onShowFragment = { fragment ->
@@ -85,6 +83,8 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.container_fragment, FlutterHomeFragment())
             .commit()
 
+        if (needsLegacyKeyboardInsets) requestApplyInsetsOnceLaidOut()
+
         // Always-enabled callback: back is fully resolved by the Flutter side,
         // never by the system (required since targetSdk 36 no longer delivers
         // back events to the deprecated onBackPressed override).
@@ -96,6 +96,54 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    /**
+     * Android 11 is where Flutter starts reading the typed ime() inset and
+     * animating the keyboard from it; below that it has to work the keyboard
+     * height out of the window's content insets instead.
+     */
+    private val needsLegacyKeyboardInsets: Boolean
+        get() = Build.VERSION.SDK_INT < Build.VERSION_CODES.R
+
+    /**
+     * Makes the soft keyboard visible to Flutter on Android 10 and below.
+     *
+     * There, the keyboard height only reaches Flutter through the window's
+     * content insets, which FLAG_LAYOUT_NO_LIMITS zeroes and which the IME only
+     * moves under adjustResize. Without both of those the keyboard silently
+     * covered the support chat composer (issue-tracker#152).
+     *
+     * Android 11+ keeps the historical no-limits window untouched: it already
+     * had a working keyboard, and it animates that keyboard itself, so letting
+     * the window resize under it only made the animation stutter.
+     */
+    private fun configureSoftInputHandling() {
+        if (needsLegacyKeyboardInsets) {
+            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        } else {
+            window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        }
+    }
+
+    /**
+     * Re-dispatches window insets once the view tree has been measured.
+     *
+     * Below Android 11 Flutter has no typed ime() inset to read, so it decides
+     * whether the window's bottom inset is a keyboard by comparing it against
+     * the root view's height. The first dispatch reaches FlutterView before this
+     * activity has been measured (height 0), which makes that check treat the
+     * navigation bar as a keyboard: every screen then keeps a phantom bottom
+     * inset, and its content stops short of the navigation bar, until some
+     * later inset change happens to correct it. See issue-tracker#152.
+     *
+     * Keyed on this activity's own layout rather than on Flutter's first frame,
+     * which is a process-wide latch: after an activity recreate that latch is
+     * already set, so it would fire back synchronously here, before layout, and
+     * never again.
+     */
+    private fun requestApplyInsetsOnceLaidOut() {
+        window.decorView.doOnLayout { ViewCompat.requestApplyInsets(it) }
     }
 
     private var splashFallbackRunnable: Runnable? = null
