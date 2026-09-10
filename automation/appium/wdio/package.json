@@ -13,12 +13,12 @@
     "lint": "echo \"No lint configured\""
   },
   "dependencies": {
-    "@wdio/cli": "^9.31.5",
+    "@wdio/cli": "^9.31.7",
     "@wdio/globals": "^9.31.3",
-    "@wdio/local-runner": "^9.31.5",
-    "@wdio/mocha-framework": "^9.31.5",
+    "@wdio/local-runner": "^9.31.7",
+    "@wdio/mocha-framework": "^9.31.7",
     "@wdio/spec-reporter": "^9.31.2",
-    "webdriverio": "^9.0.5"
+    "webdriverio": "^9.31.7"
   },
   "devDependencies": {
     "@types/chai": "^5.2.3",
