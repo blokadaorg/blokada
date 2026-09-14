@@ -26,13 +26,13 @@ buildscript {
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
 
-        classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.10.0'
+        classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.10.1'
     }
 }
 
 plugins {
-    id 'com.google.devtools.ksp' version '2.3.11' apply false
-    id 'org.jetbrains.kotlin.plugin.serialization' version '2.4.10' apply false
+    id 'com.google.devtools.ksp' version '2.3.12' apply false
+    id 'org.jetbrains.kotlin.plugin.serialization' version '2.4.20' apply false
 }
 
 allprojects {

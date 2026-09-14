@@ -162,7 +162,7 @@ repositories {
 
 dependencies {
     // androidx and kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:2.4.10"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:2.4.20"
     implementation 'androidx.core:core-ktx:1.19.0'
     implementation 'androidx.appcompat:appcompat:1.8.0'
     implementation 'com.google.android.material:material:1.14.0'
@@ -212,7 +212,7 @@ dependencies {
     // adapty-ui pulls androidx.compose.* without versions; under AGP 9 the
     // consumer must supply them. We don't author Compose — the BOM only pins
     // the versions for Adapty's prebuilt paywall UI.
-    sixImplementation platform('androidx.compose:compose-bom:2026.08.00')
+    sixImplementation platform('androidx.compose:compose-bom:2026.09.00')
     // Must equal the BOM in common/vendor/adapty_flutter/android/build.gradle: the
     // crossplatform bridge is compiled against that exact native release, so a newer
     // BOM breaks R8 in release builds (4.1.0 renamed AdaptyAttributionSource — #1222).
@@ -221,7 +221,7 @@ dependencies {
     sixImplementation 'io.adapty:android-ui'
 
     // Firebase Cloud Messaging (v6 only)
-    sixImplementation platform('com.google.firebase:firebase-bom:34.18.0')
+    sixImplementation platform('com.google.firebase:firebase-bom:34.19.0')
     sixImplementation 'com.google.firebase:firebase-messaging'
 
     // test deps
