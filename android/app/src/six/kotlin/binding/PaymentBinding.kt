@@ -357,8 +357,18 @@ object PaymentBinding : PaymentOps, AdaptyFlowDefaultEventListener() {
     ) {
         when (purchaseResult) {
             is AdaptyPurchaseResult.Success -> {
+                val profile = purchaseResult.profile
+                // Adapty 4 can report Success with no active access level (a
+                // replayed or expired transaction). Running checkout on that
+                // profile 400s at the backend and shows a spurious "payment
+                // failed". Leave the paywall open and skip checkout; the
+                // backend still rejects it as defense in depth. See #376.
+                if (!hasActiveAccess(profile)) {
+                    log("Purchase success without active access level, ignoring")
+                    return
+                }
                 closePaymentScreen(false)
-                handleSuccess(purchaseResult.profile.profileId, restore = false)
+                handleSuccess(profile.profileId, restore = false)
             }
 
             else -> {}
@@ -366,9 +376,20 @@ object PaymentBinding : PaymentOps, AdaptyFlowDefaultEventListener() {
     }
 
     override fun onRestoreSuccess(profile: AdaptyProfile, context: Context) {
+        // Same guard as purchase: a restore with no active access level must
+        // not run checkout. Leave the paywall open so the user can buy. #376.
+        if (!hasActiveAccess(profile)) {
+            log("Restore without active access level, ignoring")
+            return
+        }
         closePaymentScreen(false)
         handleSuccess(profile.profileId, restore = true)
     }
+
+    // Adapty grants entitlement through access levels; a Success/restore whose
+    // profile has none active carries no entitlement (see #376).
+    private fun hasActiveAccess(profile: AdaptyProfile): Boolean =
+        profile.accessLevels.values.any { it.isActive }
 
     override fun onActionPerformed(action: AdaptyUI.Action, context: Context) {
         when (action) {
