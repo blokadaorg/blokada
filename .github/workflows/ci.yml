@@ -133,6 +133,13 @@ jobs:
           submodules: recursive
           fetch-depth: 1
 
+      # This job runs on a persistent self-hosted runner whose checkout is
+      # reused between runs. Stale common/build artifacts have caused spurious
+      # "Unable to build CocoaPod plugin frameworks: BUILD FAILED" failures
+      # that a re-run (same working dir) can't clear. Start from a clean tree.
+      - name: Clean stale Flutter build state
+        run: make -C common clean
+
       - name: Bootstrap Flutter common lib
         # Builds the add-to-app xcframeworks the host project embeds.
         run: make -C common build-ios
