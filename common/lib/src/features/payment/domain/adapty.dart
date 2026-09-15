@@ -129,7 +129,17 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIFlows
       AdaptyUIFlowView view, AdaptyPaywallProduct product, AdaptyPurchaseResult purchaseResult) {
     switch (purchaseResult) {
       case AdaptyPurchaseResultSuccess(profile: final profile):
-        // successful purchase
+        // Adapty 4 can report a Success whose profile carries no active access
+        // level (e.g. a replayed or expired transaction). Running checkout on
+        // that profile 400s at the backend and surfaces a spurious "payment
+        // failed". Treat it as "no entitlement granted": leave the paywall open
+        // and skip checkout. The backend still rejects such a profile as
+        // defense in depth. See issue-tracker #376.
+        if (!_hasActiveAccess(profile)) {
+          log(Markers.ui)
+              .w("Adapty: purchase success without active access level, ignoring");
+          break;
+        }
         closePaymentScreen(false, view: view);
         _actor.checkoutSuccessfulPayment(profile.profileId);
         break;
@@ -146,9 +156,22 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIFlows
 
   @override
   void flowViewDidFinishRestore(AdaptyUIFlowView view, AdaptyProfile profile) {
+    // Same guard as purchase: a restore that granted no active access level
+    // must not run checkout (it would 400 and show "payment failed"). Leave
+    // the paywall open so the user can still buy. See issue-tracker #376.
+    if (!_hasActiveAccess(profile)) {
+      log(Markers.ui)
+          .w("Adapty: restore without active access level, ignoring");
+      return;
+    }
     closePaymentScreen(false, view: view);
     _actor.checkoutSuccessfulPayment(profile.profileId, restore: true);
   }
+
+  // Adapty grants entitlement through access levels; a Success/restore whose
+  // profile has none active carries no entitlement (see #376).
+  bool _hasActiveAccess(AdaptyProfile profile) =>
+      profile.accessLevels.values.any((level) => level.isActive);
 
   @override
   void flowViewDidPerformAction(AdaptyUIFlowView view, AdaptyUIAction action) {
