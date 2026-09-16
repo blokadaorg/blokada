@@ -137,15 +137,36 @@ const rawConfig = {
   // left awake at full brightness between runs; `beforeSession` re-wakes it for
   // the next spec, and the final spec leaves it asleep. Best-effort — a lock
   // failure (or no active session) must never fail the suite.
+  //
+  // Not `browser.lock()`: since the runner's Xcode 27 upgrade (WDA built
+  // against the iOS 27 SDK, phone on iOS 26.x) WDA's `pressLockButton` never
+  // locks the screen and `/wda/lock` times out after ~10s, which webdriver
+  // retries 3x — ~43s per spec, +8 min per suite, enough to push the AI
+  // explorer job past its timeout. Upstream WDA fixed it with a direct IOHID
+  // Power press (appium/WebDriverAgent#1171) but gates that on the DEVICE
+  // running iOS >= 27, so a driver bump alone would not help here. Send the
+  // same IOHID event ourselves (Consumer page 0x0C, Power usage 0x30, ~0.5s
+  // hold); it does not wait on WDA's lock-state check, so it cannot stall.
   after: async function () {
     console.warn("Post-run: locking device screen");
-    if (typeof browser === "undefined" || typeof browser.lock !== "function") {
+    if (typeof browser === "undefined" || typeof browser.execute !== "function") {
       console.warn("Post-run: no active session; skipping device lock");
       return;
     }
     try {
-      await browser.lock();
-      console.warn("Post-run: device screen locked");
+      await browser.execute("mobile: performIoHidEvent", {
+        page: 0x0c,
+        usage: 0x30,
+        durationSeconds: 0.5
+      });
+      // Report (never enforce) whether the press took effect; the lock-state
+      // notification WDA polls here still works on iOS 26/27.
+      const locked = await browser.execute("mobile: isLocked");
+      console.warn(
+        locked
+          ? "Post-run: device screen locked"
+          : "Post-run: power press sent but device reports unlocked"
+      );
     } catch (error) {
       console.warn(`Post-run device lock failed: ${String(error)}`);
     }
