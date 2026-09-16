@@ -147,7 +147,7 @@ const rawConfig = {
   // running iOS >= 27, so a driver bump alone would not help here. Send the
   // same IOHID event ourselves (Consumer page 0x0C, Power usage 0x30, ~0.5s
   // hold); it does not wait on WDA's lock-state check, so it cannot stall.
-  after: async function () {
+  after: async function (_result: unknown, _capabilities: unknown, specs: string[]) {
     console.warn("Post-run: locking device screen");
     if (typeof browser === "undefined" || typeof browser.execute !== "function") {
       console.warn("Post-run: no active session; skipping device lock");
@@ -159,14 +159,24 @@ const rawConfig = {
         usage: 0x30,
         durationSeconds: 0.5
       });
-      // Report (never enforce) whether the press took effect; the lock-state
-      // notification WDA polls here still works on iOS 26/27.
-      const locked = await browser.execute("mobile: isLocked");
+      // Report (never enforce) whether the press took effect. The lock-state
+      // notification WDA reads here lags the press, so poll briefly.
+      const startedAt = Date.now();
+      let locked = false;
+      while (!locked && Date.now() - startedAt < 3000) {
+        locked = Boolean(await browser.execute("mobile: isLocked"));
+        if (!locked) await browser.pause(250);
+      }
       console.warn(
         locked
-          ? "Post-run: device screen locked"
+          ? `Post-run: device screen locked after ${Date.now() - startedAt}ms`
           : "Post-run: power press sent but device reports unlocked"
       );
+      // DIAGNOSTIC (remove before merge): capture what the screen shows after
+      // the press, independent of WDA's lock-state notification.
+      const slug = (specs?.[0] ?? "spec").split("/").pop()?.replace(/\.spec\.ts$/, "") ?? "spec";
+      const shot = await saveScreenshot(`post-lock-${slug}.png`);
+      console.warn(`Post-run: screen state captured at ${shot}`);
     } catch (error) {
       console.warn(`Post-run device lock failed: ${String(error)}`);
     }
