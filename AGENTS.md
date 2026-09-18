@@ -4,6 +4,13 @@ This file is the single source of project context for AI agents. See also
 `docs/domain/` for product-specific behavior rules and `common/docs/` for
 business logic (account types, subscriptions, feature access).
 
+## Issue specifications
+
+When planning an issue or feature, read any specification embedded in the relevant
+issue body, including collapsed sections, together with maintainer comments.
+If that context is not already available, look it up in the issue tracker before
+planning.
+
 ## Project Overview
 
 Blokada 6 is a cross-platform mobile ad blocker and privacy app with
