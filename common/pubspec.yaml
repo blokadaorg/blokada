@@ -61,8 +61,17 @@ dependencies:
   qr_flutter: ^4.1.0
   provider: ^6.1.2
   timeago: ^3.6.1
-  flutter_chat_core: ^2.6.0
-  flutter_chat_ui: ^2.6.0
+  # Held below the material_ui migration. flutter_chat_core 2.9.1 /
+  # flutter_chat_ui 2.12.0 swapped `package:flutter/material` for pub's
+  # `package:material_ui` (changelogged only as "REFACTOR", shipped as a patch).
+  # Flutter 3.44's SDK material is an independent copy of that package, not a
+  # re-export, so the two ThemeData/Material/MaterialLocalizations types are
+  # unrelated: ChatTheme.fromThemeData(Theme.of(context)) stops compiling, and
+  # the composer's TextField cannot find a Material ancestor inside our
+  # MaterialApp ("No Material widget found" at runtime). Raise these only
+  # together with a material_ui host for the support chat subtree.
+  flutter_chat_core: ">=2.6.0 <2.9.1"
+  flutter_chat_ui: ">=2.6.0 <2.12.0"
   logger: ^2.4.0
   adapty_flutter: 4.0.4
   flutter_linkify: ^6.0.0
