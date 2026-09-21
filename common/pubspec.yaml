@@ -70,8 +70,8 @@ dependencies:
   # the composer's TextField cannot find a Material ancestor inside our
   # MaterialApp ("No Material widget found" at runtime). Raise these only
   # together with a material_ui host for the support chat subtree.
-  flutter_chat_core: ">=2.6.0 <2.9.1"
-  flutter_chat_ui: ">=2.6.0 <2.12.0"
+  flutter_chat_core: ^2.6.0
+  flutter_chat_ui: ^2.6.0
   logger: ^2.4.0
   adapty_flutter: 4.0.4
   flutter_linkify: ^6.0.0

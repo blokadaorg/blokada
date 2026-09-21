@@ -196,10 +196,10 @@ packages:
     dependency: transitive
     description:
       name: cross_cache
-      sha256: "4983a16603cc99b0a14de6a772fa8ee4533411f46f3c423f1386fea7566049c5"
+      sha256: "35dacce2ffc46c2fd28154736a77eecc2ac5a71008f9be25c503a7128bf466a8"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.1"
   cross_file:
     dependency: transitive
     description:
@@ -337,18 +337,18 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_chat_core
-      sha256: "8c46790f64f106bf6e610e2a7324b3844320e9e295867c06d45d9deb134d848d"
+      sha256: "7e3c2b2db986c8981e9280aea7dd8ad4460f4f4579bf3567c8f70cf6c7d0cc90"
       url: "https://pub.dev"
     source: hosted
-    version: "2.9.0"
+    version: "2.9.1"
   flutter_chat_ui:
     dependency: "direct main"
     description:
       name: flutter_chat_ui
-      sha256: cfbaac38f429beb33d9cc1ca920ae7ccbadbed282c99335d590d61306d3a3d0f
+      sha256: de81af24364a3f881847477b0fbf4356d0fd1675eed780a9957976862d85c76c
       url: "https://pub.dev"
     source: hosted
-    version: "2.11.1"
+    version: "2.12.0"
   flutter_linkify:
     dependency: "direct main"
     description:
@@ -1037,18 +1037,18 @@ packages:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_charts
-      sha256: cf3e78512b3ce974088131507b7ebdb6da5f2f1458b06f6c770a2285dc68f0e1
+      sha256: "2546c17b3d87f93e315a1640bb4b6d2bf8ac9a7e90c2a7d37fb0b3dfbf43dd53"
       url: "https://pub.dev"
     source: hosted
-    version: "34.2.7"
+    version: "34.2.8"
   syncfusion_flutter_core:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: "4650a74c688891588afa0291a0e9849395de8bd42ebe5d5c4266f885d318f703"
+      sha256: "5847322d442ab29c04208d2b49166996dcba67e55d0ccd63c8b13d9bacff508e"
       url: "https://pub.dev"
     source: hosted
-    version: "34.2.7"
+    version: "34.2.8"
   synchronized:
     dependency: transitive
     description:
