@@ -10,10 +10,13 @@ class AttachApi {
   /// placeholder and Http substitutes the current account, the same way the
   /// family auth endpoint does. That keeps this api free of account state.
   Future<JsonAttachLink> createLink(Marker m) async {
+    // No retries: a create is not idempotent. A lost response would leave a
+    // live token unused for its whole window while a retry minted another.
     final response = await _api.request(
       ApiEndpoint.postAuthLink,
       m,
       payload: _marshal.payload(),
+      attempts: 1,
     );
     return _marshal.toLink(response);
   }

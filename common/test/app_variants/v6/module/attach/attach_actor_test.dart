@@ -59,7 +59,7 @@ void main() {
 
         // A token is single use and expires in 5 minutes, so a cached one
         // would send the second device to an "already used" page.
-        verify(api.request(any, any, payload: anyNamed("payload"))).called(2);
+        verify(api.request(any, any, payload: anyNamed("payload"), attempts: 1)).called(2);
         verify(stage.openUrl("${_url}token-one", any)).called(1);
         verify(stage.openUrl("${_url}token-two", any)).called(1);
       });
@@ -69,7 +69,7 @@ void main() {
       await withTrace((m) async {
         final api = MockApi();
         final pending = Completer<String>();
-        when(api.request(any, any, payload: anyNamed("payload")))
+        when(api.request(any, any, payload: anyNamed("payload"), attempts: 1))
             .thenAnswer((_) => pending.future);
         Core.register<Api>(api);
         Core.register<AttachApi>(AttachApi());
@@ -83,7 +83,7 @@ void main() {
         pending.complete(_response("token-one"));
         await Future.wait([first, second]);
 
-        verify(api.request(any, any, payload: anyNamed("payload"))).called(1);
+        verify(api.request(any, any, payload: anyNamed("payload"), attempts: 1)).called(1);
         verify(stage.openUrl("${_url}token-one", any)).called(1);
       });
     });
@@ -91,7 +91,7 @@ void main() {
     test("rethrows a rejected creation and opens nothing", () async {
       await withTrace((m) async {
         final api = MockApi();
-        when(api.request(any, any, payload: anyNamed("payload")))
+        when(api.request(any, any, payload: anyNamed("payload"), attempts: 1))
             .thenThrow(HttpCodeException(403, "account not active"));
         Core.register<Api>(api);
         Core.register<AttachApi>(AttachApi());
@@ -113,7 +113,7 @@ void main() {
       await withTrace((m) async {
         final api = MockApi();
         var failed = false;
-        when(api.request(any, any, payload: anyNamed("payload")))
+        when(api.request(any, any, payload: anyNamed("payload"), attempts: 1))
             .thenAnswer((_) async {
           if (failed) return _response("token-one");
           failed = true;
@@ -142,7 +142,7 @@ void main() {
 MockApi _registerApiReturning(List<String> tokens) {
   final api = MockApi();
   var next = 0;
-  when(api.request(any, any, payload: anyNamed("payload")))
+  when(api.request(any, any, payload: anyNamed("payload"), attempts: 1))
       .thenAnswer((_) async => _response(tokens[next++]));
   Core.register<Api>(api);
   Core.register<AttachApi>(AttachApi());

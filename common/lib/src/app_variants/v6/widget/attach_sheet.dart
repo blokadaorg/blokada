@@ -113,11 +113,16 @@ class AttachSheetState extends State<AttachSheet> with Logging {
               ),
               const SizedBox(height: 12),
               // Android has no obvious "swipe the sheet away" affordance, so
-              // give the user an explicit way out.
+              // give the user an explicit way out. Not while a link is being
+              // minted, though: the tap would still open the browser or the
+              // share sheet seconds after this one is gone.
               CommonClickable(
-                onTap: () => Navigator.of(context).pop(),
+                onTap: _working ? null : () => Navigator.of(context).pop(),
                 child: Text("universal action cancel".i18n,
-                    style: TextStyle(color: context.theme.accent)),
+                    style: TextStyle(
+                        color: _working
+                            ? context.theme.textSecondary
+                            : context.theme.accent)),
               ),
               const SizedBox(height: 20),
             ],
