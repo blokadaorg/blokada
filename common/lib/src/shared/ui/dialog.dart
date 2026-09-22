@@ -11,6 +11,8 @@ import 'package:common/src/app_variants/family/module/device_v3/device.dart';
 import 'package:common/src/app_variants/family/module/profile/profile.dart';
 import 'package:common/src/app_variants/family/widget/profile/profile_dialog.dart';
 import 'package:common/src/features/plus/ui/pause_dialog.dart';
+import 'package:common/src/platform/command/channel.pg.dart';
+import 'package:common/src/platform/command/command.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -486,7 +488,10 @@ void showAccountIdDialog(BuildContext context, String accountId) {
   );
 }
 
-void showErrorDialog(BuildContext context, String? description) {
+// With [shareLog], a second action offers the log, for failures that need
+// our help to understand rather than a retry.
+void showErrorDialog(BuildContext context, String? description,
+    {bool shareLog = false}) {
   showDefaultDialog(
     context,
     title: Text("alert error header".i18n),
@@ -497,6 +502,15 @@ void showErrorDialog(BuildContext context, String? description) {
       ],
     ),
     actions: (context) => [
+      if (shareLog)
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+            Core.get<CommandStore>()
+                .onCommand(CommandName.shareLog.name, Markers.userTap);
+          },
+          child: Text("universal action share log".i18n),
+        ),
       TextButton(
         onPressed: () {
           Navigator.of(context).pop();
