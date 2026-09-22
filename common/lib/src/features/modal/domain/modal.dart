@@ -14,6 +14,7 @@ enum Modal {
   familyQrScanMacos,
   pause,
   weeklyRefresh,
+  attachDevice,
 }
 
 class CurrentModalValue extends NullableAsyncValue<Modal> {
