@@ -1,6 +1,7 @@
 import 'package:common/src/shared/ui/dialog.dart';
 import 'package:common/src/features/env/domain/env.dart';
 import 'package:common/src/features/link/domain/link.dart';
+import 'package:common/src/features/modal/domain/modal.dart';
 import 'package:common/src/features/rate/domain/rate.dart';
 import 'package:common/src/features/support/domain/support.dart';
 import 'package:common/src/shared/automation/ids.dart';
@@ -43,6 +44,7 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
   late final _command = Core.get<CommandStore>();
   late final _unread = Core.get<SupportUnread>();
   late final _rate = Core.get<RateActor>();
+  late final _modal = Core.get<CurrentModalValue>();
   late final NotificationActor? _notification =
       Core.act.isFamily ? null : Core.get<NotificationActor>();
 
@@ -218,6 +220,26 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                                                   path: Paths.settingsVpnBypass,
                                                   onTap: () {
                                                     Navigation.open(Paths.settingsVpnBypass);
+                                                  }),
+                                              const CommonDivider(),
+                                            ],
+                                          )
+                                        : Container(),
+                                    // Only for active accounts: creating a
+                                    // hand-off link is rejected (403) without
+                                    // an active subscription.
+                                    (_account.type.isActive())
+                                        ? Column(
+                                            children: [
+                                              SettingsItem(
+                                                  icon: CupertinoIcons.device_laptop,
+                                                  text: "attach settings row".i18n,
+                                                  automationId: AutomationIds.settingsAttach,
+                                                  onTap: () {
+                                                    log(Markers.userTap)
+                                                        .trace("settingsOpenAttach", (m) async {
+                                                      await _modal.change(m, Modal.attachDevice);
+                                                    });
                                                   }),
                                               const CommonDivider(),
                                             ],
