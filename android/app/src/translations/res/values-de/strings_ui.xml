@@ -56,6 +56,8 @@
     <string name="universal_action_hide">Verbergen</string>
     <string name="universal_action_select">Auswählen</string>
     <string name="universal_action_selected">Ausgewählt</string>
+    <string name="universal_action_send">Send</string>
+    <string name="support_chat_input_placeholder">Write a message...</string>
     <string name="universal_action_search">Suchen</string>
     <string name="universal_action_filter">Filtern</string>
     <string name="universal_action_clear">Leeren</string>
@@ -254,6 +256,8 @@
     <string name="account_lease_label_generate">Wenn du hier einen Standort auswählst, wird eine Konfigurationsdatei generiert, die du in jeder VPN-App verwenden kannst, die WireGuard unterstützt. Dies ist nützlich für Plattformen, für die wir noch keine eigenen Apps bereitstellen. Ansonsten empfehlen wir, stattdessen unsere nativen Apps zu verwenden.</string>
     <string name="account_lease_action_generate">Konfiguration generieren</string>
     <string name="account_lease_action_download">Konfiguration herunterladen</string>
+    <string name="account_lease_action_ipvsix_only">IPv6-only network</string>
+    <string name="account_lease_action_ipvsix_only_help">Connect to the VPN via IPv6.</string>
     <string name="account_lease_generated">Gerät hinzugefügt! Lade die Konfiguration herunter, um sie auf jedem Gerät zu verwenden, dass von WireGuard unterstützt wird.</string>
     <string name="account_lease_wireguard_desc">Blokada verwendet WireGuard. Konfigurationen können beim Anlegen neuer Geräte heruntergeladen werden.</string>
     <string name="account_lease_label_dns">DNS</string>
@@ -353,6 +357,11 @@
     <string name="web_cta_plus_header">Upgrade auf Blokada Plus, um die Kontrolle über deine Privatsphäre zu behalten.</string>
     <string name="web_cta_plus_desc">Mit deinem Libre-Konto kannst du mit unseren Open-Source-Apps kostenlos Werbung auf deinem Gerät blockieren. Ein Upgrade auf Blokada Plus bietet dir einen noch besseren Schutz. Du erhältst Zugriff auf unser globales VPN-Netzwerk sowie unseren neuen *cloud­ba­sierten* Werbeblocker, der noch effizienter und einfacher zu bedienen ist.</string>
     <string name="web_action_generate">Erzeugen</string>
+    <string name="web_link_header">Link this device</string>
+    <string name="web_link_brief">Continue to sign this browser in to your Blokada account.</string>
+    <string name="web_link_missing">Open this page from the Blokada app: Settings, then Protect another device.</string>
+    <string name="web_link_error_expired">This link has expired or was already used. Open a new one from the Blokada app.</string>
+    <string name="web_link_error_generic">Something went wrong. Open a new link from the Blokada app.</string>
     <string name="setup_header">Einrichtung</string>
     <string name="setup_desc">Es gibt viele Möglichkeiten dein Gerät so zu konfigurieren, dass es Blokada Cloud verwendet. Wähle die aus, die für dich am besten geeignet ist.</string>
     <string name="setup_label_which_device">Welche Art von Gerät möchtest du einrichten?</string>

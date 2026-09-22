@@ -56,6 +56,8 @@
     <string name="universal_action_hide">إخفاء</string>
     <string name="universal_action_select">تحديد</string>
     <string name="universal_action_selected">محدد</string>
+    <string name="universal_action_send">Send</string>
+    <string name="support_chat_input_placeholder">Write a message...</string>
     <string name="universal_action_search">بحث</string>
     <string name="universal_action_filter">تصفية</string>
     <string name="universal_action_clear">مسح</string>
@@ -254,6 +256,8 @@
     <string name="account_lease_label_generate">اختيار موقع هنا سيولّد ملف إعداد يمكنك استخدامه في أي تطبيق VPN يدعم WireGuard. هذا مفيد للمنصات التي ليس لدينا تطبيقاتنا عليها بعد. وإلا فنحن نوصي باستخدام تطبيقاتنا الأصلية.</string>
     <string name="account_lease_action_generate">توليد ملف الإعداد</string>
     <string name="account_lease_action_download">تحميل ملف الإعداد</string>
+    <string name="account_lease_action_ipvsix_only">IPv6-only network</string>
+    <string name="account_lease_action_ipvsix_only_help">Connect to the VPN via IPv6.</string>
     <string name="account_lease_generated">تمت إضافة الجهاز! حمّل ملف الإعداد لاستخدامه على أي جهاز يدعم WireGuard.</string>
     <string name="account_lease_wireguard_desc">يستخدم Blokada بروتوكول WireGuard. يمكنك تحميل الإعدادات عند إنشاء أجهزة جديدة.</string>
     <string name="account_lease_label_dns">DNS</string>
@@ -353,6 +357,11 @@
     <string name="web_cta_plus_header">قم بالترقية إلى Blokada Plus للبقاء متحكمًا في خصوصيتك.</string>
     <string name="web_cta_plus_desc">يمنحك حساب Libre وصولاً مجانيًا لحجب الإعلانات على جهازك عبر تطبيقاتنا مفتوحة المصدر. قم بالترقية إلى Blokada Plus لحماية أفضل. ستحصل على دخول إلى شبكة VPN العالمية الخاصة بنا وكذلك حجب الإعلانات السحابي الجديد الذي يتميز بالكفاءة والسهولة.</string>
     <string name="web_action_generate">توليد</string>
+    <string name="web_link_header">Link this device</string>
+    <string name="web_link_brief">Continue to sign this browser in to your Blokada account.</string>
+    <string name="web_link_missing">Open this page from the Blokada app: Settings, then Protect another device.</string>
+    <string name="web_link_error_expired">This link has expired or was already used. Open a new one from the Blokada app.</string>
+    <string name="web_link_error_generic">Something went wrong. Open a new link from the Blokada app.</string>
     <string name="setup_header">إعداد</string>
     <string name="setup_desc">هناك العديد من الطرق لتهيئة جهازك لاستخدام Blokada Cloud. اختر الطريقة المناسبة لك.</string>
     <string name="setup_label_which_device">ما نوع الجهاز الذي ترغب في إعداده؟</string>

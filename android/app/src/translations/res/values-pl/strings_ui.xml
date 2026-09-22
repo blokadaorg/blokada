@@ -56,6 +56,8 @@
     <string name="universal_action_hide">Ukryj</string>
     <string name="universal_action_select">Wybierz</string>
     <string name="universal_action_selected">Wybrano</string>
+    <string name="universal_action_send">Send</string>
+    <string name="support_chat_input_placeholder">Write a message...</string>
     <string name="universal_action_search">Szukaj</string>
     <string name="universal_action_filter">Filtruj</string>
     <string name="universal_action_clear">Wyczyść</string>
@@ -254,6 +256,8 @@
     <string name="account_lease_label_generate">Wybór lokalizacji w tym miejscu spowoduje wygenerowanie pliku konfiguracyjnego, którego można użyć w dowolnej aplikacji VPN obsługującej WireGuard. Jest to przydatne na platformach, na których nie mamy jeszcze naszych aplikacji. W przeciwnym razie zalecamy używanie naszych natywnych aplikacji.</string>
     <string name="account_lease_action_generate">Generuj konfigurację</string>
     <string name="account_lease_action_download">Pobierz konfigurację</string>
+    <string name="account_lease_action_ipvsix_only">IPv6-only network</string>
+    <string name="account_lease_action_ipvsix_only_help">Connect to the VPN via IPv6.</string>
     <string name="account_lease_generated">Dodano urządzenie! Pobierz konfigurację, aby użyć ją na dowolnym urządzeniu obsługiwanym przez WireGuard.</string>
     <string name="account_lease_wireguard_desc">Blokada używa WireGuard. Konfiguracja może być pobierana podczas tworzenia nowych urządzeń.</string>
     <string name="account_lease_label_dns">DNS</string>
@@ -353,6 +357,11 @@
     <string name="web_cta_plus_header">Ulepsz do Blokady Plus, aby zachować kontrolę nad prywatnością.</string>
     <string name="web_cta_plus_desc">Twoje konto Libre zapewnia bezpłatne blokowanie reklam na Twoim urządzeniu dzięki naszym aplikacjom typu open source. Zaktualizuj do Blokady Plus, aby uzyskać jeszcze lepszą ochronę. Otrzymasz dostęp do naszej globalnej sieci VPN, a także do naszego nowego blokowania reklam *opartego na chmurze*, które jest wydajniejsze i łatwiejsze w użyciu.</string>
     <string name="web_action_generate">Wygeneruj</string>
+    <string name="web_link_header">Link this device</string>
+    <string name="web_link_brief">Continue to sign this browser in to your Blokada account.</string>
+    <string name="web_link_missing">Open this page from the Blokada app: Settings, then Protect another device.</string>
+    <string name="web_link_error_expired">This link has expired or was already used. Open a new one from the Blokada app.</string>
+    <string name="web_link_error_generic">Something went wrong. Open a new link from the Blokada app.</string>
     <string name="setup_header">Konfiguracja</string>
     <string name="setup_desc">Istnieje wiele sposobów na skonfigurowanie urządzenia do korzystania z Blokady Cloud. Wybierz ten, który Ci odpowiada.</string>
     <string name="setup_label_which_device">Jaki typ urządzenia chcesz skonfigurować?</string>

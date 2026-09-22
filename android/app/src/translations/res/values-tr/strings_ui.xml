@@ -56,6 +56,8 @@
     <string name="universal_action_hide">Gizle</string>
     <string name="universal_action_select">Seç</string>
     <string name="universal_action_selected">Seçildi</string>
+    <string name="universal_action_send">Send</string>
+    <string name="support_chat_input_placeholder">Write a message...</string>
     <string name="universal_action_search">Ara</string>
     <string name="universal_action_filter">Filtre</string>
     <string name="universal_action_clear">Temizle</string>
@@ -254,6 +256,8 @@
     <string name="account_lease_label_generate">Burada bir konum seçtiğinizde WireGuard\'ı destekleyen herhangi bir VPN uygulamasında kullanabileceğiniz bir yapılandırma dosyası oluşturulur. Bu, henüz uygulamalarımızın olmadığı platformlar için kullanışlıdır. Aksi takdirde, bunun yerine yerel uygulamalarımızı kullanmanızı öneririz.</string>
     <string name="account_lease_action_generate">Yapılandırma Oluştur</string>
     <string name="account_lease_action_download">Yapılandırmayı İndir</string>
+    <string name="account_lease_action_ipvsix_only">IPv6-only network</string>
+    <string name="account_lease_action_ipvsix_only_help">Connect to the VPN via IPv6.</string>
     <string name="account_lease_generated">Cihaz eklendi! WireGuard tarafından desteklenen herhangi bir cihazda kullanmak için yapılandırmayı indirin.</string>
     <string name="account_lease_wireguard_desc">Blokada WireGuard kullanmaktadır. Yeni cihazlar oluşturulurken konfigürasyonlar indirilebilir.</string>
     <string name="account_lease_label_dns">DNS</string>
@@ -353,6 +357,11 @@
     <string name="web_cta_plus_header">Gizliliğinizin kontrolünü elinizde tutmak için Blokada Plus \'a yükseltin.</string>
     <string name="web_cta_plus_desc">Libre hesabınız, açık kaynak uygulamalarımızla cihazınızda ücretsiz reklam engelleme sağlar. Daha da iyi bir koruma için Blokada Plus \'a yükseltin. Küresel VPN ağımızın yanı sıra daha verimli ve kullanımı daha kolay olan yeni *bulut tabanlı* reklam engellememize erişim elde edeceksiniz.</string>
     <string name="web_action_generate">Oluştur</string>
+    <string name="web_link_header">Link this device</string>
+    <string name="web_link_brief">Continue to sign this browser in to your Blokada account.</string>
+    <string name="web_link_missing">Open this page from the Blokada app: Settings, then Protect another device.</string>
+    <string name="web_link_error_expired">This link has expired or was already used. Open a new one from the Blokada app.</string>
+    <string name="web_link_error_generic">Something went wrong. Open a new link from the Blokada app.</string>
     <string name="setup_header">Kurulum</string>
     <string name="setup_desc">Cihazınızı Blokada Cloud\'u kullanacak şekilde yapılandırmanın birçok yolu vardır. Sizin için uygun olanı seçin.</string>
     <string name="setup_label_which_device">Ne tür bir cihaz kurmak istiyorsunuz?</string>

@@ -56,6 +56,8 @@
     <string name="universal_action_hide">隱藏</string>
     <string name="universal_action_select">選取</string>
     <string name="universal_action_selected">已選取</string>
+    <string name="universal_action_send">Send</string>
+    <string name="support_chat_input_placeholder">Write a message...</string>
     <string name="universal_action_search">搜尋</string>
     <string name="universal_action_filter">篩選</string>
     <string name="universal_action_clear">清除</string>
@@ -254,6 +256,8 @@
     <string name="account_lease_label_generate">在這選完位置後，就會產生出一個設定檔，可以用在任何支援 WireGuard 的 VPN app。這適合用在還不支援 Blokada 的平台，如果支援，建議使用原生 app。</string>
     <string name="account_lease_action_generate">生成設定</string>
     <string name="account_lease_action_download">下載設定</string>
+    <string name="account_lease_action_ipvsix_only">IPv6-only network</string>
+    <string name="account_lease_action_ipvsix_only_help">Connect to the VPN via IPv6.</string>
     <string name="account_lease_generated">已新增裝置！下載設定，即可在任何支援 WireGuard 的裝置上使用。</string>
     <string name="account_lease_wireguard_desc">Blokada 使用 WireGuard。建立新裝置時可以下載設定。</string>
     <string name="account_lease_label_dns">DNS</string>
@@ -353,6 +357,11 @@
     <string name="web_cta_plus_header">升級到 Blokada Plus，您的隱私權不用再任人宰割。</string>
     <string name="web_cta_plus_desc">您的 Libre 帳號可透過我們的開放原始碼應用程式在您的裝置上封鎖廣告。升級至 Blokada Plus 來取得更好的保護。您將可以存取我們的全球 VPN 網路以及我們新的 *以雲端為基礎的* 廣告封鎖，其更有效率也更易於使用。</string>
     <string name="web_action_generate">產生</string>
+    <string name="web_link_header">Link this device</string>
+    <string name="web_link_brief">Continue to sign this browser in to your Blokada account.</string>
+    <string name="web_link_missing">Open this page from the Blokada app: Settings, then Protect another device.</string>
+    <string name="web_link_error_expired">This link has expired or was already used. Open a new one from the Blokada app.</string>
+    <string name="web_link_error_generic">Something went wrong. Open a new link from the Blokada app.</string>
     <string name="setup_header">設定</string>
     <string name="setup_desc">有很多方法可以讓您的裝置接上 Blokada Cloud。請選擇適合您的方法。</string>
     <string name="setup_label_which_device">您想設定什麼裝置？</string>

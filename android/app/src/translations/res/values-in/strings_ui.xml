@@ -56,6 +56,8 @@
     <string name="universal_action_hide">Sembunyikan</string>
     <string name="universal_action_select">Pilih</string>
     <string name="universal_action_selected">Dipilih</string>
+    <string name="universal_action_send">Send</string>
+    <string name="support_chat_input_placeholder">Write a message...</string>
     <string name="universal_action_search">Cari</string>
     <string name="universal_action_filter">Filter</string>
     <string name="universal_action_clear">Hapus</string>
@@ -254,6 +256,8 @@
     <string name="account_lease_label_generate">Memilih lokasi akan menghasilkan file config yang bisa Anda pakai di aplikasi VPN manapun yang mendukung protokol Wireguard. Hal ini berguna di platform yang belum didukung oleh Blokada (mis. Windows, Linux). Untuk Android dan iOS kami sarankan Anda untuk menggunakan aplikasi resmi kami.</string>
     <string name="account_lease_action_generate">Hasilkan file Config</string>
     <string name="account_lease_action_download">Unduh file Config</string>
+    <string name="account_lease_action_ipvsix_only">IPv6-only network</string>
+    <string name="account_lease_action_ipvsix_only_help">Connect to the VPN via IPv6.</string>
     <string name="account_lease_generated">Perangkat ditambahkan! Unduh file konfigurasi untuk menggunakannya di perangkat apa pun yang mendukung protokol Wireguard.</string>
     <string name="account_lease_wireguard_desc">Blokada menggunakan protokol Wireguard. Konfigurasi dapat diunduh saat menambahkan perangkat baru.</string>
     <string name="account_lease_label_dns">DNS</string>
@@ -353,6 +357,11 @@
     <string name="web_cta_plus_header">Upgrade ke Blokada Plus supaya Anda bisa mengendalikan privasi Anda.</string>
     <string name="web_cta_plus_desc">Akun Libre memberi Anda fitur pemblokiran iklan gratis di perangkat Anda lewat aplikasi open source kami. Silakan upgrade ke Blokada Plus untuk perlindungan yang lebih baik lagi. Anda akan dapat menggunakan jaringan VPN global kami, dan juga fitur pemblokiran iklan *berbasis cloud* yang lebih efisien dan mudah digunakan.</string>
     <string name="web_action_generate">Buat profil</string>
+    <string name="web_link_header">Link this device</string>
+    <string name="web_link_brief">Continue to sign this browser in to your Blokada account.</string>
+    <string name="web_link_missing">Open this page from the Blokada app: Settings, then Protect another device.</string>
+    <string name="web_link_error_expired">This link has expired or was already used. Open a new one from the Blokada app.</string>
+    <string name="web_link_error_generic">Something went wrong. Open a new link from the Blokada app.</string>
     <string name="setup_header">Pengaturan</string>
     <string name="setup_desc">Ada banyak cara untuk mengkonfigurasikan perangkat Anda agar bisa menggunakan Blokada Cloud. Pilih salah satu yang cocok untuk Anda.</string>
     <string name="setup_label_which_device">Apa jenis pernagkat yang ingin Anda atur untuk Blokada Cloud?</string>

@@ -56,6 +56,8 @@
     <string name="universal_action_hide">Dölj</string>
     <string name="universal_action_select">Välj</string>
     <string name="universal_action_selected">Vald</string>
+    <string name="universal_action_send">Send</string>
+    <string name="support_chat_input_placeholder">Write a message...</string>
     <string name="universal_action_search">Sök</string>
     <string name="universal_action_filter">Filter</string>
     <string name="universal_action_clear">Rensa</string>
@@ -254,6 +256,8 @@
     <string name="account_lease_label_generate">Att välja en plats här kommer att generera en konfigurationsfil som du kan använda i alla VPN-appar som stöder WireGuard. Detta är användbart för plattformar där vi ännu inte har någon egen app. Annars rekommenderar vi att du använder våra egna appar istället.</string>
     <string name="account_lease_action_generate">Generera konfiguration</string>
     <string name="account_lease_action_download">Ladda ner konfiguration</string>
+    <string name="account_lease_action_ipvsix_only">IPv6-only network</string>
+    <string name="account_lease_action_ipvsix_only_help">Connect to the VPN via IPv6.</string>
     <string name="account_lease_generated">Enheten tillagd! Ladda ner konfigurationen för att använda den på enheter som stöds av WireGuard.</string>
     <string name="account_lease_wireguard_desc">Blokada använder Wireguard. Konfigurationer kan laddas ner när du skapar nya enheter.</string>
     <string name="account_lease_label_dns">DNS</string>
@@ -353,6 +357,11 @@
     <string name="web_cta_plus_header">Uppgradera till Blokada Plus för att behålla kontrollen över din integritet.</string>
     <string name="web_cta_plus_desc">Ditt Libre-konto ger dig fri blockering på din enhet när du använder våra appar med öppen källkod. Uppgradera till Blokada Plus för ett ännu bättre skydd. Du får tillgång till vårt globala VPN-nätverk samt vår nya *molnbaserade* annonsblockering som är både effektivare och enklare att använda.</string>
     <string name="web_action_generate">Generera</string>
+    <string name="web_link_header">Link this device</string>
+    <string name="web_link_brief">Continue to sign this browser in to your Blokada account.</string>
+    <string name="web_link_missing">Open this page from the Blokada app: Settings, then Protect another device.</string>
+    <string name="web_link_error_expired">This link has expired or was already used. Open a new one from the Blokada app.</string>
+    <string name="web_link_error_generic">Something went wrong. Open a new link from the Blokada app.</string>
     <string name="setup_header">Inställningar</string>
     <string name="setup_desc">Det finns många sätt att konfigurera din enhet för att använda Blokada Cloud. Välj den som fungerar bäst för dig.</string>
     <string name="setup_label_which_device">Vilken typ av enhet vill du konfigurera?</string>

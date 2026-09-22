@@ -68,6 +68,9 @@
 "universal action hide" = "إخفاء";
 "universal action select" = "تحديد";
 "universal action selected" = "محدد";
+// A verb, "to send the message" in the support chat
+"universal action send" = "Send";
+"support chat input placeholder" = "Write a message...";
 // A verb "to search in the list"
 "universal action search" = "بحث";
 // A verb "to filter the list"
@@ -325,6 +328,9 @@
 "account lease label generate" = "اختيار موقع هنا سيولّد ملف إعداد يمكنك استخدامه في أي تطبيق VPN يدعم WireGuard. هذا مفيد للمنصات التي ليس لدينا تطبيقاتنا عليها بعد. وإلا فنحن نوصي باستخدام تطبيقاتنا الأصلية.";
 "account lease action generate" = "توليد ملف الإعداد";
 "account lease action download" = "تحميل ملف الإعداد";
+// An option to build the config for a network that has no IPv4
+"account lease action ipv6 only" = "IPv6-only network";
+"account lease action ipv6 only help" = "Connect to the VPN via IPv6.";
 "account lease generated" = "تمت إضافة الجهاز! حمّل ملف الإعداد لاستخدامه على أي جهاز يدعم WireGuard.";
 "account lease wireguard desc" = "يستخدم Blokada بروتوكول WireGuard. يمكنك تحميل الإعدادات عند إنشاء أجهزة جديدة.";
 "account lease label dns" = "DNS";
@@ -442,6 +448,16 @@
 "web cta plus desc" = "يمنحك حساب Libre وصولاً مجانيًا لحجب الإعلانات على جهازك عبر تطبيقاتنا مفتوحة المصدر. قم بالترقية إلى Blokada Plus لحماية أفضل. ستحصل على دخول إلى شبكة VPN العالمية الخاصة بنا وكذلك حجب الإعلانات السحابي الجديد الذي يتميز بالكفاءة والسهولة.";
 // A short word for a button to generate profile
 "web action generate" = "توليد";
+
+// Title of the web page that signs a device in to an account without typing
+// the account ID.
+"web link header" = "Link this device";
+// Shown with a button; the app has opened this page with a one-time link.
+"web link brief" = "Continue to sign this browser in to your Blokada account.";
+// The page was opened without the one-time link, e.g. typed in by hand.
+"web link missing" = "Open this page from the Blokada app: Settings, then Protect another device.";
+"web link error expired" = "This link has expired or was already used. Open a new one from the Blokada app.";
+"web link error generic" = "Something went wrong. Open a new link from the Blokada app.";
 
 "setup header" = "إعداد";
 "setup desc" = "هناك العديد من الطرق لتهيئة جهازك لاستخدام Blokada Cloud. اختر الطريقة المناسبة لك.";

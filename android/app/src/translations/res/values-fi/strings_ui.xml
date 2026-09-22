@@ -56,6 +56,8 @@
     <string name="universal_action_hide">Piilota</string>
     <string name="universal_action_select">Valitse</string>
     <string name="universal_action_selected">Valittu</string>
+    <string name="universal_action_send">Send</string>
+    <string name="support_chat_input_placeholder">Write a message...</string>
     <string name="universal_action_search">Hae</string>
     <string name="universal_action_filter">Suodatin</string>
     <string name="universal_action_clear">Tyhjennä</string>
@@ -254,6 +256,8 @@
     <string name="account_lease_label_generate">Tämän sijainnin valitseminen luo asetustiedoston, jota voit käyttää missä tahansa VPN-sovelluksessa, joka tukee WireGuardia. Tämä on hyödyllinen alustoille, joilla meillä ei ole vielä sovelluksia. Muuten suosittelemme käyttämään natiivisovelluksiamme.</string>
     <string name="account_lease_action_generate">Luo Asetukset</string>
     <string name="account_lease_action_download">Lataa Asetukset</string>
+    <string name="account_lease_action_ipvsix_only">IPv6-only network</string>
+    <string name="account_lease_action_ipvsix_only_help">Connect to the VPN via IPv6.</string>
     <string name="account_lease_generated">Laite lisätty! Lataa konfiguraatio käyttääksesi sitä millä tahansa WireGuardin tukemalla laitteella.</string>
     <string name="account_lease_wireguard_desc">Blokada käyttää WireGuardia. Asetuksia voi ladata uusia laitteita luotaessa.</string>
     <string name="account_lease_label_dns">DNS</string>
@@ -353,6 +357,11 @@
     <string name="web_cta_plus_header">Päivitä Blokada Plus -palveluun pysyäksesi yksityisyyden hallinnassa.</string>
     <string name="web_cta_plus_desc">Libre -tilisi antaa laitteellesi ilmaisen mainonnan avoimen lähdekoodin sovelluksillamme. Päivitä Blokada Plus -versioon saadaksesi paremman suojan. Saat pääsyn globaaliin VPN-verkostoomme sekä uuteen *pilvipohjaiseemme* adblockingiin, joka on tehokkaampaa ja helpompaa käyttää.</string>
     <string name="web_action_generate">Luo</string>
+    <string name="web_link_header">Link this device</string>
+    <string name="web_link_brief">Continue to sign this browser in to your Blokada account.</string>
+    <string name="web_link_missing">Open this page from the Blokada app: Settings, then Protect another device.</string>
+    <string name="web_link_error_expired">This link has expired or was already used. Open a new one from the Blokada app.</string>
+    <string name="web_link_error_generic">Something went wrong. Open a new link from the Blokada app.</string>
     <string name="setup_header">Asetukset</string>
     <string name="setup_desc">On olemassa monia tapoja määrittää laitteesi käyttämään Blokada Cloudia. Valitse se, joka toimii puolestasi.</string>
     <string name="setup_label_which_device">Millainen laite haluat ottaa käyttöön?</string>

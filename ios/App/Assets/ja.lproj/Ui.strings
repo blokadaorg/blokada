@@ -68,6 +68,9 @@
 "universal action hide" = "非表示";
 "universal action select" = "選択";
 "universal action selected" = "選択済み";
+// A verb, "to send the message" in the support chat
+"universal action send" = "Send";
+"support chat input placeholder" = "Write a message...";
 // A verb "to search in the list"
 "universal action search" = "検索";
 // A verb "to filter the list"
@@ -325,6 +328,9 @@
 "account lease label generate" = "接続先を選択すると、WireGuard をサポートする VPN アプリで使用できる設定ファイルが生成されます。これにより、まだアプリのないプラットフォームでも VPN を使用できます。対応プラットフォームでは Blokada アプリを使用することをお勧めします。";
 "account lease action generate" = "設定ファイルを生成";
 "account lease action download" = "設定ファイルをダウンロード";
+// An option to build the config for a network that has no IPv4
+"account lease action ipv6 only" = "IPv6-only network";
+"account lease action ipv6 only help" = "Connect to the VPN via IPv6.";
 "account lease generated" = "端末が追加されました！ 設定ファイルをダウンロードして、WireGuard でサポートされているすべての端末で使用できます。";
 "account lease wireguard desc" = "Blokada は WireGuard を使用しています。設定ファイルをダウンロードして新しい端末を追加できます。";
 "account lease label dns" = "DNS";
@@ -443,6 +449,16 @@
 "web cta plus desc" = "Libre アカウントでは、オープンソースアプリによる無料の広告ブロックをご利用いただけます。Blokada Plus にアップグレードするとグローバル VPN ネットワークによる更なる保護や、より速く、より使いやすい*クラウドベースの*広告ブロックが選択できます。";
 // A short word for a button to generate profile
 "web action generate" = "生成";
+
+// Title of the web page that signs a device in to an account without typing
+// the account ID.
+"web link header" = "Link this device";
+// Shown with a button; the app has opened this page with a one-time link.
+"web link brief" = "Continue to sign this browser in to your Blokada account.";
+// The page was opened without the one-time link, e.g. typed in by hand.
+"web link missing" = "Open this page from the Blokada app: Settings, then Protect another device.";
+"web link error expired" = "This link has expired or was already used. Open a new one from the Blokada app.";
+"web link error generic" = "Something went wrong. Open a new link from the Blokada app.";
 
 "setup header" = "新しい端末";
 "setup desc" = "お使いの端末に Blokada Cloud を設定する方法はいくつかあります。最適なものを選択してください。";

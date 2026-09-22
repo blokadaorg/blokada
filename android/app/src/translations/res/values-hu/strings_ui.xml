@@ -56,6 +56,8 @@
     <string name="universal_action_hide">Elrejt</string>
     <string name="universal_action_select">Kiválaszt</string>
     <string name="universal_action_selected">Kijelölt</string>
+    <string name="universal_action_send">Send</string>
+    <string name="support_chat_input_placeholder">Write a message...</string>
     <string name="universal_action_search">Keresés</string>
     <string name="universal_action_filter">Filter</string>
     <string name="universal_action_clear">Törlés</string>
@@ -254,6 +256,8 @@
     <string name="account_lease_label_generate">Az itt kiválasztott helyszínnel generálódik egy olyan konfiguráció, mely használható minden WireGuard által támogatott VPN-nel. Ez hasznos lehet olyan platformokon, ahol nincs appunk. Máskülönben a natív app az ajánlott.</string>
     <string name="account_lease_action_generate">Konfiguráció Generálása</string>
     <string name="account_lease_action_download">Konfiguráció Letöltése</string>
+    <string name="account_lease_action_ipvsix_only">IPv6-only network</string>
+    <string name="account_lease_action_ipvsix_only_help">Connect to the VPN via IPv6.</string>
     <string name="account_lease_generated">Eszköz hozzáadva! Töltse le a konfigurációt bármely WireGuard támogatott eszközre.</string>
     <string name="account_lease_wireguard_desc">A Blokada WireGuardot használ. A konfiguráció letölthető új eszköz esetében.</string>
     <string name="account_lease_label_dns">DNS</string>
@@ -353,6 +357,11 @@
     <string name="web_cta_plus_header">Váltson Blokada Plus-ra hogy a kezébe vegye privát adatai irányítását.</string>
     <string name="web_cta_plus_desc">A Szabad fiókja lehetőséget ad az ingyenes reklámblokkolásra az eszközén nyílt forráskódú appokkal. Váltson a Blokada Plus-ra a még jobb védelemért. Ezen kívűl hozzáférést kap a globális VPN hálózatunkhoz, és az új *felhő alapú* reklámblokkolónkhoz, mely sokkal hatékonyabb és könyebben használható.</string>
     <string name="web_action_generate">Generálás</string>
+    <string name="web_link_header">Link this device</string>
+    <string name="web_link_brief">Continue to sign this browser in to your Blokada account.</string>
+    <string name="web_link_missing">Open this page from the Blokada app: Settings, then Protect another device.</string>
+    <string name="web_link_error_expired">This link has expired or was already used. Open a new one from the Blokada app.</string>
+    <string name="web_link_error_generic">Something went wrong. Open a new link from the Blokada app.</string>
     <string name="setup_header">Varázsló</string>
     <string name="setup_desc">Több módja is van annak, hogy beállítsa eszközén a Blokada Cloud-ot. Válassza a legmegfelelőbbet.</string>
     <string name="setup_label_which_device">Milyen készüléket akar beállítani?</string>
