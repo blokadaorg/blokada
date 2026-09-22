@@ -6,8 +6,10 @@ import 'package:common/src/shared/ui/common_clickable.dart';
 import 'package:common/src/shared/ui/dialog.dart';
 import 'package:common/src/shared/ui/minicard/minicard.dart';
 import 'package:common/src/shared/ui/theme.dart';
+import 'package:common/src/shared/ui/top_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 /// Offers the two ways to hand this account over to another device: open the
 /// link right here (when the other device is this one's browser) or share it
@@ -24,6 +26,7 @@ class AttachSheet extends StatefulWidget {
 
 class AttachSheetState extends State<AttachSheet> with Logging {
   late final _attach = Core.get<AttachActor>();
+  final _topBarController = TopBarController();
 
   bool _working = false;
 
@@ -45,7 +48,7 @@ class AttachSheetState extends State<AttachSheet> with Logging {
     } catch (e) {
       if (!mounted) return;
       setState(() => _working = false);
-      showErrorDialog(context, _describeError(e));
+      showErrorDialog(context, _describeError(e), shareLog: true);
     }
   }
 
@@ -58,75 +61,105 @@ class AttachSheetState extends State<AttachSheet> with Logging {
 
   @override
   Widget build(BuildContext context) {
+    _topBarController.backgroundColor = context.theme.bgColorCard;
+
+    // Same frame as the family link sheet: a TopBar with the way out in its
+    // trailing slot, the content centred in what is left, the actions pinned
+    // to the bottom.
     return Scaffold(
-      body: Container(
-        color: context.theme.bgColorCard,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 24),
-              Text(
-                "attach sheet header".i18n,
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineMedium!
-                    .copyWith(fontWeight: FontWeight.w700),
-                textAlign: TextAlign.center,
+      backgroundColor: context.theme.bgColorCard,
+      body: ChangeNotifierProvider(
+        create: (context) => _topBarController,
+        child: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  const SizedBox(height: 58),
+                  Expanded(
+                    child: Center(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              CupertinoIcons.device_laptop,
+                              color: context.theme.bgColorHome2,
+                              size: 80,
+                            ),
+                            const SizedBox(height: 32),
+                            Text(
+                              "attach sheet header".i18n,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineMedium!
+                                  .copyWith(fontWeight: FontWeight.w700),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 16),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                              child: Text(
+                                "attach sheet brief".i18n,
+                                softWrap: true,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: context.theme.textSecondary, fontSize: 14),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  _button(
+                    identifier: AutomationIds.attachOpen,
+                    text: "attach action open".i18n,
+                    icon: CupertinoIcons.compass,
+                    color: context.theme.accent,
+                    textColor: Colors.white,
+                    onTap: _open,
+                  ),
+                  const SizedBox(height: 8),
+                  _button(
+                    identifier: AutomationIds.attachShare,
+                    text: "attach action share".i18n,
+                    icon: CupertinoIcons.share,
+                    color: context.theme.bgColor,
+                    textColor: context.theme.textPrimary,
+                    onTap: _share,
+                  ),
+                  const SizedBox(height: 16),
+                ],
               ),
-              const SizedBox(height: 32),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                child: Text(
-                  "attach sheet brief".i18n,
-                  softWrap: true,
-                  textAlign: TextAlign.start,
-                  style: TextStyle(color: context.theme.textSecondary, fontSize: 14),
+            ),
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: TopBar(
+                height: 58,
+                bottomPadding: 16,
+                // The title sits in the content instead, where there is
+                // room for it; the bar only holds the way out.
+                title: "",
+                animateBg: true,
+                trailing: CommonClickable(
+                  // Not while a link is being minted: the tap would still
+                  // open the browser or the share sheet once the token
+                  // arrived, with no sheet left on screen.
+                  onTap: _working ? null : () => Navigator.of(context).pop(),
+                  child: Text("universal action done".i18n,
+                      style: TextStyle(
+                          color: _working
+                              ? context.theme.textSecondary
+                              : context.theme.accent)),
                 ),
               ),
-              const SizedBox(height: 32),
-              Center(
-                child: Icon(
-                  CupertinoIcons.device_laptop,
-                  color: context.theme.bgColorHome2,
-                  size: 80,
-                ),
-              ),
-              const SizedBox(height: 32),
-              _button(
-                identifier: AutomationIds.attachOpen,
-                text: "attach action open".i18n,
-                icon: CupertinoIcons.compass,
-                color: context.theme.accent,
-                textColor: Colors.white,
-                onTap: _open,
-              ),
-              const SizedBox(height: 8),
-              _button(
-                identifier: AutomationIds.attachShare,
-                text: "attach action share".i18n,
-                icon: CupertinoIcons.share,
-                color: context.theme.bgColor,
-                textColor: context.theme.textPrimary,
-                onTap: _share,
-              ),
-              const SizedBox(height: 12),
-              // Android has no obvious "swipe the sheet away" affordance, so
-              // give the user an explicit way out. Not while a link is being
-              // minted, though: the tap would still open the browser or the
-              // share sheet seconds after this one is gone.
-              CommonClickable(
-                onTap: _working ? null : () => Navigator.of(context).pop(),
-                child: Text("universal action cancel".i18n,
-                    style: TextStyle(
-                        color: _working
-                            ? context.theme.textSecondary
-                            : context.theme.accent)),
-              ),
-              const SizedBox(height: 20),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
