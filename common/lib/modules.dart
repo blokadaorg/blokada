@@ -37,6 +37,7 @@ import 'package:common/src/platform/perm/dnscheck.dart';
 import 'package:common/src/platform/plus/plus.dart';
 import 'package:common/src/platform/safari/safari.dart';
 import 'package:common/src/features/plus/domain/plus.dart';
+import 'package:common/src/app_variants/v6/module/attach/attach.dart';
 import 'package:common/src/app_variants/v6/module/freemium/freemium.dart';
 import 'package:common/src/app_variants/v6/module/onboard/onboard.dart';
 import 'package:common/src/app_variants/v6/widget/home/home.dart';
@@ -141,6 +142,8 @@ class Modules with Logging {
       await _registerModule(V6OnboardModule());
       await _registerModule(PlusModule());
       await _registerModule(PlatformPlusModule());
+      // Both platforms: the hand-off is a web link, nothing platform-specific.
+      await _registerModule(AttachModule());
       HomeStore().onRegister();
     }
 

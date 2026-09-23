@@ -59,6 +59,13 @@ class AutomationIds {
   // Settings account header subscription-status label.
   static const settingsAccountStatus = 'automation.settings_account_status';
 
+  // "Protect another device": the settings row and the two actions of the sheet
+  // it opens. The sheet's buttons only differ by localized label, so automation
+  // needs ids to tell "open here" from "share elsewhere".
+  static const settingsAttach = 'automation.settings_attach';
+  static const attachOpen = 'automation.attach_open';
+  static const attachShare = 'automation.attach_share';
+
   static const powerToggle = 'automation.power_toggle';
   static const powerActionSheet = 'automation.power_action_sheet';
   static const powerActionPauseFive = 'automation.power_action_pause_five';

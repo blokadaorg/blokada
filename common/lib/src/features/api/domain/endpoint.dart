@@ -46,6 +46,11 @@ enum ApiEndpoint {
     ApiParam.journalDeviceName,
   ]),
   postToken("v3/auth/token", type: "POST"),
+  // Mints a single-use, short-lived token the web dashboard exchanges for a
+  // session, so another device can be signed in without typing the account ID.
+  // The account travels in the body (Http._prepare fills the placeholder in),
+  // never in the URL, since this token is as good as the account itself.
+  postAuthLink("v3/auth/link", type: "POST", params: [ApiParam.accountId]),
   postTokenRefresh("v3/auth/token/refresh", type: "POST"),
   getTokenInfo("v3/auth/token/info"),
   getCustomList("v3/customlist", params: [
