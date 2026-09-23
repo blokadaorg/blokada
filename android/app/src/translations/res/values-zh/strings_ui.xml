@@ -56,6 +56,8 @@
     <string name="universal_action_hide">隱藏</string>
     <string name="universal_action_select">選取</string>
     <string name="universal_action_selected">已選取</string>
+    <string name="universal_action_send">傳送</string>
+    <string name="support_chat_input_placeholder">撰寫訊息……</string>
     <string name="universal_action_search">搜尋</string>
     <string name="universal_action_filter">篩選</string>
     <string name="universal_action_clear">清除</string>
@@ -254,6 +256,8 @@
     <string name="account_lease_label_generate">在這選完位置後，就會產生出一個設定檔，可以用在任何支援 WireGuard 的 VPN app。這適合用在還不支援 Blokada 的平台，如果支援，建議使用原生 app。</string>
     <string name="account_lease_action_generate">生成設定</string>
     <string name="account_lease_action_download">下載設定</string>
+    <string name="account_lease_action_ipvsix_only">僅限 IPv6 網路</string>
+    <string name="account_lease_action_ipvsix_only_help">透過 IPv6 連接到 VPN。</string>
     <string name="account_lease_generated">已新增裝置！下載設定，即可在任何支援 WireGuard 的裝置上使用。</string>
     <string name="account_lease_wireguard_desc">Blokada 使用 WireGuard。建立新裝置時可以下載設定。</string>
     <string name="account_lease_label_dns">DNS</string>
@@ -353,6 +357,11 @@
     <string name="web_cta_plus_header">升級到 Blokada Plus，您的隱私權不用再任人宰割。</string>
     <string name="web_cta_plus_desc">您的 Libre 帳號可透過我們的開放原始碼應用程式在您的裝置上封鎖廣告。升級至 Blokada Plus 來取得更好的保護。您將可以存取我們的全球 VPN 網路以及我們新的 *以雲端為基礎的* 廣告封鎖，其更有效率也更易於使用。</string>
     <string name="web_action_generate">產生</string>
+    <string name="web_link_header">連結此裝置</string>
+    <string name="web_link_brief">繼續將此瀏覽器登入您的 Blokada 帳戶。</string>
+    <string name="web_link_missing">請從 Blokada 應用程式開啟此頁面：設定，然後選擇保護其他裝置。</string>
+    <string name="web_link_error_expired">此連結已過期或已被使用。請從 Blokada 應用程式建立新的連結。</string>
+    <string name="web_link_error_generic">發生錯誤。請從 Blokada 應用程式建立新的連結。</string>
     <string name="setup_header">設定</string>
     <string name="setup_desc">有很多方法可以讓您的裝置接上 Blokada Cloud。請選擇適合您的方法。</string>
     <string name="setup_label_which_device">您想設定什麼裝置？</string>
@@ -724,4 +733,10 @@
     <string name="notification_weekly_report_toplist_move_body">%s 已移至第 #%s 位（原為 #%s）。點擊查看更多。</string>
     <string name="notification_weekly_report_action_see_more">查看更多​</string>
     <string name="notification_weekly_report_action_opt_out">關閉每週報告​</string>
+    <string name="attach_settings_row">保護其他裝置​​/Protect another device/</string>
+    <string name="attach_sheet_header">保護其他裝置</string>
+    <string name="attach_sheet_brief">建立一次性連結，此連結能直接在其他裝置開啟並登入您的 Blokada 儀表板。連結僅能使用一次，且有效時間為 5 分鐘。</string>
+    <string name="attach_action_open">在瀏覽器開啟</string>
+    <string name="attach_action_share">分享連結</string>
+    <string name="attach_error_generic">無法建立連結。請確認您已連線網路，然後再試一次。</string>
 </resources>

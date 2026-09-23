@@ -56,6 +56,8 @@
     <string name="universal_action_hide">Skrýt</string>
     <string name="universal_action_select">Vybrat</string>
     <string name="universal_action_selected">Vybrané</string>
+    <string name="universal_action_send">Send</string>
+    <string name="support_chat_input_placeholder">Write a message...</string>
     <string name="universal_action_search">Hledat</string>
     <string name="universal_action_filter">Filtr</string>
     <string name="universal_action_clear">Vymazat</string>
@@ -254,6 +256,8 @@
     <string name="account_lease_label_generate">Pokud zde vyberete umístění, vygeneruje se konfigurační soubor, který můžete použít v jakékoli VPN aplikac, která podporuje WireGuard. To je užitečné pro platformy, na zatím nemáme naší aplikaci. Jinak doporučujeme místo toho použít naší nativní aplikaci.</string>
     <string name="account_lease_action_generate">Generovat konfiguraci</string>
     <string name="account_lease_action_download">Stáhnout konfiguraci</string>
+    <string name="account_lease_action_ipvsix_only">IPv6-only network</string>
+    <string name="account_lease_action_ipvsix_only_help">Connect to the VPN via IPv6.</string>
     <string name="account_lease_generated">Zařízení přidáno! Stáhněte si konfiguraci, abyste jej mohli používat na jakémkoliv zařízení podporovaném službou WireGuard.</string>
     <string name="account_lease_wireguard_desc">Blokada používá službu WireGuard. Konfigurace lze stáhnout při vytváření nových zařízení.</string>
     <string name="account_lease_label_dns">DNS</string>
@@ -353,6 +357,11 @@
     <string name="web_cta_plus_header">Upgradujte na Blokada Plus, abyste měli kontrolu nad svým soukromím.</string>
     <string name="web_cta_plus_desc">Účet Libre vám umožní bezplatné blokování reklam v zařízení pomocí našich aplikací s otevřeným zdrojovým kódem. Upgradujte na Blokada Plus a získejte ještě lepší ochranu. Získáte přístup k naší globální síti VPN a také k našemu novému *cloudovému* blokování reklam, které je efektivnější a snadněji použitelné.</string>
     <string name="web_action_generate">Generovat</string>
+    <string name="web_link_header">Link this device</string>
+    <string name="web_link_brief">Continue to sign this browser in to your Blokada account.</string>
+    <string name="web_link_missing">Open this page from the Blokada app: Settings, then Protect another device.</string>
+    <string name="web_link_error_expired">This link has expired or was already used. Open a new one from the Blokada app.</string>
+    <string name="web_link_error_generic">Something went wrong. Open a new link from the Blokada app.</string>
     <string name="setup_header">Nastavit</string>
     <string name="setup_desc">Existuje mnoho způsobů, jak nakonfigurovat zařízení tak, aby používalo službu Blokada Cloud. Vyberte si ten, který vám vyhovuje.</string>
     <string name="setup_label_which_device">Jaký typ zařízení chcete nastavit?</string>
@@ -724,4 +733,10 @@
     <string name="notification_weekly_report_toplist_move_body">%s moved to #%s (was #%s). Tap to see more.</string>
     <string name="notification_weekly_report_action_see_more">See more</string>
     <string name="notification_weekly_report_action_opt_out">Turn off weekly reports</string>
+    <string name="attach_settings_row">Protect another device</string>
+    <string name="attach_sheet_header">Protect another device</string>
+    <string name="attach_sheet_brief">Create a one-time link that opens your Blokada dashboard on another device, already signed in. The link works once, and only for 5 minutes.</string>
+    <string name="attach_action_open">Open in browser</string>
+    <string name="attach_action_share">Share link</string>
+    <string name="attach_error_generic">Could not create the link. Make sure you are online, and try again.</string>
 </resources>
