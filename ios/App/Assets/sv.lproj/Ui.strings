@@ -69,8 +69,8 @@
 "universal action select" = "Välj";
 "universal action selected" = "Vald";
 // A verb, "to send the message" in the support chat
-"universal action send" = "Send";
-"support chat input placeholder" = "Write a message...";
+"universal action send" = "Skicka";
+"support chat input placeholder" = "Skriv ett meddelande...";
 // A verb "to search in the list"
 "universal action search" = "Sök";
 // A verb "to filter the list"
@@ -329,8 +329,8 @@
 "account lease action generate" = "Generera konfiguration";
 "account lease action download" = "Ladda ner konfiguration";
 // An option to build the config for a network that has no IPv4
-"account lease action ipv6 only" = "IPv6-only network";
-"account lease action ipv6 only help" = "Connect to the VPN via IPv6.";
+"account lease action ipv6 only" = "Endast IPv6-nätverk";
+"account lease action ipv6 only help" = "Anslut till VPN via IPv6.";
 "account lease generated" = "Enheten tillagd! Ladda ner konfigurationen för att använda den på enheter som stöds av WireGuard.";
 "account lease wireguard desc" = "Blokada använder Wireguard. Konfigurationer kan laddas ner när du skapar nya enheter.";
 "account lease label dns" = "DNS";
@@ -451,13 +451,13 @@
 
 // Title of the web page that signs a device in to an account without typing
 // the account ID.
-"web link header" = "Link this device";
+"web link header" = "Länka denna enhet";
 // Shown with a button; the app has opened this page with a one-time link.
-"web link brief" = "Continue to sign this browser in to your Blokada account.";
+"web link brief" = "Fortsätt för att logga in denna webbläsare till ditt Blokada-konto.";
 // The page was opened without the one-time link, e.g. typed in by hand.
-"web link missing" = "Open this page from the Blokada app: Settings, then Protect another device.";
-"web link error expired" = "This link has expired or was already used. Open a new one from the Blokada app.";
-"web link error generic" = "Something went wrong. Open a new link from the Blokada app.";
+"web link missing" = "Öppna denna sida från Blokada-appen: Inställningar och sedan Skydda en annan enhet.";
+"web link error expired" = "Den här länken har gått ut eller har redan använts. Öppna en ny från Blokada-appen.";
+"web link error generic" = "Något gick fel. Öppna en ny länk från Blokada-appen.";
 
 "setup header" = "Inställningar";
 "setup desc" = "Det finns många sätt att konfigurera din enhet för att använda Blokada Cloud. Välj den som fungerar bäst för dig.";
@@ -1000,3 +1000,14 @@
 
 "notification weekly report action see more" = "Se mer";
 "notification weekly report action opt out" = "Stäng av veckorapporterna";
+
+// A settings row that lets the user set up Blokada on another device (like a laptop)
+"attach settings row" = "Skydda en annan enhet.";
+"attach sheet header" = "Skydda en annan enhet.";
+// Explains a one-time link that opens the Blokada web dashboard already signed in
+"attach sheet brief" = "Skapa en engångslänk som öppnar din Blokada-panel på en annan enhet, redan inloggad. Länken fungerar en gång och endast i 5 minuter.";
+// Opens the link in the browser of this device
+"attach action open" = "Öppna i webbläsare";
+// Shares the link (system share sheet) so it can be opened on another device
+"attach action share" = "Dela länk";
+"attach error generic" = "Kunde inte skapa länken. Se till att du är online och försök igen.";

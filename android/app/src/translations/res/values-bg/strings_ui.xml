@@ -733,4 +733,10 @@
     <string name="notification_weekly_report_toplist_move_body">%s се премести на #%s (беше #%s). Натиснте, за да видте повече.</string>
     <string name="notification_weekly_report_action_see_more">Вижте повече</string>
     <string name="notification_weekly_report_action_opt_out">Изключване на седмичните доклади</string>
+    <string name="attach_settings_row">Protect another device</string>
+    <string name="attach_sheet_header">Protect another device</string>
+    <string name="attach_sheet_brief">Create a one-time link that opens your Blokada dashboard on another device, already signed in. The link works once, and only for 5 minutes.</string>
+    <string name="attach_action_open">Open in browser</string>
+    <string name="attach_action_share">Share link</string>
+    <string name="attach_error_generic">Could not create the link. Make sure you are online, and try again.</string>
 </resources>

@@ -731,5 +731,11 @@
     "notification weekly report toplist new body": "Blokada блокира %s — класиран е на #%s. Натиснете, за да видите повече.",
     "notification weekly report toplist move body": "%s се премести на #%s (беше #%s). Натиснте, за да видте повече.",
     "notification weekly report action see more": "Вижте повече",
-    "notification weekly report action opt out": "Изключване на седмичните доклади"
+    "notification weekly report action opt out": "Изключване на седмичните доклади",
+    "attach settings row": "Protect another device",
+    "attach sheet header": "Protect another device",
+    "attach sheet brief": "Create a one-time link that opens your Blokada dashboard on another device, already signed in. The link works once, and only for 5 minutes.",
+    "attach action open": "Open in browser",
+    "attach action share": "Share link",
+    "attach error generic": "Could not create the link. Make sure you are online, and try again."
 }

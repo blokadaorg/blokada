@@ -733,4 +733,10 @@
     <string name="notification_weekly_report_toplist_move_body">%s перемещен на #%s (был #%s). Нажмите, чтобы узнать больше.</string>
     <string name="notification_weekly_report_action_see_more">Подробнее</string>
     <string name="notification_weekly_report_action_opt_out">Отключить еженедельные отчеты</string>
+    <string name="attach_settings_row">Защитить другое устройство</string>
+    <string name="attach_sheet_header">Защитить другое устройство</string>
+    <string name="attach_sheet_brief">Создайте одноразовую ссылку, которая откроет вашу панель управления Blokada на другом устройстве с уже выполненным входом. Ссылка работает только один раз и действует всего 5 минут.</string>
+    <string name="attach_action_open">Открыть в браузере</string>
+    <string name="attach_action_share">Поделиться ссылкой</string>
+    <string name="attach_error_generic">Не удалось создать ссылку. Убедитесь, что у вас есть подключение к интернету, и попробуйте снова.</string>
 </resources>

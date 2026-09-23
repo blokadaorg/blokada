@@ -56,8 +56,8 @@
     <string name="universal_action_hide">Ocultar</string>
     <string name="universal_action_select">Seleccionar</string>
     <string name="universal_action_selected">Seleccionado</string>
-    <string name="universal_action_send">Send</string>
-    <string name="support_chat_input_placeholder">Write a message...</string>
+    <string name="universal_action_send">Enviar</string>
+    <string name="support_chat_input_placeholder">Escribe un mensaje...</string>
     <string name="universal_action_search">Buscar</string>
     <string name="universal_action_filter">Filtro</string>
     <string name="universal_action_clear">Limpiar</string>
@@ -256,8 +256,8 @@
     <string name="account_lease_label_generate">Al seleccionar una ubicación, se generará un archivo de configuración que podrás utilizar en cualquier aplicación VPN que admita Wireguard. Esto es útil para las plataformas en las que aún no tenemos nuestras aplicaciones. De lo contrario, recomendamos utilizar nuestras aplicaciones nativas en su lugar.</string>
     <string name="account_lease_action_generate">Generar configuración</string>
     <string name="account_lease_action_download">Descargar configuración</string>
-    <string name="account_lease_action_ipvsix_only">IPv6-only network</string>
-    <string name="account_lease_action_ipvsix_only_help">Connect to the VPN via IPv6.</string>
+    <string name="account_lease_action_ipvsix_only">Red solo IPv6</string>
+    <string name="account_lease_action_ipvsix_only_help">Conéctese a la VPN mediante IPv6.</string>
     <string name="account_lease_generated">¡Dispositivo añadido! Descarga la configuración para usarla en cualquier dispositivo soportado por Wireguard.</string>
     <string name="account_lease_wireguard_desc">Blokada utiliza Wireguard. Las configuraciones se pueden descargar al crear nuevos dispositivos.</string>
     <string name="account_lease_label_dns">DNS</string>
@@ -357,11 +357,11 @@
     <string name="web_cta_plus_header">Actualice a Blokada Plus para mantener el control de su privacidad.</string>
     <string name="web_cta_plus_desc">Tu cuenta Libre te da bloqueo gratuito en tu dispositivo con nuestras aplicaciones de código abierto. Actualiza a Blokada Plus para una mejor protección. Obtendrá acceso a nuestra red VPN global, así como a nuestro nuevo bloqueo *basado en la nube* que es más eficiente y fácil de usar.</string>
     <string name="web_action_generate">Generar</string>
-    <string name="web_link_header">Link this device</string>
-    <string name="web_link_brief">Continue to sign this browser in to your Blokada account.</string>
-    <string name="web_link_missing">Open this page from the Blokada app: Settings, then Protect another device.</string>
-    <string name="web_link_error_expired">This link has expired or was already used. Open a new one from the Blokada app.</string>
-    <string name="web_link_error_generic">Something went wrong. Open a new link from the Blokada app.</string>
+    <string name="web_link_header">Vincular este dispositivo</string>
+    <string name="web_link_brief">Continúe para iniciar sesión en este navegador en Su cuenta de Blokada.</string>
+    <string name="web_link_missing">Abra esta página desde la app Blokada: Configuración y luego Proteja otro dispositivo.</string>
+    <string name="web_link_error_expired">Este enlace ha expirado o ya se ha utilizado. Abra uno nuevo desde la app Blokada.</string>
+    <string name="web_link_error_generic">Algo salió mal. Abra un nuevo enlace desde la app Blokada.</string>
     <string name="setup_header">Configuración</string>
     <string name="setup_desc">Hay muchas maneras de configurar tu dispositivo para usar la nube de Blokada. Elige la que funcione para ti.</string>
     <string name="setup_label_which_device">¿Qué tipo de dispositivo desea configurar?</string>
@@ -733,4 +733,10 @@
     <string name="notification_weekly_report_toplist_move_body">%s movido al puesto #%s (anteriormente #%s). Toque para ver más.</string>
     <string name="notification_weekly_report_action_see_more">Ver más</string>
     <string name="notification_weekly_report_action_opt_out">Desactivar informes semanales</string>
+    <string name="attach_settings_row">Proteger otro dispositivo</string>
+    <string name="attach_sheet_header">Proteger otro dispositivo</string>
+    <string name="attach_sheet_brief">Cree un enlace de un solo uso que abre su panel de Blokada en otro dispositivo, ya con sesión iniciada. El enlace funciona una sola vez y solo durante 5 minutos.</string>
+    <string name="attach_action_open">Abrir en el navegador</string>
+    <string name="attach_action_share">Compartir enlace</string>
+    <string name="attach_error_generic">No se pudo crear el enlace. Asegúrese de estar en línea e inténtelo de nuevo.</string>
 </resources>

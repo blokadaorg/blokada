@@ -69,8 +69,8 @@
 "universal action select" = "Wybierz";
 "universal action selected" = "Wybrano";
 // A verb, "to send the message" in the support chat
-"universal action send" = "Send";
-"support chat input placeholder" = "Write a message...";
+"universal action send" = "Wyślij";
+"support chat input placeholder" = "Napisz wiadomość...";
 // A verb "to search in the list"
 "universal action search" = "Szukaj";
 // A verb "to filter the list"
@@ -329,8 +329,8 @@
 "account lease action generate" = "Generuj konfigurację";
 "account lease action download" = "Pobierz konfigurację";
 // An option to build the config for a network that has no IPv4
-"account lease action ipv6 only" = "IPv6-only network";
-"account lease action ipv6 only help" = "Connect to the VPN via IPv6.";
+"account lease action ipv6 only" = "Sieć tylko IPv6";
+"account lease action ipv6 only help" = "Połącz z VPN przez IPv6.";
 "account lease generated" = "Dodano urządzenie! Pobierz konfigurację, aby użyć ją na dowolnym urządzeniu obsługiwanym przez WireGuard.";
 "account lease wireguard desc" = "Blokada używa WireGuard. Konfiguracja może być pobierana podczas tworzenia nowych urządzeń.";
 "account lease label dns" = "DNS";
@@ -451,13 +451,13 @@
 
 // Title of the web page that signs a device in to an account without typing
 // the account ID.
-"web link header" = "Link this device";
+"web link header" = "Połącz to urządzenie";
 // Shown with a button; the app has opened this page with a one-time link.
-"web link brief" = "Continue to sign this browser in to your Blokada account.";
+"web link brief" = "Kontynuuj, aby zalogować tę przeglądarkę do swojego konta Blokada.";
 // The page was opened without the one-time link, e.g. typed in by hand.
-"web link missing" = "Open this page from the Blokada app: Settings, then Protect another device.";
-"web link error expired" = "This link has expired or was already used. Open a new one from the Blokada app.";
-"web link error generic" = "Something went wrong. Open a new link from the Blokada app.";
+"web link missing" = "Otwórz tę stronę z aplikacji Blokada: Ustawienia, następnie Chroń inne urządzenie.";
+"web link error expired" = "Ten link wygasł lub został już użyty. Otwórz nowy z aplikacji Blokada.";
+"web link error generic" = "Coś poszło nie tak. Otwórz nowy link z aplikacji Blokada.";
 
 "setup header" = "Konfiguracja";
 "setup desc" = "Istnieje wiele sposobów na skonfigurowanie urządzenia do korzystania z Blokady Cloud. Wybierz ten, który Ci odpowiada.";
@@ -1000,3 +1000,14 @@
 
 "notification weekly report action see more" = "Zobacz więcej";
 "notification weekly report action opt out" = "Wyłącz cotygodniowe raporty";
+
+// A settings row that lets the user set up Blokada on another device (like a laptop)
+"attach settings row" = "Chroń inne urządzenie.";
+"attach sheet header" = "Chroń inne urządzenie";
+// Explains a one-time link that opens the Blokada web dashboard already signed in
+"attach sheet brief" = "Utwórz jednorazowy link, który otworzy Twój pulpit Blokada na innym urządzeniu, już zalogowany. Link działa tylko raz i tylko przez 5 minut.";
+// Opens the link in the browser of this device
+"attach action open" = "Otwórz w przeglądarce";
+// Shares the link (system share sheet) so it can be opened on another device
+"attach action share" = "Udostępnij link";
+"attach error generic" = "Nie udało się utworzyć linku. Upewnij się, że masz połączenie z internetem i spróbuj ponownie.";

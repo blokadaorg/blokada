@@ -56,8 +56,8 @@
     <string name="universal_action_hide">Verberg</string>
     <string name="universal_action_select">Selecteer</string>
     <string name="universal_action_selected">Geselecteerd</string>
-    <string name="universal_action_send">Send</string>
-    <string name="support_chat_input_placeholder">Write a message...</string>
+    <string name="universal_action_send">Versturen;</string>
+    <string name="support_chat_input_placeholder">Schrijf een bericht...</string>
     <string name="universal_action_search">Zoeken</string>
     <string name="universal_action_filter">Filter</string>
     <string name="universal_action_clear">Wissen</string>
@@ -256,8 +256,8 @@
     <string name="account_lease_label_generate">Het selecteren van een locatie zal een configuratiebestand genereren dat u kunt gebruiken in elke VPN-app die WireGuard ondersteunt. Dit is handig voor platforms waar we onze apps nog niet hebben. Anders raden we aan om onze apps in plaats daarvan te gebruiken.</string>
     <string name="account_lease_action_generate">Genereer configuratie</string>
     <string name="account_lease_action_download">Configuratie downloaden</string>
-    <string name="account_lease_action_ipvsix_only">IPv6-only network</string>
-    <string name="account_lease_action_ipvsix_only_help">Connect to the VPN via IPv6.</string>
+    <string name="account_lease_action_ipvsix_only">Alleen-IPv6-netwerk</string>
+    <string name="account_lease_action_ipvsix_only_help">Verbind met de VPN via IPv6.</string>
     <string name="account_lease_generated">Apparaat toegevoegd! Download de configuratie om het te gebruiken op elk apparaat dat wordt ondersteund door WireGuard.</string>
     <string name="account_lease_wireguard_desc">Blokada gebruikt WireGuard. Configuraties kunnen worden gedownload bij het maken van nieuwe apparaten.</string>
     <string name="account_lease_label_dns">DNS</string>
@@ -357,11 +357,11 @@
     <string name="web_cta_plus_header">Upgrade naar Blokada Plus om de controle over je privacy te behouden.</string>
     <string name="web_cta_plus_desc">Uw Libre-account geeft u gratis adblocking op uw apparaat met onze opensource-apps. Upgrade naar Blokada Plus voor een nog betere bescherming. Je krijgt toegang tot ons wereldwijde VPN-netwerk en tot onze nieuwe *cloud gebaseerd* adblocking die efficiënter en gemakkelijker te gebruiken is.</string>
     <string name="web_action_generate">Genereren</string>
-    <string name="web_link_header">Link this device</string>
-    <string name="web_link_brief">Continue to sign this browser in to your Blokada account.</string>
-    <string name="web_link_missing">Open this page from the Blokada app: Settings, then Protect another device.</string>
-    <string name="web_link_error_expired">This link has expired or was already used. Open a new one from the Blokada app.</string>
-    <string name="web_link_error_generic">Something went wrong. Open a new link from the Blokada app.</string>
+    <string name="web_link_header">Verbind dit apparaat</string>
+    <string name="web_link_brief">Ga verder om deze browser aan te melden bij je Blokada-account.</string>
+    <string name="web_link_missing">Open deze pagina vanuit de Blokada-app: Instellingen, daarna Een ander apparaat beveiligen.</string>
+    <string name="web_link_error_expired">Deze link is verlopen of is al gebruikt. Open een nieuwe via de Blokada-app.</string>
+    <string name="web_link_error_generic">Er is iets misgegaan. Open een nieuwe link via de Blokada-app.</string>
     <string name="setup_header">Installatie</string>
     <string name="setup_desc">Er zijn vele manieren om je apparaat te configureren om Blokada Cloud te gebruiken. Kies degene die voor je werkt.</string>
     <string name="setup_label_which_device">Welk type apparaat wilt u instellen?</string>
@@ -733,4 +733,10 @@
     <string name="notification_weekly_report_toplist_move_body">%s verplaatst naar #%s (was #%s). Tik voor meer info.</string>
     <string name="notification_weekly_report_action_see_more">Meer weergeven</string>
     <string name="notification_weekly_report_action_opt_out">Wekelijkse rapporten uitschakelen</string>
+    <string name="attach_settings_row">Bescherm een ander apparaat</string>
+    <string name="attach_sheet_header">Bescherm een ander apparaat</string>
+    <string name="attach_sheet_brief">Maak een eenmalige link aan die je Blokada-dashboard op een ander apparaat opent, al aangemeld. De link werkt één keer en slechts 5 minuten.</string>
+    <string name="attach_action_open">Openen in browser</string>
+    <string name="attach_action_share">Link delen</string>
+    <string name="attach_error_generic">Kon de link niet aanmaken. Zorg dat je online bent en probeer het opnieuw.</string>
 </resources>

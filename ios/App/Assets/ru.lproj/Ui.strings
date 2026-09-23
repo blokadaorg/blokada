@@ -1000,3 +1000,14 @@
 
 "notification weekly report action see more" = "Подробнее";
 "notification weekly report action opt out" = "Отключить еженедельные отчеты";
+
+// A settings row that lets the user set up Blokada on another device (like a laptop)
+"attach settings row" = "Защитить другое устройство";
+"attach sheet header" = "Защитить другое устройство";
+// Explains a one-time link that opens the Blokada web dashboard already signed in
+"attach sheet brief" = "Создайте одноразовую ссылку, которая откроет вашу панель управления Blokada на другом устройстве с уже выполненным входом. Ссылка работает только один раз и действует всего 5 минут.";
+// Opens the link in the browser of this device
+"attach action open" = "Открыть в браузере";
+// Shares the link (system share sheet) so it can be opened on another device
+"attach action share" = "Поделиться ссылкой";
+"attach error generic" = "Не удалось создать ссылку. Убедитесь, что у вас есть подключение к интернету, и попробуйте снова.";

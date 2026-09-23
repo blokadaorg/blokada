@@ -69,8 +69,8 @@
 "universal action select" = "選取";
 "universal action selected" = "已選取";
 // A verb, "to send the message" in the support chat
-"universal action send" = "Send";
-"support chat input placeholder" = "Write a message...";
+"universal action send" = "傳送";
+"support chat input placeholder" = "撰寫訊息……";
 // A verb "to search in the list"
 "universal action search" = "搜尋";
 // A verb "to filter the list"
@@ -329,8 +329,8 @@
 "account lease action generate" = "生成設定";
 "account lease action download" = "下載設定";
 // An option to build the config for a network that has no IPv4
-"account lease action ipv6 only" = "IPv6-only network";
-"account lease action ipv6 only help" = "Connect to the VPN via IPv6.";
+"account lease action ipv6 only" = "僅限 IPv6 網路";
+"account lease action ipv6 only help" = "透過 IPv6 連接到 VPN。";
 "account lease generated" = "已新增裝置！下載設定，即可在任何支援 WireGuard 的裝置上使用。";
 "account lease wireguard desc" = "Blokada 使用 WireGuard。建立新裝置時可以下載設定。";
 "account lease label dns" = "DNS";
@@ -451,13 +451,13 @@
 
 // Title of the web page that signs a device in to an account without typing
 // the account ID.
-"web link header" = "Link this device";
+"web link header" = "連結此裝置";
 // Shown with a button; the app has opened this page with a one-time link.
-"web link brief" = "Continue to sign this browser in to your Blokada account.";
+"web link brief" = "繼續將此瀏覽器登入您的 Blokada 帳戶。";
 // The page was opened without the one-time link, e.g. typed in by hand.
-"web link missing" = "Open this page from the Blokada app: Settings, then Protect another device.";
-"web link error expired" = "This link has expired or was already used. Open a new one from the Blokada app.";
-"web link error generic" = "Something went wrong. Open a new link from the Blokada app.";
+"web link missing" = "請從 Blokada 應用程式開啟此頁面：設定，然後選擇保護其他裝置。";
+"web link error expired" = "此連結已過期或已被使用。請從 Blokada 應用程式建立新的連結。";
+"web link error generic" = "發生錯誤。請從 Blokada 應用程式建立新的連結。";
 
 "setup header" = "設定";
 "setup desc" = "有很多方法可以讓您的裝置接上 Blokada Cloud。請選擇適合您的方法。";
@@ -1002,3 +1002,14 @@
 
 "notification weekly report action see more" = "查看更多​";
 "notification weekly report action opt out" = "關閉每週報告​";
+
+// A settings row that lets the user set up Blokada on another device (like a laptop)
+"attach settings row" = "保護其他裝置​​/Protect another device/";
+"attach sheet header" = "保護其他裝置";
+// Explains a one-time link that opens the Blokada web dashboard already signed in
+"attach sheet brief" = "建立一次性連結，此連結能直接在其他裝置開啟並登入您的 Blokada 儀表板。連結僅能使用一次，且有效時間為 5 分鐘。";
+// Opens the link in the browser of this device
+"attach action open" = "在瀏覽器開啟";
+// Shares the link (system share sheet) so it can be opened on another device
+"attach action share" = "分享連結";
+"attach error generic" = "無法建立連結。請確認您已連線網路，然後再試一次。";
