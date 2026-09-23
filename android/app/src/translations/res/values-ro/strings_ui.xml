@@ -56,6 +56,8 @@
     <string name="universal_action_hide">Ascunde</string>
     <string name="universal_action_select">Selectați</string>
     <string name="universal_action_selected">Selectat</string>
+    <string name="universal_action_send">Send</string>
+    <string name="support_chat_input_placeholder">Write a message...</string>
     <string name="universal_action_search">Căutare</string>
     <string name="universal_action_filter">Filtru</string>
     <string name="universal_action_clear">Curăță</string>
@@ -254,6 +256,8 @@
     <string name="account_lease_label_generate">Selectarea unei locații aici va genera un fișier de configurare pe care îl poți utiliza în orice aplicație VPN care acceptă WireGuard. Acest lucru este util pentru platformele în care nu avem încă aplicaţiile noastre. Altfel, recomandăm utilizarea aplicaţiilor noastre native.</string>
     <string name="account_lease_action_generate">Genereaza configuratie</string>
     <string name="account_lease_action_download">Descarcă Configurație</string>
+    <string name="account_lease_action_ipvsix_only">IPv6-only network</string>
+    <string name="account_lease_action_ipvsix_only_help">Connect to the VPN via IPv6.</string>
     <string name="account_lease_generated">Dispozitiv adăugat! Descarcă configurația pentru a o utiliza pe orice dispozitiv suportat de WireGuard.</string>
     <string name="account_lease_wireguard_desc">Blokada folosește WireGuard. Configurațiile pot fi descărcate când se creează dispozitive noi.</string>
     <string name="account_lease_label_dns">DNS</string>
@@ -353,6 +357,11 @@
     <string name="web_cta_plus_header">Treceți la Blokada Plus pentru a vă controla confidențialitatea.</string>
     <string name="web_cta_plus_desc">Contul dvs. Libre vă oferă acces gratuit pe dispozitiv cu aplicațiile noastre open source. Treceți la Blokada Plus pentru o protecție și mai bună. Vei avea acces la rețeaua noastră globală de VPN, precum și la noua noastră aplicație *cloud bazată* care este mai eficientă și mai ușor de utilizat.</string>
     <string name="web_action_generate">Generează</string>
+    <string name="web_link_header">Link this device</string>
+    <string name="web_link_brief">Continue to sign this browser in to your Blokada account.</string>
+    <string name="web_link_missing">Open this page from the Blokada app: Settings, then Protect another device.</string>
+    <string name="web_link_error_expired">This link has expired or was already used. Open a new one from the Blokada app.</string>
+    <string name="web_link_error_generic">Something went wrong. Open a new link from the Blokada app.</string>
     <string name="setup_header">Configurare</string>
     <string name="setup_desc">Există multe modalități de a configura dispozitivul pentru a utiliza Blokada Cloud. Alege-l pe cel care funcționează pentru tine.</string>
     <string name="setup_label_which_device">Ce tip de dispozitiv doriți să configurați?</string>
@@ -724,4 +733,10 @@
     <string name="notification_weekly_report_toplist_move_body">%s moved to #%s (was #%s). Tap to see more.</string>
     <string name="notification_weekly_report_action_see_more">See more</string>
     <string name="notification_weekly_report_action_opt_out">Turn off weekly reports</string>
+    <string name="attach_settings_row">Protect another device</string>
+    <string name="attach_sheet_header">Protect another device</string>
+    <string name="attach_sheet_brief">Create a one-time link that opens your Blokada dashboard on another device, already signed in. The link works once, and only for 5 minutes.</string>
+    <string name="attach_action_open">Open in browser</string>
+    <string name="attach_action_share">Share link</string>
+    <string name="attach_error_generic">Could not create the link. Make sure you are online, and try again.</string>
 </resources>

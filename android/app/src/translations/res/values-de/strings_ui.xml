@@ -56,6 +56,8 @@
     <string name="universal_action_hide">Verbergen</string>
     <string name="universal_action_select">Auswählen</string>
     <string name="universal_action_selected">Ausgewählt</string>
+    <string name="universal_action_send">Senden</string>
+    <string name="support_chat_input_placeholder">Schreibe eine Nachricht...</string>
     <string name="universal_action_search">Suchen</string>
     <string name="universal_action_filter">Filtern</string>
     <string name="universal_action_clear">Leeren</string>
@@ -254,6 +256,8 @@
     <string name="account_lease_label_generate">Wenn du hier einen Standort auswählst, wird eine Konfigurationsdatei generiert, die du in jeder VPN-App verwenden kannst, die WireGuard unterstützt. Dies ist nützlich für Plattformen, für die wir noch keine eigenen Apps bereitstellen. Ansonsten empfehlen wir, stattdessen unsere nativen Apps zu verwenden.</string>
     <string name="account_lease_action_generate">Konfiguration generieren</string>
     <string name="account_lease_action_download">Konfiguration herunterladen</string>
+    <string name="account_lease_action_ipvsix_only">Nur-IPv6-Netzwerk</string>
+    <string name="account_lease_action_ipvsix_only_help">Stelle die Verbindung zum VPN über IPv6 her.</string>
     <string name="account_lease_generated">Gerät hinzugefügt! Lade die Konfiguration herunter, um sie auf jedem Gerät zu verwenden, dass von WireGuard unterstützt wird.</string>
     <string name="account_lease_wireguard_desc">Blokada verwendet WireGuard. Konfigurationen können beim Anlegen neuer Geräte heruntergeladen werden.</string>
     <string name="account_lease_label_dns">DNS</string>
@@ -353,6 +357,11 @@
     <string name="web_cta_plus_header">Upgrade auf Blokada Plus, um die Kontrolle über deine Privatsphäre zu behalten.</string>
     <string name="web_cta_plus_desc">Mit deinem Libre-Konto kannst du mit unseren Open-Source-Apps kostenlos Werbung auf deinem Gerät blockieren. Ein Upgrade auf Blokada Plus bietet dir einen noch besseren Schutz. Du erhältst Zugriff auf unser globales VPN-Netzwerk sowie unseren neuen *cloud­ba­sierten* Werbeblocker, der noch effizienter und einfacher zu bedienen ist.</string>
     <string name="web_action_generate">Erzeugen</string>
+    <string name="web_link_header">Dieses Gerät verknüpfen</string>
+    <string name="web_link_brief">Fahre fort, um diesen Browser bei deinem Blokada-Konto anzumelden.</string>
+    <string name="web_link_missing">Öffne diese Seite aus der Blokada-App: Einstellungen, dann Anderes Gerät schützen.</string>
+    <string name="web_link_error_expired">Dieser Link ist abgelaufen oder wurde bereits verwendet. Öffne einen neuen in der Blokada-App.</string>
+    <string name="web_link_error_generic">Es ist ein Fehler aufgetreten. Öffne einen neuen Link in der Blokada-App.</string>
     <string name="setup_header">Einrichtung</string>
     <string name="setup_desc">Es gibt viele Möglichkeiten dein Gerät so zu konfigurieren, dass es Blokada Cloud verwendet. Wähle die aus, die für dich am besten geeignet ist.</string>
     <string name="setup_label_which_device">Welche Art von Gerät möchtest du einrichten?</string>
@@ -724,4 +733,10 @@
     <string name="notification_weekly_report_toplist_move_body">%s ist auf Platz #%s (vorher #%s) gerückt. Tippe für mehr Informationen.</string>
     <string name="notification_weekly_report_action_see_more">Mehr anzeigen</string>
     <string name="notification_weekly_report_action_opt_out">Wochenberichte deaktivieren</string>
+    <string name="attach_settings_row">Ein weiteres Gerät schützen</string>
+    <string name="attach_sheet_header">Ein weiteres Gerät schützen</string>
+    <string name="attach_sheet_brief">Erstelle einen Einmal-Link, der dein Blokada-Dashboard auf einem anderen Gerät öffnet, bereits angemeldet. Der Link funktioniert nur einmal und nur für 5 Minuten.</string>
+    <string name="attach_action_open">Im Browser öffnen</string>
+    <string name="attach_action_share">Link teilen</string>
+    <string name="attach_error_generic">Der Link konnte nicht erstellt werden. Stelle sicher, dass du online bist, und versuche es erneut.</string>
 </resources>

@@ -68,6 +68,9 @@
 "universal action hide" = "Masquer";
 "universal action select" = "Sélectionner";
 "universal action selected" = "Sélectionné";
+// A verb, "to send the message" in the support chat
+"universal action send" = "Envoyer";
+"support chat input placeholder" = "Écrivez un message...";
 // A verb "to search in the list"
 "universal action search" = "Rechercher";
 // A verb "to filter the list"
@@ -325,6 +328,9 @@
 "account lease label generate" = "Sélectionner un emplacement ici générera un fichier de configuration que vous pouvez utiliser dans n'importe quelle application VPN qui prend en charge WireGuard. Ceci est utile pour les plates-formes où nous n'avons pas encore nos applications. Sinon, nous vous recommandons d'utiliser nos applications natives.";
 "account lease action generate" = "Générer la configuration";
 "account lease action download" = "Télécharger la configuration";
+// An option to build the config for a network that has no IPv4
+"account lease action ipv6 only" = "Réseau IPv6 uniquement";
+"account lease action ipv6 only help" = "Connectez-vous au VPN via IPv6.";
 "account lease generated" = "Appareil ajouté ! Téléchargez la configuration pour l'utiliser sur n'importe quel appareil pris en charge par WireGuard.";
 "account lease wireguard desc" = "Blokada utilise WireGuard. Les configurations peuvent être téléchargées lors de la création de nouveaux appareils.";
 "account lease label dns" = "DNS";
@@ -442,6 +448,16 @@
 "web cta plus desc" = "Votre compte Libre vous offre un blocage gratuit de la publicité sur votre appareil avec nos applications open source. Passez à Blokada Plus pour une meilleure protection. Vous aurez accès à notre réseau VPN mondial ainsi qu'à notre nouveau bloqueur de publicités *basé sur le cloud* plus efficace et plus facile à utiliser.";
 // A short word for a button to generate profile
 "web action generate" = "Générer";
+
+// Title of the web page that signs a device in to an account without typing
+// the account ID.
+"web link header" = "Lier cet appareil";
+// Shown with a button; the app has opened this page with a one-time link.
+"web link brief" = "Continuez pour connecter ce navigateur à votre compte Blokada.";
+// The page was opened without the one-time link, e.g. typed in by hand.
+"web link missing" = "Ouvrez cette page depuis l'app Blokada : Paramètres, puis Protéger un autre appareil.";
+"web link error expired" = "Ce lien a expiré ou a déjà été utilisé. Ouvrez-en un nouveau depuis l'application Blokada.";
+"web link error generic" = "Une erreur s'est produite. Ouvrez un nouveau lien depuis l'application Blokada.";
 
 "setup header" = "Configuration";
 "setup desc" = "Il existe plusieurs manières de configurer votre appareil pour utiliser Blokada Cloud. Sélectionnez celle qui vous convient.";
@@ -984,3 +1000,14 @@
 
 "notification weekly report action see more" = "En savoir plus";
 "notification weekly report action opt out" = "Désactiver les rapports hebdomadaires";
+
+// A settings row that lets the user set up Blokada on another device (like a laptop)
+"attach settings row" = "Protéger un autre appareil";
+"attach sheet header" = "Protéger un autre appareil";
+// Explains a one-time link that opens the Blokada web dashboard already signed in
+"attach sheet brief" = "Créez un lien à usage unique qui ouvre votre tableau de bord Blokada sur un autre appareil, déjà connecté. Le lien ne fonctionne qu'une fois, et seulement pendant 5 minutes.";
+// Opens the link in the browser of this device
+"attach action open" = "Ouvrir dans le navigateur";
+// Shares the link (system share sheet) so it can be opened on another device
+"attach action share" = "Partager le lien";
+"attach error generic" = "Impossible de créer le lien. Assurez-vous d'être en ligne, puis réessayez.";

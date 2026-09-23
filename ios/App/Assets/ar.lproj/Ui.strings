@@ -68,6 +68,9 @@
 "universal action hide" = "إخفاء";
 "universal action select" = "تحديد";
 "universal action selected" = "محدد";
+// A verb, "to send the message" in the support chat
+"universal action send" = "إرسال";
+"support chat input placeholder" = "اكتب رسالة...";
 // A verb "to search in the list"
 "universal action search" = "بحث";
 // A verb "to filter the list"
@@ -325,6 +328,9 @@
 "account lease label generate" = "اختيار موقع هنا سيولّد ملف إعداد يمكنك استخدامه في أي تطبيق VPN يدعم WireGuard. هذا مفيد للمنصات التي ليس لدينا تطبيقاتنا عليها بعد. وإلا فنحن نوصي باستخدام تطبيقاتنا الأصلية.";
 "account lease action generate" = "توليد ملف الإعداد";
 "account lease action download" = "تحميل ملف الإعداد";
+// An option to build the config for a network that has no IPv4
+"account lease action ipv6 only" = "شبكة IPv6 فقط";
+"account lease action ipv6 only help" = "اتصل بـ VPN عبر IPv6.";
 "account lease generated" = "تمت إضافة الجهاز! حمّل ملف الإعداد لاستخدامه على أي جهاز يدعم WireGuard.";
 "account lease wireguard desc" = "يستخدم Blokada بروتوكول WireGuard. يمكنك تحميل الإعدادات عند إنشاء أجهزة جديدة.";
 "account lease label dns" = "DNS";
@@ -442,6 +448,16 @@
 "web cta plus desc" = "يمنحك حساب Libre وصولاً مجانيًا لحجب الإعلانات على جهازك عبر تطبيقاتنا مفتوحة المصدر. قم بالترقية إلى Blokada Plus لحماية أفضل. ستحصل على دخول إلى شبكة VPN العالمية الخاصة بنا وكذلك حجب الإعلانات السحابي الجديد الذي يتميز بالكفاءة والسهولة.";
 // A short word for a button to generate profile
 "web action generate" = "توليد";
+
+// Title of the web page that signs a device in to an account without typing
+// the account ID.
+"web link header" = "ربط هذا الجهاز";
+// Shown with a button; the app has opened this page with a one-time link.
+"web link brief" = "تابع لتسجيل هذا المتصفح في حسابك على Blokada.";
+// The page was opened without the one-time link, e.g. typed in by hand.
+"web link missing" = "افتح هذه الصفحة من تطبيق Blokada: الإعدادات، ثم حماية جهاز آخر.";
+"web link error expired" = "انتهت صلاحية هذا الرابط أو تم استخدامه بالفعل. افتح رابطًا جديدًا من تطبيق Blokada.";
+"web link error generic" = "حدث خطأ ما. افتح رابطًا جديدًا من تطبيق Blokada.";
 
 "setup header" = "إعداد";
 "setup desc" = "هناك العديد من الطرق لتهيئة جهازك لاستخدام Blokada Cloud. اختر الطريقة المناسبة لك.";
@@ -984,3 +1000,14 @@
 
 "notification weekly report action see more" = "مشاهدة المزيد";
 "notification weekly report action opt out" = "إيقاف التقارير الأسبوعية";
+
+// A settings row that lets the user set up Blokada on another device (like a laptop)
+"attach settings row" = "حماية جهاز آخر​";
+"attach sheet header" = "حماية جهاز آخر​";
+// Explains a one-time link that opens the Blokada web dashboard already signed in
+"attach sheet brief" = "أنشئ رابطًا لمرة واحدة يفتح لوحة تحكم Blokada الخاصة بك على جهاز آخر، وهو مسجّل الدخول بالفعل. يعمل الرابط مرة واحدة فقط ولمدة 5 دقائق فقط.";
+// Opens the link in the browser of this device
+"attach action open" = "فتح في المتصفِّح";
+// Shares the link (system share sheet) so it can be opened on another device
+"attach action share" = "مشاركة الرابط";
+"attach error generic" = "تعذّر إنشاء الرابط. تأكد من اتصالك بالإنترنت وحاول مرة أخرى.";

@@ -56,6 +56,8 @@
     <string name="universal_action_hide">非表示</string>
     <string name="universal_action_select">選択</string>
     <string name="universal_action_selected">選択済み</string>
+    <string name="universal_action_send">Send</string>
+    <string name="support_chat_input_placeholder">Write a message...</string>
     <string name="universal_action_search">検索</string>
     <string name="universal_action_filter">フィルター</string>
     <string name="universal_action_clear">消去</string>
@@ -254,6 +256,8 @@
     <string name="account_lease_label_generate">接続先を選択すると、WireGuard をサポートする VPN アプリで使用できる設定ファイルが生成されます。これにより、まだアプリのないプラットフォームでも VPN を使用できます。対応プラットフォームでは Blokada アプリを使用することをお勧めします。</string>
     <string name="account_lease_action_generate">設定ファイルを生成</string>
     <string name="account_lease_action_download">設定ファイルをダウンロード</string>
+    <string name="account_lease_action_ipvsix_only">IPv6-only network</string>
+    <string name="account_lease_action_ipvsix_only_help">Connect to the VPN via IPv6.</string>
     <string name="account_lease_generated">端末が追加されました！ 設定ファイルをダウンロードして、WireGuard でサポートされているすべての端末で使用できます。</string>
     <string name="account_lease_wireguard_desc">Blokada は WireGuard を使用しています。設定ファイルをダウンロードして新しい端末を追加できます。</string>
     <string name="account_lease_label_dns">DNS</string>
@@ -353,6 +357,11 @@
     <string name="web_cta_plus_header">Blokada Plus にアップグレードして、あなたのプライバシーを管理し続けましょう。</string>
     <string name="web_cta_plus_desc">Libre アカウントでは、オープンソースアプリによる無料の広告ブロックをご利用いただけます。Blokada Plus にアップグレードするとグローバル VPN ネットワークによる更なる保護や、より速く、より使いやすい*クラウドベースの*広告ブロックが選択できます。</string>
     <string name="web_action_generate">生成</string>
+    <string name="web_link_header">Link this device</string>
+    <string name="web_link_brief">Continue to sign this browser in to your Blokada account.</string>
+    <string name="web_link_missing">Open this page from the Blokada app: Settings, then Protect another device.</string>
+    <string name="web_link_error_expired">This link has expired or was already used. Open a new one from the Blokada app.</string>
+    <string name="web_link_error_generic">Something went wrong. Open a new link from the Blokada app.</string>
     <string name="setup_header">新しい端末</string>
     <string name="setup_desc">お使いの端末に Blokada Cloud を設定する方法はいくつかあります。最適なものを選択してください。</string>
     <string name="setup_label_which_device">設定する端末を選択してください</string>
@@ -724,4 +733,10 @@
     <string name="notification_weekly_report_toplist_move_body">%s moved to #%s (was #%s). Tap to see more.</string>
     <string name="notification_weekly_report_action_see_more">See more</string>
     <string name="notification_weekly_report_action_opt_out">Turn off weekly reports</string>
+    <string name="attach_settings_row">Protect another device</string>
+    <string name="attach_sheet_header">Protect another device</string>
+    <string name="attach_sheet_brief">Create a one-time link that opens your Blokada dashboard on another device, already signed in. The link works once, and only for 5 minutes.</string>
+    <string name="attach_action_open">Open in browser</string>
+    <string name="attach_action_share">Share link</string>
+    <string name="attach_error_generic">Could not create the link. Make sure you are online, and try again.</string>
 </resources>

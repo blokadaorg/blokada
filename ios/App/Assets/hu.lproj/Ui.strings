@@ -68,6 +68,9 @@
 "universal action hide" = "Elrejt";
 "universal action select" = "Kiválaszt";
 "universal action selected" = "Kijelölt";
+// A verb, "to send the message" in the support chat
+"universal action send" = "Send";
+"support chat input placeholder" = "Write a message...";
 // A verb "to search in the list"
 "universal action search" = "Keresés";
 // A verb "to filter the list"
@@ -325,6 +328,9 @@
 "account lease label generate" = "Az itt kiválasztott helyszínnel generálódik egy olyan konfiguráció, mely használható minden WireGuard által támogatott VPN-nel. Ez hasznos lehet olyan platformokon, ahol nincs appunk. Máskülönben a natív app az ajánlott.";
 "account lease action generate" = "Konfiguráció Generálása";
 "account lease action download" = "Konfiguráció Letöltése";
+// An option to build the config for a network that has no IPv4
+"account lease action ipv6 only" = "IPv6-only network";
+"account lease action ipv6 only help" = "Connect to the VPN via IPv6.";
 "account lease generated" = "Eszköz hozzáadva! Töltse le a konfigurációt bármely WireGuard támogatott eszközre.";
 "account lease wireguard desc" = "A Blokada WireGuardot használ. A konfiguráció letölthető új eszköz esetében.";
 "account lease label dns" = "DNS";
@@ -442,6 +448,16 @@
 "web cta plus desc" = "A Szabad fiókja lehetőséget ad az ingyenes reklámblokkolásra az eszközén nyílt forráskódú appokkal. Váltson a Blokada Plus-ra a még jobb védelemért. Ezen kívűl hozzáférést kap a globális VPN hálózatunkhoz, és az új *felhő alapú* reklámblokkolónkhoz, mely sokkal hatékonyabb és könyebben használható.";
 // A short word for a button to generate profile
 "web action generate" = "Generálás";
+
+// Title of the web page that signs a device in to an account without typing
+// the account ID.
+"web link header" = "Link this device";
+// Shown with a button; the app has opened this page with a one-time link.
+"web link brief" = "Continue to sign this browser in to your Blokada account.";
+// The page was opened without the one-time link, e.g. typed in by hand.
+"web link missing" = "Open this page from the Blokada app: Settings, then Protect another device.";
+"web link error expired" = "This link has expired or was already used. Open a new one from the Blokada app.";
+"web link error generic" = "Something went wrong. Open a new link from the Blokada app.";
 
 "setup header" = "Varázsló";
 "setup desc" = "Több módja is van annak, hogy beállítsa eszközén a Blokada Cloud-ot. Válassza a legmegfelelőbbet.";
@@ -985,3 +1001,14 @@
 
 "notification weekly report action see more" = "See more";
 "notification weekly report action opt out" = "Turn off weekly reports";
+
+// A settings row that lets the user set up Blokada on another device (like a laptop)
+"attach settings row" = "Protect another device";
+"attach sheet header" = "Protect another device";
+// Explains a one-time link that opens the Blokada web dashboard already signed in
+"attach sheet brief" = "Create a one-time link that opens your Blokada dashboard on another device, already signed in. The link works once, and only for 5 minutes.";
+// Opens the link in the browser of this device
+"attach action open" = "Open in browser";
+// Shares the link (system share sheet) so it can be opened on another device
+"attach action share" = "Share link";
+"attach error generic" = "Could not create the link. Make sure you are online, and try again.";
