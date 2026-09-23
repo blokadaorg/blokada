@@ -23,6 +23,11 @@ updates:
         # with the ignore when the pigeon 26 native migration is scheduled.
         exclude-patterns:
           - "pigeon"
+          # Same group-recreation trap as pigeon, and the reason the pubspec
+          # pin from #1267 did not hold: Dependabot rewrote the constraint
+          # back to `^2.6.0` on the very next recreation of this group (#1263).
+          - "flutter_chat_core"
+          - "flutter_chat_ui"
         update-types:
           - "minor"
           - "patch"
@@ -37,6 +42,18 @@ updates:
       # that migration is scheduled.
       - dependency-name: "pigeon"
         update-types: ["version-update:semver-major"]
+      # flutter_chat_core 2.9.1 and flutter_chat_ui 2.12.0 replaced their
+      # `package:flutter/material` imports with pub's `package:material_ui`.
+      # Flutter 3.44's SDK material is an independent copy of that package
+      # rather than a re-export, so the two ThemeData/Material types are
+      # unrelated: the support chat stops compiling, and once the call sites
+      # are fixed its composer still dies at runtime with "No Material widget
+      # found" (see #1267). Note this cannot be a semver-major ignore like
+      # pigeon's — upstream shipped the break as a patch and a minor, so every
+      # update type has to be held. Remove this when the support chat subtree
+      # gets a material_ui host of its own.
+      - dependency-name: "flutter_chat_core"
+      - dependency-name: "flutter_chat_ui"
 
   - package-ecosystem: "gradle"
     directory: "/android"
