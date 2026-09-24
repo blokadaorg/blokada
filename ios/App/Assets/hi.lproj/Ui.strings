@@ -449,6 +449,25 @@
 // A short word for a button to generate profile
 "web action generate" = "उत्पन्न";
 
+// Web dashboard sign-in page. Accounts have no email or password: an account
+// is a 12-letter account ID, and creating one is a single tap.
+"web lock header" = "Welcome to Blokada";
+// {0} is a product name, e.g. "Blokada Cloud". Shown when the visitor came from
+// a "Get Blokada Cloud" or "Get Blokada Plus" button.
+"web lock checkout header" = "Get {0}";
+"web lock checkout brief" = "Create your account to continue to checkout. No email or password needed.";
+"web lock checkout action" = "Create account and continue";
+"web lock new header" = "New to Blokada?";
+"web lock new brief" = "Create an account in one tap. No email or password needed.";
+"web lock new action" = "Create account";
+"web lock existing header" = "Already have an account?";
+"web lock existing brief" = "Your account ID is in the Blokada app, in your account settings.";
+"web lock existing action" = "Log in";
+// Separates the two ways in: create an account, or log in.
+"web lock or" = "or";
+// Link to support chat for someone who can't find their account ID.
+"web lock help" = "Lost your account ID?";
+
 // Title of the web page that signs a device in to an account without typing
 // the account ID.
 "web link header" = "Link this device";
@@ -478,6 +497,12 @@
 "setup step enter tag" = "When asked, enter your tag";
 "setup step download profile" = "Generate and download your profile";
 "setup step install wireguard" = "Install and start WireGuard";
+// Section under the device setup steps on the web dashboard. It shows a link
+// and a QR code that open a public setup guide for this device on blokada.org.
+"web setup share header" = "Open on another device";
+"web setup share brief" = "Scan the code or open the link on the device you are setting up. It opens a step-by-step guide with your addresses filled in, with no need to sign in there.";
+// Anyone holding the link can send DNS queries through this account's filtering.
+"web setup share note" = "Anyone with this link can use your Blokada filtering, but cannot see or change your account.";
 
 "stats header" = "Stats";
 // A ratio between counter of allowed vs denied requests.

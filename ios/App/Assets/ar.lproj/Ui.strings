@@ -449,6 +449,25 @@
 // A short word for a button to generate profile
 "web action generate" = "توليد";
 
+// Web dashboard sign-in page. Accounts have no email or password: an account
+// is a 12-letter account ID, and creating one is a single tap.
+"web lock header" = "مرحبًا بك في Blokada";
+// {0} is a product name, e.g. "Blokada Cloud". Shown when the visitor came from
+// a "Get Blokada Cloud" or "Get Blokada Plus" button.
+"web lock checkout header" = "احصل على {0}";
+"web lock checkout brief" = "أنشئ حسابك للمتابعة إلى إتمام الشراء. لا حاجة لبريد إلكتروني أو كلمة مرور.";
+"web lock checkout action" = "إنشاء حساب والمتابعة";
+"web lock new header" = "جديد على Blokada؟";
+"web lock new brief" = "أنشئ حسابًا بضغطة واحدة. لا حاجة لبريد إلكتروني أو كلمة مرور.";
+"web lock new action" = "إنشاء حساب";
+"web lock existing header" = "هل لديك حساب بالفعل؟";
+"web lock existing brief" = "معرف حسابك موجود في تطبيق Blokada، في إعدادات حسابك.";
+"web lock existing action" = "تسجيل الدخول";
+// Separates the two ways in: create an account, or log in.
+"web lock or" = "أو";
+// Link to support chat for someone who can't find their account ID.
+"web lock help" = "هل فقدت معرف حسابك؟";
+
 // Title of the web page that signs a device in to an account without typing
 // the account ID.
 "web link header" = "ربط هذا الجهاز";
@@ -478,6 +497,12 @@
 "setup step enter tag" = "عند الطلب، أدخل الوسم الخاص بك";
 "setup step download profile" = "توليد وتحميل ملفك الشخصي";
 "setup step install wireguard" = "تثبيت وبدء WireGuard";
+// Section under the device setup steps on the web dashboard. It shows a link
+// and a QR code that open a public setup guide for this device on blokada.org.
+"web setup share header" = "افتح على جهاز آخر.";
+"web setup share brief" = "امسح الرمز أو افتح الرابط على الجهاز الذي تقوم بإعداده. سيتم فتح دليل خطوة بخطوة مع عناوينك مُعبأة مسبقًا، بدون الحاجة لتسجيل الدخول هناك.";
+// Anyone holding the link can send DNS queries through this account's filtering.
+"web setup share note" = "أي شخص لديه هذا الرابط يمكنه استخدام ميزة تصفية Blokada الخاصة بك، ولكنه لا يمكنه رؤية حسابك أو تغييره.";
 
 "stats header" = "إحصائيات";
 // A ratio between counter of allowed vs denied requests.

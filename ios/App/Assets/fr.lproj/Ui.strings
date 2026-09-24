@@ -449,6 +449,25 @@
 // A short word for a button to generate profile
 "web action generate" = "Générer";
 
+// Web dashboard sign-in page. Accounts have no email or password: an account
+// is a 12-letter account ID, and creating one is a single tap.
+"web lock header" = "Bienvenue sur Blokada.";
+// {0} is a product name, e.g. "Blokada Cloud". Shown when the visitor came from
+// a "Get Blokada Cloud" or "Get Blokada Plus" button.
+"web lock checkout header" = "Obtenir {0}";
+"web lock checkout brief" = "Créez votre compte pour continuer au paiement. Aucun e-mail ni mot de passe requis.";
+"web lock checkout action" = "Créer un compte et continuer";
+"web lock new header" = "Nouveau sur Blokada ?";
+"web lock new brief" = "Créez un compte en un seul tap. Aucun e-mail ni mot de passe requis.";
+"web lock new action" = "Créer un compte";
+"web lock existing header" = "Vous avez déjà un compte ?";
+"web lock existing brief" = "Votre ID de compte se trouve dans l'application Blokada, dans les paramètres de votre compte.";
+"web lock existing action" = "Se connecter";
+// Separates the two ways in: create an account, or log in.
+"web lock or" = "ou";
+// Link to support chat for someone who can't find their account ID.
+"web lock help" = "Vous avez perdu votre ID de compte ?";
+
 // Title of the web page that signs a device in to an account without typing
 // the account ID.
 "web link header" = "Lier cet appareil";
@@ -478,6 +497,12 @@
 "setup step enter tag" = "Lorsque demandé, entrez votre tag";
 "setup step download profile" = "Générez et téléchargez votre profil";
 "setup step install wireguard" = "Installez et lancez Wireguard";
+// Section under the device setup steps on the web dashboard. It shows a link
+// and a QR code that open a public setup guide for this device on blokada.org.
+"web setup share header" = "Ouvrir sur un autre appareil";
+"web setup share brief" = "Scannez le code ou ouvrez le lien sur l'appareil que vous configurez. Cela ouvre un guide étape par étape avec vos adresses déjà renseignées, sans besoin de se connecter là-bas.";
+// Anyone holding the link can send DNS queries through this account's filtering.
+"web setup share note" = "Toute personne disposant de ce lien peut utiliser votre filtrage Blokada, mais ne pourra pas voir ou modifier votre compte.";
 
 "stats header" = "Stats";
 // A ratio between counter of allowed vs denied requests.
