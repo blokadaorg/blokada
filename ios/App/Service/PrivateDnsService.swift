@@ -72,6 +72,25 @@ class PrivateDnsService: PrivateDnsServiceIn {
 
     private lazy var manager = NEDNSSettingsManager.shared()
 
+    // OS captive-portal probe hosts. These must resolve via system DNS, or iOS
+    // can't detect a walled-garden network and never shows its sign-in sheet.
+    // Keep this to Apple's own probe hosts; portal login domains are out of scope.
+    private static let captiveProbeDomains = [
+        "captive.apple.com",
+        "www.appleiphonecell.com", "www.itools.info", "www.ibook.info",
+        "www.airport.us", "www.thinkdifferent.us",
+    ]
+
+    // Probe domains bypass the profile; the trailing Connect rule keeps DoH
+    // applied to everything else instead of relying on an unstated default.
+    private static func captiveProbeRules() -> [NEOnDemandRule] {
+        let evaluate = NEOnDemandRuleEvaluateConnection()
+        evaluate.connectionRules = [
+            NEEvaluateConnectionRule(matchDomains: captiveProbeDomains, andAction: .neverConnect)
+        ]
+        return [evaluate, NEOnDemandRuleConnect()]
+    }
+
     func isPrivateDnsProfileActive() -> AnyPublisher<Bool, Error> {
         print("getting manager")
         return getManager()
@@ -122,21 +141,18 @@ class PrivateDnsService: PrivateDnsServiceIn {
         return getManager()
         // Configure the new profile
         .tryMap { it -> NEDNSSettingsManager in
-            guard let name = name else {
-                // Only tag used (v3 api)
-                let profile = NEDNSOverHTTPSSettings(servers: [])
-                profile.serverURL = URL(string: "https://cloud.blokada.org/\(tag)")
-                BlockaLogger.v("PrivateDns", "URL set to: \(profile.serverURL)")
-                it.dnsSettings = profile
-                return it
-            }
-
-            // Older tag + name
-            let nameSanitized = name.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
             let profile = NEDNSOverHTTPSSettings(servers: [])
-            profile.serverURL = URL(string: "https://cloud.blokada.org/\(tag)/\(nameSanitized)")
+            if let name = name {
+                // Older tag + name
+                let nameSanitized = name.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+                profile.serverURL = URL(string: "https://cloud.blokada.org/\(tag)/\(nameSanitized)")
+            } else {
+                // Only tag used (v3 api)
+                profile.serverURL = URL(string: "https://cloud.blokada.org/\(tag)")
+            }
             BlockaLogger.v("PrivateDns", "URL set to: \(profile.serverURL)")
             it.dnsSettings = profile
+            it.onDemandRules = PrivateDnsService.captiveProbeRules()
             return it
         }
         // Save it to the OS preferences
