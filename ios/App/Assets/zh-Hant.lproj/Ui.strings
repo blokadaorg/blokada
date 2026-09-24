@@ -449,6 +449,25 @@
 // A short word for a button to generate profile
 "web action generate" = "產生";
 
+// Web dashboard sign-in page. Accounts have no email or password: an account
+// is a 12-letter account ID, and creating one is a single tap.
+"web lock header" = "歡迎使用 Blokada ";
+// {0} is a product name, e.g. "Blokada Cloud". Shown when the visitor came from
+// a "Get Blokada Cloud" or "Get Blokada Plus" button.
+"web lock checkout header" = "取得 {0}";
+"web lock checkout brief" = "建立您的帳號以繼續結帳。無需電子郵件或密碼。";
+"web lock checkout action" = "建立帳號並繼續";
+"web lock new header" = "新用戶？";
+"web lock new brief" = "只需輕觸一下即可建立帳號。無需電子郵件或密碼。";
+"web lock new action" = "建立帳號";
+"web lock existing header" = "已經有帳戶了嗎？";
+"web lock existing brief" = "您的帳戶 ID 可在 Blokada 應用程式的帳戶設定中找到。";
+"web lock existing action" = "登入";
+// Separates the two ways in: create an account, or log in.
+"web lock or" = "或";
+// Link to support chat for someone who can't find their account ID.
+"web lock help" = "遺失您的帳戶 ID？";
+
 // Title of the web page that signs a device in to an account without typing
 // the account ID.
 "web link header" = "連結此裝置";
@@ -478,6 +497,12 @@
 "setup step enter tag" = "詢問時請輸入您的標籤 (tag)";
 "setup step download profile" = "產生並下載量身打造的設定檔";
 "setup step install wireguard" = "安裝並啟動 WireGuard";
+// Section under the device setup steps on the web dashboard. It shows a link
+// and a QR code that open a public setup guide for this device on blokada.org.
+"web setup share header" = "在其他裝置上開啟";
+"web setup share brief" = "請在您要設置的裝置上掃描此代碼或開啟此連結。它將開啟一個逐步指引，其中已填入您的位址，無需登入。";
+// Anyone holding the link can send DNS queries through this account's filtering.
+"web setup share note" = "任何擁有此連結的人都可以使用您的 Blokada 篩選，但無法查看或更改您的帳戶。";
 
 "stats header" = "統計";
 // A ratio between counter of allowed vs denied requests.

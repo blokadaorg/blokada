@@ -449,6 +449,25 @@
 // A short word for a button to generate profile
 "web action generate" = "Genereren";
 
+// Web dashboard sign-in page. Accounts have no email or password: an account
+// is a 12-letter account ID, and creating one is a single tap.
+"web lock header" = "Welkom bij Blokada";
+// {0} is a product name, e.g. "Blokada Cloud". Shown when the visitor came from
+// a "Get Blokada Cloud" or "Get Blokada Plus" button.
+"web lock checkout header" = "Ontvang {0}";
+"web lock checkout brief" = "Maak je account aan om door te gaan naar afrekenen. Geen e-mail of wachtwoord nodig.";
+"web lock checkout action" = "Account aanmaken en doorgaan";
+"web lock new header" = "Nieuw bij Blokada?";
+"web lock new brief" = "Maak een account aan met één tik. Geen e-mail of wachtwoord nodig.";
+"web lock new action" = "Account aanmaken";
+"web lock existing header" = "Heb je al een account?";
+"web lock existing brief" = "Je account-ID vind je in de Blokada-app, onder je accountinstellingen.";
+"web lock existing action" = "Inloggen";
+// Separates the two ways in: create an account, or log in.
+"web lock or" = "of";
+// Link to support chat for someone who can't find their account ID.
+"web lock help" = "Account-ID verloren?";
+
 // Title of the web page that signs a device in to an account without typing
 // the account ID.
 "web link header" = "Verbind dit apparaat";
@@ -478,6 +497,12 @@
 "setup step enter tag" = "Indien gevraagd, voer je tag in";
 "setup step download profile" = "Genereer en download je profiel";
 "setup step install wireguard" = "Installeer en start WireGuard";
+// Section under the device setup steps on the web dashboard. It shows a link
+// and a QR code that open a public setup guide for this device on blokada.org.
+"web setup share header" = "Open op een ander apparaat.";
+"web setup share brief" = "Scan de code of open de link op het apparaat dat je instelt. Er wordt een stapsgewijze handleiding geopend met jouw adressen al ingevuld, inloggen is daar niet nodig.";
+// Anyone holding the link can send DNS queries through this account's filtering.
+"web setup share note" = "Iedereen met deze link kan jouw Blokada-filtering gebruiken, maar kan je account niet bekijken of wijzigen.";
 
 "stats header" = "Statistieken";
 // A ratio between counter of allowed vs denied requests.
