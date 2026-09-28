@@ -72,21 +72,39 @@ class PrivateDnsService: PrivateDnsServiceIn {
 
     private lazy var manager = NEDNSSettingsManager.shared()
 
-    // OS captive-portal probe hosts. These must resolve via system DNS, or iOS
-    // can't detect a walled-garden network and never shows its sign-in sheet.
-    // Keep this to Apple's own probe hosts; portal login domains are out of scope.
-    private static let captiveProbeDomains = [
+    // Captive-portal hosts that must resolve via the network's own DNS. Portal
+    // login pages often exist only there (e.g. wifi.finnair.com is NXDOMAIN
+    // publicly), so DoH can never answer them and the user can't log in.
+    // Entries match whole-label suffixes. Keep them portal-only: never a whole
+    // airline or corporate domain.
+    private static let captivePortalDomains = [
+        // Apple's own probe hosts. iOS already exempts its captive detection;
+        // kept as a cheap hedge for networks where no sign-in sheet appears.
         "captive.apple.com",
         "www.appleiphonecell.com", "www.itools.info", "www.ibook.info",
         "www.airport.us", "www.thinkdifferent.us",
+        // In-flight
+        "wifi.finnair.com", "nordic-sky.finnair.com", "inflightinternet.com",
+        "wifionboard.com", "gogoinflight.com", "alaskawifi.com", "deltawifi.com",
+        "aainflight.com", "unitedwifi.com", "wifi.united.com", "southwestwifi.com",
+        "flyfi.com", "lufthansa-flynet.com", "wingsconnect.aero", "shop.ba.com",
+        "starlink.ba.com", "freewifi.airfrance.com", "wifi.airfrance.com",
+        "connect.flysas.com", "norwegianwifi.com",
+        // Rail
+        "wifionice.de", "wifi.bahn.de", "iceportal.de", "wifi.sncf", "ombord.sj.se",
+        "ombord.info", "onboard.eurostar.com", "portalefrecce.it", "railnet.oebb.at",
+        "cdwifi.cz",
+        // Hotel and café portal platforms
+        "network-auth.com", "purpleportal.net", "securelogin.arubanetworks.com",
+        "securelogin.hpe.com", "globalreachtech.com", "odyssys.net",
     ]
 
-    // Probe domains bypass the profile; the trailing Connect rule keeps DoH
+    // Portal domains bypass the profile; the trailing Connect rule keeps DoH
     // applied to everything else instead of relying on an unstated default.
-    private static func captiveProbeRules() -> [NEOnDemandRule] {
+    private static func captivePortalRules() -> [NEOnDemandRule] {
         let evaluate = NEOnDemandRuleEvaluateConnection()
         evaluate.connectionRules = [
-            NEEvaluateConnectionRule(matchDomains: captiveProbeDomains, andAction: .neverConnect)
+            NEEvaluateConnectionRule(matchDomains: captivePortalDomains, andAction: .neverConnect)
         ]
         return [evaluate, NEOnDemandRuleConnect()]
     }
@@ -152,7 +170,7 @@ class PrivateDnsService: PrivateDnsServiceIn {
             }
             BlockaLogger.v("PrivateDns", "URL set to: \(profile.serverURL)")
             it.dnsSettings = profile
-            it.onDemandRules = PrivateDnsService.captiveProbeRules()
+            it.onDemandRules = PrivateDnsService.captivePortalRules()
             return it
         }
         // Save it to the OS preferences
