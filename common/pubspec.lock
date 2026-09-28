@@ -116,10 +116,10 @@ packages:
     dependency: "direct main"
     description:
       name: cached_network_image
-      sha256: "03d9cff3f68ded9e7c5588ebe7fc8650a669192685e59d2d2413d7813b286d6b"
+      sha256: "3d8cca7b14130f094aa38e3a58cb132bd38eb12664d7d094e7995fdcc8640863"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.0"
+    version: "4.0.2"
   cached_network_image_platform_interface:
     dependency: transitive
     description:
@@ -1037,18 +1037,18 @@ packages:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_charts
-      sha256: cf3e78512b3ce974088131507b7ebdb6da5f2f1458b06f6c770a2285dc68f0e1
+      sha256: "918931ed38d569c8318bb81e67bcbc4fd1ca3b7755ce7cf301f65a2f9f57f717"
       url: "https://pub.dev"
     source: hosted
-    version: "34.2.7"
+    version: "34.2.9"
   syncfusion_flutter_core:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: "4650a74c688891588afa0291a0e9849395de8bd42ebe5d5c4266f885d318f703"
+      sha256: "85c1d4be09cfa5b74a026cd1b4c5c7c1a2b2bf709e5e61d4c2feee989ebb1da4"
       url: "https://pub.dev"
     source: hosted
-    version: "34.2.7"
+    version: "34.2.9"
   synchronized:
     dependency: transitive
     description:
