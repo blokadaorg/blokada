@@ -163,7 +163,7 @@ repositories {
 dependencies {
     // androidx and kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:2.4.20"
-    implementation 'androidx.core:core-ktx:1.19.0'
+    implementation 'androidx.core:core-ktx:1.19.1'
     implementation 'androidx.appcompat:appcompat:1.8.0'
     implementation 'com.google.android.material:material:1.14.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.2.2'
@@ -200,10 +200,10 @@ dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
     sixImplementation fileTree(include: ['*.aar'], dir: 'wireguard-android/lib')
     sixImplementation "androidx.datastore:datastore-preferences:1.2.1"
-    sixImplementation "androidx.annotation:annotation:1.10.0"
+    sixImplementation "androidx.annotation:annotation:1.11.0"
     sixImplementation "androidx.lifecycle:lifecycle-runtime-ktx:2.11.0"
     sixImplementation "androidx.activity:activity-ktx:1.13.0"
-    sixImplementation "androidx.fragment:fragment-ktx:1.9.0"
+    sixImplementation "androidx.fragment:fragment-ktx:1.9.1"
 
     // QR code scanning lib (family flavor only)
     familyImplementation "io.github.g00fy2.quickie:quickie-bundled:1.12.0"
