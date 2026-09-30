@@ -14,6 +14,7 @@
     "error vpn too many leases": "You reached your devices limit. Please remove one of your devices and try again.",
     "error vpn expired": "The VPN is disabled. Please update your subscription to continue using BLOKADA+",
     "error payment inactive after restore": "Your previous payment was restored, but the subscription has already expired. If you believe this is a mistake, please contact us by tapping the help icon at the top.",
+    "error restore no active purchase": "No active Blokada subscription was found on this store account. Make sure you are signed in with the account you used to buy. If your subscription has expired, you can buy a new one.",
     "error payment failed": "Payments are unavailable at this moment. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.",
     "error payment failed alternative": "Could not complete your payment. Please make sure your data is correct, and try again. If the problem persists, please contact us by tapping the help icon at the top.",
     "error payment not available": "Payments are unavailable for this device. Either this device is not updated, or we do not handle purchases in your country yet.",
