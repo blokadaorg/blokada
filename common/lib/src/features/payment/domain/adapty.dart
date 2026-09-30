@@ -177,7 +177,7 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIFlows
     try {
       await view.showDialog(
         title: "payment action restore".i18n,
-        content: "error restore no active purchase".i18n,
+        content: "error restore not found".i18n,
         primaryActionTitle: "universal action close".i18n,
       );
     } catch (e, s) {
