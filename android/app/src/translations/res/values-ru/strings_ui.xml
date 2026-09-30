@@ -364,7 +364,6 @@
     <string name="web_lock_new_header">Впервые в Blokada?</string>
     <string name="web_lock_new_brief">Создайте аккаунт в один клик. Не требуется ни email, ни пароль.</string>
     <string name="web_lock_new_action">Создать аккаунт</string>
-    <string name="web_lock_existing_header">Уже есть аккаунт?</string>
     <string name="web_lock_existing_brief">ID вашего аккаунта находится в приложении Blokada, в настройках вашей учетной записи.</string>
     <string name="web_lock_existing_action">Войти</string>
     <string name="web_lock_or">или</string>
@@ -392,7 +391,7 @@
     <string name="setup_step_download_profile">Создайте и загрузите свой профиль</string>
     <string name="setup_step_install_wireguard">Установите и запустите WireGuard</string>
     <string name="web_setup_share_header">Открыть на другом устройстве</string>
-    <string name="web_setup_share_brief">Сосканируйте код или откройте ссылку на устройстве, которое настраиваете. Откроется пошаговое руководство с уже заполненными адресами - авторизация не требуется.</string>
+    <string name="web_setup_share_brief">Сосканируйте код или откройте ссылку на устройстве, которое вы настраиваете. Откроется пошаговое руководство с вашими данными – вход не требуется.</string>
     <string name="web_setup_share_note">Любой, у кого есть эта ссылка, может использовать вашу фильтрацию Blokada, но не сможет просматривать или изменять ваш аккаунт.</string>
     <string name="stats_header">Статистика</string>
     <string name="stats_ratio_header">Соотношение</string>

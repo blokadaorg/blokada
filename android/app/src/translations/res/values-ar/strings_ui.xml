@@ -364,7 +364,6 @@
     <string name="web_lock_new_header">جديد على Blokada؟</string>
     <string name="web_lock_new_brief">أنشئ حسابًا بضغطة واحدة. لا حاجة لبريد إلكتروني أو كلمة مرور.</string>
     <string name="web_lock_new_action">إنشاء حساب</string>
-    <string name="web_lock_existing_header">هل لديك حساب بالفعل؟</string>
     <string name="web_lock_existing_brief">معرف حسابك موجود في تطبيق Blokada، في إعدادات حسابك.</string>
     <string name="web_lock_existing_action">تسجيل الدخول</string>
     <string name="web_lock_or">أو</string>
@@ -392,7 +391,7 @@
     <string name="setup_step_download_profile">توليد وتحميل ملفك الشخصي</string>
     <string name="setup_step_install_wireguard">تثبيت وبدء WireGuard</string>
     <string name="web_setup_share_header">افتح على جهاز آخر.</string>
-    <string name="web_setup_share_brief">امسح الرمز أو افتح الرابط على الجهاز الذي تقوم بإعداده. سيتم فتح دليل خطوة بخطوة مع عناوينك مُعبأة مسبقًا، بدون الحاجة لتسجيل الدخول هناك.</string>
+    <string name="web_setup_share_brief">امسح الرمز أو افتح الرابط على الجهاز الذي تقوم بإعداده. سيفتح لك دليلاً خطوة بخطوة مع تعبئة تفاصيلك تلقائياً، ولن تحتاج لتسجيل الدخول هناك.</string>
     <string name="web_setup_share_note">أي شخص لديه هذا الرابط يمكنه استخدام ميزة تصفية Blokada الخاصة بك، ولكنه لا يمكنه رؤية حسابك أو تغييره.</string>
     <string name="stats_header">إحصائيات</string>
     <string name="stats_ratio_header">النسبة</string>

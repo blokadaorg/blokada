@@ -364,7 +364,6 @@
     <string name="web_lock_new_header">Neu bei Blokada?</string>
     <string name="web_lock_new_brief">Erstelle ein Konto mit nur einem Tipp. Keine E-Mail oder Passwort erforderlich.</string>
     <string name="web_lock_new_action">Konto erstellen</string>
-    <string name="web_lock_existing_header">Du hast bereits ein Konto?</string>
     <string name="web_lock_existing_brief">Deine Konto-ID findest du in der Blokada-App in deinen Kontoeinstellungen.</string>
     <string name="web_lock_existing_action">Anmelden</string>
     <string name="web_lock_or">oder</string>
@@ -392,7 +391,7 @@
     <string name="setup_step_download_profile">Erstelle dein Profil und lade es herunter</string>
     <string name="setup_step_install_wireguard">Installiere und starte WireGuard</string>
     <string name="web_setup_share_header">Auf einem anderen Gerät öffnen</string>
-    <string name="web_setup_share_brief">Scanne den Code oder öffne den Link auf dem Gerät, das du einrichten möchtest. Es öffnet eine Schritt-für-Schritt-Anleitung mit deinen Adressen, ohne dass du dich anmelden musst.</string>
+    <string name="web_setup_share_brief">Scanne den Code oder öffne den Link auf dem Gerät, das du einrichtest. Es öffnet eine Schritt-für-Schritt-Anleitung mit deinen Angaben, ohne dass du dich dort anmelden musst.</string>
     <string name="web_setup_share_note">Jeder mit diesem Link kann dein Blokada-Filter verwenden, aber kann deinen Account weder sehen noch ändern.</string>
     <string name="stats_header">Statistik</string>
     <string name="stats_ratio_header">Verhältnis</string>
