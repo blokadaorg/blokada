@@ -160,12 +160,29 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIFlows
     // must not run checkout (it would 400 and show "payment failed"). Leave
     // the paywall open so the user can still buy. See issue-tracker #376.
     if (!_hasActiveAccess(profile)) {
-      log(Markers.ui)
-          .w("Adapty: restore without active access level, ignoring");
+      log(Markers.ui).w("Adapty: restore without active access level");
+      _showRestoreNotActive(view);
       return;
     }
     closePaymentScreen(false, view: view);
     _actor.checkoutSuccessfulPayment(profile.profileId, restore: true);
+  }
+
+  // Tells the user why restore did nothing. Uses the Adapty dialog because our
+  // own modals render beneath the native paywall. One message covers both "never
+  // bought" and "expired": the profile's access levels belong to the Blokada
+  // account, not the store account being restored, so they can't tell those
+  // apart. See issue-tracker #395.
+  Future<void> _showRestoreNotActive(AdaptyUIFlowView view) async {
+    try {
+      await view.showDialog(
+        title: "payment action restore".i18n,
+        content: "error restore not found".i18n,
+        primaryActionTitle: "universal action close".i18n,
+      );
+    } catch (e, s) {
+      log(Markers.ui).e(msg: "Adapty: failed showing restore dialog", err: e, stack: s);
+    }
   }
 
   // Adapty grants entitlement through access levels; a Success/restore whose

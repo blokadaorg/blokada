@@ -47,6 +47,14 @@ Scope: Account refresh, downgrade UX, plus cleanup.
 Non-rules: Reopening the app alone should not reshow the same expiry dialog.
 Verification: Check downgrade from paid to `libre`, then verify upgrade resets the expiry-seen state.
 
+### Rule: Restore without an active entitlement explains itself and keeps the paywall open
+Applies to: shared
+Intent: A restore that silently does nothing reads as a broken button.
+Rule: A paywall restore runs checkout only when the restored Adapty profile has an active access level. Otherwise it shows one "no active purchase" dialog over the paywall and leaves the paywall open so the user can buy.
+Scope: Paywall restore handling.
+Non-rules: This is not a restore failure; the "restore failed" modal is for errors from the store, and it closes the paywall. Lapsed access levels do not prove this store account bought before: the profile is tied to the Blokada account, so expired and never-bought share one message.
+Verification: Restore on a store account with no purchase; check the dialog shows and the paywall stays open.
+
 ## Identity Notes
 
 - Payment-provider identity should only be attached to an account after that account has been active before. This avoids creating duplicate purchase-provider profiles for brand-new users.
