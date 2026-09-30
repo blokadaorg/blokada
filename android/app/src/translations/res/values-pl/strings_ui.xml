@@ -364,7 +364,6 @@
     <string name="web_lock_new_header">Nowy w Blokada?</string>
     <string name="web_lock_new_brief">Utwórz konto jednym stuknięciem. Nie potrzebujesz adresu e-mail ani hasła.</string>
     <string name="web_lock_new_action">Utwórz konto</string>
-    <string name="web_lock_existing_header">Masz już konto?</string>
     <string name="web_lock_existing_brief">Twój identyfikator konta znajdziesz w aplikacji Blokada, w ustawieniach konta.</string>
     <string name="web_lock_existing_action">Zaloguj się</string>
     <string name="web_lock_or">lub</string>
@@ -392,7 +391,7 @@
     <string name="setup_step_download_profile">Wygeneruj i pobierz swój profil</string>
     <string name="setup_step_install_wireguard">Zainstaluj i uruchom WireGuard</string>
     <string name="web_setup_share_header">Otwórz na innym urządzeniu</string>
-    <string name="web_setup_share_brief">Zeskanuj kod lub otwórz link na urządzeniu, które konfigurujesz. Otworzy się przewodnik krok po kroku z wypełnionymi Twoimi adresami – nie musisz się tam logować.</string>
+    <string name="web_setup_share_brief">Zeskanuj kod lub otwórz link na urządzeniu, które konfigurujesz. Otworzy się przewodnik krok po kroku z Twoimi danymi uzupełnionymi automatycznie, bez potrzeby logowania się na tym urządzeniu.</string>
     <string name="web_setup_share_note">Każdy, kto posiada ten link, może korzystać z Twojego filtrowania Blokada, ale nie może zobaczyć ani zmienić Twojego konta.</string>
     <string name="stats_header">Statystyka</string>
     <string name="stats_ratio_header">Stosunek</string>

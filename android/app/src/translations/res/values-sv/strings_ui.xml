@@ -364,7 +364,6 @@
     <string name="web_lock_new_header">Ny på Blokada?</string>
     <string name="web_lock_new_brief">Skapa ett konto med ett tryck. Ingen e-post eller lösenord behövs.</string>
     <string name="web_lock_new_action">Skapa konto</string>
-    <string name="web_lock_existing_header">Har du redan ett konto?</string>
     <string name="web_lock_existing_brief">Ditt konto-ID finns i Blokada-appen, under dina kontoinställningar.</string>
     <string name="web_lock_existing_action">Logga in</string>
     <string name="web_lock_or">eller</string>
@@ -392,7 +391,7 @@
     <string name="setup_step_download_profile">Generera och ladda ner din profil</string>
     <string name="setup_step_install_wireguard">Installera och starta WireGuard</string>
     <string name="web_setup_share_header">Öppna på en annan enhet.</string>
-    <string name="web_setup_share_brief">Skanna koden eller öppna länken på den enhet du håller på att installera. Det öppnar en steg-för-steg-guide med dina adresser ifyllda, utan att du behöver logga in där.</string>
+    <string name="web_setup_share_brief">Skanna koden eller öppna länken på enheten du sätter upp. Det öppnar en steg-för-steg-guide med dina uppgifter ifyllda, utan att du behöver logga in där.</string>
     <string name="web_setup_share_note">Alla med denna länk kan använda din Blokada-filtrering, men kan inte se eller ändra ditt konto.</string>
     <string name="stats_header">Statistik</string>
     <string name="stats_ratio_header">Förhållande</string>

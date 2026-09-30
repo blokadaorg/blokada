@@ -460,7 +460,6 @@
 "web lock new header" = "Nuovo su Blokada?";
 "web lock new brief" = "Crea un account con un solo tocco. Nessun indirizzo email o password richiesti.";
 "web lock new action" = "Crea account";
-"web lock existing header" = "Hai già un account?";
 "web lock existing brief" = "Il tuo ID account si trova nell'app Blokada, nelle impostazioni dell'account.";
 "web lock existing action" = "Accedi";
 // Separates the two ways in: create an account, or log in.
@@ -500,7 +499,7 @@
 // Section under the device setup steps on the web dashboard. It shows a link
 // and a QR code that open a public setup guide for this device on blokada.org.
 "web setup share header" = "Apri su un altro dispositivo";
-"web setup share brief" = "Scansiona il codice o apri il link sul dispositivo che stai configurando. Si aprirà una guida passo passo con i tuoi indirizzi già compilati, senza bisogno di accedere.";
+"web setup share brief" = "Scansiona il codice o apri il link sul dispositivo che stai configurando. Si aprirà una guida passo a passo con i tuoi dettagli già inseriti, senza bisogno di accedere lì.";
 // Anyone holding the link can send DNS queries through this account's filtering.
 "web setup share note" = "Chiunque abbia questo link può usare il filtro di Blokada, ma non può vedere né modificare il tuo account.";
 

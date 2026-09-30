@@ -364,7 +364,6 @@
     <string name="web_lock_new_header">Nieuw bij Blokada?</string>
     <string name="web_lock_new_brief">Maak een account aan met één tik. Geen e-mail of wachtwoord nodig.</string>
     <string name="web_lock_new_action">Account aanmaken</string>
-    <string name="web_lock_existing_header">Heb je al een account?</string>
     <string name="web_lock_existing_brief">Je account-ID vind je in de Blokada-app, onder je accountinstellingen.</string>
     <string name="web_lock_existing_action">Inloggen</string>
     <string name="web_lock_or">of</string>
@@ -392,7 +391,7 @@
     <string name="setup_step_download_profile">Genereer en download je profiel</string>
     <string name="setup_step_install_wireguard">Installeer en start WireGuard</string>
     <string name="web_setup_share_header">Open op een ander apparaat.</string>
-    <string name="web_setup_share_brief">Scan de code of open de link op het apparaat dat je instelt. Er wordt een stapsgewijze handleiding geopend met jouw adressen al ingevuld, inloggen is daar niet nodig.</string>
+    <string name="web_setup_share_brief">Scan de code of open de link op het apparaat dat je aan het instellen bent. Er wordt een stapsgewijze handleiding geopend met jouw gegevens al ingevuld, zodat je daar niet hoeft in te loggen.</string>
     <string name="web_setup_share_note">Iedereen met deze link kan jouw Blokada-filtering gebruiken, maar kan je account niet bekijken of wijzigen.</string>
     <string name="stats_header">Statistieken</string>
     <string name="stats_ratio_header">Verhouding</string>
