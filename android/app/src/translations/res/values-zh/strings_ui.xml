@@ -15,6 +15,7 @@
     <string name="error_vpn_too_many_leases">您已達裝置限制。請移除您其中一個裝置後重試。</string>
     <string name="error_vpn_expired">已停用 VPN。請續訂訂閱以繼續使用 BLOKADA+。</string>
     <string name="error_payment_inactive_after_restore">已還原您上個付款，但訂閱已經到期。如有任何問題，請按上方的協助按鈕聯絡我們。</string>
+    <string name="error_restore_not_found">我們找不到可恢復的啟動 Blokada 訂閱。如果您的訂閱已到期，您可以購買新的訂閱。如果您認為這是錯誤，請聯絡我們。</string>
     <string name="error_payment_failed">此刻尚無法付款。請確定您是否有連線網路，後稍候再試。如仍有問題，請按一下上方的協助圖示聯絡我們。</string>
     <string name="error_payment_failed_alternative">無法完成您的付款。請確保您的資料是正確的，然後重試。如果問題仍然持續，請透過點擊頂部的說明圖示聯絡我們。</string>
     <string name="error_payment_not_available">此裝置無法付款。可能是本裝置未更新，或是我們尚不處理您所在地區的付款。</string>

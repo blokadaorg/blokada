@@ -15,6 +15,7 @@
     <string name="error_vpn_too_many_leases">Z Twojego konta korzysta już maksymalna dozwolona liczba urządzeń. Usuń któreś z listy urządzeń, i spróbuj ponownie.</string>
     <string name="error_vpn_expired">VPN został dezaktywowany. Wznów swoją subskrypcję, aby kontynuować korzystanie z BLOKADA+</string>
     <string name="error_payment_inactive_after_restore">Twoja ostatnia płatność została znaleziona, ale jej ważność już upłynęła. Jeśli uważasz, że to pomyłka, skontaktuj się z nami klikając ikonkę pomocy na górze ekranu.</string>
+    <string name="error_restore_not_found">Nie znaleziono aktywnej subskrypcji Blokada do przywrócenia. Jeśli Twoja subskrypcja wygasła, możesz zakupić nową. Jeśli uważasz, że to błąd, skontaktuj się z nami.</string>
     <string name="error_payment_failed">Płatności są chwilowo niedostępne. Upewnij się, że jesteś online, i spróbuj ponownie. Jeśli problem się powtarza, skontaktuj się z nami klikając na ikonkę pomocy na górze ekranu.</string>
     <string name="error_payment_failed_alternative">Nie można dokończyć płatności. Upewnij się, że dane są poprawne i spróbuj ponownie. Jeśli problem będzie się powtarzał, skontaktuj się z nami, stukając ikonę pomocy u góry.</string>
     <string name="error_payment_not_available">Płatności są niedostępne na tym urządzeniu. To urządzenie nie jest zaktualizowane lub nie obsługujemy jeszcze zakupów w Twoim kraju.</string>

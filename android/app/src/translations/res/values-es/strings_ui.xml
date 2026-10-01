@@ -15,6 +15,7 @@
     <string name="error_vpn_too_many_leases">Has alcanzado el límite de dispositivos. Por favor, elimina uno de tus dispositivos e inténtalo de nuevo.</string>
     <string name="error_vpn_expired">El VPN está desactivado. Por favor, actualiza tu suscripción para seguir usando BLOKADA+</string>
     <string name="error_payment_inactive_after_restore">Tu pago anterior se ha restaurado, pero la suscripción ya ha caducado. Si crees que esto es un error, ponte en contacto con nosotros tocando el icono de ayuda en la parte superior.</string>
+    <string name="error_restore_not_found">No pudimos encontrar una suscripción activa de Blokada para restaurar. Si su suscripción ha caducado, puede comprar una nueva. Si cree que esto es un error, por favor contáctenos.</string>
     <string name="error_payment_failed">Pagos no disponibles actualmente. Asegúrate de tener conexión e inténtalo de nuevo más tarde. Si el problema persiste, contacta con nosotros tocando el icono de ayuda en la parte superior.</string>
     <string name="error_payment_failed_alternative">No se pudo completar el pago. Por favor, asegúrate de que tus datos son correctos e inténtalo de nuevo. Si el problema persiste, por favor ponte en contacto con nosotros tocando el icono de ayuda en la parte superior.</string>
     <string name="error_payment_not_available">Los pagos no están disponibles para este dispositivo. O este dispositivo no está actualizado, o aún no gestionamos las compras en su país.</string>

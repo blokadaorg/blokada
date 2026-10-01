@@ -15,6 +15,7 @@
     <string name="error_vpn_too_many_leases">Du har nått din enhetsgräns. Vänligen ta bort en av dina enheter och försök igen.</string>
     <string name="error_vpn_expired">VPN är inaktiverat. Vänligen uppdatera din prenumeration för att fortsätta använda BLOKADA+</string>
     <string name="error_payment_inactive_after_restore">Din tidigare betalning återställdes, men prenumerationen har redan löpt ut. Om du tror att detta är ett misstag, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.</string>
+    <string name="error_restore_not_found">Vi kunde inte hitta någon aktiv Blokada-prenumeration att återställa. Om din prenumeration har löpt ut kan du köpa en ny. Om du tror att detta är ett misstag, vänligen kontakta oss.</string>
     <string name="error_payment_failed">Betalningar är inte tillgängliga just nu. Kolla så att du är uppkopplad och försök igen senare. Om problemet kvarstår, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.</string>
     <string name="error_payment_failed_alternative">Det gick inte att slutföra din betalning. Kontrollera att dina detaljer är korrekta och försök igen. Om problemet kvarstår, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.</string>
     <string name="error_payment_not_available">Betalningar är inte tillgängliga för den här enheten. Antingen är inte enheten uppdaterad eller så hanterar vi inte inköp i ditt land ännu.</string>

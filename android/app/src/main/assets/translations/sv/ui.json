@@ -14,6 +14,7 @@
     "error vpn too many leases": "Du har nått din enhetsgräns. Vänligen ta bort en av dina enheter och försök igen.",
     "error vpn expired": "VPN är inaktiverat. Vänligen uppdatera din prenumeration för att fortsätta använda BLOKADA+",
     "error payment inactive after restore": "Din tidigare betalning återställdes, men prenumerationen har redan löpt ut. Om du tror att detta är ett misstag, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.",
+    "error restore not found": "Vi kunde inte hitta någon aktiv Blokada-prenumeration att återställa. Om din prenumeration har löpt ut kan du köpa en ny. Om du tror att detta är ett misstag, vänligen kontakta oss.",
     "error payment failed": "Betalningar är inte tillgängliga just nu. Kolla så att du är uppkopplad och försök igen senare. Om problemet kvarstår, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.",
     "error payment failed alternative": "Det gick inte att slutföra din betalning. Kontrollera att dina detaljer är korrekta och försök igen. Om problemet kvarstår, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.",
     "error payment not available": "Betalningar är inte tillgängliga för den här enheten. Antingen är inte enheten uppdaterad eller så hanterar vi inte inköp i ditt land ännu.",

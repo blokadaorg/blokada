@@ -25,6 +25,7 @@
 "error vpn too many leases" = "Você atingiu o seu limite de dispositivos. Por favor, remova um dos seus dispositivos e tente novamente.";
 "error vpn expired" = "A VPN está desativada. Atualize sua assinatura para continuar a utilizar o BLOKADA+";
 "error payment inactive after restore" = "Seu pagamento anterior foi restaurado, mas a assinatura já expirou. Se você acredita que isso é um erro, entre em contato conosco tocando no ícone de ajuda na parte superior.";
+"error restore not found" = "We couldn't find an active Blokada subscription to restore. If your subscription has expired, you can buy a new one. If you believe this is a mistake, please contact us.";
 "error payment failed" = "Os pagamentos não estão disponíveis neste momento. Certifique-se de estar online e tente novamente mais tarde. Se o problema persistir, entre em contato conosco tocando no ícone de ajuda na parte superior.";
 "error payment failed alternative" = "Não foi possível concluir o seu pagamento. Por favor, certifique-se de que seus dados estão corretos e tente novamente. Se o problema persistir, entre em contato conosco tocando no ícone de ajuda na parte superior.";
 "error payment not available" = "Pagamentos não estão disponíveis para este dispositivo. Ou este dispositivo não está atualizado, ou ainda não lidamos com as compras no seu país.";
