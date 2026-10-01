@@ -37,8 +37,6 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
   bool _isError = false; // To prevent adapty error spam loop
   OnboardingStep? _pendingOnboard;
 
-  Function onPaymentScreenOpened = (bool opened) => {};
-
   @override
   onCreate(Marker m) async {
     willAcceptOnValue(paymentSuccessful, [paymentClosed]);
@@ -156,7 +154,6 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
       await _preloadCompleter?.future;
       try {
         await _channel.showPaymentScreen(m, placement, forceReload: false);
-        onPaymentScreenOpened(true);
         await reportOnboarding(OnboardingStep.ctaTapped);
       } catch (e, s) {
         await handleScreenClosed(m, isError: true);
@@ -215,7 +212,6 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
   handleScreenClosed(Marker m, {required bool isError}) async {
     if (!_isOpened) return;
     log(m).i("Payment screen closed");
-    onPaymentScreenOpened(false);
     _isOpened = false;
     await emitValue(paymentClosed, isError, m);
   }

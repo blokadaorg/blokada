@@ -25,7 +25,6 @@ class SupportActor with Logging, Actor {
   );
 
   Function onChange = () {};
-  Function(Marker m) onReset = (Marker m) {};
 
   // Return true if session was just created
   Future<bool> loadOrInit(Marker m, {SupportEvent? event}) async {
@@ -130,7 +129,6 @@ class SupportActor with Logging, Actor {
     messages = [];
     await controller.setMessages([]);
     onChange();
-    onReset(m);
   }
 
   sendMessage(String? message, Marker m, {bool retrying = false}) async {

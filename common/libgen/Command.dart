@@ -36,7 +36,6 @@ enum CommandName {
   familyLink,
 
   // Support
-  supportNotify,
   supportAskNotificationPerms,
 
   // Scheduler
