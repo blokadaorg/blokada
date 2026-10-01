@@ -14,6 +14,7 @@
     "error vpn too many leases": "Cihazlarınızın sınırına ulaştınız. Lütfen cihazlarınızdan birini kaldırın ve tekrar deneyin.",
     "error vpn expired": "VPN devre dışı bırakıldı. BLOKADA+ aboneliğini kullanmaya devam etmek için aboneliğinizi güncelleyin",
     "error payment inactive after restore": "Önceki ödemeniz geri yüklendi, ancak aboneliğin süresi doldu. Bunun bir hata olduğunu düşünüyorsanız, lütfen üstteki yardım simgesine dokunarak bizimle iletişime geçin.",
+    "error restore not found": "We couldn't find an active Blokada subscription to restore. If your subscription has expired, you can buy a new one. If you believe this is a mistake, please contact us.",
     "error payment failed": "Ödemeler şu anda mevcut değil. Çevrimiçi olduğunuzdan emin olun ve daha sonra tekrar deneyin. Sorun devam ederse, lütfen üstteki yardım simgesine dokunarak bizimle iletişime geçin.",
     "error payment failed alternative": "Ödemeniz tamamlanamadı. Lütfen verilerinizin doğru olduğundan emin olun ve tekrar deneyin. Sorun devam ederse, lütfen üstteki yardım simgesine dokunarak bizimle iletişime geçin.",
     "error payment not available": "Bu cihaz için ödeme yapılamıyor. Ya bu cihaz güncellenmedi ya da henüz ülkenizde satın alma işlemlerini gerçekleştirmiyoruz.",

@@ -14,6 +14,7 @@
     "error vpn too many leases": "Jumlah perangkat yang bisa menggunakan VPN telah terlampaui. Silakan hapus salah satu perangkat Anda dan coba kembali.",
     "error vpn expired": "VPN dinonaktifkan. Silakan perbarui langganan Anda agar BLOKADA+ dapat digunakan kembali",
     "error payment inactive after restore": "Pembayaran Anda sebelumnya telah dipulihkan, namun langganan Anda telah kedaluwarsa. Jika menurut Anda telah terjadi kesalahan, silakan hubungi kami dengan mengetuk ikon Bantuan di atas.",
+    "error restore not found": "We couldn't find an active Blokada subscription to restore. If your subscription has expired, you can buy a new one. If you believe this is a mistake, please contact us.",
     "error payment failed": "Pembayaran tidak bisa dilakukan pada saat ini. Harap pastikan perangkat Anda terkoneksi dengan internet, dan coba kembali. Jika masalah ini berlanjut, silakan hubungi kami dengan cara mengetuk ikon Bantuan di atas.",
     "error payment failed alternative": "Tidak dapat menyelesaikan pembayaran Anda. Harap pastikan data Anda benar, dan coba lagi. Jika masalah terus berlanjut, harap hubungi kami dengan mengetuk ikon bantuan di bagian atas.",
     "error payment not available": "Pembayaran tidak bisa dilakukan di perangkat ini. Hal ini bisa disebabkan karena perangkat Anda tidak menggunakan software versi terbaru, atau kami belum bisa menangani transaksi di negara tempat Anda tinggal.",

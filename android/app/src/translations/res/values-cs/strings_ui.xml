@@ -15,6 +15,7 @@
     <string name="error_vpn_too_many_leases">Dosáhli jste limitu zařízení. Prosím odeberte jedno z vašich zařízení a zkuste to znovu.</string>
     <string name="error_vpn_expired">VPN je zakázána. Aktualizujte vaše předplatné a pokračujte v používání služby BLOKADA+</string>
     <string name="error_payment_inactive_after_restore">Vaše předchozí platba byla obnovena, ale předplatné již vypršelo. Pokud se domníváte, že se jedná o chybu, kontaktujte nás kliknutím na ikonu nápovědy v horní části.</string>
+    <string name="error_restore_not_found">We couldn\'t find an active Blokada subscription to restore. If your subscription has expired, you can buy a new one. If you believe this is a mistake, please contact us.</string>
     <string name="error_payment_failed">Platby nejsou momentálně k dispozici. Ujistěte se, že jste online, a zkuste to znovu později. Pokud problém přetrvává, prosím kontaktujte nás klepnutím na ikonu nápovědy v horní části.</string>
     <string name="error_payment_failed_alternative">Nelze dokončit Vaši platbu. Ujistěte se, že jsou vaše údaje správné, a zkuste to znovu. Pokud problém přetrvává, prosím, kontaktujte nás klepnutím na ikonu nápovědy v horní části.</string>
     <string name="error_payment_not_available">Platby pro toto zařízení nejsou k dispozici. Buď toto zařízení není aktualizováno, nebo nákupy ve vaší zemi zatím nezpracováváme.</string>

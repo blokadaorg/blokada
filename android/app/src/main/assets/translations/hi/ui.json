@@ -14,6 +14,7 @@
     "error vpn too many leases": "आप अपने उपकरणों की सीमा तक पहुँच गए। कृपया अपना एक उपकरण निकालें और पुनः प्रयास करें।",
     "error vpn expired": "VPN अक्षम है। BLOKADA + का उपयोग जारी रखने के लिए कृपया अपनी सदस्यता अपडेट करें",
     "error payment inactive after restore": "आपका पिछला भुगतान बहाल कर दिया गया था, लेकिन सदस्यता पहले ही समाप्त हो चुकी है। यदि आपको लगता है कि यह एक गलती है, तो कृपया शीर्ष पर सहायता आइकन टैप करके हमसे संपर्क करें।",
+    "error restore not found": "We couldn't find an active Blokada subscription to restore. If your subscription has expired, you can buy a new one. If you believe this is a mistake, please contact us.",
     "error payment failed": "इस समय भुगतान उपलब्ध नहीं है। सुनिश्चित करें कि आप ऑनलाइन हैं, और बाद में फिर से प्रयास करें। यदि समस्या बनी रहती है, तो कृपया शीर्ष पर सहायता आइकन टैप करके हमसे संपर्क करें।",
     "error payment failed alternative": "Could not complete your payment. Please make sure your data is correct, and try again. If the problem persists, please contact us by tapping the help icon at the top.",
     "error payment not available": "Payments are unavailable for this device. Either this device is not updated, or we do not handle purchases in your country yet.",

@@ -15,6 +15,7 @@
     <string name="error_vpn_too_many_leases">Jumlah perangkat yang bisa menggunakan VPN telah terlampaui. Silakan hapus salah satu perangkat Anda dan coba kembali.</string>
     <string name="error_vpn_expired">VPN dinonaktifkan. Silakan perbarui langganan Anda agar BLOKADA+ dapat digunakan kembali</string>
     <string name="error_payment_inactive_after_restore">Pembayaran Anda sebelumnya telah dipulihkan, namun langganan Anda telah kedaluwarsa. Jika menurut Anda telah terjadi kesalahan, silakan hubungi kami dengan mengetuk ikon Bantuan di atas.</string>
+    <string name="error_restore_not_found">We couldn\'t find an active Blokada subscription to restore. If your subscription has expired, you can buy a new one. If you believe this is a mistake, please contact us.</string>
     <string name="error_payment_failed">Pembayaran tidak bisa dilakukan pada saat ini. Harap pastikan perangkat Anda terkoneksi dengan internet, dan coba kembali. Jika masalah ini berlanjut, silakan hubungi kami dengan cara mengetuk ikon Bantuan di atas.</string>
     <string name="error_payment_failed_alternative">Tidak dapat menyelesaikan pembayaran Anda. Harap pastikan data Anda benar, dan coba lagi. Jika masalah terus berlanjut, harap hubungi kami dengan mengetuk ikon bantuan di bagian atas.</string>
     <string name="error_payment_not_available">Pembayaran tidak bisa dilakukan di perangkat ini. Hal ini bisa disebabkan karena perangkat Anda tidak menggunakan software versi terbaru, atau kami belum bisa menangani transaksi di negara tempat Anda tinggal.</string>

@@ -15,6 +15,7 @@
     <string name="error_vpn_too_many_leases">Saavutit laitteiden enimmäisrajan. Poista yksi laitteistasi ja yritä uudelleen.</string>
     <string name="error_vpn_expired">VPN on poistettu käytöstä. Päivitä tilauksesi jatkaaksesi BLOKADA+ -sovelluksen käyttöä</string>
     <string name="error_payment_inactive_after_restore">Aikaisempi maksusi palautettiin, mutta tilauksesi on jo vanhentunut. Jos uskot, että tämä on virhe, ota yhteyttä meihin napauttamalla yläosassa olevaa ohjekuvaketta.</string>
+    <string name="error_restore_not_found">We couldn\'t find an active Blokada subscription to restore. If your subscription has expired, you can buy a new one. If you believe this is a mistake, please contact us.</string>
     <string name="error_payment_failed">Maksut eivät ole tällä hetkellä käytettävissä. Varmista, että olet online-tilassa ja yritä myöhemmin uudelleen. Jos ongelma jatkuu, ota meihin yhteyttä napsauttamalla yläosaa olevaa ohjekuvaketta.</string>
     <string name="error_payment_failed_alternative">Maksua ei voitu suorittaa. Varmista, että tietosi ovat oikeita ja yritä uudelleen. Jos ongelma jatkuu, ota meihin yhteyttä napauttamalla yläreunassa olevaa ohjetta.</string>
     <string name="error_payment_not_available">Maksut eivät ole käytettävissä tälle laitteelle. Joko tätä laitetta ei ole päivitetty, tai emme käsittele ostoksia maassasi.</string>

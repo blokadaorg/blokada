@@ -14,6 +14,7 @@
     "error vpn too many leases": "Hai raggiunto il limite dei tuoi dispositivi. Rimuovi uno dei tuoi dispositivi e riprova.",
     "error vpn expired": "La VPN è disabilitata. Aggiorna il tuo abbonamento per continuare a utilizzare BLOKADA+",
     "error payment inactive after restore": "Il pagamento precedente è stato ripristinato, ma l'abbonamento è già scaduto. Se credi che questo sia un errore, contattaci toccando l'icona di aiuto in alto.",
+    "error restore not found": "Non siamo riusciti a trovare un abbonamento attivo a Blokada da ripristinare. Se il tuo abbonamento è scaduto, puoi acquistarne uno nuovo. Se pensi che si tratti di un errore, ti preghiamo di contattarci.",
     "error payment failed": "Al momento i pagamenti non sono disponibili. Assicurati di essere online e riprova più tardi. Se il problema persiste, contattaci toccando l'icona di aiuto in alto.",
     "error payment failed alternative": "Impossibile completare il pagamento. Assicurati che i tuoi dati siano corretti e riprova. Se il problema persiste, si prega di contattarci toccando l'icona di aiuto in alto.",
     "error payment not available": "I pagamenti non sono disponibili per questo dispositivo. Questo dispositivo non è aggiornato o non gestiamo ancora gli acquisti nel tuo paese.",

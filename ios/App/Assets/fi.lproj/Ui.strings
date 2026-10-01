@@ -25,6 +25,7 @@
 "error vpn too many leases" = "Saavutit laitteiden enimmäisrajan. Poista yksi laitteistasi ja yritä uudelleen.";
 "error vpn expired" = "VPN on poistettu käytöstä. Päivitä tilauksesi jatkaaksesi BLOKADA+ -sovelluksen käyttöä";
 "error payment inactive after restore" = "Aikaisempi maksusi palautettiin, mutta tilauksesi on jo vanhentunut. Jos uskot, että tämä on virhe, ota yhteyttä meihin napauttamalla yläosassa olevaa ohjekuvaketta.";
+"error restore not found" = "We couldn't find an active Blokada subscription to restore. If your subscription has expired, you can buy a new one. If you believe this is a mistake, please contact us.";
 "error payment failed" = "Maksut eivät ole tällä hetkellä käytettävissä. Varmista, että olet online-tilassa ja yritä myöhemmin uudelleen. Jos ongelma jatkuu, ota meihin yhteyttä napsauttamalla yläosaa olevaa ohjekuvaketta.";
 "error payment failed alternative" = "Maksua ei voitu suorittaa. Varmista, että tietosi ovat oikeita ja yritä uudelleen. Jos ongelma jatkuu, ota meihin yhteyttä napauttamalla yläreunassa olevaa ohjetta.";
 "error payment not available" = "Maksut eivät ole käytettävissä tälle laitteelle. Joko tätä laitetta ei ole päivitetty, tai emme käsittele ostoksia maassasi.";

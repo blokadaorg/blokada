@@ -14,6 +14,7 @@
     "error vpn too many leases": "U heeft de apparatenlimiet bereikt. Verwijder een van uw apparaten en probeer het opnieuw.",
     "error vpn expired": "De VPN is uitgeschakeld. Werk uw abonnement bij om BLOKADA+ te blijven gebruiken",
     "error payment inactive after restore": "Uw vorige betaling is hersteld, maar het abonnement is al verlopen. Als u denkt dat dit een vergissing is, neem dan contact met ons op door op het help-icoon bovenaan te tikken.",
+    "error restore not found": "We konden geen actieve Blokada-abonnement vinden om te herstellen. Als uw abonnement is verlopen, kunt u een nieuw abonnement kopen. Als u denkt dat dit een vergissing is, neem dan contact met ons op.",
     "error payment failed": "Betalingen zijn op dit moment niet beschikbaar. Zorg ervoor dat u online bent, en probeer het later opnieuw. Als het probleem zich blijft voordoen, neem dan contact met ons op door op het help-icoon bovenaan te tikken.",
     "error payment failed alternative": "Uw betaling kon niet worden voltooid. Controleer of uw gegevens juist zijn en probeer het opnieuw. Als het probleem zich blijft voordoen, neem dan contact met ons op door op het help-icoon bovenaan te tikken.",
     "error payment not available": "Betalingen zijn niet beschikbaar voor dit apparaat. Ofwel is dit apparaat niet bijgewerkt of wij verwerken nog geen betalingen in uw land.",

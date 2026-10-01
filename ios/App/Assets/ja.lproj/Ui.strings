@@ -25,6 +25,7 @@
 "error vpn too many leases" = "端末数の上限に達しました。いずれかの端末を削除して、もう一度やり直してください。";
 "error vpn expired" = "VPN は無効です。BLOKADA+ を引き続き使用するには、サブスクリプションを更新してください。";
 "error payment inactive after restore" = "以前のお支払いは復元されましたが、サブスクリプションの有効期限が終了しています。これが間違いであると思われる場合は、ヘルプからご連絡ください。";
+"error restore not found" = "We couldn't find an active Blokada subscription to restore. If your subscription has expired, you can buy a new one. If you believe this is a mistake, please contact us.";
 "error payment failed" = "現在、お支払いいただくことができません。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。";
 "error payment failed alternative" = "お支払いを完了できませんでした。入力内容を確認の上、もう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。";
 "error payment not available" = "この端末ではお支払いはご利用いただけません。端末が最新ではないか、お住まいの国からのお支払いに対応していません。";

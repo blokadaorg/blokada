@@ -15,6 +15,7 @@
     <string name="error_vpn_too_many_leases">Elérted a készülékek számának korlátját. Kérjük, távolítsd el az egyik eszközt, és próbáld újra.</string>
     <string name="error_vpn_expired">A VPN le van tiltva. Kérjük, frissítsd előfizetésed a BLOKADA+ további használatához</string>
     <string name="error_payment_inactive_after_restore">Az előző befizetésed visszaállítottuk, de az előfizetésed már lejárt. Ha úgy gondolod, hogy a hiba nálunk van, kérjük, vedd fel velünk a kapcsolatot a súgó ikon megérintésével.</string>
+    <string name="error_restore_not_found">We couldn\'t find an active Blokada subscription to restore. If your subscription has expired, you can buy a new one. If you believe this is a mistake, please contact us.</string>
     <string name="error_payment_failed">A kifizetések jelenleg nem érhetők el. Győződj meg arról, hogy online vagy és próbálkozz később újra. Ha a probléma továbbra is fennáll, vedd fel velünk a kapcsolatot a fenti súgó gomb megnyomásával.</string>
     <string name="error_payment_failed_alternative">Sikertelen fizetés. Ellenőrizze, hogy az adati helyesek-e, és próbálkozzon újra. Ha a probléma továbbra is fennáll, lépjen kapcsolatba velünk a fenti segítség ikonra kattintva.</string>
     <string name="error_payment_not_available">A fizetések nem állnak rendelkezésre ehhez a készülékhez. Vagy ez a készülék nincs frissítve, vagy még nem kezeljük a vásárlásokat az országodban.</string>
