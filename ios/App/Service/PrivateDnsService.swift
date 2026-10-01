@@ -96,7 +96,7 @@ class PrivateDnsService: PrivateDnsServiceIn {
         "cdwifi.cz",
         // Hotel and café portal platforms
         "network-auth.com", "purpleportal.net", "securelogin.arubanetworks.com",
-        "securelogin.hpe.com", "globalreachtech.com", "odyssys.net",
+        "securelogin.hpe.com", "odyssys.net",
     ]
 
     // Portal domains bypass the profile; the trailing Connect rule keeps DoH
