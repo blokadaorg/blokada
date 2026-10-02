@@ -2,11 +2,9 @@ import 'dart:convert';
 
 import 'package:common/src/features/api/domain/api.dart';
 import 'package:common/src/features/notification/domain/notification.dart';
-import 'package:common/src/features/payment/domain/payment.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/features/support/ui/convert.dart';
 import 'package:common/src/core/core.dart';
-import 'package:common/src/platform/account/account.dart';
 import 'package:common/src/platform/command/command.dart';
 import 'package:common/src/platform/stage/stage.dart';
 import 'package:dartx/dartx.dart';
@@ -15,10 +13,8 @@ import 'package:i18n_extension/i18n_extension.dart';
 
 part 'actor.dart';
 part 'api.dart';
-part 'command.dart';
 part 'json.dart';
 part 'model.dart';
-part 'purchase_timeout_actor.dart';
 part 'unread_actor.dart';
 
 class CurrentSession extends StringPersistedValue {
@@ -49,10 +45,5 @@ class SupportModule with Module {
     await register(SupportApi());
     await register(SupportActor());
     await register(SupportUnreadActor());
-    await register(SupportCommand());
-
-    if (Core.act.isFamily) {
-      await register(PurchaseTimeoutActor());
-    }
   }
 }

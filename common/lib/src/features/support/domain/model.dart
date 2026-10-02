@@ -1,8 +1,7 @@
 part of 'support.dart';
 
 enum SupportEvent {
-  firstOpen("FIRST_OPEN"),
-  purchaseTimeout("PURCHASE_TIMEOUT");
+  firstOpen("FIRST_OPEN");
 
   final String constant;
 
