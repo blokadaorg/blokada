@@ -176,51 +176,32 @@ jobs:
       - name: Upload to TestFlight
         env:
           BLOKADA_APPSTORE_KEY_BASE64: ${{ secrets.BLOKADA_APPSTORE_KEY_BASE64 }}
-          # fastlane prints altool's output only on failure; verbose shows
-          # which request hung instead of the bare Defaults.properties line.
-          DELIVER_ALTOOL_ADDITIONAL_UPLOAD_PARAMETERS: --verbose
         run: |
           set -uo pipefail
 
-          # altool fetches this file before uploading anything and fails with
-          # "The file Defaults.properties couldn't be opened" when the request
-          # times out (60s). Record how the runner reaches it around a failure.
-          probe() {
-            echo "::group::Network probe ($1)"
-            for family in -4 -6; do
-              curl "$family" -s -o /dev/null -m 20 \
-                -w "curl $family http=%{http_code} ip=%{remote_ip} dns=%{time_namelookup}s connect=%{time_connect}s tls=%{time_appconnect}s total=%{time_total}s err=%{errormsg}\n" \
-                https://contentdelivery.itunes.apple.com/transporter/Defaults.properties \
-                || echo "curl $family exited $?"
-            done
-            scutil --dns | grep -E "resolver|nameserver" | head -20 || true
-            scutil --proxy || true
-            echo "::endgroup::"
-          }
-
-          # Verbose altool output may carry the App Store Connect JWT.
-          upload() {
-            make publish-ios-testflight FLAVOR="$FLAVOR" 2>&1 \
-              | sed -E 's/eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+/[redacted-jwt]/g'
-          }
-
-          probe "before upload"
           started=$SECONDS
-          if upload; then
+          if make publish-ios-testflight FLAVOR="$FLAVOR"; then
             exit 0
           fi
           elapsed=$((SECONDS - started))
-          probe "after failed upload"
 
-          # A failure this early happens before any bytes are sent, so the
-          # same build number can be uploaded again.
+          # altool can die within ~60s with only "The file Defaults.properties
+          # couldn't be opened". Nothing has been sent that early, so the same
+          # build number can be uploaded again. Later failures are not retried.
           if [ "$elapsed" -ge 180 ]; then
             echo "::error::Upload failed after ${elapsed}s; not retrying."
             exit 1
           fi
+
+          # Tells a network problem on the runner apart from an altool one.
+          curl -s -o /dev/null -m 20 \
+            -w "probe http=%{http_code} dns=%{time_namelookup}s connect=%{time_connect}s tls=%{time_appconnect}s total=%{time_total}s err=%{errormsg}\n" \
+            https://contentdelivery.itunes.apple.com/transporter/Defaults.properties \
+            || echo "probe: curl exited $?"
+
           echo "::warning::Upload failed after ${elapsed}s; retrying once."
           sleep 30
-          upload
+          make publish-ios-testflight FLAVOR="$FLAVOR"
 
       - name: Clean App Store key
         if: always()
