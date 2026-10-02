@@ -179,73 +179,29 @@ jobs:
         run: |
           set -uo pipefail
 
-          # The upload often dies after ~60s with altool printing only
-          # "The file Defaults.properties couldn't be opened", although the
-          # runner reaches Apple fine. Record the environment around a failure.
-          probe() {
-            echo "::group::Environment probe ($1)"
-            curl -s -o /dev/null -m 20 \
-              -w "curl http=%{http_code} ip=%{remote_ip} dns=%{time_namelookup}s connect=%{time_connect}s tls=%{time_appconnect}s total=%{time_total}s err=%{errormsg}\n" \
-              https://contentdelivery.itunes.apple.com/transporter/Defaults.properties \
-              || echo "curl exited $?"
-            xcrun -f altool || true
-            ls -d /Applications/Transporter.app /usr/local/itms \
-              ~/Library/Caches/com.apple.amp.itmstransporter 2>&1 || true
-            env | cut -d= -f1 | grep -iE "proxy|developer_dir|itms|transporter|deliver|fastlane" || true
-            echo "::endgroup::"
-          }
-
-          # Second attempt: altool directly with --verbose, so a failure shows
-          # altool's own log rather than the two lines fastlane relays.
-          # Presigned URL query strings and JWTs are stripped from the output.
-          upload_direct() {
-            local ipa keys log rc key_id issuer_id
-            if [ "$FLAVOR" = "family" ]; then ipa="ios/Blokada Family.ipa"; else ipa="ios/Blokada 6.ipa"; fi
-            keys=$(mktemp -d)
-            log=$(mktemp)
-            make appstore-key-unpack || return 1
-            { read -r key_id; read -r issuer_id; } < <(ruby -rjson -rbase64 -e '
-              k = JSON.parse(File.read("ios/blokada-appstore.json"))
-              key = k["is_key_content_base64"] ? Base64.decode64(k["key"]) : k["key"]
-              File.write(File.join(ARGV[0], "AuthKey_#{k["key_id"]}.p8"), key)
-              puts k["key_id"], k["issuer_id"]' "$keys")
-            make appstore-key-clean
-            if [ -z "${key_id:-}" ] || [ -z "${issuer_id:-}" ]; then
-              echo "::error::Could not read the App Store Connect key."
-              rm -rf "$keys" "$log"
-              return 1
-            fi
-            echo "::add-mask::$key_id"
-            echo "::add-mask::$issuer_id"
-            API_PRIVATE_KEYS_DIR="$keys" xcrun altool --upload-app -f "$ipa" -t ios \
-              --apiKey "$key_id" --apiIssuer "$issuer_id" --verbose > "$log" 2>&1 \
-              && rc=0 || rc=$?
-            rm -rf "$keys"
-            echo "::group::altool --verbose (exit $rc, $(wc -l < "$log") lines, first and last 150)"
-            { head -n 150 "$log"; echo "[...]"; tail -n 150 "$log"; } \
-              | sed -E 's/eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+/[redacted-jwt]/g; s/\?[^ "]*/?[redacted-query]/g'
-            echo "::endgroup::"
-            rm -f "$log"
-            return $rc
-          }
-
-          probe "before upload"
           started=$SECONDS
           if make publish-ios-testflight FLAVOR="$FLAVOR"; then
             exit 0
           fi
           elapsed=$((SECONDS - started))
-          probe "after failed upload"
 
-          # A failure this early happens before any bytes are sent, so the
-          # same build number can be uploaded again.
+          # altool can die within ~60s with only "The file Defaults.properties
+          # couldn't be opened". Nothing has been sent that early, so the same
+          # build number can be uploaded again. Later failures are not retried.
           if [ "$elapsed" -ge 180 ]; then
             echo "::error::Upload failed after ${elapsed}s; not retrying."
             exit 1
           fi
-          echo "::warning::Upload failed after ${elapsed}s; retrying once with altool directly."
+
+          # Tells a network problem on the runner apart from an altool one.
+          curl -s -o /dev/null -m 20 \
+            -w "probe http=%{http_code} dns=%{time_namelookup}s connect=%{time_connect}s tls=%{time_appconnect}s total=%{time_total}s err=%{errormsg}\n" \
+            https://contentdelivery.itunes.apple.com/transporter/Defaults.properties \
+            || echo "probe: curl exited $?"
+
+          echo "::warning::Upload failed after ${elapsed}s; retrying once."
           sleep 30
-          upload_direct
+          make publish-ios-testflight FLAVOR="$FLAVOR"
 
       - name: Clean App Store key
         if: always()
