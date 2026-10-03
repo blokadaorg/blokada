@@ -434,10 +434,19 @@ object PaymentBinding : PaymentOps, AdaptyFlowDefaultEventListener() {
     }
 
     override fun onError(error: AdaptyError, context: Context) {
-        // 4.0 folds the old onRenderingError into this callback. Keep the 3.x
-        // behaviour: log only; purchase/restore/product failures arrive via
-        // their own callbacks.
-        logError("Failed rendering adapty", error)
+        // 4.0 reports rendering failures here. Logging alone left an empty
+        // sheet open, so close it and show the temporary-failure modal.
+        logError("Flow error", error)
+
+        // Never reuse the failed view on the next open
+        _currentView = null
+        _currentViewForPlacementId = null
+
+        // Only act on a sheet that is still showing; a preloaded view or one
+        // the user already dismissed has nothing to close
+        if (_fragment?.isAdded != true) return
+        closePaymentScreen(true)
+        handleFailure(restore = false, temporary = true)
     }
 
     override fun onBackPressed(context: Context): Boolean {
@@ -483,8 +492,10 @@ object PaymentBinding : PaymentOps, AdaptyFlowDefaultEventListener() {
         return AdaptyFlowEventListener.PurchaseParamsCallback.IveBeenInvoked
     }
 
+    // Adapty callbacks such as onError can fire while the app is backgrounded,
+    // after onSaveInstanceState; plain dismiss() would throw there.
     private fun closePaymentScreen(isError: Boolean) {
-        _fragment?.dismiss()
+        _fragment?.dismissAllowingStateLoss()
         _fragment = null
         handleScreenClosed(isError)
     }
