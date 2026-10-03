@@ -21,6 +21,7 @@ import channel.command.CommandName
 import channel.payment.PaymentOps
 import com.adapty.Adapty
 import com.adapty.errors.AdaptyError
+import com.adapty.errors.AdaptyErrorCode
 import com.adapty.models.AdaptyConfig
 import com.adapty.models.AdaptyPaywallProduct
 import com.adapty.models.AdaptyProfile
@@ -446,11 +447,21 @@ object PaymentBinding : PaymentOps, AdaptyFlowDefaultEventListener() {
             PaymentBinding.onFlowError(view, error)
     }
 
+    private val recoverableFlowErrors =
+        setOf(
+            AdaptyErrorCode.WRONG_ASSET_TYPE,
+            AdaptyErrorCode.INVALID_ACTION_URL,
+            AdaptyErrorCode.NAVIGATOR_NOT_FOUND,
+        )
+
     // 4.0 reports rendering failures through onError. Logging alone left an
     // empty sheet open, so close it and show the temporary-failure modal.
     private fun onFlowError(view: AdaptyFlowView?, error: AdaptyError) {
         val cause = error.originalError?.message
         logError("Flow error ${error.adaptyErrorCode}, cause: $cause", error)
+
+        // A broken image or a single failed action leaves the flow usable
+        if (error.adaptyErrorCode in recoverableFlowErrors) return
 
         // Never reuse the failed view on the next open
         if (view != null && view === _currentView) {
