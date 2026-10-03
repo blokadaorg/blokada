@@ -126,4 +126,10 @@ class AdaptyPaymentTabletDialogFragment : DialogFragment() {
             }, PAYWALL_MOUNT_DELAY_MS)
         }
     }
+
+    // Reports dismissals that bypass closePaymentScreen; see handleFragmentDestroyed.
+    override fun onDestroy() {
+        payment.handleFragmentDestroyed(this)
+        super.onDestroy()
+    }
 }
