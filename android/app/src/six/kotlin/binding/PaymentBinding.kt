@@ -21,6 +21,7 @@ import channel.command.CommandName
 import channel.payment.PaymentOps
 import com.adapty.Adapty
 import com.adapty.errors.AdaptyError
+import com.adapty.errors.AdaptyErrorCode
 import com.adapty.models.AdaptyConfig
 import com.adapty.models.AdaptyPaywallProduct
 import com.adapty.models.AdaptyProfile
@@ -67,6 +68,7 @@ object PaymentBinding : PaymentOps, AdaptyFlowDefaultEventListener() {
     private var _currentSubscription: CurrentSubscription? = null
     private var _currentView: AdaptyFlowView? = null
     private var _currentViewForPlacementId: String? = null
+    private var _shownView: AdaptyFlowView? = null
 
     private val _scope = CoroutineScope(Dispatchers.Main)
 
@@ -227,6 +229,7 @@ object PaymentBinding : PaymentOps, AdaptyFlowDefaultEventListener() {
                         AdaptyPaymentFragment.newInstance(_currentView!!)
                     }
                 _fragment = fragment
+                _shownView = _currentView
 
                 // Ensure the transaction completes with commitNow instead of relying on show()
                 val transaction = manager.beginTransaction()
@@ -278,14 +281,16 @@ object PaymentBinding : PaymentOps, AdaptyFlowDefaultEventListener() {
                                     try {
                                         val activity = context.requireActivity() as MainActivity
                                         val flowConfiguration = result.value
+                                        val listener = FlowListener()
                                         // use loaded configuration
                                         val view =
                                             AdaptyUI.getFlowView(
                                                 activity,
                                                 flowConfiguration,
                                                 null,
-                                                this,
+                                                listener,
                                             )
+                                        listener.view = view
                                         continuation.resumeWith(Result.success(view))
                                     } catch (e: Exception) {
                                         continuation.resumeWith(Result.failure(e))
@@ -433,11 +438,42 @@ object PaymentBinding : PaymentOps, AdaptyFlowDefaultEventListener() {
         handleFailure(restore = false, temporary = false)
     }
 
-    override fun onError(error: AdaptyError, context: Context) {
-        // 4.0 folds the old onRenderingError into this callback. Keep the 3.x
-        // behaviour: log only; purchase/restore/product failures arrive via
-        // their own callbacks.
-        logError("Failed rendering adapty", error)
+    // One listener per view so onError knows which view failed. Every other
+    // callback goes straight to PaymentBinding.
+    private class FlowListener : AdaptyFlowEventListener by PaymentBinding {
+        var view: AdaptyFlowView? = null
+
+        override fun onError(error: AdaptyError, context: Context) =
+            PaymentBinding.onFlowError(view, error)
+    }
+
+    private val recoverableFlowErrors =
+        setOf(
+            AdaptyErrorCode.WRONG_ASSET_TYPE,
+            AdaptyErrorCode.INVALID_ACTION_URL,
+            AdaptyErrorCode.NAVIGATOR_NOT_FOUND,
+        )
+
+    // 4.0 reports rendering failures through onError. Logging alone left an
+    // empty sheet open, so close it and show the temporary-failure modal.
+    private fun onFlowError(view: AdaptyFlowView?, error: AdaptyError) {
+        val cause = error.originalError?.message
+        logError("Flow error ${error.adaptyErrorCode}, cause: $cause", error)
+
+        // A broken image or a single failed action leaves the flow usable
+        if (error.adaptyErrorCode in recoverableFlowErrors) return
+
+        // Never reuse the failed view on the next open
+        if (view != null && view === _currentView) {
+            _currentView = null
+            _currentViewForPlacementId = null
+        }
+
+        // Only close the sheet showing this view. A preloaded or replaced view,
+        // or a sheet the user already dismissed, has nothing to close.
+        if (view == null || view !== _shownView || _fragment?.isAdded != true) return
+        closePaymentScreen(true)
+        handleFailure(restore = false, temporary = true)
     }
 
     override fun onBackPressed(context: Context): Boolean {
@@ -483,9 +519,12 @@ object PaymentBinding : PaymentOps, AdaptyFlowDefaultEventListener() {
         return AdaptyFlowEventListener.PurchaseParamsCallback.IveBeenInvoked
     }
 
+    // Adapty callbacks such as onError can fire while the app is backgrounded,
+    // after onSaveInstanceState; plain dismiss() would throw there.
     private fun closePaymentScreen(isError: Boolean) {
-        _fragment?.dismiss()
+        _fragment?.dismissAllowingStateLoss()
         _fragment = null
+        _shownView = null
         handleScreenClosed(isError)
     }
 
