@@ -561,6 +561,7 @@ object PaymentBinding : PaymentOps, AdaptyFlowDefaultEventListener() {
     fun handleFragmentDestroyed(fragment: DialogFragment) {
         if (_fragment !== fragment) return
         _fragment = null
+        _shownView = null
         handleScreenClosed(false)
     }
 
