@@ -438,13 +438,18 @@ object PaymentBinding : PaymentOps, AdaptyFlowDefaultEventListener() {
         handleFailure(restore = false, temporary = false)
     }
 
-    // One listener per view so onError knows which view failed. Every other
-    // callback goes straight to PaymentBinding.
+    // One listener per view so onError knows which view failed and whether it
+    // rendered. Every other callback goes straight to PaymentBinding.
     private class FlowListener : AdaptyFlowEventListener by PaymentBinding {
         var view: AdaptyFlowView? = null
+        private var shown = false
+
+        override fun onFlowShown(context: Context) {
+            shown = true
+        }
 
         override fun onError(error: AdaptyError, context: Context) =
-            PaymentBinding.onFlowError(view, error)
+            PaymentBinding.onFlowError(view, shown, error)
     }
 
     private val recoverableFlowErrors =
@@ -456,12 +461,13 @@ object PaymentBinding : PaymentOps, AdaptyFlowDefaultEventListener() {
 
     // 4.0 reports rendering failures through onError. Logging alone left an
     // empty sheet open, so close it and show the temporary-failure modal.
-    private fun onFlowError(view: AdaptyFlowView?, error: AdaptyError) {
+    private fun onFlowError(view: AdaptyFlowView?, shown: Boolean, error: AdaptyError) {
         val cause = error.originalError?.message
         logError("Flow error ${error.adaptyErrorCode}, cause: $cause", error)
 
-        // A broken image or a single failed action leaves the flow usable
-        if (error.adaptyErrorCode in recoverableFlowErrors) return
+        // A broken image or a single failed action leaves the flow usable, and
+        // so does any error after the flow rendered (a failed script call).
+        if (error.adaptyErrorCode in recoverableFlowErrors || shown) return
 
         // Never reuse the failed view on the next open
         if (view != null && view === _currentView) {
