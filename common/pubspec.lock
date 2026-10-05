@@ -116,10 +116,10 @@ packages:
     dependency: "direct main"
     description:
       name: cached_network_image
-      sha256: "3d8cca7b14130f094aa38e3a58cb132bd38eb12664d7d094e7995fdcc8640863"
+      sha256: dd50bb0dfa5d90b071e6b73e91e6d17aac826c2797ee8952c3c800aae56d6a68
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.2"
+    version: "4.0.3"
   cached_network_image_platform_interface:
     dependency: transitive
     description:
