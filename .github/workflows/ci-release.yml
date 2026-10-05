@@ -176,6 +176,22 @@ jobs:
 
       - uses: ./.github/actions/setup-flutter
 
+      # The WireGuard Go bridge patches the Go runtime, so it needs the Go
+      # release that patch applies to, and its build script (in the
+      # wireguard-apple submodule) looks for it at Homebrew's go@1.22 path.
+      # The hosted images only carry newer Go releases.
+      - uses: actions/setup-go@v7
+        with:
+          go-version: "1.22.12"
+          cache: false
+
+      - name: Put Go where the WireGuard bridge build looks for it
+        run: |
+          set -euo pipefail
+          mkdir -p /opt/homebrew/opt/go@1.22/bin
+          ln -sf "$(go env GOROOT)/bin/go" /opt/homebrew/opt/go@1.22/bin/go
+          /opt/homebrew/opt/go@1.22/bin/go version
+
       - name: Install fastlane
         working-directory: ios
         run: bundle install
