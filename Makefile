@@ -251,6 +251,14 @@ publish-android:
 # update_track on --track (the target) and perform_upload_meta([STORE_CODE],
 # target), which attaches changelogs exactly as the promote path did.
 #
+# This only holds for fastlane < 2.237.0. From that release (fastlane#30073)
+# perform_upload decides the branch *before* appending version_codes_to_retain,
+# so a run with no new binary never reaches update_track and fails in
+# perform_upload_meta with "Could not find release for version code". Newer
+# supply has no CLI path that writes an existing code to a track without
+# reading it from a source track, so promote.yml pins the fastlane this target
+# runs under; moving past the pin means replacing these supply calls.
+#
 # Metadata and changelogs are NOT skipped here: the internal release
 # deliberately carries no notes, so release notes have to be attached at this
 # point.
