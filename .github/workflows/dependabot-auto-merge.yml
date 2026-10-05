@@ -27,6 +27,13 @@ on:
     workflows: ["CI"]
     types: [completed]
 
+# No GITHUB_TOKEN permissions by default. The review job declares the few it
+# needs; the merge and annotate jobs act only through the blokada-ci App token
+# they mint. Stated here so none of this depends on the repo's default token
+# setting. (Local to this copy -- the upstream reusable workflow has no such
+# block.)
+permissions: {}
+
 jobs:
   review:
     # Gate: CI succeeded on a Dependabot-authored pull_request from a branch
