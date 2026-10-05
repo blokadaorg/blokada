@@ -69,6 +69,22 @@ jobs:
 
       - uses: ./.github/actions/setup-flutter
 
+      # The WireGuard Go bridge patches the Go runtime, so it needs the Go
+      # release that patch applies to, and its build script (in the
+      # wireguard-apple submodule) looks for it at Homebrew's go@1.22 path.
+      # The hosted images only carry newer Go releases.
+      - uses: actions/setup-go@v7
+        with:
+          go-version: "1.22.12"
+          cache: false
+
+      - name: Put Go where the WireGuard bridge build looks for it
+        run: |
+          set -euo pipefail
+          mkdir -p /opt/homebrew/opt/go@1.22/bin
+          ln -sf "$(go env GOROOT)/bin/go" /opt/homebrew/opt/go@1.22/bin/go
+          /opt/homebrew/opt/go@1.22/bin/go version
+
       - name: Install fastlane
         working-directory: ios
         run: bundle install
@@ -101,7 +117,7 @@ jobs:
           make -C BlockaWebExtension gen-rules
           xcodebuild build -workspace IOS.xcworkspace -scheme Prod -configuration Release \
             -destination 'generic/platform=iOS' CODE_SIGNING_ALLOWED=NO \
-            > "$RUNNER_TEMP/xcodebuild.log" 2>&1 || { tail -200 "$RUNNER_TEMP/xcodebuild.log"; exit 1; }
+            > "$RUNNER_TEMP/xcodebuild.log" 2>&1 || { grep -n -i -B30 -E "error:|failed|\*\* BUILD" "$RUNNER_TEMP/xcodebuild.log" | tail -300; exit 1; }
           tail -5 "$RUNNER_TEMP/xcodebuild.log"
 
       - name: Disk left
