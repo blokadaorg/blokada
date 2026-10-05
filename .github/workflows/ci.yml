@@ -12,6 +12,10 @@ concurrency:
   group: ci-${{ github.event.pull_request.number || github.run_id }}
   cancel-in-progress: true
 
+# Every job runs on a GitHub-hosted runner, a fresh VM per job. PR code is
+# untrusted -- a dependency bump runs third-party code here -- so none of it
+# builds on the self-hosted Mac, where it could leave something behind. That
+# Mac only runs the Appium jobs, which need its phone.
 jobs:
   translations_drift:
     name: en.json drift
@@ -20,7 +24,6 @@ jobs:
     # deps/translate submodule's v6/*.strings. Regenerate and fail if they
     # differ, so a string can never reach the app without coming from source
     # (this is the bypass that shipped the June family strings as English).
-    # Pure python3, so it runs on ubuntu-latest off the self-hosted pool.
     runs-on: ubuntu-latest
     timeout-minutes: 10
     if: >-
@@ -62,8 +65,7 @@ jobs:
     # Covers the release-pipeline invariants that are expensive once broken:
     # monotonic store version codes, the offset applied exactly once, and the
     # App Store state table that decides whether a promote run may start.
-    # bash + git + python3 + ruby only -- all preinstalled on ubuntu-latest, so
-    # this runs there rather than taking a slot on the self-hosted pool.
+    # bash + git + python3 + ruby only -- all preinstalled on ubuntu-latest.
     runs-on: ubuntu-latest
     timeout-minutes: 10
     if: >-
@@ -85,10 +87,10 @@ jobs:
 
   flutter_analyze:
     name: Flutter analyze
-    runs-on: [self-hosted, macOS, ARM64, build-only]
+    runs-on: ubuntu-latest
     timeout-minutes: 45
     # Skip for the automated translations-sync PRs: a translation-only diff
-    # can't affect the binary, so don't tie up the self-hosted pool on them.
+    # can't affect the binary, so don't spend a build on them.
     if: >-
       (github.event_name == 'workflow_dispatch' ||
        github.event.pull_request.head.repo.full_name == github.repository) &&
@@ -101,6 +103,8 @@ jobs:
         with:
           submodules: recursive
           fetch-depth: 1
+
+      - uses: ./.github/actions/setup-flutter
 
       # Must run before `make pub`, which would rewrite a bad lock and hide it.
       - name: Verify pubspec.lock resolves under the pinned Flutter
@@ -115,10 +119,11 @@ jobs:
 
   ios_build:
     name: iOS build
-    runs-on: [self-hosted, macOS, ARM64, build-only]
+    # Same image and Xcode as the release archive in ci-release.yml.
+    runs-on: xcode-27
     timeout-minutes: 120
     # Skip for the automated translations-sync PRs: a translation-only diff
-    # can't affect the binary, so don't tie up the self-hosted pool on them.
+    # can't affect the binary, so don't spend a build on them.
     if: >-
       (github.event_name == 'workflow_dispatch' ||
        github.event.pull_request.head.repo.full_name == github.repository) &&
@@ -133,6 +138,13 @@ jobs:
           submodules: recursive
           fetch-depth: 1
 
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_27.0.app
+
+      - uses: ./.github/actions/setup-flutter
+
+      - uses: ./.github/actions/setup-wireguard-go
+
       - name: Bootstrap Flutter common lib
         # Builds the add-to-app xcframeworks the host project embeds.
         run: make -C common build-ios
@@ -145,10 +157,10 @@ jobs:
 
   android_assemble:
     name: Android assemble
-    runs-on: [self-hosted, macOS, ARM64, build-only]
+    runs-on: ubuntu-latest
     timeout-minutes: 120
     # Skip for the automated translations-sync PRs: a translation-only diff
-    # can't affect the binary, so don't tie up the self-hosted pool on them.
+    # can't affect the binary, so don't spend a build on them.
     if: >-
       (github.event_name == 'workflow_dispatch' ||
        github.event.pull_request.head.repo.full_name == github.repository) &&
@@ -162,6 +174,8 @@ jobs:
         with:
           submodules: recursive
           fetch-depth: 1
+
+      - uses: ./.github/actions/setup-flutter
 
       - name: Build Flutter Android debug library
         run: make regen-android
