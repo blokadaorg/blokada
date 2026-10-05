@@ -218,6 +218,8 @@ object PaymentBinding : PaymentOps, AdaptyFlowDefaultEventListener() {
                 val tag = "adapty"
                 val existingFragment = manager.findFragmentByTag(tag)
                 if (existingFragment != null) {
+                    // Detach first so its onDestroy does not report a close for this open.
+                    _fragment = null
                     manager.beginTransaction().remove(existingFragment).commitNow()
                     log("Removed existing adapty fragment")
                 }
@@ -236,7 +238,9 @@ object PaymentBinding : PaymentOps, AdaptyFlowDefaultEventListener() {
                 transaction.add(fragment, tag)
                 transaction.commitNow()
 
-                // Drop preload after one use since we cannot reuse the view
+                // Drop preload after one use since we cannot reuse the view; releasing it
+                // also stops this singleton from holding the Activity it was built with.
+                _currentView = null
                 _currentViewForPlacementId = null
                 callback(Result.success(Unit))
             } catch (e: Exception) {
@@ -549,7 +553,19 @@ object PaymentBinding : PaymentOps, AdaptyFlowDefaultEventListener() {
         }
     }
 
-    fun handleScreenClosed(isError: Boolean) {
+    /**
+     * System dismissals (back press, rotation) remove the paywall without passing
+     * through closePaymentScreen. Reporting the close here keeps PaymentActor._isOpened in sync
+     * and drops the reference to the dismissed fragment.
+     */
+    fun handleFragmentDestroyed(fragment: DialogFragment) {
+        if (_fragment !== fragment) return
+        _fragment = null
+        _shownView = null
+        handleScreenClosed(false)
+    }
+
+    private fun handleScreenClosed(isError: Boolean) {
         val err = if (isError) "1" else "0"
         _scope.launch { commands.execute(CommandName.PAYMENTHANDLESCREENCLOSED, err) }
     }
