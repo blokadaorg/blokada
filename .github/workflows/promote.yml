@@ -124,10 +124,26 @@ jobs:
         with:
           fetch-depth: 1
 
+      # promote-android puts an already-uploaded version code on a track by
+      # passing only --version_codes_to_retain. fastlane 2.237.0 closed that
+      # path (fastlane#30073): with no new binary, supply now skips
+      # update_track and dies with "Could not find release for version code".
+      # The image's global fastlane is newer, so pin the release the
+      # self-hosted Mac promoted with. See the note on promote-android in the
+      # Makefile before raising this.
+      - name: Install the fastlane release promote-android depends on
+        env:
+          PROMOTE_FASTLANE_VERSION: "2.228.0"
+        run: |
+          set -euo pipefail
+          sudo gem install fastlane -v "$PROMOTE_FASTLANE_VERSION" --no-document
+          fastlane "_${PROMOTE_FASTLANE_VERSION}_" --version
+          echo "PROMOTE_FASTLANE=fastlane _${PROMOTE_FASTLANE_VERSION}_" >> "$GITHUB_ENV"
+
       - name: Release to testing tracks, and production when public
         env:
           BLOKADA_GPLAY_KEY_BASE64: ${{ secrets.BLOKADA_GPLAY_KEY_BASE64 }}
-        run: make promote-android FLAVOR="$FLAVOR"
+        run: make promote-android FLAVOR="$FLAVOR" FASTLANE="$PROMOTE_FASTLANE"
 
       - name: Clean Google Play key
         if: always()
