@@ -25,6 +25,50 @@ require_relative "ci_annotation"
 default_platform(:ios)
 
 platform :ios do
+  # Installs the App Store distribution cert and profiles on a GitHub-hosted
+  # runner, which starts with an empty keychain. The self-hosted Mac kept them
+  # in its login keychain; nothing here is meant for a developer machine.
+  #
+  # Not setup_ci: it creates its keychain with a 3600s lock timeout, and a cold
+  # archive on a hosted runner can outlast that, failing codesign mid-build.
+  # timeout 0 means no auto-lock. The password never leaves this process -- the
+  # VM is discarded after the job, and match sets the key partition list while
+  # it still has it, which is all codesign needs afterwards.
+  #
+  # default_keychain so that later, separate fastlane and codesign invocations
+  # (build_app, scripts/sign-ios-frameworks.sh) find the identity without being
+  # told which keychain to look in.
+  #
+  # readonly: never creates or renews anything on the developer portal. Needs
+  # MATCH_PASSWORD and MATCH_GIT_PRIVATE_KEY in the environment.
+  desc "CI: install App Store signing into a throwaway keychain"
+  lane :ci_signing do
+    require "securerandom"
+
+    UI.user_error!("ci_signing is for CI runners only") unless ENV["CI"]
+
+    keychain_name = "blokada-ci-signing"
+    keychain_password = SecureRandom.hex(24)
+
+    create_keychain(
+      name: keychain_name,
+      password: keychain_password,
+      default_keychain: true,
+      unlock: true,
+      timeout: 0,
+      lock_when_sleeps: false,
+      add_to_search_list: true,
+      require_create: true
+    )
+
+    match(
+      type: "appstore",
+      readonly: true,
+      keychain_name: keychain_name,
+      keychain_password: keychain_password
+    )
+  end
+
   desc "Six: build release"
   lane :build_ios_six do
     build_app(

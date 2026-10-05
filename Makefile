@@ -22,6 +22,7 @@ ADAPTY_VER := 4_0_0
 	version version-clean \
 	publish-android promote-android gplay-key-unpack gplay-key-clean \
 	promote-ios publish-ios-testflight appstore-key-unpack appstore-key-clean fastlane-match \
+	ci-ios-signing \
 	build-android-family-debug build-android-six-debug \
 	build-android-family-quick build-android-six-quick \
 	build-android-family-debug-quick build-android-six-debug-quick \
@@ -362,6 +363,11 @@ appstore-key-clean:
 fastlane-match:
 	cd ios/ && $(FASTLANE) match development --force_for_new_devices --include_mac_in_profiles true
 	cd ios/ && $(FASTLANE) match appstore --readonly
+
+# CI: install App Store signing into a throwaway keychain on a hosted runner
+# (use env vars MATCH_PASSWORD and MATCH_GIT_PRIVATE_KEY)
+ci-ios-signing:
+	cd ios/ && $(FASTLANE) ci_signing
 
 
 # Build android family .apk from scratch (debug)
