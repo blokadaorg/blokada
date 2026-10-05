@@ -1,0 +1,40 @@
+name: Set up Flutter
+description: >-
+  Installs fvm and the Flutter SDK pinned in common/.fvmrc on a GitHub-hosted
+  runner. The self-hosted Mac had both preinstalled; hosted runners start empty.
+
+runs:
+  using: composite
+  steps:
+    # fvm is fetched as a release binary and checked against a pinned digest
+    # rather than through its install script or a third-party action: these
+    # jobs hold the signing keys, so nothing unpinned runs in them. Dependabot
+    # does not see this pin -- bump FVM_VERSION and both digests together, from
+    # the `digest` field of the release assets.
+    - name: Install fvm
+      shell: bash
+      env:
+        FVM_VERSION: "4.3.1"
+        FVM_SHA256_LINUX_X64: ad59c861bdbef80c9f262d30ab28debd374afad0ef4b10b99a47bbab77e08bde
+        FVM_SHA256_MACOS_ARM64: 9c69d11d792963ce52a2dce457d4ec7f1d9c5da38d17d3088cdfcae4a6e3c525
+      run: |
+        set -euo pipefail
+        case "$RUNNER_OS-$RUNNER_ARCH" in
+          Linux-X64)   asset="linux-x64";   sha="$FVM_SHA256_LINUX_X64" ;;
+          macOS-ARM64) asset="macos-arm64"; sha="$FVM_SHA256_MACOS_ARM64" ;;
+          *) echo "::error::No pinned fvm build for $RUNNER_OS-$RUNNER_ARCH"; exit 1 ;;
+        esac
+        archive="$RUNNER_TEMP/fvm.tar.gz"
+        curl -fsSL --retry 3 -o "$archive" \
+          "https://github.com/leoafarias/fvm/releases/download/$FVM_VERSION/fvm-$FVM_VERSION-$asset.tar.gz"
+        echo "$sha  $archive" | shasum -a 256 -c -
+        tar -xzf "$archive" -C "$RUNNER_TEMP"
+        echo "$RUNNER_TEMP/fvm" >> "$GITHUB_PATH"
+
+    - name: Install the pinned Flutter SDK
+      shell: bash
+      working-directory: common
+      run: |
+        set -euo pipefail
+        fvm install
+        fvm flutter --version

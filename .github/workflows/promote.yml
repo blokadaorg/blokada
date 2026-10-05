@@ -47,9 +47,11 @@ concurrency:
   group: store-publish
   cancel-in-progress: false
 
+# Hosted runners only, and the jobs holding store keys name the `release`
+# environment -- see the note above the jobs in ci-release.yml.
 jobs:
   resolve:
-    runs-on: [self-hosted, macOS, ARM64, build-only]
+    runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
       contents: read # only reads tags to resolve the build number
@@ -102,7 +104,8 @@ jobs:
   promote_android:
     needs: resolve
     if: ${{ inputs.platform == 'all' || inputs.platform == 'android' }}
-    runs-on: [self-hosted, macOS, ARM64, build-only]
+    runs-on: ubuntu-latest
+    environment: release
     timeout-minutes: 60
     permissions:
       contents: read # releases with its own secrets, never pushes to the repo
@@ -121,10 +124,26 @@ jobs:
         with:
           fetch-depth: 1
 
+      # promote-android puts an already-uploaded version code on a track by
+      # passing only --version_codes_to_retain. fastlane 2.237.0 closed that
+      # path (fastlane#30073): with no new binary, supply now skips
+      # update_track and dies with "Could not find release for version code".
+      # The image's global fastlane is newer, so pin the release the
+      # self-hosted Mac promoted with. See the note on promote-android in the
+      # Makefile before raising this.
+      - name: Install the fastlane release promote-android depends on
+        env:
+          PROMOTE_FASTLANE_VERSION: "2.228.0"
+        run: |
+          set -euo pipefail
+          sudo gem install fastlane -v "$PROMOTE_FASTLANE_VERSION" --no-document
+          fastlane "_${PROMOTE_FASTLANE_VERSION}_" --version
+          echo "PROMOTE_FASTLANE=fastlane _${PROMOTE_FASTLANE_VERSION}_" >> "$GITHUB_ENV"
+
       - name: Release to testing tracks, and production when public
         env:
           BLOKADA_GPLAY_KEY_BASE64: ${{ secrets.BLOKADA_GPLAY_KEY_BASE64 }}
-        run: make promote-android FLAVOR="$FLAVOR"
+        run: make promote-android FLAVOR="$FLAVOR" FASTLANE="$PROMOTE_FASTLANE"
 
       - name: Clean Google Play key
         if: always()
@@ -133,7 +152,8 @@ jobs:
   promote_ios:
     needs: resolve
     if: ${{ inputs.platform == 'all' || inputs.platform == 'ios' }}
-    runs-on: [self-hosted, macOS, ARM64, build-only]
+    runs-on: macos-26
+    environment: release
     timeout-minutes: 60
     permissions:
       contents: read # releases with its own secrets, never pushes to the repo
@@ -154,10 +174,14 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Install fastlane
+        working-directory: ios
+        run: bundle install
+
       - name: Submit the App Store version for review
         env:
           BLOKADA_APPSTORE_KEY_BASE64: ${{ secrets.BLOKADA_APPSTORE_KEY_BASE64 }}
-        run: make promote-ios FLAVOR="$FLAVOR"
+        run: make promote-ios FLAVOR="$FLAVOR" FASTLANE="bundle exec fastlane"
 
       - name: Clean App Store key
         if: always()
@@ -173,7 +197,7 @@ jobs:
         needs.promote_android.result == 'success' &&
         needs.promote_ios.result == 'success'
       }}
-    runs-on: [self-hosted, macOS, ARM64, build-only]
+    runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
       contents: write # pushes the record tag

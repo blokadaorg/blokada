@@ -25,9 +25,18 @@ concurrency:
   group: store-publish
   cancel-in-progress: false
 
+# Every job runs on a GitHub-hosted runner: a fresh VM per job, discarded
+# afterwards. Nothing here may move back to the self-hosted Mac -- it runs PR
+# code (the Appium jobs need its phone), and whatever a PR leaves behind on a
+# long-lived host would run again inside the next job that holds the signing
+# keys.
+#
+# The jobs that hold those keys also name the `release` environment. It only
+# deploys from main, so once the keys live there instead of at repo level, a
+# workflow on any other ref cannot read them.
 jobs:
   allocate:
-    runs-on: [self-hosted, macOS, ARM64, build-only]
+    runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
       contents: write # pushes the build/N tag
@@ -61,7 +70,7 @@ jobs:
     # to the run summary and warn (never fail) on anything below 100%, since
     # translation lag is normal. Independent of the build jobs -- no needs on
     # allocate, and nothing needs it -- so it runs in parallel and cannot
-    # block this run. Pure python3 -> ubuntu-latest, off the self-hosted pool.
+    # block this run.
     #
     # Moved here from the retired release-tag.yml so lag surfaces on every
     # merge to main, days before release, instead of only at release time.
@@ -88,7 +97,8 @@ jobs:
 
   android:
     needs: allocate
-    runs-on: [self-hosted, macOS, ARM64, build-only]
+    runs-on: ubuntu-latest
+    environment: release
     timeout-minutes: 240
     permissions:
       contents: read # builds and uploads with its own secrets, never pushes to the repo
@@ -112,6 +122,8 @@ jobs:
           submodules: recursive
           fetch-depth: 1
 
+      - uses: ./.github/actions/setup-flutter
+
       - name: Build Android AAB
         run: |
           set -euo pipefail
@@ -134,7 +146,10 @@ jobs:
 
   ios:
     needs: allocate
-    runs-on: [self-hosted, macOS, ARM64, build-only]
+    # Preview label for the macOS 27 image, the only hosted one with Xcode 27.
+    # Expect it to be renamed when the image goes GA.
+    runs-on: xcode-27
+    environment: release
     timeout-minutes: 240
     permissions:
       contents: read # builds and uploads with its own secrets, never pushes to the repo
@@ -154,15 +169,40 @@ jobs:
           submodules: recursive
           fetch-depth: 1
 
-      - name: Unlock login keychain for codesign
+      # Pinned rather than left at the image default: the SDK an app links
+      # against changes how iOS treats it at runtime, so it moves on purpose.
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_27.0.app
+
+      - uses: ./.github/actions/setup-flutter
+
+      - uses: ./.github/actions/setup-wireguard-go
+
+      - name: Install fastlane
+        working-directory: ios
+        run: bundle install
+
+      # The cert and profiles come from the match repo over a read-only deploy
+      # key. GitHub's host keys are taken from its API over TLS instead of
+      # being trusted on first connect.
+      - name: Install signing identity
         env:
-          KEYCHAIN_PASSWORD: ${{ secrets.MAC_KEYCHAIN_PASSWORD }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          MATCH_DEPLOY_KEY: ${{ secrets.MATCH_DEPLOY_KEY }}
+          GH_TOKEN: ${{ github.token }}
         run: |
-          if [ -n "$KEYCHAIN_PASSWORD" ]; then
-            security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/login.keychain-db
-          else
-            echo "MAC_KEYCHAIN_PASSWORD is not set; leaving keychain as-is."
+          set -euo pipefail
+          if [ -z "$MATCH_PASSWORD" ] || [ -z "$MATCH_DEPLOY_KEY" ]; then
+            echo "::error::MATCH_PASSWORD and MATCH_DEPLOY_KEY must be set on the release environment."
+            exit 1
           fi
+          umask 077
+          mkdir -p ~/.ssh
+          gh api meta --jq '.ssh_keys[] | "github.com \(.)"' >> ~/.ssh/known_hosts
+          key="$RUNNER_TEMP/match_deploy_key"
+          printf '%s\n' "$MATCH_DEPLOY_KEY" > "$key"
+          trap 'rm -f "$key"' EXIT
+          MATCH_GIT_PRIVATE_KEY="$key" make ci-ios-signing FASTLANE="bundle exec fastlane"
 
       - name: Build iOS IPA
         run: |
@@ -180,7 +220,7 @@ jobs:
           set -uo pipefail
 
           started=$SECONDS
-          if make publish-ios-testflight FLAVOR="$FLAVOR"; then
+          if make publish-ios-testflight FLAVOR="$FLAVOR" FASTLANE="bundle exec fastlane"; then
             exit 0
           fi
           elapsed=$((SECONDS - started))
@@ -201,7 +241,7 @@ jobs:
 
           echo "::warning::Upload failed after ${elapsed}s; retrying once."
           sleep 30
-          make publish-ios-testflight FLAVOR="$FLAVOR"
+          make publish-ios-testflight FLAVOR="$FLAVOR" FASTLANE="bundle exec fastlane"
 
       - name: Clean App Store key
         if: always()
