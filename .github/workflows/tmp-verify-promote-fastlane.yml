@@ -1,0 +1,46 @@
+name: TMP verify pinned fastlane for promote-android
+
+# TEMPORARY -- delete before merge. No secrets.
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+
+      - name: Install the pinned fastlane
+        run: |
+          set -euo pipefail
+          sudo gem install fastlane -v 2.228.0 --no-document
+          fastlane _2.228.0_ --version
+
+      - name: Pinned supply still takes the retain path
+        run: |
+          set -euo pipefail
+          up="$(gem contents fastlane -v 2.228.0 | grep 'supply/lib/supply/uploader.rb$')"
+          grep -n 'if !apk_version_codes.empty?' "$up"
+          ! grep -n 'uploading_new_binaries' "$up"
+
+      # The make target must resolve to the pinned binary and get as far as
+      # asking for the key, which is absent here.
+      - name: promote-android reaches supply through the pin
+        run: |
+          set -euo pipefail
+          make -n promote-android FLAVOR=six BLOKADA_VERSION_CODE=1 FASTLANE="fastlane _2.228.0_" | grep -n "fastlane _2.228.0_ supply"
+          fastlane _2.228.0_ supply --help | head -5
+
+      - name: Global fastlane and the Play check script still load
+        run: |
+          set -euo pipefail
+          fastlane --version | tail -2
+          ruby -e 'require "supply"; puts "supply ok"'
