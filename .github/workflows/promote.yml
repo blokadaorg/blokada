@@ -91,11 +91,13 @@ jobs:
           PLATFORM_INPUT: ${{ inputs.platform }}
           PUBLIC_RELEASE_INPUT: ${{ inputs.public_release }}
           IOS_PHASED_RELEASE_INPUT: ${{ inputs.ios_phased_release }}
+          BUILD_NUMBER: ${{ steps.r.outputs.build_number }}
+          VERSION_NAME: ${{ steps.r.outputs.version_name }}
         run: |
           {
             echo "### Release"
-            echo "- build: \`${{ steps.r.outputs.build_number }}\`"
-            echo "- version: \`${{ steps.r.outputs.version_name }}\`"
+            echo "- build: \`$BUILD_NUMBER\`"
+            echo "- version: \`$VERSION_NAME\`"
             echo "- flavor: \`$FLAVOR_INPUT\` · platform: \`$PLATFORM_INPUT\`"
             echo "- go live once approved: \`$PUBLIC_RELEASE_INPUT\`"
             echo "- iOS phased release (Six): \`$IOS_PHASED_RELEASE_INPUT\`"

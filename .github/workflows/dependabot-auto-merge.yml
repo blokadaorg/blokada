@@ -322,13 +322,25 @@ jobs:
               ;;
           esac
 
+  summary:
+    # The reason is free text, so it reaches the script only through env, in a
+    # job with no token permissions.
+    needs: review
+    if: ${{ !cancelled() && needs.review.outputs.pr_number != '' }}
+    runs-on: ubuntu-latest
+    permissions: {}
+    steps:
       - name: Summary
-        if: always() && steps.resolve.outputs.pr_number != ''
+        env:
+          PR: ${{ needs.review.outputs.pr_number }}
+          DECISION: ${{ needs.review.outputs.decision }}
+          REASON: ${{ needs.review.outputs.reason }}
         run: |
+          set -euo pipefail
           {
-            echo "### Decision: ${{ steps.parse.outputs.decision }}"
+            echo "### Decision: ${DECISION}"
             echo ""
-            echo "PR #${{ steps.resolve.outputs.pr_number }}: ${{ steps.parse.outputs.reason }}"
+            echo "PR #${PR}: ${REASON}"
           } >> "$GITHUB_STEP_SUMMARY"
 
   merge:
