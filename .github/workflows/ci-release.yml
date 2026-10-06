@@ -58,11 +58,14 @@ jobs:
           cat "$GITHUB_OUTPUT"
 
       - name: Summary
+        env:
+          BUILD_NUMBER: ${{ steps.alloc.outputs.build_number }}
+          VERSION_NAME: ${{ steps.alloc.outputs.version_name }}
         run: |
           {
             echo "### Build"
-            echo "- number: \`${{ steps.alloc.outputs.build_number }}\`"
-            echo "- version: \`${{ steps.alloc.outputs.version_name }}\`"
+            echo "- number: \`$BUILD_NUMBER\`"
+            echo "- version: \`$VERSION_NAME\`"
           } >> "$GITHUB_STEP_SUMMARY"
 
   translation_coverage:
