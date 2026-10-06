@@ -330,7 +330,7 @@
 "account lease action generate" = "Genera Configurazione";
 "account lease action download" = "Scarica Configurazione";
 // An option to build the config for a network that has no IPv4
-"account lease action ipv6 only" = "Rete solo IPv6";
+"account lease action ipv6 only" = "Solo rete IPv6";
 "account lease action ipv6 only help" = "Connetti alla VPN tramite IPv6.";
 "account lease generated" = "Dispositivo aggiunto! Scarica la configurazione per usarla su qualsiasi dispositivo supportato da WireGuard.";
 "account lease wireguard desc" = "Blokada utilizza WireGuard. Le configurazioni possono essere scaricate quando si creano nuovi dispositivi.";
@@ -456,7 +456,7 @@
 // {0} is a product name, e.g. "Blokada Cloud". Shown when the visitor came from
 // a "Get Blokada Cloud" or "Get Blokada Plus" button.
 "web lock checkout header" = "Ottieni {0}";
-"web lock checkout brief" = "Crea il tuo account per continuare al checkout. Nessun indirizzo email o password richiesti.";
+"web lock checkout brief" = "Crea il tuo account per continuare l'acquisto. Nessun indirizzo email o password richiesti.";
 "web lock checkout action" = "Crea account e continua";
 "web lock new header" = "Nuovo su Blokada?";
 "web lock new brief" = "Crea un account con un solo tocco. Nessun indirizzo email o password richiesti.";
@@ -500,7 +500,7 @@
 // Section under the device setup steps on the web dashboard. It shows a link
 // and a QR code that open a public setup guide for this device on blokada.org.
 "web setup share header" = "Apri su un altro dispositivo";
-"web setup share brief" = "Scansiona il codice o apri il link sul dispositivo che stai configurando. Si aprirà una guida passo a passo con i tuoi dettagli già inseriti, senza bisogno di accedere lì.";
+"web setup share brief" = "Scansiona il codice o apri il link sul dispositivo che stai configurando. Si aprirà una guida passo a passo con i tuoi dettagli già inseriti, senza bisogno di rifare l'accesso.";
 // Anyone holding the link can send DNS queries through this account's filtering.
 "web setup share note" = "Chiunque abbia questo link può usare il filtro di Blokada, ma non può vedere né modificare il tuo account.";
 
@@ -1030,7 +1030,7 @@
 "attach settings row" = "Proteggi un altro dispositivo";
 "attach sheet header" = "Proteggi un altro dispositivo";
 // Explains a one-time link that opens the Blokada web dashboard already signed in
-"attach sheet brief" = "Crea un link monouso che apre la tua dashboard di Blokada su un altro dispositivo, già connesso. Il link funziona una sola volta e solo per 5 minuti.";
+"attach sheet brief" = "Crea un link monouso che apre la tua dashboard di Blokada su un altro dispositivo, già collegato. Il link funziona una sola volta e solo per 5 minuti.";
 // Opens the link in the browser of this device
 "attach action open" = "Apri nel browser";
 // Shares the link (system share sheet) so it can be opened on another device
