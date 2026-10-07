@@ -1036,3 +1036,22 @@
 // Shares the link (system share sheet) so it can be opened on another device
 "attach action share" = "مشاركة الرابط";
 "attach error generic" = "تعذّر إنشاء الرابط. تأكد من اتصالك بالإنترنت وحاول مرة أخرى.";
+
+"web plaintext brief" = "للأجهزة التي تتطلب فقط عنوان خادم DNS، مثل أجهزة التوجيه والتلفزيونات وأجهزة الألعاب. يحصل كل جهاز على عنوان خاص به ويظهر بالاسم في نشاطك.";
+"web plaintext ipv6 required" = "يحتاج جهاز التوجيه أو الجهاز إلى IPv6 لهذا الإعداد. دعم IPv4 قادم لاحقًا.";
+"web plaintext legacy" = "يستخدم حسابك وسم جهاز قديم لا يدعم هذا الإعداد. يرجى التواصل معنا.";
+"web plaintext step name" = "قم بتسمية جهازك";
+"web plaintext name placeholder" = "تلفزيون غرفة المعيشة";
+"web plaintext name fixed" = "لا يمكن تغيير الاسم لاحقًا. لإعادة تسمية جهاز، قم بحذفه وأضفه مرة أخرى.";
+"web plaintext action create" = "احصل على العنوان";
+"web plaintext step address" = "عين هذا العنوان كخادم DNS";
+"web plaintext instructions" = "في إعدادات الشبكة لـ %@، قم بتعيين عنوان IPv6 هذا كخادم DNS الوحيد. أزل أي خوادم DNS أخرى، بما في ذلك خوادم IPv4، وإلا قد تتجاوز بعض الطلبات Blokada.";
+"web plaintext test step" = "تحقق أنه يعمل";
+"web plaintext test hint" = "لفحص جهاز التوجيه، افتح صفحة الاختبار على هاتف أو كمبيوتر متصل به. قم بإيقاف Blokada على هذا الهاتف أو الكمبيوتر أولاً، وإلا سيتم اختبار Blokada نفسه وليس جهاز التوجيه.";
+"web plaintext test action" = "افتح صفحة الاختبار";
+"web plaintext list header" = "عناوين DNS الخاصة بك";
+"web plaintext delete confirm" = "سيتوقف %@ عن حل الأسماء حتى تعيِّن له خادماً آخر لـ DNS.";
+"web plaintext error name" = "أدخل اسماً أقصر، دون أحرف خفية.";
+"web plaintext error limit" = "لقد وصلت إلى الحد الأقصى وهو %@ من الأجهزة. احذف جهازًا لإضافة جهاز آخر.";
+"web plaintext error taken" = "جهاز آخر في حسابك يستخدم هذا الاسم بالفعل. اختر اسماً مختلفاً.";
+"web plaintext error generic" = "حدث خطأ ما. الرجاء المحاولة مرة أخرى لاحقاً.";

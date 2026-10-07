@@ -754,4 +754,22 @@
     <string name="attach_action_open">Ouvrir dans le navigateur</string>
     <string name="attach_action_share">Partager le lien</string>
     <string name="attach_error_generic">Impossible de créer le lien. Assurez-vous d\'être en ligne, puis réessayez.</string>
+    <string name="web_plaintext_brief">Pour les appareils qui n\'acceptent qu\'une adresse de serveur DNS, comme les routeurs, les téléviseurs et les consoles de jeux. Chaque appareil reçoit sa propre adresse et apparaît par son nom dans votre activité.</string>
+    <string name="web_plaintext_ipvsix_required">Le routeur ou l\'appareil doit prendre en charge IPv6 pour cette configuration. La prise en charge d\'IPv4 arrivera plus tard.</string>
+    <string name="web_plaintext_legacy">Votre compte utilise une ancienne étiquette d\'appareil qui ne prend pas en charge cette configuration. Veuillez nous contacter.</string>
+    <string name="web_plaintext_step_name">Nommez votre appareil</string>
+    <string name="web_plaintext_name_placeholder">TV du salon</string>
+    <string name="web_plaintext_name_fixed">Le nom ne peut pas être modifié ultérieurement. Pour renommer un appareil, supprimez-le puis ajoutez-le à nouveau.</string>
+    <string name="web_plaintext_action_create">Obtenir l\'adresse</string>
+    <string name="web_plaintext_step_address">Définissez cette adresse comme serveur DNS</string>
+    <string name="web_plaintext_instructions">Dans les paramètres réseau de %1$s, définissez cette adresse IPv6 comme unique serveur DNS. Supprimez tout autre serveur DNS, y compris ceux en IPv4, sinon certaines requêtes contourneront Blokada.</string>
+    <string name="web_plaintext_test_step">Vérifiez que cela fonctionne</string>
+    <string name="web_plaintext_test_hint">Pour vérifier un routeur, ouvrez la page de test sur un téléphone ou un ordinateur qui y est connecté. Désactivez d\'abord Blokada sur ce téléphone ou ordinateur, sinon le test vérifiera son propre Blokada au lieu de celui du routeur.</string>
+    <string name="web_plaintext_test_action">Ouvrir la page de test</string>
+    <string name="web_plaintext_list_header">Vos adresses DNS</string>
+    <string name="web_plaintext_delete_confirm">%1$s ne résoudra plus les noms tant que vous ne lui aurez pas donné un autre serveur DNS.</string>
+    <string name="web_plaintext_error_name">Saisissez un nom plus court, sans caractères cachés.</string>
+    <string name="web_plaintext_error_limit">Vous avez atteint la limite de %1$s appareils. Supprimez-en un pour en ajouter un autre.</string>
+    <string name="web_plaintext_error_taken">Un autre appareil de votre compte utilise déjà ce nom. Choisissez-en un autre.</string>
+    <string name="web_plaintext_error_generic">Une erreur s\'est produite. Veuillez réessayer plus tard.</string>
 </resources>

@@ -754,4 +754,22 @@
     <string name="attach_action_open">Otwórz w przeglądarce</string>
     <string name="attach_action_share">Udostępnij link</string>
     <string name="attach_error_generic">Nie udało się utworzyć linku. Upewnij się, że masz połączenie z internetem i spróbuj ponownie.</string>
+    <string name="web_plaintext_brief">Dla urządzeń, które wymagają jedynie adresu serwera DNS, takich jak routery, telewizory i konsole do gier. Każde urządzenie otrzymuje własny adres i pojawia się z nazwą w aktywności.</string>
+    <string name="web_plaintext_ipvsix_required">Do tej konfiguracji router lub urządzenie musi obsługiwać IPv6. Obsługa IPv4 pojawi się później.</string>
+    <string name="web_plaintext_legacy">Twoje konto używa starszego identyfikatora urządzenia, który nie obsługuje tej konfiguracji. Skontaktuj się z nami.</string>
+    <string name="web_plaintext_step_name">Nazwij swoje urządzenie</string>
+    <string name="web_plaintext_name_placeholder">Telewizor w salonie</string>
+    <string name="web_plaintext_name_fixed">Nazwy nie można później zmienić. Aby zmienić nazwę urządzenia, usuń je i dodaj ponownie.</string>
+    <string name="web_plaintext_action_create">Pobierz adres</string>
+    <string name="web_plaintext_step_address">Ustaw ten adres jako serwer DNS</string>
+    <string name="web_plaintext_instructions">W ustawieniach sieciowych %1$s ustaw ten adres IPv6 jako jedyny serwer DNS. Usuń wszystkie inne serwery DNS, w tym IPv4, ponieważ w przeciwnym razie niektóre zapytania pominą Blokadę.</string>
+    <string name="web_plaintext_test_step">Sprawdź, czy działa</string>
+    <string name="web_plaintext_test_hint">Aby sprawdzić router, otwórz stronę testową na telefonie lub komputerze podłączonym do niego. Najpierw wyłącz Blokadę na tym telefonie lub komputerze, ponieważ inaczej test sprawdzi tylko Blokadę na tym urządzeniu, a nie router.</string>
+    <string name="web_plaintext_test_action">Otwórz stronę testową</string>
+    <string name="web_plaintext_list_header">Twoje adresy DNS</string>
+    <string name="web_plaintext_delete_confirm">%1$s przestanie rozwiązywać nazwy, dopóki nie podasz innego serwera DNS.</string>
+    <string name="web_plaintext_error_name">Wprowadź krótszą nazwę, bez ukrytych znaków.</string>
+    <string name="web_plaintext_error_limit">Osiągnięto limit %1$s urządzeń. Usuń jedno, aby dodać kolejne.</string>
+    <string name="web_plaintext_error_taken">Inne urządzenie na Twoim koncie już używa tej nazwy. Wybierz inną nazwę.</string>
+    <string name="web_plaintext_error_generic">Coś poszło nie tak. Spróbuj ponownie później.</string>
 </resources>

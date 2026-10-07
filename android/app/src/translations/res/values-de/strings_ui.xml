@@ -754,4 +754,22 @@
     <string name="attach_action_open">Im Browser öffnen</string>
     <string name="attach_action_share">Link teilen</string>
     <string name="attach_error_generic">Der Link konnte nicht erstellt werden. Stelle sicher, dass du online bist, und versuche es erneut.</string>
+    <string name="web_plaintext_brief">Für Geräte, die nur eine DNS-Serveradresse akzeptieren, wie Router, Fernseher und Spielkonsolen. Jedes Gerät erhält eine eigene Adresse und erscheint mit Namen in deiner Aktivität.</string>
+    <string name="web_plaintext_ipvsix_required">Der Router oder das Gerät benötigt IPv6 für diese Einrichtung. Unterstützung für IPv4 folgt in Kürze.</string>
+    <string name="web_plaintext_legacy">Dein Konto verwendet einen älteren Gerätemarker, der diese Einrichtung nicht unterstützt. Bitte kontaktiere uns.</string>
+    <string name="web_plaintext_step_name">Benenne dein Gerät</string>
+    <string name="web_plaintext_name_placeholder">Fernseher im Wohnzimmer</string>
+    <string name="web_plaintext_name_fixed">Der Name kann später nicht mehr geändert werden. Um ein Gerät umzubenennen, lösche es und füge es erneut hinzu.</string>
+    <string name="web_plaintext_action_create">Adresse abrufen</string>
+    <string name="web_plaintext_step_address">Setze diese Adresse als DNS-Server</string>
+    <string name="web_plaintext_instructions">In den Netzwerkeinstellungen von %1$s setze diese IPv6-Adresse als einzigen DNS-Server. Entferne alle anderen DNS-Server, auch IPv4, da sonst einige Anfragen Blokada umgehen könnten.</string>
+    <string name="web_plaintext_test_step">Prüfen, ob es funktioniert</string>
+    <string name="web_plaintext_test_hint">Um einen Router zu prüfen, öffne die Testseite auf einem damit verbundenen Handy oder Computer. Schalte Blokada auf diesem Gerät vorher aus, sonst wird die eigene Blokada statt des Routers geprüft.</string>
+    <string name="web_plaintext_test_action">Testseite öffnen</string>
+    <string name="web_plaintext_list_header">Deine DNS-Adressen</string>
+    <string name="web_plaintext_delete_confirm">%1$s wird keine Namen mehr auflösen, bis du ihm einen anderen DNS-Server gibst.</string>
+    <string name="web_plaintext_error_name">Gib einen kürzeren Namen ein, ohne unsichtbare Zeichen.</string>
+    <string name="web_plaintext_error_limit">Du hast das Limit von %1$s Geräten erreicht. Lösche eines, um ein weiteres hinzuzufügen.</string>
+    <string name="web_plaintext_error_taken">Ein anderes Gerät in deinem Konto verwendet diesen Namen bereits. Wähle einen anderen.</string>
+    <string name="web_plaintext_error_generic">Etwas ist schief gelaufen. Bitte versuche es später erneut.</string>
 </resources>

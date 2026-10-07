@@ -1038,3 +1038,22 @@
 // Shares the link (system share sheet) so it can be opened on another device
 "attach action share" = "分享連結";
 "attach error generic" = "無法建立連結。請確認您已連線網路，然後再試一次。";
+
+"web plaintext brief" = "適用於只需輸入 DNS 伺服器位址的裝置，例如路由器、電視和遊戲主機。每個裝置都會獲得專屬位址，並以名稱顯示於您的活動中。";
+"web plaintext ipv6 required" = "此設定需用到 IPv6。對於 IPv4 的支援將於日後推出。";
+"web plaintext legacy" = "您的帳戶使用了不支援此設定的舊版裝置標籤。請聯絡我們。";
+"web plaintext step name" = "為您的裝置命名";
+"web plaintext name placeholder" = "客廳電視";
+"web plaintext name fixed" = "此名稱日後無法更改。如需重新命名，請將裝置刪除並重新新增。";
+"web plaintext action create" = "取得位址";
+"web plaintext step address" = "請將此位址設為 DNS 伺服器";
+"web plaintext instructions" = "在 %@ 的網路設定中，僅設定此 IPv6 位址為唯一的 DNS 伺服器。請移除所有其他 DNS 伺服器，包括 IPv4，否則部分請求將會繞過 Blokada。";
+"web plaintext test step" = "檢查是否運作";
+"web plaintext test hint" = "若要檢查路由器，請在連線至該路由器的手機或電腦上開啟測試頁面。請先在該裝置上關閉 Blokada，否則檢查結果只會反映該裝置上的 Blokada 而非路由器。";
+"web plaintext test action" = "打開測試頁面";
+"web plaintext list header" = "您的 DNS 位址";
+"web plaintext delete confirm" = "%@ 在您提供另一個 DNS 伺服器之前，將停止解析名稱。";
+"web plaintext error name" = "請輸入更簡短且沒有隱藏字元的名稱。";
+"web plaintext error limit" = "您已達到 %@ 台裝置的上限。請刪除一台以新增另一台。";
+"web plaintext error taken" = "您的帳戶中已有其他裝置使用此名稱。請選擇另一個名稱。";
+"web plaintext error generic" = "發生錯誤。請稍後再試。";

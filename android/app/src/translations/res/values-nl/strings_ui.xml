@@ -754,4 +754,22 @@
     <string name="attach_action_open">Openen in browser</string>
     <string name="attach_action_share">Link delen</string>
     <string name="attach_error_generic">Kon de link niet aanmaken. Zorg dat je online bent en probeer het opnieuw.</string>
+    <string name="web_plaintext_brief">Voor apparaten die alleen een DNS-serveradres accepteren, zoals routers, tv\'s en gameconsoles. Elk apparaat krijgt een eigen adres en verschijnt met naam in je activiteit.</string>
+    <string name="web_plaintext_ipvsix_required">De router of het apparaat heeft IPv6 nodig voor deze installatie. Ondersteuning voor IPv4 komt later.</string>
+    <string name="web_plaintext_legacy">Je account gebruikt een oudere apparaat-tag die deze installatie niet ondersteunt. Neem alstublieft contact met ons op.</string>
+    <string name="web_plaintext_step_name">Geef je apparaat een naam</string>
+    <string name="web_plaintext_name_placeholder">Tv in woonkamer</string>
+    <string name="web_plaintext_name_fixed">De naam kan later niet meer worden gewijzigd. Om een apparaat te hernoemen, verwijder het en voeg het opnieuw toe.</string>
+    <string name="web_plaintext_action_create">Adres ophalen</string>
+    <string name="web_plaintext_step_address">Stel dit adres in als de DNS-server</string>
+    <string name="web_plaintext_instructions">Stel in de netwerkinstellingen van %1$s dit IPv6-adres in als de enige DNS-server. Verwijder alle andere DNS-servers, inclusief IPv4-servers, anders worden sommige verzoeken buiten Blokada om verwerkt.</string>
+    <string name="web_plaintext_test_step">Controleer of het werkt</string>
+    <string name="web_plaintext_test_hint">Om een router te controleren, open je de testpagina op een telefoon of computer die ermee verbonden is. Zet Blokada eerst uit op dat apparaat, anders controleert de test de Blokada op het apparaat zelf en niet die van de router.</string>
+    <string name="web_plaintext_test_action">Open de testpagina</string>
+    <string name="web_plaintext_list_header">Jouw DNS-adressen</string>
+    <string name="web_plaintext_delete_confirm">%1$s zal geen namen meer oplossen totdat je er een andere DNS-server aan geeft.</string>
+    <string name="web_plaintext_error_name">Voer een kortere naam in, zonder verborgen tekens.</string>
+    <string name="web_plaintext_error_limit">Je hebt het limiet van %1$s apparaten bereikt. Verwijder er een om een andere toe te voegen.</string>
+    <string name="web_plaintext_error_taken">Een ander apparaat op jouw account gebruikt deze naam al. Kies een andere naam.</string>
+    <string name="web_plaintext_error_generic">Er is iets misgegaan. Probeer het later opnieuw.</string>
 </resources>

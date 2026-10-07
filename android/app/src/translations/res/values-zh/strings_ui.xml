@@ -754,4 +754,22 @@
     <string name="attach_action_open">在瀏覽器開啟</string>
     <string name="attach_action_share">分享連結</string>
     <string name="attach_error_generic">無法建立連結。請確認您已連線網路，然後再試一次。</string>
+    <string name="web_plaintext_brief">適用於只需輸入 DNS 伺服器位址的裝置，例如路由器、電視和遊戲主機。每個裝置都會獲得專屬位址，並以名稱顯示於您的活動中。</string>
+    <string name="web_plaintext_ipvsix_required">此設定需用到 IPv6。對於 IPv4 的支援將於日後推出。</string>
+    <string name="web_plaintext_legacy">您的帳戶使用了不支援此設定的舊版裝置標籤。請聯絡我們。</string>
+    <string name="web_plaintext_step_name">為您的裝置命名</string>
+    <string name="web_plaintext_name_placeholder">客廳電視</string>
+    <string name="web_plaintext_name_fixed">此名稱日後無法更改。如需重新命名，請將裝置刪除並重新新增。</string>
+    <string name="web_plaintext_action_create">取得位址</string>
+    <string name="web_plaintext_step_address">請將此位址設為 DNS 伺服器</string>
+    <string name="web_plaintext_instructions">在 %1$s 的網路設定中，僅設定此 IPv6 位址為唯一的 DNS 伺服器。請移除所有其他 DNS 伺服器，包括 IPv4，否則部分請求將會繞過 Blokada。</string>
+    <string name="web_plaintext_test_step">檢查是否運作</string>
+    <string name="web_plaintext_test_hint">若要檢查路由器，請在連線至該路由器的手機或電腦上開啟測試頁面。請先在該裝置上關閉 Blokada，否則檢查結果只會反映該裝置上的 Blokada 而非路由器。</string>
+    <string name="web_plaintext_test_action">打開測試頁面</string>
+    <string name="web_plaintext_list_header">您的 DNS 位址</string>
+    <string name="web_plaintext_delete_confirm">%1$s 在您提供另一個 DNS 伺服器之前，將停止解析名稱。</string>
+    <string name="web_plaintext_error_name">請輸入更簡短且沒有隱藏字元的名稱。</string>
+    <string name="web_plaintext_error_limit">您已達到 %1$s 台裝置的上限。請刪除一台以新增另一台。</string>
+    <string name="web_plaintext_error_taken">您的帳戶中已有其他裝置使用此名稱。請選擇另一個名稱。</string>
+    <string name="web_plaintext_error_generic">發生錯誤。請稍後再試。</string>
 </resources>

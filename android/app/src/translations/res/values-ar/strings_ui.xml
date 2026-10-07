@@ -754,4 +754,22 @@
     <string name="attach_action_open">فتح في المتصفِّح</string>
     <string name="attach_action_share">مشاركة الرابط</string>
     <string name="attach_error_generic">تعذّر إنشاء الرابط. تأكد من اتصالك بالإنترنت وحاول مرة أخرى.</string>
+    <string name="web_plaintext_brief">للأجهزة التي تتطلب فقط عنوان خادم DNS، مثل أجهزة التوجيه والتلفزيونات وأجهزة الألعاب. يحصل كل جهاز على عنوان خاص به ويظهر بالاسم في نشاطك.</string>
+    <string name="web_plaintext_ipvsix_required">يحتاج جهاز التوجيه أو الجهاز إلى IPv6 لهذا الإعداد. دعم IPv4 قادم لاحقًا.</string>
+    <string name="web_plaintext_legacy">يستخدم حسابك وسم جهاز قديم لا يدعم هذا الإعداد. يرجى التواصل معنا.</string>
+    <string name="web_plaintext_step_name">قم بتسمية جهازك</string>
+    <string name="web_plaintext_name_placeholder">تلفزيون غرفة المعيشة</string>
+    <string name="web_plaintext_name_fixed">لا يمكن تغيير الاسم لاحقًا. لإعادة تسمية جهاز، قم بحذفه وأضفه مرة أخرى.</string>
+    <string name="web_plaintext_action_create">احصل على العنوان</string>
+    <string name="web_plaintext_step_address">عين هذا العنوان كخادم DNS</string>
+    <string name="web_plaintext_instructions">في إعدادات الشبكة لـ %1$s، قم بتعيين عنوان IPv6 هذا كخادم DNS الوحيد. أزل أي خوادم DNS أخرى، بما في ذلك خوادم IPv4، وإلا قد تتجاوز بعض الطلبات Blokada.</string>
+    <string name="web_plaintext_test_step">تحقق أنه يعمل</string>
+    <string name="web_plaintext_test_hint">لفحص جهاز التوجيه، افتح صفحة الاختبار على هاتف أو كمبيوتر متصل به. قم بإيقاف Blokada على هذا الهاتف أو الكمبيوتر أولاً، وإلا سيتم اختبار Blokada نفسه وليس جهاز التوجيه.</string>
+    <string name="web_plaintext_test_action">افتح صفحة الاختبار</string>
+    <string name="web_plaintext_list_header">عناوين DNS الخاصة بك</string>
+    <string name="web_plaintext_delete_confirm">سيتوقف %1$s عن حل الأسماء حتى تعيِّن له خادماً آخر لـ DNS.</string>
+    <string name="web_plaintext_error_name">أدخل اسماً أقصر، دون أحرف خفية.</string>
+    <string name="web_plaintext_error_limit">لقد وصلت إلى الحد الأقصى وهو %1$s من الأجهزة. احذف جهازًا لإضافة جهاز آخر.</string>
+    <string name="web_plaintext_error_taken">جهاز آخر في حسابك يستخدم هذا الاسم بالفعل. اختر اسماً مختلفاً.</string>
+    <string name="web_plaintext_error_generic">حدث خطأ ما. الرجاء المحاولة مرة أخرى لاحقاً.</string>
 </resources>

@@ -754,4 +754,22 @@
     <string name="attach_action_open">Öppna i webbläsare</string>
     <string name="attach_action_share">Dela länk</string>
     <string name="attach_error_generic">Kunde inte skapa länken. Se till att du är online och försök igen.</string>
+    <string name="web_plaintext_brief">För enheter som endast tar emot en DNS-serveradress, såsom routrar, TV-apparater och spelkonsoler. Varje enhet får en egen adress och visas med namn i din aktivitet.</string>
+    <string name="web_plaintext_ipvsix_required">Routern eller enheten behöver IPv6 för denna konfiguration. Stöd för IPv4 kommer senare.</string>
+    <string name="web_plaintext_legacy">Ditt konto använder en äldre enhetsetikett som inte stöder denna konfiguration. Vänligen kontakta oss.</string>
+    <string name="web_plaintext_step_name">Namnge din enhet</string>
+    <string name="web_plaintext_name_placeholder">Vardagsrummets TV</string>
+    <string name="web_plaintext_name_fixed">Namnet kan inte ändras senare. För att byta namn på en enhet måste du radera och lägga till den igen.</string>
+    <string name="web_plaintext_action_create">Hämta adress</string>
+    <string name="web_plaintext_step_address">Ställ in denna adress som DNS-server</string>
+    <string name="web_plaintext_instructions">I nätverksinställningarna för %1$s, ställ in denna IPv6-adress som den enda DNS-servern. Ta bort alla andra DNS-servrar, inklusive IPv4, annars kan vissa förfrågningar gå förbi Blokada.</string>
+    <string name="web_plaintext_test_step">Kontrollera att det fungerar</string>
+    <string name="web_plaintext_test_hint">För att kontrollera en router, öppna testsidan på en telefon eller dator som är ansluten till den. Stäng först av Blokada på den telefonen eller datorn, annars testar sidan Blokada på den enheten istället för på routern.</string>
+    <string name="web_plaintext_test_action">Öppna testsidan</string>
+    <string name="web_plaintext_list_header">Dina DNS-adresser</string>
+    <string name="web_plaintext_delete_confirm">%1$s kommer att sluta lösa namn tills du anger en annan DNS-server.</string>
+    <string name="web_plaintext_error_name">Ange ett kortare namn utan dolda tecken.</string>
+    <string name="web_plaintext_error_limit">Du har nått gränsen på %1$s enheter. Ta bort en för att lägga till en ny.</string>
+    <string name="web_plaintext_error_taken">En annan enhet på ditt konto använder redan detta namn. Välj ett annat.</string>
+    <string name="web_plaintext_error_generic">Något gick fel. Försök igen senare.</string>
 </resources>

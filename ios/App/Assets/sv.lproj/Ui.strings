@@ -1036,3 +1036,22 @@
 // Shares the link (system share sheet) so it can be opened on another device
 "attach action share" = "Dela länk";
 "attach error generic" = "Kunde inte skapa länken. Se till att du är online och försök igen.";
+
+"web plaintext brief" = "För enheter som endast tar emot en DNS-serveradress, såsom routrar, TV-apparater och spelkonsoler. Varje enhet får en egen adress och visas med namn i din aktivitet.";
+"web plaintext ipv6 required" = "Routern eller enheten behöver IPv6 för denna konfiguration. Stöd för IPv4 kommer senare.";
+"web plaintext legacy" = "Ditt konto använder en äldre enhetsetikett som inte stöder denna konfiguration. Vänligen kontakta oss.";
+"web plaintext step name" = "Namnge din enhet";
+"web plaintext name placeholder" = "Vardagsrummets TV";
+"web plaintext name fixed" = "Namnet kan inte ändras senare. För att byta namn på en enhet måste du radera och lägga till den igen.";
+"web plaintext action create" = "Hämta adress";
+"web plaintext step address" = "Ställ in denna adress som DNS-server";
+"web plaintext instructions" = "I nätverksinställningarna för %@, ställ in denna IPv6-adress som den enda DNS-servern. Ta bort alla andra DNS-servrar, inklusive IPv4, annars kan vissa förfrågningar gå förbi Blokada.";
+"web plaintext test step" = "Kontrollera att det fungerar";
+"web plaintext test hint" = "För att kontrollera en router, öppna testsidan på en telefon eller dator som är ansluten till den. Stäng först av Blokada på den telefonen eller datorn, annars testar sidan Blokada på den enheten istället för på routern.";
+"web plaintext test action" = "Öppna testsidan";
+"web plaintext list header" = "Dina DNS-adresser";
+"web plaintext delete confirm" = "%@ kommer att sluta lösa namn tills du anger en annan DNS-server.";
+"web plaintext error name" = "Ange ett kortare namn utan dolda tecken.";
+"web plaintext error limit" = "Du har nått gränsen på %@ enheter. Ta bort en för att lägga till en ny.";
+"web plaintext error taken" = "En annan enhet på ditt konto använder redan detta namn. Välj ett annat.";
+"web plaintext error generic" = "Något gick fel. Försök igen senare.";
