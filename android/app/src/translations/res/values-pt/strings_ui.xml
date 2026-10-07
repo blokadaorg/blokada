@@ -754,4 +754,22 @@
     <string name="attach_action_open">Open in browser</string>
     <string name="attach_action_share">Share link</string>
     <string name="attach_error_generic">Could not create the link. Make sure you are online, and try again.</string>
+    <string name="web_plaintext_brief">For devices that only take a DNS server address, like routers, TVs and game consoles. Each device gets its own address and shows up by name in your activity.</string>
+    <string name="web_plaintext_ipvsix_required">The router or device needs IPv6 for this setup. Support for IPv4 is coming later.</string>
+    <string name="web_plaintext_legacy">Your account uses an older device tag that does not support this setup. Please contact us.</string>
+    <string name="web_plaintext_step_name">Name your device</string>
+    <string name="web_plaintext_name_placeholder">Living room TV</string>
+    <string name="web_plaintext_name_fixed">The name cannot be changed later. To rename a device, delete it and add it again.</string>
+    <string name="web_plaintext_action_create">Get address</string>
+    <string name="web_plaintext_step_address">Set this address as the DNS server</string>
+    <string name="web_plaintext_instructions">In the network settings of %1$s, set this IPv6 address as the only DNS server. Remove any other DNS servers, including IPv4 ones, or some requests will skip Blokada.</string>
+    <string name="web_plaintext_test_step">Check that it works</string>
+    <string name="web_plaintext_test_hint">To check a router, open the test page on a phone or computer connected to it. Turn off Blokada on that phone or computer first, or the test checks its own Blokada instead of the router.</string>
+    <string name="web_plaintext_test_action">Open the test page</string>
+    <string name="web_plaintext_list_header">Your DNS addresses</string>
+    <string name="web_plaintext_delete_confirm">%1$s will stop resolving names until you give it another DNS server.</string>
+    <string name="web_plaintext_error_name">Enter a shorter name, without hidden characters.</string>
+    <string name="web_plaintext_error_limit">You have reached the limit of %1$s devices. Delete one to add another.</string>
+    <string name="web_plaintext_error_taken">Another device on your account already uses this name. Choose a different one.</string>
+    <string name="web_plaintext_error_generic">Something went wrong. Please try again later.</string>
 </resources>

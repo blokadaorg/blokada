@@ -754,4 +754,22 @@
     <string name="attach_action_open">Abrir en el navegador</string>
     <string name="attach_action_share">Compartir enlace</string>
     <string name="attach_error_generic">No se pudo crear el enlace. Asegúrese de estar en línea e inténtelo de nuevo.</string>
+    <string name="web_plaintext_brief">Para dispositivos que solo aceptan una dirección de servidor DNS, como routers, televisores y consolas de videojuegos. Cada dispositivo obtiene su propia dirección y se muestra por nombre en su actividad.</string>
+    <string name="web_plaintext_ipvsix_required">El router o dispositivo necesita IPv6 para esta configuración. La compatibilidad con IPv4 estará disponible más adelante.</string>
+    <string name="web_plaintext_legacy">Su cuenta utiliza una etiqueta de dispositivo antigua que no es compatible con esta configuración. Por favor, contáctenos.</string>
+    <string name="web_plaintext_step_name">Asigne un nombre a su dispositivo</string>
+    <string name="web_plaintext_name_placeholder">TV de la sala de estar</string>
+    <string name="web_plaintext_name_fixed">El nombre no se puede cambiar después. Para renombrar un dispositivo, elimínelo y agréguelo de nuevo.</string>
+    <string name="web_plaintext_action_create">Obtener dirección</string>
+    <string name="web_plaintext_step_address">Establezca esta dirección como el servidor DNS</string>
+    <string name="web_plaintext_instructions">En los ajustes de red de %1$s, establezca esta dirección IPv6 como el único servidor DNS. Elimine cualquier otro servidor DNS, incluidos los de IPv4, o algunas solicitudes omitirán Blokada.</string>
+    <string name="web_plaintext_test_step">Compruebe que funciona</string>
+    <string name="web_plaintext_test_hint">Para comprobar un router, abra la página de prueba en un teléfono o computadora conectados a él. Primero, apague Blokada en ese teléfono o computadora, o la prueba comprobará el Blokada de ese dispositivo en lugar del router.</string>
+    <string name="web_plaintext_test_action">Abrir la página de prueba</string>
+    <string name="web_plaintext_list_header">Sus direcciones DNS</string>
+    <string name="web_plaintext_delete_confirm">%1$s dejará de resolver nombres hasta que le proporcione otro servidor DNS.</string>
+    <string name="web_plaintext_error_name">Introduzca un nombre más corto, sin caracteres ocultos.</string>
+    <string name="web_plaintext_error_limit">Ha alcanzado el límite de %1$s dispositivos. Elimine uno para agregar otro.</string>
+    <string name="web_plaintext_error_taken">Otro dispositivo en su cuenta ya usa este nombre. Elija uno diferente.</string>
+    <string name="web_plaintext_error_generic">Algo salió mal. Inténtelo de nuevo más tarde.</string>
 </resources>
