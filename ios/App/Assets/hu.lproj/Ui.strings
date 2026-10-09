@@ -25,7 +25,7 @@
 "error vpn too many leases" = "Elérted a készülékek számának korlátját. Kérjük, távolítsd el az egyik eszközt, és próbáld újra.";
 "error vpn expired" = "A VPN le van tiltva. Kérjük, frissítsd előfizetésed a BLOKADA+ további használatához";
 "error payment inactive after restore" = "Az előző befizetésed visszaállítottuk, de az előfizetésed már lejárt. Ha úgy gondolod, hogy a hiba nálunk van, kérjük, vedd fel velünk a kapcsolatot a súgó ikon megérintésével.";
-"error restore not found" = "We couldn't find an active Blokada subscription to restore. If your subscription has expired, you can buy a new one. If you believe this is a mistake, please contact us.";
+"error restore not found" = "Nem találtunk visszaállítható aktív Blokada-előfizetést. Ha az előfizetésed lejárt, vásárolhatsz újat. Ha szerinted ez tévedés, lépj velünk kapcsolatba.";
 "error payment failed" = "A kifizetések jelenleg nem érhetők el. Győződj meg arról, hogy online vagy és próbálkozz később újra. Ha a probléma továbbra is fennáll, vedd fel velünk a kapcsolatot a fenti súgó gomb megnyomásával.";
 "error payment failed alternative" = "Sikertelen fizetés. Ellenőrizze, hogy az adati helyesek-e, és próbálkozzon újra. Ha a probléma továbbra is fennáll, lépjen kapcsolatba velünk a fenti segítség ikonra kattintva.";
 "error payment not available" = "A fizetések nem állnak rendelkezésre ehhez a készülékhez. Vagy ez a készülék nincs frissítve, vagy még nem kezeljük a vásárlásokat az országodban.";
@@ -70,8 +70,8 @@
 "universal action select" = "Kiválaszt";
 "universal action selected" = "Kijelölt";
 // A verb, "to send the message" in the support chat
-"universal action send" = "Send";
-"support chat input placeholder" = "Write a message...";
+"universal action send" = "Küldés";
+"support chat input placeholder" = "Üzenet írása...";
 // A verb "to search in the list"
 "universal action search" = "Keresés";
 // A verb "to filter the list"
@@ -278,7 +278,7 @@
 "account status text inactive" = "A BLOKADA előfizetésed inaktív.";
 
 "account section header primary" = "Elsődleges";
-"account section header other" = "Other";
+"account section header other" = "Egyéb";
 "account action my account" = "Fiókom";
 "account action encryption" = "Titkosítás & DNS";
 "account action devices" = "Készülékek";
@@ -330,8 +330,8 @@
 "account lease action generate" = "Konfiguráció Generálása";
 "account lease action download" = "Konfiguráció Letöltése";
 // An option to build the config for a network that has no IPv4
-"account lease action ipv6 only" = "IPv6-only network";
-"account lease action ipv6 only help" = "Connect to the VPN via IPv6.";
+"account lease action ipv6 only" = "Csak IPv6-hálózat";
+"account lease action ipv6 only help" = "Csatlakozz a VPN-hez IPv6-on keresztül.";
 "account lease generated" = "Eszköz hozzáadva! Töltse le a konfigurációt bármely WireGuard támogatott eszközre.";
 "account lease wireguard desc" = "A Blokada WireGuardot használ. A konfiguráció letölthető új eszköz esetében.";
 "account lease label dns" = "DNS";
@@ -452,31 +452,31 @@
 
 // Web dashboard sign-in page. Accounts have no email or password: an account
 // is a 12-letter account ID, and creating one is a single tap.
-"web lock header" = "Welcome to Blokada";
+"web lock header" = "Üdvözlünk a Blokadában";
 // {0} is a product name, e.g. "Blokada Cloud". Shown when the visitor came from
 // a "Get Blokada Cloud" or "Get Blokada Plus" button.
-"web lock checkout header" = "Get {0}";
-"web lock checkout brief" = "Create your account to continue to checkout. No email or password needed.";
-"web lock checkout action" = "Create account and continue";
-"web lock new header" = "New to Blokada?";
-"web lock new brief" = "Create an account in one tap. No email or password needed.";
-"web lock new action" = "Create account";
-"web lock existing brief" = "Your account ID is in the Blokada app, in your account settings.";
-"web lock existing action" = "Log in";
+"web lock checkout header" = "{0} beszerzése";
+"web lock checkout brief" = "Hozd létre a fiókodat, hogy folytathasd a fizetést. Nem szükséges e-mail vagy jelszó.";
+"web lock checkout action" = "Fiók létrehozása és folytatás";
+"web lock new header" = "Új vagy a Blokadában?";
+"web lock new brief" = "Egy érintéssel létrehozhatsz egy fiókot. Nem szükséges e-mail vagy jelszó.";
+"web lock new action" = "Fiók létrehozása";
+"web lock existing brief" = "A fiókazonosítód a Blokada alkalmazásban található, a fiókbeállításaidban.";
+"web lock existing action" = "Bejelentkezés";
 // Separates the two ways in: create an account, or log in.
-"web lock or" = "or";
+"web lock or" = "vagy";
 // Link to support chat for someone who can't find their account ID.
-"web lock help" = "Lost your account ID?";
+"web lock help" = "Elveszett a fiókazonosítód?";
 
 // Title of the web page that signs a device in to an account without typing
 // the account ID.
-"web link header" = "Link this device";
+"web link header" = "Eszköz összekapcsolása";
 // Shown with a button; the app has opened this page with a one-time link.
-"web link brief" = "Continue to sign this browser in to your Blokada account.";
+"web link brief" = "Folytasd ennek a böngészőnek a bejelentkeztetését a Blokada fiókodba.";
 // The page was opened without the one-time link, e.g. typed in by hand.
-"web link missing" = "Open this page from the Blokada app: Settings, then Protect another device.";
-"web link error expired" = "This link has expired or was already used. Open a new one from the Blokada app.";
-"web link error generic" = "Something went wrong. Open a new link from the Blokada app.";
+"web link missing" = "Nyisd meg ezt az oldalt a Blokada alkalmazásból: Beállítások, majd Másik eszköz védelme.";
+"web link error expired" = "Ez a link lejárt vagy már felhasználták. Nyiss újat a Blokada alkalmazásból.";
+"web link error generic" = "Valami hiba történt. Nyiss új linket a Blokada alkalmazásból.";
 
 "setup header" = "Varázsló";
 "setup desc" = "Több módja is van annak, hogy beállítsa eszközén a Blokada Cloud-ot. Válassza a legmegfelelőbbet.";
@@ -499,10 +499,10 @@
 "setup step install wireguard" = "WireGuard telepítése és indítása";
 // Section under the device setup steps on the web dashboard. It shows a link
 // and a QR code that open a public setup guide for this device on blokada.org.
-"web setup share header" = "Open on another device";
-"web setup share brief" = "Scan the code or open the link on the device you are setting up. It opens a step-by-step guide with your details filled in, with no need to sign in there.";
+"web setup share header" = "Megnyitás másik eszközön";
+"web setup share brief" = "Olvasd be a kódot vagy nyisd meg a linket azon az eszközön, amelyet be szeretnél állítani. Ez egy lépésről lépésre útmutatót nyit meg, a saját adataiddal kitöltve, ahol nem kell bejelentkezni.";
 // Anyone holding the link can send DNS queries through this account's filtering.
-"web setup share note" = "Anyone with this link can use your Blokada filtering, but cannot see or change your account.";
+"web setup share note" = "Bárki, akinek megvan ez a link, használhatja a Blokada szűrésedet, de a fiókodat nem láthatja és nem módosíthatja.";
 
 "stats header" = "Statok";
 // A ratio between counter of allowed vs denied requests.
@@ -635,9 +635,9 @@
 
 "family notification subtitle" = "A családi védelem ki van kapcsolva";
 "family fault link already" = "Ez az eszköz már össze van kapcsolva. Kérjük, válaszd le a szülői alkalmazásban, majd próbáld újra.";
-"family link confirm header" = "Link this device to a new family?";
-"family link confirm body" = "This device will be managed by whoever sent you this link. They will be able to see the sites it visits and control what it can access.";
-"family link confirm action" = "Link device";
+"family link confirm header" = "Összeköti ezt az eszközt egy új családdal?";
+"family link confirm body" = "Ezt az eszközt az fogja kezelni, aki ezt a hivatkozást küldte. Láthatja, hogy ez az eszköz milyen oldalakat látogat, és szabályozhatja, hogy mihez férhet hozzá.";
+"family link confirm action" = "Eszköz összekapcsolása";
 "family profile dialog header" = "Válassz profilt ehhez: %@.";
 "family profile dialog header this" = "Válassz profilt ehhez az eszközhöz.";
 "family profile add" = "Melyik profilt szeretnéd hozzáadni?";
@@ -693,81 +693,81 @@
 "family device brief internet block" = "Minden internet-hozzáférést leállít ezen az eszközön.";
 
 // ===== Family: schedules, device controls, profile editor =====
-"universal action back" = "Back";
-"family profile error used as default" = "Used as default on %@. Change that device's profile first.";
-"family profile error used by rule" = "Used by a rule on %@. Remove that rule first.";
-"family profile editor title" = "Profile";
-"family profile editor delete" = "Delete profile";
-"family profile editor delete confirm title" = "Delete \"%@\"?";
-"family profile editor delete confirm message" = "Removes this profile from the account.";
-"family device managed by six" = "Managed in Blokada 6. Family will not change DNS or VPN settings on this device.";
-"family device action open six" = "Open Blokada 6";
-"family schedule section title" = "Schedule";
-"family schedule section subtitle" = "Switch to another profile during set times of day.";
-"family schedule default row title" = "Default";
-"family schedule default row subtitle" = "Applies when no rule is active";
-"family schedule add rule" = "Add rule";
-"family schedule use label" = "Use schedule";
-"family schedule active now" = "Active now · until %@";
-"family device default profile" = "Default profile";
-"family schedule paused hint" = "When the schedule is off, all rules are ignored and the Default profile applies.";
-"family schedule rule editor title new" = "New rule";
-"family schedule rule editor title edit" = "Edit rule";
-"family schedule rule editor profile label" = "Profile";
-"family schedule rule editor profile new" = "+ New";
-"family schedule rule editor profile new blocklists done" = "Done";
-"family schedule rule editor profile empty subtitle" = "Tap + New to create a profile for this rule";
-"family schedule rule editor profile edit" = "Edit \"%@\"";
-"family schedule rule editor override hint" = "When this rule applies, the device uses this profile instead of its standard (%@).";
-"family schedule rule editor days label" = "Days";
-"family schedule rule editor preset weekdays" = "Weekdays";
-"family schedule rule editor preset weekends" = "Weekends";
-"family schedule rule editor preset every" = "Every day";
-"family schedule rule editor times label" = "Times";
-"family schedule rule editor times counter" = "%@ of 4";
-"family schedule rule editor times add" = "Add another time";
-"family schedule rule editor times wrap" = "↳ ends next day";
-"family schedule rule editor times from" = "From";
-"family schedule rule editor times to" = "To";
-"family schedule rule editor delete" = "Delete rule";
-"family schedule template school name" = "School";
-"family schedule template bedtime name" = "Bedtime";
-"family schedule days summary every" = "Every day";
-"family schedule days summary weekdays" = "Mon–Fri";
-"family schedule days summary weekends" = "Sat–Sun";
-"family schedule rule row more" = ", +%@ more";
-"family schedule rule editor target label" = "What this rule does";
-"family schedule rule editor target filter" = "Switch profile";
-"family schedule rule editor target filter brief" = "Apply a stricter filtering profile during this window.";
-"family schedule rule editor target block" = "No internet";
-"family schedule rule editor target block brief" = "Cut off all internet access during this window.";
-"family schedule rule block title" = "No internet";
-"family device now label" = "NOW";
-"family device now brief" = "What this device is doing right now.";
-"family device now status filter" = "Filtering with %@";
-"family device now status allow" = "Internet fully open";
-"family device now status blocked" = "Internet blocked";
-"family device now source default" = "Default profile";
-"family device now source schedule" = "From the schedule";
-"family device now source override" = "Manual override";
-"family device now until" = "Until %@";
-"family device now indefinite" = "Until you turn it back on";
-"family device now footer" = "You can tap to pause filtering or block internet for a while.";
-"family device now footer override" = "You can tap to resume, or switch to a different override.";
-"family device now sheet title" = "%@, right now";
-"family device now sheet brief" = "Change the filtering temporarily. The schedule and default profile take over again when it ends.";
-"family device action block" = "Block internet";
-"family device action block brief" = "Cut off all internet on this device for a while.";
-"family device action pause" = "Pause filtering";
-"family device action pause brief" = "Temporarily turn filtering off so everything is allowed. It resumes automatically.";
-"family device action resume" = "Resume now";
-"family device override sheet block title" = "Block internet";
-"family device override sheet block brief" = "All internet access on this device will be cut off.";
-"family device override sheet pause title" = "Pause filtering";
-"family device override sheet pause brief" = "Filtering turns off and everything is allowed. It resumes automatically.";
-"family device override duration hour" = "For 1 hour";
-"family device override duration morning" = "Until tomorrow morning";
-"family device override duration indefinite" = "Until I turn it back on";
+"universal action back" = "Vissza";
+"family profile error used as default" = "Alapértelmezettként van beállítva ezen: %@. Előbb módosítsd annak az eszköznek a profilját.";
+"family profile error used by rule" = "Egy szabály használja ezen: %@. Először távolítsd el azt a szabályt.";
+"family profile editor title" = "Profil";
+"family profile editor delete" = "Profil törlése";
+"family profile editor delete confirm title" = "\"%@\" törlése?";
+"family profile editor delete confirm message" = "Eltávolítja ezt a profilt a fiókból.";
+"family device managed by six" = "A Blokada 6-ban kezelve. A Family ezen az eszközön nem módosítja a DNS- vagy VPN-beállításokat.";
+"family device action open six" = "Blokada 6 megnyitása";
+"family schedule section title" = "Ütemezés";
+"family schedule section subtitle" = "Váltás másik profilra a megadott napszakban.";
+"family schedule default row title" = "Alapértelmezett";
+"family schedule default row subtitle" = "Akkor érvényes, ha nincs aktív szabály";
+"family schedule add rule" = "Szabály hozzáadása";
+"family schedule use label" = "Ütemezés használata";
+"family schedule active now" = "Most aktív · eddig: %@";
+"family device default profile" = "Alapértelmezett profil";
+"family schedule paused hint" = "Ha az ütemezés ki van kapcsolva, minden szabály figyelmen kívül marad, és az Alapértelmezett profil lép életbe.";
+"family schedule rule editor title new" = "Új szabály";
+"family schedule rule editor title edit" = "Szabály szerkesztése";
+"family schedule rule editor profile label" = "Profil";
+"family schedule rule editor profile new" = "+ Új";
+"family schedule rule editor profile new blocklists done" = "Kész";
+"family schedule rule editor profile empty subtitle" = "Koppints a + Új gombra egy profil létrehozásához ehhez a szabályhoz";
+"family schedule rule editor profile edit" = "\"%@\" szerkesztése";
+"family schedule rule editor override hint" = "Ha ez a szabály érvényes, az eszköz ezt a profilt használja az alapértelmezett (%@) helyett.";
+"family schedule rule editor days label" = "Napok";
+"family schedule rule editor preset weekdays" = "Hétköznapok";
+"family schedule rule editor preset weekends" = "Hétvégék";
+"family schedule rule editor preset every" = "Minden nap";
+"family schedule rule editor times label" = "Időpontok";
+"family schedule rule editor times counter" = "%@ a 4-ből";
+"family schedule rule editor times add" = "További idő hozzáadása";
+"family schedule rule editor times wrap" = "↳ másnap ér véget";
+"family schedule rule editor times from" = "Kezdete";
+"family schedule rule editor times to" = "Vége";
+"family schedule rule editor delete" = "Szabály törlése";
+"family schedule template school name" = "Iskola";
+"family schedule template bedtime name" = "Lefekvés";
+"family schedule days summary every" = "Minden nap";
+"family schedule days summary weekdays" = "H–P";
+"family schedule days summary weekends" = "Szo–V";
+"family schedule rule row more" = ", +%@ további";
+"family schedule rule editor target label" = "Mit csinál ez a szabály";
+"family schedule rule editor target filter" = "Profil váltása";
+"family schedule rule editor target filter brief" = "Szigorúbb szűrési profilt alkalmaz ebben az időszakban.";
+"family schedule rule editor target block" = "Nincs internet";
+"family schedule rule editor target block brief" = "Elvág minden internet-hozzáférést ebben az időszakban.";
+"family schedule rule block title" = "Nincs internet";
+"family device now label" = "MOST";
+"family device now brief" = "Mit csinál ez az eszköz jelenleg.";
+"family device now status filter" = "Szűrés ezzel: %@";
+"family device now status allow" = "Internet teljesen nyitott";
+"family device now status blocked" = "Internet letiltva";
+"family device now source default" = "Alapértelmezett profil";
+"family device now source schedule" = "Ütemezés alapján";
+"family device now source override" = "Kézi felülbírálás";
+"family device now until" = "Eddig: %@";
+"family device now indefinite" = "Amíg újra be nem kapcsolod";
+"family device now footer" = "Koppints a szűrés szüneteltetéséhez vagy az internet blokkolásához egy időre.";
+"family device now footer override" = "Koppints a folytatáshoz, vagy válts másik felülbírálásra.";
+"family device now sheet title" = "%@, jelenleg";
+"family device now sheet brief" = "Ideiglenesen módosíthatod a szűrést. Az ütemezés és az alapértelmezett profil újra érvénybe lép, ha véget ér.";
+"family device action block" = "Internet blokkolása";
+"family device action block brief" = "Ideiglenesen minden internet-hozzáférés megszakad ezen az eszközön.";
+"family device action pause" = "Szűrés szüneteltetése";
+"family device action pause brief" = "Ideiglenesen kikapcsolja a szűrést, így minden engedélyezett. Automatikusan folytatódik.";
+"family device action resume" = "Folytatás most";
+"family device override sheet block title" = "Internet blokkolása";
+"family device override sheet block brief" = "Minden internet-hozzáférés el lesz vágva ezen az eszközön.";
+"family device override sheet pause title" = "Szűrés szüneteltetése";
+"family device override sheet pause brief" = "A szűrés leáll és minden engedélyezett lesz. Automatikusan folytatódik.";
+"family device override duration hour" = "1 óráig";
+"family device override duration morning" = "Holnap reggelig";
+"family device override duration indefinite" = "Amíg újra be nem kapcsolom";
 
 
 "family perms header" = "Még egy dolog";
@@ -907,8 +907,8 @@
 "freemium sheet safari header" = "Kezdd el a hirdetések blokkolását a Safariban";
 "freemium sheet safari desc" = "Engedélyezd bővítményünket Safariban, hogy alapvető védelmet kapj böngészés közben. Blokkolja a zavaró hirdetéseket – beleértve a YouTube videóhirdetéseket is –, így tisztább, gyorsabb webes élményt kapsz.";
 "freemium sheet safari cta" = "Safari megnyitása";
-"freemium sheet safari setup later" = "Set up later";
-"freemium sheet safari setup later desc" = "Continue to other options";
+"freemium sheet safari setup later" = "Beállítás később";
+"freemium sheet safari setup later desc" = "Folytatás a további lehetőségekhez";
 
 "dialog title activity rule" = "Hogyan kezelje a Blokada a(z) %@ forgalmat?";
 "dialog exception add title" = "Kivétel hozzáadása";
@@ -995,64 +995,64 @@
 "privacy pulse empty" = "Nincs még megjeleníthető adat";
 
 
-"notification weekly report title" = "Privacy Shield Report";
-"notification weekly report body" = "Open Blokada to see your weekly report.";
-"notification weekly report refreshed title" = "Your weekly report is ready";
-"notification weekly report refreshed body" = "Open Blokada to view the latest details.";
-"notification account rescue title" = "Your protection ends soon";
-"notification account rescue body" = "Blokada has blocked %s ads and trackers since you set it up. Tap to review your subscription.";
-"notification account rescue body short" = "Keep your protection active. Tap to review your subscription.";
-"notification weekly report cta" = "View report";
+"notification weekly report title" = "Adatvédelmi Pajzs Jelentés";
+"notification weekly report body" = "Nyisd meg a Blokadát a heti jelentésed megtekintéséhez.";
+"notification weekly report refreshed title" = "A heti jelentésed elkészült";
+"notification weekly report refreshed body" = "Nyisd meg a Blokadát a legfrissebb részletek megtekintéséhez.";
+"notification account rescue title" = "A védelmed hamarosan lejár";
+"notification account rescue body" = "A Blokada %s hirdetést és követőt blokkolt a beállítás óta. Érintse meg az előfizetés áttekintéséhez.";
+"notification account rescue body short" = "Tartsa aktívan védelmét! Érintse meg az előfizetés áttekintéséhez.";
+"notification weekly report cta" = "Jelentés megtekintése";
 
-"notification weekly report blocked increased title" = "Tracker activity increased";
-"notification weekly report blocked decreased title" = "Tracker activity decreased";
-"notification weekly report allowed increased title" = "Allowed traffic increased";
-"notification weekly report allowed decreased title" = "Allowed traffic decreased";
+"notification weekly report blocked increased title" = "A követő tevékenység megnőtt";
+"notification weekly report blocked decreased title" = "A követő tevékenység csökkent";
+"notification weekly report allowed increased title" = "Az engedélyezett forgalom megnőtt";
+"notification weekly report allowed decreased title" = "Az engedélyezett forgalom csökkent";
 
-"notification weekly report blocked totals body" = "Blocked traffic is %s% compared to last week.";
-"notification weekly report allowed totals body" = "Allowed traffic is %s% compared to last week.";
-"notification weekly report blocked totals body nopercent" = "Blocked traffic is %s compared to last week.";
-"notification weekly report allowed totals body nopercent" = "Allowed traffic is %s compared to last week.";
+"notification weekly report blocked totals body" = "A blokkolt forgalom a múlt héthez képest %s%.";
+"notification weekly report allowed totals body" = "Az engedélyezett forgalom a múlt héthez képest %s%.";
+"notification weekly report blocked totals body nopercent" = "A blokkolt forgalom a múlt héthez képest %s.";
+"notification weekly report allowed totals body nopercent" = "Az engedélyezett forgalom a múlt héthez képest %s.";
 
-"notification weekly report blocked toplist new title" = "New tracker in top list";
-"notification weekly report allowed toplist new title" = "New domain in top list";
-"notification weekly report blocked toplist up title" = "Tracker activity increased";
-"notification weekly report allowed toplist up title" = "Domain moved up";
-"notification weekly report blocked toplist down title" = "Tracker activity decreased";
-"notification weekly report allowed toplist down title" = "Domain moved down";
+"notification weekly report blocked toplist new title" = "Új követő került a toplistára";
+"notification weekly report allowed toplist new title" = "Új domain került a toplistára";
+"notification weekly report blocked toplist up title" = "A követő tevékenység megnőtt";
+"notification weekly report allowed toplist up title" = "A domain feljebb lépett";
+"notification weekly report blocked toplist down title" = "A követő tevékenység csökkent";
+"notification weekly report allowed toplist down title" = "A domain lejjebb lépett";
 
-"notification weekly report toplist new body" = "Blokada is blocking %s — now ranked #%s. Tap to see more.";
-"notification weekly report toplist move body" = "%s moved to #%s (was #%s). Tap to see more.";
+"notification weekly report toplist new body" = "A Blokada blokkolja a(z) %s oldalt — most a(z) #%s helyen áll. Koppints a részletekért.";
+"notification weekly report toplist move body" = "%s a(z) #%s helyre került (korábban #%s). Koppints a részletekért.";
 
-"notification weekly report action see more" = "See more";
-"notification weekly report action opt out" = "Turn off weekly reports";
+"notification weekly report action see more" = "Továbbiak";
+"notification weekly report action opt out" = "Heti jelentések kikapcsolása";
 
 // A settings row that lets the user set up Blokada on another device (like a laptop)
-"attach settings row" = "Protect another device";
-"attach sheet header" = "Protect another device";
+"attach settings row" = "Másik eszköz védelme";
+"attach sheet header" = "Másik eszköz védelme";
 // Explains a one-time link that opens the Blokada web dashboard already signed in
-"attach sheet brief" = "Create a one-time link that opens your Blokada dashboard on another device, already signed in. The link works once, and only for 5 minutes.";
+"attach sheet brief" = "Hozz létre egy egyszer használatos linket, amely automatikusan bejelentkezve nyitja meg a Blokada vezérlőpultot egy másik eszközön. A link egyszer használható, és csak 5 percig érvényes.";
 // Opens the link in the browser of this device
-"attach action open" = "Open in browser";
+"attach action open" = "Megnyitás böngészőben";
 // Shares the link (system share sheet) so it can be opened on another device
-"attach action share" = "Share link";
-"attach error generic" = "Could not create the link. Make sure you are online, and try again.";
+"attach action share" = "Link megosztása";
+"attach error generic" = "Nem sikerült létrehozni a linket. Győződj meg róla, hogy van internetkapcsolatod, és próbáld újra.";
 
-"web plaintext brief" = "For devices that only take a DNS server address, like routers, TVs and game consoles. Each device gets its own address and shows up by name in your activity.";
-"web plaintext ipv6 required" = "The router or device needs IPv6 for this setup. Support for IPv4 is coming later.";
-"web plaintext legacy" = "Your account uses an older device tag that does not support this setup. Please contact us.";
-"web plaintext step name" = "Name your device";
-"web plaintext name placeholder" = "Living room TV";
-"web plaintext name fixed" = "The name cannot be changed later. To rename a device, delete it and add it again.";
-"web plaintext action create" = "Get address";
-"web plaintext step address" = "Set this address as the DNS server";
-"web plaintext instructions" = "In the network settings of %@, set this IPv6 address as the only DNS server. Remove any other DNS servers, including IPv4 ones, or some requests will skip Blokada.";
-"web plaintext test step" = "Check that it works";
-"web plaintext test hint" = "To check a router, open the test page on a phone or computer connected to it. Turn off Blokada on that phone or computer first, or the test checks its own Blokada instead of the router.";
-"web plaintext test action" = "Open the test page";
-"web plaintext list header" = "Your DNS addresses";
-"web plaintext delete confirm" = "%@ will stop resolving names until you give it another DNS server.";
-"web plaintext error name" = "Enter a shorter name, without hidden characters.";
-"web plaintext error limit" = "You have reached the limit of %@ devices. Delete one to add another.";
-"web plaintext error taken" = "Another device on your account already uses this name. Choose a different one.";
-"web plaintext error generic" = "Something went wrong. Please try again later.";
+"web plaintext brief" = "Azokhoz az eszközökhöz, amelyek csak DNS-kiszolgáló címeket fogadnak el, például routerekhez, TV-khez és játékkonzolokhoz. Minden eszköz saját címet kap, és név szerint jelenik meg a te aktivitásodban.";
+"web plaintext ipv6 required" = "Ehhez a beállításhoz az útválasztónak vagy az eszköznek szüksége van IPv6-ra. Az IPv4 támogatása később érkezik.";
+"web plaintext legacy" = "A fiókod egy régebbi eszközcímkét használ, amely nem támogatja ezt a beállítást. Kérjük, vedd fel velünk a kapcsolatot.";
+"web plaintext step name" = "Add meg az eszköz nevét";
+"web plaintext name placeholder" = "Nappali TV";
+"web plaintext name fixed" = "A nevet később nem lehet megváltoztatni. Ha át szeretnéd nevezni az eszközt, töröld és add hozzá újra.";
+"web plaintext action create" = "Cím lekérése";
+"web plaintext step address" = "Állítsd be ezt a címet DNS-kiszolgálóként";
+"web plaintext instructions" = "A(z) %@ hálózati beállításai között állítsd ezt az IPv6-címet az egyetlen DNS-kiszolgálónak. Távolíts el minden más DNS-kiszolgálót, beleértve az IPv4-et is, különben egyes kérések megkerülhetik a Blokada alkalmazást.";
+"web plaintext test step" = "Ellenőrizd, hogy működik-e";
+"web plaintext test hint" = "Egy útválasztó ellenőrzéséhez nyisd meg a tesztoldalt egy arra csatlakoztatott telefonon vagy számítógépen. Előtte kapcsold ki a Blokadát azon az eszközön, különben a teszt a saját Blokadáját ellenőrzi a router helyett.";
+"web plaintext test action" = "Tesztoldal megnyitása";
+"web plaintext list header" = "A DNS-címeid";
+"web plaintext delete confirm" = "%@ nem fogja feloldani a neveket, amíg nem adsz meg egy másik DNS-kiszolgálót.";
+"web plaintext error name" = "Adj meg egy rövidebb nevet, rejtett karakterek nélkül.";
+"web plaintext error limit" = "Elérted az %@ eszköz limitjét. Törölj egyet, hogy újabbat adhass hozzá.";
+"web plaintext error taken" = "Egy másik eszköz a fiókodban már használja ezt a nevet. Válassz egy másikat.";
+"web plaintext error generic" = "Valami hiba történt. Kérjük, próbáld meg később újra.";
