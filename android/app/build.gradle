@@ -221,7 +221,7 @@ dependencies {
     sixImplementation 'io.adapty:android-ui'
 
     // Firebase Cloud Messaging (v6 only)
-    sixImplementation platform('com.google.firebase:firebase-bom:34.19.0')
+    sixImplementation platform('com.google.firebase:firebase-bom:35.0.0')
     sixImplementation 'com.google.firebase:firebase-messaging'
 
     // test deps
