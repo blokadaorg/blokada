@@ -15,7 +15,7 @@ if [ ! -d "/usr/lib/jvm/java-$jdk-openjdk-amd64" ]; then
   apt-get install -y -qq "openjdk-$jdk-jdk-headless" >/dev/null
 fi
 
-if ! command -v fvm >/dev/null; then
+if [ ! -x /opt/fvm/fvm ]; then
   action="$repo/.github/actions/setup-flutter/action.yml"
   fvm_version=$(sed -n 's/^ *FVM_VERSION: *"\(.*\)"/\1/p' "$action")
   fvm_sha=$(sed -n 's/^ *FVM_SHA256_LINUX_X64: *//p' "$action")
@@ -45,9 +45,9 @@ grep -qs '^sdk.dir=' "$repo/android/local.properties" || echo "sdk.dir=$sdk" >>"
 mkdir -p "$HOME/.gradle/init.d"
 cat >"$HOME/.gradle/init.d/maven-mirror.gradle" <<'EOF'
 def mirror = { handler ->
-  handler.withType(MavenArtifactRepository).configureEach {
-    if (url.toString().startsWith('https://repo.maven.apache.org/')) {
-      url = 'https://maven-central.storage-download.googleapis.com/maven2/'
+  handler.withType(MavenArtifactRepository).configureEach { repo ->
+    if (repo.url.toString().startsWith('https://repo.maven.apache.org/')) {
+      repo.url = 'https://maven-central.storage-download.googleapis.com/maven2/'
     }
   }
 }
