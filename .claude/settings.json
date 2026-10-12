@@ -35,5 +35,18 @@
       "Bash(xcrun devicectl list:*)",
       "Bash(xcodebuild:*)"
     ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "timeout": 600,
+            "command": "[ \"$CLAUDE_CODE_REMOTE\" = true ] || exit 0; bash \"$CLAUDE_PROJECT_DIR/scripts/cloud-setup.sh\" >>/tmp/cloud-setup-hook.log 2>&1 || echo \"scripts/cloud-setup.sh failed, see /tmp/cloud-setup-hook.log\""
+          }
+        ]
+      }
+    ]
   }
 }
