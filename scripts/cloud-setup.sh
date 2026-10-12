@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Installs what an Android debug build needs in a Claude Code cloud session
-# (Ubuntu, x86_64, root): the app's JDK toolchain, fvm with the Flutter version
-# from common/.fvmrc, the Android SDK command-line tools and the NDKs, which
+# (Ubuntu, x86_64, root): the app's JDK, the fvm release pinned for CI with the
+# Flutter version from common/.fvmrc, the Android SDK tools and the NDKs, which
 # Gradle fails to download itself. Gradle fetches the rest. Safe to rerun.
 set -euo pipefail
 
@@ -16,8 +16,14 @@ if [ ! -d "/usr/lib/jvm/java-$jdk-openjdk-amd64" ]; then
 fi
 
 if ! command -v fvm >/dev/null; then
-  curl -fsSL --retry 3 https://fvm.app/install.sh | bash
-  ln -sf "$HOME/fvm/bin/fvm" "$bin/fvm"
+  action="$repo/.github/actions/setup-flutter/action.yml"
+  fvm_version=$(sed -n 's/^ *FVM_VERSION: *"\(.*\)"/\1/p' "$action")
+  fvm_sha=$(sed -n 's/^ *FVM_SHA256_LINUX_X64: *//p' "$action")
+  curl -fsSL --retry 3 -o /tmp/fvm.tar.gz \
+    "https://github.com/leoafarias/fvm/releases/download/$fvm_version/fvm-$fvm_version-linux-x64.tar.gz"
+  echo "$fvm_sha  /tmp/fvm.tar.gz" | sha256sum -c -
+  rm -rf /opt/fvm && tar -xzf /tmp/fvm.tar.gz -C /opt
+  ln -sf /opt/fvm/fvm "$bin/fvm"
 fi
 
 if [ ! -x "$sdk/cmdline-tools/latest/bin/sdkmanager" ]; then
@@ -35,8 +41,26 @@ fi
 ln -sf "$sdk/platform-tools/adb" "$bin/adb"
 grep -qs '^sdk.dir=' "$repo/android/local.properties" || echo "sdk.dir=$sdk" >>"$repo/android/local.properties"
 
+# Maven Central rate-limits the shared cloud egress IP; Google's mirror does not.
+mkdir -p "$HOME/.gradle/init.d"
+cat >"$HOME/.gradle/init.d/maven-mirror.gradle" <<'EOF'
+def mirror = { handler ->
+  handler.withType(MavenArtifactRepository).configureEach {
+    if (url.toString().startsWith('https://repo.maven.apache.org/')) {
+      url = 'https://maven-central.storage-download.googleapis.com/maven2/'
+    }
+  }
+}
+beforeSettings { settings ->
+  mirror(settings.pluginManagement.repositories)
+  mirror(settings.dependencyResolutionManagement.repositories)
+  settings.gradle.allprojects { mirror(buildscript.repositories); mirror(repositories) }
+}
+EOF
+
 cd "$repo/common"
-fvm install
+# An explicit version keeps fvm from rewriting .fvmrc.
+fvm install "$(jq -r .flutter .fvmrc)"
 fvm flutter config --android-sdk "$sdk" >/dev/null
 fvm flutter precache --android
 
