@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Installs what an Android debug build needs in a Claude Code cloud session
 # (Ubuntu, x86_64, root): the app's JDK, the fvm release pinned for CI with the
-# Flutter version from common/.fvmrc, the Android SDK tools and the NDKs, which
-# Gradle fails to download itself. Gradle fetches the rest. Safe to rerun.
+# Flutter version from common/.fvmrc, the Android SDK tools, the NDKs and the
+# compile platform. Gradle fetches the rest. Safe to rerun.
 set -euo pipefail
 
 repo=$(cd "$(dirname "$0")/.." && pwd)
@@ -44,17 +44,26 @@ grep -qs '^sdk.dir=' "$repo/android/local.properties" || echo "sdk.dir=$sdk" >>"
 # Maven Central rate-limits the shared cloud egress IP; Google's mirror does not.
 mkdir -p "$HOME/.gradle/init.d"
 cat >"$HOME/.gradle/init.d/maven-mirror.gradle" <<'EOF'
-def mirror = { handler ->
+// The Plugin Portal redirects to Maven Central, so the mirror goes first
+// wherever plugins and build classpaths resolve, and replaces Central elsewhere.
+def mirrorUrl = 'https://maven-central.storage-download.googleapis.com/maven2/'
+def rewrite = { handler ->
   handler.withType(MavenArtifactRepository).configureEach { repo ->
     if (repo.url.toString().startsWith('https://repo.maven.apache.org/')) {
-      repo.url = 'https://maven-central.storage-download.googleapis.com/maven2/'
+      repo.url = mirrorUrl
     }
   }
 }
 beforeSettings { settings ->
-  mirror(settings.pluginManagement.repositories)
-  mirror(settings.dependencyResolutionManagement.repositories)
-  settings.gradle.allprojects { mirror(buildscript.repositories); mirror(repositories) }
+  settings.pluginManagement.repositories.maven { url = mirrorUrl }
+  settings.pluginManagement.repositories.gradlePluginPortal()
+  rewrite(settings.pluginManagement.repositories)
+  rewrite(settings.dependencyResolutionManagement.repositories)
+  settings.gradle.allprojects {
+    buildscript.repositories.maven { url = mirrorUrl }
+    rewrite(buildscript.repositories)
+    rewrite(repositories)
+  }
 }
 EOF
 
@@ -69,4 +78,8 @@ ln -sf "$flutter_root/bin/flutter" "$bin/flutter"
 ln -sf "$flutter_root/bin/dart" "$bin/dart"
 mapfile -t ndks < <(sed -n 's/.*ndkVersion[^=]*= *"\([^"]*\)".*/\1/p' "$repo/android/build.gradle" \
   "$flutter_root/packages/flutter_tools/gradle/src/main/kotlin/FlutterExtension.kt" | sort -u)
-"$sdk/cmdline-tools/latest/bin/sdkmanager" "${ndks[@]/#/ndk;}" >/dev/null
+# Gradle's SDK installer fails on the current catalog, so install the compile
+# platform here too. Newer platforms carry a minor version (android-37.0).
+api=$(sed -n 's/^ *compileSdk *\([0-9]*\).*/\1/p' "$repo/android/app/build.gradle" | head -1)
+"$sdk/cmdline-tools/latest/bin/sdkmanager" "${ndks[@]/#/ndk;}" "platforms;android-$api.0" >/dev/null ||
+  "$sdk/cmdline-tools/latest/bin/sdkmanager" "${ndks[@]/#/ndk;}" "platforms;android-$api" >/dev/null
