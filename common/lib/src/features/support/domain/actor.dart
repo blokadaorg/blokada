@@ -146,6 +146,10 @@ class SupportActor with Logging, Actor {
     onChange();
   }
 
+  /// Sends a user message (or a local `cc ` command) and posts the reply.
+  ///
+  /// Owns the [replyPending] lifecycle around [_sendMessage], so that every
+  /// way out, including a rethrow, clears the flag in one place.
   sendMessage(String? message, Marker m, {bool retrying = false}) async {
     final command = message?.startsWith("cc ") ?? false;
     // Set before the first await: a send that first has to open a session
@@ -159,6 +163,9 @@ class SupportActor with Logging, Actor {
     }
   }
 
+  /// The send itself, split from [sendMessage] so the pending flag wraps it
+  /// from outside. A 4xx retry calls back into [sendMessage], which keeps the
+  /// flag set for the retry and clears it once the retry is done.
   Future<void> _sendMessage(String? message, Marker m,
       {required bool command, required bool retrying}) async {
     await loadOrInit(m);
