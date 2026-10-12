@@ -5,6 +5,7 @@ import 'package:common/src/features/support/ui/support_typing_bubble.dart';
 import 'package:common/src/platform/stage/stage.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_core/flutter_chat_core.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -108,11 +109,30 @@ void main() {
         expect(find.text("first"), findsNothing,
             reason: "an accepted send clears the field");
 
+        // A history longer than the screen, so the bubble's place matters.
+        await actor.controller.insertAllMessages([
+          for (var i = 0; i < 30; i++)
+            TextMessage(
+              id: "$i",
+              authorId: i.isEven ? actor.notMe.id : actor.me.id,
+              createdAt: DateTime(2026, 9, 7, 12, i),
+              text: "message $i",
+            ),
+        ]);
+        await tester.pump(const Duration(milliseconds: 500));
+
         // Pending: indicator in the chat, send button disabled.
         actor.setPending(true);
         await tester.pump();
         expect(find.byType(SupportTypingBubble), findsOneWidget);
         expect(find.byType(IsTypingIndicator), findsOneWidget);
+        // It sits right after the newest message, on screen, not up by the
+        // oldest ones.
+        final bubble = tester.getRect(find.byType(SupportTypingBubble));
+        final newest = tester.getRect(find.text("message 29"));
+        expect(bubble.top, greaterThanOrEqualTo(newest.bottom));
+        expect(bubble.bottom,
+            lessThanOrEqualTo(tester.getRect(find.byType(TextField)).top));
 
         await tester.enterText(find.byType(TextField), "second");
         await tester.pump();
