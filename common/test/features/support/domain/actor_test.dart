@@ -37,7 +37,8 @@ JsonSupportResponse _reply(String text) => JsonSupportResponse(
         JsonSupportHistoryItem(
           text: text,
           isAgent: true,
-          timestamp: DateTime(2026, 9, 7, 12, 1).toIso8601String(),
+          // After the user message, so it sorts last like a real reply.
+          timestamp: DateTime.now().add(const Duration(seconds: 1)).toIso8601String(),
         )
       ],
     );
@@ -53,11 +54,32 @@ MockSupportApi _registerDeps() {
 
   final persistence = MockPersistence();
   when(persistence.load(any, any)).thenAnswer((_) => Future.value(null));
+  when(persistence.save(any, any, any, isBackup: anyNamed("isBackup")))
+      .thenAnswer((_) async {});
+  when(persistence.delete(any, any, isBackup: anyNamed("isBackup")))
+      .thenAnswer((_) async {});
   Core.register<Persistence>(persistence);
 
   Core.register(CurrentSession());
   Core.register(ChatHistory());
   return api;
+}
+
+/// Runs [body] under [withTrace] and waits for all of it.
+///
+/// withTrace returns once the body reaches its first real await, so
+/// expectations after a held future would otherwise go unchecked.
+Future<void> _traced(Future<void> Function(Marker m) body) async {
+  final done = Completer<void>();
+  await withTrace((m) async {
+    try {
+      await body(m);
+      done.complete();
+    } catch (e, s) {
+      done.completeError(e, s);
+    }
+  });
+  await done.future;
 }
 
 void main() {
@@ -122,7 +144,7 @@ void main() {
   group("replyPending", () {
     test("is set while the reply is on its way and cleared once it is in",
         () async {
-      await withTrace((m) async {
+      await _traced((m) async {
         final api = _registerDeps();
         when(api.createSession(any, any, event: anyNamed("event")))
             .thenAnswer((_) async => _session("session-1"));
@@ -131,7 +153,7 @@ void main() {
             .thenAnswer((_) => pending.future);
 
         final subject = SupportActor();
-        await subject.startSession(m);
+        await subject.loadOrInit(m);
         expect(subject.replyPending, false);
 
         final sending = subject.sendMessage("hi", m);
@@ -156,9 +178,47 @@ void main() {
       });
     });
 
+    test("stays set until the reply is in the chat, even if storing is slow",
+        () async {
+      await _traced((m) async {
+        final api = _registerDeps();
+        when(api.createSession(any, any, event: anyNamed("event")))
+            .thenAnswer((_) async => _session("session-1"));
+        when(api.sendMessage(any, any, any))
+            .thenAnswer((_) async => _reply("Hello there"));
+
+        final subject = SupportActor();
+        await subject.loadOrInit(m);
+
+        // Hold the history write of the reply open.
+        final storingStarted = Completer<void>();
+        final storing = Completer<void>();
+        final persistence = Core.get<Persistence>() as MockPersistence;
+        when(persistence.save(any, "support_chat_history", any,
+                isBackup: anyNamed("isBackup")))
+            .thenAnswer((inv) async {
+          final json = inv.positionalArguments[2] as String;
+          if (json.contains("Hello there")) {
+            storingStarted.complete();
+            await storing.future;
+          }
+        });
+
+        final sending = subject.sendMessage("hi", m);
+        await storingStarted.future;
+        // The API answered, but the reply is not in the chat yet: a second
+        // send must still be blocked.
+        expect(subject.replyPending, true);
+
+        storing.complete();
+        await sending;
+        expect(subject.replyPending, false);
+      });
+    });
+
     test("is set right away when the send first has to open a session",
         () async {
-      await withTrace((m) async {
+      await _traced((m) async {
         final api = _registerDeps();
         final creating = Completer<JsonSupportSession>();
         when(api.createSession(any, any, event: anyNamed("event")))
@@ -179,7 +239,7 @@ void main() {
     });
 
     test("is not set for local commands", () async {
-      await withTrace((m) async {
+      await _traced((m) async {
         final api = _registerDeps();
         when(api.createSession(any, any, event: anyNamed("event")))
             .thenAnswer((_) async => _session("session-1"));
@@ -192,7 +252,7 @@ void main() {
 
     test("is cleared when the request fails and the error message shows",
         () async {
-      await withTrace((m) async {
+      await _traced((m) async {
         final api = _registerDeps();
         when(api.createSession(any, any, event: anyNamed("event")))
             .thenAnswer((_) async => _session("session-1"));
@@ -200,7 +260,7 @@ void main() {
             .thenAnswer((_) async => throw Exception("offline"));
 
         final subject = SupportActor();
-        await subject.startSession(m);
+        await subject.loadOrInit(m);
         final before = subject.messages.length;
 
         await subject.sendMessage("hi", m);
@@ -213,7 +273,7 @@ void main() {
     });
 
     test("is cleared when a server error is rethrown", () async {
-      await withTrace((m) async {
+      await _traced((m) async {
         final api = _registerDeps();
         when(api.createSession(any, any, event: anyNamed("event")))
             .thenAnswer((_) async => _session("session-1"));
@@ -221,7 +281,7 @@ void main() {
             .thenAnswer((_) async => throw HttpCodeException(503, "down"));
 
         final subject = SupportActor();
-        await subject.startSession(m);
+        await subject.loadOrInit(m);
 
         await expectLater(subject.sendMessage("hi", m), throwsException);
         expect(subject.replyPending, false);

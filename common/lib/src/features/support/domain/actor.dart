@@ -184,10 +184,9 @@ class SupportActor with Logging, Actor {
         _addMyMessage(m, message);
         final msg =
             await _api.sendMessage(m, _currentSession.present!, message);
-        // Cleared before the reply goes in, so the indicator and the reply
-        // are never on screen together.
-        _setReplyPending(false);
-        if (msg.messages != null) await _handleResponse(m, msg.messages!);
+        if (msg.messages != null) {
+          await _handleResponse(m, msg.messages!, isReply: true);
+        }
       }
     } on HttpCodeException catch (e) {
       if (e.code >= 400 && e.code < 500) {
@@ -205,7 +204,6 @@ class SupportActor with Logging, Actor {
     } catch (e, s) {
       log(m).e(msg: "Error sending chat message", err: e, stack: s);
       await sleepAsync(const Duration(milliseconds: 500));
-      _setReplyPending(false);
       await _addErrorMessage(m);
     }
     await _updateSessionExpiry();
@@ -247,7 +245,10 @@ class SupportActor with Logging, Actor {
     onChange();
   }
 
-  _handleResponse(Marker m, List<JsonSupportHistoryItem> messages) async {
+  /// [isReply] marks the bot's answer to a user message, whose first shown
+  /// message ends the pending-reply wait.
+  _handleResponse(Marker m, List<JsonSupportHistoryItem> messages,
+      {bool isReply = false}) async {
     for (final msg in messages) {
       if (msg.text == null || msg.text!.isBlank) {
         continue; // TODO: support other types of msgs
@@ -258,15 +259,21 @@ class SupportActor with Logging, Actor {
         DateTime.parse(msg.timestamp),
         isMe: !msg.isAgent,
       );
-      await _addMessage(m, message);
+      await _addMessage(m, message, endsPendingReply: isReply);
     }
   }
 
-  _addMessage(m, SupportMessage message) async {
+  /// [endsPendingReply] clears [replyPending] only once the message is in the
+  /// chat controller, and in the same UI update: clearing earlier would let a
+  /// second send through while the reply is still being stored, and clearing
+  /// later would show the indicator next to the reply.
+  _addMessage(m, SupportMessage message,
+      {bool endsPendingReply = false}) async {
     messages.add(message);
     messages.sort((a, b) => a.when.compareTo(b.when));
     await _chatHistory.change(m, SupportMessages(messages));
     await controller.insertMessage(message.toFlyerMessage(me, notMe));
+    if (endsPendingReply) _replyPending = false;
     onChange();
     await _unread.newMessage(m, message.text);
   }
@@ -277,7 +284,8 @@ class SupportActor with Logging, Actor {
       DateTime.now(),
       isMe: false,
     );
-    await _addMessage(m, message);
+    // An error message stands in for the reply, so it ends the wait too.
+    await _addMessage(m, message, endsPendingReply: true);
   }
 
   _handleCommand(String message, Marker m) async {
