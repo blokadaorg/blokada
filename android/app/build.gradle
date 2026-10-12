@@ -162,7 +162,7 @@ repositories {
 
 dependencies {
     // androidx and kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:2.4.20"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:2.4.21"
     implementation 'androidx.core:core-ktx:1.19.1'
     implementation 'androidx.appcompat:appcompat:1.8.0'
     implementation 'com.google.android.material:material:1.14.0'
@@ -187,7 +187,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor'
 
     // Hopefully normal date api?
-    implementation 'net.danlew:android.joda:2.14.3.1'
+    implementation 'net.danlew:android.joda:2.15.0'
 
     // Biometric api to protect account id
     implementation "androidx.biometric:biometric-ktx:1.4.0-alpha02"
