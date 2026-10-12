@@ -2,6 +2,7 @@ import 'package:common/src/features/support/domain/support.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/features/support/ui/link_message.dart';
 import 'package:common/src/features/support/ui/support_composer.dart';
+import 'package:common/src/features/support/ui/support_typing_bubble.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/stage/stage.dart';
@@ -27,12 +28,24 @@ class SupportSectionState extends State<SupportSection> {
   /// a chat would close the keyboard after every message.
   final _composerFocus = FocusNode();
 
-  /// Built once, so every rebuild hands flutter_chat_ui the identical widget
-  /// the way its own `const Composer()` default does. A fresh instance per
-  /// rebuild makes the composer re-measure itself after each frame and push a
-  /// new height into the chat list — once per frame while the keyboard
-  /// animates, which stutters the whole conversation.
-  late final _composer = SupportComposer(focusNode: _composerFocus);
+  /// Owned here so a send refused while a reply is pending keeps its text,
+  /// and an accepted one is cleared (the composer never clears by itself).
+  final _composerText = TextEditingController();
+
+  /// Built once per send state, so every rebuild hands flutter_chat_ui the
+  /// identical widget the way its own `const Composer()` default does. A fresh
+  /// instance per rebuild makes the composer re-measure itself after each
+  /// frame and push a new height into the chat list — once per frame while
+  /// the keyboard animates, which stutters the whole conversation.
+  late final _composer = SupportComposer(
+    focusNode: _composerFocus,
+    textEditingController: _composerText,
+  );
+  late final _composerWaiting = SupportComposer(
+    focusNode: _composerFocus,
+    textEditingController: _composerText,
+    sendDisabled: true,
+  );
 
   @override
   void initState() {
@@ -45,6 +58,7 @@ class SupportSectionState extends State<SupportSection> {
   @override
   void dispose() {
     _composerFocus.dispose();
+    _composerText.dispose();
     super.dispose();
   }
 
@@ -89,9 +103,16 @@ class SupportSectionState extends State<SupportSection> {
         // showUserNames: true,
         // emptyState: Center(child: Text("support placeholder".i18n)),
         builders: Builders(
-          composerBuilder: (context) => _composer,
+          composerBuilder: (context) =>
+              _actor.replyPending ? _composerWaiting : _composer,
           chatAnimatedListBuilder: (context, itemBuilder) {
-            return ChatAnimatedListReversed(itemBuilder: itemBuilder);
+            return ChatAnimatedListReversed(
+              itemBuilder: itemBuilder,
+              // Sits right after the newest message, above the composer.
+              bottomSliver: _actor.replyPending
+                  ? const SliverToBoxAdapter(child: SupportTypingBubble())
+                  : null,
+            );
           },
           textMessageBuilder: (context, message, index,
               {required bool isSentByMe, groupStatus}) {
@@ -116,7 +137,13 @@ class SupportSectionState extends State<SupportSection> {
   }
 
   void _handleSendPressed(String message) {
-    _actor.sendMessage(message, Markers.support);
+    // The disabled button does not stop the keyboard's send action or Enter,
+    // so a send during a pending reply is refused here, keeping its text for
+    // when the reply is in. One message at a time keeps it to one bot turn.
+    if (!_actor.replyPending) {
+      _composerText.clear();
+      _actor.sendMessage(message, Markers.support);
+    }
     // Cancels the unfocus that the keyboard's send action would otherwise do,
     // which Flutter explicitly supports from this callback.
     _composerFocus.requestFocus();

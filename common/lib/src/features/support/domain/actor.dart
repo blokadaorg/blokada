@@ -26,6 +26,21 @@ class SupportActor with Logging, Actor {
 
   Function onChange = () {};
 
+  /// True from the moment a user message goes out until the bot's reply, or
+  /// the error message standing in for it, is in the chat.
+  ///
+  /// Replies take seconds, and without a visible sign of progress the chat
+  /// looks stuck, which makes people send again and start another bot turn.
+  /// The chat shows a typing indicator and blocks sending while this is set.
+  bool get replyPending => _replyPending;
+  bool _replyPending = false;
+
+  void _setReplyPending(bool pending) {
+    if (_replyPending == pending) return;
+    _replyPending = pending;
+    onChange();
+  }
+
   // Return true if session was just created
   Future<bool> loadOrInit(Marker m, {SupportEvent? event}) async {
     if (initialized) return false;
@@ -132,8 +147,22 @@ class SupportActor with Logging, Actor {
   }
 
   sendMessage(String? message, Marker m, {bool retrying = false}) async {
+    final command = message?.startsWith("cc ") ?? false;
+    // Set before the first await: a send that first has to open a session
+    // waits on that round trip too, and must already block a second send.
+    if (message != null && !command) _setReplyPending(true);
+    try {
+      await _sendMessage(message, m, command: command, retrying: retrying);
+    } finally {
+      // Covers the paths that rethrow without posting an error message.
+      _setReplyPending(false);
+    }
+  }
+
+  Future<void> _sendMessage(String? message, Marker m,
+      {required bool command, required bool retrying}) async {
     await loadOrInit(m);
-    if (message?.startsWith("cc ") ?? false) {
+    if (command) {
       await _addMyMessage(m, message!);
       await _handleCommand(message.substring(3), m);
       return;
@@ -148,6 +177,9 @@ class SupportActor with Logging, Actor {
         _addMyMessage(m, message);
         final msg =
             await _api.sendMessage(m, _currentSession.present!, message);
+        // Cleared before the reply goes in, so the indicator and the reply
+        // are never on screen together.
+        _setReplyPending(false);
         if (msg.messages != null) await _handleResponse(m, msg.messages!);
       }
     } on HttpCodeException catch (e) {
@@ -166,6 +198,7 @@ class SupportActor with Logging, Actor {
     } catch (e, s) {
       log(m).e(msg: "Error sending chat message", err: e, stack: s);
       await sleepAsync(const Duration(milliseconds: 500));
+      _setReplyPending(false);
       await _addErrorMessage(m);
     }
     await _updateSessionExpiry();

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:common/src/core/core.dart';
+import 'package:common/src/features/api/domain/api.dart';
 import 'package:common/src/features/support/domain/support.dart';
 import 'package:common/src/platform/command/command.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -29,6 +30,16 @@ JsonSupportSession _session(String id) => JsonSupportSession(
       ],
       created: DateTime(2026, 9, 7, 12).toIso8601String(),
       ttl: 3600,
+    );
+
+JsonSupportResponse _reply(String text) => JsonSupportResponse(
+      messages: [
+        JsonSupportHistoryItem(
+          text: text,
+          isAgent: true,
+          timestamp: DateTime(2026, 9, 7, 12, 1).toIso8601String(),
+        )
+      ],
     );
 
 /// Registers everything SupportActor resolves, with no stored session, which
@@ -104,6 +115,116 @@ void main() {
 
         verify(api.createSession(any, any, event: anyNamed("event")))
             .called(1);
+      });
+    });
+  });
+
+  group("replyPending", () {
+    test("is set while the reply is on its way and cleared once it is in",
+        () async {
+      await withTrace((m) async {
+        final api = _registerDeps();
+        when(api.createSession(any, any, event: anyNamed("event")))
+            .thenAnswer((_) async => _session("session-1"));
+        final pending = Completer<JsonSupportResponse>();
+        when(api.sendMessage(any, any, any))
+            .thenAnswer((_) => pending.future);
+
+        final subject = SupportActor();
+        await subject.startSession(m);
+        expect(subject.replyPending, false);
+
+        final sending = subject.sendMessage("hi", m);
+        await pumpEventQueue();
+        expect(subject.replyPending, true);
+
+        // The flag clears before the reply is added, so the indicator and
+        // the reply are never shown together.
+        final seenWhenReplyAdded = <bool>[];
+        subject.onChange = () {
+          if (subject.messages.last.text == "Hello there") {
+            seenWhenReplyAdded.add(subject.replyPending);
+          }
+        };
+        pending.complete(_reply("Hello there"));
+        await sending;
+
+        expect(subject.replyPending, false);
+        expect(subject.messages.last.text, "Hello there");
+        expect(seenWhenReplyAdded, isNotEmpty);
+        expect(seenWhenReplyAdded, everyElement(false));
+      });
+    });
+
+    test("is set right away when the send first has to open a session",
+        () async {
+      await withTrace((m) async {
+        final api = _registerDeps();
+        final creating = Completer<JsonSupportSession>();
+        when(api.createSession(any, any, event: anyNamed("event")))
+            .thenAnswer((_) => creating.future);
+        when(api.sendMessage(any, any, any))
+            .thenAnswer((_) async => _reply("Hello there"));
+
+        final subject = SupportActor();
+        final sending = subject.sendMessage("hi", m);
+        // Set before the first await, so a second send during the session
+        // round trip is already refused.
+        expect(subject.replyPending, true);
+
+        creating.complete(_session("session-1"));
+        await sending;
+        expect(subject.replyPending, false);
+      });
+    });
+
+    test("is not set for local commands", () async {
+      await withTrace((m) async {
+        final api = _registerDeps();
+        when(api.createSession(any, any, event: anyNamed("event")))
+            .thenAnswer((_) async => _session("session-1"));
+        final subject = SupportActor();
+        final sending = subject.sendMessage("cc info", m);
+        expect(subject.replyPending, false);
+        await sending;
+      });
+    });
+
+    test("is cleared when the request fails and the error message shows",
+        () async {
+      await withTrace((m) async {
+        final api = _registerDeps();
+        when(api.createSession(any, any, event: anyNamed("event")))
+            .thenAnswer((_) async => _session("session-1"));
+        when(api.sendMessage(any, any, any))
+            .thenAnswer((_) async => throw Exception("offline"));
+
+        final subject = SupportActor();
+        await subject.startSession(m);
+        final before = subject.messages.length;
+
+        await subject.sendMessage("hi", m);
+
+        expect(subject.replyPending, false);
+        // Own message plus the error reply.
+        expect(subject.messages.length, before + 2);
+        expect(subject.messages.last.isMe, false);
+      });
+    });
+
+    test("is cleared when a server error is rethrown", () async {
+      await withTrace((m) async {
+        final api = _registerDeps();
+        when(api.createSession(any, any, event: anyNamed("event")))
+            .thenAnswer((_) async => _session("session-1"));
+        when(api.sendMessage(any, any, any))
+            .thenAnswer((_) async => throw HttpCodeException(503, "down"));
+
+        final subject = SupportActor();
+        await subject.startSession(m);
+
+        await expectLater(subject.sendMessage("hi", m), throwsException);
+        expect(subject.replyPending, false);
       });
     });
   });

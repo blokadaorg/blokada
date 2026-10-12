@@ -8,6 +8,11 @@ import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 /// Android IMEs render a newline key and drop the send action entirely, leaving
 /// the send button as the only way to submit.
 ///
+/// It also never clears the field itself: the caller clears
+/// [textEditingController] when it accepts a send. While a bot reply is
+/// pending the caller refuses sends, and the keyboard's send action and Enter
+/// bypass the disabled button, so clearing here would drop the typed text.
+///
 /// Must be placed directly in the [Chat] stack, because [Composer] returns a
 /// [Positioned].
 class SupportComposer extends StatelessWidget {
@@ -15,12 +20,26 @@ class SupportComposer extends StatelessWidget {
   /// send action would otherwise drop along with the keyboard.
   final FocusNode? focusNode;
 
-  const SupportComposer({super.key, this.focusNode});
+  /// Owned by the caller, which clears it once a send is accepted.
+  final TextEditingController textEditingController;
+
+  /// Greys out the send button while a bot reply is pending.
+  final bool sendDisabled;
+
+  const SupportComposer({
+    super.key,
+    this.focusNode,
+    required this.textEditingController,
+    this.sendDisabled = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Composer(
       focusNode: focusNode,
+      textEditingController: textEditingController,
+      inputClearMode: InputClearMode.never,
+      sendButtonDisabled: sendDisabled,
       // A multiline keyboard type sets TYPE_TEXT_FLAG_MULTI_LINE on Android,
       // which makes every IME show a newline key regardless of the requested
       // action. Plain text keeps the send key; the field still wraps to the
