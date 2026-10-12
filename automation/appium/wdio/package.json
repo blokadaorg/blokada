@@ -27,7 +27,7 @@
     "@wdio/junit-reporter": "^9.32.0",
     "appium": "^3.8.0",
     "chai": "^6.3.0",
-    "pixelmatch": "^7.1.0",
+    "pixelmatch": "^8.0.0",
     "pngjs": "^7.0.0",
     "typescript": "^7.0.2"
   },
