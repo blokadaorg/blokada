@@ -2,7 +2,7 @@
 """Device pod server: runs the ADB forwarder and exposes shell jobs over HTTP/1.1.
 
 POST /run (body = shell command) -> job id; GET /log?id=&offset= streams the job
-output and ends with "\nEXIT <code>\n"; GET /healthz reports forwarder and adb state.
+output and ends with "\nEXIT <id> <code>\n"; GET /healthz reports forwarder and adb state.
 """
 import http.server
 import os
@@ -189,7 +189,8 @@ class Handler(http.server.BaseHTTPRequestHandler):
                     pos += len(data)
                     last = now
                 elif code is not None:
-                    self.chunk(b"\nEXIT %d\n" % code)
+                    # The job id keeps command output from passing for the marker.
+                    self.chunk(b"\nEXIT %s %d\n" % (job.encode(), code))
                     break
                 elif now - start > MAX_AGE or now - last > MAX_IDLE:
                     break  # no EXIT: the client reconnects

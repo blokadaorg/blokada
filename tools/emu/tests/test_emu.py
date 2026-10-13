@@ -102,26 +102,28 @@ class TestServer(ServerCase):
         status, job = self.run_cmd('echo "serial=$ANDROID_SERIAL"; adb shell id; exit 3')
         self.assertEqual(status, 200)
         _, out = self.get(f"/log?id={job}&offset=0")
-        self.assertEqual(out, "serial=localhost:5555\nadb shell id\n\nEXIT 3\n")
+        self.assertEqual(out, f"serial=localhost:5555\nadb shell id\n\nEXIT {job} 3\n")
 
     def test_run_chunked_body(self):
         _, job = self.run_cmd("echo chunked-ok", chunked=True)
         _, out = self.get(f"/log?id={job}&offset=0")
-        self.assertEqual(out, "chunked-ok\n\nEXIT 0\n")
+        self.assertEqual(out, f"chunked-ok\n\nEXIT {job} 0\n")
 
     def test_offset(self):
         _, job = self.run_cmd("echo abcdef")
         _, out = self.get(f"/log?id={job}&offset=3")
-        self.assertEqual(out, "def\n\nEXIT 0\n")
+        self.assertEqual(out, f"def\n\nEXIT {job} 0\n")
         _, out = self.get(f"/log?id={job}&offset=7")
-        self.assertEqual(out, "\nEXIT 0\n")
+        self.assertEqual(out, f"\nEXIT {job} 0\n")
 
     def test_stream_cut_has_no_exit_then_reconnect(self):
         _, job = self.run_cmd("echo a; sleep 4; echo b")
         _, first = self.get(f"/log?id={job}&offset=0")
         self.assertEqual(first, "a\n")  # cut at max age, no EXIT
-        _, rest = self.get(f"/log?id={job}&offset={len(first)}")
-        self.assertEqual(rest, "b\n\nEXIT 0\n")
+        rest = ""
+        while not rest.endswith(f"\nEXIT {job} 0\n"):  # reconnect like the client
+            rest += self.get(f"/log?id={job}&offset={len(first) + len(rest)}")[1]
+        self.assertEqual(rest, f"b\n\nEXIT {job} 0\n")
 
     def test_unknown_job(self):
         self.assertEqual(self.get("/log?id=000000000000&offset=0")[0], 404)

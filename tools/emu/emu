@@ -65,7 +65,7 @@ find_endpoint() {
 save_state() {
   mkdir -p "$STATE_DIR"
   printf 'PROJECT=%s\nENDPOINT=%s\nSESSION=%s\nID=%s\nNAME=%s\n' \
-    "$PROJECT" "$ENDPOINT" "$SESSION" "$ID" "$NAME" >"$STATE"
+    "$PROJECT" "$ENDPOINT" "$SESSION" "$ID" "$NAME" >|"$STATE"
 }
 
 load_state() {
@@ -111,7 +111,7 @@ pod_http() { # pod_http METHOD PATH [curl args...]
   done
 }
 
-# Run a shell command on the pod and follow its log until "EXIT <code>".
+# Run a shell command on the pod and follow its log until "EXIT <id> <code>".
 # A stream that ends without EXIT is a cut connection: reconnect at the offset.
 pod_run() {
   local id off=0 tmp size last cut fails=0 started
@@ -138,7 +138,7 @@ pod_run() {
     fails=0
     size=$(($(wc -c <"$tmp")))
     last="$(tail -c 40 "$tmp" | tr -d '\0' | tail -n 1)"
-    if [[ $last =~ ^EXIT\ (-?[0-9]+)$ ]] && [ $size -ge $((${#last} + 2)) ]; then
+    if [[ $last =~ ^EXIT\ $id\ (-?[0-9]+)$ ]] && [ $size -ge $((${#last} + 2)) ]; then
       cut=$((size - ${#last} - 2))
       [ $cut -eq 0 ] || head -c $cut "$tmp"
       rm -f "$tmp"
@@ -164,11 +164,13 @@ cmd_up() {
       *) die "unknown option $1" ;;
     esac
   done
-  [ ! -f "$STATE" ] || die "session exists, run: emu down"
+  mkdir -p "$STATE_DIR"
+  # Claim the state file atomically, so concurrent ups cannot both reserve.
+  (set -C; : >"$STATE") 2>/dev/null || die "session exists, run: emu down"
+  trap up_cleanup EXIT
   secs="$(parse_ttl "$ttl")"
   load_project
   find_endpoint
-  trap up_cleanup EXIT
 
   log "reserving $MODEL / Android $version for ${secs}s"
   body="$(printf '{"androidDevice":{"androidModelId":"%s","androidVersionId":"%s"},"ttl":"%ss","clientInfo":{"client":"skills/cloud/developer-device-platform-basics"}}' \
@@ -309,6 +311,7 @@ cmd_down() {
     [ -f "$STATE" ] || { log "no session"; return 0; }
     load_state
   fi
+  [ -n "$SESSION" ] || { rm -f "$STATE"; log "released"; return 0; }
   local failed=0
   if ! dds POST "https://devicestreaming.googleapis.com/v1/$SESSION:cancel" >/dev/null; then
     case "$(dds GET "https://devicestreaming.googleapis.com/v1/$SESSION" | jget "d.get('state','')" || true)" in
