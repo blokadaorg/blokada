@@ -15,9 +15,9 @@ if [ ! -d "/usr/lib/jvm/java-$jdk-openjdk-amd64" ]; then
   apt-get install -y -qq "openjdk-$jdk-jdk-headless" >/dev/null
 fi
 
-if [ ! -x /opt/fvm/fvm ]; then
-  action="$repo/.github/actions/setup-flutter/action.yml"
-  fvm_version=$(sed -n 's/^ *FVM_VERSION: *"\(.*\)"/\1/p' "$action")
+action="$repo/.github/actions/setup-flutter/action.yml"
+fvm_version=$(sed -n 's/^ *FVM_VERSION: *"\(.*\)"/\1/p' "$action")
+if [ "$(/opt/fvm/fvm --version 2>/dev/null)" != "$fvm_version" ]; then
   fvm_sha=$(sed -n 's/^ *FVM_SHA256_LINUX_X64: *//p' "$action")
   curl -fsSL --retry 3 -o /tmp/fvm.tar.gz \
     "https://github.com/leoafarias/fvm/releases/download/$fvm_version/fvm-$fvm_version-linux-x64.tar.gz"
