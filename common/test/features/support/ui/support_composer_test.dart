@@ -18,8 +18,10 @@ Widget _host({required void Function(String) onSend}) {
         Provider<OnAttachmentTapCallback?>.value(value: null),
         ChangeNotifierProvider(create: (_) => ComposerHeightNotifier()),
       ],
-      child: const Scaffold(
-        body: Stack(children: [SupportComposer()]),
+      child: Scaffold(
+        body: Stack(children: [
+          SupportComposer(textEditingController: TextEditingController()),
+        ]),
       ),
     ),
   );

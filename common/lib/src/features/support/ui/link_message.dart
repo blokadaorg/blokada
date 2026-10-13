@@ -233,15 +233,10 @@ class TimeAndStatus extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         if (showTime && time != null) Text(timeFormat.format(time!.toLocal()), style: textStyle),
+        // No per-message sending spinner: the support chat never sets that
+        // status, and a pending reply is shown by the typing bubble instead.
         if (showStatus && status != null)
-          if (status == MessageStatus.sending)
-            SizedBox(
-              width: 6,
-              height: 6,
-              child: CircularProgressIndicator(color: textStyle?.color, strokeWidth: 2),
-            )
-          else
-            Icon(getIconForStatus(status!), color: textStyle?.color, size: 12),
+          Icon(getIconForStatus(status!), color: textStyle?.color, size: 12),
       ],
     );
   }
