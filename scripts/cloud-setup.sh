@@ -44,8 +44,9 @@ grep -qs '^sdk.dir=' "$repo/android/local.properties" || echo "sdk.dir=$sdk" >>"
 # Maven Central rate-limits the shared cloud egress IP; Google's mirror does not.
 mkdir -p "$HOME/.gradle/init.d"
 cat >"$HOME/.gradle/init.d/maven-mirror.gradle" <<'EOF'
-// The Plugin Portal redirects to Maven Central, so the mirror goes first
-// wherever plugins and build classpaths resolve, and replaces Central elsewhere.
+// The Plugin Portal redirects to Maven Central, so the mirror and Google Maven
+// go first wherever plugins and build classpaths resolve, and the mirror
+// replaces Central elsewhere.
 def mirrorUrl = 'https://maven-central.storage-download.googleapis.com/maven2/'
 def rewrite = { handler ->
   handler.withType(MavenArtifactRepository).configureEach { repo ->
@@ -56,6 +57,7 @@ def rewrite = { handler ->
 }
 beforeSettings { settings ->
   settings.pluginManagement.repositories.maven { url = mirrorUrl }
+  settings.pluginManagement.repositories.google()
   settings.pluginManagement.repositories.gradlePluginPortal()
   rewrite(settings.pluginManagement.repositories)
   rewrite(settings.dependencyResolutionManagement.repositories)
