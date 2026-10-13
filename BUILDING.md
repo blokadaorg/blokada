@@ -81,3 +81,13 @@ Now see fastlane/README.md for more details on how to build the apps.
 - The Flutter module lives at `blokada/common`.
 - Pigeon Dart outputs are generated under `lib/src/platform/**/channel.pg.dart`; the old `lib/platform/**` path is removed.
 - Use the Make targets above (`make analyze`, `make test`, `make build-*`) instead of calling Flutter commands directly.
+
+## Mocked Android debug build (emulator checks)
+
+`ACCOUNT_ID=<active test account> make build-android-six-debug-mocked` (or
+`build-android-family-debug-mocked`) builds the debug AAR with the `MOCKED`, `FLAVOR`
+and `ACCOUNT_ID` dart-defines, then the APK. Without `ACCOUNT_ID` it falls back to
+`SIX_DEV_ACCOUNT_ID` / `FAMILY_DEV_ACCOUNT_ID` in a gitignored repo-root `.env.local`.
+The app seeds that account and skips onboarding and the paywall; see `ios/SIMULATOR.md`
+for the shared mocked-path behavior. Set `ANDROID_HOME` if gradle cannot find the SDK.
+Run `make build-android-six-debug` afterwards to restore a normal debug AAR.

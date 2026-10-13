@@ -1,6 +1,7 @@
 import 'package:common/mock_traffic.dart';
 import 'package:common/src/app_variants/family/module/family/family.dart';
 import 'package:common/src/core/core.dart';
+import 'package:common/src/features/onboard/domain/onboard.dart';
 import 'package:common/src/platform/account/account.dart';
 import 'package:common/src/platform/device/device.dart';
 import 'package:common/src/platform/perm/dnscheck.dart';
@@ -46,6 +47,12 @@ Future<void> seedDevAccount(Flavor flavor) async {
               'alphanumeric characters after sanitization. See '
               'ios/SIMULATOR.md.',
     );
+  }
+
+  // Skip the welcome screen; modules.start would otherwise show it on a fresh install.
+  final intro = Core.get<OnboardIntroValue>();
+  if (await intro.fetch(Markers.start) == null) {
+    await intro.change(Markers.start, "first");
   }
 
   final isFamily = flavor == Flavor.family;
