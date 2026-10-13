@@ -1,11 +1,13 @@
 ---
 name: emulator
-description: Use to run and inspect the Blokada Android app on a Google Developer Device Platform emulator from a Claude Code cloud session, with screenshots and UI dumps. Trigger when a change under common/ affects UI and should be checked on a device before a PR, and no local emulator or device is available.
+description: Use to run and inspect the Blokada Android app on a Google Developer Device Platform emulator, with screenshots and UI dumps, from a Claude Code cloud session or a local machine without an Android emulator. Trigger when a change under common/ affects UI and should be checked on a device before a PR, and no local emulator or device is available.
 ---
 
 # Emulator
 
 `tools/emu/emu` reserves an Android emulator (`MediumPhone.arm`) from Google's Developer Device Platform and drives it through a pod on the `workbench` GKE cluster. The session itself cannot hold the ADB stream, so every command runs on the pod and its output is relayed back. The Google project, cluster and bucket are derived from `gcloud config get project`.
+
+Locally it needs gcloud logged in with the staging project active and access there, plus kubectl, curl and python3; no emulator or Android SDK for `emu` itself, though building the APK still needs the Android toolchain.
 
 Use it to check UI changes in `common/` before opening a PR. Not for iOS, and not for anything needing a VPN permission prompt answered by a real user.
 
