@@ -49,13 +49,15 @@ Future<void> seedDevAccount(Flavor flavor) async {
     );
   }
 
-  // Skip the welcome screen; modules.start would otherwise show it on a fresh install.
-  final intro = Core.get<OnboardIntroValue>();
-  if (await intro.fetch(Markers.start) == null) {
-    await intro.change(Markers.start, "first");
-  }
-
   final isFamily = flavor == Flavor.family;
+
+  // Skip the v6 welcome screen; Family has no onboarding module.
+  if (!isFamily) {
+    final intro = Core.get<OnboardIntroValue>();
+    if (await intro.fetch(Markers.start) == null) {
+      await intro.change(Markers.start, "first");
+    }
+  }
   final type = isFamily ? 'family' : 'cloud';
 
   final persistence = Core.get<Persistence>(tag: Persistence.secure);

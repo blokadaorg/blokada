@@ -40,7 +40,7 @@ dds() { # dds METHOD URL [BODY]
   local data=()
   [ "$1" = GET ] || data=(-H "Content-Type: application/json" -d "${3:-"{}"}")
   token
-  curl -sS --http1.1 -X "$1" -H "Authorization: Bearer $TOKEN" ${data[@]+"${data[@]}"} "$2"
+  curl -sS --fail-with-body --http1.1 -X "$1" -H "Authorization: Bearer $TOKEN" ${data[@]+"${data[@]}"} "$2"
 }
 
 sha() { if command -v sha256sum >/dev/null; then sha256sum "$@"; else shasum -a 256 "$@"; fi; }
@@ -260,7 +260,7 @@ ensure_image() {
     gcloud builds submit "$HERE/pod" --tag "$image" \
       --service-account "projects/$PROJECT/serviceAccounts/dev-builder@$PROJECT.iam.gserviceaccount.com" \
       --gcs-source-staging-dir "gs://$PROJECT-dev/source" \
-      --gcs-log-dir "gs://$PROJECT-dev/logs" --region "$REGION" >&2
+      --gcs-log-dir "gs://$PROJECT-dev/logs" --region "$REGION" >&2 || return 1
   fi
   echo "$image"
 }
@@ -309,13 +309,21 @@ cmd_down() {
     [ -f "$STATE" ] || { log "no session"; return 0; }
     load_state
   fi
-  dds POST "https://devicestreaming.googleapis.com/v1/$SESSION:cancel" >/dev/null || log "cancel failed"
+  local failed=0
+  if ! dds POST "https://devicestreaming.googleapis.com/v1/$SESSION:cancel" >/dev/null; then
+    case "$(dds GET "https://devicestreaming.googleapis.com/v1/$SESSION" | jget "d.get('state','')" || true)" in
+      FINISHED | EXPIRED | CANCELLED) ;;
+      *) log "cancel failed"; failed=1 ;;
+    esac
+  fi
   if [ -n "$NAME" ]; then
-    kc delete pod,service "$NAME" -n "$NS" --ignore-not-found --wait=false >&2 || log "pod delete failed"
+    kc delete pod,service "$NAME" -n "$NS" --ignore-not-found --wait=false >&2 || { log "pod delete failed"; failed=1; }
   fi
   if [ -n "$ID" ]; then
     gcloud storage rm -r "gs://$BUCKET/emu/$ID/" >/dev/null 2>&1 || true
   fi
+  # Keep the state so a later emu down can retry.
+  [ $failed -eq 0 ] || die "cleanup incomplete, run emu down again"
   rm -f "$STATE"
   log "released"
 }
