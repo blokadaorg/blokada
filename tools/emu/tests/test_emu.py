@@ -23,6 +23,16 @@ FAKE_FORWARDER = """import time
 print("I0000 ADB forwarding listening on localhost:5555", flush=True)
 time.sleep(600)
 """
+# Drops its stream once, like a reset gRPC stream, then stays up.
+FLAKY_FORWARDER = """import os, sys, time
+marker = os.path.join(os.path.dirname(sys.argv[0]), "dropped")
+print("I0000 ADB forwarding listening on localhost:5555", flush=True)
+if not os.path.exists(marker):
+    open(marker, "w").close()
+    time.sleep(1)
+    sys.exit(1)
+time.sleep(600)
+"""
 FAKE_GCLOUD = "#!/bin/bash\necho tok\n"
 
 
@@ -34,6 +44,7 @@ def write(path, body, mode=0o755):
 
 class ServerCase(unittest.TestCase):
     max_age = "2"
+    forwarder = FAKE_FORWARDER
 
     @classmethod
     def setUpClass(cls):
@@ -42,7 +53,7 @@ class ServerCase(unittest.TestCase):
         os.mkdir(bindir)
         write(os.path.join(bindir, "adb"), FAKE_ADB)
         write(os.path.join(bindir, "gcloud"), FAKE_GCLOUD)
-        write(os.path.join(cls.tmp, "fwd.py"), FAKE_FORWARDER, stat.S_IRUSR | stat.S_IWUSR)
+        write(os.path.join(cls.tmp, "fwd.py"), cls.forwarder, stat.S_IRUSR | stat.S_IWUSR)
         with socket.socket() as s:
             s.bind(("127.0.0.1", 0))
             cls.port = s.getsockname()[1]
@@ -128,6 +139,19 @@ class TestServer(ServerCase):
     def test_unknown_job(self):
         self.assertEqual(self.get("/log?id=000000000000&offset=0")[0], 404)
         self.assertEqual(self.get("/log?id=../x&offset=0")[0], 404)
+
+
+class TestRestart(ServerCase):
+    forwarder = FLAKY_FORWARDER
+
+    def test_forwarder_restarts_after_drop(self):
+        deadline = time.time() + 20
+        while time.time() < deadline:
+            body = self.get("/healthz")[1]
+            if "restarts=1" in body and "forwarder=ready" in body:
+                return
+            time.sleep(0.5)
+        self.fail(f"forwarder did not come back: {body}")
 
 
 class TestClient(ServerCase):
