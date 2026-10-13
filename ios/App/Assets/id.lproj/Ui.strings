@@ -1037,6 +1037,7 @@
 "attach action share" = "Bagikan tautan";
 "attach error generic" = "Tidak dapat membuat tautan. Pastikan Anda terhubung ke internet, lalu coba lagi.";
 
+"web plaintext type" = "Router, TV, konsol game";
 "web plaintext brief" = "Untuk perangkat yang hanya menerima alamat server DNS, seperti router, TV, dan konsol game. Setiap perangkat mendapatkan alamat sendiri dan akan muncul dengan nama di aktivitas Anda.";
 "web plaintext ipv6 required" = "Router atau perangkat membutuhkan IPv6 untuk pengaturan ini. Dukungan untuk IPv4 akan tersedia nanti.";
 "web plaintext legacy" = "Akun Anda menggunakan tag perangkat lama yang tidak mendukung pengaturan ini. Silakan hubungi kami.";

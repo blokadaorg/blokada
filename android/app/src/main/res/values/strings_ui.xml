@@ -754,6 +754,7 @@
     <string name="attach_action_open">Open in browser</string>
     <string name="attach_action_share">Share link</string>
     <string name="attach_error_generic">Could not create the link. Make sure you are online, and try again.</string>
+    <string name="web_plaintext_type">Router, TV, game console</string>
     <string name="web_plaintext_brief">For devices that only take a DNS server address, like routers, TVs and game consoles. Each device gets its own address and shows up by name in your activity.</string>
     <string name="web_plaintext_ipvsix_required">The router or device needs IPv6 for this setup. Support for IPv4 is coming later.</string>
     <string name="web_plaintext_legacy">Your account uses an older device tag that does not support this setup. Please contact us.</string>

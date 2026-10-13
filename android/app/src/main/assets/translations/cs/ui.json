@@ -753,6 +753,7 @@
     "attach action open": "Otevřít v prohlížeči",
     "attach action share": "Sdílet odkaz",
     "attach error generic": "Odkaz se nepodařilo vytvořit. Ujistěte se, že jste online, a zkuste to znovu.",
+    "web plaintext type": "Router, TV, herní konzole",
     "web plaintext brief": "Pro zařízení, která přijímají pouze adresu DNS serveru, jako jsou routery, TV a herní konzole. Každé zařízení dostane svou vlastní adresu a bude zobrazeno jménem ve vaší aktivitě.",
     "web plaintext ipv6 required": "Pro toto nastavení je potřeba, aby router nebo zařízení podporovalo IPv6. Podpora IPv4 bude později.",
     "web plaintext legacy": "Váš účet používá starší označení zařízení, které toto nastavení nepodporuje. Kontaktujte nás prosím.",

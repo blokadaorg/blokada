@@ -753,6 +753,7 @@
     "attach action open": "Openen in browser",
     "attach action share": "Link delen",
     "attach error generic": "Kon de link niet aanmaken. Zorg dat je online bent en probeer het opnieuw.",
+    "web plaintext type": "Router, tv, spelconsole",
     "web plaintext brief": "Voor apparaten die alleen een DNS-serveradres accepteren, zoals routers, tv's en gameconsoles. Elk apparaat krijgt een eigen adres en verschijnt met naam in je activiteit.",
     "web plaintext ipv6 required": "De router of het apparaat heeft IPv6 nodig voor deze installatie. Ondersteuning voor IPv4 komt later.",
     "web plaintext legacy": "Je account gebruikt een oudere apparaat-tag die deze installatie niet ondersteunt. Neem alstublieft contact met ons op.",

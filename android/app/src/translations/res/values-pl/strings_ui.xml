@@ -754,6 +754,7 @@
     <string name="attach_action_open">Otwórz w przeglądarce</string>
     <string name="attach_action_share">Udostępnij link</string>
     <string name="attach_error_generic">Nie udało się utworzyć linku. Upewnij się, że masz połączenie z internetem i spróbuj ponownie.</string>
+    <string name="web_plaintext_type">Router, telewizor, konsola do gier</string>
     <string name="web_plaintext_brief">Dla urządzeń, które wymagają jedynie adresu serwera DNS, takich jak routery, telewizory i konsole do gier. Każde urządzenie otrzymuje własny adres i pojawia się z nazwą w aktywności.</string>
     <string name="web_plaintext_ipvsix_required">Do tej konfiguracji router lub urządzenie musi obsługiwać IPv6. Obsługa IPv4 pojawi się później.</string>
     <string name="web_plaintext_legacy">Twoje konto używa starszego identyfikatora urządzenia, który nie obsługuje tej konfiguracji. Skontaktuj się z nami.</string>

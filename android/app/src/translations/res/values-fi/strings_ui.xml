@@ -754,6 +754,7 @@
     <string name="attach_action_open">Avaa selaimessa</string>
     <string name="attach_action_share">Jaa linkki</string>
     <string name="attach_error_generic">Linkin luominen ei onnistunut. Varmista, että olet verkossa, ja yritä uudelleen.</string>
+    <string name="web_plaintext_type">Reititin, TV, pelikonsoli</string>
     <string name="web_plaintext_brief">Laitteille, jotka tarvitsevat vain DNS-palvelinosoitteen, kuten reitittimet, televisiot ja pelikonsolit. Jokainen laite saa oman osoitteensa ja näkyy nimelläsi tapahtumissa.</string>
     <string name="web_plaintext_ipvsix_required">Reitittimessä tai laitteessa täytyy olla IPv6 tätä asetusta varten. IPv4-tuki lisätään myöhemmin.</string>
     <string name="web_plaintext_legacy">Tililläsi käytetään vanhempaa laitetunnistetta, joka ei tue tätä asetusta. Ota yhteyttä meihin.</string>

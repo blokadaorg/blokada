@@ -754,6 +754,7 @@
     <string name="attach_action_open">Öppna i webbläsare</string>
     <string name="attach_action_share">Dela länk</string>
     <string name="attach_error_generic">Kunde inte skapa länken. Se till att du är online och försök igen.</string>
+    <string name="web_plaintext_type">Router, TV, spelkonsol</string>
     <string name="web_plaintext_brief">För enheter som endast tar emot en DNS-serveradress, såsom routrar, TV-apparater och spelkonsoler. Varje enhet får en egen adress och visas med namn i din aktivitet.</string>
     <string name="web_plaintext_ipvsix_required">Routern eller enheten behöver IPv6 för denna konfiguration. Stöd för IPv4 kommer senare.</string>
     <string name="web_plaintext_legacy">Ditt konto använder en äldre enhetsetikett som inte stöder denna konfiguration. Vänligen kontakta oss.</string>

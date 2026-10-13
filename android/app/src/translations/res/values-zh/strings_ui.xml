@@ -754,6 +754,7 @@
     <string name="attach_action_open">在瀏覽器開啟</string>
     <string name="attach_action_share">分享連結</string>
     <string name="attach_error_generic">無法建立連結。請確認您已連線網路，然後再試一次。</string>
+    <string name="web_plaintext_type">路由器、電視、遊戲主機</string>
     <string name="web_plaintext_brief">適用於只需輸入 DNS 伺服器位址的裝置，例如路由器、電視和遊戲主機。每個裝置都會獲得專屬位址，並以名稱顯示於您的活動中。</string>
     <string name="web_plaintext_ipvsix_required">此設定需用到 IPv6。對於 IPv4 的支援將於日後推出。</string>
     <string name="web_plaintext_legacy">您的帳戶使用了不支援此設定的舊版裝置標籤。請聯絡我們。</string>

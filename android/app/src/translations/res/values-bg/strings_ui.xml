@@ -754,6 +754,7 @@
     <string name="attach_action_open">Отвори в браузър</string>
     <string name="attach_action_share">Сподели връзката</string>
     <string name="attach_error_generic">Неуспешно създаване на връзката. Уверете се, че сте онлайн, и опитайте отново.</string>
+    <string name="web_plaintext_type">Рутер, телевизор, игрова конзола</string>
     <string name="web_plaintext_brief">За устройства, които приемат само DNS адрес на сървър, като рутери, телевизори и игрови конзоли. Всяко устройство получава собствен адрес и се показва с името си във вашата активност.</string>
     <string name="web_plaintext_ipvsix_required">Рутерът или устройството за тази настройка се нуждае от IPv6. Поддръжката за IPv4 ще бъде добавена по-късно.</string>
     <string name="web_plaintext_legacy">Вашият акаунт използва на устройството по-стар етикет, който не поддържа тази настройка. Моля, свържете се с нас.</string>
