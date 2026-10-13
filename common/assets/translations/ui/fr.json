@@ -753,6 +753,7 @@
     "attach action open": "Ouvrir dans le navigateur",
     "attach action share": "Partager le lien",
     "attach error generic": "Impossible de créer le lien. Assurez-vous d'être en ligne, puis réessayez.",
+    "web plaintext type": "Routeur, TV, console de jeu",
     "web plaintext brief": "Pour les appareils qui n'acceptent qu'une adresse de serveur DNS, comme les routeurs, les téléviseurs et les consoles de jeux. Chaque appareil reçoit sa propre adresse et apparaît par son nom dans votre activité.",
     "web plaintext ipv6 required": "Le routeur ou l'appareil doit prendre en charge IPv6 pour cette configuration. La prise en charge d'IPv4 arrivera plus tard.",
     "web plaintext legacy": "Votre compte utilise une ancienne étiquette d'appareil qui ne prend pas en charge cette configuration. Veuillez nous contacter.",

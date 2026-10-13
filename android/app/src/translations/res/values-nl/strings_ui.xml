@@ -754,6 +754,7 @@
     <string name="attach_action_open">Openen in browser</string>
     <string name="attach_action_share">Link delen</string>
     <string name="attach_error_generic">Kon de link niet aanmaken. Zorg dat je online bent en probeer het opnieuw.</string>
+    <string name="web_plaintext_type">Router, tv, spelconsole</string>
     <string name="web_plaintext_brief">Voor apparaten die alleen een DNS-serveradres accepteren, zoals routers, tv\'s en gameconsoles. Elk apparaat krijgt een eigen adres en verschijnt met naam in je activiteit.</string>
     <string name="web_plaintext_ipvsix_required">De router of het apparaat heeft IPv6 nodig voor deze installatie. Ondersteuning voor IPv4 komt later.</string>
     <string name="web_plaintext_legacy">Je account gebruikt een oudere apparaat-tag die deze installatie niet ondersteunt. Neem alstublieft contact met ons op.</string>

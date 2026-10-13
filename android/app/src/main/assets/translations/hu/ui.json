@@ -753,6 +753,7 @@
     "attach action open": "Megnyitás böngészőben",
     "attach action share": "Link megosztása",
     "attach error generic": "Nem sikerült létrehozni a linket. Győződj meg róla, hogy van internetkapcsolatod, és próbáld újra.",
+    "web plaintext type": "Router, TV, játékkonzol",
     "web plaintext brief": "Azokhoz az eszközökhöz, amelyek csak DNS-kiszolgáló címeket fogadnak el, például routerekhez, TV-khez és játékkonzolokhoz. Minden eszköz saját címet kap, és név szerint jelenik meg a te aktivitásodban.",
     "web plaintext ipv6 required": "Ehhez a beállításhoz az útválasztónak vagy az eszköznek szüksége van IPv6-ra. Az IPv4 támogatása később érkezik.",
     "web plaintext legacy": "A fiókod egy régebbi eszközcímkét használ, amely nem támogatja ezt a beállítást. Kérjük, vedd fel velünk a kapcsolatot.",

@@ -1037,6 +1037,7 @@
 "attach action share" = "Dela länk";
 "attach error generic" = "Kunde inte skapa länken. Se till att du är online och försök igen.";
 
+"web plaintext type" = "Router, TV, spelkonsol";
 "web plaintext brief" = "För enheter som endast tar emot en DNS-serveradress, såsom routrar, TV-apparater och spelkonsoler. Varje enhet får en egen adress och visas med namn i din aktivitet.";
 "web plaintext ipv6 required" = "Routern eller enheten behöver IPv6 för denna konfiguration. Stöd för IPv4 kommer senare.";
 "web plaintext legacy" = "Ditt konto använder en äldre enhetsetikett som inte stöder denna konfiguration. Vänligen kontakta oss.";

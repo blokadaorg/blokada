@@ -1037,6 +1037,7 @@
 "attach action share" = "Link teilen";
 "attach error generic" = "Der Link konnte nicht erstellt werden. Stelle sicher, dass du online bist, und versuche es erneut.";
 
+"web plaintext type" = "Router, TV, Spielkonsole";
 "web plaintext brief" = "Für Geräte, die nur eine DNS-Serveradresse akzeptieren, wie Router, Fernseher und Spielkonsolen. Jedes Gerät erhält eine eigene Adresse und erscheint mit Namen in deiner Aktivität.";
 "web plaintext ipv6 required" = "Der Router oder das Gerät benötigt IPv6 für diese Einrichtung. Unterstützung für IPv4 folgt in Kürze.";
 "web plaintext legacy" = "Dein Konto verwendet einen älteren Gerätemarker, der diese Einrichtung nicht unterstützt. Bitte kontaktiere uns.";

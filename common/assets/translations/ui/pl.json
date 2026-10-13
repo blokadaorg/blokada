@@ -753,6 +753,7 @@
     "attach action open": "Otwórz w przeglądarce",
     "attach action share": "Udostępnij link",
     "attach error generic": "Nie udało się utworzyć linku. Upewnij się, że masz połączenie z internetem i spróbuj ponownie.",
+    "web plaintext type": "Router, telewizor, konsola do gier",
     "web plaintext brief": "Dla urządzeń, które wymagają jedynie adresu serwera DNS, takich jak routery, telewizory i konsole do gier. Każde urządzenie otrzymuje własny adres i pojawia się z nazwą w aktywności.",
     "web plaintext ipv6 required": "Do tej konfiguracji router lub urządzenie musi obsługiwać IPv6. Obsługa IPv4 pojawi się później.",
     "web plaintext legacy": "Twoje konto używa starszego identyfikatora urządzenia, który nie obsługuje tej konfiguracji. Skontaktuj się z nami.",

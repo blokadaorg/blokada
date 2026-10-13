@@ -754,6 +754,7 @@
     <string name="attach_action_open">Ouvrir dans le navigateur</string>
     <string name="attach_action_share">Partager le lien</string>
     <string name="attach_error_generic">Impossible de créer le lien. Assurez-vous d\'être en ligne, puis réessayez.</string>
+    <string name="web_plaintext_type">Routeur, TV, console de jeu</string>
     <string name="web_plaintext_brief">Pour les appareils qui n\'acceptent qu\'une adresse de serveur DNS, comme les routeurs, les téléviseurs et les consoles de jeux. Chaque appareil reçoit sa propre adresse et apparaît par son nom dans votre activité.</string>
     <string name="web_plaintext_ipvsix_required">Le routeur ou l\'appareil doit prendre en charge IPv6 pour cette configuration. La prise en charge d\'IPv4 arrivera plus tard.</string>
     <string name="web_plaintext_legacy">Votre compte utilise une ancienne étiquette d\'appareil qui ne prend pas en charge cette configuration. Veuillez nous contacter.</string>

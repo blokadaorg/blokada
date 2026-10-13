@@ -753,6 +753,7 @@
     "attach action open": "Avaa selaimessa",
     "attach action share": "Jaa linkki",
     "attach error generic": "Linkin luominen ei onnistunut. Varmista, että olet verkossa, ja yritä uudelleen.",
+    "web plaintext type": "Reititin, TV, pelikonsoli",
     "web plaintext brief": "Laitteille, jotka tarvitsevat vain DNS-palvelinosoitteen, kuten reitittimet, televisiot ja pelikonsolit. Jokainen laite saa oman osoitteensa ja näkyy nimelläsi tapahtumissa.",
     "web plaintext ipv6 required": "Reitittimessä tai laitteessa täytyy olla IPv6 tätä asetusta varten. IPv4-tuki lisätään myöhemmin.",
     "web plaintext legacy": "Tililläsi käytetään vanhempaa laitetunnistetta, joka ei tue tätä asetusta. Ota yhteyttä meihin.",

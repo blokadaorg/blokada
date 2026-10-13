@@ -754,6 +754,7 @@
     <string name="attach_action_open">Открыть в браузере</string>
     <string name="attach_action_share">Поделиться ссылкой</string>
     <string name="attach_error_generic">Не удалось создать ссылку. Убедитесь, что у вас есть подключение к интернету, и попробуйте снова.</string>
+    <string name="web_plaintext_type">Роутер, ТВ, игровая консоль</string>
     <string name="web_plaintext_brief">Для устройств, которым требуется только адрес DNS-сервера, например маршрутизаторов, ТВ и игровых консолей. Каждое устройство получает свой адрес и отображается по имени в вашей активности.</string>
     <string name="web_plaintext_ipvsix_required">Для этой настройки маршрутизатору или устройству нужен IPv6. Поддержка IPv4 появится позже.</string>
     <string name="web_plaintext_legacy">Для вашего аккаунта используется устаревшая метка устройства, которая не поддерживает эту настройку. Пожалуйста, свяжитесь с нами.</string>

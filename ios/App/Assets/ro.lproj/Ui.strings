@@ -1037,6 +1037,7 @@
 "attach action share" = "Distribuie link-ul";
 "attach error generic" = "Nu s-a putut crea link-ul. Asigurați-vă că sunteți conectat la internet și încercați din nou.";
 
+"web plaintext type" = "Router, TV, consolă de jocuri";
 "web plaintext brief" = "Pentru dispozitive care acceptă doar introducerea adresei serverului DNS, precum routere, televizoare și console de jocuri. Fiecare dispozitiv primește propria adresă și va apărea cu numele propriu în activitatea dvs.";
 "web plaintext ipv6 required" = "Routerul sau dispozitivul are nevoie de IPv6 pentru această configurare. Suportul pentru IPv4 va fi disponibil ulterior.";
 "web plaintext legacy" = "Contul dvs. folosește o etichetă de dispozitiv mai veche care nu suportă această configurare. Vă rugăm să ne contactați.";

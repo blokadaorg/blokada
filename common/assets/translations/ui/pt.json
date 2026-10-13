@@ -753,6 +753,7 @@
     "attach action open": "Abrir no navegador",
     "attach action share": "Compartilhar link",
     "attach error generic": "Não foi possível criar o link. Verifique se você está online e tente novamente.",
+    "web plaintext type": "Roteador, TV, console de jogos",
     "web plaintext brief": "Para dispositivos que só aceitam um endereço de servidor DNS, como roteadores, TVs e consoles de jogos. Cada dispositivo recebe seu próprio endereço e aparece pelo nome na sua atividade.",
     "web plaintext ipv6 required": "O roteador ou dispositivo precisa de IPv6 para esta configuração. Suporte para IPv4 será adicionado posteriormente.",
     "web plaintext legacy": "Sua conta utiliza uma etiqueta de dispositivo antiga que não é compatível com esta configuração. Por favor, entre em contato conosco.",

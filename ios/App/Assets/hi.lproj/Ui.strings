@@ -1037,6 +1037,7 @@
 "attach action share" = "Share link";
 "attach error generic" = "Could not create the link. Make sure you are online, and try again.";
 
+"web plaintext type" = "Router, TV, game console";
 "web plaintext brief" = "For devices that only take a DNS server address, like routers, TVs and game consoles. Each device gets its own address and shows up by name in your activity.";
 "web plaintext ipv6 required" = "The router or device needs IPv6 for this setup. Support for IPv4 is coming later.";
 "web plaintext legacy" = "Your account uses an older device tag that does not support this setup. Please contact us.";

@@ -754,6 +754,7 @@
     <string name="attach_action_open">Tarayıcıda aç</string>
     <string name="attach_action_share">Bağlantıyı paylaş</string>
     <string name="attach_error_generic">Bağlantı oluşturulamadı. Lütfen çevrimiçi olduğunuzdan emin olun ve tekrar deneyin.</string>
+    <string name="web_plaintext_type">Router, TV, oyun konsolu</string>
     <string name="web_plaintext_brief">Yalnızca bir DNS sunucu adresi kabul eden cihazlar için; örneğin, routerlar, TV\'ler ve oyun konsolları. Her cihaz kendi adresini alır ve etkinliğinizde ismiyle görünür.</string>
     <string name="web_plaintext_ipvsix_required">Bu kurulum için router veya cihazın IPv6 desteği olması gerekir. IPv4 desteği daha sonra eklenecek.</string>
     <string name="web_plaintext_legacy">Hesabınızda bu kurulumun desteklenmediği eski bir cihaz etiketi kullanılıyor. Lütfen bizimle iletişime geçin.</string>

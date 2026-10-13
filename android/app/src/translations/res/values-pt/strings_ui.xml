@@ -754,6 +754,7 @@
     <string name="attach_action_open">Abrir no navegador</string>
     <string name="attach_action_share">Compartilhar link</string>
     <string name="attach_error_generic">Não foi possível criar o link. Verifique se você está online e tente novamente.</string>
+    <string name="web_plaintext_type">Roteador, TV, console de jogos</string>
     <string name="web_plaintext_brief">Para dispositivos que só aceitam um endereço de servidor DNS, como roteadores, TVs e consoles de jogos. Cada dispositivo recebe seu próprio endereço e aparece pelo nome na sua atividade.</string>
     <string name="web_plaintext_ipvsix_required">O roteador ou dispositivo precisa de IPv6 para esta configuração. Suporte para IPv4 será adicionado posteriormente.</string>
     <string name="web_plaintext_legacy">Sua conta utiliza uma etiqueta de dispositivo antiga que não é compatível com esta configuração. Por favor, entre em contato conosco.</string>

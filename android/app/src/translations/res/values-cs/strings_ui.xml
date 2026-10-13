@@ -754,6 +754,7 @@
     <string name="attach_action_open">Otevřít v prohlížeči</string>
     <string name="attach_action_share">Sdílet odkaz</string>
     <string name="attach_error_generic">Odkaz se nepodařilo vytvořit. Ujistěte se, že jste online, a zkuste to znovu.</string>
+    <string name="web_plaintext_type">Router, TV, herní konzole</string>
     <string name="web_plaintext_brief">Pro zařízení, která přijímají pouze adresu DNS serveru, jako jsou routery, TV a herní konzole. Každé zařízení dostane svou vlastní adresu a bude zobrazeno jménem ve vaší aktivitě.</string>
     <string name="web_plaintext_ipvsix_required">Pro toto nastavení je potřeba, aby router nebo zařízení podporovalo IPv6. Podpora IPv4 bude později.</string>
     <string name="web_plaintext_legacy">Váš účet používá starší označení zařízení, které toto nastavení nepodporuje. Kontaktujte nás prosím.</string>

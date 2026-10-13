@@ -753,6 +753,7 @@
     "attach action open": "ブラウザーで開く",
     "attach action share": "リンクを共有",
     "attach error generic": "リンクを作成できませんでした。オンラインであることを確認し、再度お試しください。",
+    "web plaintext type": "ルーター、テレビ、ゲームコンソール",
     "web plaintext brief": "ルーターやテレビ、ゲーム機など、DNSサーバーアドレスのみを必要とするデバイス用です。各端末ごとに専用アドレスが割り当てられ、アクティビティには名前が表示されます。",
     "web plaintext ipv6 required": "この設定にはルーターや端末がIPv6に対応している必要があります。IPv4対応は今後追加予定です。",
     "web plaintext legacy": "ご利用のアカウントはこの設定をサポートしない古い端末タグを使用しています。お問い合わせください。",
