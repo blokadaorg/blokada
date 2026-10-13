@@ -23,21 +23,38 @@ MAX_IDLE = float(os.environ.get("LOG_MAX_IDLE", "240"))
 MAX_BODY = 1 << 20
 ID_RE = re.compile(r"^[0-9a-f]{12}$")
 PORT_RE = re.compile(r"listening on localhost:(\d+)")
+MAX_RESTARTS = int(os.environ.get("FORWARDER_MAX_RESTARTS", "5"))
 
 
 class Forwarder:
-    """Owns the forwarder process; state is starting, ready or exited."""
+    """Owns the forwarder process; state is starting, ready or exited.
+
+    The device stream can drop mid-session, so the forwarder is restarted until
+    the session deadline, up to MAX_RESTARTS times.
+    """
 
     def __init__(self):
         self.state = "starting"
         self.serial = None
         self.code = None
+        self.restarts = 0
 
-    def start(self, argv):
-        proc = subprocess.Popen(
-            argv, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True
-        )
-        threading.Thread(target=self._pump, args=(proc,), daemon=True).start()
+    def start(self, argv_for, deadline):
+        threading.Thread(target=self._run, args=(argv_for, deadline), daemon=True).start()
+
+    def _run(self, argv_for, deadline):
+        while True:
+            proc = subprocess.Popen(
+                argv_for(int(deadline - time.time())),
+                stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True,
+            )
+            self._pump(proc)
+            if self.restarts >= MAX_RESTARTS or deadline - time.time() < 60:
+                self.state = "exited"
+                return
+            self.restarts += 1
+            self.state = "starting"
+            time.sleep(5)
 
     def _pump(self, proc):
         for line in proc.stdout:
@@ -49,7 +66,6 @@ class Forwarder:
                 os.environ["ANDROID_SERIAL"] = self.serial
                 self.state = "ready"
         self.code = proc.wait()
-        self.state = "exited"
 
 
 FWD = Forwarder()
@@ -146,14 +162,17 @@ class Handler(http.server.BaseHTTPRequestHandler):
         except (ValueError, UnicodeDecodeError) as e:
             self.close_connection = True
             return self.reply(400, f"bad request: {e}\n")
-        if FWD.state != "ready":
+        # The forwarder reports its port before adb has connected to it.
+        if FWD.state != "ready" or adb_state() != "device":
             return self.reply(503, f"device not ready: forwarder {FWD.state}\n")
         self.reply(200, start_job(cmd) + "\n")
 
     def do_GET(self):
         url = urllib.parse.urlsplit(self.path)
         if url.path == "/healthz":
-            return self.reply(200, f"forwarder={FWD.state}\nadb={adb_state()}\n")
+            return self.reply(
+                200, f"forwarder={FWD.state}\nadb={adb_state()}\nrestarts={FWD.restarts}\n"
+            )
         if url.path == "/log":
             return self.stream_log(urllib.parse.parse_qs(url.query))
         self.reply(404, "not found\n")
@@ -210,15 +229,16 @@ def main():
     os.makedirs(JOBS, exist_ok=True)
     os.makedirs(WORKDIR, exist_ok=True)
     cmd = os.environ.get("FORWARDER_CMD")
+    deadline = time.time() + int(os.environ.get("TTL", "900"))
     if cmd:
-        argv = shlex.split(cmd)
+        argv_for = lambda ttl: shlex.split(cmd)  # noqa: E731
     else:
-        argv = [
+        argv_for = lambda ttl: [  # noqa: E731
             sys.executable, "/app/adb_forwarder.py",
             "--device_session=" + os.environ["DEVICE_SESSION"],
-            "--ttl=" + os.environ.get("TTL", "900"),
+            "--ttl=" + str(max(ttl, 60)),
         ]
-    FWD.start(argv)
+    FWD.start(argv_for, deadline)
     Server(("", int(os.environ.get("PORT", "8080"))), Handler).serve_forever()
 
 

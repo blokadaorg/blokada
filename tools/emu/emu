@@ -331,6 +331,13 @@ cmd_ui() {
   pod_file "adb shell uiautomator dump /sdcard/emu.xml && adb pull /sdcard/emu.xml /tmp/out.xml" "${1:-ui.xml}" xml
 }
 
+cmd_status() {
+  load_state
+  pod_http GET /healthz
+  [ "$HTTP_CODE" = 200 ] || die "pod not reachable ($HTTP_CODE)"
+  printf 'session=%s\n%s\n' "$ID" "$HTTP_BODY"
+}
+
 cmd_down() {
   if [ -z "$SESSION" ]; then
     [ -f "$STATE" ] || { log "no session"; return 0; }
@@ -359,7 +366,7 @@ cmd_down() {
 usage() {
   cat >&2 <<'EOT'
 usage: emu up [--version 36] [--ttl 30m] | install <apk> | adb '<args>'
-       emu shot [file] | ui [file] | down
+       emu shot [file] | ui [file] | status | down
 EOT
   exit 2
 }
@@ -373,6 +380,7 @@ main() {
     adb) cmd_adb "$@" ;;
     shot) cmd_shot "$@" ;;
     ui) cmd_ui "$@" ;;
+    status) cmd_status ;;
     down) cmd_down ;;
     *) usage ;;
   esac

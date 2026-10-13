@@ -20,6 +20,7 @@ tools/emu/emu adb 'shell am start -n <pkg>/<activity>'
 tools/emu/emu adb 'shell input tap 540 1200'
 tools/emu/emu shot [file.png]                 # screenshot into the session, default ./shot.png
 tools/emu/emu ui [file.xml]                   # uiautomator dump, default ./ui.xml
+tools/emu/emu status                          # forwarder and adb state, and how often the device stream was restarted
 tools/emu/emu down                            # cancel the session, delete the pod, clear the bucket prefix
 ```
 
@@ -28,7 +29,7 @@ tools/emu/emu down                            # cancel the session, delete the p
 ## Workflow
 
 1. Build the mocked debug APK: `make build-android-six-debug-mocked`. It lands at `android/app/build/outputs/apk/six/debug/app-six-debug.apk`.
-2. Run `emu up` as a background command. It takes about 1 minute on a warm cluster and up to 5 on a cold one, and longer on the first run of a changed `tools/emu/pod` because the image is built with Cloud Build.
+2. Run `emu up` as a background command, only once the APK is built: a reserved device bills while it waits. It takes about 1 minute on a warm cluster and up to 5 on a cold one, and longer on the first run of a changed `tools/emu/pod` because the image is built with Cloud Build.
 3. `emu install <apk>`, launch with `emu adb 'shell am start -n org.blokada.sex/ui.MainActivity'`, drive the app with `emu adb`, check with `emu shot` and `emu ui`. Run slow commands as background commands.
 4. Always finish with `emu down`, also after a failure. Reserved devices are billed until the TTL ends. `emu up` cleans up after itself when it fails.
 
