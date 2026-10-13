@@ -2,7 +2,7 @@
 # Installs what an Android debug build needs in a Claude Code cloud session
 # (Ubuntu, x86_64, root): the app's JDK, the fvm release pinned for CI with the
 # Flutter version from common/.fvmrc, the Android SDK tools, the NDKs and the
-# compile platform. Gradle fetches the rest. Safe to rerun.
+# compile platform, and kubectl for tools/emu. Gradle fetches the rest. Safe to rerun.
 set -euo pipefail
 
 repo=$(cd "$(dirname "$0")/.." && pwd)
@@ -13,6 +13,14 @@ jdk=$(sed -n 's/^ *jvmToolchain *\([0-9]*\).*/\1/p' "$repo/android/app/build.gra
 if [ ! -d "/usr/lib/jvm/java-$jdk-openjdk-amd64" ]; then
   apt-get update -qq
   apt-get install -y -qq "openjdk-$jdk-jdk-headless" >/dev/null
+fi
+
+# kubectl for tools/emu, which reaches its device pod through the Kubernetes API.
+if ! command -v kubectl >/dev/null; then
+  kv=$(curl -fsSL --retry 3 https://dl.k8s.io/release/stable.txt)
+  curl -fsSL --retry 3 -o /tmp/kubectl "https://dl.k8s.io/release/$kv/bin/linux/amd64/kubectl"
+  echo "$(curl -fsSL --retry 3 "https://dl.k8s.io/release/$kv/bin/linux/amd64/kubectl.sha256")  /tmp/kubectl" | sha256sum -c -
+  install -m 0755 /tmp/kubectl "$bin/kubectl"
 fi
 
 action="$repo/.github/actions/setup-flutter/action.yml"
