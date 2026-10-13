@@ -253,7 +253,7 @@ EOF
 
 ensure_image() {
   local tag image
-  tag="$(cd "$HERE/pod" && find . -type f | LC_ALL=C sort | while read -r f; do sha "$f"; done | sha | cut -c1-12)"
+  tag="$(cd "$HERE/pod" && find . -type f -not -path '*/__pycache__/*' | LC_ALL=C sort | while read -r f; do sha "$f"; done | sha | cut -c1-12)"
   image="$REGION-docker.pkg.dev/$PROJECT/dev/emu-adb:$tag"
   if gcloud artifacts docker images describe "$image" >/dev/null 2>&1; then
     log "reusing image $tag"
