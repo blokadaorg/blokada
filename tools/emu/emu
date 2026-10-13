@@ -21,7 +21,7 @@ TOKEN="" TOKEN_AT=-1000
 
 load_project() {
   PROJECT="$(gcloud config get project 2>/dev/null)"
-  [ -n "$PROJECT" ] || die "no active gcloud project"
+  [ -n "$PROJECT" ] || die "no active gcloud project, set CLOUDSDK_CORE_PROJECT"
   BUCKET="$PROJECT-dev"
 }
 
@@ -41,6 +41,26 @@ dds() { # dds METHOD URL [BODY]
   [ "$1" = GET ] || data=(-H "Content-Type: application/json" -d "${3:-"{}"}")
   token
   curl -sS --fail-with-body --http1.1 -X "$1" -H "Authorization: Bearer $TOKEN" ${data[@]+"${data[@]}"} "$2"
+}
+
+# The session proxy 404s gcloud's %2F-encoded object paths, so downloads and
+# deletes use the XML API with plain paths.
+gcs_get() { # gcs_get <object> <file>
+  token
+  curl -sS --fail-with-body --http1.1 -H "Authorization: Bearer $TOKEN" \
+    -o "$2" "https://storage.googleapis.com/$BUCKET/$1"
+}
+
+gcs_rm_prefix() { # gcs_rm_prefix <prefix>
+  local names name
+  token
+  names="$(curl -sS --fail-with-body --http1.1 -H "Authorization: Bearer $TOKEN" \
+    "https://storage.googleapis.com/storage/v1/b/$BUCKET/o?prefix=$1&fields=items(name)" |
+    jget "'\\n'.join(i['name'] for i in d.get('items', []))")" || return 1
+  for name in $names; do
+    curl -sS --fail-with-body --http1.1 -X DELETE -H "Authorization: Bearer $TOKEN" \
+      "https://storage.googleapis.com/$BUCKET/$name" >/dev/null || return 1
+  done
 }
 
 sha() { if command -v sha256sum >/dev/null; then sha256sum "$@"; else shasum -a 256 "$@"; fi; }
@@ -164,6 +184,10 @@ cmd_up() {
       *) die "unknown option $1" ;;
     esac
   done
+  local c
+  for c in gcloud kubectl curl python3; do
+    command -v "$c" >/dev/null || die "$c not found"
+  done
   mkdir -p "$STATE_DIR"
   # Claim the state file atomically, so concurrent ups cannot both reserve.
   (set -C; : >"$STATE") 2>/dev/null || die "session exists, run: emu down"
@@ -276,8 +300,9 @@ cmd_install() {
   [ $# -eq 1 ] && [ -f "$1" ] || die "usage: emu install <apk>"
   load_state
   local obj
-  obj="gs://$BUCKET/emu/$ID/$(basename "$1")"
-  gcloud storage cp "$1" "$obj" >&2
+  obj="gs://$BUCKET/emu/$ID/app.apk"
+  # Composite uploads write temporary objects the proxy cannot address.
+  CLOUDSDK_STORAGE_PARALLEL_COMPOSITE_UPLOAD_ENABLED=False gcloud storage cp "$1" "$obj" >&2
   pod_run "gcs '$obj' /tmp/app.apk && adb install -r /tmp/app.apk"
 }
 
@@ -292,7 +317,7 @@ pod_file() { # pod_file <remote-producing-cmd> <local file> <ext>
   local obj
   obj="gs://$BUCKET/emu/$ID/out-$RANDOM.$3"
   pod_run "$1 && gcs /tmp/out.$3 '$obj'" >&2
-  gcloud storage cp "$obj" "$2" >&2
+  gcs_get "${obj#gs://"$BUCKET"/}" "$2"
   echo "$2"
 }
 
@@ -323,7 +348,7 @@ cmd_down() {
     kc delete pod,service "$NAME" -n "$NS" --ignore-not-found --wait=false >&2 || { log "pod delete failed"; failed=1; }
   fi
   if [ -n "$ID" ]; then
-    gcloud storage rm -r "gs://$BUCKET/emu/$ID/" >/dev/null 2>&1 || true
+    gcs_rm_prefix "emu/$ID/" || log "bucket cleanup failed, objects expire in 7 days"
   fi
   # Keep the state so a later emu down can retry.
   [ $failed -eq 0 ] || die "cleanup incomplete, run emu down again"
