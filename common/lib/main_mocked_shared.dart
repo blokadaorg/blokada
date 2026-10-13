@@ -1,6 +1,7 @@
 import 'package:common/mock_traffic.dart';
 import 'package:common/src/app_variants/family/module/family/family.dart';
 import 'package:common/src/core/core.dart';
+import 'package:common/src/features/onboard/domain/onboard.dart';
 import 'package:common/src/platform/account/account.dart';
 import 'package:common/src/platform/device/device.dart';
 import 'package:common/src/platform/perm/dnscheck.dart';
@@ -49,6 +50,14 @@ Future<void> seedDevAccount(Flavor flavor) async {
   }
 
   final isFamily = flavor == Flavor.family;
+
+  // Skip the v6 welcome screen; Family has no onboarding module.
+  if (!isFamily) {
+    final intro = Core.get<OnboardIntroValue>();
+    if (await intro.fetch(Markers.start) == null) {
+      await intro.change(Markers.start, "first");
+    }
+  }
   final type = isFamily ? 'family' : 'cloud';
 
   final persistence = Core.get<Persistence>(tag: Persistence.secure);

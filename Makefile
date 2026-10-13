@@ -24,6 +24,7 @@ ADAPTY_VER := 4_0_0
 	promote-ios publish-ios-testflight appstore-key-unpack appstore-key-clean fastlane-match \
 	ci-ios-signing \
 	build-android-family-debug build-android-six-debug \
+	build-android-six-debug-mocked build-android-family-debug-mocked \
 	build-android-family-quick build-android-six-quick \
 	build-android-family-debug-quick build-android-six-debug-quick \
 	gen regen android regen-android regen-ios \
@@ -385,6 +386,15 @@ build-android-family-debug: regen-android
 # Build android six .apk from scratch (debug)
 build-android-six-debug: regen-android
 	$(MAKE) -C android/ apk-six-debug
+
+# Debug .apk with the Flutter mocked path (see BUILDING.md)
+build-android-six-debug-mocked:
+	$(MAKE) -C common/ pub gen-android runner lib-debug-mocked MOCKED_FLAVOR=six
+	$(MAKE) -C android/ apk-six-debug
+
+build-android-family-debug-mocked:
+	$(MAKE) -C common/ pub gen-android runner lib-debug-mocked MOCKED_FLAVOR=family
+	$(MAKE) -C android/ apk-family-debug
 
 # Quick rebuild android family .apk (assumes flutter is built)
 build-android-family-debug-quick:

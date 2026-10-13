@@ -90,7 +90,8 @@ Future<void> _startMocked() async {
   final Flavor flavor = _mockedFlavor == "family" ? Flavor.family : Flavor.v6;
 
   final modules = Modules();
-  await modules.create(ActScreenplay(ActScenario.platformIsMocked, flavor, PlatformType.iOS));
+  final platform = io.Platform.isAndroid ? PlatformType.android : PlatformType.iOS;
+  await modules.create(ActScreenplay(ActScenario.platformIsMocked, flavor, platform));
 
   if (flavor == Flavor.family) {
     jsonUrl = "https://family.api.blocka.net";

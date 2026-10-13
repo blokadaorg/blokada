@@ -1,0 +1,357 @@
+#!/usr/bin/env bash
+# Android emulator from Google's Developer Device Platform for cloud sessions.
+# Usage: emu up|install|adb|shot|ui|down. See .agents/skills/emulator/SKILL.md.
+set -euo pipefail
+
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+STATE_DIR="${EMU_STATE_DIR:-$HOME/.cache/emu}"
+STATE="$STATE_DIR/session"
+NS=emu
+SA=device
+REGION=europe-west1
+MODEL=MediumPhone.arm
+# Go's HTTP/2 client does not work through the session egress proxy.
+export GODEBUG="${GODEBUG:+$GODEBUG,}http2client=0"
+
+die() { echo "emu: $*" >&2; exit 1; }
+log() { echo "emu: $*" >&2; }
+
+PROJECT="" ENDPOINT="" SESSION="" ID="" NAME="" BUCKET=""
+TOKEN="" TOKEN_AT=-1000
+
+load_project() {
+  PROJECT="$(gcloud config get project 2>/dev/null)"
+  [ -n "$PROJECT" ] || die "no active gcloud project"
+  BUCKET="$PROJECT-dev"
+}
+
+token() {
+  if [ $((SECONDS - TOKEN_AT)) -gt 600 ]; then
+    TOKEN="$(gcloud auth print-access-token)"
+    TOKEN_AT=$SECONDS
+  fi
+}
+
+jget() { # jget <python expr over d>; reads JSON on stdin
+  python3 -c "import json,sys; d=json.load(sys.stdin); print($1)"
+}
+
+dds() { # dds METHOD URL [BODY]
+  local data=()
+  [ "$1" = GET ] || data=(-H "Content-Type: application/json" -d "${3:-"{}"}")
+  token
+  curl -sS --fail-with-body --http1.1 -X "$1" -H "Authorization: Bearer $TOKEN" ${data[@]+"${data[@]}"} "$2"
+}
+
+sha() { if command -v sha256sum >/dev/null; then sha256sum "$@"; else shasum -a 256 "$@"; fi; }
+
+kc() {
+  token
+  # An empty kubeconfig, so no local context's CA applies to the endpoint.
+  KUBECONFIG=/dev/null kubectl --server "https://$ENDPOINT" --token "$TOKEN" "$@"
+}
+
+find_endpoint() {
+  local row name loc
+  row="$(gcloud container clusters list --filter=name=workbench \
+    --format='value(name,location)')"
+  [ -n "$row" ] || die "no workbench cluster in project $PROJECT"
+  read -r name loc <<<"$row"
+  ENDPOINT="$(gcloud container clusters describe "$name" --location "$loc" \
+    --format='value(controlPlaneEndpointsConfig.dnsEndpointConfig.endpoint)')"
+  [ -n "$ENDPOINT" ] || die "workbench has no DNS endpoint"
+}
+
+save_state() {
+  mkdir -p "$STATE_DIR"
+  printf 'PROJECT=%s\nENDPOINT=%s\nSESSION=%s\nID=%s\nNAME=%s\n' \
+    "$PROJECT" "$ENDPOINT" "$SESSION" "$ID" "$NAME" >|"$STATE"
+}
+
+load_state() {
+  [ -f "$STATE" ] || die "no active session, run: emu up"
+  # shellcheck disable=SC1090
+  . "$STATE"
+  BUCKET="$PROJECT-dev"
+}
+
+parse_ttl() { # 30m, 90s, 2h or bare seconds -> seconds
+  case "$1" in
+    *h) echo $((${1%h} * 3600)) ;;
+    *m) echo $((${1%m} * 60)) ;;
+    *s) echo "${1%s}" ;;
+    *) echo "$1" ;;
+  esac
+}
+
+pod_url() { # EMU_POD_BASE lets tests bypass the API server proxy
+  echo "${EMU_POD_BASE:-https://$ENDPOINT/api/v1/namespaces/$NS/services/http:$NAME:8080/proxy}$1"
+}
+
+# Pod HTTP call through the API server service proxy. Sets HTTP_CODE and
+# HTTP_BODY. Retries 503 (cold cluster, no endpoints yet) for up to 120 s.
+pod_http() { # pod_http METHOD PATH [curl args...]
+  local method=$1 path=$2 out try=0
+  shift 2
+  out="$(mktemp)"
+  while :; do
+    token
+    HTTP_CODE="$(curl -sS --http1.1 --max-time 540 -X "$method" \
+      -H "Authorization: Bearer $TOKEN" -o "$out" -w '%{http_code}' \
+      "$@" "$(pod_url "$path")" || true)"
+    [ -n "$HTTP_CODE" ] || HTTP_CODE=000
+    if [ "$HTTP_CODE" = 503 ] && [ $try -lt 60 ]; then
+      try=$((try + 1))
+      sleep 2
+      continue
+    fi
+    HTTP_BODY="$(cat "$out")"
+    rm -f "$out"
+    return 0
+  done
+}
+
+# Run a shell command on the pod and follow its log until "EXIT <id> <code>".
+# A stream that ends without EXIT is a cut connection: reconnect at the offset.
+pod_run() {
+  local id off=0 tmp size last cut fails=0 started
+  pod_http POST /run --data-binary "$1"
+  [ "$HTTP_CODE" = 200 ] || die "run failed ($HTTP_CODE): $HTTP_BODY"
+  id="$HTTP_BODY"
+  tmp="$(mktemp)"
+  while :; do
+    started=$SECONDS
+    token
+    HTTP_CODE="$(curl -sS --http1.1 --max-time 540 -H "Authorization: Bearer $TOKEN" \
+      -o "$tmp" -w '%{http_code}' \
+      "$(pod_url "/log?id=$id&offset=$off")" || true)"
+    if [ "$HTTP_CODE" = 404 ]; then
+      rm -f "$tmp"
+      die "job lost (pod restarted?)"
+    fi
+    if [ "$HTTP_CODE" != 200 ]; then
+      fails=$((fails + 1))
+      [ $fails -le 60 ] || { rm -f "$tmp"; die "log stream failed ($HTTP_CODE)"; }
+      sleep 2
+      continue
+    fi
+    fails=0
+    size=$(($(wc -c <"$tmp")))
+    last="$(tail -c 40 "$tmp" | tr -d '\0' | tail -n 1)"
+    if [[ $last =~ ^EXIT\ $id\ (-?[0-9]+)$ ]] && [ $size -ge $((${#last} + 2)) ]; then
+      cut=$((size - ${#last} - 2))
+      [ $cut -eq 0 ] || head -c $cut "$tmp"
+      rm -f "$tmp"
+      return "${BASH_REMATCH[1]}"
+    fi
+    cat "$tmp"
+    off=$((off + size))
+    [ $((SECONDS - started)) -ge 3 ] || sleep 1
+  done
+}
+
+up_cleanup() {
+  local rc=$?
+  [ $rc -eq 0 ] || { log "up failed, cleaning up"; cmd_down || true; }
+}
+
+cmd_up() {
+  local version=36 ttl=1800 secs body expire remaining image state sj
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      --version) version="$2"; shift 2 ;;
+      --ttl) ttl="$2"; shift 2 ;;
+      *) die "unknown option $1" ;;
+    esac
+  done
+  mkdir -p "$STATE_DIR"
+  # Claim the state file atomically, so concurrent ups cannot both reserve.
+  (set -C; : >"$STATE") 2>/dev/null || die "session exists, run: emu down"
+  trap up_cleanup EXIT
+  secs="$(parse_ttl "$ttl")"
+  load_project
+  find_endpoint
+
+  log "reserving $MODEL / Android $version for ${secs}s"
+  body="$(printf '{"androidDevice":{"androidModelId":"%s","androidVersionId":"%s"},"ttl":"%ss","clientInfo":{"client":"skills/cloud/developer-device-platform-basics"}}' \
+    "$MODEL" "$version" "$secs")"
+  SESSION="$(dds POST "https://devicestreaming.googleapis.com/v1/projects/$PROJECT/deviceSessions" "$body" \
+    | jget "d['name']")" || die "reserve failed"
+  ID="${SESSION##*/}"
+  NAME="emu-$(echo "$ID" | tr 'A-Z_' 'a-z-' | tr -cd 'a-z0-9-' | cut -c1-50)"
+  save_state
+
+  for _ in $(seq 1 40); do
+    sj="$(dds GET "https://devicestreaming.googleapis.com/v1/$SESSION")"
+    state="$(jget "d.get('state','')" <<<"$sj")"
+    [ "$state" != ACTIVE ] || break
+    case "$state" in EXPIRED | FINISHED | CANCELLED | ERROR) die "session state $state" ;; esac
+    sleep 5
+  done
+  [ "$state" = ACTIVE ] || die "session not ACTIVE after 200 s (state $state)"
+  expire="$(jget "d['expireTime']" <<<"$sj")"
+  remaining="$(python3 - "$expire" <<'EOF'
+import datetime, re, sys
+t = re.sub(r"\.\d+", "", sys.argv[1]).replace("Z", "+00:00")
+e = datetime.datetime.fromisoformat(t)
+print(max(60, int((e - datetime.datetime.now(datetime.timezone.utc)).total_seconds())))
+EOF
+)"
+
+  image="$(ensure_image)"
+  ensure_k8s_base
+  log "starting device pod $NAME"
+  kc apply -f - <<EOF
+apiVersion: v1
+kind: Pod
+metadata:
+  name: $NAME
+  namespace: $NS
+  labels: {app: emu-adb, emu-session: $NAME}
+  annotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+spec:
+  serviceAccountName: $SA
+  restartPolicy: Never
+  terminationGracePeriodSeconds: 5
+  activeDeadlineSeconds: $((remaining + 600))
+  containers:
+  - name: adb
+    image: $image
+    env:
+    - {name: DEVICE_SESSION, value: "$SESSION"}
+    - {name: TTL, value: "$remaining"}
+    ports: [{containerPort: 8080}]
+    resources:
+      requests: {cpu: 250m, memory: 512Mi, ephemeral-storage: 4Gi}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: $NAME
+  namespace: $NS
+spec:
+  selector: {emu-session: $NAME}
+  ports: [{port: 8080, targetPort: 8080}]
+EOF
+
+  log "waiting for the device to come online"
+  for _ in $(seq 1 60); do
+    pod_http GET /healthz
+    state="$HTTP_BODY"
+    case "$state" in
+      *adb=device*) break ;;
+      *forwarder=exited*) die "forwarder exited" ;;
+    esac
+    [ "$HTTP_CODE" = 200 ] || state="http $HTTP_CODE"
+    sleep 5
+  done
+  case "$state" in *adb=device*) ;; *) die "device not online: $state" ;; esac
+  trap - EXIT
+  log "ready: session $ID, Android $version, expires in ${remaining}s"
+}
+
+ensure_image() {
+  local tag image
+  tag="$(cd "$HERE/pod" && find . -type f -not -path '*/__pycache__/*' | LC_ALL=C sort | while read -r f; do sha "$f"; done | sha | cut -c1-12)"
+  image="$REGION-docker.pkg.dev/$PROJECT/dev/emu-adb:$tag"
+  if gcloud artifacts docker images describe "$image" >/dev/null 2>&1; then
+    log "reusing image $tag"
+  else
+    log "building image $tag (a few minutes)"
+    gcloud builds submit "$HERE/pod" --tag "$image" \
+      --service-account "projects/$PROJECT/serviceAccounts/dev-builder@$PROJECT.iam.gserviceaccount.com" \
+      --gcs-source-staging-dir "gs://$PROJECT-dev/source" \
+      --gcs-log-dir "gs://$PROJECT-dev/logs" --region "$REGION" >&2 || return 1
+  fi
+  echo "$image"
+}
+
+ensure_k8s_base() {
+  kc get namespace "$NS" >/dev/null 2>&1 || kc create namespace "$NS" >&2
+  kc get serviceaccount "$SA" -n "$NS" >/dev/null 2>&1 || kc create serviceaccount "$SA" -n "$NS" >&2
+}
+
+cmd_install() {
+  [ $# -eq 1 ] && [ -f "$1" ] || die "usage: emu install <apk>"
+  load_state
+  local obj
+  obj="gs://$BUCKET/emu/$ID/$(basename "$1")"
+  gcloud storage cp "$1" "$obj" >&2
+  pod_run "gcs '$obj' /tmp/app.apk && adb install -r /tmp/app.apk"
+}
+
+cmd_adb() {
+  [ $# -ge 1 ] || die "usage: emu adb '<args>'"
+  load_state
+  pod_run "adb $*"
+}
+
+# Run a pod command that leaves one file, upload it to the bucket, fetch it here.
+pod_file() { # pod_file <remote-producing-cmd> <local file> <ext>
+  local obj
+  obj="gs://$BUCKET/emu/$ID/out-$RANDOM.$3"
+  pod_run "$1 && gcs /tmp/out.$3 '$obj'" >&2
+  gcloud storage cp "$obj" "$2" >&2
+  echo "$2"
+}
+
+cmd_shot() {
+  load_state
+  pod_file "adb shell screencap -p /sdcard/emu.png && adb pull /sdcard/emu.png /tmp/out.png" "${1:-shot.png}" png
+}
+
+cmd_ui() {
+  load_state
+  pod_file "adb shell uiautomator dump /sdcard/emu.xml && adb pull /sdcard/emu.xml /tmp/out.xml" "${1:-ui.xml}" xml
+}
+
+cmd_down() {
+  if [ -z "$SESSION" ]; then
+    [ -f "$STATE" ] || { log "no session"; return 0; }
+    load_state
+  fi
+  [ -n "$SESSION" ] || { rm -f "$STATE"; log "released"; return 0; }
+  local failed=0
+  if ! dds POST "https://devicestreaming.googleapis.com/v1/$SESSION:cancel" >/dev/null; then
+    case "$(dds GET "https://devicestreaming.googleapis.com/v1/$SESSION" | jget "d.get('state','')" || true)" in
+      FINISHED | EXPIRED | CANCELLED) ;;
+      *) log "cancel failed"; failed=1 ;;
+    esac
+  fi
+  if [ -n "$NAME" ]; then
+    kc delete pod,service "$NAME" -n "$NS" --ignore-not-found --wait=false >&2 || { log "pod delete failed"; failed=1; }
+  fi
+  if [ -n "$ID" ]; then
+    gcloud storage rm -r "gs://$BUCKET/emu/$ID/" >/dev/null 2>&1 || true
+  fi
+  # Keep the state so a later emu down can retry.
+  [ $failed -eq 0 ] || die "cleanup incomplete, run emu down again"
+  rm -f "$STATE"
+  log "released"
+}
+
+usage() {
+  cat >&2 <<'EOT'
+usage: emu up [--version 36] [--ttl 30m] | install <apk> | adb '<args>'
+       emu shot [file] | ui [file] | down
+EOT
+  exit 2
+}
+
+main() {
+  local sub="${1:-}"
+  [ $# -eq 0 ] || shift
+  case "$sub" in
+    up) cmd_up "$@" ;;
+    install) cmd_install "$@" ;;
+    adb) cmd_adb "$@" ;;
+    shot) cmd_shot "$@" ;;
+    ui) cmd_ui "$@" ;;
+    down) cmd_down ;;
+    *) usage ;;
+  esac
+}
+
+# Sourced by the tests without running.
+if [ "${BASH_SOURCE[0]}" = "$0" ]; then main "$@"; fi
