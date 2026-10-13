@@ -162,7 +162,8 @@ class Handler(http.server.BaseHTTPRequestHandler):
         except (ValueError, UnicodeDecodeError) as e:
             self.close_connection = True
             return self.reply(400, f"bad request: {e}\n")
-        if FWD.state != "ready":
+        # The forwarder reports its port before adb has connected to it.
+        if FWD.state != "ready" or adb_state() != "device":
             return self.reply(503, f"device not ready: forwarder {FWD.state}\n")
         self.reply(200, start_job(cmd) + "\n")
 
