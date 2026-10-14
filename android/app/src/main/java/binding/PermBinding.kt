@@ -81,8 +81,7 @@ object PermBinding : PermOps {
     }
 
     override fun doNotificationEnabled(callback: (Result<Boolean>) -> Unit) {
-        // TODO: actual perms?
-        callback(Result.success(false))
+        callback(Result.success(notification.hasPermissions()))
     }
 
     override fun doVpnEnabled(callback: (Result<Boolean>) -> Unit) {
@@ -100,11 +99,17 @@ object PermBinding : PermOps {
         callback(Result.success(Unit))
     }
 
+    /**
+     * Best effort: Dart awaits this before continuing flows such as Safari
+     * activation, so it always completes, even if the ask itself fails.
+     */
     override fun doAskNotificationPerms(callback: (Result<Unit>) -> Unit) {
-        scope.launch {
+        try {
             permsRepo.maybeDisplayNotificationPermsDialog()
-            callback(Result.success(Unit))
+        } catch (ex: Exception) {
+            Logger.e("PermBinding", "Could not ask for notification permission".cause(ex))
         }
+        callback(Result.success(Unit))
     }
 
     override fun doAskVpnPerms(callback: (Result<Unit>) -> Unit) {
