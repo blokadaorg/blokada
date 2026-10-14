@@ -75,4 +75,11 @@ void main() {
   test("Placement.winback id matches the Adapty dashboard placement", () {
     expect(Placement.winback.id, "winback");
   });
+
+  test("Placement.primary is the flow placement on Blokada 6 and the paywall one on Family", () {
+    Core.act = ActScreenplay(ActScenario.test, Flavor.v6, PlatformType.iOS);
+    expect(Placement.primary.id, "flow-primary");
+    Core.act = ActScreenplay(ActScenario.test, Flavor.family, PlatformType.iOS);
+    expect(Placement.primary.id, "primary");
+  });
 }
