@@ -9,9 +9,16 @@ enum SupportEvent {
 }
 
 class SupportMessage {
+  static int _nextId = 0;
+
   String text;
   bool isMe;
   DateTime when;
+
+  // The chat controller rejects duplicate ids, and the timestamp is not
+  // unique: a local command and its reply often land in the same millisecond.
+  // Not persisted; each loaded message gets a fresh one.
+  final String id = "msg-${_nextId++}";
 
   SupportMessage(this.text, this.when, {required this.isMe});
 
