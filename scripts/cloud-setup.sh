@@ -13,9 +13,11 @@ repo=$(cd "$(dirname "$0")/.." && pwd)
 bin=/usr/local/bin
 sdk=/opt/android-sdk
 sdkmanager="$sdk/cmdline-tools/latest/bin/sdkmanager"
-fvmrc="$repo/common/.fvmrc"
+flutter_version=$(jq -r .flutter "$repo/common/.fvmrc")
+# Where a Flutter checkout pins the NDK its Gradle plugin builds with.
+flutter_ext=packages/flutter_tools/gradle/src/main/kotlin/FlutterExtension.kt
 
-ndk_versions() { # ndk_versions <file>...: ndkVersion values the given build files pin
+ndk_versions() { # ndk_versions [file]...: ndkVersion values the given build files (or stdin) pin
   sed -n 's/.*ndkVersion[^=]*= *"\([^"]*\)".*/\1/p' "$@"
 }
 
@@ -52,7 +54,7 @@ print(next(a.find("complete/url").text for a in p.iter("archive") if a.findtext(
   mv /tmp/cmdline-tools "$sdk/cmdline-tools/latest"
 }
 
-# The NDKs, the compile platform and platform-tools in one sdkmanager call.
+# platform-tools, then the NDKs and the compile platform in one sdkmanager call.
 # Flutter's NDK version is read from its source at the pinned tag, so this need
 # not wait for the Flutter checkout; finish_ndks covers a failed fetch.
 install_android() {
@@ -61,18 +63,20 @@ install_android() {
   install_cmdline_tools
   wait "$jdk_job"
 
-  local flutter_version flutter_ndk api
-  flutter_version=$(jq -r .flutter "$fvmrc")
+  # Separately and first, so adb (tools/emu) works even if an NDK install fails.
+  "$sdkmanager" platform-tools >/dev/null
+  ln -sf "$sdk/platform-tools/adb" "$bin/adb"
+
+  local flutter_ndk api
   flutter_ndk=$(curl -fsSL --retry 3 \
-    "https://raw.githubusercontent.com/flutter/flutter/$flutter_version/packages/flutter_tools/gradle/src/main/kotlin/FlutterExtension.kt" |
-    ndk_versions /dev/stdin) || flutter_ndk=""
+    "https://raw.githubusercontent.com/flutter/flutter/$flutter_version/$flutter_ext" |
+    ndk_versions) || flutter_ndk=""
   mapfile -t ndks < <({ echo "$flutter_ndk"; ndk_versions "$repo/android/build.gradle"; } | sed '/^$/d' | sort -u)
   # Gradle's SDK installer fails on the current catalog, so install the compile
   # platform here too. Newer platforms carry a minor version (android-37.0).
   api=$(sed -n 's/^ *compileSdk *\([0-9]*\).*/\1/p' "$repo/android/app/build.gradle" | head -1)
-  "$sdkmanager" platform-tools "${ndks[@]/#/ndk;}" "platforms;android-$api.0" >/dev/null ||
-    "$sdkmanager" platform-tools "${ndks[@]/#/ndk;}" "platforms;android-$api" >/dev/null
-  ln -sf "$sdk/platform-tools/adb" "$bin/adb"
+  "$sdkmanager" "${ndks[@]/#/ndk;}" "platforms;android-$api.0" >/dev/null ||
+    "$sdkmanager" "${ndks[@]/#/ndk;}" "platforms;android-$api" >/dev/null
 }
 
 install_flutter() {
@@ -89,7 +93,7 @@ install_flutter() {
 
   cd "$repo/common"
   # An explicit version keeps fvm from rewriting .fvmrc.
-  fvm install "$(jq -r .flutter "$fvmrc")"
+  fvm install "$flutter_version"
   fvm flutter config --android-sdk "$sdk" >/dev/null
   fvm flutter precache --android
 
@@ -104,7 +108,7 @@ install_flutter() {
 finish_ndks() {
   local flutter_root missing=()
   flutter_root=$(readlink -f "$bin/flutter" | sed 's#/bin/flutter$##')
-  for v in $(ndk_versions "$flutter_root/packages/flutter_tools/gradle/src/main/kotlin/FlutterExtension.kt"); do
+  for v in $(ndk_versions "$flutter_root/$flutter_ext"); do
     [ -d "$sdk/ndk/$v" ] || missing+=("ndk;$v")
   done
   [ ${#missing[@]} -eq 0 ] || "$sdkmanager" "${missing[@]}" >/dev/null
