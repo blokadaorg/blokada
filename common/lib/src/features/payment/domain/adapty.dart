@@ -1,5 +1,8 @@
 part of 'payment.dart';
 
+const _embeddedSheetMountCheck = Duration(milliseconds: 700);
+const _embeddedSheetMountAttempts = 3;
+
 // Currently we have two Adapty SDK integrations, hence the interface.
 // We are waiting for the flutter SDK to add support for android prorate modes.
 // After that, we can drop the android SDK.
@@ -7,6 +10,8 @@ part of 'payment.dart';
 class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIFlowsEventsObserver {
   late final _stage = Core.get<StageStore>();
   late final _actor = Core.get<PaymentActor>(); // Circular dep
+  late final _modal = Core.get<CurrentModalValue>();
+  late final _modalWidget = Core.get<CurrentModalWidgetValue>();
 
   late final _adapty = Adapty();
   late final _adaptyUi = AdaptyUI();
@@ -18,6 +23,33 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIFlows
   // tell an app-initiated dismissal (already reported to the actor, possibly
   // as an error) from one the user or the flow performed natively.
   String? _dismissingViewId;
+
+  // Wide iOS windows host the flow in our own floating sheet (see
+  // AdaptyEmbeddedPaywallSheet) so its width is capped like the Android tablet
+  // dialog; Adapty's presenter always covers the whole screen. Its events
+  // still arrive through this observer, the SDK forwards them for embedded
+  // views too.
+  AdaptyFlow? _embeddedFlow;
+  String? _embeddedFlowForPlacementId;
+  bool _isEmbeddedPaywallVisible = false;
+  // The mounted sheet of the current open, once the sheet host has shown it.
+  _AdaptyEmbeddedPaywallSheetState? _embeddedSheet;
+  // Bumped per embedded open. Each sheet carries the value it was built for,
+  // so a sheet of an earlier open (still animating out, or shown late by the
+  // host) is never mistaken for the current one.
+  int _embeddedOpenSeq = 0;
+
+  // Ids of views created through createFlowView. Any other view reporting
+  // events is an embedded one, which must never be dismissed through Adapty.
+  final _presentedViewIds = <String>{};
+
+  bool _useEmbeddedSheet() {
+    if (Core.act.platform != PlatformType.iOS) return false;
+    final view = WidgetsBinding.instance.platformDispatcher.implicitView;
+    if (view == null) return false;
+    // Same boundary the sheet host uses to float a sheet instead of docking it.
+    return view.physicalSize.width / view.devicePixelRatio >= minWidthFloatingSheet;
+  }
 
   void _dropCachedView() {
     _paymentView = null;
@@ -71,12 +103,19 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIFlows
 
   @override
   preload(Marker m, Placement placement) async {
+    if (_useEmbeddedSheet()) {
+      _embeddedFlow = await _fetchFlow(m, placement);
+      _embeddedFlowForPlacementId = placement.id;
+      return;
+    }
     _paymentView = await _createPaywall(m, placement);
     _paymentViewForPlacementId = placement.id;
   }
 
   @override
   showPaymentScreen(Marker m, Placement placement, {bool forceReload = false}) async {
+    if (_useEmbeddedSheet()) return await _showEmbedded(m, placement, forceReload);
+
     if (forceReload || _paymentViewForPlacementId != placement.id || _paymentView == null) {
       _paymentView = await _createPaywall(m, placement);
       _paymentViewForPlacementId = placement.id;
@@ -92,8 +131,86 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIFlows
     }
   }
 
+  Future<void> _showEmbedded(Marker m, Placement placement, bool forceReload) async {
+    // Already on screen (e.g. a double tap): a second request would be dropped
+    // by the busy sheet host and then given up on, closing the visible one.
+    if (_isEmbeddedPaywallVisible && _embeddedSheet != null) return;
+
+    if (forceReload || _embeddedFlowForPlacementId != placement.id || _embeddedFlow == null) {
+      _embeddedFlow = await _fetchFlow(m, placement);
+      _embeddedFlowForPlacementId = placement.id;
+    }
+    final flow = _embeddedFlow!;
+    // Like a presented view, fetch again for the next open.
+    _embeddedFlow = null;
+    _embeddedFlowForPlacementId = null;
+
+    _isEmbeddedPaywallVisible = true;
+    _embeddedSheet = null;
+    final seq = ++_embeddedOpenSeq;
+    await _requestEmbeddedSheet(m, flow, seq);
+    unawaited(_ensureEmbeddedSheetMounted(m, flow, seq));
+  }
+
+  Future<void> _requestEmbeddedSheet(Marker m, AdaptyFlow flow, int seq) async {
+    // Modal first: the sheet host reads it when the widget arrives and keeps
+    // this sheet from being dragged away mid-purchase.
+    await _modal.change(m, Modal.adaptyPaywall);
+    await _modalWidget.change(
+        m, (context) => AdaptyEmbeddedPaywallSheet(channel: this, flow: flow, openSeq: seq));
+  }
+
+  // The sheet host drops a request that arrives while another sheet is still
+  // on screen (e.g. the weekly sheet closing itself to open the paywall).
+  // Ask again until ours mounts; otherwise the actor stays "opened" forever.
+  Future<void> _ensureEmbeddedSheetMounted(Marker m, AdaptyFlow flow, int seq) async {
+    for (var attempt = 0; attempt < _embeddedSheetMountAttempts; attempt++) {
+      await Future.delayed(_embeddedSheetMountCheck);
+      if (seq != _embeddedOpenSeq || !_isEmbeddedPaywallVisible || _embeddedSheet != null) return;
+      await _requestEmbeddedSheet(m, flow, seq);
+    }
+    await Future.delayed(_embeddedSheetMountCheck);
+    if (seq != _embeddedOpenSeq || !_isEmbeddedPaywallVisible || _embeddedSheet != null) return;
+    log(m).e(msg: "Adapty: embedded paywall sheet never mounted, giving up");
+    // Not a payment error the user caused: just let the paywall be opened again.
+    await closePaymentScreen(false);
+  }
+
+  void handleEmbeddedPaywallMounted(_AdaptyEmbeddedPaywallSheetState sheet) {
+    if (sheet.widget.openSeq == _embeddedOpenSeq && _isEmbeddedPaywallVisible) {
+      _embeddedSheet = sheet;
+      return;
+    }
+    // Shown by the host after its open was already closed or replaced.
+    WidgetsBinding.instance.addPostFrameCallback((_) => sheet.dismiss());
+  }
+
+  // The sheet went away without closePaymentScreen (tap outside, back
+  // gesture): report the close, or the actor keeps thinking it is open. Only
+  // the current open's sheet counts; an earlier one finishing its exit
+  // animation must not close a paywall that was just reopened.
+  void handleEmbeddedPaywallDisposed(_AdaptyEmbeddedPaywallSheetState sheet) {
+    if (_embeddedSheet != sheet) return;
+    _embeddedSheet = null;
+    if (!_isEmbeddedPaywallVisible) return;
+    unawaited(closePaymentScreen(false));
+  }
+
   @override
   closePaymentScreen(bool isError, {AdaptyUIFlowView? view}) async {
+    if (_isEmbeddedPaywallVisible || (view != null && !_presentedViewIds.contains(view.id))) {
+      // An embedded view is owned by our sheet: pop the sheet, never ask
+      // Adapty to dismiss it.
+      // Cleared before popping, so the sheet's dispose does not report again.
+      _isEmbeddedPaywallVisible = false;
+      // Pop our sheet directly. With no sheet mounted yet there is nothing to
+      // pop, and clearing the shared modal value instead would make the host
+      // pop whatever other sheet is on screen; a late mount dismisses itself.
+      _embeddedSheet?.dismiss();
+      await _actor.handleScreenClosed(Markers.ui, isError: isError);
+      return;
+    }
+
     final dismissing = view ?? _paymentView;
     // Only invalidate the cache when it holds the view being dismissed —
     // preload() may have already cached a fresh view for another placement.
@@ -110,11 +227,13 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIFlows
     // be a localization id as configured in the dashboard (bare language code,
     // e.g. `es`): unlike the 3.x fetch-time matching, 4.0 resolves it with an
     // exact lookup, so a region-tagged `es_es` silently falls back to English.
-    return await _adaptyUi.createFlowView(
+    final view = await _adaptyUi.createFlowView(
       flow: flow,
       locale: I18n.languageOnly,
       preloadProducts: false,
     );
+    _presentedViewIds.add(view.id);
+    return view;
   }
 
   Future<AdaptyFlow> _fetchFlow(Marker m, Placement placement) async {
@@ -174,6 +293,17 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIFlows
   // account, not the store account being restored, so they can't tell those
   // apart. See issue-tracker #395.
   Future<void> _showRestoreNotActive(AdaptyUIFlowView view) async {
+    // The Adapty dialog only resolves views Adapty presented; an embedded one
+    // sits in our own sheet, where a regular dialog renders on top.
+    final sheet = _embeddedSheet;
+    if (sheet != null && !_presentedViewIds.contains(view.id)) {
+      sheet.showMessage(
+        title: "payment action restore".i18n,
+        content: "error restore not found".i18n,
+        closeTitle: "universal action close".i18n,
+      );
+      return;
+    }
     try {
       await view.showDialog(
         title: "payment action restore".i18n,
@@ -254,6 +384,8 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIFlows
 
   @override
   void flowViewDidDisappear(AdaptyUIFlowView view) {
+    // The sheet owns an embedded view's lifecycle and reports its close.
+    if (!_presentedViewIds.remove(view.id)) return;
     // Since 4.0 a dismissed view is released natively and cannot be presented
     // again. This fires for every dismissal path, including swipe-down which
     // bypasses closePaymentScreen; drop the cache so the next open recreates
