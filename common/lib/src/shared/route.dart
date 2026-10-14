@@ -9,6 +9,7 @@ class StandardRoute extends MaterialWithModalsPageRoute {
       : super(builder: builder, settings: settings);
 
   late TopBarController ctrl;
+  bool _listeningToSecondary = false;
 
   @override
   Duration get transitionDuration => const Duration(milliseconds: 500);
@@ -24,9 +25,12 @@ class StandardRoute extends MaterialWithModalsPageRoute {
       Animation<double> secondaryAnimation, Widget child) {
     ctrl = Provider.of<TopBarController>(context, listen: false);
 
-    secondaryAnimation.addListener(_updateTopBar);
+    // buildTransitions runs on every rebuild; listen once, stop in dispose.
+    if (!_listeningToSecondary) {
+      secondaryAnimation.addListener(_updateTopBar);
+      _listeningToSecondary = true;
+    }
 
-    // Use a builder that removes the listener when the animation widget disposes
     return AnimatedBuilder(
       animation: secondaryAnimation,
       builder: (context, c) {
@@ -38,8 +42,8 @@ class StandardRoute extends MaterialWithModalsPageRoute {
   }
 
   @override
-  bool didPop(dynamic result) {
-    animation?.removeListener(_updateTopBar);
-    return super.didPop(result);
+  void dispose() {
+    secondaryAnimation?.removeListener(_updateTopBar);
+    super.dispose();
   }
 }

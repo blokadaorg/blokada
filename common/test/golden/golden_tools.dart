@@ -1,11 +1,13 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:common/modules.dart';
+import 'package:common/src/app_variants/v6/widget/main_screen.dart';
 import 'package:common/src/core/core.dart';
+import 'package:common/src/features/api/domain/api.dart';
 import 'package:common/src/features/env/domain/env.dart';
 import 'package:common/src/features/plus/domain/keypair/keypair.dart';
 import 'package:common/src/platform/plus/plus.dart';
-import 'package:common/src/app_variants/v6/widget/main_screen.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/app.dart';
 import 'package:common/src/shared/ui/top_bar.dart';
@@ -14,58 +16,87 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'fake_http.dart';
+
 /// Pixel size of the emulator the screenshots were taken on (MediumPhone, 420dpi).
 const phoneSize = Size(1080, 2400);
 const phoneDpr = 2.625;
 
+/// Goldens are generated on Linux; macOS renders text and anti-aliasing
+/// slightly differently, so comparisons there would always fail.
+final goldenSkip = Platform.isLinux ? null : 'Goldens are generated and compared on Linux only';
+
 bool _fontsLoaded = false;
 
+Directory _flutterRoot() {
+  final env = Platform.environment['FLUTTER_ROOT'];
+  if (env != null && env.isNotEmpty) return Directory(env);
+  // flutter_tester lives in <root>/bin/cache/artifacts/engine/<platform>/.
+  var dir = File(Platform.resolvedExecutable).parent;
+  while (dir.parent.path != dir.path) {
+    if (Directory('${dir.path}/bin/cache/artifacts/material_fonts').existsSync()) return dir;
+    dir = dir.parent;
+  }
+  throw StateError('Flutter SDK not found; set FLUTTER_ROOT');
+}
+
+/// The package root that pubspec.lock resolved, from .dart_tool/package_config.json.
+Directory _packageRoot(String name) {
+  final config = jsonDecode(File('.dart_tool/package_config.json').readAsStringSync());
+  final pkg = (config['packages'] as List).firstWhere((p) => p['name'] == name,
+      orElse: () => throw StateError('$name missing from package_config.json; run pub get'));
+  return Directory.fromUri(Uri.parse(pkg['rootUri'] as String));
+}
+
 /// Tests render text with a placeholder font unless real fonts are registered.
-/// Roboto (the Android system font) and the Material icons ship with the Flutter SDK.
+/// Roboto (the Android system font) and the Material icons ship with the Flutter SDK;
+/// Cupertino icons come from the cupertino_icons version pinned in pubspec.lock.
 Future<void> loadFonts() async {
   if (_fontsLoaded) return;
-  final root = Platform.environment['FLUTTER_ROOT'] ??
-      File(Platform.resolvedExecutable).parent.parent.parent.parent.parent.path;
-  final dir = Directory('$root/bin/cache/artifacts/material_fonts');
+  final fonts = '${_flutterRoot().path}/bin/cache/artifacts/material_fonts';
 
-  Future<void> load(String family, Iterable<File> files) async {
+  Future<void> load(String family, Iterable<String> paths) async {
     final loader = FontLoader(family);
-    for (final f in files) {
-      loader.addFont(Future.value(ByteData.sublistView(await f.readAsBytes())));
+    for (final path in paths) {
+      loader.addFont(Future.value(ByteData.sublistView(await File(path).readAsBytes())));
     }
     await loader.load();
   }
 
-  final all = dir.listSync().whereType<File>().toList();
-  await load('Roboto', all.where((f) => f.path.contains('/Roboto-') && f.path.endsWith('.ttf')));
-  await load('MaterialIcons', all.where((f) => f.path.endsWith('MaterialIcons-Regular.otf')));
-
-  // Icon fonts from packages are registered under "packages/<name>/<family>".
-  final pubCache = Platform.environment['PUB_CACHE'] ?? '${Platform.environment['HOME']}/.pub-cache';
-  final cupertino = Directory('$pubCache/hosted/pub.dev')
+  final roboto = Directory(fonts)
       .listSync()
-      .whereType<Directory>()
-      .where((d) => d.path.contains('/cupertino_icons-'))
-      .map((d) => File('${d.path}/assets/CupertinoIcons.ttf'))
-      .where((f) => f.existsSync());
-  if (cupertino.isNotEmpty) {
-    await load('packages/cupertino_icons/CupertinoIcons', [cupertino.last]);
-  }
+      .map((f) => f.path)
+      .where((p) => p.contains('/Roboto-') && p.endsWith('.ttf'))
+      .toList()
+    ..sort();
+  await load('Roboto', roboto);
+  await load('MaterialIcons', ['$fonts/MaterialIcons-Regular.otf']);
+  // Icon fonts from packages are registered under "packages/<name>/<family>".
+  await load('packages/cupertino_icons/CupertinoIcons',
+      ['${_packageRoot('cupertino_icons').path}/assets/CupertinoIcons.ttf']);
   _fontsLoaded = true;
 }
 
-/// Boots the app's real modules in test mode (no platform channels, no backend)
-/// so screens can be rendered with stores seeded by the test.
+/// Boots the app's real modules in test mode (no platform channels; HTTP served
+/// by [FakeHttpChannel]) so screens can be rendered with stores seeded by the test.
 Future<void> bootModules(WidgetTester tester, {PlatformType platform = PlatformType.android}) async {
   await tester.runAsync(() async {
     await loadFonts();
     await I18nService.loadTranslations();
     await Core.di.reset();
+
+    // Reassignment is allowed only while modules register, for the two overrides below.
     Core.di.allowReassignment = true;
-    // PlusModule's keypair actor starts loading before PlatformPlusModule registers
-    // its channel; on a device real I/O hides that race, in tests it does not.
-    Core.register<KeypairChannel>(NoOpPlusChannel());
-    await Modules().create(ActScreenplay(ActScenario.test, Flavor.v6, platform));
+    try {
+      // PlusModule's keypair actor starts loading before PlatformPlusModule registers
+      // its channel; on a device real I/O hides that ordering, in tests it does not.
+      Core.register<KeypairChannel>(NoOpPlusChannel());
+      await Modules().create(ActScreenplay(ActScenario.test, Flavor.v6, platform));
+      Core.register<HttpChannel>(FakeHttpChannel());
+    } finally {
+      Core.di.allowReassignment = false;
+    }
+
     // Actors normally start in Modules.start; settings needs the env info (app version).
     await Core.get<EnvActor>().onStart(Markers.start);
   });
@@ -80,6 +111,7 @@ Future<void> expectScreen(WidgetTester tester, String name, {Paths? path}) async
   tester.platformDispatcher.platformBrightnessTestValue = Brightness.dark;
   WidgetsApp.debugAllowBannerOverride = false;
   addTearDown(() {
+    debugDefaultTargetPlatformOverride = null;
     tester.view.reset();
     tester.platformDispatcher.clearPlatformBrightnessTestValue();
     WidgetsApp.debugAllowBannerOverride = true;
@@ -90,33 +122,24 @@ Future<void> expectScreen(WidgetTester tester, String name, {Paths? path}) async
   await tester.pump();
   if (path != null) {
     Navigation.open(path);
-    await tester.pumpAndSettle(const Duration(milliseconds: 100), EnginePhase.sendSemanticsUpdate,
-        const Duration(seconds: 5)).catchError((_) => 0); // repeating animations never settle
+    // Fixed pumps rather than pumpAndSettle: the active power button animates forever.
+    await tester.pump(const Duration(milliseconds: 600));
   }
-  // Images (Image.asset, the power button's icons) decode on real async I/O, which
-  // the fake test clock does not advance; alternate real waits with fake-time pumps
-  // so decoding finishes and the entry animations reach their end state.
+
+  // Images (Image.asset, the power button's icons) decode and fake HTTP responses
+  // resolve on real async I/O, which the fake test clock does not advance;
+  // alternate real waits with fake-time pumps until the screen reaches its end state.
   for (var i = 0; i < 3; i++) {
     await tester.runAsync(() => Future.delayed(const Duration(milliseconds: 300)));
     await tester.pump(const Duration(seconds: 2));
   }
-  debugDefaultTargetPlatformOverride = null;
 
+  // The platform override must be cleared before the golden comparison and the
+  // binding's end-of-test invariant check; the teardown also covers early failures.
+  debugDefaultTargetPlatformOverride = null;
   await expectLater(find.byType(MaterialApp), matchesGoldenFile('goldens/$name.png'));
 
   // Unmount and let pending timers (debounces, short sleeps) fire before the test ends.
-  // StandardRoute adds a listener to secondaryAnimation on every build but removes it
-  // from `animation`, so after the shell (and its TopBarController) is gone the route
-  // animation still notifies it. The app never unmounts the shell; tolerate only that.
-  final onError = FlutterError.onError;
-  FlutterError.onError = (details) {
-    if (details.exceptionAsString().contains('TopBarController was used after being disposed')) return;
-    onError?.call(details);
-  };
-  try {
-    await tester.pumpWidget(const SizedBox());
-    await tester.pump(const Duration(minutes: 10));
-  } finally {
-    FlutterError.onError = onError;
-  }
+  await tester.pumpWidget(const SizedBox());
+  await tester.pump(const Duration(minutes: 10));
 }

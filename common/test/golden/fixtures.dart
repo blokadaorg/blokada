@@ -1,4 +1,5 @@
 import 'package:common/src/core/core.dart';
+import 'package:common/src/features/api/domain/api.dart' as api;
 import 'package:common/src/platform/account/account.dart';
 import 'package:common/src/platform/account/api.dart';
 import 'package:common/src/platform/app/app.dart';
@@ -6,17 +7,20 @@ import 'package:common/src/platform/app/channel.pg.dart';
 import 'package:common/src/app_variants/family/module/stats/stats.dart';
 import 'package:common/src/platform/device/device.dart';
 import 'package:common/src/platform/stats/stats.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mobx/mobx.dart';
 
 /// Seeds the stores the v6 screens read, so goldens show a realistic state
 /// instead of "Please wait...". Values mirror the emulator run.
-void seedCloudAccount() {
+Future<void> seedCloudAccount(WidgetTester tester) async {
+  // The API layer reads the id from AccountId, which AccountStore sets on load.
+  await tester.runAsync(() => Core.get<api.AccountId>().change(Markers.testing, 'testaccount01'));
   runInAction(() {
     Core.get<AccountStore>().account = AccountState(
       'testaccount01',
       JsonAccount(
         id: 'testaccount01',
-        activeUntil: '2026-10-21T13:08:45Z',
+        activeUntil: '2099-01-01T00:00:00Z',
         active: true,
         type: 'cloud',
       ),
