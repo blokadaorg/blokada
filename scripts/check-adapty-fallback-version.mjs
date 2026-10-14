@@ -20,6 +20,8 @@ const MIN_VERSION = 10;
 const FILES = [
   "common/assets/fallbacks/ios.json",
   "common/assets/fallbacks/android.json",
+  "common/assets/fallbacks/family_ios.json",
+  "common/assets/fallbacks/family_android.json",
   "android/app/src/main/assets/fallbacks/android.json",
 ];
 

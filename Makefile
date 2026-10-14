@@ -481,9 +481,12 @@ ci-build-ios-six:
 	$(MAKE) build-ios-six
 
 # Put Adapty fallback paywalls in the right places. uses DIR
+# Both Adapty apps export the same file names: download one app's fallbacks, run its target, then the other.
 adapty-paywalls:
-	rm -rf common/assets/fallbacks/*
-	rm -rf android/app/src/main/assets/fallbacks/*
 	cp $(ADAPTY_DIR)/android_$(ADAPTY_VER)_fallback.json common/assets/fallbacks/android.json
 	cp $(ADAPTY_DIR)/ios_$(ADAPTY_VER)_fallback.json common/assets/fallbacks/ios.json
 	cp $(ADAPTY_DIR)/android_$(ADAPTY_VER)_fallback.json android/app/src/main/assets/fallbacks/android.json
+
+adapty-paywalls-family:
+	cp $(ADAPTY_DIR)/android_$(ADAPTY_VER)_fallback.json common/assets/fallbacks/family_android.json
+	cp $(ADAPTY_DIR)/ios_$(ADAPTY_VER)_fallback.json common/assets/fallbacks/family_ios.json

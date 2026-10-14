@@ -86,10 +86,10 @@ void main() {
     expect(Placement.winback.id, "paywall_winback");
   });
 
-  test("Family keeps its own primary placement for the shared entry points", () {
+  test("Family opens its single placement from every entry point", () {
     Core.act = ActScreenplay(ActScenario.test, Flavor.family, PlatformType.iOS);
-    expect(Placement.primary.id, "primary");
-    expect(Placement.essentialsOnboarding.id, "primary");
-    expect(Placement.freemiumHome.id, "primary");
+    for (final placement in Placement.values) {
+      expect(placement.id, "paywall_primary", reason: placement.name);
+    }
   });
 }
