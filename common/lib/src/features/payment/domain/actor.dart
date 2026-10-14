@@ -9,25 +9,30 @@ final paymentSuccessful = EmitterEvent<bool>("paymentSuccessful");
 final paymentClosed = EmitterEvent<bool>("paymentClosed");
 
 enum Placement {
-  // Blokada 6 serves its main paywall from a Flow Builder placement. A
-  // placement's type is fixed in Adapty, so the flow got a new id; older app
-  // versions keep the paywall placement "primary". Family is a separate
-  // Adapty app and still uses "primary".
-  primary("primary", sixId: "flow-primary"),
-  plusUpgrade("home_plus_upgrade"),
-  freemiumStats("stats_freemium"),
-  freemiumActivity("activity_freemium"),
-  freemiumFilters("filters_freemium"),
-  freemiumWeekly("sheet_weekly_freemium"),
-  winback("winback");
+  // Blokada 6 placements are Flow Builder flows. A placement's type is fixed
+  // in Adapty, so moving to flows meant new ids; older app versions keep
+  // reading the old paywall placements. Family is a separate Adapty app and
+  // still uses its own "primary".
+  primary("paywall_primary", family: "primary"),
+  essentialsOnboarding("paywall_essentials_onboarding", family: "primary"),
+  freemiumHome("paywall_freemium_home", family: "primary"),
+  freemiumStats("paywall_freemium_stats"),
+  freemiumActivity("paywall_freemium_activity"),
+  freemiumFilters("paywall_freemium_filters"),
+  freemiumWeekly("paywall_freemium_weekly"),
+  plusUpgrade("paywall_plus"),
+  // Tapping the "subscription expired" notification.
+  expired("paywall_expired"),
+  // Reserved for a delayed win-back push with a discount; not opened yet.
+  winback("paywall_winback");
 
   final String _id;
-  final String? _sixId;
+  final String? _familyId;
 
-  const Placement(this._id, {String? sixId}) : _sixId = sixId;
+  const Placement(this._id, {String? family}) : _familyId = family;
 
   // The flavor is read only for placements that differ per app.
-  String get id => _sixId != null && !Core.act.isFamily ? _sixId : _id;
+  String get id => _familyId != null && Core.act.isFamily ? _familyId : _id;
 }
 
 class PaymentActor with Actor, Logging, ValueEmitter<bool> {

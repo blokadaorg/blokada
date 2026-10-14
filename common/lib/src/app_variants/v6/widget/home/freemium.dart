@@ -25,7 +25,7 @@ class _FreemiumCounterState extends State<FreemiumCounter> with TickerProviderSt
 
   _onTap() {
     log(Markers.userTap).trace("tappedUpgradeFreemiumHome", (m) async {
-      _payment.openPaymentScreen(Markers.userTap); // TODO: placementID
+      _payment.openPaymentScreen(Markers.userTap, placement: Placement.freemiumHome);
     });
   }
 
