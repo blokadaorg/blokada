@@ -103,6 +103,7 @@ object PermBinding : PermOps {
     override fun doAskNotificationPerms(callback: (Result<Unit>) -> Unit) {
         scope.launch {
             permsRepo.maybeDisplayNotificationPermsDialog()
+            callback(Result.success(Unit))
         }
     }
 
