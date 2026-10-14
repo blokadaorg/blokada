@@ -34,23 +34,35 @@ class _HomeActionsState extends State<HomeActions> with TickerProviderStateMixin
     vsync: this,
   );
 
+  ReactionDisposer? _disposeStatusReaction;
+
   @override
   void initState() {
     super.initState();
 
-    autorun((_) async {
+    _disposeStatusReaction = autorun((_) async {
       final status = _app.status;
 
       if (status.isActive()) {
         _ctrlCounter.forward();
         await sleepAsync(const Duration(milliseconds: 100));
+        if (!mounted) return;
         _ctrlPlus.forward();
       } else {
         _ctrlCounter.reverse();
         await sleepAsync(const Duration(milliseconds: 100));
+        if (!mounted) return;
         _ctrlPlus.reverse();
       }
     });
+  }
+
+  @override
+  void dispose() {
+    _disposeStatusReaction?.call();
+    _ctrlCounter.dispose();
+    _ctrlPlus.dispose();
+    super.dispose();
   }
 
   @override
