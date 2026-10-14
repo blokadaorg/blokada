@@ -401,7 +401,7 @@ class NotificationActor with Logging, Actor {
     if (_stage.route.modal == StageModal.accountExpired) {
       await _stage.dismissModal(m);
     }
-    await _payment.openPaymentScreen(m, placement: Placement.winback);
+    await _payment.openPaymentScreen(m, placement: Placement.expired);
   }
 
   // The tap can arrive before the module backing the action has started:

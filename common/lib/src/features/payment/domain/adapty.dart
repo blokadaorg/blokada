@@ -76,7 +76,9 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIFlows
 
     // Set Adapty fallback for any connection problems situations
     try {
-      final assetId = Core.act.platform == PlatformType.iOS ? "ios" : "android";
+      // Family is a separate Adapty app, so it ships its own fallbacks.
+      final platform = Core.act.platform == PlatformType.iOS ? "ios" : "android";
+      final assetId = Core.act.isFamily ? "family_$platform" : platform;
       await _adapty.setFallback("assets/fallbacks/$assetId.json");
     } catch (e, s) {
       log(m).e(msg: "Adapty: Failed setting fallback, ignore", err: e, stack: s);

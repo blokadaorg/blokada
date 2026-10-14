@@ -93,7 +93,7 @@ class SafariActor with Actor, Logging {
 
     await _modal.change(m, null);
     await sleepAsync(const Duration(milliseconds: 750));
-    await _payment.openPaymentScreen(m);
+    await _payment.openPaymentScreen(m, placement: Placement.essentialsOnboarding);
   }
 
   // Optional flow will show only once

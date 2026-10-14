@@ -9,17 +9,31 @@ final paymentSuccessful = EmitterEvent<bool>("paymentSuccessful");
 final paymentClosed = EmitterEvent<bool>("paymentClosed");
 
 enum Placement {
-  primary("primary"),
-  plusUpgrade("home_plus_upgrade"),
-  freemiumStats("stats_freemium"),
-  freemiumActivity("activity_freemium"),
-  freemiumFilters("filters_freemium"),
-  freemiumWeekly("sheet_weekly_freemium"),
-  winback("winback");
+  // Blokada 6 placements are Flow Builder flows. A placement's type is fixed
+  // in Adapty, so moving to flows meant new ids; older app versions keep
+  // reading the old paywall placements. Family is a separate Adapty app with
+  // a single flow placement, which every entry point opens.
+  primary("paywall_primary"),
+  essentialsOnboarding("paywall_essentials_onboarding"),
+  freemiumHome("paywall_freemium_home"),
+  freemiumStats("paywall_freemium_stats"),
+  freemiumActivity("paywall_freemium_activity"),
+  freemiumFilters("paywall_freemium_filters"),
+  freemiumWeekly("paywall_freemium_weekly"),
+  plusUpgrade("paywall_plus"),
+  // Tapping the "subscription expired" notification.
+  expired("paywall_expired"),
+  // Reserved for a delayed win-back push with a discount; not opened yet.
+  winback("paywall_winback");
 
-  final String id;
+  static const _family = "paywall_primary";
 
-  const Placement(this.id);
+  final String _id;
+
+  const Placement(this._id);
+
+  // The flavor is read only for placements that differ per app.
+  String get id => _id != _family && Core.act.isFamily ? _family : _id;
 }
 
 class PaymentActor with Actor, Logging, ValueEmitter<bool> {

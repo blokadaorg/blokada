@@ -72,7 +72,24 @@ void main() {
     expect(FcmEvent.fromJson({"type": "x"}).extrasMap, isEmpty);
   });
 
-  test("Placement.winback id matches the Adapty dashboard placement", () {
-    expect(Placement.winback.id, "winback");
+  test("Placement ids match the Adapty dashboard placements", () {
+    Core.act = ActScreenplay(ActScenario.test, Flavor.v6, PlatformType.iOS);
+    expect(Placement.primary.id, "paywall_primary");
+    expect(Placement.essentialsOnboarding.id, "paywall_essentials_onboarding");
+    expect(Placement.freemiumHome.id, "paywall_freemium_home");
+    expect(Placement.freemiumStats.id, "paywall_freemium_stats");
+    expect(Placement.freemiumActivity.id, "paywall_freemium_activity");
+    expect(Placement.freemiumFilters.id, "paywall_freemium_filters");
+    expect(Placement.freemiumWeekly.id, "paywall_freemium_weekly");
+    expect(Placement.plusUpgrade.id, "paywall_plus");
+    expect(Placement.expired.id, "paywall_expired");
+    expect(Placement.winback.id, "paywall_winback");
+  });
+
+  test("Family opens its single placement from every entry point", () {
+    Core.act = ActScreenplay(ActScenario.test, Flavor.family, PlatformType.iOS);
+    for (final placement in Placement.values) {
+      expect(placement.id, "paywall_primary", reason: placement.name);
+    }
   });
 }
