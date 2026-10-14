@@ -4,7 +4,7 @@ import 'package:flutter_chat_core/flutter_chat_core.dart';
 extension SupportMsgExt on SupportMessage {
   Message toFlyerMessage(User me, User notMe) {
     return TextMessage(
-      id: when.millisecondsSinceEpoch.toString(),
+      id: id,
       authorId: isMe ? me.id : notMe.id,
       createdAt: when,
       text: text,
