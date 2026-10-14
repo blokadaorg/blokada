@@ -57,12 +57,15 @@ open class PermsRepo {
      * and must not be told it denied anything; falls back to instructions for
      * system Settings when the prompt does not apply (older Android, or
      * notifications switched off in app settings). If Android refuses to show
-     * the prompt, NotificationPermissionService reports it after the request
-     * and the same instructions are shown then.
+     * the prompt (the user denied twice before), NotificationPermissionService
+     * reports it after the request and the same instructions are shown then.
      */
     fun maybeDisplayNotificationPermsDialog() {
         // Read live: the user may have granted it in system Settings since app start.
-        if (notification.hasPermissions()) return
+        if (notification.hasPermissions()) {
+            notificationPerms.onPermissionGranted()
+            return
+        }
         // Both the prompt and the dialog need a foreground activity.
         if (!context.hasActivityContext()) return
 

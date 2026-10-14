@@ -13,8 +13,8 @@ package service
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
-import android.os.SystemClock
 import androidx.core.app.ActivityCompat
+import java.io.File
 import utils.Logger
 
 /**
@@ -37,22 +37,18 @@ object NotificationPermissionService {
 
     /**
      * Rationale flag sampled right before the request in flight, or null when
-     * none is. Comparing it with the flag after the result tells a system
-     * auto-denial apart from a prompt the user answered, without persisting
-     * any "already asked" state (which Auto Backup would restore on a fresh
-     * install, and which goes stale when Android auto-resets the permission).
+     * none is. Compared with the flag after the result to see what the user did.
      */
     private var rationaleBeforeRequest: Boolean? = null
 
     /**
-     * When the request in flight was made. A dismissed first prompt and a
-     * prompt Android refused to show both end with no rationale before or
-     * after; only the refusal comes back without the user touching anything.
+     * Marker file: the user has denied the prompt at least once. It lives in
+     * noBackupFilesDir so Auto Backup never restores it onto a fresh install,
+     * where the prompt is available again. Cleared once the permission is granted.
      */
-    private var requestedAt = 0L
-
-    // Far below any human answer, far above Android's immediate auto-denial.
-    private const val AUTO_DENIAL_MS = 500L
+    private val deniedBeforeFile by lazy {
+        File(context.requireAppContext().noBackupFilesDir, "notification_perm_denied")
+    }
 
     /**
      * True when the runtime permission is what blocks notifications and an
@@ -68,6 +64,11 @@ object NotificationPermissionService {
         ) != PackageManager.PERMISSION_GRANTED
     }
 
+    /** Forget earlier denials once notifications work, e.g. after a grant in Settings. */
+    fun onPermissionGranted() {
+        deniedBeforeFile.delete()
+    }
+
     fun askPermission() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return
         if (!context.hasActivityContext()) {
@@ -80,7 +81,6 @@ object NotificationPermissionService {
         rationaleBeforeRequest = ActivityCompat.shouldShowRequestPermissionRationale(
             activity, Manifest.permission.POST_NOTIFICATIONS
         )
-        requestedAt = SystemClock.elapsedRealtime()
         ActivityCompat.requestPermissions(
             activity, arrayOf(Manifest.permission.POST_NOTIFICATIONS), REQUEST_CODE
         )
@@ -97,19 +97,26 @@ object NotificationPermissionService {
         }
         if (result.all { it == PackageManager.PERMISSION_GRANTED }) {
             log.v("Notification permission granted")
+            onPermissionGranted()
             return
         }
 
         log.w("Notification permission not granted")
-        // No rationale before nor after a denial means Android did not show its
-        // prompt (denied twice before), or the user dismissed a first prompt.
-        // Only the former is instant; a dismissed prompt can simply be asked again.
-        val instant = SystemClock.elapsedRealtime() - requestedAt < AUTO_DENIAL_MS
         val rationaleAfter = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
             context.hasActivityContext() &&
             ActivityCompat.shouldShowRequestPermissionRationale(
                 context.requireActivity(), Manifest.permission.POST_NOTIFICATIONS
             )
-        if (rationaleBefore == false && !rationaleAfter && instant) onBlockedBySystem()
+        val deniedBefore = deniedBeforeFile.exists()
+        // Android raises the rationale flag after the first "Don't allow" and drops
+        // it again after the second, so either change means the user answered.
+        if (rationaleAfter || rationaleBefore == true) {
+            deniedBeforeFile.createNewFile()
+            return
+        }
+        // No rationale before or after: Android skipped its prompt because the user
+        // denied twice already, or the user dismissed a first prompt. Only a user who
+        // has denied before can be in the first case.
+        if (rationaleBefore == false && deniedBefore) onBlockedBySystem()
     }
 }
