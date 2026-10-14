@@ -13,8 +13,14 @@ const _adaptyPaywallRevealDelay = Duration(milliseconds: 50);
 class AdaptyEmbeddedPaywallSheet extends StatefulWidget {
   final AdaptyPaymentChannel channel;
   final AdaptyFlow flow;
+  final int openSeq;
 
-  const AdaptyEmbeddedPaywallSheet({super.key, required this.channel, required this.flow});
+  const AdaptyEmbeddedPaywallSheet({
+    super.key,
+    required this.channel,
+    required this.flow,
+    required this.openSeq,
+  });
 
   @override
   State<AdaptyEmbeddedPaywallSheet> createState() => _AdaptyEmbeddedPaywallSheetState();
@@ -40,9 +46,15 @@ class _AdaptyEmbeddedPaywallSheetState extends State<AdaptyEmbeddedPaywallSheet>
     super.dispose();
   }
 
+  // Pops this sheet's own route, together with anything shown on top of it
+  // (e.g. the restore message), so a plain pop never closes only the dialog.
   void dismiss() {
     if (!mounted) return;
-    Navigator.of(context).maybePop();
+    final route = ModalRoute.of(context);
+    if (route == null || !route.isActive) return;
+    final navigator = Navigator.of(context);
+    navigator.popUntil((r) => r == route);
+    navigator.pop();
   }
 
   void showMessage({required String title, required String content, required String closeTitle}) {

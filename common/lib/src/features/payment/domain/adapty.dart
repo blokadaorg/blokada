@@ -32,10 +32,11 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIFlows
   AdaptyFlow? _embeddedFlow;
   String? _embeddedFlowForPlacementId;
   bool _isEmbeddedPaywallVisible = false;
-  bool _isClosingEmbeddedPaywall = false;
-  // The mounted sheet, once the sheet host has actually shown it.
+  // The mounted sheet of the current open, once the sheet host has shown it.
   _AdaptyEmbeddedPaywallSheetState? _embeddedSheet;
-  // Bumped per embedded open, so a mount check of an earlier open is ignored.
+  // Bumped per embedded open. Each sheet carries the value it was built for,
+  // so a sheet of an earlier open (still animating out, or shown late by the
+  // host) is never mistaken for the current one.
   int _embeddedOpenSeq = 0;
 
   // Ids of views created through createFlowView. Any other view reporting
@@ -131,6 +132,10 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIFlows
   }
 
   Future<void> _showEmbedded(Marker m, Placement placement, bool forceReload) async {
+    // Already on screen (e.g. a double tap): a second request would be dropped
+    // by the busy sheet host and then given up on, closing the visible one.
+    if (_isEmbeddedPaywallVisible && _embeddedSheet != null) return;
+
     if (forceReload || _embeddedFlowForPlacementId != placement.id || _embeddedFlow == null) {
       _embeddedFlow = await _fetchFlow(m, placement);
       _embeddedFlowForPlacementId = placement.id;
@@ -140,16 +145,19 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIFlows
     _embeddedFlow = null;
     _embeddedFlowForPlacementId = null;
 
-    _isClosingEmbeddedPaywall = false;
     _isEmbeddedPaywallVisible = true;
+    _embeddedSheet = null;
     final seq = ++_embeddedOpenSeq;
-    await _requestEmbeddedSheet(m, flow);
+    await _requestEmbeddedSheet(m, flow, seq);
     unawaited(_ensureEmbeddedSheetMounted(m, flow, seq));
   }
 
-  Future<void> _requestEmbeddedSheet(Marker m, AdaptyFlow flow) async {
-    await _modalWidget.change(m, (context) => AdaptyEmbeddedPaywallSheet(channel: this, flow: flow));
+  Future<void> _requestEmbeddedSheet(Marker m, AdaptyFlow flow, int seq) async {
+    // Modal first: the sheet host reads it when the widget arrives and keeps
+    // this sheet from being dragged away mid-purchase.
     await _modal.change(m, Modal.adaptyPaywall);
+    await _modalWidget.change(
+        m, (context) => AdaptyEmbeddedPaywallSheet(channel: this, flow: flow, openSeq: seq));
   }
 
   // The sheet host drops a request that arrives while another sheet is still
@@ -159,7 +167,7 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIFlows
     for (var attempt = 0; attempt < _embeddedSheetMountAttempts; attempt++) {
       await Future.delayed(_embeddedSheetMountCheck);
       if (seq != _embeddedOpenSeq || !_isEmbeddedPaywallVisible || _embeddedSheet != null) return;
-      await _requestEmbeddedSheet(m, flow);
+      await _requestEmbeddedSheet(m, flow, seq);
     }
     await Future.delayed(_embeddedSheetMountCheck);
     if (seq != _embeddedOpenSeq || !_isEmbeddedPaywallVisible || _embeddedSheet != null) return;
@@ -169,14 +177,22 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIFlows
   }
 
   void handleEmbeddedPaywallMounted(_AdaptyEmbeddedPaywallSheetState sheet) {
-    _embeddedSheet = sheet;
+    if (sheet.widget.openSeq == _embeddedOpenSeq && _isEmbeddedPaywallVisible) {
+      _embeddedSheet = sheet;
+      return;
+    }
+    // Shown by the host after its open was already closed or replaced.
+    WidgetsBinding.instance.addPostFrameCallback((_) => sheet.dismiss());
   }
 
   // The sheet went away without closePaymentScreen (tap outside, back
-  // gesture): report the close, or the actor keeps thinking it is open.
+  // gesture): report the close, or the actor keeps thinking it is open. Only
+  // the current open's sheet counts; an earlier one finishing its exit
+  // animation must not close a paywall that was just reopened.
   void handleEmbeddedPaywallDisposed(_AdaptyEmbeddedPaywallSheetState sheet) {
-    if (_embeddedSheet == sheet) _embeddedSheet = null;
-    if (!_isEmbeddedPaywallVisible || _isClosingEmbeddedPaywall) return;
+    if (_embeddedSheet != sheet) return;
+    _embeddedSheet = null;
+    if (!_isEmbeddedPaywallVisible) return;
     unawaited(closePaymentScreen(false));
   }
 
@@ -185,19 +201,12 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIFlows
     if (_isEmbeddedPaywallVisible || (view != null && !_presentedViewIds.contains(view.id))) {
       // An embedded view is owned by our sheet: pop the sheet, never ask
       // Adapty to dismiss it.
-      if (_isEmbeddedPaywallVisible) {
-        _isClosingEmbeddedPaywall = true;
-        _isEmbeddedPaywallVisible = false;
-        final sheet = _embeddedSheet;
-        if (sheet != null) {
-          // Pop it directly: the modal value may already have been cleared by
-          // a sheet that closed in between, which would dedupe a null here.
-          sheet.dismiss();
-        } else {
-          await _modal.change(Markers.ui, null);
-        }
-        _isClosingEmbeddedPaywall = false;
-      }
+      // Cleared before popping, so the sheet's dispose does not report again.
+      _isEmbeddedPaywallVisible = false;
+      // Pop our sheet directly. With no sheet mounted yet there is nothing to
+      // pop, and clearing the shared modal value instead would make the host
+      // pop whatever other sheet is on screen; a late mount dismisses itself.
+      _embeddedSheet?.dismiss();
       await _actor.handleScreenClosed(Markers.ui, isError: isError);
       return;
     }
