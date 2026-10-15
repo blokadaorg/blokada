@@ -122,7 +122,7 @@ Future<void> expectScreen(WidgetTester tester, String name, {Paths? path}) async
   await tester.pump();
   if (path != null) {
     Navigation.open(path);
-    // Fixed pumps rather than pumpAndSettle: the active power button animates forever.
+    // Fixed pumps rather than pumpAndSettle, to match the waits below for real async I/O.
     await tester.pump(const Duration(milliseconds: 600));
   }
 

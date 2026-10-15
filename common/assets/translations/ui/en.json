@@ -771,5 +771,19 @@
     "web plaintext error name": "Enter a shorter name, without hidden characters.",
     "web plaintext error limit": "You have reached the limit of %s devices. Delete one to add another.",
     "web plaintext error taken": "Another device on your account already uses this name. Choose a different one.",
-    "web plaintext error generic": "Something went wrong. Please try again later."
+    "web plaintext error generic": "Something went wrong. Please try again later.",
+    "home counter caption blocked": "Ads and trackers blocked",
+    "toast save failed": "Couldn't save the change. Try again.",
+    "toast blocklists saved": "Blocklists updated",
+    "toast removed from allowed": "Removed from Allowed",
+    "toast removed from blocked": "Removed from Blocked",
+    "settings row activity history": "Activity history",
+    "account section header protection": "Protection",
+    "settings section header notifications": "Notifications",
+    "universal label select item details": "Select an item to see details",
+    "stats label new": "New",
+    "stats range 24h": "24 h",
+    "stats range 7d": "7 d",
+    "activity filter chip most common": "Most common first",
+    "filter last list note": "One blocklist always stays on. Use Pause on Home to stop blocking."
 }
