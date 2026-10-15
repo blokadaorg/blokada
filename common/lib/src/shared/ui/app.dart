@@ -3,6 +3,7 @@ import 'package:common/src/shared/i18n/locales.dart';
 import 'package:common/src/core/core.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/gestures.dart';
+import 'package:common/src/features/toast/ui/toast_host.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:i18n_extension/i18n_extension.dart';
@@ -115,6 +116,8 @@ class BlokadaApp extends StatelessWidget {
               divider: Colors.white24,
             )
           }),
+      // Above the root navigator, so toasts show over sheets and dialogs.
+      builder: (context, child) => ToastHost(child: child ?? const SizedBox()),
       home: Builder(builder: (context) {
         final mediaQueryData = MediaQuery.of(context);
         final scale = mediaQueryData.textScaleFactor.clamp(0.8, 1.1);

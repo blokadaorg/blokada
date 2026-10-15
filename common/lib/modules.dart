@@ -1,3 +1,4 @@
+import 'package:common/src/features/toast/domain/toast.dart';
 import 'package:common/src/features/account/domain/account.dart';
 import 'package:common/src/features/api/domain/api.dart' as api_domain;
 import 'package:common/src/features/config/domain/config.dart';
@@ -98,6 +99,7 @@ class Modules with Logging {
     }
 
     await _registerModule(ModalModule());
+    await _registerModule(ToastModule());
     await _registerModule(ListModule());
     await _registerModule(FilterModule());
     await _registerModule(JournalModule());

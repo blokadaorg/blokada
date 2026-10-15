@@ -49,6 +49,7 @@ class CustomLists {
 class CustomlistActor with Actor, Logging {
   late final _customlist = Core.get<CustomlistApi>();
   late final _payload = Core.get<CustomListsValue>();
+  late final _toast = Core.get<ToastActor>();
 
   String? profileId;
 
@@ -137,28 +138,61 @@ class CustomlistActor with Actor, Logging {
   }
 
   addOrRemove(String domain, bool wildcard, Marker m, {required bool gotBlocked}) async {
-    if (contains(domain, wildcard: wildcard)) {
-      await _delete(domain, wildcard, m);
-    } else if (gotBlocked) {
-      await _allow(domain, wildcard, m);
-    } else {
-      await _deny(domain, wildcard, m);
-    }
-    await fetch(m);
+    await _confirmed(m, () async {
+      if (contains(domain, wildcard: wildcard)) {
+        return await _deleteConfirmed(domain, wildcard, m);
+      } else if (gotBlocked) {
+        await _allow(domain, wildcard, m);
+        return "activity action added to whitelist".i18n;
+      } else {
+        await _deny(domain, wildcard, m);
+        return "activity action added to blacklist".i18n;
+      }
+    });
   }
 
   remove(Marker m, String domain, bool wildcard) async {
-    await _delete(domain, wildcard, m);
-    await fetch(m);
+    await _confirmed(m, () => _deleteConfirmed(domain, wildcard, m));
   }
 
   toggle(Marker m, String domain, bool wildcard) async {
-    final allow = _payload.now.denied.any((e) => e.domainName == domain && e.wildcard == wildcard);
-    if (allow) {
-      await _allow(domain, wildcard, m);
-    } else {
-      await _deny(domain, wildcard, m);
+    await _confirmed(m, () async {
+      final allow = _payload.now.denied.any((e) => e.domainName == domain && e.wildcard == wildcard);
+      if (allow) {
+        await _allow(domain, wildcard, m);
+        return "activity action added to whitelist".i18n;
+      } else {
+        await _deny(domain, wildcard, m);
+        return "activity action added to blacklist".i18n;
+      }
+    });
+  }
+
+  // Deletes and returns the confirmation naming the list it was on.
+  Future<String> _deleteConfirmed(String domain, bool wildcard, Marker m) async {
+    final wasAllowed =
+        _payload.now.allowed.any((e) => e.domainName == domain && e.wildcard == wildcard);
+    await _delete(domain, wildcard, m);
+    return wasAllowed ? "toast removed from allowed".i18n : "toast removed from blocked".i18n;
+  }
+
+  // Runs a user change and confirms it with a toast, then refetches. If the
+  // change fails, an error toast replaces the confirmation, the refetch
+  // restores what the server has, and the error still reaches the caller.
+  Future<void> _confirmed(Marker m, Future<String> Function() change) async {
+    final String confirmation;
+    try {
+      confirmation = await change();
+    } catch (e) {
+      _toast.showError("toast save failed".i18n);
+      try {
+        await fetch(m);
+      } catch (fetchError, s) {
+        log(m).e(msg: "customlist: refetch after failed change", err: fetchError, stack: s);
+      }
+      rethrow;
     }
+    _toast.show(confirmation);
     await fetch(m);
   }
 

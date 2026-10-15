@@ -1,5 +1,6 @@
 import 'dart:io' as io;
 
+import 'package:common/src/features/toast/domain/toast.dart';
 import 'package:common/src/features/customlist/domain/customlist.dart';
 import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/features/journal/domain/journal.dart';
@@ -473,7 +474,7 @@ void showAccountIdDialog(BuildContext context, String accountId) {
     actions: (context) => [
       TextButton(
         onPressed: () {
-          Clipboard.setData(ClipboardData(text: accountId));
+          Core.get<ToastActor>().copy(accountId, Markers.userTap);
           Navigator.of(context).pop();
         },
         child: Text("universal action copy".i18n),

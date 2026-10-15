@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:common/src/features/api/domain/api.dart';
 import 'package:common/src/core/core.dart';
+import 'package:common/src/features/toast/domain/toast.dart';
 
 part 'actor.dart';
 part 'api.dart';

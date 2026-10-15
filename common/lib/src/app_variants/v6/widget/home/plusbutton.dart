@@ -1,3 +1,4 @@
+import 'package:common/src/shared/ui/blokada_switch.dart';
 import 'package:common/src/features/payment/domain/payment.dart';
 import 'package:common/src/shared/ui/minicard/minicard.dart';
 import 'package:common/src/shared/ui/theme.dart';
@@ -119,7 +120,7 @@ class _PlusButtonState extends State<PlusButton>
         Expanded(
           child: Align(
             alignment: Alignment.centerRight,
-            child: CupertinoSwitch(
+            child: BlokadaSwitch(
               value: activated,
               activeColor: theme.accent,
               onChanged: (value) {

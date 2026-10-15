@@ -1,3 +1,4 @@
+import 'package:common/src/shared/ui/blokada_switch.dart';
 import 'package:common/src/shared/ui/dialog.dart';
 import 'package:common/src/features/env/domain/env.dart';
 import 'package:common/src/features/link/domain/link.dart';
@@ -311,7 +312,7 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                     child: Semantics(
                     identifier: AutomationIds.settingsWeeklyReport,
                     toggled: _weeklyReportEnabled,
-                    child: CupertinoSwitch(
+                    child: BlokadaSwitch(
                       activeColor: context.theme.accent,
                       value: _weeklyReportEnabled,
                       onChanged: (bool value) async {

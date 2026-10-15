@@ -1,3 +1,4 @@
+import 'package:common/src/shared/ui/blokada_switch.dart';
 import 'package:common/src/app_variants/family/module/device_v3/device.dart';
 import 'package:common/src/app_variants/family/module/profile/profile.dart';
 import 'package:common/src/app_variants/family/module/schedule/schedule.dart';
@@ -142,7 +143,7 @@ class _ScheduleSectionState extends State<ScheduleSection> {
             child: Text('family schedule use label'.i18n,
                 style: TextStyle(color: context.theme.textPrimary)),
           ),
-          CupertinoSwitch(
+          BlokadaSwitch(
             key: const Key('schedule_paused_switch'),
             value: !widget.schedule.paused,
             onChanged: (use) => widget.onPausedChanged(!use),

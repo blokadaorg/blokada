@@ -1,3 +1,4 @@
+import 'package:common/src/shared/ui/blokada_switch.dart';
 import 'package:common/src/features/link/domain/link.dart';
 import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/navigation.dart';
@@ -78,7 +79,7 @@ class RetentionSectionState extends State<RetentionSection> with Logging {
                       child: Semantics(
                         identifier: AutomationIds.retentionToggle,
                         toggled: selected,
-                        child: CupertinoSwitch(
+                        child: BlokadaSwitch(
                           activeColor: context.theme.accent,
                           value: selected,
                           onChanged: (bool? value) async {

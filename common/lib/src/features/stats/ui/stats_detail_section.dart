@@ -1,3 +1,4 @@
+import 'package:common/src/features/toast/domain/toast.dart';
 import 'package:common/src/features/customlist/domain/customlist.dart';
 import 'package:common/src/features/filter/domain/filter.dart';
 import 'package:common/src/features/journal/domain/journal.dart';
@@ -154,7 +155,7 @@ class StatsDetailSectionState extends State<StatsDetailSection> with Logging {
                       icon: CupertinoIcons.doc_on_clipboard,
                       text: "activity action copy to clipboard".i18n,
                       onTap: () {
-                        Clipboard.setData(ClipboardData(text: widget.entry.domainName));
+                        Core.get<ToastActor>().copy(widget.entry.domainName, Markers.userTap);
                       }),
                 ],
               ),
