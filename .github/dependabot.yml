@@ -134,6 +134,27 @@ updates:
         patterns:
           - "*"
 
+  - package-ecosystem: "bundler"
+    directory: "/ios"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "07:15"
+      timezone: "Europe/Madrid"
+    open-pull-requests-limit: 5
+    groups:
+      ios-bundler:
+        applies-to: version-updates
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+      ios-bundler-security:
+        applies-to: security-updates
+        patterns:
+          - "*"
+
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:

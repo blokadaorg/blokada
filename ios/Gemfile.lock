@@ -44,7 +44,8 @@ GEM
     dotenv (2.8.1)
     emoji_regex (3.2.3)
     erb (6.0.7)
-    excon (0.112.0)
+    excon (1.7.3)
+      logger
     faraday (2.14.4)
       faraday-net_http (>= 2.0, < 3.5)
       json
