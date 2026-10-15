@@ -117,7 +117,7 @@ class FilterActor with Logging, Actor {
             );
 
             if (list == null) {
-              // c.log("Deprecated list, ignoring: $listTag");
+              log(m).w("Unknown list tag, ignoring: $listTag");
               continue;
             }
 
@@ -136,7 +136,7 @@ class FilterActor with Logging, Actor {
             );
 
             if (list == null) {
-              // c.log("Deprecated list, ignoring: $listTag");
+              log(m).w("Unknown list tag, ignoring: $listTag");
               continue;
             }
 
@@ -245,7 +245,7 @@ class FilterActor with Logging, Actor {
             );
 
             if (list == null) {
-              // c.log("Deprecated list, ignoring: $listTag");
+              log(m).w("Unknown list tag, ignoring: $listTag");
               continue;
             }
 
@@ -268,7 +268,7 @@ class FilterActor with Logging, Actor {
             );
 
             if (list == null) {
-              // c.log("Deprecated list, ignoring: $listTag");
+              log(m).w("Unknown list tag, ignoring: $listTag");
               continue;
             }
 
