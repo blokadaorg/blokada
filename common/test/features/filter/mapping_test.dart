@@ -2,8 +2,8 @@ import 'package:common/src/features/filter/domain/filter.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 // Vendor/variant of every list in the api list catalog (v3/list). The app
-// derives these from the list path (mirror/v5/<vendor>/<variant>/hosts.txt)
-// and silently skips a filter tag that matches none of them.
+// derives these from the list path (mirror/v5/<vendor>/<variant>/hosts.txt),
+// and only logs a warning for a filter tag that matches none of them.
 const _catalog = {
   "1hosts/lite",
   "1hosts/lite (wildcards)",
