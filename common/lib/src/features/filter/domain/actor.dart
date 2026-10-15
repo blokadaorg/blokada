@@ -40,6 +40,19 @@ class FilterActor with Logging, Actor {
         _listsToTags[list.id] = "${list.vendor}/${list.variant}";
       }
 
+      final knownTags = _listsToTags.values.toSet();
+      for (final filter in _knownFilters.get()) {
+        for (final option in filter.options) {
+          final tags = [
+            if (option.action == FilterAction.list) ...option.actionParams,
+            if (option.action2 == FilterAction.list) ...option.action2Params!,
+          ];
+          for (final tag in tags.where((it) => !knownTags.contains(it))) {
+            log(m).w("Unknown list tag in filter ${filter.filterName}: $tag");
+          }
+        }
+      }
+
 //    _configs = null;
       _defaultsApplied = false;
 
@@ -116,10 +129,7 @@ class FilterActor with Logging, Actor {
               (it) => "${it.vendor}/${it.variant}" == listTag,
             );
 
-            if (list == null) {
-              log(m).w("Unknown list tag, ignoring: $listTag");
-              continue;
-            }
+            if (list == null) continue;
 
             shouldBeLists.add(list.id);
           }
@@ -135,10 +145,7 @@ class FilterActor with Logging, Actor {
               (it) => "${it.vendor}/${it.variant}" == listTag,
             );
 
-            if (list == null) {
-              log(m).w("Unknown list tag, ignoring: $listTag");
-              continue;
-            }
+            if (list == null) continue;
 
             shouldBeLists.add(list.id);
           }
@@ -166,7 +173,7 @@ class FilterActor with Logging, Actor {
     for (final selectedHashId in userConfig.lists) {
       final tag = _listsToTags[selectedHashId];
       if (tag == null) {
-        //c.log("User has unknown list: $selectedHashId");
+        log(m).w("Selected list not in catalog, ignoring: $selectedHashId");
         continue;
       }
 
@@ -244,10 +251,7 @@ class FilterActor with Logging, Actor {
               (it) => "${it.vendor}/${it.variant}" == listTag,
             );
 
-            if (list == null) {
-              log(m).w("Unknown list tag, ignoring: $listTag");
-              continue;
-            }
+            if (list == null) continue;
 
             shouldBeLists.add(list.id);
           }
@@ -267,10 +271,7 @@ class FilterActor with Logging, Actor {
               (it) => "${it.vendor}/${it.variant}" == listTag,
             );
 
-            if (list == null) {
-              log(m).w("Unknown list tag, ignoring: $listTag");
-              continue;
-            }
+            if (list == null) continue;
 
             shouldBeLists.add(list.id);
           }
