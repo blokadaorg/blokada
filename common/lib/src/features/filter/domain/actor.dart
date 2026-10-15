@@ -40,6 +40,8 @@ class FilterActor with Logging, Actor {
         _listsToTags[list.id] = "${list.vendor}/${list.variant}";
       }
 
+      // Check every option, not only selected ones: a renamed or removed list
+      // turns its option off in _parse, so a check at lookup time never sees it.
       final knownTags = _listsToTags.values.toSet();
       for (final filter in _knownFilters.get()) {
         for (final option in filter.options) {
