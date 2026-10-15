@@ -15,6 +15,10 @@ class FilterActor with Logging, Actor {
 
   List<JsonListItem> _lists = [];
 
+  // False for the freemium sample catalog, whose paths are not mirror/v5 and
+  // would make every catalog check below warn.
+  bool _isRealCatalog = false;
+
   FilterActor() {
     _userConfig.onChange.listen((_) => reload(Markers.filter));
     _selectedFilters.change(Markers.filter, []);
@@ -43,7 +47,8 @@ class FilterActor with Logging, Actor {
       // Check every option, not only selected ones: a renamed or removed list
       // turns its option off in _parse, so a check at lookup time never sees it.
       final knownTags = _listsToTags.values.toSet();
-      for (final filter in _knownFilters.get()) {
+      _isRealCatalog = _lists.any((it) => it.path.startsWith("mirror/v5/"));
+      for (final filter in _isRealCatalog ? _knownFilters.get() : <Filter>[]) {
         for (final option in filter.options) {
           final tags = [
             if (option.action == FilterAction.list) ...option.actionParams,
@@ -175,7 +180,9 @@ class FilterActor with Logging, Actor {
     for (final selectedHashId in userConfig.lists) {
       final tag = _listsToTags[selectedHashId];
       if (tag == null) {
-        log(m).w("Selected list not in catalog, ignoring: $selectedHashId");
+        if (_isRealCatalog) {
+          log(m).w("Selected list not in catalog, ignoring: $selectedHashId");
+        }
         continue;
       }
 
