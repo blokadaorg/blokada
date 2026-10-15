@@ -103,12 +103,14 @@ Future<void> _applyRuleOption({
   // If domain was allowed, we add to blocked list (gotBlocked=false)
   final gotBlocked = action == UiJournalAction.block;
 
-  // Always clean up both exact and wildcard entries first
+  // Always clean up both exact and wildcard entries first. When a new rule
+  // follows, only its confirmation shows.
+  final confirmRemoval = option == ActivityRuleOption.automatic;
   if (customlistActor.contains(domainName, wildcard: false)) {
-    await customlistActor.remove(m, domainName, false);
+    await customlistActor.remove(m, domainName, false, confirm: confirmRemoval);
   }
   if (customlistActor.contains(domainName, wildcard: true)) {
-    await customlistActor.remove(m, domainName, true);
+    await customlistActor.remove(m, domainName, true, confirm: confirmRemoval);
   }
 
   // Apply the new rule based on selected option

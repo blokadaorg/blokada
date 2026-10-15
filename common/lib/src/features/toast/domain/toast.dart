@@ -66,6 +66,7 @@ class ToastActor with Actor, Logging {
       return sdk != null && sdk >= 33;
     } catch (e) {
       // Env info not loaded yet: show our toast rather than nothing.
+      log(Markers.ui).w("toast: env info unavailable for the copy notice check: $e");
       return false;
     }
   }

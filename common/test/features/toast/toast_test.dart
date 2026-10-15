@@ -125,6 +125,34 @@ void main() {
       });
     });
 
+    test('a removal can stay silent when another change follows', () async {
+      await withTrace((m) async {
+        _registerToast();
+        _registerCustomlist();
+        final actor = Core.get<CustomlistActor>();
+        await actor.addOrRemove('example.com', false, m, gotBlocked: true);
+        final before = Core.get<ToastValue>().now;
+
+        await actor.remove(m, 'example.com', false, confirm: false);
+        expect(Core.get<ToastValue>().now, same(before));
+        expect(actor.contains('example.com'), isFalse);
+      });
+    });
+
+    test('removing an entry that is on neither list shows nothing', () async {
+      await withTrace((m) async {
+        _registerToast();
+        _registerCustomlist();
+        final shown = <ToastMessage?>[];
+        final sub = Core.get<ToastValue>().onChange.listen((u) => shown.add(u.now));
+
+        await Core.get<CustomlistActor>().remove(m, 'missing.example.com', false);
+        await Future<void>.delayed(Duration.zero);
+        await sub.cancel();
+        expect(shown, isEmpty);
+      });
+    });
+
     test('a failed change shows an error, restores the list and rethrows', () async {
       await withTrace((m) async {
         _registerToast();

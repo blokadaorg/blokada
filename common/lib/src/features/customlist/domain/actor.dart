@@ -151,8 +151,10 @@ class CustomlistActor with Actor, Logging {
     });
   }
 
-  remove(Marker m, String domain, bool wildcard) async {
-    await _confirmed(m, () => _deleteConfirmed(domain, wildcard, m));
+  /// Removes an entry. Pass [confirm] false when another change follows
+  /// right away and will confirm the whole edit.
+  remove(Marker m, String domain, bool wildcard, {bool confirm = true}) async {
+    await _confirmed(m, () => _deleteConfirmed(domain, wildcard, m), confirm: confirm);
   }
 
   toggle(Marker m, String domain, bool wildcard) async {
@@ -168,19 +170,24 @@ class CustomlistActor with Actor, Logging {
     });
   }
 
-  // Deletes and returns the confirmation naming the list it was on.
-  Future<String> _deleteConfirmed(String domain, bool wildcard, Marker m) async {
-    final wasAllowed =
-        _payload.now.allowed.any((e) => e.domainName == domain && e.wildcard == wildcard);
+  // Deletes and returns the confirmation naming the list it was on, or null
+  // when it was on neither.
+  Future<String?> _deleteConfirmed(String domain, bool wildcard, Marker m) async {
+    bool matches(CustomListEntry e) => e.domainName == domain && e.wildcard == wildcard;
+    final wasAllowed = _payload.now.allowed.any(matches);
+    final wasDenied = _payload.now.denied.any(matches);
     await _delete(domain, wildcard, m);
-    return wasAllowed ? "toast removed from allowed".i18n : "toast removed from blocked".i18n;
+    if (wasAllowed) return "toast removed from allowed".i18n;
+    if (wasDenied) return "toast removed from blocked".i18n;
+    return null;
   }
 
   // Runs a user change and confirms it with a toast, then refetches. If the
   // change fails, an error toast replaces the confirmation, the refetch
   // restores what the server has, and the error still reaches the caller.
-  Future<void> _confirmed(Marker m, Future<String> Function() change) async {
-    final String confirmation;
+  Future<void> _confirmed(Marker m, Future<String?> Function() change,
+      {bool confirm = true}) async {
+    final String? confirmation;
     try {
       confirmation = await change();
     } catch (e) {
@@ -192,7 +199,7 @@ class CustomlistActor with Actor, Logging {
       }
       rethrow;
     }
-    _toast.show(confirmation);
+    if (confirm && confirmation != null) _toast.show(confirmation);
     await fetch(m);
   }
 
