@@ -10,6 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
 
+/// The area under the power button on Home. While protection is off it shows
+/// the "tap to activate" (or paused) hint; once active it slides in the
+/// counter and then the Plus button, 100 ms apart, so the two arrive as a
+/// staggered pair rather than at once. It owns both animation controllers so
+/// a single reaction to the app status can drive them in that order.
 class HomeActions extends StatefulWidget {
   const HomeActions({Key? key}) : super(key: key);
 
@@ -34,6 +39,8 @@ class _HomeActionsState extends State<HomeActions> with TickerProviderStateMixin
     vsync: this,
   );
 
+  // Disposed with the widget: an autorun outlives the State and would keep
+  // driving the controllers after they are disposed.
   ReactionDisposer? _disposeStatusReaction;
 
   @override
