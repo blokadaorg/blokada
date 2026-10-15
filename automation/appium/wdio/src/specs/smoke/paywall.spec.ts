@@ -44,10 +44,9 @@ const buyButtonSelector =
   "label BEGINSWITH[c] 'Try' OR label BEGINSWITH[c] 'Continue')";
 const restoreSelector =
   "-ios predicate string: type == 'XCUIElementTypeButton' AND label ==[c] 'Restore'";
-// The close X is an icon with no label; it is the only unlabelled button in
-// the top corner of the paywall.
-const unlabelledButtonSelector =
-  "-ios predicate string: type == 'XCUIElementTypeButton' AND label == '' AND visible == 1";
+// The close X is an icon button with no label or name attribute at all (not
+// empty ones), and the only such button near the top of the paywall.
+const buttonSelector = "-ios class chain:**/XCUIElementTypeButton";
 
 async function exists(selector: string): Promise<boolean> {
   try {
@@ -142,7 +141,12 @@ async function waitForSettledPaywall(timeout = 20000): Promise<void> {
 
 async function tapPaywallClose(): Promise<void> {
   const { height } = await driver.getWindowRect();
-  for (const button of await $$(unlabelledButtonSelector)) {
+  for (const button of await $$(buttonSelector)) {
+    // The home settings button behind the paywall is unlabelled too, but it
+    // has a name (its automation id) and is not displayed.
+    if (await button.getAttribute("label")) continue;
+    if (await button.getAttribute("name")) continue;
+    if (!(await button.isDisplayed())) continue;
     const { y } = await button.getLocation();
     if (y < height * 0.2) {
       await button.click();
