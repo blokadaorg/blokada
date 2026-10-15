@@ -16,8 +16,10 @@ fvm flutter test test/golden/ --update-goldens   # regenerate after an intended 
 Review regenerated PNGs in the PR diff like any other change.
 
 - Goldens are generated on Linux. Text and anti-aliasing differ slightly on
-  macOS, so the group is skipped elsewhere; regenerate them on Linux (CI or a
-  cloud session).
+  macOS, so the group is skipped elsewhere; regenerate them on Linux (a cloud
+  session or any Linux machine). CI runs them in the `Flutter test` job and,
+  on a mismatch, uploads the master, test and diff images as the
+  `golden-failures-*` artifact.
 - Real fonts are loaded in `golden_tools.dart`: Roboto and Material icons from
   the Flutter SDK, Cupertino icons from the version in `pubspec.lock`. Without
   them tests draw text with a placeholder font.
