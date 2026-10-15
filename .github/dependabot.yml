@@ -129,6 +129,15 @@ updates:
         update-types:
           - "minor"
           - "patch"
+      # WebdriverIO packages must move together: a major on one @wdio
+      # package alone leaves the harness on mixed versions that don't resolve.
+      appium-wdio-majors:
+        applies-to: version-updates
+        patterns:
+          - "@wdio/*"
+          - "webdriverio"
+        update-types:
+          - "major"
       appium-wdio-npm-security:
         applies-to: security-updates
         patterns:
