@@ -138,6 +138,15 @@ Use for UX/notifications/state work; use `run-six`/`run-family` on a real
 device when you need actual DNS/VPN behaviour. See `ios/SIMULATOR.md` for
 overrides, warm-template setup, and caveats.
 
+### Test Accounts
+
+Test against the account in `$ACCOUNT_ID` and switch its flavor and state
+with the Blokada support connector (`account_activate`, `account_expire`,
+`account_attributes_set`). Create another account only when parallel tasks
+need different state at the same time, and pass each sub-agent its ID; a
+sub-agent changes only the account it was given. These are production
+accounts: never use a customer account, and never commit an account ID.
+
 ## Testing & Linting
 
 ```bash
