@@ -1,3 +1,4 @@
+import 'package:common/src/shared/ui/blokada_switch.dart';
 import 'package:common/src/shared/ui/dialog.dart';
 import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/features/journal/domain/journal.dart';
@@ -144,7 +145,7 @@ class StatsFilterState extends State<StatsFilter> {
             icon: CupertinoIcons.textformat,
             text: "activity filter exact match".i18n,
             chevron: false,
-            trailing: CupertinoSwitch(
+            trailing: BlokadaSwitch(
               activeColor: context.theme.accent,
               value: widget.filter.draft.exactMatch,
               onChanged: (bool? value) {
@@ -171,7 +172,7 @@ class StatsFilterState extends State<StatsFilter> {
             icon: Icons.sort,
             text: "family stats filter most common".i18n,
             chevron: false,
-            trailing: CupertinoSwitch(
+            trailing: BlokadaSwitch(
               activeColor: context.theme.accent,
               value: !widget.filter.draft.sortNewestFirst,
               onChanged: (bool? value) {

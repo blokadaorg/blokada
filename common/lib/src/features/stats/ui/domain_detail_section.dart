@@ -1,3 +1,4 @@
+import 'package:common/src/features/toast/domain/toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:collection/collection.dart';
 import 'package:common/src/shared/ui/dialog.dart';
@@ -1022,7 +1023,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
           // Domain name (long press to copy)
           GestureDetector(
             onLongPress: () {
-              Clipboard.setData(ClipboardData(text: widget.entry.domainName));
+              Core.get<ToastActor>().copy(widget.entry.domainName, Markers.userTap);
             },
             child: Text(
               middleEllipsis(widget.entry.domainName, maxLength: 20),
@@ -1477,8 +1478,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
       padding: EdgeInsets.zero,
       child: CommonClickable(
         onTap: () {
-          Clipboard.setData(ClipboardData(text: widget.entry.domainName));
-          // TODO: Maybe show a toast/snackbar confirming copy
+          Core.get<ToastActor>().copy(widget.entry.domainName, Markers.userTap);
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),

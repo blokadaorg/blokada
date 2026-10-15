@@ -1,5 +1,6 @@
 import 'dart:io' as io;
 
+import 'package:common/src/features/toast/domain/toast.dart';
 import 'package:common/src/features/customlist/domain/customlist.dart';
 import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/features/journal/domain/journal.dart';
@@ -102,12 +103,14 @@ Future<void> _applyRuleOption({
   // If domain was allowed, we add to blocked list (gotBlocked=false)
   final gotBlocked = action == UiJournalAction.block;
 
-  // Always clean up both exact and wildcard entries first
+  // Always clean up both exact and wildcard entries first. When a new rule
+  // follows, only its confirmation shows.
+  final confirmRemoval = option == ActivityRuleOption.automatic;
   if (customlistActor.contains(domainName, wildcard: false)) {
-    await customlistActor.remove(m, domainName, false);
+    await customlistActor.remove(m, domainName, false, confirm: confirmRemoval);
   }
   if (customlistActor.contains(domainName, wildcard: true)) {
-    await customlistActor.remove(m, domainName, true);
+    await customlistActor.remove(m, domainName, true, confirm: confirmRemoval);
   }
 
   // Apply the new rule based on selected option
@@ -473,7 +476,7 @@ void showAccountIdDialog(BuildContext context, String accountId) {
     actions: (context) => [
       TextButton(
         onPressed: () {
-          Clipboard.setData(ClipboardData(text: accountId));
+          Core.get<ToastActor>().copy(accountId, Markers.userTap);
           Navigator.of(context).pop();
         },
         child: Text("universal action copy".i18n),

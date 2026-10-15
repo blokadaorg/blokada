@@ -1,6 +1,7 @@
 import 'package:common/src/app_variants/family/module/profile/profile.dart';
 import 'package:common/src/app_variants/family/module/schedule/schedule.dart';
 import 'package:common/src/app_variants/family/widget/device/schedule_section.dart';
+import 'package:common/src/shared/ui/blokada_switch.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -110,7 +111,7 @@ void main() {
       await tester.pump();
 
       final firstSwitch =
-          tester.widget<CupertinoSwitch>(find.byKey(const Key('schedule_paused_switch')));
+          tester.widget<BlokadaSwitch>(find.byKey(const Key('schedule_paused_switch')));
       expect(firstSwitch.value, isTrue, reason: 'paused:false should render the toggle as ON.');
 
       await tester.tap(find.byKey(const Key('schedule_paused_switch')));
@@ -132,7 +133,7 @@ void main() {
       await tester.pump();
 
       final secondSwitch =
-          tester.widget<CupertinoSwitch>(find.byKey(const Key('schedule_paused_switch')));
+          tester.widget<BlokadaSwitch>(find.byKey(const Key('schedule_paused_switch')));
       expect(secondSwitch.value, isFalse, reason: 'paused:true should render the toggle as OFF.');
 
       await tester.tap(find.byKey(const Key('schedule_paused_switch')));

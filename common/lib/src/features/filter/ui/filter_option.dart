@@ -1,3 +1,4 @@
+import 'package:common/src/shared/ui/blokada_switch.dart';
 import 'package:common/src/features/filter/domain/filter.dart';
 import 'package:common/src/shared/ui/string.dart';
 import 'package:common/src/shared/ui/theme.dart';
@@ -69,7 +70,7 @@ class FilterOptionWidgetState extends State<FilterOptionWidget> {
                 child: Semantics(
                   identifier: widget.automationId,
                   toggled: selected,
-                  child: CupertinoSwitch(
+                  child: BlokadaSwitch(
                     activeColor: context.theme.accent,
                     value: selected,
                     onChanged: (bool? value) {
