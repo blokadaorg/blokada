@@ -38,6 +38,7 @@ import kotlinx.coroutines.launch
 import org.blokada.R
 import service.ContextService
 import service.NetworkMonitorPermissionService
+import service.NotificationPermissionService
 import service.SheetService
 import service.StartupContextService
 import service.TranslationService
@@ -247,7 +248,11 @@ class MainActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        NetworkMonitorPermissionService.resultReturned(grantResults)
+        if (requestCode == NotificationPermissionService.REQUEST_CODE) {
+            NotificationPermissionService.resultReturned(grantResults)
+        } else {
+            NetworkMonitorPermissionService.resultReturned(grantResults)
+        }
     }
 
     companion object {
