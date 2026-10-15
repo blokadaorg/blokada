@@ -8,6 +8,10 @@ on:
 
 permissions:
   contents: read
+  # Posts the "Appium smoke" commit status on the PR's head commit. A
+  # workflow_run job is filed under the default branch, so without it a
+  # branch rule cannot require this check.
+  statuses: write
 
 # Per-branch group: a new push to a branch coalesces that branch's own pending
 # run after CI succeeds (latest commit wins), but different branches use
@@ -32,6 +36,19 @@ jobs:
       LANG: en_US.UTF-8
       LC_ALL: en_US.UTF-8
     steps:
+      - name: Report smoke status as pending
+        if: github.event_name == 'workflow_run'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SHA: ${{ github.event.workflow_run.head_sha }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        # curl, not gh: the self-hosted runner is not guaranteed to have gh.
+        run: |
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/statuses/$SHA" \
+            -d "{\"state\":\"pending\",\"context\":\"Appium smoke\",\"description\":\"Running on the CI phone\",\"target_url\":\"$RUN_URL\"}"
+
       - uses: actions/checkout@v7
         with:
           submodules: recursive
@@ -56,6 +73,24 @@ jobs:
           BLOKADA_ACTIVE_ACCOUNT_ID: ${{ secrets.BLOKADA_ACTIVE_ACCOUNT_ID }}
           BLOKADA_INACTIVE_ACCOUNT_ID: ${{ secrets.BLOKADA_INACTIVE_ACCOUNT_ID }}
         run: make appium-test
+
+      - name: Report smoke status result
+        if: always() && github.event_name == 'workflow_run'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SHA: ${{ github.event.workflow_run.head_sha }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          JOB_STATUS: ${{ job.status }}
+        run: |
+          case "$JOB_STATUS" in
+            success) state=success; desc="Smoke passed" ;;
+            failure) state=failure; desc="Smoke failed" ;;
+            *) state=error; desc="Smoke $JOB_STATUS" ;;
+          esac
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/statuses/$SHA" \
+            -d "{\"state\":\"$state\",\"context\":\"Appium smoke\",\"description\":\"$desc\",\"target_url\":\"$RUN_URL\"}"
 
       - name: Publish per-scenario summary
         # Renders the per-scenario JUnit results (one row per spec, with timing)
