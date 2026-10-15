@@ -117,6 +117,44 @@ jobs:
           make pub gen
           fvm flutter analyze --no-fatal-warnings --no-fatal-infos
 
+  flutter_test:
+    name: Flutter test
+    # Unit, widget and golden tests for the Flutter module. Runs alongside the
+    # builds rather than gating them: a failure turns the PR red within
+    # minutes either way, and gating would delay every green PR.
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    if: >-
+      (github.event_name == 'workflow_dispatch' ||
+       github.event.pull_request.head.repo.full_name == github.repository) &&
+      !startsWith(github.head_ref, 'automation/translations-sync/')
+    env:
+      LANG: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          submodules: recursive
+          fetch-depth: 1
+
+      - uses: ./.github/actions/setup-flutter
+
+      - name: Run Flutter tests
+        working-directory: common
+        run: |
+          make pub gen
+          fvm flutter test --no-pub -r failures-only
+
+      # Goldens are compared on Linux only; on a mismatch flutter_test writes
+      # the master, test and diff images here.
+      - name: Upload golden failures
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: golden-failures-${{ github.run_id }}
+          path: common/test/golden/failures/
+          if-no-files-found: ignore
+
   ios_build:
     name: iOS build
     # Same image and Xcode as the release archive in ci-release.yml.
