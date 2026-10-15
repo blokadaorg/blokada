@@ -15,6 +15,10 @@ class FilterActor with Logging, Actor {
 
   List<JsonListItem> _lists = [];
 
+  // False for the freemium sample catalog, whose paths are not mirror/v5 and
+  // would make every catalog check below warn.
+  bool _isRealCatalog = false;
+
   FilterActor() {
     _userConfig.onChange.listen((_) => reload(Markers.filter));
     _selectedFilters.change(Markers.filter, []);
@@ -38,6 +42,22 @@ class FilterActor with Logging, Actor {
       _listsToTags = {};
       for (final list in _lists) {
         _listsToTags[list.id] = "${list.vendor}/${list.variant}";
+      }
+
+      // Check every option, not only selected ones: a renamed or removed list
+      // turns its option off in _parse, so a check at lookup time never sees it.
+      final knownTags = _listsToTags.values.toSet();
+      _isRealCatalog = _lists.any((it) => it.path.startsWith("mirror/v5/"));
+      for (final filter in _isRealCatalog ? _knownFilters.get() : <Filter>[]) {
+        for (final option in filter.options) {
+          final tags = [
+            if (option.action == FilterAction.list) ...option.actionParams,
+            if (option.action2 == FilterAction.list) ...option.action2Params!,
+          ];
+          for (final tag in tags.where((it) => !knownTags.contains(it))) {
+            log(m).w("Unknown list tag in filter ${filter.filterName}: $tag");
+          }
+        }
       }
 
 //    _configs = null;
@@ -116,10 +136,7 @@ class FilterActor with Logging, Actor {
               (it) => "${it.vendor}/${it.variant}" == listTag,
             );
 
-            if (list == null) {
-              // c.log("Deprecated list, ignoring: $listTag");
-              continue;
-            }
+            if (list == null) continue;
 
             shouldBeLists.add(list.id);
           }
@@ -135,10 +152,7 @@ class FilterActor with Logging, Actor {
               (it) => "${it.vendor}/${it.variant}" == listTag,
             );
 
-            if (list == null) {
-              // c.log("Deprecated list, ignoring: $listTag");
-              continue;
-            }
+            if (list == null) continue;
 
             shouldBeLists.add(list.id);
           }
@@ -166,7 +180,9 @@ class FilterActor with Logging, Actor {
     for (final selectedHashId in userConfig.lists) {
       final tag = _listsToTags[selectedHashId];
       if (tag == null) {
-        //c.log("User has unknown list: $selectedHashId");
+        if (_isRealCatalog) {
+          log(m).w("Selected list not in catalog, ignoring: $selectedHashId");
+        }
         continue;
       }
 
@@ -244,10 +260,7 @@ class FilterActor with Logging, Actor {
               (it) => "${it.vendor}/${it.variant}" == listTag,
             );
 
-            if (list == null) {
-              // c.log("Deprecated list, ignoring: $listTag");
-              continue;
-            }
+            if (list == null) continue;
 
             shouldBeLists.add(list.id);
           }
@@ -267,10 +280,7 @@ class FilterActor with Logging, Actor {
               (it) => "${it.vendor}/${it.variant}" == listTag,
             );
 
-            if (list == null) {
-              // c.log("Deprecated list, ignoring: $listTag");
-              continue;
-            }
+            if (list == null) continue;
 
             shouldBeLists.add(list.id);
           }

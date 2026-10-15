@@ -104,7 +104,7 @@ const filterOptionPorn = "porn";
 final _family = [
   Filter(filterSafeSearch, [
     Option(filterOptionSafeSearch, FilterAction.config, [FilterConfigKey.safeSearch.name],
-        action2: FilterAction.list, action2Params: ["safesearch/safesearch"]),
+        action2: FilterAction.list, action2Params: ["safesearch/nosafesearch"]),
   ]),
   Filter(filterAds, [
     Option(filterOptionPrimary, FilterAction.list, [
