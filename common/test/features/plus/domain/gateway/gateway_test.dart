@@ -34,7 +34,7 @@ void main() {
         Core.register(gateways);
 
         final subject = GatewayActor();
-        expect((await gateways.now())?.isEmpty, true);
+        expect(gateways.present, isNull);
 
         await subject.fetch(m);
         expect((await gateways.now())?.length, 3);

@@ -321,6 +321,8 @@ void main() {
         Core.register<LeaseChannel>(ops);
 
         final json = MockLeaseApi();
+        when(json.getLeases(any))
+            .thenAnswer((_) => Future.value(fixtureLeaseEntries));
         when(json.deleteLease(any, any)).thenThrow(Exception("delete failing"));
         Core.register<LeaseApi>(json);
 
@@ -330,7 +332,9 @@ void main() {
         final gateway = MockGatewayActor();
         Core.register<GatewayActor>(gateway);
 
-        Core.register(PublicKeyProvidedValue());
+        final pk = PublicKeyProvidedValue();
+        pk.change(m, Fixtures.keypair.publicKey);
+        Core.register(pk);
 
         Core.register(CurrentLeaseValue());
 
@@ -356,6 +360,8 @@ void main() {
         Core.register<PlusActor>(MockPlusActor());
 
         final json = MockLeaseApi();
+        when(json.getLeases(any))
+            .thenAnswer((_) => Future.value(fixtureLeaseEntries));
         Core.register<LeaseApi>(json);
 
         final gateway = MockGatewayActor();
@@ -370,7 +376,9 @@ void main() {
         when(stage.route).thenReturn(route);
         Core.register<StageStore>(stage);
 
-        Core.register(PublicKeyProvidedValue());
+        final pk = PublicKeyProvidedValue();
+        pk.change(m, Fixtures.keypair.publicKey);
+        Core.register(pk);
 
         Core.register(CurrentLeaseValue());
 

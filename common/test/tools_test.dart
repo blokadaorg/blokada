@@ -34,6 +34,16 @@ void main() {
       expect(failures, isEmpty);
     });
 
+    test("waits for the whole body", () async {
+      var done = false;
+      await withTrace((m) async {
+        await Future.delayed(const Duration(milliseconds: 10));
+        done = true;
+      });
+
+      expect(done, isTrue);
+    });
+
     test("flushes buffered logs to the failure printer", () async {
       await Core.di.reset();
       Core.act = mockedAct;

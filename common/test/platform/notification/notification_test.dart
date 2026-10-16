@@ -143,6 +143,7 @@ void main() {
         Core.register<WeeklyReportActor>(_FakeWeeklyReportActor(_weeklyEvent()));
 
         final optOutValue = WeeklyReportOptOutValue();
+        await optOutValue.fetch(m);
         Core.register<WeeklyReportOptOutValue>(optOutValue);
 
         final fakeApi = _FakeNotificationApi();
@@ -373,6 +374,9 @@ void main() {
         final store = NotificationActor();
         Core.register<NotificationActor>(store);
         Navigation.lastPath = null;
+        final hosts = DetailPaneHosts();
+        hosts.register(_CatchAllPaneHost());
+        Core.register<DetailPaneHosts>(hosts);
         var opened = 0;
         Navigation.onNavigated = (_) {
           opened++;

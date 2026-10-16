@@ -55,9 +55,13 @@ mockAct(Actor subject,
 
 final mockedAct = ActScreenplay(ActScenario.test, Flavor.v6, PlatformType.iOS);
 
+/// Runs a test body inside a trace, so its log lines are grouped under the
+/// test's name and can be printed when the test fails.
 class TestRunner with Logging {
-  run(String name, Function(Marker) fn) {
-    log(Markers.testing).trace(name, (m) async {
+  /// Returns the trace's future so callers wait for the whole body; without
+  /// it, expectations after the body's first await never fail the test.
+  Future<void> run(String name, Function(Marker) fn) {
+    return log(Markers.testing).trace(name, (m) async {
       await (fn(m));
     });
   }
