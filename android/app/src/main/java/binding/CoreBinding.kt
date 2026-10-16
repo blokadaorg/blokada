@@ -56,6 +56,9 @@ object CoreBinding : CoreOps {
 
     private val scope = CoroutineScope(SupervisorJob())
     private val mutex = Mutex()
+    // Log writes and the tail read run one at a time in the order they were
+    // submitted, so a read sees every batch queued before it.
+    private val logIo = Dispatchers.IO.limitedParallelism(1)
 
     private val backedUpSharedPreferences by lazy {
         PreferenceManager.getDefaultSharedPreferences(context.requireContext())
@@ -90,7 +93,7 @@ object CoreBinding : CoreOps {
         batch: String,
         callback: (Result<Unit>) -> Unit
     ) {
-        scope.launch(Dispatchers.IO) {
+        scope.launch(logIo) {
             val result = mutex.withLock {
                 try {
                     RandomAccessFile(logFile, "rw").use { raf ->
@@ -161,9 +164,9 @@ object CoreBinding : CoreOps {
         }
     }
 
-    // Read under the write lock, so batches already queued are in the tail.
+    // Runs on logIo after every batch queued before it, so they are in the tail.
     override fun doReadLogTail(maxBytes: Long, callback: (Result<String>) -> Unit) {
-        scope.launch(Dispatchers.IO) {
+        scope.launch(logIo) {
             val result = mutex.withLock {
                 // Any failure must still reach the callback, or the chat
                 // waits on the upload forever.
