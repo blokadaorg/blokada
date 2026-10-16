@@ -773,4 +773,18 @@
     <string name="web_plaintext_error_limit">Dosáhli jste limitu %1$s zařízení. Smažte jedno, abyste mohli přidat další.</string>
     <string name="web_plaintext_error_taken">Jiné zařízení ve vašem účtu již toto jméno používá. Zvolte jiné.</string>
     <string name="web_plaintext_error_generic">Něco se pokazilo. Zkuste to prosím později znovu.</string>
+    <string name="home_counter_caption_blocked">Zablokované reklamy a slídiče</string>
+    <string name="toast_save_failed">Změnu se nepodařilo uložit. Zkuste to znovu.</string>
+    <string name="toast_blocklists_saved">Blocklisty byly aktualizovány</string>
+    <string name="toast_removed_from_allowed">Odebráno z povolených</string>
+    <string name="toast_removed_from_blocked">Odebráno z blokovaných</string>
+    <string name="settings_row_activity_history">Historie aktivity</string>
+    <string name="account_section_header_protection">Ochrana</string>
+    <string name="settings_section_header_notifications">Oznámení</string>
+    <string name="universal_label_select_item_details">Vyberte položku pro zobrazení podrobností</string>
+    <string name="stats_label_new">Nová</string>
+    <string name="stats_range_twofourh">24 h</string>
+    <string name="stats_range_sevend">7 d</string>
+    <string name="activity_filter_chip_most_common">Nejčastější jako první</string>
+    <string name="filter_last_list_note">Alespoň jeden blocklist musí zůstat zapnutý. Blokování vypnete tlačítkem Pozastavit na domovské obrazovce.</string>
 </resources>

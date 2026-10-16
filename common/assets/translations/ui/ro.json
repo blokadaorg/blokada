@@ -771,5 +771,19 @@
     "web plaintext error name": "Introduceți un nume mai scurt, fără caractere ascunse.",
     "web plaintext error limit": "Ați atins limita de %s dispozitive. Ștergeți unul pentru a adăuga altul.",
     "web plaintext error taken": "Un alt dispozitiv din contul dvs. folosește deja acest nume. Alegeți unul diferit.",
-    "web plaintext error generic": "Ceva nu a mers bine. Vă rugăm să încercați din nou mai târziu."
+    "web plaintext error generic": "Ceva nu a mers bine. Vă rugăm să încercați din nou mai târziu.",
+    "home counter caption blocked": "Reclame și trackere blocate",
+    "toast save failed": "Modificarea nu a putut fi salvată. Încearcă din nou.",
+    "toast blocklists saved": "Listele de blocare au fost actualizate",
+    "toast removed from allowed": "Eliminat din Permise",
+    "toast removed from blocked": "Eliminat din Restricții",
+    "settings row activity history": "Istoricul activității",
+    "account section header protection": "Protecție",
+    "settings section header notifications": "Notificări",
+    "universal label select item details": "Selectează un element pentru a vedea detaliile",
+    "stats label new": "Nou",
+    "stats range 24h": "24 h",
+    "stats range 7d": "7 z",
+    "activity filter chip most common": "Mai întâi cele mai frecvente",
+    "filter last list note": "Cel puțin o listă de blocare trebuie să rămână activă. Folosește opțiunea Pauză de pe ecranul Acasă pentru a opri blocarea."
 }

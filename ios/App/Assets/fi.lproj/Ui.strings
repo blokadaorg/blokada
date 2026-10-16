@@ -1056,3 +1056,29 @@
 "web plaintext error limit" = "Olet saavuttanut %@ laitteen rajan. Poista yksi lisätäksesi uuden.";
 "web plaintext error taken" = "Toinen laite tililläsi käyttää jo tätä nimeä. Valitse toinen nimi.";
 "web plaintext error generic" = "Jotain meni pieleen. Yritä uudelleen myöhemmin.";
+
+// Caption under the Home "Last 24h" number. The number counts only blocked requests.
+"home counter caption blocked" = "Estettyjä mainoksia ja jäljittäjiä";
+
+// Short confirmation pills shown at the bottom of the screen after an action
+"toast save failed" = "Muutosta ei voitu tallentaa. Yritä uudelleen.";
+"toast blocklists saved" = "Estolistat päivitetty";
+"toast removed from allowed" = "Poistettu sallituista";
+"toast removed from blocked" = "Poistettu estetyistä";
+
+// Settings row that opens the setting for storing activity history (logging)
+"settings row activity history" = "Toimintahistoria";
+// Settings section header for the main protection settings (exceptions, activity, devices)
+"account section header protection" = "Suojaus";
+"settings section header notifications" = "Ilmoitukset";
+// Shown in the empty detail pane on wide screens, before anything in the list is selected
+"universal label select item details" = "Valitse kohde nähdäksesi sen tiedot";
+// Badge next to a domain that appeared in the top list for the first time
+"stats label new" = "Uusi";
+// Short labels for the time range switch: last 24 hours and last 7 days
+"stats range 24h" = "24 h";
+"stats range 7d" = "7 pv";
+// Label of a removable chip above the activity list when it is sorted by frequency
+"activity filter chip most common" = "Yleisimmät ensin";
+// Shown when the user tries to switch off the only enabled blocklist
+"filter last list note" = "Yksi estolista pysyy aina käytössä. Lopeta esto etusivun Keskeytä-painikkeella.";

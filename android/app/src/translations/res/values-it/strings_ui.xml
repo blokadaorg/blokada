@@ -773,4 +773,18 @@
     <string name="web_plaintext_error_limit">Hai raggiunto il limite di %1$s dispositivi. Elimina uno per aggiungerne un altro.</string>
     <string name="web_plaintext_error_taken">Un altro dispositivo nel tuo account utilizza già questo nome. Scegline un altro.</string>
     <string name="web_plaintext_error_generic">Qualcosa è andato storto. Riprova più tardi.</string>
+    <string name="home_counter_caption_blocked">Annunci e tracker bloccati</string>
+    <string name="toast_save_failed">Impossibile salvare la modifica. Riprova.</string>
+    <string name="toast_blocklists_saved">Liste di blocco aggiornate</string>
+    <string name="toast_removed_from_allowed">Rimosso da Consentite</string>
+    <string name="toast_removed_from_blocked">Rimosso da Bloccate</string>
+    <string name="settings_row_activity_history">Cronologia attività</string>
+    <string name="account_section_header_protection">Protezione</string>
+    <string name="settings_section_header_notifications">Notifiche</string>
+    <string name="universal_label_select_item_details">Seleziona un elemento per vedere i dettagli</string>
+    <string name="stats_label_new">Nuovo</string>
+    <string name="stats_range_twofourh">24 h</string>
+    <string name="stats_range_sevend">7 g</string>
+    <string name="activity_filter_chip_most_common">Prima i più comuni</string>
+    <string name="filter_last_list_note">Almeno una lista di blocco deve restare attiva. Usa Pausa nella Home per interrompere il blocco.</string>
 </resources>

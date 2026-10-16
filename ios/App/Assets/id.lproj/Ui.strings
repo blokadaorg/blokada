@@ -1056,3 +1056,29 @@
 "web plaintext error limit" = "Anda telah mencapai batas %@ perangkat. Hapus satu perangkat untuk menambah lainnya.";
 "web plaintext error taken" = "Perangkat lain di akun Anda sudah menggunakan nama ini. Pilih nama lain.";
 "web plaintext error generic" = "Terjadi kesalahan. Silakan coba lagi nanti.";
+
+// Caption under the Home "Last 24h" number. The number counts only blocked requests.
+"home counter caption blocked" = "Iklan dan pelacak yang diblokir";
+
+// Short confirmation pills shown at the bottom of the screen after an action
+"toast save failed" = "Perubahan tidak dapat disimpan. Coba lagi.";
+"toast blocklists saved" = "Daftar blokir diperbarui";
+"toast removed from allowed" = "Dihapus dari whitelist";
+"toast removed from blocked" = "Dihapus dari blacklist";
+
+// Settings row that opens the setting for storing activity history (logging)
+"settings row activity history" = "Riwayat aktivitas";
+// Settings section header for the main protection settings (exceptions, activity, devices)
+"account section header protection" = "Perlindungan";
+"settings section header notifications" = "Notifikasi";
+// Shown in the empty detail pane on wide screens, before anything in the list is selected
+"universal label select item details" = "Pilih item untuk melihat detailnya";
+// Badge next to a domain that appeared in the top list for the first time
+"stats label new" = "Baru";
+// Short labels for the time range switch: last 24 hours and last 7 days
+"stats range 24h" = "24 jam";
+"stats range 7d" = "7 hari";
+// Label of a removable chip above the activity list when it is sorted by frequency
+"activity filter chip most common" = "Yang paling umum terlebih dahulu";
+// Shown when the user tries to switch off the only enabled blocklist
+"filter last list note" = "Satu daftar blokir harus selalu aktif. Gunakan Jeda di Beranda untuk menghentikan pemblokiran.";

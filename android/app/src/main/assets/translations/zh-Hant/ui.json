@@ -771,5 +771,19 @@
     "web plaintext error name": "請輸入更簡短且沒有隱藏字元的名稱。",
     "web plaintext error limit": "您已達到 %1$s 台裝置的上限。請刪除一台以新增另一台。",
     "web plaintext error taken": "您的帳戶中已有其他裝置使用此名稱。請選擇另一個名稱。",
-    "web plaintext error generic": "發生錯誤。請稍後再試。"
+    "web plaintext error generic": "發生錯誤。請稍後再試。",
+    "home counter caption blocked": "已阻擋的廣告與追蹤器",
+    "toast save failed": "無法儲存變更，請再試一次。",
+    "toast blocklists saved": "阻擋清單已更新",
+    "toast removed from allowed": "已從允許清單移除",
+    "toast removed from blocked": "已從「已阻擋」清單移除",
+    "settings row activity history": "活動紀錄",
+    "account section header protection": "保護",
+    "settings section header notifications": "通知",
+    "universal label select item details": "選取項目以查看詳細資訊",
+    "stats label new": "新上榜",
+    "stats range 24h": "24 小時",
+    "stats range 7d": "7 天",
+    "activity filter chip most common": "出現次數由多到少",
+    "filter last list note": "至少會保留一份啟用中的阻擋清單。若要停止阻擋，請在首頁點選「暫停」。"
 } }

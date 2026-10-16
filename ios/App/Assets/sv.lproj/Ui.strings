@@ -1056,3 +1056,29 @@
 "web plaintext error limit" = "Du har nått gränsen på %@ enheter. Ta bort en för att lägga till en ny.";
 "web plaintext error taken" = "En annan enhet på ditt konto använder redan detta namn. Välj ett annat.";
 "web plaintext error generic" = "Något gick fel. Försök igen senare.";
+
+// Caption under the Home "Last 24h" number. The number counts only blocked requests.
+"home counter caption blocked" = "Blockerade annonser och trackers";
+
+// Short confirmation pills shown at the bottom of the screen after an action
+"toast save failed" = "Det gick inte att spara ändringen. Försök igen.";
+"toast blocklists saved" = "Blocklistorna har uppdaterats";
+"toast removed from allowed" = "Har tagits bort från tillåtna";
+"toast removed from blocked" = "Har tagits bort från blockerade";
+
+// Settings row that opens the setting for storing activity history (logging)
+"settings row activity history" = "Aktivitetshistorik";
+// Settings section header for the main protection settings (exceptions, activity, devices)
+"account section header protection" = "Skydd";
+"settings section header notifications" = "Notifikationer";
+// Shown in the empty detail pane on wide screens, before anything in the list is selected
+"universal label select item details" = "Välj ett objekt för att se detaljer";
+// Badge next to a domain that appeared in the top list for the first time
+"stats label new" = "Ny";
+// Short labels for the time range switch: last 24 hours and last 7 days
+"stats range 24h" = "24 h";
+"stats range 7d" = "7 d";
+// Label of a removable chip above the activity list when it is sorted by frequency
+"activity filter chip most common" = "Vanligast först";
+// Shown when the user tries to switch off the only enabled blocklist
+"filter last list note" = "En blocklista måste alltid vara aktiv. Använd Pausa på startsidan för att stoppa blockeringen.";

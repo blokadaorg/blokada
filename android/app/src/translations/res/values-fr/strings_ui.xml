@@ -773,4 +773,18 @@
     <string name="web_plaintext_error_limit">Vous avez atteint la limite de %1$s appareils. Supprimez-en un pour en ajouter un autre.</string>
     <string name="web_plaintext_error_taken">Un autre appareil de votre compte utilise déjà ce nom. Choisissez-en un autre.</string>
     <string name="web_plaintext_error_generic">Une erreur s\'est produite. Veuillez réessayer plus tard.</string>
+    <string name="home_counter_caption_blocked">Pubs et trackers bloqués</string>
+    <string name="toast_save_failed">Impossible d’enregistrer la modification. Réessayez.</string>
+    <string name="toast_blocklists_saved">Listes de blocage mises à jour</string>
+    <string name="toast_removed_from_allowed">Supprimé d’« Autorisé »</string>
+    <string name="toast_removed_from_blocked">Supprimé de « Bloqué »</string>
+    <string name="settings_row_activity_history">Historique d’activité</string>
+    <string name="account_section_header_protection">Protection</string>
+    <string name="settings_section_header_notifications">Notifications</string>
+    <string name="universal_label_select_item_details">Sélectionnez un élément pour afficher ses détails</string>
+    <string name="stats_label_new">Nouveau</string>
+    <string name="stats_range_twofourh">24 h</string>
+    <string name="stats_range_sevend">7 j</string>
+    <string name="activity_filter_chip_most_common">Les plus communs en premier</string>
+    <string name="filter_last_list_note">Une liste de blocage doit toujours rester active. Utilisez « Pause » sur l’écran d’accueil pour arrêter le blocage.</string>
 </resources>

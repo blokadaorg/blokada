@@ -1056,3 +1056,29 @@
 "web plaintext error limit" = "لقد وصلت إلى الحد الأقصى وهو %@ من الأجهزة. احذف جهازًا لإضافة جهاز آخر.";
 "web plaintext error taken" = "جهاز آخر في حسابك يستخدم هذا الاسم بالفعل. اختر اسماً مختلفاً.";
 "web plaintext error generic" = "حدث خطأ ما. الرجاء المحاولة مرة أخرى لاحقاً.";
+
+// Caption under the Home "Last 24h" number. The number counts only blocked requests.
+"home counter caption blocked" = "الإعلانات المحظورة والمُتعقِّبون المحظورون";
+
+// Short confirmation pills shown at the bottom of the screen after an action
+"toast save failed" = "تعذّر حفظ التغيير. حاول مرة أخرى.";
+"toast blocklists saved" = "تم تحديث قوائم الحظر";
+"toast removed from allowed" = "تمت الإزالة من قائمة السماح";
+"toast removed from blocked" = "تمت الإزالة من قائمة الحَظْر";
+
+// Settings row that opens the setting for storing activity history (logging)
+"settings row activity history" = "سجل النشاط";
+// Settings section header for the main protection settings (exceptions, activity, devices)
+"account section header protection" = "الحماية";
+"settings section header notifications" = "الإشعارات";
+// Shown in the empty detail pane on wide screens, before anything in the list is selected
+"universal label select item details" = "اختر عنصرًا لعرض تفاصيله";
+// Badge next to a domain that appeared in the top list for the first time
+"stats label new" = "جديد";
+// Short labels for the time range switch: last 24 hours and last 7 days
+"stats range 24h" = "٢٤ ساعة";
+"stats range 7d" = "٧ أيام";
+// Label of a removable chip above the activity list when it is sorted by frequency
+"activity filter chip most common" = "الأكثر شيوعًا أولاً";
+// Shown when the user tries to switch off the only enabled blocklist
+"filter last list note" = "تظل قائمة حظر واحدة على الأقل مفعّلة دائمًا. استخدم «إيقاف مؤقت» في الصفحة الرئيسية لإيقاف الحظر.";

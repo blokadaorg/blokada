@@ -773,4 +773,18 @@
     <string name="web_plaintext_error_limit">Anda telah mencapai batas %1$s perangkat. Hapus satu perangkat untuk menambah lainnya.</string>
     <string name="web_plaintext_error_taken">Perangkat lain di akun Anda sudah menggunakan nama ini. Pilih nama lain.</string>
     <string name="web_plaintext_error_generic">Terjadi kesalahan. Silakan coba lagi nanti.</string>
+    <string name="home_counter_caption_blocked">Iklan dan pelacak yang diblokir</string>
+    <string name="toast_save_failed">Perubahan tidak dapat disimpan. Coba lagi.</string>
+    <string name="toast_blocklists_saved">Daftar blokir diperbarui</string>
+    <string name="toast_removed_from_allowed">Dihapus dari whitelist</string>
+    <string name="toast_removed_from_blocked">Dihapus dari blacklist</string>
+    <string name="settings_row_activity_history">Riwayat aktivitas</string>
+    <string name="account_section_header_protection">Perlindungan</string>
+    <string name="settings_section_header_notifications">Notifikasi</string>
+    <string name="universal_label_select_item_details">Pilih item untuk melihat detailnya</string>
+    <string name="stats_label_new">Baru</string>
+    <string name="stats_range_twofourh">24 jam</string>
+    <string name="stats_range_sevend">7 hari</string>
+    <string name="activity_filter_chip_most_common">Yang paling umum terlebih dahulu</string>
+    <string name="filter_last_list_note">Satu daftar blokir harus selalu aktif. Gunakan Jeda di Beranda untuk menghentikan pemblokiran.</string>
 </resources>

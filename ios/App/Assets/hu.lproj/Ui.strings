@@ -1057,3 +1057,29 @@
 "web plaintext error limit" = "Elérted az %@ eszköz limitjét. Törölj egyet, hogy újabbat adhass hozzá.";
 "web plaintext error taken" = "Egy másik eszköz a fiókodban már használja ezt a nevet. Válassz egy másikat.";
 "web plaintext error generic" = "Valami hiba történt. Kérjük, próbáld meg később újra.";
+
+// Caption under the Home "Last 24h" number. The number counts only blocked requests.
+"home counter caption blocked" = "Blokkolt hirdetések és nyomkövetők";
+
+// Short confirmation pills shown at the bottom of the screen after an action
+"toast save failed" = "Nem sikerült menteni a módosítást. Próbáld újra.";
+"toast blocklists saved" = "Blokkolási listák frissítve";
+"toast removed from allowed" = "Engedélyezettből eltávolítva";
+"toast removed from blocked" = "Blokkoltból eltávolítva";
+
+// Settings row that opens the setting for storing activity history (logging)
+"settings row activity history" = "Tevékenységelőzmények";
+// Settings section header for the main protection settings (exceptions, activity, devices)
+"account section header protection" = "Védelem";
+"settings section header notifications" = "Értesítések";
+// Shown in the empty detail pane on wide screens, before anything in the list is selected
+"universal label select item details" = "Válassz ki egy elemet a részletek megtekintéséhez";
+// Badge next to a domain that appeared in the top list for the first time
+"stats label new" = "Új";
+// Short labels for the time range switch: last 24 hours and last 7 days
+"stats range 24h" = "24 óra";
+"stats range 7d" = "7 nap";
+// Label of a removable chip above the activity list when it is sorted by frequency
+"activity filter chip most common" = "Leggyakoribbak elöl";
+// Shown when the user tries to switch off the only enabled blocklist
+"filter last list note" = "Mindig legalább egy blokkolási lista bekapcsolva marad. A blokkolás leállításához válaszd a kezdőlapon a Szüneteltetés lehetőséget.";

@@ -771,5 +771,19 @@
     "web plaintext error name": "Masukkan nama yang lebih pendek, tanpa karakter tersembunyi.",
     "web plaintext error limit": "Anda telah mencapai batas %1$s perangkat. Hapus satu perangkat untuk menambah lainnya.",
     "web plaintext error taken": "Perangkat lain di akun Anda sudah menggunakan nama ini. Pilih nama lain.",
-    "web plaintext error generic": "Terjadi kesalahan. Silakan coba lagi nanti."
+    "web plaintext error generic": "Terjadi kesalahan. Silakan coba lagi nanti.",
+    "home counter caption blocked": "Iklan dan pelacak yang diblokir",
+    "toast save failed": "Perubahan tidak dapat disimpan. Coba lagi.",
+    "toast blocklists saved": "Daftar blokir diperbarui",
+    "toast removed from allowed": "Dihapus dari whitelist",
+    "toast removed from blocked": "Dihapus dari blacklist",
+    "settings row activity history": "Riwayat aktivitas",
+    "account section header protection": "Perlindungan",
+    "settings section header notifications": "Notifikasi",
+    "universal label select item details": "Pilih item untuk melihat detailnya",
+    "stats label new": "Baru",
+    "stats range 24h": "24 jam",
+    "stats range 7d": "7 hari",
+    "activity filter chip most common": "Yang paling umum terlebih dahulu",
+    "filter last list note": "Satu daftar blokir harus selalu aktif. Gunakan Jeda di Beranda untuk menghentikan pemblokiran."
 } }

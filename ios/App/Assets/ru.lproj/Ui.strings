@@ -1056,3 +1056,29 @@
 "web plaintext error limit" = "Вы достигли лимита устройств: %@. Удалите одно, чтобы добавить другое.";
 "web plaintext error taken" = "Другое устройство в вашем аккаунте уже использует это имя. Выберите другое.";
 "web plaintext error generic" = "Что-то пошло не так. Пожалуйста, попробуйте позже.";
+
+// Caption under the Home "Last 24h" number. The number counts only blocked requests.
+"home counter caption blocked" = "Ads and trackers blocked";
+
+// Short confirmation pills shown at the bottom of the screen after an action
+"toast save failed" = "Couldn't save the change. Try again.";
+"toast blocklists saved" = "Blocklists updated";
+"toast removed from allowed" = "Removed from Allowed";
+"toast removed from blocked" = "Removed from Blocked";
+
+// Settings row that opens the setting for storing activity history (logging)
+"settings row activity history" = "Activity history";
+// Settings section header for the main protection settings (exceptions, activity, devices)
+"account section header protection" = "Protection";
+"settings section header notifications" = "Notifications";
+// Shown in the empty detail pane on wide screens, before anything in the list is selected
+"universal label select item details" = "Select an item to see details";
+// Badge next to a domain that appeared in the top list for the first time
+"stats label new" = "New";
+// Short labels for the time range switch: last 24 hours and last 7 days
+"stats range 24h" = "24 h";
+"stats range 7d" = "7 d";
+// Label of a removable chip above the activity list when it is sorted by frequency
+"activity filter chip most common" = "Most common first";
+// Shown when the user tries to switch off the only enabled blocklist
+"filter last list note" = "One blocklist always stays on. Use Pause on Home to stop blocking.";

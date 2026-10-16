@@ -773,4 +773,18 @@
     <string name="web_plaintext_error_limit">Je hebt het limiet van %1$s apparaten bereikt. Verwijder er een om een andere toe te voegen.</string>
     <string name="web_plaintext_error_taken">Een ander apparaat op jouw account gebruikt deze naam al. Kies een andere naam.</string>
     <string name="web_plaintext_error_generic">Er is iets misgegaan. Probeer het later opnieuw.</string>
+    <string name="home_counter_caption_blocked">Advertenties en trackers geblokkeerd</string>
+    <string name="toast_save_failed">Wijziging kon niet worden opgeslagen. Probeer het opnieuw.</string>
+    <string name="toast_blocklists_saved">Blokkeerlijsten bijgewerkt</string>
+    <string name="toast_removed_from_allowed">Verwijderd van Toegestaan</string>
+    <string name="toast_removed_from_blocked">Verwijderd uit Geblokkeerd</string>
+    <string name="settings_row_activity_history">Activiteitsgeschiedenis</string>
+    <string name="account_section_header_protection">Bescherming</string>
+    <string name="settings_section_header_notifications">Notificaties</string>
+    <string name="universal_label_select_item_details">Selecteer een item om de details te bekijken</string>
+    <string name="stats_label_new">Nieuw</string>
+    <string name="stats_range_twofourh">24 u</string>
+    <string name="stats_range_sevend">7 d</string>
+    <string name="activity_filter_chip_most_common">Meest voorkomende eerst</string>
+    <string name="filter_last_list_note">Er blijft altijd één blokkeerlijst ingeschakeld. Gebruik Pauzeren op het startscherm om het blokkeren te stoppen.</string>
 </resources>

@@ -773,4 +773,18 @@
     <string name="web_plaintext_error_limit">%1$s台の端末上限に達しました。他の端末を削除してから追加してください。</string>
     <string name="web_plaintext_error_taken">ご利用のアカウント内で、すでにこの名前を使っている端末があります。別の名前を選択してください。</string>
     <string name="web_plaintext_error_generic">問題が発生しました。後でもう一度お試しください。</string>
+    <string name="home_counter_caption_blocked">ブロックした広告とトラッカー</string>
+    <string name="toast_save_failed">変更を保存できませんでした。もう一度お試しください。</string>
+    <string name="toast_blocklists_saved">ブロックリストを更新しました</string>
+    <string name="toast_removed_from_allowed">許可リストから削除しました</string>
+    <string name="toast_removed_from_blocked">ブロックリストから削除しました</string>
+    <string name="settings_row_activity_history">アクティビティ履歴</string>
+    <string name="account_section_header_protection">保護</string>
+    <string name="settings_section_header_notifications">通知</string>
+    <string name="universal_label_select_item_details">項目を選択すると詳細が表示されます</string>
+    <string name="stats_label_new">新着</string>
+    <string name="stats_range_twofourh">24時間</string>
+    <string name="stats_range_sevend">7日間</string>
+    <string name="activity_filter_chip_most_common">件数が多い順</string>
+    <string name="filter_last_list_note">ブロックリストは常にひとつ以上有効にしておく必要があります。ブロックを停止するには、ホーム画面の「一時停止」を使用してください。</string>
 </resources>

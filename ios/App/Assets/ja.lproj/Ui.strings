@@ -1057,3 +1057,29 @@
 "web plaintext error limit" = "%@台の端末上限に達しました。他の端末を削除してから追加してください。";
 "web plaintext error taken" = "ご利用のアカウント内で、すでにこの名前を使っている端末があります。別の名前を選択してください。";
 "web plaintext error generic" = "問題が発生しました。後でもう一度お試しください。";
+
+// Caption under the Home "Last 24h" number. The number counts only blocked requests.
+"home counter caption blocked" = "ブロックした広告とトラッカー";
+
+// Short confirmation pills shown at the bottom of the screen after an action
+"toast save failed" = "変更を保存できませんでした。もう一度お試しください。";
+"toast blocklists saved" = "ブロックリストを更新しました";
+"toast removed from allowed" = "許可リストから削除しました";
+"toast removed from blocked" = "ブロックリストから削除しました";
+
+// Settings row that opens the setting for storing activity history (logging)
+"settings row activity history" = "アクティビティ履歴";
+// Settings section header for the main protection settings (exceptions, activity, devices)
+"account section header protection" = "保護";
+"settings section header notifications" = "通知";
+// Shown in the empty detail pane on wide screens, before anything in the list is selected
+"universal label select item details" = "項目を選択すると詳細が表示されます";
+// Badge next to a domain that appeared in the top list for the first time
+"stats label new" = "新着";
+// Short labels for the time range switch: last 24 hours and last 7 days
+"stats range 24h" = "24時間";
+"stats range 7d" = "7日間";
+// Label of a removable chip above the activity list when it is sorted by frequency
+"activity filter chip most common" = "件数が多い順";
+// Shown when the user tries to switch off the only enabled blocklist
+"filter last list note" = "ブロックリストは常にひとつ以上有効にしておく必要があります。ブロックを停止するには、ホーム画面の「一時停止」を使用してください。";

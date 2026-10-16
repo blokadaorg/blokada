@@ -773,4 +773,18 @@
     <string name="web_plaintext_error_limit">Olet saavuttanut %1$s laitteen rajan. Poista yksi lisätäksesi uuden.</string>
     <string name="web_plaintext_error_taken">Toinen laite tililläsi käyttää jo tätä nimeä. Valitse toinen nimi.</string>
     <string name="web_plaintext_error_generic">Jotain meni pieleen. Yritä uudelleen myöhemmin.</string>
+    <string name="home_counter_caption_blocked">Estettyjä mainoksia ja jäljittäjiä</string>
+    <string name="toast_save_failed">Muutosta ei voitu tallentaa. Yritä uudelleen.</string>
+    <string name="toast_blocklists_saved">Estolistat päivitetty</string>
+    <string name="toast_removed_from_allowed">Poistettu sallituista</string>
+    <string name="toast_removed_from_blocked">Poistettu estetyistä</string>
+    <string name="settings_row_activity_history">Toimintahistoria</string>
+    <string name="account_section_header_protection">Suojaus</string>
+    <string name="settings_section_header_notifications">Ilmoitukset</string>
+    <string name="universal_label_select_item_details">Valitse kohde nähdäksesi sen tiedot</string>
+    <string name="stats_label_new">Uusi</string>
+    <string name="stats_range_twofourh">24 h</string>
+    <string name="stats_range_sevend">7 pv</string>
+    <string name="activity_filter_chip_most_common">Yleisimmät ensin</string>
+    <string name="filter_last_list_note">Yksi estolista pysyy aina käytössä. Lopeta esto etusivun Keskeytä-painikkeella.</string>
 </resources>

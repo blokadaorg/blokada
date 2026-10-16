@@ -1056,3 +1056,29 @@
 "web plaintext error limit" = "Ați atins limita de %@ dispozitive. Ștergeți unul pentru a adăuga altul.";
 "web plaintext error taken" = "Un alt dispozitiv din contul dvs. folosește deja acest nume. Alegeți unul diferit.";
 "web plaintext error generic" = "Ceva nu a mers bine. Vă rugăm să încercați din nou mai târziu.";
+
+// Caption under the Home "Last 24h" number. The number counts only blocked requests.
+"home counter caption blocked" = "Reclame și trackere blocate";
+
+// Short confirmation pills shown at the bottom of the screen after an action
+"toast save failed" = "Modificarea nu a putut fi salvată. Încearcă din nou.";
+"toast blocklists saved" = "Listele de blocare au fost actualizate";
+"toast removed from allowed" = "Eliminat din Permise";
+"toast removed from blocked" = "Eliminat din Restricții";
+
+// Settings row that opens the setting for storing activity history (logging)
+"settings row activity history" = "Istoricul activității";
+// Settings section header for the main protection settings (exceptions, activity, devices)
+"account section header protection" = "Protecție";
+"settings section header notifications" = "Notificări";
+// Shown in the empty detail pane on wide screens, before anything in the list is selected
+"universal label select item details" = "Selectează un element pentru a vedea detaliile";
+// Badge next to a domain that appeared in the top list for the first time
+"stats label new" = "Nou";
+// Short labels for the time range switch: last 24 hours and last 7 days
+"stats range 24h" = "24 h";
+"stats range 7d" = "7 z";
+// Label of a removable chip above the activity list when it is sorted by frequency
+"activity filter chip most common" = "Mai întâi cele mai frecvente";
+// Shown when the user tries to switch off the only enabled blocklist
+"filter last list note" = "Cel puțin o listă de blocare trebuie să rămână activă. Folosește opțiunea Pauză de pe ecranul Acasă pentru a opri blocarea.";

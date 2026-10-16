@@ -1056,3 +1056,29 @@
 "web plaintext error limit" = "Você atingiu o limite de %@ dispositivos. Exclua um para adicionar outro.";
 "web plaintext error taken" = "Outro dispositivo na sua conta já usa este nome. Escolha um diferente.";
 "web plaintext error generic" = "Algo deu errado. Por favor, tente novamente mais tarde.";
+
+// Caption under the Home "Last 24h" number. The number counts only blocked requests.
+"home counter caption blocked" = "Anúncios e rastreadores bloqueados";
+
+// Short confirmation pills shown at the bottom of the screen after an action
+"toast save failed" = "Não foi possível salvar a alteração. Tente novamente.";
+"toast blocklists saved" = "Listas de bloqueio atualizadas";
+"toast removed from allowed" = "Removido dos Permitidos";
+"toast removed from blocked" = "Removido dos Bloqueados";
+
+// Settings row that opens the setting for storing activity history (logging)
+"settings row activity history" = "Histórico de atividades";
+// Settings section header for the main protection settings (exceptions, activity, devices)
+"account section header protection" = "Proteção";
+"settings section header notifications" = "Notificações";
+// Shown in the empty detail pane on wide screens, before anything in the list is selected
+"universal label select item details" = "Selecione um item para ver os detalhes";
+// Badge next to a domain that appeared in the top list for the first time
+"stats label new" = "Novo";
+// Short labels for the time range switch: last 24 hours and last 7 days
+"stats range 24h" = "24 h";
+"stats range 7d" = "7 d";
+// Label of a removable chip above the activity list when it is sorted by frequency
+"activity filter chip most common" = "Mais frequentes primeiro";
+// Shown when the user tries to switch off the only enabled blocklist
+"filter last list note" = "Pelo menos uma lista de bloqueio deve permanecer ativada. Use Pausar na tela Início para interromper o bloqueio.";

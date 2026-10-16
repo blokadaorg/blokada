@@ -1056,3 +1056,29 @@
 "web plaintext error limit" = "Je hebt het limiet van %@ apparaten bereikt. Verwijder er een om een andere toe te voegen.";
 "web plaintext error taken" = "Een ander apparaat op jouw account gebruikt deze naam al. Kies een andere naam.";
 "web plaintext error generic" = "Er is iets misgegaan. Probeer het later opnieuw.";
+
+// Caption under the Home "Last 24h" number. The number counts only blocked requests.
+"home counter caption blocked" = "Advertenties en trackers geblokkeerd";
+
+// Short confirmation pills shown at the bottom of the screen after an action
+"toast save failed" = "Wijziging kon niet worden opgeslagen. Probeer het opnieuw.";
+"toast blocklists saved" = "Blokkeerlijsten bijgewerkt";
+"toast removed from allowed" = "Verwijderd van Toegestaan";
+"toast removed from blocked" = "Verwijderd uit Geblokkeerd";
+
+// Settings row that opens the setting for storing activity history (logging)
+"settings row activity history" = "Activiteitsgeschiedenis";
+// Settings section header for the main protection settings (exceptions, activity, devices)
+"account section header protection" = "Bescherming";
+"settings section header notifications" = "Notificaties";
+// Shown in the empty detail pane on wide screens, before anything in the list is selected
+"universal label select item details" = "Selecteer een item om de details te bekijken";
+// Badge next to a domain that appeared in the top list for the first time
+"stats label new" = "Nieuw";
+// Short labels for the time range switch: last 24 hours and last 7 days
+"stats range 24h" = "24 u";
+"stats range 7d" = "7 d";
+// Label of a removable chip above the activity list when it is sorted by frequency
+"activity filter chip most common" = "Meest voorkomende eerst";
+// Shown when the user tries to switch off the only enabled blocklist
+"filter last list note" = "Er blijft altijd één blokkeerlijst ingeschakeld. Gebruik Pauzeren op het startscherm om het blokkeren te stoppen.";

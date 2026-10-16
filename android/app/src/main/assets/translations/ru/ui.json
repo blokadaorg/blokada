@@ -771,5 +771,19 @@
     "web plaintext error name": "Введите более короткое имя без скрытых символов.",
     "web plaintext error limit": "Вы достигли лимита устройств: %1$s. Удалите одно, чтобы добавить другое.",
     "web plaintext error taken": "Другое устройство в вашем аккаунте уже использует это имя. Выберите другое.",
-    "web plaintext error generic": "Что-то пошло не так. Пожалуйста, попробуйте позже."
+    "web plaintext error generic": "Что-то пошло не так. Пожалуйста, попробуйте позже.",
+    "home counter caption blocked": "Ads and trackers blocked",
+    "toast save failed": "Couldn't save the change. Try again.",
+    "toast blocklists saved": "Blocklists updated",
+    "toast removed from allowed": "Removed from Allowed",
+    "toast removed from blocked": "Removed from Blocked",
+    "settings row activity history": "Activity history",
+    "account section header protection": "Protection",
+    "settings section header notifications": "Notifications",
+    "universal label select item details": "Select an item to see details",
+    "stats label new": "New",
+    "stats range 24h": "24 h",
+    "stats range 7d": "7 d",
+    "activity filter chip most common": "Most common first",
+    "filter last list note": "One blocklist always stays on. Use Pause on Home to stop blocking."
 } }

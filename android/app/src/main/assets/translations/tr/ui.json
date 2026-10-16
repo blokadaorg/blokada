@@ -771,5 +771,19 @@
     "web plaintext error name": "Daha kısa bir isim girin, gizli karakterler olmadan.",
     "web plaintext error limit": "%1$s cihaz ile sınıra ulaştınız. Başka bir tane eklemek için bir tanesini silin.",
     "web plaintext error taken": "Hesabınızdaki başka bir cihaz bu ismi zaten kullanıyor. Farklı bir isim seçin.",
-    "web plaintext error generic": "Bir hata oluştu. Lütfen daha sonra tekrar deneyin."
+    "web plaintext error generic": "Bir hata oluştu. Lütfen daha sonra tekrar deneyin.",
+    "home counter caption blocked": "Engellenen reklamlar ve izleyiciler",
+    "toast save failed": "Değişiklik kaydedilemedi. Tekrar deneyin.",
+    "toast blocklists saved": "Engel listeleri güncellendi",
+    "toast removed from allowed": "İzin verilenlerden kaldırıldı",
+    "toast removed from blocked": "Engellenenlerden kaldırıldı",
+    "settings row activity history": "Etkinlik geçmişi",
+    "account section header protection": "Koruma",
+    "settings section header notifications": "Bildirimler",
+    "universal label select item details": "Ayrıntıları görmek için bir öğe seçin",
+    "stats label new": "Yeni",
+    "stats range 24h": "24 sa",
+    "stats range 7d": "7 gün",
+    "activity filter chip most common": "En sık görülenler önce",
+    "filter last list note": "Bir engel listesi her zaman açık kalır. Engellemeyi durdurmak için Ana Sayfa'daki Duraklat seçeneğini kullanın."
 } }

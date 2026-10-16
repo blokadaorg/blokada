@@ -771,5 +771,19 @@
     "web plaintext error name": "Zadejte kratší název, bez skrytých znaků.",
     "web plaintext error limit": "Dosáhli jste limitu %s zařízení. Smažte jedno, abyste mohli přidat další.",
     "web plaintext error taken": "Jiné zařízení ve vašem účtu již toto jméno používá. Zvolte jiné.",
-    "web plaintext error generic": "Něco se pokazilo. Zkuste to prosím později znovu."
+    "web plaintext error generic": "Něco se pokazilo. Zkuste to prosím později znovu.",
+    "home counter caption blocked": "Zablokované reklamy a slídiče",
+    "toast save failed": "Změnu se nepodařilo uložit. Zkuste to znovu.",
+    "toast blocklists saved": "Blocklisty byly aktualizovány",
+    "toast removed from allowed": "Odebráno z povolených",
+    "toast removed from blocked": "Odebráno z blokovaných",
+    "settings row activity history": "Historie aktivity",
+    "account section header protection": "Ochrana",
+    "settings section header notifications": "Oznámení",
+    "universal label select item details": "Vyberte položku pro zobrazení podrobností",
+    "stats label new": "Nová",
+    "stats range 24h": "24 h",
+    "stats range 7d": "7 d",
+    "activity filter chip most common": "Nejčastější jako první",
+    "filter last list note": "Alespoň jeden blocklist musí zůstat zapnutý. Blokování vypnete tlačítkem Pozastavit na domovské obrazovce."
 }

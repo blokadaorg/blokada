@@ -771,5 +771,19 @@
     "web plaintext error name": "Wprowadź krótszą nazwę, bez ukrytych znaków.",
     "web plaintext error limit": "Osiągnięto limit %1$s urządzeń. Usuń jedno, aby dodać kolejne.",
     "web plaintext error taken": "Inne urządzenie na Twoim koncie już używa tej nazwy. Wybierz inną nazwę.",
-    "web plaintext error generic": "Coś poszło nie tak. Spróbuj ponownie później."
+    "web plaintext error generic": "Coś poszło nie tak. Spróbuj ponownie później.",
+    "home counter caption blocked": "Zablokowane reklamy i trackery",
+    "toast save failed": "Nie udało się zapisać zmiany. Spróbuj ponownie.",
+    "toast blocklists saved": "Zaktualizowano bloklisty",
+    "toast removed from allowed": "Usunięto z Zezwolonych",
+    "toast removed from blocked": "Usunięto z Blokowanych",
+    "settings row activity history": "Historia aktywności",
+    "account section header protection": "Ochrona",
+    "settings section header notifications": "Powiadomienia",
+    "universal label select item details": "Wybierz element, aby zobaczyć szczegóły",
+    "stats label new": "Nowa",
+    "stats range 24h": "24 h",
+    "stats range 7d": "7 dni",
+    "activity filter chip most common": "Najpierw najczęstsze",
+    "filter last list note": "Co najmniej jedna bloklista musi pozostać włączona. Aby wyłączyć blokowanie, użyj przycisku „Wstrzymaj” na ekranie głównym."
 } }

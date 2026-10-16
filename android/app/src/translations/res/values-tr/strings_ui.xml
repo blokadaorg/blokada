@@ -773,4 +773,18 @@
     <string name="web_plaintext_error_limit">%1$s cihaz ile sınıra ulaştınız. Başka bir tane eklemek için bir tanesini silin.</string>
     <string name="web_plaintext_error_taken">Hesabınızdaki başka bir cihaz bu ismi zaten kullanıyor. Farklı bir isim seçin.</string>
     <string name="web_plaintext_error_generic">Bir hata oluştu. Lütfen daha sonra tekrar deneyin.</string>
+    <string name="home_counter_caption_blocked">Engellenen reklamlar ve izleyiciler</string>
+    <string name="toast_save_failed">Değişiklik kaydedilemedi. Tekrar deneyin.</string>
+    <string name="toast_blocklists_saved">Engel listeleri güncellendi</string>
+    <string name="toast_removed_from_allowed">İzin verilenlerden kaldırıldı</string>
+    <string name="toast_removed_from_blocked">Engellenenlerden kaldırıldı</string>
+    <string name="settings_row_activity_history">Etkinlik geçmişi</string>
+    <string name="account_section_header_protection">Koruma</string>
+    <string name="settings_section_header_notifications">Bildirimler</string>
+    <string name="universal_label_select_item_details">Ayrıntıları görmek için bir öğe seçin</string>
+    <string name="stats_label_new">Yeni</string>
+    <string name="stats_range_twofourh">24 sa</string>
+    <string name="stats_range_sevend">7 gün</string>
+    <string name="activity_filter_chip_most_common">En sık görülenler önce</string>
+    <string name="filter_last_list_note">Bir engel listesi her zaman açık kalır. Engellemeyi durdurmak için Ana Sayfa\'daki Duraklat seçeneğini kullanın.</string>
 </resources>

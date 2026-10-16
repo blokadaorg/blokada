@@ -771,5 +771,19 @@
     "web plaintext error name": "أدخل اسماً أقصر، دون أحرف خفية.",
     "web plaintext error limit": "لقد وصلت إلى الحد الأقصى وهو %1$s من الأجهزة. احذف جهازًا لإضافة جهاز آخر.",
     "web plaintext error taken": "جهاز آخر في حسابك يستخدم هذا الاسم بالفعل. اختر اسماً مختلفاً.",
-    "web plaintext error generic": "حدث خطأ ما. الرجاء المحاولة مرة أخرى لاحقاً."
+    "web plaintext error generic": "حدث خطأ ما. الرجاء المحاولة مرة أخرى لاحقاً.",
+    "home counter caption blocked": "الإعلانات المحظورة والمُتعقِّبون المحظورون",
+    "toast save failed": "تعذّر حفظ التغيير. حاول مرة أخرى.",
+    "toast blocklists saved": "تم تحديث قوائم الحظر",
+    "toast removed from allowed": "تمت الإزالة من قائمة السماح",
+    "toast removed from blocked": "تمت الإزالة من قائمة الحَظْر",
+    "settings row activity history": "سجل النشاط",
+    "account section header protection": "الحماية",
+    "settings section header notifications": "الإشعارات",
+    "universal label select item details": "اختر عنصرًا لعرض تفاصيله",
+    "stats label new": "جديد",
+    "stats range 24h": "٢٤ ساعة",
+    "stats range 7d": "٧ أيام",
+    "activity filter chip most common": "الأكثر شيوعًا أولاً",
+    "filter last list note": "تظل قائمة حظر واحدة على الأقل مفعّلة دائمًا. استخدم «إيقاف مؤقت» في الصفحة الرئيسية لإيقاف الحظر."
 } }

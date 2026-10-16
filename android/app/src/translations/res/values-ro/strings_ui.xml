@@ -773,4 +773,18 @@
     <string name="web_plaintext_error_limit">Ați atins limita de %1$s dispozitive. Ștergeți unul pentru a adăuga altul.</string>
     <string name="web_plaintext_error_taken">Un alt dispozitiv din contul dvs. folosește deja acest nume. Alegeți unul diferit.</string>
     <string name="web_plaintext_error_generic">Ceva nu a mers bine. Vă rugăm să încercați din nou mai târziu.</string>
+    <string name="home_counter_caption_blocked">Reclame și trackere blocate</string>
+    <string name="toast_save_failed">Modificarea nu a putut fi salvată. Încearcă din nou.</string>
+    <string name="toast_blocklists_saved">Listele de blocare au fost actualizate</string>
+    <string name="toast_removed_from_allowed">Eliminat din Permise</string>
+    <string name="toast_removed_from_blocked">Eliminat din Restricții</string>
+    <string name="settings_row_activity_history">Istoricul activității</string>
+    <string name="account_section_header_protection">Protecție</string>
+    <string name="settings_section_header_notifications">Notificări</string>
+    <string name="universal_label_select_item_details">Selectează un element pentru a vedea detaliile</string>
+    <string name="stats_label_new">Nou</string>
+    <string name="stats_range_twofourh">24 h</string>
+    <string name="stats_range_sevend">7 z</string>
+    <string name="activity_filter_chip_most_common">Mai întâi cele mai frecvente</string>
+    <string name="filter_last_list_note">Cel puțin o listă de blocare trebuie să rămână activă. Folosește opțiunea Pauză de pe ecranul Acasă pentru a opri blocarea.</string>
 </resources>
