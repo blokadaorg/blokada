@@ -139,14 +139,16 @@ class JsonSupportHistoryItem {
       final content = json['content'] as Map<String, dynamic>?;
       text = content?['text'];
       event = content?['event'];
-      // A malformed action is dropped rather than failing the message: one bad
-      // entry would otherwise fail the whole session load and reset the chat.
-      actions = (content?['actions'] as List?)
-              ?.whereType<Map<String, dynamic>>()
+      // A malformed action, or actions field, is dropped rather than failing the
+      // message: it would otherwise fail the whole session load and reset the chat.
+      final rawActions = content?['actions'];
+      actions = rawActions is List
+          ? rawActions
+              .whereType<Map<String, dynamic>>()
               .where((e) => e['type'] is String && e['id'] is String)
               .map((e) => JsonSupportAction.fromJson(e))
-              .toList() ??
-          [];
+              .toList()
+          : [];
       isAgent = json['is_agent'];
       timestamp = json['timestamp'];
     } on TypeError catch (e) {

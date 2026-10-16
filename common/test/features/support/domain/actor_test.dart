@@ -556,6 +556,20 @@ void main() {
       expect(response.messages![1].actions.single.id, "Qm9x");
     });
 
+    test("treats a malformed actions field as none and keeps the message", () {
+      final response = JsonSupportMarshal().toResponse(jsonEncode({
+        "messages": [
+          {
+            "content": {"text": "a", "event": "", "actions": "attach_log"},
+            "is_agent": true,
+            "timestamp": "2026-10-12T10:03:00Z",
+          },
+        ]
+      }));
+      expect(response.messages!.single.text, "a");
+      expect(response.messages!.single.actions, isEmpty);
+    });
+
     test("drops a malformed action and keeps the message", () {
       final response = JsonSupportMarshal().toResponse(jsonEncode({
         "messages": [
