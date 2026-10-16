@@ -1,18 +1,46 @@
 import 'package:common/src/core/core.dart';
+import 'package:common/src/features/support/domain/support.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_core/flutter_chat_core.dart';
 import 'package:provider/provider.dart';
 
-/// Asks the user to approve sending the app log the agent requested. Shown
-/// at the end of the chat as a card, not a bubble, since it needs a decision.
-class SupportLogCard extends StatelessWidget {
-  final VoidCallback onShare;
+/// What the card asks of the user for each client tool.
+class _ToolCopy {
+  final IconData icon;
+  final String title;
+  final String body;
+  final String approve;
+
+  const _ToolCopy(this.icon, this.title, this.body, this.approve);
+}
+
+const _copy = {
+  SupportClientTool.attachLog: _ToolCopy(
+    Icons.description_outlined,
+    "support share log title",
+    "support share log body",
+    "universal action share log",
+  ),
+  SupportClientTool.dnsCheck: _ToolCopy(
+    Icons.dns_outlined,
+    "support network check title",
+    "support network check body",
+    "universal action run check",
+  ),
+};
+
+/// Asks the user to approve what the agent requested of the app. Shown at
+/// the end of the chat as a card, not a bubble, since it needs a decision.
+class SupportActionCard extends StatelessWidget {
+  final SupportClientTool tool;
+  final VoidCallback onApprove;
   final VoidCallback onCancel;
   final bool busy;
 
-  const SupportLogCard({
+  const SupportActionCard({
     super.key,
-    required this.onShare,
+    required this.tool,
+    required this.onApprove,
     required this.onCancel,
     this.busy = false,
   });
@@ -21,6 +49,7 @@ class SupportLogCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.watch<ChatTheme>().colors;
     final text = Theme.of(context).textTheme;
+    final copy = _copy[tool]!;
     return Padding(
       padding: const EdgeInsets.fromLTRB(8, 12, 8, 0),
       child: Container(
@@ -35,21 +64,18 @@ class SupportLogCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(Icons.description_outlined, color: colors.primary),
+                Icon(copy.icon, color: colors.primary),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    "support share log title".i18n,
+                    copy.title.i18n,
                     style: text.titleMedium?.copyWith(color: colors.onSurface),
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 8),
-            Text(
-              "support share log body".i18n,
-              style: text.bodyMedium?.copyWith(color: colors.onSurface),
-            ),
+            Text(copy.body.i18n, style: text.bodyMedium?.copyWith(color: colors.onSurface)),
             const SizedBox(height: 12),
             Wrap(
               alignment: WrapAlignment.end,
@@ -60,12 +86,12 @@ class SupportLogCard extends StatelessWidget {
                   child: Text("universal action cancel".i18n),
                 ),
                 FilledButton(
-                  onPressed: busy ? null : onShare,
+                  onPressed: busy ? null : onApprove,
                   style: FilledButton.styleFrom(
                     backgroundColor: colors.primary,
                     foregroundColor: colors.onPrimary,
                   ),
-                  child: Text("universal action share log".i18n),
+                  child: Text(copy.approve.i18n),
                 ),
               ],
             ),
@@ -76,12 +102,19 @@ class SupportLogCard extends StatelessWidget {
   }
 }
 
-/// The muted note left in the history once the log was shared or declined.
-class SupportLogNote extends StatelessWidget {
-  final bool shared;
+const _noteKeys = {
+  SupportNote.logShared: "support share log done",
+  SupportNote.logDeclined: "support share log declined",
+  SupportNote.dnsChecked: "support network check done",
+  SupportNote.dnsDeclined: "support network check declined",
+};
+
+/// The muted note left in the history once a request was done or declined.
+class SupportActionNote extends StatelessWidget {
+  final SupportNote note;
   final DateTime when;
 
-  const SupportLogNote({super.key, required this.shared, required this.when});
+  const SupportActionNote({super.key, required this.note, required this.when});
 
   @override
   Widget build(BuildContext context) {
@@ -94,13 +127,9 @@ class SupportLogNote extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(shared ? Icons.check : Icons.block, size: 16, color: style?.color),
+          Icon(note.declined ? Icons.block : Icons.check, size: 16, color: style?.color),
           const SizedBox(width: 4),
-          Text(
-            (shared ? "support share log done" : "support share log declined")
-                .i18n,
-            style: style,
-          ),
+          Text(_noteKeys[note]!.i18n, style: style),
           Text(" · ${context.watch<DateFormat>().format(when.toLocal())}", style: style),
         ],
       ),

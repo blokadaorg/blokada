@@ -12,6 +12,8 @@ class SupportActor with Logging, Actor {
   late final _logger = Core.get<LoggerChannel>();
   late final _isLocked = Core.get<IsLocked>();
   late final _stage = Core.get<StageStore>();
+  late final _app = Core.get<AppStore>();
+  late final _perm = Core.get<PlatformPermActor>();
   late String language = I18n.localeStr;
 
   bool initialized = false;
@@ -44,25 +46,34 @@ class SupportActor with Logging, Actor {
     onChange();
   }
 
-  /// The id of the agent's open request for the app log, while its latest
-  /// reply asks for it. The chat shows an approval card while this is set,
-  /// so the user can approve sending the log instead of emailing it.
-  String? get logActionId => _logActionId;
-  String? _logActionId;
-  DateTime? _logActionAt;
+  /// The agent's open request for a client tool, while its latest reply
+  /// asks for one. The chat shows an approval card while this is set, so the
+  /// user decides before the app acts.
+  SupportAction? get action => _action;
+  SupportAction? _action;
+  DateTime? _actionAt;
 
   /// Follows the agent's latest reply: the card stays while that reply asks
-  /// for the log, and goes once a reply does not (including the one that
-  /// answers the upload). Rebuilt from the server history on load, so it
+  /// for a tool, and goes once a reply does not (including the one that
+  /// answers the request). Rebuilt from the server history on load, so it
   /// survives an app restart.
   void _trackActions(List<JsonSupportHistoryItem> items) {
     for (final item in items.where((e) => e.isAgent)) {
-      _logActionId = item.actions
-          .firstOrNullWhere(
-              (e) => e.type == SupportClientTool.attachLog.constant)
-          ?.id;
-      _logActionAt = DateTime.tryParse(item.timestamp);
+      _action = item.actions.map(_toAction).firstOrNullWhere((e) => e != null);
+      _actionAt = DateTime.tryParse(item.timestamp);
     }
+  }
+
+  /// Null for a tool this app does not know, or a dns_check without a usable
+  /// name: the name becomes a host to look up.
+  SupportAction? _toAction(JsonSupportAction e) {
+    final tool = SupportClientTool.values.firstOrNullWhere((t) => t.constant == e.type);
+    if (tool == null) return null;
+    if (tool == SupportClientTool.dnsCheck &&
+        !RegExp(r'^[a-z0-9]{12}$').hasMatch(e.subdomain ?? "")) {
+      return null;
+    }
+    return SupportAction(tool, e.id, subdomain: e.subdomain);
   }
 
   // Return true if session was just created
@@ -104,14 +115,13 @@ class SupportActor with Logging, Actor {
     await _chatHistory.fetch(m);
     messages = _chatHistory.present?.messages ?? [];
     // The server history can still end with the request after it was
-    // declined, or shared with no reply yet, so a note after the latest
-    // request keeps the card hidden across restarts.
-    final handled =
-        messages.lastOrNullWhere((e) => e.isLogDeclined || e.isLogShared);
-    if (handled != null &&
-        _logActionAt != null &&
-        handled.when.isAfter(_logActionAt!)) {
-      _logActionId = null;
+    // declined, or answered with no reply yet, so a note for the same tool
+    // after the latest request keeps the card hidden across restarts.
+    final handled = messages.lastOrNullWhere(
+      (e) => e.note != null && e.note?.tool == _action?.tool,
+    );
+    if (handled != null && _actionAt != null && handled.when.isAfter(_actionAt!)) {
+      _action = null;
     }
 
     final apiHistory = history.filter((e) => e.text?.isBlank == false).map((e) {
@@ -179,7 +189,7 @@ class SupportActor with Logging, Actor {
     await _currentSession.change(m, null);
     await _chatHistory.change(m, null);
     messages = [];
-    _logActionId = null;
+    _action = null;
     await controller.setMessages([]);
     onChange();
   }
@@ -275,42 +285,102 @@ class SupportActor with Logging, Actor {
     await _updateSessionExpiry();
   }
 
+  /// Runs the tool of the card the user approved.
+  Future<void> approveAction(Marker m) async {
+    switch (_action?.tool) {
+      case SupportClientTool.attachLog:
+        return shareLog(m);
+      case SupportClientTool.dnsCheck:
+        return runDnsCheck(m);
+      case null:
+        return;
+    }
+  }
+
   /// Uploads the end of the app log for the agent's open request, from the
   /// share log button, and shows the agent's reply to it.
   ///
   /// The log can hold details of the user's setup, so a locked app refuses
-  /// it, the same as sharing the log from settings. Uses the pending-reply
-  /// state like a sent message: the upload starts an agent turn, and a second
-  /// tap or a message meanwhile would race it.
+  /// it, the same as sharing the log from settings.
   Future<void> shareLog(Marker m) async {
-    final actionId = _logActionId;
-    final sessionId = _currentSession.present;
-    if (actionId == null || sessionId == null || _replyPending) return;
+    if (_action?.tool != SupportClientTool.attachLog || _replyPending) return;
     if (_isLocked.now) {
       await _stage.showModal(StageModal.faultLocked, m);
       return;
     }
 
-    _setReplyPending(true);
-    try {
+    await _answerAction(m, "Error uploading log", (sessionId, action) async {
       final appLog = capLogTail(
           await _logger.doReadLogTail(supportLogMaxBytes), supportLogMaxBytes);
       if (appLog.isEmpty) throw Exception("App log is empty");
-      final response = await _api.uploadLog(m, sessionId, actionId, appLog);
-      _logActionId = null;
-      await _addLogNote(m, SupportMessage.logShared, response.messages);
+      return _api.uploadLog(m, sessionId, action.id, appLog);
+    });
+  }
+
+  /// Resolves the agent's test name with the phone's own resolver and
+  /// reports it with what the app knows of its setup, then shows the reply.
+  Future<void> runDnsCheck(Marker m) async {
+    if (_action?.tool != SupportClientTool.dnsCheck) return;
+    await _answerAction(m, "Error reporting DNS check", (sessionId, action) async {
+      final resolved = await resolveHost("${action.subdomain}.test.blokada.org");
+      final status = _app.status;
+      final paused =
+          status == AppStatus.paused || status == AppStatus.pausedPlus || _app.conditions.appPaused;
+      final state = {
+        "protection": paused
+            ? "paused"
+            : status.isActive()
+            ? "on"
+            : "off",
+        "system_dns": await _perm.systemDnsSetting(m),
+        "vpn": _app.conditions.plusActive ? "on" : "off",
+        "lookup": resolved ? "ok" : "failed",
+      };
+      return _api.reportDnsCheck(m, sessionId, action.id, language, state);
+    });
+  }
+
+  /// Whether the system resolver answers for [host]; replaceable in tests.
+  Future<bool> Function(String host) resolveHost = (host) async {
+    try {
+      return (await InternetAddress.lookup(host).timeout(const Duration(seconds: 6))).isNotEmpty;
+    } catch (_) {
+      return false;
+    }
+  };
+
+  /// Performs the request of the open card with [call], which returns the
+  /// agent's reply, and leaves the note for it.
+  ///
+  /// Uses the pending-reply state like a sent message: the call starts an
+  /// agent turn, and a second tap or a message meanwhile would race it.
+  Future<void> _answerAction(
+    Marker m,
+    String errorMsg,
+    Future<JsonSupportResponse> Function(String sessionId, SupportAction action) call,
+  ) async {
+    final action = _action;
+    final sessionId = _currentSession.present;
+    if (action == null || sessionId == null || _replyPending) return;
+
+    final done = SupportNote.of(action.tool, declined: false);
+    _setReplyPending(true);
+    try {
+      final response = await call(sessionId, action);
+      _action = null;
+      await _addNote(m, done, response.messages);
       if (response.messages != null) {
         await _handleResponse(m, response.messages!, isReply: true);
       }
     } on HttpCodeException catch (e, s) {
-      log(m).e(msg: "Error uploading log", err: e, stack: s);
+      log(m).e(msg: errorMsg, err: e, stack: s);
       // A 4xx will not pass on retry: the request is closed, or (409) the
       // log is already there from an earlier try.
-      if (e.code >= 400 && e.code < 500) _logActionId = null;
-      if (e.code == 409) await _addLogNote(m, SupportMessage.logShared, null);
+      if (e.code >= 400 && e.code < 500) _action = null;
+      if (e.code == 409) await _addNote(m, done, null);
       if (e.code != 409) await _stage.showModal(StageModal.fault, m);
     } catch (e, s) {
-      log(m).e(msg: "Error uploading log", err: e, stack: s);
+      log(m).e(msg: errorMsg, err: e, stack: s);
       await _stage.showModal(StageModal.fault, m);
     } finally {
       _setReplyPending(false);
@@ -320,27 +390,25 @@ class SupportActor with Logging, Actor {
     await _updateSessionExpiry();
   }
 
-  /// Turns down the agent's open log request, leaving a note in the history.
+  /// Turns down the agent's open request, leaving a note in the history.
   /// A later reply that asks again shows the card again.
-  Future<void> declineLog(Marker m) async {
-    if (_logActionId == null || _replyPending) return;
-    _logActionId = null;
-    await _addLogNote(m, SupportMessage.logDeclined, null);
+  Future<void> declineAction(Marker m) async {
+    final action = _action;
+    if (action == null || _replyPending) return;
+    _action = null;
+    await _addNote(m, SupportNote.of(action.tool, declined: true), null);
     onChange();
   }
 
-  /// Leaves a log note in the history, just ahead of the agent's reply or,
+  /// Leaves a note in the history, just ahead of the agent's reply or,
   /// without one, just after the request. Both carry the server's clock, so
-  /// the restart check in [_loadChatHistory] never compares against the
-  /// device clock.
-  Future<void> _addLogNote(Marker m, SupportMessage Function(DateTime) note,
-      List<JsonSupportHistoryItem>? reply) async {
+  /// the restart check in [_loadChatHistory] never compares device time.
+  Future<void> _addNote(Marker m, SupportNote note, List<JsonSupportHistoryItem>? reply) async {
     final first = reply?.firstOrNullWhere((e) => e.text?.isBlank == false);
     final when = first != null
-        ? DateTime.parse(first.timestamp)
-            .subtract(const Duration(milliseconds: 1))
-        : _logActionAt?.add(const Duration(milliseconds: 1)) ?? DateTime.now();
-    final message = note(when);
+        ? DateTime.parse(first.timestamp).subtract(const Duration(milliseconds: 1))
+        : _actionAt?.add(const Duration(milliseconds: 1)) ?? DateTime.now();
+    final message = SupportMessage.note(note, when);
     messages.add(message);
     messages.sort((a, b) => a.when.compareTo(b.when));
     await _chatHistory.change(m, SupportMessages(messages));

@@ -12,7 +12,10 @@ enum SupportEvent {
 /// starts. The agent asks for one with an action of the same type.
 enum SupportClientTool {
   /// Upload the end of the app log from a button in the chat.
-  attachLog("attach_log");
+  attachLog("attach_log"),
+
+  /// Resolve a test name and report how this phone's DNS is set up.
+  dnsCheck("dns_check");
 
   final String constant;
 
@@ -48,49 +51,71 @@ class SupportMessage {
   bool isMe;
   DateTime when;
 
-  /// A note in the history that the app log was shared, not a spoken message.
-  /// Its text is empty; the chat renders the localized note.
-  final bool isLogShared;
-
-  /// A note that the user turned down the agent's log request.
-  final bool isLogDeclined;
+  /// Set on a note left in the history for a client tool, which has no text:
+  /// the chat renders the localized note.
+  final SupportNote? note;
 
   // The chat controller rejects duplicate ids, and the timestamp is not
   // unique: a local command and its reply often land in the same millisecond.
   // Not persisted; each loaded message gets a fresh one.
   final String id = "msg-${_nextId++}";
 
-  SupportMessage(this.text, this.when,
-      {required this.isMe,
-      this.isLogShared = false,
-      this.isLogDeclined = false});
+  SupportMessage(this.text, this.when, {required this.isMe, this.note});
 
-  SupportMessage.logShared(this.when)
-      : text = "",
-        isMe = true,
-        isLogShared = true,
-        isLogDeclined = false;
-
-  SupportMessage.logDeclined(this.when)
-      : text = "",
-        isMe = true,
-        isLogShared = false,
-        isLogDeclined = true;
+  SupportMessage.note(SupportNote this.note, this.when) : text = "", isMe = true;
 
   SupportMessage.fromJson(Map<String, dynamic> json)
-      : text = json['text'],
-        isMe = json['is_me'],
-        when = DateTime.parse(json['when']),
-        isLogShared = json['log_shared'] ?? false,
-        isLogDeclined = json['log_declined'] ?? false;
+    : text = json['text'],
+      isMe = json['is_me'],
+      when = DateTime.parse(json['when']),
+      note = SupportNote.fromJson(json);
 
   Map<String, dynamic> toJson() => {
-        'text': text,
-        'is_me': isMe,
-        'when': when.toIso8601String(),
-        if (isLogShared) 'log_shared': true,
-        if (isLogDeclined) 'log_declined': true,
-      };
+    'text': text,
+    'is_me': isMe,
+    'when': when.toIso8601String(),
+    if (note != null) ...note!.toJson(),
+  };
+}
+
+/// What a note in the history says about a client tool request.
+enum SupportNote {
+  logShared(SupportClientTool.attachLog, declined: false),
+  logDeclined(SupportClientTool.attachLog, declined: true),
+  dnsChecked(SupportClientTool.dnsCheck, declined: false),
+  dnsDeclined(SupportClientTool.dnsCheck, declined: true);
+
+  final SupportClientTool tool;
+  final bool declined;
+
+  const SupportNote(this.tool, {required this.declined});
+
+  static SupportNote of(SupportClientTool tool, {required bool declined}) =>
+      values.firstWhere((e) => e.tool == tool && e.declined == declined);
+
+  /// Reads the keys older versions stored for the log notes too.
+  static SupportNote? fromJson(Map<String, dynamic> json) {
+    if (json['log_shared'] == true) return logShared;
+    if (json['log_declined'] == true) return logDeclined;
+    return values.firstOrNullWhere((e) => e.name == json['note']);
+  }
+
+  Map<String, dynamic> toJson() => switch (this) {
+    logShared => {'log_shared': true},
+    logDeclined => {'log_declined': true},
+    _ => {'note': name},
+  };
+}
+
+/// The agent's open request for a client tool, offered to the user as a card.
+class SupportAction {
+  final SupportClientTool tool;
+  final String id;
+
+  /// The dns_check name to resolve, under test.blokada.org.
+  final String? subdomain;
+
+  const SupportAction(this.tool, this.id, {this.subdomain});
 }
 
 class SupportMessages {

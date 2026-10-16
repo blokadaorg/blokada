@@ -61,4 +61,29 @@ class SupportApi with Logging {
     log(m).i("upload log response: $result");
     return _marshal.toResponse(result);
   }
+
+  /// Reports a DNS check for the agent's open dns_check action [actionId],
+  /// and returns the agent's reply to it. The server can take 5 seconds.
+  Future<JsonSupportResponse> reportDnsCheck(
+    Marker m,
+    String sessionId,
+    String actionId,
+    String language,
+    Map<String, String> localState,
+  ) async {
+    final result = await _api.request(
+      ApiEndpoint.postSupportCheck,
+      m,
+      payload: _marshal.fromDnsCheck(
+        JsonSupportPayloadDnsCheck(
+          sessionId: sessionId,
+          actionId: actionId,
+          language: language,
+          localState: localState,
+        ),
+      ),
+    );
+    log(m).i("dns check response: $result");
+    return _marshal.toResponse(result);
+  }
 }
