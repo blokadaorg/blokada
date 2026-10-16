@@ -168,7 +168,10 @@ class JsonSupportHistoryItem {
       actions = rawActions is List
           ? rawActions
               .whereType<Map<String, dynamic>>()
-              .where((e) => e['type'] is String && e['id'] is String)
+              .where((e) =>
+                  e['type'] is String &&
+                  e['id'] is String &&
+                  (e['subdomain'] == null || e['subdomain'] is String))
               .map((e) => JsonSupportAction.fromJson(e))
               .toList()
           : [];
