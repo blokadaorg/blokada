@@ -2,7 +2,8 @@
 # Installs what an Android debug build needs in a Claude Code cloud session
 # (Ubuntu, x86_64, root): the app's JDK, the fvm release pinned for CI with the
 # Flutter version from common/.fvmrc, the Android SDK tools, the NDKs and the
-# compile platform, and kubectl for tools/emu. Gradle fetches the rest. Safe to rerun.
+# compile platform, the build-tools and plugin platforms, and kubectl for
+# tools/emu. Gradle fetches the rest. Safe to rerun.
 #
 # A cloud environment caches its setup only when it finishes in about five
 # minutes, so the work runs as independent chains in parallel: Flutter (fvm,
@@ -14,6 +15,10 @@ bin=/usr/local/bin
 sdk=/opt/android-sdk
 sdkmanager="$sdk/cmdline-tools/latest/bin/sdkmanager"
 flutter_version=$(jq -r .flutter "$repo/common/.fvmrc")
+# What the first debug build otherwise downloads mid-build: AGP's default
+# build-tools and the platforms the Flutter plugins compile against. Parallel
+# builds downloading them into the shared SDK at once leave them half-unpacked.
+build_packages=("build-tools;36.0.0" "platforms;android-34" "platforms;android-35" "platforms;android-36")
 # Where a Flutter checkout pins the NDK its Gradle plugin builds with.
 flutter_ext=packages/flutter_tools/gradle/src/main/kotlin/FlutterExtension.kt
 
@@ -75,8 +80,8 @@ install_android() {
   # Gradle's SDK installer fails on the current catalog, so install the compile
   # platform here too. Newer platforms carry a minor version (android-37.0).
   api=$(sed -n 's/^ *compileSdk *\([0-9]*\).*/\1/p' "$repo/android/app/build.gradle" | head -1)
-  "$sdkmanager" "${ndks[@]/#/ndk;}" "platforms;android-$api.0" >/dev/null ||
-    "$sdkmanager" "${ndks[@]/#/ndk;}" "platforms;android-$api" >/dev/null
+  "$sdkmanager" "${ndks[@]/#/ndk;}" "${build_packages[@]}" "platforms;android-$api.0" >/dev/null ||
+    "$sdkmanager" "${ndks[@]/#/ndk;}" "${build_packages[@]}" "platforms;android-$api" >/dev/null
 }
 
 install_flutter() {
