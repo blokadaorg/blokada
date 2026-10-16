@@ -1056,3 +1056,29 @@
 "web plaintext error limit" = "%@ cihaz ile sınıra ulaştınız. Başka bir tane eklemek için bir tanesini silin.";
 "web plaintext error taken" = "Hesabınızdaki başka bir cihaz bu ismi zaten kullanıyor. Farklı bir isim seçin.";
 "web plaintext error generic" = "Bir hata oluştu. Lütfen daha sonra tekrar deneyin.";
+
+// Caption under the Home "Last 24h" number. The number counts only blocked requests.
+"home counter caption blocked" = "Engellenen reklamlar ve izleyiciler";
+
+// Short confirmation pills shown at the bottom of the screen after an action
+"toast save failed" = "Değişiklik kaydedilemedi. Tekrar deneyin.";
+"toast blocklists saved" = "Engel listeleri güncellendi";
+"toast removed from allowed" = "İzin verilenlerden kaldırıldı";
+"toast removed from blocked" = "Engellenenlerden kaldırıldı";
+
+// Settings row that opens the setting for storing activity history (logging)
+"settings row activity history" = "Etkinlik geçmişi";
+// Settings section header for the main protection settings (exceptions, activity, devices)
+"account section header protection" = "Koruma";
+"settings section header notifications" = "Bildirimler";
+// Shown in the empty detail pane on wide screens, before anything in the list is selected
+"universal label select item details" = "Ayrıntıları görmek için bir öğe seçin";
+// Badge next to a domain that appeared in the top list for the first time
+"stats label new" = "Yeni";
+// Short labels for the time range switch: last 24 hours and last 7 days
+"stats range 24h" = "24 sa";
+"stats range 7d" = "7 gün";
+// Label of a removable chip above the activity list when it is sorted by frequency
+"activity filter chip most common" = "En sık görülenler önce";
+// Shown when the user tries to switch off the only enabled blocklist
+"filter last list note" = "Bir engel listesi her zaman açık kalır. Engellemeyi durdurmak için Ana Sayfa'daki Duraklat seçeneğini kullanın.";

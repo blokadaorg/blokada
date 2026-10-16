@@ -771,5 +771,19 @@
     "web plaintext error name": "Adj meg egy rövidebb nevet, rejtett karakterek nélkül.",
     "web plaintext error limit": "Elérted az %1$s eszköz limitjét. Törölj egyet, hogy újabbat adhass hozzá.",
     "web plaintext error taken": "Egy másik eszköz a fiókodban már használja ezt a nevet. Válassz egy másikat.",
-    "web plaintext error generic": "Valami hiba történt. Kérjük, próbáld meg később újra."
+    "web plaintext error generic": "Valami hiba történt. Kérjük, próbáld meg később újra.",
+    "home counter caption blocked": "Blokkolt hirdetések és nyomkövetők",
+    "toast save failed": "Nem sikerült menteni a módosítást. Próbáld újra.",
+    "toast blocklists saved": "Blokkolási listák frissítve",
+    "toast removed from allowed": "Engedélyezettből eltávolítva",
+    "toast removed from blocked": "Blokkoltból eltávolítva",
+    "settings row activity history": "Tevékenységelőzmények",
+    "account section header protection": "Védelem",
+    "settings section header notifications": "Értesítések",
+    "universal label select item details": "Válassz ki egy elemet a részletek megtekintéséhez",
+    "stats label new": "Új",
+    "stats range 24h": "24 óra",
+    "stats range 7d": "7 nap",
+    "activity filter chip most common": "Leggyakoribbak elöl",
+    "filter last list note": "Mindig legalább egy blokkolási lista bekapcsolva marad. A blokkolás leállításához válaszd a kezdőlapon a Szüneteltetés lehetőséget."
 } }

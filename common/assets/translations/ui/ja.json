@@ -771,5 +771,19 @@
     "web plaintext error name": "隠し文字を含めず、短い名前を入力してください。",
     "web plaintext error limit": "%s台の端末上限に達しました。他の端末を削除してから追加してください。",
     "web plaintext error taken": "ご利用のアカウント内で、すでにこの名前を使っている端末があります。別の名前を選択してください。",
-    "web plaintext error generic": "問題が発生しました。後でもう一度お試しください。"
+    "web plaintext error generic": "問題が発生しました。後でもう一度お試しください。",
+    "home counter caption blocked": "ブロックした広告とトラッカー",
+    "toast save failed": "変更を保存できませんでした。もう一度お試しください。",
+    "toast blocklists saved": "ブロックリストを更新しました",
+    "toast removed from allowed": "許可リストから削除しました",
+    "toast removed from blocked": "ブロックリストから削除しました",
+    "settings row activity history": "アクティビティ履歴",
+    "account section header protection": "保護",
+    "settings section header notifications": "通知",
+    "universal label select item details": "項目を選択すると詳細が表示されます",
+    "stats label new": "新着",
+    "stats range 24h": "24時間",
+    "stats range 7d": "7日間",
+    "activity filter chip most common": "件数が多い順",
+    "filter last list note": "ブロックリストは常にひとつ以上有効にしておく必要があります。ブロックを停止するには、ホーム画面の「一時停止」を使用してください。"
 }

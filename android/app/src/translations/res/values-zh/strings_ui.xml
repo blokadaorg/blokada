@@ -773,4 +773,18 @@
     <string name="web_plaintext_error_limit">您已達到 %1$s 台裝置的上限。請刪除一台以新增另一台。</string>
     <string name="web_plaintext_error_taken">您的帳戶中已有其他裝置使用此名稱。請選擇另一個名稱。</string>
     <string name="web_plaintext_error_generic">發生錯誤。請稍後再試。</string>
+    <string name="home_counter_caption_blocked">已阻擋的廣告與追蹤器</string>
+    <string name="toast_save_failed">無法儲存變更，請再試一次。</string>
+    <string name="toast_blocklists_saved">阻擋清單已更新</string>
+    <string name="toast_removed_from_allowed">已從允許清單移除</string>
+    <string name="toast_removed_from_blocked">已從「已阻擋」清單移除</string>
+    <string name="settings_row_activity_history">活動紀錄</string>
+    <string name="account_section_header_protection">保護</string>
+    <string name="settings_section_header_notifications">通知</string>
+    <string name="universal_label_select_item_details">選取項目以查看詳細資訊</string>
+    <string name="stats_label_new">新上榜</string>
+    <string name="stats_range_twofourh">24 小時</string>
+    <string name="stats_range_sevend">7 天</string>
+    <string name="activity_filter_chip_most_common">出現次數由多到少</string>
+    <string name="filter_last_list_note">至少會保留一份啟用中的阻擋清單。若要停止阻擋，請在首頁點選「暫停」。</string>
 </resources>

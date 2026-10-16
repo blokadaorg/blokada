@@ -773,4 +773,18 @@
     <string name="web_plaintext_error_limit">Достигнахте лимита от %1$s устройства. Изтрийте едно, за да добавите друго.</string>
     <string name="web_plaintext_error_taken">Друго устройство във вашия акаунт вече използва това име. Изберете друго име.</string>
     <string name="web_plaintext_error_generic">Нещо се обърка. Моля, опитайте отново по-късно.</string>
+    <string name="home_counter_caption_blocked">Ads and trackers blocked</string>
+    <string name="toast_save_failed">Couldn\'t save the change. Try again.</string>
+    <string name="toast_blocklists_saved">Blocklists updated</string>
+    <string name="toast_removed_from_allowed">Removed from Allowed</string>
+    <string name="toast_removed_from_blocked">Removed from Blocked</string>
+    <string name="settings_row_activity_history">Activity history</string>
+    <string name="account_section_header_protection">Protection</string>
+    <string name="settings_section_header_notifications">Notifications</string>
+    <string name="universal_label_select_item_details">Select an item to see details</string>
+    <string name="stats_label_new">New</string>
+    <string name="stats_range_twofourh">24 h</string>
+    <string name="stats_range_sevend">7 d</string>
+    <string name="activity_filter_chip_most_common">Most common first</string>
+    <string name="filter_last_list_note">One blocklist always stays on. Use Pause on Home to stop blocking.</string>
 </resources>

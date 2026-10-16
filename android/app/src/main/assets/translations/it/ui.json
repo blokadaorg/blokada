@@ -771,5 +771,19 @@
     "web plaintext error name": "Inserisci un nome più breve, senza caratteri nascosti.",
     "web plaintext error limit": "Hai raggiunto il limite di %1$s dispositivi. Elimina uno per aggiungerne un altro.",
     "web plaintext error taken": "Un altro dispositivo nel tuo account utilizza già questo nome. Scegline un altro.",
-    "web plaintext error generic": "Qualcosa è andato storto. Riprova più tardi."
+    "web plaintext error generic": "Qualcosa è andato storto. Riprova più tardi.",
+    "home counter caption blocked": "Annunci e tracker bloccati",
+    "toast save failed": "Impossibile salvare la modifica. Riprova.",
+    "toast blocklists saved": "Liste di blocco aggiornate",
+    "toast removed from allowed": "Rimosso da Consentite",
+    "toast removed from blocked": "Rimosso da Bloccate",
+    "settings row activity history": "Cronologia attività",
+    "account section header protection": "Protezione",
+    "settings section header notifications": "Notifiche",
+    "universal label select item details": "Seleziona un elemento per vedere i dettagli",
+    "stats label new": "Nuovo",
+    "stats range 24h": "24 h",
+    "stats range 7d": "7 g",
+    "activity filter chip most common": "Prima i più comuni",
+    "filter last list note": "Almeno una lista di blocco deve restare attiva. Usa Pausa nella Home per interrompere il blocco."
 } }

@@ -773,4 +773,18 @@
     <string name="web_plaintext_error_limit">Você atingiu o limite de %1$s dispositivos. Exclua um para adicionar outro.</string>
     <string name="web_plaintext_error_taken">Outro dispositivo na sua conta já usa este nome. Escolha um diferente.</string>
     <string name="web_plaintext_error_generic">Algo deu errado. Por favor, tente novamente mais tarde.</string>
+    <string name="home_counter_caption_blocked">Anúncios e rastreadores bloqueados</string>
+    <string name="toast_save_failed">Não foi possível salvar a alteração. Tente novamente.</string>
+    <string name="toast_blocklists_saved">Listas de bloqueio atualizadas</string>
+    <string name="toast_removed_from_allowed">Removido da lista de permitidos</string>
+    <string name="toast_removed_from_blocked">Removido da lista de bloqueados</string>
+    <string name="settings_row_activity_history">Histórico de atividades</string>
+    <string name="account_section_header_protection">Proteção</string>
+    <string name="settings_section_header_notifications">Notificações</string>
+    <string name="universal_label_select_item_details">Selecione um item para ver os detalhes</string>
+    <string name="stats_label_new">Novo</string>
+    <string name="stats_range_twofourh">24 h</string>
+    <string name="stats_range_sevend">7 d</string>
+    <string name="activity_filter_chip_most_common">Mais comuns primeiro</string>
+    <string name="filter_last_list_note">Uma lista de bloqueio deve permanecer ativada. Use Pausar na tela Início para interromper o bloqueio.</string>
 </resources>

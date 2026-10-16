@@ -773,4 +773,18 @@
     <string name="web_plaintext_error_limit">Elérted az %1$s eszköz limitjét. Törölj egyet, hogy újabbat adhass hozzá.</string>
     <string name="web_plaintext_error_taken">Egy másik eszköz a fiókodban már használja ezt a nevet. Válassz egy másikat.</string>
     <string name="web_plaintext_error_generic">Valami hiba történt. Kérjük, próbáld meg később újra.</string>
+    <string name="home_counter_caption_blocked">Blokkolt hirdetések és nyomkövetők</string>
+    <string name="toast_save_failed">Nem sikerült menteni a módosítást. Próbáld újra.</string>
+    <string name="toast_blocklists_saved">Blokkolási listák frissítve</string>
+    <string name="toast_removed_from_allowed">Engedélyezettből eltávolítva</string>
+    <string name="toast_removed_from_blocked">Blokkoltból eltávolítva</string>
+    <string name="settings_row_activity_history">Tevékenységelőzmények</string>
+    <string name="account_section_header_protection">Védelem</string>
+    <string name="settings_section_header_notifications">Értesítések</string>
+    <string name="universal_label_select_item_details">Válassz ki egy elemet a részletek megtekintéséhez</string>
+    <string name="stats_label_new">Új</string>
+    <string name="stats_range_twofourh">24 óra</string>
+    <string name="stats_range_sevend">7 nap</string>
+    <string name="activity_filter_chip_most_common">Leggyakoribbak elöl</string>
+    <string name="filter_last_list_note">Mindig legalább egy blokkolási lista bekapcsolva marad. A blokkolás leállításához válaszd a kezdőlapon a Szüneteltetés lehetőséget.</string>
 </resources>

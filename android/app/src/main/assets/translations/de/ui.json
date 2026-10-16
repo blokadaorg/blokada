@@ -771,5 +771,19 @@
     "web plaintext error name": "Gib einen kürzeren Namen ein, ohne unsichtbare Zeichen.",
     "web plaintext error limit": "Du hast das Limit von %1$s Geräten erreicht. Lösche eines, um ein weiteres hinzuzufügen.",
     "web plaintext error taken": "Ein anderes Gerät in deinem Konto verwendet diesen Namen bereits. Wähle einen anderen.",
-    "web plaintext error generic": "Etwas ist schief gelaufen. Bitte versuche es später erneut."
+    "web plaintext error generic": "Etwas ist schief gelaufen. Bitte versuche es später erneut.",
+    "home counter caption blocked": "Blockierte Werbung und Tracker",
+    "toast save failed": "Änderung konnte nicht gespeichert werden. Bitte erneut versuchen.",
+    "toast blocklists saved": "Sperrlisten aktualisiert",
+    "toast removed from allowed": "Aus Erlaubten entfernt",
+    "toast removed from blocked": "Aus Blockierten entfernt",
+    "settings row activity history": "Aktivitätsverlauf",
+    "account section header protection": "Schutz",
+    "settings section header notifications": "Benachrichtigungen",
+    "universal label select item details": "Element auswählen, um Details anzuzeigen",
+    "stats label new": "Neu",
+    "stats range 24h": "24 h",
+    "stats range 7d": "7 T",
+    "activity filter chip most common": "Am häufigsten zuerst",
+    "filter last list note": "Eine Sperrliste bleibt immer aktiviert. Um das Blockieren zu beenden, auf der Startseite „Pausieren“ auswählen."
 } }

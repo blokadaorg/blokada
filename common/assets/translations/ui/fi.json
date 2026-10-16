@@ -771,5 +771,19 @@
     "web plaintext error name": "Anna lyhyempi nimi ilman piilotettuja merkkejä.",
     "web plaintext error limit": "Olet saavuttanut %s laitteen rajan. Poista yksi lisätäksesi uuden.",
     "web plaintext error taken": "Toinen laite tililläsi käyttää jo tätä nimeä. Valitse toinen nimi.",
-    "web plaintext error generic": "Jotain meni pieleen. Yritä uudelleen myöhemmin."
+    "web plaintext error generic": "Jotain meni pieleen. Yritä uudelleen myöhemmin.",
+    "home counter caption blocked": "Estettyjä mainoksia ja jäljittäjiä",
+    "toast save failed": "Muutosta ei voitu tallentaa. Yritä uudelleen.",
+    "toast blocklists saved": "Estolistat päivitetty",
+    "toast removed from allowed": "Poistettu sallituista",
+    "toast removed from blocked": "Poistettu estetyistä",
+    "settings row activity history": "Toimintahistoria",
+    "account section header protection": "Suojaus",
+    "settings section header notifications": "Ilmoitukset",
+    "universal label select item details": "Valitse kohde nähdäksesi sen tiedot",
+    "stats label new": "Uusi",
+    "stats range 24h": "24 h",
+    "stats range 7d": "7 pv",
+    "activity filter chip most common": "Yleisimmät ensin",
+    "filter last list note": "Yksi estolista pysyy aina käytössä. Lopeta esto etusivun Keskeytä-painikkeella."
 }

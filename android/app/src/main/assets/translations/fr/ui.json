@@ -771,5 +771,19 @@
     "web plaintext error name": "Saisissez un nom plus court, sans caractères cachés.",
     "web plaintext error limit": "Vous avez atteint la limite de %1$s appareils. Supprimez-en un pour en ajouter un autre.",
     "web plaintext error taken": "Un autre appareil de votre compte utilise déjà ce nom. Choisissez-en un autre.",
-    "web plaintext error generic": "Une erreur s'est produite. Veuillez réessayer plus tard."
+    "web plaintext error generic": "Une erreur s'est produite. Veuillez réessayer plus tard.",
+    "home counter caption blocked": "Pubs et trackers bloqués",
+    "toast save failed": "Impossible d’enregistrer la modification. Réessayez.",
+    "toast blocklists saved": "Listes de blocage mises à jour",
+    "toast removed from allowed": "Supprimé d’« Autorisé »",
+    "toast removed from blocked": "Supprimé de « Bloqué »",
+    "settings row activity history": "Historique d’activité",
+    "account section header protection": "Protection",
+    "settings section header notifications": "Notifications",
+    "universal label select item details": "Sélectionnez un élément pour afficher ses détails",
+    "stats label new": "Nouveau",
+    "stats range 24h": "24 h",
+    "stats range 7d": "7 j",
+    "activity filter chip most common": "Les plus communs en premier",
+    "filter last list note": "Une liste de blocage doit toujours rester active. Utilisez « Pause » sur l’écran d’accueil pour arrêter le blocage."
 } }

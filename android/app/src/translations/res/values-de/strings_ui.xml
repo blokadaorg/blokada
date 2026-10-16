@@ -773,4 +773,18 @@
     <string name="web_plaintext_error_limit">Du hast das Limit von %1$s Geräten erreicht. Lösche eines, um ein weiteres hinzuzufügen.</string>
     <string name="web_plaintext_error_taken">Ein anderes Gerät in deinem Konto verwendet diesen Namen bereits. Wähle einen anderen.</string>
     <string name="web_plaintext_error_generic">Etwas ist schief gelaufen. Bitte versuche es später erneut.</string>
+    <string name="home_counter_caption_blocked">Blockierte Werbung und Tracker</string>
+    <string name="toast_save_failed">Änderung konnte nicht gespeichert werden. Bitte erneut versuchen.</string>
+    <string name="toast_blocklists_saved">Sperrlisten aktualisiert</string>
+    <string name="toast_removed_from_allowed">Aus Erlaubten entfernt</string>
+    <string name="toast_removed_from_blocked">Aus Blockierten entfernt</string>
+    <string name="settings_row_activity_history">Aktivitätsverlauf</string>
+    <string name="account_section_header_protection">Schutz</string>
+    <string name="settings_section_header_notifications">Benachrichtigungen</string>
+    <string name="universal_label_select_item_details">Element auswählen, um Details anzuzeigen</string>
+    <string name="stats_label_new">Neu</string>
+    <string name="stats_range_twofourh">24 h</string>
+    <string name="stats_range_sevend">7 T</string>
+    <string name="activity_filter_chip_most_common">Am häufigsten zuerst</string>
+    <string name="filter_last_list_note">Eine Sperrliste bleibt immer aktiviert. Um das Blockieren zu beenden, auf der Startseite „Pausieren“ auswählen.</string>
 </resources>

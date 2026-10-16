@@ -773,4 +773,18 @@
     <string name="web_plaintext_error_limit">لقد وصلت إلى الحد الأقصى وهو %1$s من الأجهزة. احذف جهازًا لإضافة جهاز آخر.</string>
     <string name="web_plaintext_error_taken">جهاز آخر في حسابك يستخدم هذا الاسم بالفعل. اختر اسماً مختلفاً.</string>
     <string name="web_plaintext_error_generic">حدث خطأ ما. الرجاء المحاولة مرة أخرى لاحقاً.</string>
+    <string name="home_counter_caption_blocked">الإعلانات المحظورة والمُتعقِّبون المحظورون</string>
+    <string name="toast_save_failed">تعذّر حفظ التغيير. حاول مرة أخرى.</string>
+    <string name="toast_blocklists_saved">تم تحديث قوائم الحظر</string>
+    <string name="toast_removed_from_allowed">تمت الإزالة من قائمة السماح</string>
+    <string name="toast_removed_from_blocked">تمت الإزالة من قائمة الحَظْر</string>
+    <string name="settings_row_activity_history">سجل النشاط</string>
+    <string name="account_section_header_protection">الحماية</string>
+    <string name="settings_section_header_notifications">الإشعارات</string>
+    <string name="universal_label_select_item_details">اختر عنصرًا لعرض تفاصيله</string>
+    <string name="stats_label_new">جديد</string>
+    <string name="stats_range_twofourh">٢٤ ساعة</string>
+    <string name="stats_range_sevend">٧ أيام</string>
+    <string name="activity_filter_chip_most_common">الأكثر شيوعًا أولاً</string>
+    <string name="filter_last_list_note">تظل قائمة حظر واحدة على الأقل مفعّلة دائمًا. استخدم «إيقاف مؤقت» في الصفحة الرئيسية لإيقاف الحظر.</string>
 </resources>

@@ -1058,3 +1058,29 @@
 "web plaintext error limit" = "您已達到 %@ 台裝置的上限。請刪除一台以新增另一台。";
 "web plaintext error taken" = "您的帳戶中已有其他裝置使用此名稱。請選擇另一個名稱。";
 "web plaintext error generic" = "發生錯誤。請稍後再試。";
+
+// Caption under the Home "Last 24h" number. The number counts only blocked requests.
+"home counter caption blocked" = "已阻擋的廣告與追蹤器";
+
+// Short confirmation pills shown at the bottom of the screen after an action
+"toast save failed" = "無法儲存變更，請再試一次。";
+"toast blocklists saved" = "阻擋清單已更新";
+"toast removed from allowed" = "已從允許清單移除";
+"toast removed from blocked" = "已從「已阻擋」清單移除";
+
+// Settings row that opens the setting for storing activity history (logging)
+"settings row activity history" = "活動紀錄";
+// Settings section header for the main protection settings (exceptions, activity, devices)
+"account section header protection" = "保護";
+"settings section header notifications" = "通知";
+// Shown in the empty detail pane on wide screens, before anything in the list is selected
+"universal label select item details" = "選取項目以查看詳細資訊";
+// Badge next to a domain that appeared in the top list for the first time
+"stats label new" = "新上榜";
+// Short labels for the time range switch: last 24 hours and last 7 days
+"stats range 24h" = "24 小時";
+"stats range 7d" = "7 天";
+// Label of a removable chip above the activity list when it is sorted by frequency
+"activity filter chip most common" = "出現次數由多到少";
+// Shown when the user tries to switch off the only enabled blocklist
+"filter last list note" = "至少會保留一份啟用中的阻擋清單。若要停止阻擋，請在首頁點選「暫停」。";

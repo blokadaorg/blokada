@@ -773,4 +773,18 @@
     <string name="web_plaintext_error_limit">Du har nått gränsen på %1$s enheter. Ta bort en för att lägga till en ny.</string>
     <string name="web_plaintext_error_taken">En annan enhet på ditt konto använder redan detta namn. Välj ett annat.</string>
     <string name="web_plaintext_error_generic">Något gick fel. Försök igen senare.</string>
+    <string name="home_counter_caption_blocked">Blockerade annonser och trackers</string>
+    <string name="toast_save_failed">Det gick inte att spara ändringen. Försök igen.</string>
+    <string name="toast_blocklists_saved">Blocklistorna har uppdaterats</string>
+    <string name="toast_removed_from_allowed">Har tagits bort från tillåtna</string>
+    <string name="toast_removed_from_blocked">Har tagits bort från blockerade</string>
+    <string name="settings_row_activity_history">Aktivitetshistorik</string>
+    <string name="account_section_header_protection">Skydd</string>
+    <string name="settings_section_header_notifications">Notifikationer</string>
+    <string name="universal_label_select_item_details">Välj ett objekt för att se detaljer</string>
+    <string name="stats_label_new">Ny</string>
+    <string name="stats_range_twofourh">24 h</string>
+    <string name="stats_range_sevend">7 d</string>
+    <string name="activity_filter_chip_most_common">Vanligast först</string>
+    <string name="filter_last_list_note">En blocklista måste alltid vara aktiv. Använd Pausa på startsidan för att stoppa blockeringen.</string>
 </resources>

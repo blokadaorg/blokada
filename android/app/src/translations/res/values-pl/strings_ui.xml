@@ -773,4 +773,18 @@
     <string name="web_plaintext_error_limit">Osiągnięto limit %1$s urządzeń. Usuń jedno, aby dodać kolejne.</string>
     <string name="web_plaintext_error_taken">Inne urządzenie na Twoim koncie już używa tej nazwy. Wybierz inną nazwę.</string>
     <string name="web_plaintext_error_generic">Coś poszło nie tak. Spróbuj ponownie później.</string>
+    <string name="home_counter_caption_blocked">Zablokowane reklamy i trackery</string>
+    <string name="toast_save_failed">Nie udało się zapisać zmiany. Spróbuj ponownie.</string>
+    <string name="toast_blocklists_saved">Zaktualizowano bloklisty</string>
+    <string name="toast_removed_from_allowed">Usunięto z Zezwolonych</string>
+    <string name="toast_removed_from_blocked">Usunięto z Blokowanych</string>
+    <string name="settings_row_activity_history">Historia aktywności</string>
+    <string name="account_section_header_protection">Ochrona</string>
+    <string name="settings_section_header_notifications">Powiadomienia</string>
+    <string name="universal_label_select_item_details">Wybierz element, aby zobaczyć szczegóły</string>
+    <string name="stats_label_new">Nowa</string>
+    <string name="stats_range_twofourh">24 h</string>
+    <string name="stats_range_sevend">7 dni</string>
+    <string name="activity_filter_chip_most_common">Najpierw najczęstsze</string>
+    <string name="filter_last_list_note">Co najmniej jedna bloklista musi pozostać włączona. Aby wyłączyć blokowanie, użyj przycisku „Wstrzymaj” na ekranie głównym.</string>
 </resources>

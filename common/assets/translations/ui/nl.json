@@ -771,5 +771,19 @@
     "web plaintext error name": "Voer een kortere naam in, zonder verborgen tekens.",
     "web plaintext error limit": "Je hebt het limiet van %s apparaten bereikt. Verwijder er een om een andere toe te voegen.",
     "web plaintext error taken": "Een ander apparaat op jouw account gebruikt deze naam al. Kies een andere naam.",
-    "web plaintext error generic": "Er is iets misgegaan. Probeer het later opnieuw."
+    "web plaintext error generic": "Er is iets misgegaan. Probeer het later opnieuw.",
+    "home counter caption blocked": "Advertenties en trackers geblokkeerd",
+    "toast save failed": "Wijziging kon niet worden opgeslagen. Probeer het opnieuw.",
+    "toast blocklists saved": "Blokkeerlijsten bijgewerkt",
+    "toast removed from allowed": "Verwijderd van Toegestaan",
+    "toast removed from blocked": "Verwijderd uit Geblokkeerd",
+    "settings row activity history": "Activiteitsgeschiedenis",
+    "account section header protection": "Bescherming",
+    "settings section header notifications": "Notificaties",
+    "universal label select item details": "Selecteer een item om de details te bekijken",
+    "stats label new": "Nieuw",
+    "stats range 24h": "24 u",
+    "stats range 7d": "7 d",
+    "activity filter chip most common": "Meest voorkomende eerst",
+    "filter last list note": "Er blijft altijd één blokkeerlijst ingeschakeld. Gebruik Pauzeren op het startscherm om het blokkeren te stoppen."
 }
