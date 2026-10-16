@@ -103,12 +103,14 @@ class SupportActor with Logging, Actor {
     _trackActions(history);
     await _chatHistory.fetch(m);
     messages = _chatHistory.present?.messages ?? [];
-    // The server keeps asking with the same action, so a decline after the
-    // latest request keeps the card hidden across restarts.
-    final declined = messages.lastOrNullWhere((e) => e.isLogDeclined);
-    if (declined != null &&
+    // The server history can still end with the request after it was
+    // declined, or shared with no reply yet, so a note after the latest
+    // request keeps the card hidden across restarts.
+    final handled =
+        messages.lastOrNullWhere((e) => e.isLogDeclined || e.isLogShared);
+    if (handled != null &&
         _logActionAt != null &&
-        declined.when.isAfter(_logActionAt!)) {
+        handled.when.isAfter(_logActionAt!)) {
       _logActionId = null;
     }
 
@@ -323,25 +325,21 @@ class SupportActor with Logging, Actor {
   Future<void> declineLog(Marker m) async {
     if (_logActionId == null || _replyPending) return;
     _logActionId = null;
-    // Stamped on the request's server time, not the device clock, so the
-    // check on load compares two server times and a later request still shows.
-    final requestedAt = _logActionAt;
-    await _addLogNote(m, SupportMessage.logDeclined, null,
-        at: requestedAt?.add(const Duration(milliseconds: 1)));
+    await _addLogNote(m, SupportMessage.logDeclined, null);
     onChange();
   }
 
-  /// Leaves a log note in the history, at [at] or just ahead of the agent's
-  /// reply. Both carry the server's clock, so they anchor the note.
+  /// Leaves a log note in the history, just ahead of the agent's reply or,
+  /// without one, just after the request. Both carry the server's clock, so
+  /// the restart check in [_loadChatHistory] never compares against the
+  /// device clock.
   Future<void> _addLogNote(Marker m, SupportMessage Function(DateTime) note,
-      List<JsonSupportHistoryItem>? reply,
-      {DateTime? at}) async {
+      List<JsonSupportHistoryItem>? reply) async {
     final first = reply?.firstOrNullWhere((e) => e.text?.isBlank == false);
-    final when = at ??
-        (first == null
-            ? DateTime.now()
-            : DateTime.parse(first.timestamp)
-                .subtract(const Duration(milliseconds: 1)));
+    final when = first != null
+        ? DateTime.parse(first.timestamp)
+            .subtract(const Duration(milliseconds: 1))
+        : _logActionAt?.add(const Duration(milliseconds: 1)) ?? DateTime.now();
     final message = note(when);
     messages.add(message);
     messages.sort((a, b) => a.when.compareTo(b.when));

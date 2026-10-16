@@ -447,6 +447,34 @@ void main() {
       });
     });
 
+    test("a shared log keeps the button away after a restart", () async {
+      await withTrace((m) async {
+        final api = _registerDeps();
+        final request = _logRequest("Please share your log", "act-1");
+        final requestedAt = DateTime.parse(request.messages!.first.timestamp);
+        final persistence = Core.get<Persistence>() as MockPersistence;
+        when(persistence.load(any, "support_session_id"))
+            .thenAnswer((_) async => "session-1");
+        // Shared with no agent reply yet, so the server still ends with the request.
+        when(persistence.load(any, "support_chat_history")).thenAnswer(
+            (_) async => jsonEncode(SupportMessages([
+                  SupportMessage.logShared(
+                      requestedAt.add(const Duration(milliseconds: 1)))
+                ]).toJson()));
+        when(api.getSession(any, "session-1")).thenAnswer((_) async =>
+            JsonSupportSession(
+              sessionId: "session-1",
+              history: request.messages!,
+              created: DateTime(2026, 9, 7, 12).toIso8601String(),
+              ttl: 3600,
+            ));
+
+        final subject = SupportActor();
+        await subject.loadOrInit(m);
+        expect(subject.logActionId, isNull);
+      });
+    });
+
     test("a decline sorts after the request on the server's clock", () async {
       await withTrace((m) async {
         final api = _registerDeps();
