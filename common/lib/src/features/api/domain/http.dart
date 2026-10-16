@@ -27,7 +27,9 @@ class Http with Logging {
       try {
         log(m).i("Api call: ${payload.endpoint}");
         log(m).log(attr: {"url": payload.url}, sensitive: true);
-        log(m).log(attr: {"payload": payload.payload}, sensitive: true);
+        log(m).log(
+            attr: {"payload": _loggablePayload(payload.payload)},
+            sensitive: true);
         _logNetDiag(m, "requestStart", payload,
             attr: {"trigger": Markers.toName(m)});
         return _call(payload, payload.attempts, m);
@@ -80,9 +82,11 @@ class Http with Logging {
       url = url.replaceAll(param.placeholder, value);
     }
 
-    // Replace param also in payload
+    // Replace param also in payload, unless the URL already carries it: a
+    // plain-text body (the support log) must reach the server unchanged.
     if (request.payload != null) {
       for (final param in request.endpoint.params) {
+        if (request.endpoint.template.contains(param.placeholder)) continue;
         final value = params[param];
         if (value == null) throw Exception("missing param: $param");
         request.payload = request.payload!.replaceAll(param.placeholder, value);
@@ -124,6 +128,14 @@ class Http with Logging {
       return e;
     }
   }
+
+  /// Large bodies, such as the app log the support chat uploads, are logged by
+  /// size only: with verbose logging they would otherwise be copied in full
+  /// into the very log they came from.
+  static String? _loggablePayload(String? payload) =>
+      payload != null && payload.length > 4096
+          ? "(${payload.length} chars)"
+          : payload;
 
   Future<Map<ApiParam, String>> _params({bool skipAccount = false}) async {
     if (skipAccount) {

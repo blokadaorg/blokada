@@ -483,5 +483,26 @@ void main() {
       expect(response.messages![1].actions.single.type, "attach_log");
       expect(response.messages![1].actions.single.id, "Qm9x");
     });
+
+    test("drops a malformed action and keeps the message", () {
+      final response = JsonSupportMarshal().toResponse(jsonEncode({
+        "messages": [
+          {
+            "content": {
+              "text": "a",
+              "event": "",
+              "actions": [
+                {"type": "attach_log"},
+                {"type": "attach_log", "id": "Qm9x"}
+              ],
+            },
+            "is_agent": true,
+            "timestamp": "2026-10-12T10:03:00Z",
+          },
+        ]
+      }));
+      expect(response.messages!.single.text, "a");
+      expect(response.messages!.single.actions.single.id, "Qm9x");
+    });
   });
 }

@@ -165,9 +165,11 @@ object CoreBinding : CoreOps {
     override fun doReadLogTail(maxBytes: Long, callback: (Result<String>) -> Unit) {
         scope.launch(Dispatchers.IO) {
             val result = mutex.withLock {
+                // Any failure must still reach the callback, or the chat
+                // waits on the upload forever.
                 try {
                     Result.success(readLogTail(maxBytes))
-                } catch (e: IOException) {
+                } catch (e: Exception) {
                     e.printStackTrace()
                     Result.failure(e)
                 }

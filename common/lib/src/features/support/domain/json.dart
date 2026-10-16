@@ -139,8 +139,12 @@ class JsonSupportHistoryItem {
       final content = json['content'] as Map<String, dynamic>?;
       text = content?['text'];
       event = content?['event'];
+      // A malformed action is dropped rather than failing the message: one bad
+      // entry would otherwise fail the whole session load and reset the chat.
       actions = (content?['actions'] as List?)
-              ?.map((e) => JsonSupportAction.fromJson(e))
+              ?.whereType<Map<String, dynamic>>()
+              .where((e) => e['type'] is String && e['id'] is String)
+              .map((e) => JsonSupportAction.fromJson(e))
               .toList() ??
           [];
       isAgent = json['is_agent'];
