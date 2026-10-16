@@ -67,6 +67,9 @@ cp -cR /path/to/main-checkout/deps/* deps/
 Use plain `cp -R` on non-APFS filesystems. Either path leaves the worktree
 buildable; pick whichever fits your workflow.
 
+Before the first iOS build in a fresh worktree, run `make -C common build-ios`;
+without it Xcode fails with `FlutterNativeIntegration doesn't exist`.
+
 ## Build & Install Commands
 
 ### Debug Builds
@@ -110,9 +113,13 @@ make uninstall               # remove all
 
 ```bash
 # iOS: build, install and run with console output (BLOCKING – run as background task)
-make -C ios run-six [DEVICE_NAME="device name"] [CONFIG="Release|Debug"]
-make -C ios run-family [DEVICE_NAME="device name"] [CONFIG="Release|Debug"]
+make -C ios run-six [IOS_DEVICE_NAME="device name"] [CONFIG="Release|Debug"]
+make -C ios run-family [IOS_DEVICE_NAME="device name"] [CONFIG="Release|Debug"]
 # Default: CONFIG=Release (required for iOS 14+ to launch without Xcode/Flutter tooling)
+# It never exits. Watch its output for "** BUILD SUCCEEDED **" / "** BUILD FAILED **",
+# "App installed:" and "Launched application with <bundle id>" (the app is running).
+# Install only, exits when done:
+make -C ios appium-install-six [IOS_DEVICE_NAME="device name"]
 
 # Android
 make install-family-debug    # or make install-six-debug
