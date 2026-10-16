@@ -69,6 +69,7 @@ enum ApiEndpoint {
       "https://support.blocka.net/v3/support/log?session_id=(session_id)&action_id=(action_id)",
       type: "POST",
       params: [ApiParam.sessionId, ApiParam.actionId]),
+  postSupportCheck("https://support.blocka.net/v3/support/check", type: "POST"),
   postAdaptyCheckout("v3/adapty/checkout", type: "POST", params: [ApiParam.accountId]),
   getStatusTest("v3/status/test", params: [ApiParam.deviceTag]),
   // Untagged status check: detects whether DNS is already routed through Blokada
