@@ -2,6 +2,7 @@ import 'package:common/src/features/support/domain/support.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/features/support/ui/link_message.dart';
 import 'package:common/src/features/support/ui/support_composer.dart';
+import 'package:common/src/features/support/ui/support_log_button.dart';
 import 'package:common/src/features/support/ui/support_typing_bubble.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
@@ -109,9 +110,7 @@ class SupportSectionState extends State<SupportSection> {
             return ChatAnimatedListReversed(
               itemBuilder: itemBuilder,
               // Sits right after the newest message, above the composer.
-              bottomSliver: _actor.replyPending
-                  ? const SliverToBoxAdapter(child: SupportTypingBubble())
-                  : null,
+              bottomSliver: _bottomSliver(),
             );
           },
           textMessageBuilder: (context, message, index,
@@ -134,6 +133,22 @@ class SupportSectionState extends State<SupportSection> {
         },
       ),
     );
+  }
+
+  /// The typing indicator while a reply is pending, otherwise the share log
+  /// button while the agent's latest reply asks for the log.
+  Widget? _bottomSliver() {
+    if (_actor.replyPending) {
+      return const SliverToBoxAdapter(child: SupportTypingBubble());
+    }
+    if (_actor.logActionId != null) {
+      return SliverToBoxAdapter(
+        child: SupportLogButton(
+          onPressed: () => _actor.shareLog(Markers.userTap),
+        ),
+      );
+    }
+    return null;
   }
 
   void _handleSendPressed(String message) {

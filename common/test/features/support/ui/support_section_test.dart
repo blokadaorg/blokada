@@ -1,5 +1,6 @@
 import 'package:common/src/core/core.dart';
 import 'package:common/src/features/support/domain/support.dart';
+import 'package:common/src/features/support/ui/support_log_button.dart';
 import 'package:common/src/features/support/ui/support_section.dart';
 import 'package:common/src/features/support/ui/support_typing_bubble.dart';
 import 'package:common/src/platform/stage/stage.dart';
@@ -16,9 +17,24 @@ import '../../../tools.dart';
 class _FakeSupportActor extends SupportActor {
   final sent = <String>[];
   bool pending = false;
+  String? action;
+  int shared = 0;
 
   @override
   bool get replyPending => pending;
+
+  @override
+  String? get logActionId => action;
+
+  void setAction(String? value) {
+    action = value;
+    onChange();
+  }
+
+  @override
+  Future<void> shareLog(Marker m) async {
+    shared++;
+  }
 
   void setPending(bool value) {
     pending = value;
@@ -161,4 +177,39 @@ void main() {
       });
     });
   }
+
+  testWidgets("shows the share log button only while the agent asks for it",
+      (tester) async {
+    await withTrace((_) async {
+      Core.register<StageStore>(StageStore());
+      final actor = _FakeSupportActor();
+      Core.register<SupportActor>(actor);
+
+      await tester.pumpWidget(_host(dark: false));
+      await tester.pump();
+      expect(find.byType(SupportLogButton), findsNothing);
+
+      actor.setAction("act-1");
+      await tester.pump();
+      expect(find.byType(SupportLogButton), findsOneWidget);
+      await tester.tap(find.byType(SupportLogButton));
+      await tester.pump();
+      expect(actor.shared, 1);
+
+      // While the upload runs, the typing indicator takes its place.
+      actor.setPending(true);
+      await tester.pump();
+      expect(find.byType(SupportLogButton), findsNothing);
+      expect(find.byType(SupportTypingBubble), findsOneWidget);
+
+      actor.setPending(false);
+      actor.setAction(null);
+      await tester.pump();
+      expect(find.byType(SupportLogButton), findsNothing);
+
+      await tester.pump(const Duration(seconds: 2));
+      await tester.pumpWidget(const SizedBox.shrink());
+      await tester.pump();
+    });
+  });
 }

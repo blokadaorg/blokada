@@ -5,10 +5,15 @@ class JsonSupportPayloadCreateSession {
   late SupportEvent? event;
   late String language;
 
+  /// What the app can do when the agent asks. The server only sends actions
+  /// of these types, so an app that cannot handle one never gets it.
+  late List<SupportClientTool> clientTools;
+
   JsonSupportPayloadCreateSession({
     this.message,
     this.event,
     required this.language,
+    this.clientTools = const [],
   });
 
   Map<String, dynamic> toJson() {
@@ -18,6 +23,7 @@ class JsonSupportPayloadCreateSession {
       'message': message,
       'event': event?.constant,
       'language': language,
+      'client_tools': clientTools.map((e) => e.constant).toList(),
     };
 
     if (message == null) {
@@ -116,19 +122,47 @@ class JsonSupportHistoryItem {
   late bool isAgent;
   late String timestamp;
 
+  /// What the agent asks the app to offer with this message, such as the
+  /// share log button. Only on the last message of an agent reply.
+  late List<JsonSupportAction> actions;
+
   JsonSupportHistoryItem({
     this.text,
     this.event,
     required this.isAgent,
     required this.timestamp,
+    this.actions = const [],
   });
 
   JsonSupportHistoryItem.fromJson(Map<String, dynamic> json) {
     try {
-      text = (json['content'] as Map<String, dynamic>?)?['text'];
-      event = (json['content'] as Map<String, dynamic>?)?['event'];
+      final content = json['content'] as Map<String, dynamic>?;
+      text = content?['text'];
+      event = content?['event'];
+      actions = (content?['actions'] as List?)
+              ?.map((e) => JsonSupportAction.fromJson(e))
+              .toList() ??
+          [];
       isAgent = json['is_agent'];
       timestamp = json['timestamp'];
+    } on TypeError catch (e) {
+      throw JsonError(json, e);
+    }
+  }
+}
+
+/// A request from the agent for the app to do something, such as offering
+/// to upload the app log. [id] names the request when the app answers it.
+class JsonSupportAction {
+  late String type;
+  late String id;
+
+  JsonSupportAction({required this.type, required this.id});
+
+  JsonSupportAction.fromJson(Map<String, dynamic> json) {
+    try {
+      type = json['type'];
+      id = json['id'];
     } on TypeError catch (e) {
       throw JsonError(json, e);
     }

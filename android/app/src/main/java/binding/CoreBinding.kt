@@ -161,6 +161,39 @@ object CoreBinding : CoreOps {
         }
     }
 
+    // Read under the write lock, so batches already queued are in the tail.
+    override fun doReadLogTail(maxBytes: Long, callback: (Result<String>) -> Unit) {
+        scope.launch(Dispatchers.IO) {
+            val result = mutex.withLock {
+                try {
+                    Result.success(readLogTail(maxBytes))
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                    Result.failure(e)
+                }
+            }
+            withContext(Dispatchers.Main) {
+                callback(result)
+            }
+        }
+    }
+
+    // The support chat uploads only the end of the log, which its server caps.
+    // A cut file starts after the first newline, so it opens with a whole line
+    // and never inside a multi-byte character.
+    private fun readLogTail(maxBytes: Long): String {
+        if (!::logFile.isInitialized || !logFile.exists()) return ""
+        RandomAccessFile(logFile, "r").use { raf ->
+            val length = raf.length()
+            val start = maxOf(0L, length - maxBytes)
+            val bytes = ByteArray((length - start).toInt())
+            raf.seek(start)
+            raf.readFully(bytes)
+            val from = if (start == 0L) 0 else bytes.indexOf('\n'.code.toByte()) + 1
+            return String(bytes, from, bytes.size - from, Charsets.UTF_8)
+        }
+    }
+
     // This is for log sharing only
     override fun doShareFile(callback: (Result<Unit>) -> Unit) {
         scope.launch {

@@ -150,6 +150,35 @@ class CoreBinding: CoreOps {
         }
     }
 
+    // The support chat uploads only the end of the log, which its server caps.
+    // Runs on the write queue, so batches already queued are in the tail. A
+    // cut file starts after the first newline, so it opens with a whole line
+    // and never inside a multi-byte character.
+    func doReadLogTail(maxBytes: Int64, completion: @escaping (Result<String, Error>) -> Void) {
+        queue.async {
+            guard let url = self.fileURL, FileManager.default.fileExists(atPath: url.path) else {
+                return completion(.success(""))
+            }
+            do {
+                let fileHandle = try FileHandle(forReadingFrom: url)
+                defer {
+                    try? fileHandle.close()
+                }
+                let length = try fileHandle.seekToEnd()
+                let start = length > UInt64(maxBytes) ? length - UInt64(maxBytes) : 0
+                try fileHandle.seek(toOffset: start)
+                var data = try fileHandle.readToEnd() ?? Data()
+                if start > 0, let newline = data.firstIndex(of: 0x0A) {
+                    data = data.suffix(from: data.index(after: newline))
+                }
+                return completion(.success(String(decoding: data, as: UTF8.self)))
+            } catch {
+                print("Error reading log: \(error)")
+                return completion(.failure("Error reading log: \(error)"))
+            }
+        }
+    }
+
     func doShareFile(completion: @escaping (Result<Void, Error>) -> Void) {
         shareLog.send(fileURL)
         return completion(.success(()))

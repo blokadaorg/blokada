@@ -24,6 +24,10 @@ mixin LoggerChannel {
   Future<void> doUseFilename(String filename);
   Future<void> doSaveBatch(String batch);
   Future<void> doShareFile();
+
+  /// The end of the log file, at most [maxBytes] bytes and starting at a line
+  /// boundary. The support chat uploads it when the agent asks for the log.
+  Future<String> doReadLogTail(int maxBytes);
 }
 
 class FileLoggerOutput extends LogOutput {
