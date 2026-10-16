@@ -138,7 +138,11 @@ class PlatformFilterActor with Logging, Actor {
   onUserConfigChanged(UserFilterConfig? config) {
     if (config == null) return;
     final lists = config.lists;
-    if (lists == _device.lists?.toSet()) return;
+    if (setEquals(lists, _device.lists?.toSet())) {
+      // Back to what the device has, so an earlier toggle must not be sent.
+      _debounce.cancel();
+      return;
+    }
     if (lists.isEmpty) return; // Skip setting empty list, not supported by v2
     // v2 will force the default config on empty list.
     // Instead we assume FilterController will set the defaults shortly after.
