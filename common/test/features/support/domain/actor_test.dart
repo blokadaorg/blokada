@@ -705,6 +705,7 @@ void main() {
               "event": "",
               "actions": [
                 {"type": "attach_log"},
+                {"type": "dns_check", "id": "Zx8r", "subdomain": 42},
                 {"type": "attach_log", "id": "Qm9x"}
               ],
             },
