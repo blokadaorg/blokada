@@ -4,6 +4,7 @@ import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/account/account.dart';
 import 'package:common/src/platform/app/launch_context.dart';
 import 'package:common/src/util/cooldown.dart';
+import 'package:flutter/foundation.dart' show setEquals;
 import 'package:mobx/mobx.dart';
 
 import '../stage/stage.dart';
@@ -263,7 +264,7 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
 
   bool _listsEqual(List<String>? a, List<String>? b) {
     if (a == null || b == null) return false;
-    return Set.from(a) == Set.from(b);
+    return setEquals(a.toSet(), b.toSet());
   }
 
   void _hydrateAliasFromEnvIfNeeded() {
