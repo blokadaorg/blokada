@@ -56,8 +56,8 @@ mockAct(Actor subject,
 final mockedAct = ActScreenplay(ActScenario.test, Flavor.v6, PlatformType.iOS);
 
 class TestRunner with Logging {
-  run(String name, Function(Marker) fn) {
-    log(Markers.testing).trace(name, (m) async {
+  Future<void> run(String name, Function(Marker) fn) {
+    return log(Markers.testing).trace(name, (m) async {
       await (fn(m));
     });
   }

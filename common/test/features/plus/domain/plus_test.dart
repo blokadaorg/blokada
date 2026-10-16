@@ -80,7 +80,9 @@ void main() {
         when(device.currentDeviceTag).thenReturn("some device tag");
         Core.register<DeviceStore>(device);
 
-        Core.register(BypassedPackagesValue());
+        final bypassed = BypassedPackagesValue();
+        await bypassed.change(m, <String>{});
+        Core.register(bypassed);
 
         final ops = MockPlusOps();
         Core.register<PlusOps>(ops);
@@ -183,7 +185,9 @@ void main() {
         final keypair = MockKeypairActor();
         Core.register<KeypairActor>(keypair);
 
-        Core.register(BypassedPackagesValue());
+        final bypassed = BypassedPackagesValue();
+        await bypassed.change(m, <String>{});
+        Core.register(bypassed);
 
         final ops = MockPlusOps();
         Core.register<PlusOps>(ops);
@@ -308,7 +312,9 @@ void main() {
         // Flags reverted when wont turn on
         when(vpn.turnVpnOn(any)).thenThrow(Exception("some error"));
         await expectLater(subject.switchPlus(true, m), throwsException);
-        verifyNever(lease.fetch(any));
+        // Leases are refreshed first; the connectivity check never runs.
+        verify(lease.fetch(any)).called(1);
+        verifyNever(lease.fetch(any, noRetry: true));
         expect(plusEnabled.present, false);
       });
     });

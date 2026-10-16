@@ -129,7 +129,9 @@ class SupportActor with Logging, Actor {
   }
 
   Future<void> _startSession(Marker m, {SupportEvent? event}) async {
-    await loadOrInit(m, event: event);
+    // The new session replaces any stored one, so there is nothing to load.
+    // loadOrInit would start a session itself and wait on this one forever.
+    initialized = true;
     clearSession(m);
     final session = await _api.createSession(m, language, event: event);
     await _currentSession.change(m, session.sessionId);

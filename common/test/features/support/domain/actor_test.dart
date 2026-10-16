@@ -65,23 +65,6 @@ MockSupportApi _registerDeps() {
   return api;
 }
 
-/// Runs [body] under [withTrace] and waits for all of it.
-///
-/// withTrace returns once the body reaches its first real await, so
-/// expectations after a held future would otherwise go unchecked.
-Future<void> _traced(Future<void> Function(Marker m) body) async {
-  final done = Completer<void>();
-  await withTrace((m) async {
-    try {
-      await body(m);
-      done.complete();
-    } catch (e, s) {
-      done.completeError(e, s);
-    }
-  });
-  await done.future;
-}
-
 void main() {
   group("startSession", () {
     test("callers arriving mid-flight join it instead of opening a second one",
@@ -144,7 +127,7 @@ void main() {
   group("replyPending", () {
     test("is set while the reply is on its way and cleared once it is in",
         () async {
-      await _traced((m) async {
+      await withTrace((m) async {
         final api = _registerDeps();
         when(api.createSession(any, any, event: anyNamed("event")))
             .thenAnswer((_) async => _session("session-1"));
@@ -180,7 +163,7 @@ void main() {
 
     test("stays set until the reply is in the chat, even if storing is slow",
         () async {
-      await _traced((m) async {
+      await withTrace((m) async {
         final api = _registerDeps();
         when(api.createSession(any, any, event: anyNamed("event")))
             .thenAnswer((_) async => _session("session-1"));
@@ -218,7 +201,7 @@ void main() {
 
     test("is set right away when the send first has to open a session",
         () async {
-      await _traced((m) async {
+      await withTrace((m) async {
         final api = _registerDeps();
         final creating = Completer<JsonSupportSession>();
         when(api.createSession(any, any, event: anyNamed("event")))
@@ -239,7 +222,7 @@ void main() {
     });
 
     test("is not set for local commands", () async {
-      await _traced((m) async {
+      await withTrace((m) async {
         final api = _registerDeps();
         when(api.createSession(any, any, event: anyNamed("event")))
             .thenAnswer((_) async => _session("session-1"));
@@ -252,7 +235,7 @@ void main() {
 
     test("is cleared when the request fails and the error message shows",
         () async {
-      await _traced((m) async {
+      await withTrace((m) async {
         final api = _registerDeps();
         when(api.createSession(any, any, event: anyNamed("event")))
             .thenAnswer((_) async => _session("session-1"));
@@ -273,7 +256,7 @@ void main() {
     });
 
     test("is cleared when a server error is rethrown", () async {
-      await _traced((m) async {
+      await withTrace((m) async {
         final api = _registerDeps();
         when(api.createSession(any, any, event: anyNamed("event")))
             .thenAnswer((_) async => _session("session-1"));
