@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/core/core.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
@@ -45,6 +47,21 @@ withTrace(Future Function(Marker m) fn) async {
     Translations.missingKeyCallback = missingKeyCallback;
     Translations.missingTranslationCallback = missingTranslationCallback;
   }
+}
+
+/// withTrace does not wait for the body, so a failure after its first await
+/// can be reported against a later test or lost. This waits for the body.
+Future<void> awaitTrace(Future Function(Marker m) fn) async {
+  final done = Completer<void>();
+  await withTrace((m) async {
+    try {
+      await fn(m);
+      done.complete();
+    } catch (e, s) {
+      done.completeError(e, s);
+    }
+  });
+  await done.future;
 }
 
 mockAct(Actor subject,

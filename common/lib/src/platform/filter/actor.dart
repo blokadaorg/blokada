@@ -34,7 +34,14 @@ class PlatformFilterActor with Logging, Actor {
         // Read user config from device v2 when it is ready
         // Set it and it will reload FilterController
         // That one will update SelectedFilters
-        await _userConfig.change(m, UserFilterConfig(lists.toSet(), {}));
+        // Only enabled configs are kept, as FilterController builds them, so
+        // an unchanged device does not look like a change to it.
+        await _userConfig.change(
+          m,
+          UserFilterConfig(lists.toSet(), {
+            if (_device.safeSearch == true) FilterConfigKey.safeSearch: true,
+          }),
+        );
       }
     });
   }
@@ -135,17 +142,26 @@ class PlatformFilterActor with Logging, Actor {
     });
   }
 
+  /// Pushes the filter selection to device v2, which is where v6 keeps it.
+  /// Debounced so a burst of toggles becomes one request with the last state.
   onUserConfigChanged(UserFilterConfig? config) {
     if (config == null) return;
     final lists = config.lists;
-    if (lists == _device.lists?.toSet()) return;
+    final safeSearch = config.configs[FilterConfigKey.safeSearch] ?? false;
+    if (setEquals(lists, _device.lists?.toSet()) &&
+        safeSearch == (_device.safeSearch ?? false)) {
+      // Back to what the device has, so an earlier toggle must not be sent.
+      _debounce.cancel();
+      return;
+    }
     if (lists.isEmpty) return; // Skip setting empty list, not supported by v2
     // v2 will force the default config on empty list.
     // Instead we assume FilterController will set the defaults shortly after.
 
     _debounce.run(() async {
       // UserConfigs got updated by FilterController, push to v2 api
-      await _device.setLists(lists.toList(), Markers.filter);
+      await _device.setLists(lists.toList(), Markers.filter,
+          safeSearch: safeSearch);
     });
   }
 }

@@ -149,4 +149,20 @@ void main() {
     ).get().firstWhere((it) => it.filterName == filterSafeSearch).options.single;
     expect(option.action2Params, contains("safesearch/nosafesearch"));
   });
+
+  test('v6 offers the same safe search filter as family', () {
+    Option safeSearch(bool isFamily) => KnownFilters(isFamily: isFamily)
+        .get()
+        .firstWhere((it) => it.filterName == filterSafeSearch)
+        .options
+        .single;
+
+    final v6 = safeSearch(false);
+    final family = safeSearch(true);
+    expect(v6.optionName, family.optionName);
+    expect(v6.action, FilterAction.config);
+    expect(v6.actionParams, [FilterConfigKey.safeSearch.name]);
+    expect(v6.action2, family.action2);
+    expect(v6.action2Params, family.action2Params);
+  });
 }

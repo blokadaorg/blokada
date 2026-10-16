@@ -4,6 +4,7 @@ import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/account/account.dart';
 import 'package:common/src/platform/app/launch_context.dart';
 import 'package:common/src/util/cooldown.dart';
+import 'package:flutter/foundation.dart' show setEquals;
 import 'package:mobx/mobx.dart';
 
 import '../stage/stage.dart';
@@ -62,6 +63,11 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
   @observable
   DeviceRetention? retention;
 
+  /// Read back with the lists so the filter screen shows the Safe Search
+  /// filter as the device has it, not only as this app last set it.
+  @observable
+  bool? safeSearch;
+
   @observable
   DateTime lastRefresh = DateTime(0);
 
@@ -106,6 +112,7 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
       pausedForSeconds = device.pausedForSeconds;
       cloudEnabled = !device.paused;
       lists = device.lists;
+      safeSearch = device.safeSearch;
       retention = device.retention;
       deviceTag = device.deviceTag;
       _hydrateAliasFromEnvIfNeeded();
@@ -151,22 +158,26 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
     });
   }
 
+  /// Saves the selected filters. A null [safeSearch] leaves the device's
+  /// setting as it is.
   @action
-  Future<void> setLists(List<String> lists, Marker m) async {
+  Future<void> setLists(List<String> lists, Marker m, {bool? safeSearch}) async {
     // Skip device updates in freemium mode to prevent refresh loops
     if (_account.isFreemium) {
       log(m).i("Skipping setLists in freemium mode");
       return;
     }
 
-    if (_listsEqual(this.lists, lists)) {
+    if (_listsEqual(this.lists, lists) &&
+        (safeSearch == null || safeSearch == this.safeSearch)) {
       log(m).i("setLists noop, skipping device refresh");
       return;
     }
 
     return await log(m).trace("setLists", (m) async {
       log(m).pair("lists", lists);
-      await _api.putDevice(m, lists: lists);
+      log(m).pair("safeSearch", safeSearch);
+      await _api.putDevice(m, lists: lists, safeSearch: safeSearch);
       await fetch(m, force: true);
     });
   }
@@ -263,7 +274,7 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
 
   bool _listsEqual(List<String>? a, List<String>? b) {
     if (a == null || b == null) return false;
-    return Set.from(a) == Set.from(b);
+    return setEquals(a.toSet(), b.toSet());
   }
 
   void _hydrateAliasFromEnvIfNeeded() {

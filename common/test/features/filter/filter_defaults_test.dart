@@ -21,5 +21,10 @@ void main() {
       final v6 = DefaultFilters(false);
       expect(v6.getTemplate(""), equals(v6.getTemplate(null)));
     });
+
+    test('v6 flavor: safe search is off by default', () {
+      final defaults = DefaultFilters(false).get();
+      expect(defaults.map((it) => it.filterName), isNot(contains(filterSafeSearch)));
+    });
   });
 }

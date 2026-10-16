@@ -22,7 +22,7 @@ final _fixtureJsonDevice = JsonDevice(
   retention: "24h",
   paused: true,
   pausedForSeconds: 60,
-  safeSearch: false,
+  safeSearch: true,
 );
 
 class _FakeEnvActor extends EnvActor {
@@ -56,11 +56,12 @@ void main() {
         expect(subject.lists, ["a", "b"]);
         expect(subject.retention, "24h");
         expect(subject.cloudEnabled, false);
+        expect(subject.safeSearch, true);
       });
     });
 
     test("willFetchOnCallsToActions", () async {
-      await withTrace((m) async {
+      await awaitTrace((m) async {
         Core.register<StageStore>(MockStageStore());
         Core.register<AccountStore>(MockAccountStore());
         Core.register<EnvActor>(_FakeEnvActor('Example iPhone'));
@@ -82,6 +83,32 @@ void main() {
 
         await subject.setLists(["c", "d"], m);
         verify(api.putDevice(m, lists: ["c", "d"])).called(1);
+
+        await subject.setLists(["c", "d"], m, safeSearch: false);
+        verify(api.putDevice(m, lists: ["c", "d"], safeSearch: false))
+            .called(1);
+      });
+    });
+
+    test("willSkipSetListsWhenListsAndSafeSearchUnchanged", () async {
+      await awaitTrace((m) async {
+        Core.register<StageStore>(MockStageStore());
+        Core.register<AccountStore>(MockAccountStore());
+        Core.register<EnvActor>(_FakeEnvActor('Example iPhone'));
+
+        final api = MockDeviceApi();
+        when(api.getDevice(any))
+            .thenAnswer((_) => Future.value(_fixtureJsonDevice));
+        Core.register<DeviceApi>(api);
+
+        final subject = DeviceStore();
+        mockAct(subject);
+        await subject.fetch(m, force: true);
+
+        await subject.setLists(["b", "a"], m, safeSearch: true);
+        await subject.setLists(["a", "b"], m);
+        verifyNever(api.putDevice(any,
+            lists: anyNamed("lists"), safeSearch: anyNamed("safeSearch")));
       });
     });
   });

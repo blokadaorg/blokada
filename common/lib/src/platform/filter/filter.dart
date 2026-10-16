@@ -3,6 +3,7 @@ import 'package:common/src/features/filter/domain/filter.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/device/device.dart';
 import 'package:dartx/dartx.dart';
+import 'package:flutter/foundation.dart' show setEquals;
 
 part 'actor.dart';
 part 'command.dart';

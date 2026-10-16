@@ -43,6 +43,7 @@ void main() {
         expect(device.lists, ["a", "b"]);
         expect(device.retention, "24h");
         expect(device.paused, true);
+        expect(device.safeSearch, false);
       });
     });
   });
@@ -115,6 +116,28 @@ void main() {
         await subject.putDevice(m, lists: ["a", "b"]);
 
         verify(http.request(any, any, payload: anyNamed("payload"))).called(1);
+      });
+    });
+
+    test("willSendListsAndSafeSearchInOneRequest", () async {
+      await withTrace((m) async {
+        final account = MockAccountStore();
+        when(account.id).thenReturn("some-id");
+        Core.register<AccountStore>(account);
+
+        final http = MockApi();
+        Core.register<Api>(http);
+
+        final subject = DeviceApi();
+        await subject.putDevice(m, lists: ["a", "b"], safeSearch: true);
+
+        final payload = verify(http.request(ApiEndpoint.putDeviceV2, any,
+                payload: captureAnyNamed("payload")))
+            .captured
+            .single;
+        final json = jsonDecode(payload);
+        expect(json["lists"], ["a", "b"]);
+        expect(json["safe_search"], true);
       });
     });
   });
