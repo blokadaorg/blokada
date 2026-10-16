@@ -3,12 +3,13 @@ import 'package:flutter_chat_core/flutter_chat_core.dart';
 
 extension SupportMsgExt on SupportMessage {
   Message toFlyerMessage(User me, User notMe) {
-    if (isLogShared || isLogDeclined) {
+    if (note != null) {
       return CustomMessage(
-          id: id,
-          authorId: me.id,
-          createdAt: when,
-          metadata: {'logShared': isLogShared});
+        id: id,
+        authorId: me.id,
+        createdAt: when,
+        metadata: {'note': note!.name},
+      );
     }
     return TextMessage(
       id: id,

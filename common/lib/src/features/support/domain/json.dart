@@ -37,6 +37,29 @@ class JsonSupportPayloadCreateSession {
   }
 }
 
+/// The app's report for a dns_check action; the values are the ones the
+/// server documents for each field, "unknown" when the app cannot tell.
+class JsonSupportPayloadDnsCheck {
+  final String sessionId;
+  final String actionId;
+  final String language;
+  final Map<String, String> localState;
+
+  JsonSupportPayloadDnsCheck({
+    required this.sessionId,
+    required this.actionId,
+    required this.language,
+    required this.localState,
+  });
+
+  Map<String, dynamic> toJson() => {
+    'session_id': sessionId,
+    'id': actionId,
+    'language': language,
+    'local_state': localState,
+  };
+}
+
 class JsonSupportSession {
   late String sessionId;
   late List<JsonSupportHistoryItem> history;
@@ -163,12 +186,16 @@ class JsonSupportAction {
   late String type;
   late String id;
 
-  JsonSupportAction({required this.type, required this.id});
+  /// The name a dns_check action asks the app to resolve.
+  String? subdomain;
+
+  JsonSupportAction({required this.type, required this.id, this.subdomain});
 
   JsonSupportAction.fromJson(Map<String, dynamic> json) {
     try {
       type = json['type'];
       id = json['id'];
+      subdomain = json['subdomain'] as String?;
     } on TypeError catch (e) {
       throw JsonError(json, e);
     }
@@ -186,6 +213,10 @@ class JsonSupportMarshal {
 
   JsonString fromMessage(JsonSupportPayloadMessage message) {
     return jsonEncode(message.toJson());
+  }
+
+  JsonString fromDnsCheck(JsonSupportPayloadDnsCheck payload) {
+    return jsonEncode(payload.toJson());
   }
 
   JsonString fromCreateSession(JsonSupportPayloadCreateSession payload) {

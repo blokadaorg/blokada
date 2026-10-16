@@ -31,6 +31,25 @@ class PlatformPermActor with Logging, Actor {
     return _device.deviceTag != null && _dnsEnabledFor.present == _device.deviceTag;
   }
 
+  /// The phone's DNS setting for the support DNS check: blokada,
+  /// blokada_other_device, other, off, or unknown when it cannot be read.
+  Future<String> systemDnsSetting(Marker m) async {
+    final state = await _channel.getPrivateDnsState();
+    final url = state.serverUrl ?? "";
+    switch (state.kind) {
+      case PrivateDnsStateKind.disabled:
+        return "off";
+      case PrivateDnsStateKind.unavailable:
+        return "unknown";
+      case PrivateDnsStateKind.enabled:
+        final tag = _device.deviceTag;
+        if (tag != null && _check.isCorrect(m, url, tag, _device.deviceAlias)) {
+          return "blokada";
+        }
+        return url.contains("cloud.blokada.org") ? "blokada_other_device" : "other";
+    }
+  }
+
   DeviceTag? _previousTag;
   String? _previousAlias;
 
