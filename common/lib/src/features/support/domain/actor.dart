@@ -323,19 +323,25 @@ class SupportActor with Logging, Actor {
   Future<void> declineLog(Marker m) async {
     if (_logActionId == null || _replyPending) return;
     _logActionId = null;
-    await _addLogNote(m, SupportMessage.logDeclined, null);
+    // Stamped on the request's server time, not the device clock, so the
+    // check on load compares two server times and a later request still shows.
+    final requestedAt = _logActionAt;
+    await _addLogNote(m, SupportMessage.logDeclined, null,
+        at: requestedAt?.add(const Duration(milliseconds: 1)));
     onChange();
   }
 
-  /// Leaves a log note in the history, just ahead of the agent's reply. The
-  /// reply carries the server's clock, so it anchors the note.
+  /// Leaves a log note in the history, at [at] or just ahead of the agent's
+  /// reply. Both carry the server's clock, so they anchor the note.
   Future<void> _addLogNote(Marker m, SupportMessage Function(DateTime) note,
-      List<JsonSupportHistoryItem>? reply) async {
+      List<JsonSupportHistoryItem>? reply,
+      {DateTime? at}) async {
     final first = reply?.firstOrNullWhere((e) => e.text?.isBlank == false);
-    final when = first == null
-        ? DateTime.now()
-        : DateTime.parse(first.timestamp)
-            .subtract(const Duration(milliseconds: 1));
+    final when = at ??
+        (first == null
+            ? DateTime.now()
+            : DateTime.parse(first.timestamp)
+                .subtract(const Duration(milliseconds: 1)));
     final message = note(when);
     messages.add(message);
     messages.sort((a, b) => a.when.compareTo(b.when));

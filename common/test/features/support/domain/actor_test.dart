@@ -446,6 +446,35 @@ void main() {
         expect(subject.logActionId, "act-1");
       });
     });
+
+    test("a decline sorts after the request on the server's clock", () async {
+      await withTrace((m) async {
+        final api = _registerDeps();
+        // The server clock is an hour ahead of the device.
+        final requestedAt = DateTime.now().add(const Duration(hours: 1));
+        when(api.createSession(any, any, event: anyNamed("event")))
+            .thenAnswer((_) async => _session("session-1"));
+        when(api.sendMessage(any, any, any))
+            .thenAnswer((_) async => JsonSupportResponse(messages: [
+                  JsonSupportHistoryItem(
+                    text: "Please share your log",
+                    isAgent: true,
+                    timestamp: requestedAt.toIso8601String(),
+                    actions: [
+                      JsonSupportAction(type: "attach_log", id: "act-1")
+                    ],
+                  )
+                ]));
+        final subject = SupportActor();
+        await subject.loadOrInit(m);
+        await subject.sendMessage("hi", m);
+
+        await subject.declineLog(m);
+
+        final declined = subject.messages.lastWhere((e) => e.isLogDeclined);
+        expect(declined.when.isAfter(requestedAt), isTrue);
+      });
+    });
   });
 
   group("capLogTail", () {
