@@ -47,6 +47,10 @@ const rawConfig = {
     "./src/specs/smoke/power-pause.spec.ts" // turns off then re-activates -> resting state (restore skipped)
   ],
   maxInstances: 1,
+  // WebdriverIO 10 makes `$` throw when a selector matches several elements.
+  // Several specs rely on first-match (prefix selectors, doubled row labels),
+  // so keep the v9 behaviour until those selectors are made unique.
+  strictSelectors: false,
   hostname: server.host,
   port: server.port,
   path: server.path,

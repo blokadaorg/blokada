@@ -51,6 +51,8 @@ export function getRemoteOptions(env = process.env) {
     port: server.port,
     path: server.path,
     capabilities: buildCapabilities(env),
+    // First-match `$`, as in wdio.conf.ts (WebdriverIO 10 defaults to strict).
+    strictSelectors: false,
     logLevel: (env.WDIO_LOG_LEVEL ?? "warn").toLowerCase()
   };
 }
