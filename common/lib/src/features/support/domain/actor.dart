@@ -45,12 +45,13 @@ class SupportActor with Logging, Actor {
   }
 
   /// The id of the agent's open request for the app log, while its latest
-  /// reply asks for it. The chat shows a share log button while this is set,
-  /// so the user can send the log with one tap instead of emailing it.
+  /// reply asks for it. The chat shows an approval card while this is set,
+  /// so the user can approve sending the log instead of emailing it.
   String? get logActionId => _logActionId;
   String? _logActionId;
+  DateTime? _logActionAt;
 
-  /// Follows the agent's latest reply: the button stays while that reply asks
+  /// Follows the agent's latest reply: the card stays while that reply asks
   /// for the log, and goes once a reply does not (including the one that
   /// answers the upload). Rebuilt from the server history on load, so it
   /// survives an app restart.
@@ -60,6 +61,7 @@ class SupportActor with Logging, Actor {
           .firstOrNullWhere(
               (e) => e.type == SupportClientTool.attachLog.constant)
           ?.id;
+      _logActionAt = DateTime.tryParse(item.timestamp);
     }
   }
 
@@ -101,6 +103,14 @@ class SupportActor with Logging, Actor {
     _trackActions(history);
     await _chatHistory.fetch(m);
     messages = _chatHistory.present?.messages ?? [];
+    // The server keeps asking with the same action, so a decline after the
+    // latest request keeps the card hidden across restarts.
+    final declined = messages.lastOrNullWhere((e) => e.isLogDeclined);
+    if (declined != null &&
+        _logActionAt != null &&
+        declined.when.isAfter(_logActionAt!)) {
+      _logActionId = null;
+    }
 
     final apiHistory = history.filter((e) => e.text?.isBlank == false).map((e) {
       return SupportMessage(e.text!, DateTime.parse(e.timestamp),
@@ -286,6 +296,7 @@ class SupportActor with Logging, Actor {
       if (appLog.isEmpty) throw Exception("App log is empty");
       final response = await _api.uploadLog(m, sessionId, actionId, appLog);
       _logActionId = null;
+      await _addLogNote(m, SupportMessage.logShared, response.messages);
       if (response.messages != null) {
         await _handleResponse(m, response.messages!, isReply: true);
       }
@@ -294,6 +305,7 @@ class SupportActor with Logging, Actor {
       // A 4xx will not pass on retry: the request is closed, or (409) the
       // log is already there from an earlier try.
       if (e.code >= 400 && e.code < 500) _logActionId = null;
+      if (e.code == 409) await _addLogNote(m, SupportMessage.logShared, null);
       if (e.code != 409) await _stage.showModal(StageModal.fault, m);
     } catch (e, s) {
       log(m).e(msg: "Error uploading log", err: e, stack: s);
@@ -304,6 +316,31 @@ class SupportActor with Logging, Actor {
       onChange();
     }
     await _updateSessionExpiry();
+  }
+
+  /// Turns down the agent's open log request, leaving a note in the history.
+  /// A later reply that asks again shows the card again.
+  Future<void> declineLog(Marker m) async {
+    if (_logActionId == null || _replyPending) return;
+    _logActionId = null;
+    await _addLogNote(m, SupportMessage.logDeclined, null);
+    onChange();
+  }
+
+  /// Leaves a log note in the history, just ahead of the agent's reply. The
+  /// reply carries the server's clock, so it anchors the note.
+  Future<void> _addLogNote(Marker m, SupportMessage Function(DateTime) note,
+      List<JsonSupportHistoryItem>? reply) async {
+    final first = reply?.firstOrNullWhere((e) => e.text?.isBlank == false);
+    final when = first == null
+        ? DateTime.now()
+        : DateTime.parse(first.timestamp)
+            .subtract(const Duration(milliseconds: 1));
+    final message = note(when);
+    messages.add(message);
+    messages.sort((a, b) => a.when.compareTo(b.when));
+    await _chatHistory.change(m, SupportMessages(messages));
+    await controller.insertMessage(message.toFlyerMessage(me, notMe));
   }
 
   _addMyMessage(Marker m, String msg) {

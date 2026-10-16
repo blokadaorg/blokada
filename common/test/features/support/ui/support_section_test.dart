@@ -1,6 +1,7 @@
 import 'package:common/src/core/core.dart';
 import 'package:common/src/features/support/domain/support.dart';
-import 'package:common/src/features/support/ui/support_log_button.dart';
+import 'package:common/src/features/support/ui/convert.dart';
+import 'package:common/src/features/support/ui/support_log_card.dart';
 import 'package:common/src/features/support/ui/support_section.dart';
 import 'package:common/src/features/support/ui/support_typing_bubble.dart';
 import 'package:common/src/platform/stage/stage.dart';
@@ -34,6 +35,15 @@ class _FakeSupportActor extends SupportActor {
   @override
   Future<void> shareLog(Marker m) async {
     shared++;
+  }
+
+  @override
+  Future<void> declineLog(Marker m) async {
+    action = null;
+    await controller.insertMessage(
+        SupportMessage.logDeclined(DateTime(2026, 9, 7, 11))
+            .toFlyerMessage(me, notMe));
+    onChange();
   }
 
   void setPending(bool value) {
@@ -178,7 +188,7 @@ void main() {
     });
   }
 
-  testWidgets("shows the share log button only while the agent asks for it",
+  testWidgets("asks before sharing the log, and notes it once shared",
       (tester) async {
     await withTrace((_) async {
       Core.register<StageStore>(StageStore());
@@ -187,25 +197,47 @@ void main() {
 
       await tester.pumpWidget(_host(dark: false));
       await tester.pump();
-      expect(find.byType(SupportLogButton), findsNothing);
+      expect(find.byType(SupportLogCard), findsNothing);
 
+      // Both choices are on the card (the test locale shows the keys).
       actor.setAction("act-1");
       await tester.pump();
-      expect(find.byType(SupportLogButton), findsOneWidget);
-      await tester.tap(find.byType(SupportLogButton));
+      expect(find.text("support share log title"), findsOneWidget);
+      expect(find.widgetWithText(TextButton, "universal action cancel"), findsOneWidget);
+      expect(find.widgetWithText(FilledButton, "universal action share log"), findsOneWidget);
+
+      // Cancel leaves a note, and the agent asking again (same action id)
+      // brings the card back.
+      final action = actor.action;
+      await tester.tap(find.text("universal action cancel"));
+      await tester.pump(const Duration(milliseconds: 500));
+      await tester.pump(const Duration(milliseconds: 500));
+      expect(find.byType(SupportLogCard), findsNothing);
+      expect(find.text("support share log declined"), findsOneWidget);
+      actor.setAction(action);
+      await tester.pump();
+      expect(find.byType(SupportLogCard), findsOneWidget);
+
+      // While the upload runs the choices are disabled.
+      await tester.tap(find.text("universal action share log"));
       await tester.pump();
       expect(actor.shared, 1);
-
-      // While the upload runs, the typing indicator takes its place.
       actor.setPending(true);
       await tester.pump();
-      expect(find.byType(SupportLogButton), findsNothing);
-      expect(find.byType(SupportTypingBubble), findsOneWidget);
+      final share = find.widgetWithText(FilledButton, "universal action share log");
+      expect(tester.widget<FilledButton>(share).onPressed, isNull);
 
+      // Uploaded: the card gives way to the note in the history.
+      await actor.controller.insertMessage(
+          SupportMessage.logShared(DateTime(2026, 9, 7, 12))
+              .toFlyerMessage(actor.me, actor.notMe));
       actor.setPending(false);
       actor.setAction(null);
-      await tester.pump();
-      expect(find.byType(SupportLogButton), findsNothing);
+      await tester.pump(const Duration(milliseconds: 500));
+      await tester.pump(const Duration(milliseconds: 500));
+      expect(find.byType(SupportLogCard), findsNothing);
+      expect(find.byType(SupportLogNote), findsNWidgets(2));
+      expect(find.text("support share log done"), findsOneWidget);
 
       await tester.pump(const Duration(seconds: 2));
       await tester.pumpWidget(const SizedBox.shrink());

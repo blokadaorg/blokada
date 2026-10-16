@@ -348,13 +348,27 @@ void main() {
         final subject = await _askedForLog(m, api);
         when(api.uploadLog(any, any, any, any))
             .thenAnswer((_) async => _reply("Thanks, I have the log"));
+        var saved = "";
+        when((Core.get<Persistence>() as MockPersistence).save(
+                any, "support_chat_history", any,
+                isBackup: anyNamed("isBackup")))
+            .thenAnswer((inv) async {
+          saved = inv.positionalArguments[2] as String;
+        });
 
         await subject.shareLog(m);
 
         verify(logger.doReadLogTail(supportLogMaxBytes)).called(1);
         verify(api.uploadLog(any, "session-1", "act-1", "line 1\n")).called(1);
         expect(subject.messages.last.text, "Thanks, I have the log");
+        expect(subject.messages.indexWhere((e) => e.isLogShared),
+            lessThan(subject.messages.length - 1),
+            reason: "the note comes before the agent's reply");
         expect(subject.logActionId, isNull);
+
+        // The note is stored with the history and comes back after a reload.
+        final reloaded = SupportMessages.fromJson(jsonDecode(saved));
+        expect(reloaded.messages.where((e) => e.isLogShared).length, 1);
         expect(subject.replyPending, false);
       });
     });
@@ -408,6 +422,7 @@ void main() {
         verify(Core.get<StageStore>().showModal(StageModal.fault, m))
             .called(1);
         expect(subject.logActionId, isNull);
+        expect(subject.messages.any((e) => e.isLogShared), false);
       });
     });
 

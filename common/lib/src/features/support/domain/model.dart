@@ -48,22 +48,48 @@ class SupportMessage {
   bool isMe;
   DateTime when;
 
+  /// A note in the history that the app log was shared, not a spoken message.
+  /// Its text is empty; the chat renders the localized note.
+  final bool isLogShared;
+
+  /// A note that the user turned down the agent's log request.
+  final bool isLogDeclined;
+
   // The chat controller rejects duplicate ids, and the timestamp is not
   // unique: a local command and its reply often land in the same millisecond.
   // Not persisted; each loaded message gets a fresh one.
   final String id = "msg-${_nextId++}";
 
-  SupportMessage(this.text, this.when, {required this.isMe});
+  SupportMessage(this.text, this.when,
+      {required this.isMe,
+      this.isLogShared = false,
+      this.isLogDeclined = false});
+
+  SupportMessage.logShared(this.when)
+      : text = "",
+        isMe = true,
+        isLogShared = true,
+        isLogDeclined = false;
+
+  SupportMessage.logDeclined(this.when)
+      : text = "",
+        isMe = true,
+        isLogShared = false,
+        isLogDeclined = true;
 
   SupportMessage.fromJson(Map<String, dynamic> json)
       : text = json['text'],
         isMe = json['is_me'],
-        when = DateTime.parse(json['when']);
+        when = DateTime.parse(json['when']),
+        isLogShared = json['log_shared'] ?? false,
+        isLogDeclined = json['log_declined'] ?? false;
 
   Map<String, dynamic> toJson() => {
         'text': text,
         'is_me': isMe,
         'when': when.toIso8601String(),
+        if (isLogShared) 'log_shared': true,
+        if (isLogDeclined) 'log_declined': true,
       };
 }
 

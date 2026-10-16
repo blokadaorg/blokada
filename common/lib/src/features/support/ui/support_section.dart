@@ -2,7 +2,7 @@ import 'package:common/src/features/support/domain/support.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/features/support/ui/link_message.dart';
 import 'package:common/src/features/support/ui/support_composer.dart';
-import 'package:common/src/features/support/ui/support_log_button.dart';
+import 'package:common/src/features/support/ui/support_log_card.dart';
 import 'package:common/src/features/support/ui/support_typing_bubble.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
@@ -113,6 +113,13 @@ class SupportSectionState extends State<SupportSection> {
               bottomSliver: _bottomSliver(),
             );
           },
+          customMessageBuilder: (context, message, index,
+              {required bool isSentByMe, groupStatus}) {
+            return SupportLogNote(
+              shared: message.metadata?['logShared'] == true,
+              when: message.createdAt!,
+            );
+          },
           textMessageBuilder: (context, message, index,
               {required bool isSentByMe, groupStatus}) {
             return LinkMessage(
@@ -135,20 +142,24 @@ class SupportSectionState extends State<SupportSection> {
     );
   }
 
-  /// The typing indicator while a reply is pending, otherwise the share log
-  /// button while the agent's latest reply asks for the log.
+  /// The log approval card while the agent's latest reply asks for the log,
+  /// with the typing indicator below it while a reply is pending.
   Widget? _bottomSliver() {
-    if (_actor.replyPending) {
-      return const SliverToBoxAdapter(child: SupportTypingBubble());
-    }
-    if (_actor.logActionId != null) {
-      return SliverToBoxAdapter(
-        child: SupportLogButton(
-          onPressed: () => _actor.shareLog(Markers.userTap),
-        ),
-      );
-    }
-    return null;
+    final pending = _actor.replyPending;
+    final action = _actor.logActionId;
+    final showCard = action != null;
+    if (!pending && !showCard) return null;
+    return SliverToBoxAdapter(
+      child: Column(children: [
+        if (showCard)
+          SupportLogCard(
+            busy: pending,
+            onShare: () => _actor.shareLog(Markers.userTap),
+            onCancel: () => _actor.declineLog(Markers.userTap),
+          ),
+        if (pending) const SupportTypingBubble(),
+      ]),
+    );
   }
 
   void _handleSendPressed(String message) {
