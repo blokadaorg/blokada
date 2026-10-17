@@ -17,7 +17,18 @@ class PlatformFilterActor with Logging, Actor {
   late final _knownFilters = Core.get<KnownFilters>();
   late final _acc = Core.get<AccountActor>();
 
-  final _debounce = Debounce(const Duration(seconds: 1));
+  late final _toast = Core.get<ToastActor>();
+
+  // Several quick toggles go to the server as one save.
+  final Debounce _debounce;
+
+  // The selection from before the user's first change that is not saved yet,
+  // or null when no user change is pending. Saves of the defaults or a device
+  // refresh leave it null, so only a save the user asked for gets a toast.
+  List<FilterSelection>? _unsaved;
+
+  PlatformFilterActor({Duration debounce = const Duration(seconds: 1)})
+      : _debounce = Debounce(debounce);
 
   @override
   onStart(Marker m) async {
@@ -92,6 +103,8 @@ class PlatformFilterActor with Logging, Actor {
     }
   }
 
+  /// Flips one option from the blocklists screen. Only the selection changes
+  /// here; the debounced [_save] sends it and confirms or rolls it back.
   toggleFilterOption(String filterName, String option, Marker m) async {
     return await log(m).trace("toggleFilterOption", (m) async {
       final known = _knownFilters
@@ -104,8 +117,9 @@ class PlatformFilterActor with Logging, Actor {
 
       final newFilter = FilterSelection(filterName, [option]);
 
+      final was = await _selectedFilters.now();
       // Copy to ensure another object
-      final selected = (await _selectedFilters.now()).toList();
+      final selected = was.toList();
 
       final index = selected.indexWhere((it) => it.filterName == filterName);
       if (index != -1) {
@@ -125,12 +139,14 @@ class PlatformFilterActor with Logging, Actor {
             await _controller.getConfig(await _selectedFilters.now(), m);
         await log(m).trace("toggleFilterOptionLegacy", (m) async {
           log(m).pair("lists", config.lists);
+          _unsaved ??= was;
           await _userConfig.change(m, config);
-          // v2 api will be updated by the callback below
+          // v2 api will be updated by the callback below, which confirms the save
         });
       } catch (e, s) {
         log(m).e(msg: "Error toggling filter option", err: e, stack: s);
-        await _selectedFilters.change(m, selected);
+        _toast.showError("toast save failed".i18n);
+        await _selectedFilters.change(m, was);
       }
     });
   }
@@ -141,15 +157,48 @@ class PlatformFilterActor with Logging, Actor {
     if (setEquals(lists, _device.lists?.toSet())) {
       // Back to what the device has, so an earlier toggle must not be sent.
       _debounce.cancel();
+      _unsaved = null;
       return;
     }
     if (lists.isEmpty) return; // Skip setting empty list, not supported by v2
     // v2 will force the default config on empty list.
     // Instead we assume FilterController will set the defaults shortly after.
 
-    _debounce.run(() async {
-      // UserConfigs got updated by FilterController, push to v2 api
-      await _device.setLists(lists.toList(), Markers.filter);
-    });
+    // UserConfigs got updated by FilterController, push to v2 api
+    _debounce.run(() => _save(lists.toList(), Markers.filter));
+  }
+
+  /// Pushes [lists] to the v2 device, the only place blocklists are saved.
+  /// A user change is confirmed once the server took it. If the save failed,
+  /// an error toast replaces the confirmation and the switches go back to
+  /// what is saved.
+  Future<void> _save(List<String> lists, Marker m) async {
+    final before = _unsaved;
+    _unsaved = null;
+    final bool saved;
+    try {
+      saved = await _device.setLists(lists, m);
+    } catch (e, s) {
+      log(m).e(msg: "Error saving blocklists", err: e, stack: s);
+      // Only a user change is rolled back: rolling back the defaults would
+      // apply and retry them in a loop.
+      if (before == null) return;
+      _toast.showError("toast save failed".i18n);
+      await _restoreSaved(before, m);
+      return;
+    }
+    if (saved && before != null) _toast.show("toast blocklists saved".i18n);
+  }
+
+  // The device lists are what the server has; FilterActor maps them back to
+  // switches. Before the first device fetch there are none, so the selection
+  // from before the change stands in.
+  Future<void> _restoreSaved(List<FilterSelection> before, Marker m) async {
+    final saved = _device.lists;
+    if (saved == null) {
+      await _selectedFilters.change(m, before);
+      return;
+    }
+    await _userConfig.change(m, UserFilterConfig(saved.toSet(), {}));
   }
 }
