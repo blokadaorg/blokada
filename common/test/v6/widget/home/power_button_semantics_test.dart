@@ -34,13 +34,17 @@ void main() {
     final handle = tester.ensureSemantics();
     await _pump(tester, AppStatus.activatedCloud);
 
-    final button = find.bySemanticsLabel("account section header protection".i18n);
+    final button = find.bySemanticsLabel("home power button label".i18n);
     expect(button, findsOneWidget);
-    expect(tester.getSemantics(button), containsSemantics(isButton: true, value: 'active'));
+    expect(
+        tester.getSemantics(button),
+        containsSemantics(
+            isButton: true, value: 'active', hint: "home power button state on".i18n));
 
     seedAppStatus(AppStatus.deactivated);
     await tester.pump(const Duration(seconds: 1));
-    expect(tester.getSemantics(button), containsSemantics(value: 'inactive'));
+    expect(tester.getSemantics(button),
+        containsSemantics(value: 'inactive', hint: "home power button state off".i18n));
 
     await _unmount(tester);
     handle.dispose();
