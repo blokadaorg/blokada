@@ -152,8 +152,9 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
     });
   }
 
-  /// Saves the blocklists to the v2 device. Returns true only when the server
-  /// took them, so callers confirm a save that really happened, not a skip.
+  /// Saves the blocklists to the v2 device. Returns true once the server took
+  /// them, so callers confirm a save that really happened, not a skip. A
+  /// failed refresh afterwards is only logged: the save itself went through.
   @action
   Future<bool> setLists(List<String> lists, Marker m) async {
     // Skip device updates in freemium mode to prevent refresh loops
@@ -170,7 +171,12 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
     return await log(m).trace("setLists", (m) async {
       log(m).pair("lists", lists);
       await _api.putDevice(m, lists: lists);
-      await fetch(m, force: true);
+      this.lists = lists;
+      try {
+        await fetch(m, force: true);
+      } catch (e, s) {
+        log(m).e(msg: "setLists: refresh after save failed", err: e, stack: s);
+      }
       return true;
     });
   }

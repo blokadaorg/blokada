@@ -134,17 +134,24 @@ class PlatformFilterActor with Logging, Actor {
       }
       await _selectedFilters.change(m, selected);
 
+      // Whether this toggle started the pending user change, to undo if it fails.
+      var started = false;
       try {
         final config =
             await _controller.getConfig(await _selectedFilters.now(), m);
         await log(m).trace("toggleFilterOptionLegacy", (m) async {
           log(m).pair("lists", config.lists);
-          _unsaved ??= was;
+          // An unchanged config sends nothing, so there is nothing to confirm.
+          if (_unsaved == null && config != _userConfig.present) {
+            _unsaved = was;
+            started = true;
+          }
           await _userConfig.change(m, config);
           // v2 api will be updated by the callback below, which confirms the save
         });
       } catch (e, s) {
         log(m).e(msg: "Error toggling filter option", err: e, stack: s);
+        if (started) _unsaved = null;
         _toast.showError("toast save failed".i18n);
         await _selectedFilters.change(m, was);
       }
@@ -184,7 +191,15 @@ class PlatformFilterActor with Logging, Actor {
       // apply and retry them in a loop.
       if (before == null) return;
       _toast.showError("toast save failed".i18n);
-      await _restoreSaved(before, m);
+      // A toggle made while this save was in flight is pending with the full
+      // selection; rolling back now would drop it, so its save goes ahead.
+      if (_unsaved != null) return;
+      try {
+        await _restoreSaved(before, m);
+      } catch (e, s) {
+        // Runs from a timer, so nobody else would see this error.
+        log(m).e(msg: "Error restoring saved blocklists", err: e, stack: s);
+      }
       return;
     }
     if (saved && before != null) _toast.show("toast blocklists saved".i18n);
