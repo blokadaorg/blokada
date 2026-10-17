@@ -106,10 +106,7 @@ class RecentActivityState extends State<RecentActivity>
                     },
                     child: Text(
                       "privacy pulse timespan show all".i18n,
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: context.theme.accent,
-                      ),
+                      style: context.theme.linkStyle(const TextStyle(fontSize: 16)),
                     ),
                   ),
                 ),

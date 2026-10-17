@@ -4,8 +4,9 @@ Screenshot tests for the v6 screens: Home (inactive, active), Privacy Pulse,
 Activity, Advanced and Settings. Each test boots the app's real modules in the
 `test` scenario (no platform channels), seeds the stores with fixed data
 (`fixtures.dart`), serves API calls from canned JSON (`fake_http.dart`),
-renders the real shell at the size of a 1080×2400 Android phone in dark mode,
-and compares the frame with a PNG in `goldens/`.
+renders the real shell at the size of a 1080×2400 Android phone, in dark mode
+and again in light mode (`<name>_light.png`), and compares the frame with a PNG
+in `goldens/`.
 
 ```bash
 cd common

@@ -85,6 +85,11 @@ class BlokadaApp extends StatelessWidget {
               textPrimary: Colors.black,
               textSecondary: Colors.black54,
               divider: Colors.black26,
+              linkColor: Color(0xFF121212),
+              linkUnderline: accentColor,
+              // 4.5:1 on white cards and the light page background.
+              textBlocked: Color(0xFFD70015),
+              textAllowed: Color(0xFF147A50),
             )
           }),
       darkTheme: FlexThemeData.dark(

@@ -25,10 +25,7 @@ class BypassAddDialog with Logging {
         },
         child: Text(
           "universal action add".i18n,
-          style: TextStyle(
-            color: context.theme.accent,
-            fontSize: 17,
-          ),
+          style: context.theme.linkStyle(const TextStyle(fontSize: 17)),
         ));
   }
 

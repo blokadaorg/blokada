@@ -125,8 +125,8 @@ class SafariOnboardYtSheetIosState extends State<SafariOnboardYtSheetIos> {
                           child: Center(
                             child: Text(
                               "onboard safari cta".i18n,
-                              style: const TextStyle(
-                                color: Colors.white,
+                              style: TextStyle(
+                                color: context.theme.onAccent,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),

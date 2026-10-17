@@ -76,7 +76,7 @@ class _PlusButtonState extends State<PlusButton>
                 child: MiniCard(
                     color: theme.accent,
                     onTap: () => _doActionOrAskPerm(_displayLocations),
-                    child: _buildButtonContent())),
+                    child: _buildButtonContent(textColor: theme.onAccent))),
             // When switch is on
             IgnorePointer(
               ignoring: !activated,
@@ -102,7 +102,8 @@ class _PlusButtonState extends State<PlusButton>
                     child: Flex(direction: Axis.horizontal, children: [
                       Expanded(
                           child: Align(
-                              child: Text("universal action upgrade".i18n)))
+                              child: Text("universal action upgrade".i18n,
+                                  style: TextStyle(color: theme.onAccent))))
                     ]),
                   )),
             )
@@ -110,10 +111,10 @@ class _PlusButtonState extends State<PlusButton>
         ));
   }
 
-  Widget _buildButtonContent() {
+  Widget _buildButtonContent({Color? textColor}) {
     final theme = Theme.of(context).extension<BlokadaTheme>()!;
 
-    return Row(
+    final row = Row(
       children: [
         activated
             ? (Text("home plus button location"
@@ -139,6 +140,8 @@ class _PlusButtonState extends State<PlusButton>
         )
       ],
     );
+    if (textColor == null) return row;
+    return DefaultTextStyle.merge(style: TextStyle(color: textColor), child: row);
   }
 
   _doActionOrAskPerm(Future<void> Function(Marker m) action) {

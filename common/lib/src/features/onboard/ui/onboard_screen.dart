@@ -118,8 +118,8 @@ class OnboardingScreenState extends State<OnboardingScreen> with Logging {
                         child: Center(
                           child: Text(
                             "universal action continue".i18n,
-                            style: const TextStyle(
-                              color: Colors.white,
+                            style: TextStyle(
+                              color: context.theme.onAccent,
                               fontWeight: FontWeight.w600,
                             ),
                           ),

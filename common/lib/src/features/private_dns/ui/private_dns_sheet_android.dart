@@ -200,8 +200,8 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
                           child: Center(
                             child: Text(
                               "dnsprofile action open settings".i18n,
-                              style: const TextStyle(
-                                color: Colors.white,
+                              style: TextStyle(
+                                color: context.theme.onAccent,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),

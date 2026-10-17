@@ -143,8 +143,8 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
                           children: [
                             Text("stats label blocked".i18n,
                                 maxLines: 1,
-                                style: const TextStyle(
-                                  color: Color(0xffff3b30),
+                                style: TextStyle(
+                                  color: context.theme.textBlocked,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w600,
                                 )),
@@ -174,8 +174,8 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
                           children: [
                             Text("stats label allowed".i18n,
                                 maxLines: 1,
-                                style: const TextStyle(
-                                  color: Color(0xff33c75a),
+                                style: TextStyle(
+                                  color: context.theme.textAllowed,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w600,
                                 )),

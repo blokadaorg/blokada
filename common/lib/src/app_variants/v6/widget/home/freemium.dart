@@ -64,16 +64,16 @@ class _FreemiumCounterState extends State<FreemiumCounter> with TickerProviderSt
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(
+              Icon(
                 CupertinoIcons.heart_fill,
-                color: Colors.white,
+                color: context.theme.onAccent,
               ),
               const SizedBox(width: 12),
               Center(
                 child: Text(
                   "universal action upgrade short".i18n,
-                  style: const TextStyle(
-                      color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
+                  style: TextStyle(
+                      color: context.theme.onAccent, fontSize: 16, fontWeight: FontWeight.w600),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
