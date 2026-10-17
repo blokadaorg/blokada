@@ -29,6 +29,9 @@ class Gateway {
       .map((it) => it[0].toUpperCase() + it.substring(1))
       .join(" ");
 
+  /// The country's flag emoji, or null when the country is missing or invalid.
+  String? get flag => countryFlag(country);
+
   @override
   String toString() {
     return "Gateway(publicKey: $publicKey, region: $region, location: $location, "
@@ -66,4 +69,14 @@ class GatewayModule with Module {
     await register(GatewaysValue());
     await register(GatewayActor());
   }
+}
+
+/// Maps an ISO 3166-1 alpha-2 code ("SE") to its flag emoji, built from the
+/// two regional indicator symbols. Returns null for anything else.
+String? countryFlag(String? isoCode) {
+  final code = isoCode?.trim().toUpperCase();
+  if (code == null || !RegExp(r'^[A-Z]{2}$').hasMatch(code)) return null;
+  const regionalIndicatorA = 0x1F1E6;
+  return String.fromCharCodes(
+      code.codeUnits.map((c) => regionalIndicatorA + c - 'A'.codeUnitAt(0)));
 }

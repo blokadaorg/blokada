@@ -53,6 +53,11 @@ void main() {
             expect(_contrast(t.textBlocked, bg), greaterThanOrEqualTo(_aa), reason: 'blocked');
             expect(_contrast(t.textAllowed, bg), greaterThanOrEqualTo(_aa), reason: 'allowed');
           }
+          // Activity filter chips and the tinted Search action sit on the
+          // selection tint over the page.
+          final tint = Color.alphaBlend(t.selection, t.bgColor);
+          expect(_contrast(t.textPrimary, tint), greaterThanOrEqualTo(_aa), reason: 'chip');
+          expect(_contrast(t.link, tint), greaterThanOrEqualTo(_aa), reason: 'tinted Search');
           // Links that are not in the accent color say so with an underline.
           if (t.link != t.accent) expect(t.linkUnderline, t.accent);
         });

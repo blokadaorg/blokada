@@ -52,7 +52,10 @@ class _PlusButtonState extends State<PlusButton>
           _plusEnabled.present == true && status == AppStatus.activatedPlus;
 
       setState(() {
-        location = gateway?.niceName ?? "";
+        final flag = gateway?.flag;
+        location = gateway == null
+            ? ""
+            : (flag == null ? gateway.niceName : "$flag ${gateway.niceName}");
         activated = plusEnabled;
         isPlus = _account.type == AccountType.plus;
       });

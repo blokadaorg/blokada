@@ -29,9 +29,9 @@ class SettingsScreen extends StatelessWidget {
         Paths.support,
       },
       splitWhenUnselected: true,
-      placeholder: const DetailPanePlaceholder(
+      placeholder: DetailPanePlaceholder(
         icon: CupertinoIcons.slider_horizontal_3,
-        text: "Select an item to see details",
+        text: "universal label select item details".i18n,
       ),
     );
   }

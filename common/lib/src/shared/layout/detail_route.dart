@@ -10,7 +10,7 @@ import 'package:common/src/features/settings/ui/exceptions_section.dart';
 import 'package:common/src/features/settings/ui/retention_section.dart';
 import 'package:common/src/features/stats/ui/domain_detail_section.dart';
 import 'package:common/src/features/stats/ui/stats_detail_section.dart';
-import 'package:common/src/features/stats/ui/stats_filter.dart';
+import 'package:common/src/features/stats/ui/stats_filter_chips.dart';
 import 'package:common/src/features/stats/ui/stats_section.dart';
 import 'package:common/src/features/support/domain/support.dart';
 import 'package:common/src/features/support/ui/support_section.dart';
@@ -86,7 +86,6 @@ class DetailRoute {
 /// `Navigation.generateRoute`, `TopBarController.didPush`, and the tablet
 /// detail pane.
 class DetailRoutes with Logging {
-  late final _filter = Core.get<JournalFilterValue>();
   late final _custom = Core.get<CustomlistActor>();
   late final _support = Core.get<SupportActor>();
   late final _bypass = Core.get<BypassAddDialog>();
@@ -134,7 +133,7 @@ class DetailRoutes with Logging {
     ),
     DetailRoute(
       path: Paths.settingsRetention,
-      title: (_) => "activity section header".i18n,
+      title: (_) => "settings row activity history".i18n,
       body: (context, args) => const RetentionSection(),
     ),
     DetailRoute(
@@ -164,7 +163,7 @@ class DetailRoutes with Logging {
     ),
     DetailRoute(
       path: Paths.advanced,
-      title: (_) => "main tab advanced".i18n,
+      title: (_) => "advanced section header packs".i18n,
     ),
   ].map((route) => MapEntry(route.path, route)));
 
@@ -215,18 +214,7 @@ class DetailRoutes with Logging {
 
   /// Journal search/filter top-bar action. Public because ActivityScreen
   /// also shows it as its host-level action for the master journal list.
-  Widget statsFilterAction(BuildContext context) {
-    return CommonClickable(
-        onTap: () {
-          showStatsFilterDialog(context, onConfirm: (filter) {
-            _filter.now = filter;
-          });
-        },
-        child: Text(
-          "universal action search".i18n,
-          style: context.theme.linkStyle(const TextStyle(fontSize: 17)),
-        ));
-  }
+  Widget statsFilterAction(BuildContext context) => const StatsFilterAction();
 
   Widget _addExceptionAction(BuildContext context) {
     return MergeSemantics(

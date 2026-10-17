@@ -1,10 +1,9 @@
 import 'package:common/src/features/customlist/domain/customlist.dart';
 import 'package:common/src/features/journal/domain/journal.dart';
 import 'package:common/src/shared/navigation.dart';
-import 'package:common/src/shared/ui/common_clickable.dart';
 import 'package:common/src/shared/ui/common_divider.dart';
 import 'package:common/src/features/stats/ui/activity_item.dart';
-import 'package:common/src/features/stats/ui/stats_filter.dart';
+import 'package:common/src/features/stats/ui/stats_filter_chips.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/app_variants/family/module/device_v3/device.dart';
@@ -146,6 +145,7 @@ class StatsSectionState extends State<StatsSection> with Disposables {
                         (widget.isHeader)
                             ? _buildHeaderForV6(context)
                             : SizedBox(height: getTopPadding(context)),
+                        const StatsFilterChips(),
                         // The rest of the screen
                         Container(
                           decoration: BoxDecoration(
@@ -194,16 +194,7 @@ class StatsSectionState extends State<StatsSection> with Disposables {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            CommonClickable(
-                onTap: () {
-                  showStatsFilterDialog(context, onConfirm: (filter) {
-                    _filter.now = filter;
-                  });
-                },
-                child: Text(
-                  "universal action search".i18n,
-                  style: context.theme.linkStyle(const TextStyle(fontSize: 17)),
-                )),
+            const StatsFilterAction(),
           ],
         ),
         const SizedBox(height: 24.0),

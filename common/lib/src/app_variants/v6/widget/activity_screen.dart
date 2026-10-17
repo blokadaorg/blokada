@@ -77,9 +77,9 @@ class ActivityScreenState extends State<ActivityScreen> with Logging {
       // A solo centered journal reads as empty on wide screens; keep the
       // split visible with an inviting placeholder instead.
       splitWhenUnselected: true,
-      placeholder: const DetailPanePlaceholder(
+      placeholder: DetailPanePlaceholder(
         icon: CupertinoIcons.doc_text_search,
-        text: "Select an item to see details",
+        text: "universal label select item details".i18n,
       ),
       // MergeSemantics keeps the stable search id on the interactive node
       // (a bare CommonClickable is invisible to WDA), as on the phone route.

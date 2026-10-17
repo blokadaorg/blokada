@@ -79,12 +79,12 @@ class _TabState extends State<TabButtonsWidget> with Disposables, Logging {
           context,
           TabItem(
             icon: CupertinoIcons.cube_box,
-            title: "main tab advanced".i18n,
+            title: "advanced section header packs".i18n,
             active: false,
           ),
           onTap: () => _tap(StageTab.advanced),
           automationId: AutomationIds.homeAdvanced,
-          label: "main tab advanced".i18n,
+          label: "advanced section header packs".i18n,
         ),
       ],
     );

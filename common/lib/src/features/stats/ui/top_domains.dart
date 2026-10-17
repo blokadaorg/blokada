@@ -141,7 +141,9 @@ class TopDomainsState extends State<TopDomains> {
                     ),
                   ),
                   Text(
-                    widget.range == ToplistRange.daily ? "24 h" : "7 d",
+                    widget.range == ToplistRange.daily
+                        ? "stats range 24h".i18n
+                        : "stats range 7d".i18n,
                     style: TextStyle(
                       fontSize: 16,
                       color: context.theme.textSecondary,
@@ -324,7 +326,7 @@ class TopDomainsState extends State<TopDomains> {
                       Padding(
                         padding: const EdgeInsets.only(right: 8.0),
                         child: Text(
-                          "NEW",
+                          "stats label new".i18n.toUpperCase(),
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w700,

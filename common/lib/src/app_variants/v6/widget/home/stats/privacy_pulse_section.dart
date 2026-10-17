@@ -422,7 +422,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
               identifier: AutomationIds.privacyPulseRangeDaily,
               selected: _toplistRange == ToplistRange.daily,
               child: Text(
-                "24 h",
+                "stats range 24h".i18n,
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
@@ -439,7 +439,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging {
               identifier: AutomationIds.privacyPulseRangeWeekly,
               selected: _toplistRange == ToplistRange.weekly,
               child: Text(
-                "7 d",
+                "stats range 7d".i18n,
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
