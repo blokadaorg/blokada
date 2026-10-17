@@ -362,6 +362,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
             child: Semantics(
               identifier: AutomationIds.powerToggle,
               button: true,
+              label: "account section header protection".i18n,
               value: status.isActive() ? 'active' : 'inactive',
               child: Touch(
                 onTap: () {

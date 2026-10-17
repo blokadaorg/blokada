@@ -148,8 +148,8 @@ class _SafariOnboardPrimaryButton extends StatelessWidget {
           child: Center(
             child: Text(
               "freemium sheet safari cta".i18n,
-              style: const TextStyle(
-                color: Colors.white,
+              style: TextStyle(
+                color: context.theme.onAccent,
                 fontWeight: FontWeight.w600,
               ),
             ),

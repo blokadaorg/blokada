@@ -93,15 +93,14 @@ class BackTitleNavBar extends StatelessWidget
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(CupertinoIcons.chevron_back,
-                            color: context.theme.accent, size: 22),
+                            color: context.theme.link, size: 22),
                         const SizedBox(width: 2),
                         Flexible(
                           child: Text(backText,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
-                              style: TextStyle(
-                                  color: context.theme.accent,
-                                  fontSize: 17)),
+                              style: context.theme
+                                  .linkStyle(const TextStyle(fontSize: 17))),
                         ),
                       ],
                     ),

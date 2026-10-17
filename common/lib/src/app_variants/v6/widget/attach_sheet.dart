@@ -119,7 +119,7 @@ class AttachSheetState extends State<AttachSheet> with Logging {
                     text: "attach action open".i18n,
                     icon: CupertinoIcons.compass,
                     color: context.theme.accent,
-                    textColor: Colors.white,
+                    textColor: context.theme.onAccent,
                     onTap: _open,
                   ),
                   const SizedBox(height: 8),

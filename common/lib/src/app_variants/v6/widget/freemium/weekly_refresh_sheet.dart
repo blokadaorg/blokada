@@ -144,21 +144,21 @@ class WeeklyRefreshSheetIosState extends State<WeeklyRefreshSheetIos> {
                               placement: Placement.freemiumWeekly);
                         },
                         color: context.theme.accent,
-                        child: const SizedBox(
+                        child: SizedBox(
                           height: 32,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(
                                 CupertinoIcons.heart_fill,
-                                color: Colors.white,
+                                color: context.theme.onAccent,
                               ),
                               const SizedBox(width: 12),
                               Center(
                                 child: Text(
                                   "Upgrade for automatic updates",
-                                  style:
-                                      TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                                  style: TextStyle(
+                                      color: context.theme.onAccent, fontWeight: FontWeight.w600),
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),

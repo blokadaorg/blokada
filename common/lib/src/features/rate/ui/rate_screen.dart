@@ -133,7 +133,7 @@ class _RateScreenState extends State<RateScreen> with Logging {
                         ? "main rate us action sure".i18n
                         : "universal action continue".i18n,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(color: Colors.white),
+                    style: TextStyle(color: context.theme.onAccent),
                   ),
                 ),
               ),

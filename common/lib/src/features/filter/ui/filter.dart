@@ -73,7 +73,9 @@ class FilterWidgetState extends State<FilterWidget> {
                   Text(widget.texts.tags.map((e) => e.i18n).join(", ").toUpperCase(),
                       style: Theme.of(context).textTheme.titleSmall!.copyWith(
                             fontWeight: FontWeight.w500,
-                            color: context.theme.divider,
+                            color: widget.bgColor == null
+                                ? context.theme.textSecondary
+                                : context.theme.textPrimary,
                           )),
                   const SizedBox(height: 8.0),
                   Text(widget.texts.title.i18n,

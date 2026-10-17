@@ -54,6 +54,9 @@ class ActivityItemState extends State<ActivityItem> {
                     ? CupertinoIcons.xmark_shield_fill
                     : CupertinoIcons.checkmark_shield_fill,
                 color: widget.entry.isBlocked() ? Colors.red : Colors.green,
+                semanticLabel: widget.entry.isBlocked()
+                    ? "stats label blocked".i18n
+                    : "stats label allowed".i18n,
                 size: 52),
             const SizedBox(width: 6),
             Expanded(

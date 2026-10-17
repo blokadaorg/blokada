@@ -103,7 +103,7 @@ class RetentionSectionState extends State<RetentionSection> with Logging {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 24),
                 child: Text("activity retention policy".i18n,
-                    style: TextStyle(color: context.theme.accent)),
+                    style: context.theme.linkStyle(const TextStyle())),
               ),
             ),
           ],

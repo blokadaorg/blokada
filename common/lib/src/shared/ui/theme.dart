@@ -20,6 +20,21 @@ class BlokadaTheme extends ThemeExtension<BlokadaTheme> {
   final Color textSecondary;
   final Color divider;
 
+  /// Text and icons on accent-filled buttons. The brand orange is too light
+  /// for white text (2.2:1); near-black reads at 8.5:1.
+  final Color onAccent;
+
+  /// Text links. Null keeps the accent, which reads on dark backgrounds;
+  /// light backgrounds need dark text, marked as a link by [linkUnderline].
+  final Color? linkColor;
+
+  /// Underline color for links, null for no underline.
+  final Color? linkUnderline;
+
+  /// Text labels for blocked and allowed counts, at 4.5:1 on their cards.
+  final Color textBlocked;
+  final Color textAllowed;
+
   const BlokadaTheme({
     required this.bgColor,
     required this.bgColorHome1,
@@ -35,6 +50,11 @@ class BlokadaTheme extends ThemeExtension<BlokadaTheme> {
     required this.textPrimary,
     required this.textSecondary,
     required this.divider,
+    this.onAccent = const Color(0xFF121212),
+    this.linkColor,
+    this.linkUnderline,
+    this.textBlocked = const Color(0xFFFF3B30),
+    this.textAllowed = const Color(0xFF33C75A),
   });
 
   bool isDarkTheme() => textPrimary == Colors.white;
@@ -57,6 +77,11 @@ class BlokadaTheme extends ThemeExtension<BlokadaTheme> {
     Color? textSecondary,
     Color? divider,
     bool? isFamily,
+    Color? onAccent,
+    Color? linkColor,
+    Color? linkUnderline,
+    Color? textBlocked,
+    Color? textAllowed,
   }) =>
       BlokadaTheme(
         bgColor: bgColor ?? this.bgColor,
@@ -73,6 +98,11 @@ class BlokadaTheme extends ThemeExtension<BlokadaTheme> {
         textPrimary: textPrimary ?? this.textPrimary,
         textSecondary: textSecondary ?? this.textSecondary,
         divider: divider ?? this.divider,
+        onAccent: onAccent ?? this.onAccent,
+        linkColor: linkColor ?? this.linkColor,
+        linkUnderline: linkUnderline ?? this.linkUnderline,
+        textBlocked: textBlocked ?? this.textBlocked,
+        textAllowed: textAllowed ?? this.textAllowed,
       );
 
   @override
@@ -95,6 +125,11 @@ class BlokadaTheme extends ThemeExtension<BlokadaTheme> {
       textPrimary: Color.lerp(textPrimary, other.textPrimary, t)!,
       textSecondary: Color.lerp(textSecondary, other.textSecondary, t)!,
       divider: Color.lerp(divider, other.divider, t)!,
+      onAccent: Color.lerp(onAccent, other.onAccent, t)!,
+      linkColor: Color.lerp(linkColor, other.linkColor, t),
+      linkUnderline: Color.lerp(linkUnderline, other.linkUnderline, t),
+      textBlocked: Color.lerp(textBlocked, other.textBlocked, t)!,
+      textAllowed: Color.lerp(textAllowed, other.textAllowed, t)!,
     );
   }
 }
@@ -105,4 +140,18 @@ class BlokadaTheme extends ThemeExtension<BlokadaTheme> {
 /// feedback so "chosen" and "being tapped" read differently.
 extension BlokadaThemeSelection on BlokadaTheme {
   Color get selection => accent.withOpacity(0.18);
+}
+
+extension BlokadaThemeLink on BlokadaTheme {
+  /// Color of link text and the icons next to it.
+  Color get link => linkColor ?? accent;
+
+  /// [base] styled as a link: [link] colored, underlined where the theme
+  /// asks for it.
+  TextStyle linkStyle(TextStyle base) => base.copyWith(
+        color: link,
+        decoration: linkUnderline == null ? null : TextDecoration.underline,
+        decorationColor: linkUnderline,
+        decorationThickness: linkUnderline == null ? null : 2,
+      );
 }

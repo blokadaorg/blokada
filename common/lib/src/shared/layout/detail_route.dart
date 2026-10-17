@@ -224,10 +224,7 @@ class DetailRoutes with Logging {
         },
         child: Text(
           "universal action search".i18n,
-          style: TextStyle(
-            color: context.theme.accent,
-            fontSize: 17,
-          ),
+          style: context.theme.linkStyle(const TextStyle(fontSize: 17)),
         ));
   }
 
@@ -253,10 +250,7 @@ class DetailRoutes with Logging {
           },
           child: Text(
             "Add",
-            style: TextStyle(
-              color: context.theme.accent,
-              fontSize: 17,
-            ),
+            style: context.theme.linkStyle(const TextStyle(fontSize: 17)),
           ),
         ),
       ),

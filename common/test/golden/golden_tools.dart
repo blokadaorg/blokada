@@ -102,13 +102,15 @@ Future<void> bootModules(WidgetTester tester, {PlatformType platform = PlatformT
   });
 }
 
-/// Renders the real v6 shell (navigator, top bar, sheets) at phone size, opens
-/// [path] the way the app does, and compares the result with `goldens/<name>.png`.
-Future<void> expectScreen(WidgetTester tester, String name, {Paths? path}) async {
+/// Renders the real v6 shell (navigator, top bar, sheets) at phone size in
+/// [brightness], opens [path] the way the app does, and compares the result
+/// with `goldens/<name>.png`.
+Future<void> expectScreen(WidgetTester tester, String name,
+    {Paths? path, Brightness brightness = Brightness.dark}) async {
   debugDefaultTargetPlatformOverride = TargetPlatform.android;
   tester.view.physicalSize = phoneSize;
   tester.view.devicePixelRatio = phoneDpr;
-  tester.platformDispatcher.platformBrightnessTestValue = Brightness.dark;
+  tester.platformDispatcher.platformBrightnessTestValue = brightness;
   WidgetsApp.debugAllowBannerOverride = false;
   addTearDown(() {
     debugDefaultTargetPlatformOverride = null;

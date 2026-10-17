@@ -191,7 +191,7 @@ class TopCommonBarState extends State<TopCommonBar> {
                             onTap: () {
                               ctrl.goBackFromPlatform();
                             },
-                            child: Icon(Icons.arrow_back_ios, color: context.theme.accent),
+                            child: Icon(Icons.arrow_back_ios, color: context.theme.link),
                           ),
                         ),
                       ),
@@ -209,11 +209,10 @@ class TopCommonBarState extends State<TopCommonBar> {
                           child: SizedBox(
                             width: 88,
                             child: Text(ctrl.nav.elementAt(ctrl.nav.length - 2),
-                                style: TextStyle(
+                                style: context.theme.linkStyle(const TextStyle(
                                     overflow: TextOverflow.ellipsis,
-                                    color: context.theme.accent,
                                     fontSize: 17,
-                                    fontWeight: FontWeight.w400)),
+                                    fontWeight: FontWeight.w400))),
                           ),
                         ),
                       ),
@@ -231,11 +230,10 @@ class TopCommonBarState extends State<TopCommonBar> {
                           child: SizedBox(
                             width: 88,
                             child: Text(ctrl.nav.elementAt(ctrl.nav.length - 3),
-                                style: TextStyle(
+                                style: context.theme.linkStyle(const TextStyle(
                                     overflow: TextOverflow.ellipsis,
-                                    color: context.theme.accent,
                                     fontSize: 17,
-                                    fontWeight: FontWeight.w400)),
+                                    fontWeight: FontWeight.w400))),
                           ),
                         ),
                       ),
