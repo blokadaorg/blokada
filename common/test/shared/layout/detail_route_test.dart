@@ -83,7 +83,7 @@ void main() {
       expect(routes.resolve(Paths.settings)!.title(null), "main tab settings".i18n);
       expect(routes.resolve(Paths.settingsExceptions)!.title(null), "family stats title".i18n);
       expect(routes.resolve(Paths.settingsRetention)!.title(null),
-          "activity section header".i18n);
+          "settings row activity history".i18n);
       expect(routes.resolve(Paths.settingsVpnDevices)!.title(null),
           "web vpn devices header".i18n);
       expect(routes.resolve(Paths.settingsVpnBypass)!.title(null),
@@ -92,7 +92,7 @@ void main() {
       expect(routes.resolve(Paths.activity)!.title(null), "main tab activity".i18n);
       expect(routes.resolve(Paths.privacyPulse)!.title(null),
           "privacy pulse section header".i18n);
-      expect(routes.resolve(Paths.advanced)!.title(null), "main tab advanced".i18n);
+      expect(routes.resolve(Paths.advanced)!.title(null), "advanced section header packs".i18n);
     });
 
     test("family flavor swaps the flavor-dependent titles", () {

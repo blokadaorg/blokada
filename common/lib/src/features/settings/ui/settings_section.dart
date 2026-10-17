@@ -28,6 +28,9 @@ import 'package:common/src/shared/ui/vendor/input_code_field/input_code_field.da
 import 'package:common/src/features/lock/domain/lock.dart';
 import 'package:common/src/features/notification/domain/notification.dart';
 
+/// Vertical gap between Settings sections, the same for all of them.
+const double _sectionGap = 40;
+
 class SettingsSection extends StatefulWidget {
   final bool isHeader;
 
@@ -172,8 +175,8 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
               ? Container()
               : Column(
                   children: [
-                    const SizedBox(height: 48),
-                    SectionLabel(text: "account section header primary".i18n.capitalize()),
+                    const SizedBox(height: _sectionGap),
+                    SectionLabel(text: "account section header protection".i18n.capitalize()),
                     CommonCard(
                       child: Column(
                         children: [
@@ -191,7 +194,7 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                                     const CommonDivider(),
                                     SettingsItem(
                                         icon: CupertinoIcons.chart_bar,
-                                        text: "activity section header".i18n,
+                                        text: "settings row activity history".i18n,
                                         automationId: AutomationIds.settingsRetention,
                                         path: Paths.settingsRetention,
                                         onTap: () {
@@ -250,7 +253,7 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                                 )
                               : Container(),
                           SettingsItem(
-                              icon: CupertinoIcons.ellipsis,
+                              icon: CupertinoIcons.lock,
                               text: "family settings lock pin".i18n,
                               onTap: () {
                                 if (_hasPin.now) {
@@ -283,8 +286,8 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                   ],
                 ),
           if (!Core.act.isFamily) ...[
-            const SizedBox(height: 32),
-            SectionLabel(text: "Notifications"),
+            const SizedBox(height: _sectionGap),
+            SectionLabel(text: "settings section header notifications".i18n),
             CommonCard(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
               child: Row(
@@ -336,7 +339,7 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
               ),
             ),
           ],
-          const SizedBox(height: 40),
+          const SizedBox(height: _sectionGap),
           SectionLabel(text: "account section header my subscription".i18n.capitalize()),
           CommonCard(
             child: Column(
@@ -363,7 +366,7 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
               ],
             ),
           ),
-          const SizedBox(height: 40),
+          const SizedBox(height: _sectionGap),
           SectionLabel(text: "universal action help".i18n.capitalize()),
           CommonCard(
             child: Column(
