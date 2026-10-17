@@ -2,6 +2,7 @@ import 'package:common/src/features/support/domain/support.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/features/support/ui/link_message.dart';
 import 'package:common/src/features/support/ui/support_composer.dart';
+import 'package:common/src/features/support/ui/support_log_card.dart';
 import 'package:common/src/features/support/ui/support_typing_bubble.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
@@ -109,9 +110,14 @@ class SupportSectionState extends State<SupportSection> {
             return ChatAnimatedListReversed(
               itemBuilder: itemBuilder,
               // Sits right after the newest message, above the composer.
-              bottomSliver: _actor.replyPending
-                  ? const SliverToBoxAdapter(child: SupportTypingBubble())
-                  : null,
+              bottomSliver: _bottomSliver(),
+            );
+          },
+          customMessageBuilder: (context, message, index,
+              {required bool isSentByMe, groupStatus}) {
+            return SupportLogNote(
+              shared: message.metadata?['logShared'] == true,
+              when: message.createdAt!,
             );
           },
           textMessageBuilder: (context, message, index,
@@ -133,6 +139,26 @@ class SupportSectionState extends State<SupportSection> {
           }
         },
       ),
+    );
+  }
+
+  /// The log approval card while the agent's latest reply asks for the log,
+  /// with the typing indicator below it while a reply is pending.
+  Widget? _bottomSliver() {
+    final pending = _actor.replyPending;
+    final action = _actor.logActionId;
+    final showCard = action != null;
+    if (!pending && !showCard) return null;
+    return SliverToBoxAdapter(
+      child: Column(children: [
+        if (showCard)
+          SupportLogCard(
+            busy: pending,
+            onShare: () => _actor.shareLog(Markers.userTap),
+            onCancel: () => _actor.declineLog(Markers.userTap),
+          ),
+        if (pending) const SupportTypingBubble(),
+      ]),
     );
   }
 

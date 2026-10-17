@@ -23,4 +23,9 @@ abstract class CoreOps {
 
   @async
   void doShareFile();
+
+  /// Returns up to [maxBytes] bytes from the end of the app log, starting at a
+  /// line boundary, so the support chat can upload it without a share sheet.
+  @async
+  String doReadLogTail(int maxBytes);
 }
