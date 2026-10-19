@@ -209,10 +209,12 @@ class TopCommonBarState extends State<TopCommonBar> {
                           child: SizedBox(
                             width: 88,
                             child: Text(ctrl.nav.elementAt(ctrl.nav.length - 2),
-                                style: context.theme.linkStyle(const TextStyle(
-                                    overflow: TextOverflow.ellipsis,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w400))),
+                                style: context.theme.linkStyle(
+                                    const TextStyle(
+                                        overflow: TextOverflow.ellipsis,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w400),
+                                    underline: false)),
                           ),
                         ),
                       ),
@@ -230,10 +232,12 @@ class TopCommonBarState extends State<TopCommonBar> {
                           child: SizedBox(
                             width: 88,
                             child: Text(ctrl.nav.elementAt(ctrl.nav.length - 3),
-                                style: context.theme.linkStyle(const TextStyle(
-                                    overflow: TextOverflow.ellipsis,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w400))),
+                                style: context.theme.linkStyle(
+                                    const TextStyle(
+                                        overflow: TextOverflow.ellipsis,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w400),
+                                    underline: false)),
                           ),
                         ),
                       ),

@@ -99,8 +99,9 @@ class BackTitleNavBar extends StatelessWidget
                           child: Text(backText,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
-                              style: context.theme
-                                  .linkStyle(const TextStyle(fontSize: 17))),
+                              style: context.theme.linkStyle(
+                                  const TextStyle(fontSize: 17),
+                                  underline: false)),
                         ),
                       ],
                     ),

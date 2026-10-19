@@ -148,10 +148,17 @@ extension BlokadaThemeLink on BlokadaTheme {
 
   /// [base] styled as a link: [link] colored, underlined where the theme
   /// asks for it.
-  TextStyle linkStyle(TextStyle base) => base.copyWith(
-        color: link,
-        decoration: linkUnderline == null ? null : TextDecoration.underline,
-        decorationColor: linkUnderline,
-        decorationThickness: linkUnderline == null ? null : 2,
-      );
+  ///
+  /// Pass `underline: false` in a bar, where the slot already marks the text
+  /// as an action (a back label follows a chevron, an action sits in the
+  /// trailing corner) and the rule would only repeat that.
+  TextStyle linkStyle(TextStyle base, {bool underline = true}) {
+    final line = underline ? linkUnderline : null;
+    return base.copyWith(
+      color: link,
+      decoration: line == null ? null : TextDecoration.underline,
+      decorationColor: line,
+      decorationThickness: line == null ? null : 2,
+    );
+  }
 }
