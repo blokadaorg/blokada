@@ -146,10 +146,13 @@ class StatsFilterActionState extends State<StatsFilterAction> with Disposables {
         bgColor: filtered ? context.theme.selection : null,
         child: Text(
           "universal action search".i18n,
-          style: context.theme.linkStyle(TextStyle(
-            fontSize: 17,
-            fontWeight: filtered ? FontWeight.w600 : null,
-          )),
+          style: context.theme.linkStyle(
+            TextStyle(
+              fontSize: 17,
+              fontWeight: filtered ? FontWeight.w600 : null,
+            ),
+            underline: false,
+          ),
         ),
       ),
     );
