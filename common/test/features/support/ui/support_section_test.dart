@@ -1,7 +1,7 @@
 import 'package:common/src/core/core.dart';
 import 'package:common/src/features/support/domain/support.dart';
 import 'package:common/src/features/support/ui/convert.dart';
-import 'package:common/src/features/support/ui/support_log_card.dart';
+import 'package:common/src/features/support/ui/support_action_card.dart';
 import 'package:common/src/features/support/ui/support_section.dart';
 import 'package:common/src/features/support/ui/support_typing_bubble.dart';
 import 'package:common/src/platform/stage/stage.dart';
@@ -18,30 +18,32 @@ import '../../../tools.dart';
 class _FakeSupportActor extends SupportActor {
   final sent = <String>[];
   bool pending = false;
-  String? action;
-  int shared = 0;
+  SupportAction? current;
+  int approved = 0;
 
   @override
   bool get replyPending => pending;
 
   @override
-  String? get logActionId => action;
+  SupportAction? get action => current;
 
-  void setAction(String? value) {
-    action = value;
+  void setAction(SupportAction? value) {
+    current = value;
     onChange();
   }
 
   @override
-  Future<void> shareLog(Marker m) async {
-    shared++;
+  Future<void> approveAction(Marker m) async {
+    approved++;
   }
 
   @override
-  Future<void> declineLog(Marker m) async {
-    action = null;
+  Future<void> declineAction(Marker m) async {
+    final tool = current!.tool;
+    current = null;
     await controller.insertMessage(
-        SupportMessage.logDeclined(DateTime(2026, 9, 7, 11))
+        SupportMessage.note(SupportNote.of(tool, declined: true),
+                DateTime(2026, 9, 7, 11))
             .toFlyerMessage(me, notMe));
     onChange();
   }
@@ -197,10 +199,10 @@ void main() {
 
       await tester.pumpWidget(_host(dark: false));
       await tester.pump();
-      expect(find.byType(SupportLogCard), findsNothing);
+      expect(find.byType(SupportActionCard), findsNothing);
 
       // Both choices are on the card (the test locale shows the keys).
-      actor.setAction("act-1");
+      actor.setAction(const SupportAction(SupportClientTool.attachLog, "act-1"));
       await tester.pump();
       expect(find.text("support share log title"), findsOneWidget);
       expect(find.widgetWithText(TextButton, "universal action cancel"), findsOneWidget);
@@ -212,16 +214,16 @@ void main() {
       await tester.tap(find.text("universal action cancel"));
       await tester.pump(const Duration(milliseconds: 500));
       await tester.pump(const Duration(milliseconds: 500));
-      expect(find.byType(SupportLogCard), findsNothing);
+      expect(find.byType(SupportActionCard), findsNothing);
       expect(find.text("support share log declined"), findsOneWidget);
       actor.setAction(action);
       await tester.pump();
-      expect(find.byType(SupportLogCard), findsOneWidget);
+      expect(find.byType(SupportActionCard), findsOneWidget);
 
       // While the upload runs the choices are disabled.
       await tester.tap(find.text("universal action share log"));
       await tester.pump();
-      expect(actor.shared, 1);
+      expect(actor.approved, 1);
       actor.setPending(true);
       await tester.pump();
       final share = find.widgetWithText(FilledButton, "universal action share log");
@@ -229,15 +231,49 @@ void main() {
 
       // Uploaded: the card gives way to the note in the history.
       await actor.controller.insertMessage(
-          SupportMessage.logShared(DateTime(2026, 9, 7, 12))
+          SupportMessage.note(SupportNote.logShared, DateTime(2026, 9, 7, 12))
               .toFlyerMessage(actor.me, actor.notMe));
       actor.setPending(false);
       actor.setAction(null);
       await tester.pump(const Duration(milliseconds: 500));
       await tester.pump(const Duration(milliseconds: 500));
-      expect(find.byType(SupportLogCard), findsNothing);
-      expect(find.byType(SupportLogNote), findsNWidgets(2));
+      expect(find.byType(SupportActionCard), findsNothing);
+      expect(find.byType(SupportActionNote), findsNWidgets(2));
       expect(find.text("support share log done"), findsOneWidget);
+
+      await tester.pump(const Duration(seconds: 2));
+      await tester.pumpWidget(const SizedBox.shrink());
+      await tester.pump();
+    });
+  });
+
+  testWidgets("asks before running the DNS check, and notes a cancel",
+      (tester) async {
+    await withTrace((_) async {
+      Core.register<StageStore>(StageStore());
+      final actor = _FakeSupportActor();
+      Core.register<SupportActor>(actor);
+
+      await tester.pumpWidget(_host(dark: false));
+      await tester.pump();
+
+      actor.setAction(const SupportAction(SupportClientTool.dnsCheck, "chk-1",
+          subdomain: "k3x9q0b7m2ta"));
+      await tester.pump();
+      expect(find.text("support network check title"), findsOneWidget);
+      expect(find.text("support network check body"), findsOneWidget);
+      expect(find.widgetWithText(FilledButton, "universal action run check"),
+          findsOneWidget);
+
+      await tester.tap(find.text("universal action run check"));
+      await tester.pump();
+      expect(actor.approved, 1);
+
+      await tester.tap(find.text("universal action cancel"));
+      await tester.pump(const Duration(milliseconds: 500));
+      await tester.pump(const Duration(milliseconds: 500));
+      expect(find.byType(SupportActionCard), findsNothing);
+      expect(find.text("support network check declined"), findsOneWidget);
 
       await tester.pump(const Duration(seconds: 2));
       await tester.pumpWidget(const SizedBox.shrink());

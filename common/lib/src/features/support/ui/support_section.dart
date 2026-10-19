@@ -2,7 +2,7 @@ import 'package:common/src/features/support/domain/support.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/features/support/ui/link_message.dart';
 import 'package:common/src/features/support/ui/support_composer.dart';
-import 'package:common/src/features/support/ui/support_log_card.dart';
+import 'package:common/src/features/support/ui/support_action_card.dart';
 import 'package:common/src/features/support/ui/support_typing_bubble.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
@@ -113,10 +113,9 @@ class SupportSectionState extends State<SupportSection> {
               bottomSliver: _bottomSliver(),
             );
           },
-          customMessageBuilder: (context, message, index,
-              {required bool isSentByMe, groupStatus}) {
-            return SupportLogNote(
-              shared: message.metadata?['logShared'] == true,
+          customMessageBuilder: (context, message, index, {required bool isSentByMe, groupStatus}) {
+            return SupportActionNote(
+              note: SupportNote.values.byName(message.metadata!['note']),
               when: message.createdAt!,
             );
           },
@@ -142,23 +141,26 @@ class SupportSectionState extends State<SupportSection> {
     );
   }
 
-  /// The log approval card while the agent's latest reply asks for the log,
+  /// The approval card while the agent's latest reply asks for a tool,
   /// with the typing indicator below it while a reply is pending.
   Widget? _bottomSliver() {
     final pending = _actor.replyPending;
-    final action = _actor.logActionId;
+    final action = _actor.action;
     final showCard = action != null;
     if (!pending && !showCard) return null;
     return SliverToBoxAdapter(
-      child: Column(children: [
-        if (showCard)
-          SupportLogCard(
-            busy: pending,
-            onShare: () => _actor.shareLog(Markers.userTap),
-            onCancel: () => _actor.declineLog(Markers.userTap),
-          ),
-        if (pending) const SupportTypingBubble(),
-      ]),
+      child: Column(
+        children: [
+          if (showCard)
+            SupportActionCard(
+              tool: action.tool,
+              busy: pending,
+              onApprove: () => _actor.approveAction(Markers.userTap),
+              onCancel: () => _actor.declineAction(Markers.userTap),
+            ),
+          if (pending) const SupportTypingBubble(),
+        ],
+      ),
     );
   }
 
