@@ -362,8 +362,13 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
             child: Semantics(
               identifier: AutomationIds.powerToggle,
               button: true,
-              label: "account section header protection".i18n,
+              label: "home power button label".i18n,
+              // The value stays untranslated for the Appium flows; screen
+              // readers get the translated state from the hint.
               value: status.isActive() ? 'active' : 'inactive',
+              hint: status.isActive()
+                  ? "home power button state on".i18n
+                  : "home power button state off".i18n,
               child: Touch(
                 onTap: () {
                   if (!status.isWorking()) {
