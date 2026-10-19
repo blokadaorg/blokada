@@ -35,7 +35,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          submodules: recursive
+          submodules: true
 
       - name: Bootstrap Flutter common lib
         # Builds the add-to-app xcframeworks the host project embeds.

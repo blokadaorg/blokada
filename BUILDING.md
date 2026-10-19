@@ -53,7 +53,7 @@ $ make regen-ios
 
 Also don't forget the following:
 ```
-$ git submodule update --init --recursive
+$ git submodule update --init
 
 // for iOS signing (from ios dir):
 fastlane match development
