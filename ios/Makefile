@@ -16,11 +16,26 @@ CHECK_CONFIG ?= Debug
 
 .PHONY: build build-family build-six build-six-debug build-family-debug \
 	ipa-family ipa-six check run-six run-family appium-install-six appium-install-family \
-	print-build-dir-six print-build-dir-family
+	print-build-dir-six print-build-dir-family flutter-module
 
 # Note: for all targets in this Makefile, the common lib has to be
 # ready beforehand. This is handled when running make targets from
-# the root directory instead.
+# the root directory instead, and by the device run/install targets below.
+
+# Rebuild the Flutter module the app links when any non-ignored file in common/
+# (outside test/ and docs/) was added, edited or deleted since the last build.
+FLUTTER_STAMP := ../common/build/ios-spm/.built
+FLUTTER_INPUTS_SUM = cd ../common && git ls-files -z -co --exclude-standard -- . ':!test' ':!docs' \
+	| xargs -0 stat -f '%Fm %N' 2>/dev/null | sort | shasum | cut -d' ' -f1
+# The hash is taken before the build, so an edit made during it forces another rebuild.
+flutter-module:
+	@sum=$$( $(FLUTTER_INPUTS_SUM) ); \
+	if [ "$$sum" = "$$(cat $(FLUTTER_STAMP) 2>/dev/null || true)" ]; then \
+		echo "Flutter module up to date"; \
+	else \
+		echo "Flutter module stale (inputs changed, or no real-device build recorded), rebuilding"; \
+		$(MAKE) -C ../common build-ios && echo "$$sum" > $(FLUTTER_STAMP); \
+	fi
 
 include make/run-helpers.mk
 include make/sim-helpers.mk
@@ -85,22 +100,22 @@ check:
 # Usage: make run-six [IOS_DEVICE_NAME="device name"] [CONFIG="Release|Debug"]
 # Default: uses the first paired iPhone/iPad when IOS_DEVICE_NAME is not provided.
 # Default config: Release (required for iOS 14+ to launch without Xcode/Flutter tooling connection)
-run-six:
+run-six: flutter-module
 	$(call run-app,Dev,Dev.app,net.blocka.app,build-six-debug,print-build-dir-six,launch,no,$(if $(CONFIG),$(CONFIG),Release))
 
 # Build, install and run family flavor on an auto-selected physical iPhone/iPad.
 # Usage: make run-family [IOS_DEVICE_NAME="device name"] [CONFIG="Release|Debug"]
 # Default: uses the first paired iPhone/iPad when IOS_DEVICE_NAME is not provided.
 # Default config: Release (required for iOS 14+ to launch without Xcode/Flutter tooling connection)
-run-family:
+run-family: flutter-module
 	$(call run-app,FamilyDev,FamilyDev.app,net.blocka.app.family,build-family-debug,print-build-dir-family,launch,no,$(if $(CONFIG),$(CONFIG),Release))
 
 # Build and install the six flavor on a physical device without launching, primed for Appium runs.
 # Usage: make appium-install-six [IOS_DEVICE_NAME="device name"] [CONFIG="Release|Debug"]
-appium-install-six:
+appium-install-six: flutter-module
 	$(call run-app,Dev,Dev.app,net.blocka.app,build-six-debug,print-build-dir-six,install,no,$(if $(CONFIG),$(CONFIG),Release))
 
 # Build and install the family flavor on a physical device without launching, primed for Appium runs.
 # Usage: make appium-install-family [IOS_DEVICE_NAME="device name"] [CONFIG="Release|Debug"]
-appium-install-family:
+appium-install-family: flutter-module
 	$(call run-app,FamilyDev,FamilyDev.app,net.blocka.app.family,build-family-debug,print-build-dir-family,install,no,$(if $(CONFIG),$(CONFIG),Release))

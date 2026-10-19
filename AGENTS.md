@@ -116,6 +116,8 @@ make uninstall               # remove all
 make -C ios run-six [IOS_DEVICE_NAME="device name"] [CONFIG="Release|Debug"]
 make -C ios run-family [IOS_DEVICE_NAME="device name"] [CONFIG="Release|Debug"]
 # Default: CONFIG=Release (required for iOS 14+ to launch without Xcode/Flutter tooling)
+# Rebuilds the Flutter module first when common/ Dart inputs changed since its last build;
+# a plain Xcode build otherwise links the old module from common/build/ios-spm.
 # It never exits. Watch its output for "** BUILD SUCCEEDED **" / "** BUILD FAILED **",
 # "App installed:" and "Launched application with <bundle id>" (the app is running).
 # Install only, exits when done:
