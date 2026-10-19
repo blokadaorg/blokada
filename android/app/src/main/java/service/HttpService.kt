@@ -44,7 +44,7 @@ object HttpService {
         // Probably DNS is messing up with those timeouts as we can still see hanging requests
         // As a workaround we now bypass our own app from VPN
         .connectTimeout(5, TimeUnit.SECONDS)
-        .readTimeout(10, TimeUnit.SECONDS)
+        .readTimeout(30, TimeUnit.SECONDS)
     }.build()
 
     fun getClient() = httpClient
