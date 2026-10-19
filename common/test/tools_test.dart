@@ -72,5 +72,8 @@ class _FakeLoggerChannel with LoggerChannel {
   Future<void> doShareFile() async {}
 
   @override
+  Future<String> doReadLogTail(int maxBytes) async => "";
+
+  @override
   Future<void> doUseFilename(String filename) async {}
 }

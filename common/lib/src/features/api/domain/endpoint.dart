@@ -63,6 +63,12 @@ enum ApiEndpoint {
       type: "POST", params: [ApiParam.accountId, ApiParam.userAgent]),
   getSupport("https://support.blocka.net/v3/support", type: "GET", params: [ApiParam.sessionId]),
   putSupport("https://support.blocka.net/v3/support", type: "PUT"),
+  // The body is the plain-text app log, so the params go in the URL: only GET
+  // templates get a query string appended.
+  postSupportLog(
+      "https://support.blocka.net/v3/support/log?session_id=(session_id)&action_id=(action_id)",
+      type: "POST",
+      params: [ApiParam.sessionId, ApiParam.actionId]),
   postAdaptyCheckout("v3/adapty/checkout", type: "POST", params: [ApiParam.accountId]),
   getStatusTest("v3/status/test", params: [ApiParam.deviceTag]),
   // Untagged status check: detects whether DNS is already routed through Blokada
@@ -154,6 +160,7 @@ enum ApiParam {
   statsDeviceName("device_name"),
   statsDomain("domain"),
   sessionId("session_id"),
+  actionId("action_id"),
   toplistLevel("level"),
   toplistDomain("domain"),
   toplistLimit("limit"),

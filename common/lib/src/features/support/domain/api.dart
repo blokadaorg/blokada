@@ -10,6 +10,7 @@ class SupportApi with Logging {
         payload: _marshal.fromCreateSession(JsonSupportPayloadCreateSession(
           language: language,
           event: event ?? SupportEvent.firstOpen,
+          clientTools: SupportClientTool.values,
         )));
     log(m).i("create session response: $result");
     return _marshal.toSession(result);
@@ -43,6 +44,21 @@ class SupportApi with Logging {
     final result =
         await _api.request(ApiEndpoint.putSupport, m, payload: payload);
     log(m).i("send msg response: $result");
+    return _marshal.toResponse(result);
+  }
+
+  /// Uploads [appLog] for the agent's open attach_log action [actionId], and
+  /// returns the agent's reply to it. The server takes one log per session.
+  Future<JsonSupportResponse> uploadLog(
+      Marker m, String sessionId, String actionId, String appLog) async {
+    final result = await _api.request(ApiEndpoint.postSupportLog, m,
+        params: {
+          ApiParam.sessionId: Uri.encodeQueryComponent(sessionId),
+          ApiParam.actionId: Uri.encodeQueryComponent(actionId),
+        },
+        payload: appLog,
+        headers: {"Content-Type": "text/plain; charset=utf-8"});
+    log(m).i("upload log response: $result");
     return _marshal.toResponse(result);
   }
 }

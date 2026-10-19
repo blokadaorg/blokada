@@ -9,6 +9,9 @@ class SupportActor with Logging, Actor {
   late final _chatHistory = Core.get<ChatHistory>();
   late final _unread = Core.get<SupportUnreadActor>();
   late final _scheduler = Core.get<Scheduler>();
+  late final _logger = Core.get<LoggerChannel>();
+  late final _isLocked = Core.get<IsLocked>();
+  late final _stage = Core.get<StageStore>();
   late String language = I18n.localeStr;
 
   bool initialized = false;
@@ -39,6 +42,27 @@ class SupportActor with Logging, Actor {
     if (_replyPending == pending) return;
     _replyPending = pending;
     onChange();
+  }
+
+  /// The id of the agent's open request for the app log, while its latest
+  /// reply asks for it. The chat shows an approval card while this is set,
+  /// so the user can approve sending the log instead of emailing it.
+  String? get logActionId => _logActionId;
+  String? _logActionId;
+  DateTime? _logActionAt;
+
+  /// Follows the agent's latest reply: the card stays while that reply asks
+  /// for the log, and goes once a reply does not (including the one that
+  /// answers the upload). Rebuilt from the server history on load, so it
+  /// survives an app restart.
+  void _trackActions(List<JsonSupportHistoryItem> items) {
+    for (final item in items.where((e) => e.isAgent)) {
+      _logActionId = item.actions
+          .firstOrNullWhere(
+              (e) => e.type == SupportClientTool.attachLog.constant)
+          ?.id;
+      _logActionAt = DateTime.tryParse(item.timestamp);
+    }
   }
 
   // Return true if session was just created
@@ -76,8 +100,19 @@ class SupportActor with Logging, Actor {
   Future<void>? _startingSession;
 
   _loadChatHistory(Marker m, List<JsonSupportHistoryItem> history) async {
+    _trackActions(history);
     await _chatHistory.fetch(m);
     messages = _chatHistory.present?.messages ?? [];
+    // The server history can still end with the request after it was
+    // declined, or shared with no reply yet, so a note after the latest
+    // request keeps the card hidden across restarts.
+    final handled =
+        messages.lastOrNullWhere((e) => e.isLogDeclined || e.isLogShared);
+    if (handled != null &&
+        _logActionAt != null &&
+        handled.when.isAfter(_logActionAt!)) {
+      _logActionId = null;
+    }
 
     final apiHistory = history.filter((e) => e.text?.isBlank == false).map((e) {
       return SupportMessage(e.text!, DateTime.parse(e.timestamp),
@@ -144,6 +179,7 @@ class SupportActor with Logging, Actor {
     await _currentSession.change(m, null);
     await _chatHistory.change(m, null);
     messages = [];
+    _logActionId = null;
     await controller.setMessages([]);
     onChange();
   }
@@ -239,6 +275,78 @@ class SupportActor with Logging, Actor {
     await _updateSessionExpiry();
   }
 
+  /// Uploads the end of the app log for the agent's open request, from the
+  /// share log button, and shows the agent's reply to it.
+  ///
+  /// The log can hold details of the user's setup, so a locked app refuses
+  /// it, the same as sharing the log from settings. Uses the pending-reply
+  /// state like a sent message: the upload starts an agent turn, and a second
+  /// tap or a message meanwhile would race it.
+  Future<void> shareLog(Marker m) async {
+    final actionId = _logActionId;
+    final sessionId = _currentSession.present;
+    if (actionId == null || sessionId == null || _replyPending) return;
+    if (_isLocked.now) {
+      await _stage.showModal(StageModal.faultLocked, m);
+      return;
+    }
+
+    _setReplyPending(true);
+    try {
+      final appLog = capLogTail(
+          await _logger.doReadLogTail(supportLogMaxBytes), supportLogMaxBytes);
+      if (appLog.isEmpty) throw Exception("App log is empty");
+      final response = await _api.uploadLog(m, sessionId, actionId, appLog);
+      _logActionId = null;
+      await _addLogNote(m, SupportMessage.logShared, response.messages);
+      if (response.messages != null) {
+        await _handleResponse(m, response.messages!, isReply: true);
+      }
+    } on HttpCodeException catch (e, s) {
+      log(m).e(msg: "Error uploading log", err: e, stack: s);
+      // A 4xx will not pass on retry: the request is closed, or (409) the
+      // log is already there from an earlier try.
+      if (e.code >= 400 && e.code < 500) _logActionId = null;
+      if (e.code == 409) await _addLogNote(m, SupportMessage.logShared, null);
+      if (e.code != 409) await _stage.showModal(StageModal.fault, m);
+    } catch (e, s) {
+      log(m).e(msg: "Error uploading log", err: e, stack: s);
+      await _stage.showModal(StageModal.fault, m);
+    } finally {
+      _setReplyPending(false);
+      // The button may have changed without a reply to redraw it.
+      onChange();
+    }
+    await _updateSessionExpiry();
+  }
+
+  /// Turns down the agent's open log request, leaving a note in the history.
+  /// A later reply that asks again shows the card again.
+  Future<void> declineLog(Marker m) async {
+    if (_logActionId == null || _replyPending) return;
+    _logActionId = null;
+    await _addLogNote(m, SupportMessage.logDeclined, null);
+    onChange();
+  }
+
+  /// Leaves a log note in the history, just ahead of the agent's reply or,
+  /// without one, just after the request. Both carry the server's clock, so
+  /// the restart check in [_loadChatHistory] never compares against the
+  /// device clock.
+  Future<void> _addLogNote(Marker m, SupportMessage Function(DateTime) note,
+      List<JsonSupportHistoryItem>? reply) async {
+    final first = reply?.firstOrNullWhere((e) => e.text?.isBlank == false);
+    final when = first != null
+        ? DateTime.parse(first.timestamp)
+            .subtract(const Duration(milliseconds: 1))
+        : _logActionAt?.add(const Duration(milliseconds: 1)) ?? DateTime.now();
+    final message = note(when);
+    messages.add(message);
+    messages.sort((a, b) => a.when.compareTo(b.when));
+    await _chatHistory.change(m, SupportMessages(messages));
+    await controller.insertMessage(message.toFlyerMessage(me, notMe));
+  }
+
   _addMyMessage(Marker m, String msg) {
     final message = SupportMessage(msg, DateTime.now(), isMe: true);
     messages.add(message);
@@ -251,6 +359,7 @@ class SupportActor with Logging, Actor {
   /// message ends the pending-reply wait.
   _handleResponse(Marker m, List<JsonSupportHistoryItem> messages,
       {bool isReply = false}) async {
+    _trackActions(messages);
     for (final msg in messages) {
       if (msg.text == null || msg.text!.isBlank) {
         continue; // TODO: support other types of msgs

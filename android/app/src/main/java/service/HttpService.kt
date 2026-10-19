@@ -60,9 +60,12 @@ object HttpService {
         var request = Request.Builder().url(url)
 
         request = if (body != null) {
-            request.method(method, RequestBody.create(
-                "application/json; charset=utf-8".toMediaType(), body)
-            )
+            // OkHttp sends the body's media type, so a caller's Content-Type
+            // (text/plain for the support log upload) has to go here.
+            val type = headers?.entries
+                ?.firstOrNull { it.key.equals("Content-Type", ignoreCase = true) }?.value
+                ?: "application/json; charset=utf-8"
+            request.method(method, RequestBody.create(type.toMediaType(), body))
         } else {
             // Retrofit doesn't allow a null body for POST
             val emptyBody = if (method == "POST") RequestBody.create(null, "") else null
