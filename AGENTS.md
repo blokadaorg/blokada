@@ -51,11 +51,12 @@ management uses MobX; payments use Adapty.
 ### Prerequisites
 
 ```bash
-git submodule update --init --recursive
+git submodule update --init
 ```
 
 In a fresh worktree, the command above re-fetches every submodule from
-origin (~20 s and ~340 MB for this repo, dominated by `landing-github-pages`).
+origin (~1.5 min and ~1.2 GB for this repo, dominated by `landing-github-pages`).
+Skip `--recursive`: nothing reads that repo's own nested submodules.
 Faster alternative: copy the already-populated submodule directories from
 your main checkout. On APFS (macOS), `cp -cR` is near-instant and uses
 copy-on-write to avoid duplicating disk:

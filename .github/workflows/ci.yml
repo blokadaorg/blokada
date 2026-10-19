@@ -101,7 +101,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          submodules: recursive
+          submodules: true
           fetch-depth: 1
 
       - uses: ./.github/actions/setup-flutter
@@ -134,7 +134,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          submodules: recursive
+          submodules: true
           fetch-depth: 1
 
       - uses: ./.github/actions/setup-flutter
@@ -173,7 +173,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          submodules: recursive
+          submodules: true
           fetch-depth: 1
 
       - name: Select Xcode
@@ -210,7 +210,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          submodules: recursive
+          submodules: true
           fetch-depth: 1
 
       - uses: ./.github/actions/setup-flutter

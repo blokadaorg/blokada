@@ -31,7 +31,7 @@ Run fast to slow. Each stage gates the next: a hard failure stops the loop and y
 
 ```bash
 gh pr checkout <pr> --repo blokadaorg/blokada
-git submodule update --init --recursive
+git submodule update --init
 # iOS bumps only (Adapty / Firebase / other native deps):
 # the host links Firebase/Factory/CodeScanner via SwiftPackageManager (Xcode
 # resolves them at build) and embeds the Flutter module as xcframeworks built by:
