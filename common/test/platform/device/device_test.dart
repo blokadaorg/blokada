@@ -124,7 +124,25 @@ void main() {
 
         await expectLater(subject.setCloudEnabled(m, true), throwsException);
         await expectLater(subject.setRetention("1h", m), throwsException);
-        await expectLater(subject.setLists(["c", "d"], m), throwsException);
+      });
+    });
+
+    test("setListsSucceedsWhenOnlyRefreshFails", () async {
+      await withTrace((m) async {
+        Core.register<StageStore>(MockStageStore());
+        Core.register<AccountStore>(MockAccountStore());
+        Core.register<EnvActor>(_FakeEnvActor('Example iPhone'));
+
+        final api = MockDeviceApi();
+        when(api.getDevice(any)).thenThrow(Exception("test"));
+        Core.register<DeviceApi>(api);
+
+        final subject = DeviceStore();
+
+        // The PUT went through, so the save counts even though the refresh failed.
+        expect(await subject.setLists(["c", "d"], m), isTrue);
+        verify(api.putDevice(m, lists: ["c", "d"])).called(1);
+        expect(subject.lists, ["c", "d"]);
       });
     });
   });
