@@ -16,4 +16,7 @@ import Foundation
 let DEFAULT_USER_INTERACTION_DEBOUNCE = 0.3
 
 // HTTP timeout configuration - used by main app, network extension, and WgService (in seconds)
-let HTTP_TIMEOUT_INTERVAL: TimeInterval = 15.0
+let HTTP_TIMEOUT_INTERVAL: TimeInterval = 30.0
+
+// How long to wait for the tunnel to report it stopped (in seconds)
+let VPN_STOP_TIMEOUT_INTERVAL: TimeInterval = 15.0

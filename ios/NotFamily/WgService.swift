@@ -284,7 +284,7 @@ class WgService: NetxServiceIn {
 
                     // Also make a timeout
                     Just(true)
-                    .delay(for: .seconds(HTTP_TIMEOUT_INTERVAL), scheduler: self.bgQueue)
+                    .delay(for: .seconds(VPN_STOP_TIMEOUT_INTERVAL), scheduler: self.bgQueue)
                     .flatMap { _ in self.wgStateHot.first() }
                     .tryMap { state -> Ignored in
                         if state == .activated {
