@@ -16,6 +16,9 @@ class _FakeLoggerChannel with LoggerChannel {
   Future<void> doShareFile() async {}
 
   @override
+  Future<String> doReadLogTail(int maxBytes) async => "";
+
+  @override
   Future<void> doSaveBatch(String batch) async {
     batches.add(batch);
   }

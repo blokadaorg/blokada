@@ -25,6 +25,9 @@ class PlatformCoreChannel extends CoreChannel {
   Future<void> doShareFile() => _ops.doShareFile();
 
   @override
+  Future<String> doReadLogTail(int maxBytes) => _ops.doReadLogTail(maxBytes);
+
+  @override
   Future<void> doUseFilename(String filename) => _ops.doUseFilename(filename);
 }
 
@@ -54,6 +57,9 @@ class RuntimeCoreChannel extends CoreChannel {
 
   @override
   Future<void> doShareFile() async {}
+
+  @override
+  Future<String> doReadLogTail(int maxBytes) async => "";
 
   @override
   Future<void> doUseFilename(String filename) async {}

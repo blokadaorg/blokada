@@ -51,7 +51,11 @@ class BlockaPacketTunnelProvider: PacketTunnelProvider {
         }
 
         let data = String.init(data: messageData, encoding: String.Encoding.utf8)!
-        let params = data.components(separatedBy: " ")
+        // Only the head is split on spaces: the body can be large (the support
+        // chat uploads up to 1 MB of log) and may itself contain " :body: ".
+        let bodyMarker = data.range(of: " :body: ")
+        let head = bodyMarker.map { String(data[..<$0.lowerBound]) } ?? data
+        let params = head.components(separatedBy: " ")
         let command = params[0]
         NELogger.v("BlockaPTP: command received: \(command)")
 
@@ -59,7 +63,7 @@ class BlockaPacketTunnelProvider: PacketTunnelProvider {
         case "request":
             let url = params[1]
             let method = params[2]
-            let body = data.components(separatedBy: " :body: ")[1]
+            let body = bodyMarker.map { String(data[$0.upperBound...]) } ?? ""
 
             NELogger.v("BlockaPTP: request: \(method) \(url), body len: \(body.count)")
 

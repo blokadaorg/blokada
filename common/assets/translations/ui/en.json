@@ -38,6 +38,7 @@
     "universal action help": "Help",
     "universal action show log": "Logs",
     "universal action share log": "Share log",
+    "universal action run check": "Run check",
     "universal action copy": "Copy",
     "universal action save": "Save",
     "universal action contact us": "Contact us",
@@ -788,5 +789,13 @@
     "filter last list note": "One blocklist always stays on. Use Pause on Home to stop blocking.",
     "home power button label": "Blokada protection",
     "home power button state on": "On",
-    "home power button state off": "Off"
+    "home power button state off": "Off",
+    "support share log title": "Share your app log?",
+    "support share log body": "Sends the recent app log, which can include device and setup details.",
+    "support share log done": "App log shared",
+    "support share log declined": "App log not shared",
+    "support network check title": "Run a network check?",
+    "support network check body": "Checks whether this phone's DNS goes through Blokada.",
+    "support network check done": "Network check done",
+    "support network check declined": "Network check not run"
 }

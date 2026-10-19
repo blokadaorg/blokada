@@ -56,6 +56,9 @@ object CoreBinding : CoreOps {
 
     private val scope = CoroutineScope(SupervisorJob())
     private val mutex = Mutex()
+    // Log writes and the tail read run one at a time in the order they were
+    // submitted, so a read sees every batch queued before it.
+    private val logIo = Dispatchers.IO.limitedParallelism(1)
 
     private val backedUpSharedPreferences by lazy {
         PreferenceManager.getDefaultSharedPreferences(context.requireContext())
@@ -90,7 +93,7 @@ object CoreBinding : CoreOps {
         batch: String,
         callback: (Result<Unit>) -> Unit
     ) {
-        scope.launch(Dispatchers.IO) {
+        scope.launch(logIo) {
             val result = mutex.withLock {
                 try {
                     RandomAccessFile(logFile, "rw").use { raf ->
@@ -158,6 +161,41 @@ object CoreBinding : CoreOps {
             }
         } catch (e: IOException) {
             e.printStackTrace()
+        }
+    }
+
+    // Runs on logIo after every batch queued before it, so they are in the tail.
+    override fun doReadLogTail(maxBytes: Long, callback: (Result<String>) -> Unit) {
+        scope.launch(logIo) {
+            val result = mutex.withLock {
+                // Any failure must still reach the callback, or the chat
+                // waits on the upload forever.
+                try {
+                    Result.success(readLogTail(maxBytes))
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    Result.failure(e)
+                }
+            }
+            withContext(Dispatchers.Main) {
+                callback(result)
+            }
+        }
+    }
+
+    // The support chat uploads only the end of the log, which its server caps.
+    // A cut file starts after the first newline, so it opens with a whole line
+    // and never inside a multi-byte character.
+    private fun readLogTail(maxBytes: Long): String {
+        if (!::logFile.isInitialized || !logFile.exists()) return ""
+        RandomAccessFile(logFile, "r").use { raf ->
+            val length = raf.length()
+            val start = maxOf(0L, length - maxBytes)
+            val bytes = ByteArray((length - start).toInt())
+            raf.seek(start)
+            raf.readFully(bytes)
+            val from = if (start == 0L) 0 else bytes.indexOf('\n'.code.toByte()) + 1
+            return String(bytes, from, bytes.size - from, Charsets.UTF_8)
         }
     }
 
