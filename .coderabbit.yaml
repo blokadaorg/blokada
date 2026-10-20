@@ -10,6 +10,8 @@ reviews:
   request_changes_workflow: true
   auto_review:
     enabled: false
+  # No "Review skipped" comment on every PR now that reviews run only on request.
+  review_status: false
   poem: false
   in_progress_fortune: false
   suggested_reviewers: false
