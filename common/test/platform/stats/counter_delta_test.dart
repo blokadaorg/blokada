@@ -5,7 +5,7 @@ import 'package:common/src/platform/stats/api.dart' as api;
 import 'package:common/src/platform/stats/delta_store.dart';
 import 'package:common/src/platform/stats/stats.dart';
 import 'package:common/src/platform/stats/weekly_comparison.dart';
-import 'package:common/src/app_variants/family/module/stats/stats.dart' as family_stats;
+import 'package:common/src/platform/stats/model.dart' as stats_model;
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -184,7 +184,7 @@ void main() {
       expect(allowedTotal, greaterThan(0));
       expect(blockedTotal, greaterThan(0));
 
-      final uiStats = family_stats.UiStats(
+      final uiStats = stats_model.UiStats(
         totalAllowed: baselines.totalAllowed,
         totalBlocked: baselines.totalBlocked,
         allowedHistogram: baselines.allowedHistogram,
@@ -199,6 +199,37 @@ void main() {
       // Ratios should be finite and within bounds.
       expect(uiStats.dayAllowedRatio, inInclusiveRange(0, 100));
       expect(uiStats.dayBlockedRatio, inInclusiveRange(0, 100));
+    });
+
+    test('the 24h histogram counts the same hours as the 24h counters', () {
+      // Points every hour for 48 hours, 20 minutes past the hour, like a
+      // fetch that is not on the hour. Each hour has a distinct value.
+      final reference = DateTime.utc(2026, 10, 14, 15, 20);
+      final nowSeconds = reference.millisecondsSinceEpoch ~/ 1000;
+      final dps = [
+        for (var k = 47; k >= 0; k--) {'timestamp': '${nowSeconds - k * 3600}', 'value': '${k + 1}'}
+      ];
+      final endpoint = api.JsonStatsEndpoint.fromJson({
+        'total_allowed': '0',
+        'total_blocked': '0',
+        'stats': {
+          'metrics': [
+            {
+              'tags': {'action': 'blocked'},
+              'dps': dps,
+            },
+          ],
+        },
+      });
+
+      final baselines = computeStatsBaselines(endpoint, endpoint, referenceTime: reference);
+      final counters = buildHourlyPeriodCountersFromRollingStats(endpoint,
+          hours: 24, referenceTime: reference);
+
+      final histogramTotal = baselines.blockedHistogram.fold<int>(0, (sum, v) => sum + v);
+      // The newest 24 points: values 1..24.
+      expect(counters.current.blocked, 300);
+      expect(histogramTotal, counters.current.blocked);
     });
   });
 }

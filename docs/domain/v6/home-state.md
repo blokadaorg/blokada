@@ -51,3 +51,13 @@ Rule: Freemium home can render as active, but that active state means Safari-ext
 Scope: Freemium home card, power ring semantics.
 Non-rules: Any active ring in freemium does not imply DNS/VPN/device-wide protection.
 Verification: Check freemium home status copy and active-state derivation.
+
+## Stats
+
+### Rule: Home and Privacy Pulse read one set of stats
+Applies to: v6
+Intent: The same period never shows two different numbers.
+Rule: `StatsController` owns fetching, refresh and the selected range for Home's 24h counter and Privacy Pulse. Pulse's 24h numbers are Home's stats, not a separate fetch. Each section is loading, ready, empty or error; a failed fetch shows an error with a retry, never "nothing to show".
+Scope: Home counter, Privacy Pulse charts, toplists and recent activity.
+Non-rules: Home refreshes every 30 s only while protection is on, the app is in the foreground and Home is not covered.
+Verification: Check `common/lib/src/features/stats/domain/controller.dart` and its tests.

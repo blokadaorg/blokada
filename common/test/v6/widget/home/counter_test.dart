@@ -12,12 +12,16 @@ import '../../../golden/fake_http.dart';
 import '../../../golden/fixtures.dart';
 import '../../../golden/golden_tools.dart';
 
-/// Serves the canned responses and counts stats requests.
+/// Serves the canned responses and counts stats requests; [failStats]
+/// makes them fail like a device that is offline.
 class _CountingHttp extends FakeHttpChannel {
   int statsRequests = 0;
+  bool failStats = false;
 
   void _count(String url) {
-    if (Uri.parse(url).path == '/v2/stats') statsRequests++;
+    if (Uri.parse(url).path != '/v2/stats') return;
+    statsRequests++;
+    if (failStats) throw Exception('offline');
   }
 
   @override
@@ -150,5 +154,22 @@ void main() {
 
     await _idle(tester, const Duration(seconds: 120));
     expect(http.statsRequests, 0);
+  });
+
+  testWidgets('a failed fetch shows a retry that loads the count', (tester) async {
+    final http = await _boot(tester, AppStatus.activatedCloud);
+    http.failStats = true;
+    await _pumpCounter(tester);
+    await _idle(tester, const Duration(seconds: 3));
+
+    expect(find.byType(MiniCardCounter), findsNothing);
+    expect(find.text('universal action try again'.i18n), findsOneWidget);
+
+    http.failStats = false;
+    await tester.tap(find.text('universal action try again'.i18n));
+    await _idle(tester, const Duration(seconds: 3));
+
+    expect(find.byType(MiniCardCounter), findsOneWidget);
+    expect(find.text('home counter caption blocked'.i18n), findsOneWidget);
   });
 }

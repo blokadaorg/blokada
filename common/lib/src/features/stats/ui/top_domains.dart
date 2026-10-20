@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:common/src/features/journal/domain/journal.dart';
 import 'package:common/src/shared/layout/detail_route.dart';
 import 'package:common/src/shared/layout/with_detail_pane.dart';
@@ -9,31 +7,31 @@ import 'package:common/src/shared/ui/common_clickable.dart';
 import 'package:common/src/shared/ui/common_divider.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
-import 'package:common/src/app_variants/family/module/stats/stats.dart';
-import 'package:common/src/platform/stats/stats.dart';
+import 'package:common/src/features/stats/domain/controller.dart';
+import 'package:common/src/features/stats/ui/stats_error.dart';
+import 'package:common/src/platform/stats/model.dart';
 import 'package:common/src/platform/stats/delta_store.dart';
 import 'package:common/src/features/notification/domain/notification.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 
-enum ToplistRange { daily, weekly }
+export 'package:common/src/features/stats/domain/controller.dart' show ToplistRange;
 
+/// Privacy Pulse's top blocked and allowed domains. Draws the toplists
+/// section of [StatsController]; it fetches nothing itself.
 class TopDomains extends StatefulWidget {
   final Key? headerKey;
   final WeeklyReportToplistHighlight? highlight;
   final ToplistRange range;
-  final List<ToplistDelta>? blockedDeltas;
-  final List<ToplistDelta>? allowedDeltas;
-  final Future<void> Function(ToplistRange) onRangeChanged;
+  final StatsSection<PulseToplists> section;
+  final VoidCallback onRetry;
   const TopDomains({
     super.key,
     this.headerKey,
     this.highlight,
     required this.range,
-    this.blockedDeltas,
-    this.allowedDeltas,
-    required this.onRangeChanged,
+    required this.section,
+    required this.onRetry,
   });
 
   @override
@@ -44,17 +42,6 @@ enum ToplistTab { blocked, allowed }
 
 class TopDomainsState extends State<TopDomains> {
   ToplistTab _selectedTab = ToplistTab.blocked;
-  late final _statsStore = Core.get<StatsStore>();
-
-  List<UiToplistEntry> get _blockedDomains {
-    final stats = _statsStore.stats;
-    return stats.toplist.where((entry) => entry.blocked).take(12).toList();
-  }
-
-  List<UiToplistEntry> get _allowedDomains {
-    final stats = _statsStore.stats;
-    return stats.toplist.where((entry) => !entry.blocked).take(12).toList();
-  }
 
   @override
   void initState() {
@@ -85,13 +72,15 @@ class TopDomainsState extends State<TopDomains> {
     final highlightBlocked = highlight?.blocked;
     final isWeeklyMode = widget.range == ToplistRange.weekly;
 
-    return Observer(
+    return Builder(
       builder: (context) {
+        final data = widget.section.data;
+        final isError = widget.section.isError;
+        final isLoading = !isError && data == null;
         final currentDomains =
-            _selectedTab == ToplistTab.blocked ? _blockedDomains : _allowedDomains;
+            (_selectedTab == ToplistTab.blocked ? data?.blocked : data?.allowed) ?? const [];
         final deltas =
-            _selectedTab == ToplistTab.blocked ? widget.blockedDeltas : widget.allowedDeltas;
-        final isLoading = _statsStore.toplistsLoading;
+            _selectedTab == ToplistTab.blocked ? data?.blockedDeltas : data?.allowedDeltas;
         final highlightVisible = highlight != null &&
             isWeeklyMode &&
             !isLoading &&
@@ -221,7 +210,9 @@ class TopDomainsState extends State<TopDomains> {
                   const CommonDivider(),
 
                   // Domain list, loading state, or empty state
-                  if (_statsStore.toplistsLoading)
+                  if (isError)
+                    StatsError(onRetry: widget.onRetry)
+                  else if (isLoading)
                     _buildLoadingState()
                   else if (currentDomains.isEmpty)
                     _buildEmptyState()

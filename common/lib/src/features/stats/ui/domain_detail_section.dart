@@ -13,8 +13,7 @@ import 'package:common/src/shared/ui/domain_name_text.dart';
 import 'package:common/src/shared/ui/minicard/chart.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
-import 'package:common/src/app_variants/family/module/stats/stats.dart'
-    as family_stats;
+import 'package:common/src/platform/stats/model.dart' as stats_model;
 import 'package:common/src/platform/device/device.dart';
 import 'package:common/src/platform/stats/api.dart' as stats_api;
 import 'package:common/src/platform/stats/stats.dart' as stats;
@@ -1557,7 +1556,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
                 )
               else if (timelineReady)
                 MiniCardChart(
-                  stats: family_stats.UiStats.empty(),
+                  stats: stats_model.UiStats.empty(),
                   color: timelineColor,
                   animate: false,
                   height: 42,
