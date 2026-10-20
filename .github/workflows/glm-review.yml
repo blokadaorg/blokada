@@ -1,0 +1,42 @@
+# GLM review: one of the PR reviewers an agent rotates through when another
+# hits its limit. PR-Agent runs GLM through Z.ai's pay-as-you-go API.
+# It reviews only when a team member comments `/review` (or `/improve`) on a
+# PR, so outside commenters cannot spend the API budget.
+name: GLM review
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions: {}
+
+jobs:
+  review:
+    if: >-
+      github.event.issue.pull_request &&
+      (startsWith(github.event.comment.body, '/review') ||
+       startsWith(github.event.comment.body, '/improve')) &&
+      contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.comment.author_association)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+    concurrency:
+      group: glm-review-${{ github.event.issue.number }}
+      cancel-in-progress: false
+    steps:
+      - uses: the-pr-agent/pr-agent@981344be2755e303df501e18e3f60b848a188a80 # v0.48.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENAI__KEY: ${{ secrets.ZAI_API_KEY }}
+          OPENAI__API_BASE: https://api.z.ai/api/paas/v4
+          config.model: openai/glm-5.3
+          config.fallback_models: '["openai/glm-5.3"]'
+          # GLM 5.3 takes 1M tokens; capping what PR-Agent sends keeps a large
+          # PR from turning into an expensive review.
+          config.custom_model_max_tokens: "200000"
+          # Post each finding as a line comment, so it gets a thread to resolve.
+          pr_reviewer.inline_key_issues: "true"
+          pr_reviewer.num_max_findings: "5"
