@@ -39,6 +39,7 @@
     <string name="universal_action_help">الدعم</string>
     <string name="universal_action_show_log">السجلّات</string>
     <string name="universal_action_share_log">مشاركة السجلّ</string>
+    <string name="universal_action_run_check">إجراء الفحص</string>
     <string name="universal_action_copy">نسخ</string>
     <string name="universal_action_save">حفظ</string>
     <string name="universal_action_contact_us">اتصل بنا</string>
@@ -787,4 +788,15 @@
     <string name="stats_range_sevend">٧ أيام</string>
     <string name="activity_filter_chip_most_common">الأكثر شيوعًا أولاً</string>
     <string name="filter_last_list_note">تظل قائمة حظر واحدة على الأقل مفعّلة دائمًا. استخدم «إيقاف مؤقت» في الصفحة الرئيسية لإيقاف الحظر.</string>
+    <string name="home_power_button_label">حماية بلوكادا</string>
+    <string name="home_power_button_state_on">تشغيل</string>
+    <string name="home_power_button_state_off">إيقاف</string>
+    <string name="support_share_log_title">هل تريد مشاركة سجل التطبيق؟</string>
+    <string name="support_share_log_body">يرسل سجل التطبيق الأخير، الذي قد يتضمن تفاصيل عن الجهاز والإعدادات.</string>
+    <string name="support_share_log_done">تمت مشاركة سجل التطبيق</string>
+    <string name="support_share_log_declined">لم تتم مشاركة سجل التطبيق</string>
+    <string name="support_network_check_title">هل تريد إجراء فحص للشبكة؟</string>
+    <string name="support_network_check_body">يتحقق مما إذا كانت طلبات DNS من هذا الهاتف تمر عبر Blokada.</string>
+    <string name="support_network_check_done">اكتمل فحص الشبكة</string>
+    <string name="support_network_check_declined">لم يُجرَ فحص الشبكة</string>
 </resources>

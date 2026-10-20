@@ -38,6 +38,7 @@
     "universal action help": "Aiuto",
     "universal action show log": "Log",
     "universal action share log": "Condividi Log",
+    "universal action run check": "Esegui verifica",
     "universal action copy": "Copia",
     "universal action save": "Salva",
     "universal action contact us": "Contattaci",
@@ -785,5 +786,16 @@
     "stats range 24h": "24 h",
     "stats range 7d": "7 g",
     "activity filter chip most common": "Prima i più comuni",
-    "filter last list note": "Almeno una lista di blocco deve restare attiva. Usa Pausa nella Home per interrompere il blocco."
+    "filter last list note": "Almeno una lista di blocco deve restare attiva. Usa Pausa nella Home per interrompere il blocco.",
+    "home power button label": "Protezione di Blokada",
+    "home power button state on": "Attiva",
+    "home power button state off": "Spento",
+    "support share log title": "Vuoi condividere il log dell'app?",
+    "support share log body": "Invia il log recente dell'app, che può includere informazioni sul dispositivo e sulla configurazione.",
+    "support share log done": "Registro dell'app condiviso",
+    "support share log declined": "Registro dell'app non condiviso",
+    "support network check title": "Eseguire una verifica della rete?",
+    "support network check body": "Verifica se le richieste DNS di questo telefono passano attraverso Blokada.",
+    "support network check done": "Verifica della rete completata",
+    "support network check declined": "Verifica della rete non eseguita"
 } }

@@ -38,6 +38,7 @@
     "universal action help": "Hulp",
     "universal action show log": "Logs",
     "universal action share log": "Deel log",
+    "universal action run check": "Controle uitvoeren",
     "universal action copy": "Kopiëren",
     "universal action save": "Opslaan",
     "universal action contact us": "Neem contact op",
@@ -785,5 +786,16 @@
     "stats range 24h": "24 u",
     "stats range 7d": "7 d",
     "activity filter chip most common": "Meest voorkomende eerst",
-    "filter last list note": "Er blijft altijd één blokkeerlijst ingeschakeld. Gebruik Pauzeren op het startscherm om het blokkeren te stoppen."
+    "filter last list note": "Er blijft altijd één blokkeerlijst ingeschakeld. Gebruik Pauzeren op het startscherm om het blokkeren te stoppen.",
+    "home power button label": "Blokada-bescherming",
+    "home power button state on": "Aan",
+    "home power button state off": "Uit",
+    "support share log title": "Je app-logboek delen?",
+    "support share log body": "Verstuurt het recente app-logboek, dat gegevens over je apparaat en instellingen kan bevatten.",
+    "support share log done": "App-logboek gedeeld",
+    "support share log declined": "App-logboek niet gedeeld",
+    "support network check title": "Netwerkcontrole uitvoeren?",
+    "support network check body": "Controleert of het DNS-verkeer van deze telefoon via Blokada loopt.",
+    "support network check done": "Netwerkcontrole voltooid",
+    "support network check declined": "Netwerkcontrole niet uitgevoerd"
 }

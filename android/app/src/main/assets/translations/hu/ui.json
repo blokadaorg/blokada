@@ -38,6 +38,7 @@
     "universal action help": "Segítség",
     "universal action show log": "Naplók",
     "universal action share log": "Napló megosztása",
+    "universal action run check": "Ellenőrzés indítása",
     "universal action copy": "Másolás",
     "universal action save": "Mentés",
     "universal action contact us": "Kapcsolat",
@@ -785,5 +786,16 @@
     "stats range 24h": "24 óra",
     "stats range 7d": "7 nap",
     "activity filter chip most common": "Leggyakoribbak elöl",
-    "filter last list note": "Mindig legalább egy blokkolási lista bekapcsolva marad. A blokkolás leállításához válaszd a kezdőlapon a Szüneteltetés lehetőséget."
+    "filter last list note": "Mindig legalább egy blokkolási lista bekapcsolva marad. A blokkolás leállításához válaszd a kezdőlapon a Szüneteltetés lehetőséget.",
+    "home power button label": "Blokada-védelem",
+    "home power button state on": "Be",
+    "home power button state off": "Ki",
+    "support share log title": "Megosztod az alkalmazásnaplót?",
+    "support share log body": "Elküldi a legutóbbi alkalmazásnaplót, amely az eszközre és a beállításokra vonatkozó adatokat is tartalmazhatja.",
+    "support share log done": "Az alkalmazásnapló megosztva",
+    "support share log declined": "Az alkalmazásnapló nem lett megosztva",
+    "support network check title": "Futtassunk hálózati ellenőrzést?",
+    "support network check body": "Ellenőrzi, hogy a telefon DNS-forgalma a Blokadán keresztül halad-e.",
+    "support network check done": "A hálózati ellenőrzés befejeződött",
+    "support network check declined": "A hálózati ellenőrzés nem indult el"
 } }

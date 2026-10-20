@@ -39,6 +39,7 @@
     <string name="universal_action_help">ヘルプ</string>
     <string name="universal_action_show_log">ログ</string>
     <string name="universal_action_share_log">ログを共有</string>
+    <string name="universal_action_run_check">チェックを実行</string>
     <string name="universal_action_copy">コピー</string>
     <string name="universal_action_save">保存</string>
     <string name="universal_action_contact_us">お問い合わせ</string>
@@ -787,4 +788,15 @@
     <string name="stats_range_sevend">7日間</string>
     <string name="activity_filter_chip_most_common">件数が多い順</string>
     <string name="filter_last_list_note">ブロックリストは常にひとつ以上有効にしておく必要があります。ブロックを停止するには、ホーム画面の「一時停止」を使用してください。</string>
+    <string name="home_power_button_label">Blokada の保護</string>
+    <string name="home_power_button_state_on">有効</string>
+    <string name="home_power_button_state_off">無効</string>
+    <string name="support_share_log_title">アプリのログを共有しますか？</string>
+    <string name="support_share_log_body">最近のアプリのログを送信します。ログには、デバイスや設定に関する情報が含まれる場合があります。</string>
+    <string name="support_share_log_done">アプリのログを共有しました</string>
+    <string name="support_share_log_declined">アプリのログは共有されませんでした</string>
+    <string name="support_network_check_title">ネットワークを確認しますか？</string>
+    <string name="support_network_check_body">このスマートフォンのDNS通信がBlokadaを経由しているか確認します。</string>
+    <string name="support_network_check_done">ネットワークの確認が完了しました</string>
+    <string name="support_network_check_declined">ネットワークの確認は実行されませんでした</string>
 </resources>

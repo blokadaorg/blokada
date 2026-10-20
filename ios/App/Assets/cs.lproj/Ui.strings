@@ -51,6 +51,7 @@
 "universal action help" = "Nápověda";
 "universal action show log" = "Protokoly";
 "universal action share log" = "Sdílet protokol";
+"universal action run check" = "Spustit kontrolu";
 "universal action copy" = "Kopírovat";
 "universal action save" = "Uložit";
 "universal action contact us" = "Kontaktujte nás";
@@ -1082,3 +1083,20 @@
 "activity filter chip most common" = "Nejčastější jako první";
 // Shown when the user tries to switch off the only enabled blocklist
 "filter last list note" = "Alespoň jeden blocklist musí zůstat zapnutý. Blokování vypnete tlačítkem Pozastavit na domovské obrazovce.";
+
+// Screen reader name of the big power button on Home that turns ad blocking on and off
+"home power button label" = "Ochrana Blokady";
+// Screen reader state of the power button: protection is on / off
+"home power button state on" = "Zap.";
+"home power button state off" = "Vyp.";
+// Support chat card that asks before sending the app log, and the note left after it was sent
+"support share log title" = "Chcete sdílet protokol aplikace?";
+"support share log body" = "Odešle nedávný protokol aplikace, který může obsahovat informace o zařízení a nastavení.";
+"support share log done" = "Protokol aplikace byl sdílen";
+"support share log declined" = "Protokol aplikace nebyl sdílen";
+
+// Support chat card that asks before running a DNS check, and the note left after it
+"support network check title" = "Spustit kontrolu sítě?";
+"support network check body" = "Ověří, zda požadavky DNS z tohoto telefonu procházejí přes Blokadu.";
+"support network check done" = "Kontrola sítě dokončena";
+"support network check declined" = "Kontrola sítě nebyla spuštěna";

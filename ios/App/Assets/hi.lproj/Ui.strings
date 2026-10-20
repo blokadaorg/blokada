@@ -51,6 +51,7 @@
 "universal action help" = "मदद";
 "universal action show log" = "लॉग";
 "universal action share log" = "लॉग शेयर करें";
+"universal action run check" = "Run check";
 "universal action copy" = "कॉपी करें";
 "universal action save" = "सहेज करे";
 "universal action contact us" = "हमसे संपर्क करें";
@@ -1082,3 +1083,20 @@
 "activity filter chip most common" = "Most common first";
 // Shown when the user tries to switch off the only enabled blocklist
 "filter last list note" = "One blocklist always stays on. Use Pause on Home to stop blocking.";
+
+// Screen reader name of the big power button on Home that turns ad blocking on and off
+"home power button label" = "Blokada protection";
+// Screen reader state of the power button: protection is on / off
+"home power button state on" = "On";
+"home power button state off" = "Off";
+// Support chat card that asks before sending the app log, and the note left after it was sent
+"support share log title" = "Share your app log?";
+"support share log body" = "Sends the recent app log, which can include device and setup details.";
+"support share log done" = "App log shared";
+"support share log declined" = "App log not shared";
+
+// Support chat card that asks before running a DNS check, and the note left after it
+"support network check title" = "Run a network check?";
+"support network check body" = "Checks whether this phone's DNS goes through Blokada.";
+"support network check done" = "Network check done";
+"support network check declined" = "Network check not run";

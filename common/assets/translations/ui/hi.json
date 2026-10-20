@@ -38,6 +38,7 @@
     "universal action help": "मदद",
     "universal action show log": "लॉग",
     "universal action share log": "लॉग शेयर करें",
+    "universal action run check": "Run check",
     "universal action copy": "कॉपी करें",
     "universal action save": "सहेज करे",
     "universal action contact us": "हमसे संपर्क करें",
@@ -785,5 +786,16 @@
     "stats range 24h": "24 h",
     "stats range 7d": "7 d",
     "activity filter chip most common": "Most common first",
-    "filter last list note": "One blocklist always stays on. Use Pause on Home to stop blocking."
+    "filter last list note": "One blocklist always stays on. Use Pause on Home to stop blocking.",
+    "home power button label": "Blokada protection",
+    "home power button state on": "On",
+    "home power button state off": "Off",
+    "support share log title": "Share your app log?",
+    "support share log body": "Sends the recent app log, which can include device and setup details.",
+    "support share log done": "App log shared",
+    "support share log declined": "App log not shared",
+    "support network check title": "Run a network check?",
+    "support network check body": "Checks whether this phone's DNS goes through Blokada.",
+    "support network check done": "Network check done",
+    "support network check declined": "Network check not run"
 }

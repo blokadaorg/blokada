@@ -39,6 +39,7 @@
     <string name="universal_action_help">Hilfe</string>
     <string name="universal_action_show_log">Protokolle</string>
     <string name="universal_action_share_log">Protokoll teilen</string>
+    <string name="universal_action_run_check">Überprüfung starten</string>
     <string name="universal_action_copy">Kopieren</string>
     <string name="universal_action_save">Speichern</string>
     <string name="universal_action_contact_us">Kontaktiere uns</string>
@@ -787,4 +788,15 @@
     <string name="stats_range_sevend">7 T</string>
     <string name="activity_filter_chip_most_common">Am häufigsten zuerst</string>
     <string name="filter_last_list_note">Eine Sperrliste bleibt immer aktiviert. Um das Blockieren zu beenden, auf der Startseite „Pausieren“ auswählen.</string>
+    <string name="home_power_button_label">Blokada-Schutz</string>
+    <string name="home_power_button_state_on">An</string>
+    <string name="home_power_button_state_off">Aus</string>
+    <string name="support_share_log_title">Möchtest du dein App-Protokoll teilen?</string>
+    <string name="support_share_log_body">Sendet das aktuelle App-Protokoll, das Angaben zum Gerät und zur Einrichtung enthalten kann.</string>
+    <string name="support_share_log_done">App-Protokoll geteilt</string>
+    <string name="support_share_log_declined">App-Protokoll nicht geteilt</string>
+    <string name="support_network_check_title">Netzwerk überprüfen?</string>
+    <string name="support_network_check_body">Prüft, ob die DNS-Anfragen dieses Smartphones über Blokada laufen.</string>
+    <string name="support_network_check_done">Netzwerküberprüfung abgeschlossen</string>
+    <string name="support_network_check_declined">Netzwerküberprüfung nicht durchgeführt</string>
 </resources>

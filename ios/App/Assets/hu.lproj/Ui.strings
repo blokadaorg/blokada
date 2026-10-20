@@ -51,6 +51,7 @@
 "universal action help" = "Segítség";
 "universal action show log" = "Naplók";
 "universal action share log" = "Napló megosztása";
+"universal action run check" = "Ellenőrzés indítása";
 "universal action copy" = "Másolás";
 "universal action save" = "Mentés";
 "universal action contact us" = "Kapcsolat";
@@ -1083,3 +1084,20 @@
 "activity filter chip most common" = "Leggyakoribbak elöl";
 // Shown when the user tries to switch off the only enabled blocklist
 "filter last list note" = "Mindig legalább egy blokkolási lista bekapcsolva marad. A blokkolás leállításához válaszd a kezdőlapon a Szüneteltetés lehetőséget.";
+
+// Screen reader name of the big power button on Home that turns ad blocking on and off
+"home power button label" = "Blokada-védelem";
+// Screen reader state of the power button: protection is on / off
+"home power button state on" = "Be";
+"home power button state off" = "Ki";
+// Support chat card that asks before sending the app log, and the note left after it was sent
+"support share log title" = "Megosztod az alkalmazásnaplót?";
+"support share log body" = "Elküldi a legutóbbi alkalmazásnaplót, amely az eszközre és a beállításokra vonatkozó adatokat is tartalmazhatja.";
+"support share log done" = "Az alkalmazásnapló megosztva";
+"support share log declined" = "Az alkalmazásnapló nem lett megosztva";
+
+// Support chat card that asks before running a DNS check, and the note left after it
+"support network check title" = "Futtassunk hálózati ellenőrzést?";
+"support network check body" = "Ellenőrzi, hogy a telefon DNS-forgalma a Blokadán keresztül halad-e.";
+"support network check done" = "A hálózati ellenőrzés befejeződött";
+"support network check declined" = "A hálózati ellenőrzés nem indult el";

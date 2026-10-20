@@ -39,6 +39,7 @@
     <string name="universal_action_help">Yardım</string>
     <string name="universal_action_show_log">Günlükler</string>
     <string name="universal_action_share_log">Hata raporu paylaş</string>
+    <string name="universal_action_run_check">Kontrolü çalıştır</string>
     <string name="universal_action_copy">Kopyala</string>
     <string name="universal_action_save">Kaydet</string>
     <string name="universal_action_contact_us">Bize ulaşın</string>
@@ -787,4 +788,15 @@
     <string name="stats_range_sevend">7 gün</string>
     <string name="activity_filter_chip_most_common">En sık görülenler önce</string>
     <string name="filter_last_list_note">Bir engel listesi her zaman açık kalır. Engellemeyi durdurmak için Ana Sayfa\'daki Duraklat seçeneğini kullanın.</string>
+    <string name="home_power_button_label">Blokada koruması</string>
+    <string name="home_power_button_state_on">Açık</string>
+    <string name="home_power_button_state_off">Kapalı</string>
+    <string name="support_share_log_title">Uygulama günlüğünüz paylaşılsın mı?</string>
+    <string name="support_share_log_body">Cihaz ve yapılandırma bilgilerini içerebilen son uygulama günlüğünü gönderir.</string>
+    <string name="support_share_log_done">Uygulama günlüğü paylaşıldı</string>
+    <string name="support_share_log_declined">Uygulama günlüğü paylaşılmadı</string>
+    <string name="support_network_check_title">Ağ kontrolü yapılsın mı?</string>
+    <string name="support_network_check_body">Bu telefonun DNS trafiğinin Blokada üzerinden geçip geçmediğini kontrol eder.</string>
+    <string name="support_network_check_done">Ağ kontrolü tamamlandı</string>
+    <string name="support_network_check_declined">Ağ kontrolü yapılmadı</string>
 </resources>

@@ -39,6 +39,7 @@
     <string name="universal_action_help">Ajutor</string>
     <string name="universal_action_show_log">Jurnale</string>
     <string name="universal_action_share_log">Împărtășește jurnal</string>
+    <string name="universal_action_run_check">Rulează verificarea</string>
     <string name="universal_action_copy">Copiază</string>
     <string name="universal_action_save">Salvează</string>
     <string name="universal_action_contact_us">Contactați-ne</string>
@@ -787,4 +788,15 @@
     <string name="stats_range_sevend">7 z</string>
     <string name="activity_filter_chip_most_common">Mai întâi cele mai frecvente</string>
     <string name="filter_last_list_note">Cel puțin o listă de blocare trebuie să rămână activă. Folosește opțiunea Pauză de pe ecranul Acasă pentru a opri blocarea.</string>
+    <string name="home_power_button_label">Protecția Blokada</string>
+    <string name="home_power_button_state_on">Activată</string>
+    <string name="home_power_button_state_off">Dezactivată</string>
+    <string name="support_share_log_title">Trimiți jurnalul aplicației?</string>
+    <string name="support_share_log_body">Trimite jurnalul recent al aplicației, care poate include detalii despre dispozitiv și configurare.</string>
+    <string name="support_share_log_done">Jurnalul aplicației a fost partajat</string>
+    <string name="support_share_log_declined">Jurnalul aplicației nu a fost partajat</string>
+    <string name="support_network_check_title">Efectuăm o verificare a rețelei?</string>
+    <string name="support_network_check_body">Verifică dacă traficul DNS al acestui telefon trece prin Blokada.</string>
+    <string name="support_network_check_done">Verificarea rețelei s-a încheiat</string>
+    <string name="support_network_check_declined">Verificarea rețelei nu a fost efectuată</string>
 </resources>

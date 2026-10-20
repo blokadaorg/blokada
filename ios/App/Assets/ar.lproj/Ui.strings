@@ -51,6 +51,7 @@
 "universal action help" = "الدعم";
 "universal action show log" = "السجلّات";
 "universal action share log" = "مشاركة السجلّ";
+"universal action run check" = "إجراء الفحص";
 "universal action copy" = "نسخ";
 "universal action save" = "حفظ";
 "universal action contact us" = "اتصل بنا";
@@ -1082,3 +1083,20 @@
 "activity filter chip most common" = "الأكثر شيوعًا أولاً";
 // Shown when the user tries to switch off the only enabled blocklist
 "filter last list note" = "تظل قائمة حظر واحدة على الأقل مفعّلة دائمًا. استخدم «إيقاف مؤقت» في الصفحة الرئيسية لإيقاف الحظر.";
+
+// Screen reader name of the big power button on Home that turns ad blocking on and off
+"home power button label" = "حماية بلوكادا";
+// Screen reader state of the power button: protection is on / off
+"home power button state on" = "تشغيل";
+"home power button state off" = "إيقاف";
+// Support chat card that asks before sending the app log, and the note left after it was sent
+"support share log title" = "هل تريد مشاركة سجل التطبيق؟";
+"support share log body" = "يرسل سجل التطبيق الأخير، الذي قد يتضمن تفاصيل عن الجهاز والإعدادات.";
+"support share log done" = "تمت مشاركة سجل التطبيق";
+"support share log declined" = "لم تتم مشاركة سجل التطبيق";
+
+// Support chat card that asks before running a DNS check, and the note left after it
+"support network check title" = "هل تريد إجراء فحص للشبكة؟";
+"support network check body" = "يتحقق مما إذا كانت طلبات DNS من هذا الهاتف تمر عبر Blokada.";
+"support network check done" = "اكتمل فحص الشبكة";
+"support network check declined" = "لم يُجرَ فحص الشبكة";

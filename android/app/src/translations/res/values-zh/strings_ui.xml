@@ -39,6 +39,7 @@
     <string name="universal_action_help">協助</string>
     <string name="universal_action_show_log">日誌記錄</string>
     <string name="universal_action_share_log">分享日誌紀錄</string>
+    <string name="universal_action_run_check">執行檢查</string>
     <string name="universal_action_copy">複製</string>
     <string name="universal_action_save">儲存</string>
     <string name="universal_action_contact_us">聯絡我們</string>
@@ -787,4 +788,15 @@
     <string name="stats_range_sevend">7 天</string>
     <string name="activity_filter_chip_most_common">出現次數由多到少</string>
     <string name="filter_last_list_note">至少會保留一份啟用中的阻擋清單。若要停止阻擋，請在首頁點選「暫停」。</string>
+    <string name="home_power_button_label">Blokada 防護</string>
+    <string name="home_power_button_state_on">開啟</string>
+    <string name="home_power_button_state_off">關閉</string>
+    <string name="support_share_log_title">要分享應用程式日誌紀錄嗎？</string>
+    <string name="support_share_log_body">傳送近期的應用程式日誌紀錄，其中可能包含裝置與設定的詳細資訊。</string>
+    <string name="support_share_log_done">已分享應用程式日誌紀錄</string>
+    <string name="support_share_log_declined">未分享應用程式日誌紀錄</string>
+    <string name="support_network_check_title">要執行網路檢查嗎？</string>
+    <string name="support_network_check_body">檢查這支手機的 DNS 是否透過 Blokada 處理。</string>
+    <string name="support_network_check_done">網路檢查已完成</string>
+    <string name="support_network_check_declined">未執行網路檢查</string>
 </resources>

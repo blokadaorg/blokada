@@ -38,6 +38,7 @@
     "universal action help": "Yardım",
     "universal action show log": "Günlükler",
     "universal action share log": "Hata raporu paylaş",
+    "universal action run check": "Kontrolü çalıştır",
     "universal action copy": "Kopyala",
     "universal action save": "Kaydet",
     "universal action contact us": "Bize ulaşın",
@@ -785,5 +786,16 @@
     "stats range 24h": "24 sa",
     "stats range 7d": "7 gün",
     "activity filter chip most common": "En sık görülenler önce",
-    "filter last list note": "Bir engel listesi her zaman açık kalır. Engellemeyi durdurmak için Ana Sayfa'daki Duraklat seçeneğini kullanın."
+    "filter last list note": "Bir engel listesi her zaman açık kalır. Engellemeyi durdurmak için Ana Sayfa'daki Duraklat seçeneğini kullanın.",
+    "home power button label": "Blokada koruması",
+    "home power button state on": "Açık",
+    "home power button state off": "Kapalı",
+    "support share log title": "Uygulama günlüğünüz paylaşılsın mı?",
+    "support share log body": "Cihaz ve yapılandırma bilgilerini içerebilen son uygulama günlüğünü gönderir.",
+    "support share log done": "Uygulama günlüğü paylaşıldı",
+    "support share log declined": "Uygulama günlüğü paylaşılmadı",
+    "support network check title": "Ağ kontrolü yapılsın mı?",
+    "support network check body": "Bu telefonun DNS trafiğinin Blokada üzerinden geçip geçmediğini kontrol eder.",
+    "support network check done": "Ağ kontrolü tamamlandı",
+    "support network check declined": "Ağ kontrolü yapılmadı"
 } }

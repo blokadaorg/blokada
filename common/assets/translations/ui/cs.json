@@ -38,6 +38,7 @@
     "universal action help": "Nápověda",
     "universal action show log": "Protokoly",
     "universal action share log": "Sdílet protokol",
+    "universal action run check": "Spustit kontrolu",
     "universal action copy": "Kopírovat",
     "universal action save": "Uložit",
     "universal action contact us": "Kontaktujte nás",
@@ -785,5 +786,16 @@
     "stats range 24h": "24 h",
     "stats range 7d": "7 d",
     "activity filter chip most common": "Nejčastější jako první",
-    "filter last list note": "Alespoň jeden blocklist musí zůstat zapnutý. Blokování vypnete tlačítkem Pozastavit na domovské obrazovce."
+    "filter last list note": "Alespoň jeden blocklist musí zůstat zapnutý. Blokování vypnete tlačítkem Pozastavit na domovské obrazovce.",
+    "home power button label": "Ochrana Blokady",
+    "home power button state on": "Zap.",
+    "home power button state off": "Vyp.",
+    "support share log title": "Chcete sdílet protokol aplikace?",
+    "support share log body": "Odešle nedávný protokol aplikace, který může obsahovat informace o zařízení a nastavení.",
+    "support share log done": "Protokol aplikace byl sdílen",
+    "support share log declined": "Protokol aplikace nebyl sdílen",
+    "support network check title": "Spustit kontrolu sítě?",
+    "support network check body": "Ověří, zda požadavky DNS z tohoto telefonu procházejí přes Blokadu.",
+    "support network check done": "Kontrola sítě dokončena",
+    "support network check declined": "Kontrola sítě nebyla spuštěna"
 }

@@ -39,6 +39,7 @@
     <string name="universal_action_help">मदद</string>
     <string name="universal_action_show_log">लॉग</string>
     <string name="universal_action_share_log">लॉग शेयर करें</string>
+    <string name="universal_action_run_check">Run check</string>
     <string name="universal_action_copy">कॉपी करें</string>
     <string name="universal_action_save">सहेज करे</string>
     <string name="universal_action_contact_us">हमसे संपर्क करें</string>
@@ -787,4 +788,15 @@
     <string name="stats_range_sevend">7 d</string>
     <string name="activity_filter_chip_most_common">Most common first</string>
     <string name="filter_last_list_note">One blocklist always stays on. Use Pause on Home to stop blocking.</string>
+    <string name="home_power_button_label">Blokada protection</string>
+    <string name="home_power_button_state_on">On</string>
+    <string name="home_power_button_state_off">Off</string>
+    <string name="support_share_log_title">Share your app log?</string>
+    <string name="support_share_log_body">Sends the recent app log, which can include device and setup details.</string>
+    <string name="support_share_log_done">App log shared</string>
+    <string name="support_share_log_declined">App log not shared</string>
+    <string name="support_network_check_title">Run a network check?</string>
+    <string name="support_network_check_body">Checks whether this phone\'s DNS goes through Blokada.</string>
+    <string name="support_network_check_done">Network check done</string>
+    <string name="support_network_check_declined">Network check not run</string>
 </resources>

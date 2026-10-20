@@ -39,6 +39,7 @@
     <string name="universal_action_help">Nápověda</string>
     <string name="universal_action_show_log">Protokoly</string>
     <string name="universal_action_share_log">Sdílet protokol</string>
+    <string name="universal_action_run_check">Spustit kontrolu</string>
     <string name="universal_action_copy">Kopírovat</string>
     <string name="universal_action_save">Uložit</string>
     <string name="universal_action_contact_us">Kontaktujte nás</string>
@@ -787,4 +788,15 @@
     <string name="stats_range_sevend">7 d</string>
     <string name="activity_filter_chip_most_common">Nejčastější jako první</string>
     <string name="filter_last_list_note">Alespoň jeden blocklist musí zůstat zapnutý. Blokování vypnete tlačítkem Pozastavit na domovské obrazovce.</string>
+    <string name="home_power_button_label">Ochrana Blokady</string>
+    <string name="home_power_button_state_on">Zap.</string>
+    <string name="home_power_button_state_off">Vyp.</string>
+    <string name="support_share_log_title">Chcete sdílet protokol aplikace?</string>
+    <string name="support_share_log_body">Odešle nedávný protokol aplikace, který může obsahovat informace o zařízení a nastavení.</string>
+    <string name="support_share_log_done">Protokol aplikace byl sdílen</string>
+    <string name="support_share_log_declined">Protokol aplikace nebyl sdílen</string>
+    <string name="support_network_check_title">Spustit kontrolu sítě?</string>
+    <string name="support_network_check_body">Ověří, zda požadavky DNS z tohoto telefonu procházejí přes Blokadu.</string>
+    <string name="support_network_check_done">Kontrola sítě dokončena</string>
+    <string name="support_network_check_declined">Kontrola sítě nebyla spuštěna</string>
 </resources>
