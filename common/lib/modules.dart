@@ -13,6 +13,7 @@ import 'package:common/src/features/modal/domain/modal.dart';
 import 'package:common/src/features/notification/domain/notification.dart';
 import 'package:common/src/features/onboard/domain/onboard.dart';
 import 'package:common/src/features/payment/domain/payment.dart';
+import 'package:common/src/features/plan/domain/plan.dart';
 import 'package:common/src/features/perm/domain/perm.dart';
 import 'package:common/src/features/rate/domain/rate.dart';
 import 'package:common/src/features/safari/domain/safari.dart';
@@ -162,6 +163,7 @@ class Modules with Logging {
 
     await _registerModule(RateModule());
     await _registerModule(LinkModule());
+    await _registerModule(PlanModule());
 
     if (Core.act.isIos) {
       await _registerModule(SafariModule());

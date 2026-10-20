@@ -33,4 +33,11 @@ class MockPaymentChannel with Logging, PaymentChannel {
 
   @override
   Future<void> setCustomAttributes(Marker m, Map<String, dynamic> attributes) async {}
+
+  // No store on the simulator: Settings falls back to the account's end date.
+  @override
+  Future<List<StoreSubscription>> fetchActiveSubscriptions(Marker m) async => [];
+
+  @override
+  Future<String?> restorePurchases(Marker m) async => null;
 }

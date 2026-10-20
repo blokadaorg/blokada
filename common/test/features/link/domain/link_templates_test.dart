@@ -32,6 +32,19 @@ void main() {
           "https://play.google.com/store/account/subscriptions?package=org.blokada.family");
     });
 
+    test("store-specific manage links ignore the platform", () {
+      for (final platform in [PlatformType.iOS, PlatformType.android]) {
+        expect(_select(LinkId.manageSubscriptionsAppStore, platform, Flavor.v6),
+            "https://apps.apple.com/account/subscriptions");
+        expect(_select(LinkId.manageSubscriptionsPlayStore, platform, Flavor.v6),
+            "https://play.google.com/store/account/subscriptions?package=org.blokada.sex");
+        expect(_select(LinkId.manageSubscriptionsPlayStore, platform, Flavor.family),
+            "https://play.google.com/store/account/subscriptions?package=org.blokada.family");
+        expect(_select(LinkId.manageSubscriptionsWeb, platform, Flavor.v6),
+            "https://app.blokada.org/account?account-id=ACCOUNTID");
+      }
+    });
+
     test("falls back to the unscoped catch-all on an unnamed platform", () {
       expect(
           _select(LinkId.manageSubscriptions, PlatformType.unknown, Flavor.v6),

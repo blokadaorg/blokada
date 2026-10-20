@@ -59,6 +59,13 @@ class AutomationIds {
   // Settings account header subscription-status label.
   static const settingsAccountStatus = 'automation.settings_account_status';
 
+  // Settings "Your plan": the status line and its rows. The rows only differ
+  // by localized label, and which ones show depends on the plan.
+  static const settingsPlanStatus = 'automation.settings_plan_status';
+  static const settingsPlanUpgrade = 'automation.settings_plan_upgrade';
+  static const settingsPlanManage = 'automation.settings_plan_manage';
+  static const settingsPlanRestore = 'automation.settings_plan_restore';
+
   // "Protect another device": the settings row and the two actions of the sheet
   // it opens. The sheet's buttons only differ by localized label, so automation
   // needs ids to tell "open here" from "share elsewhere".

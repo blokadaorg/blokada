@@ -8,6 +8,12 @@ enum LinkId {
   privacy,
   privacyCloud,
   manageSubscriptions,
+  // Settings "Your plan" routes by where the plan was bought, which can differ
+  // from the platform the app runs on (bought on iPhone, now on Android).
+  manageSubscriptionsAppStore,
+  manageSubscriptionsPlayStore,
+  // Web purchases (Stripe, PayPal) are managed in the dashboard (#204).
+  manageSubscriptionsWeb,
   credits,
 
   // Less important (mostly legacy) links

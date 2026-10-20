@@ -483,7 +483,7 @@ void main() {
         final captured = verify(ops.doShow(
           NotificationId.activityLoggingReminder.name,
           captureAny,
-          "Enable activity logging to receive your weekly Privacy Pulse reports.",
+          "notification activity logging reminder body".i18n,
         )).captured;
         final scheduledAt = DateTime.parse(captured.single as String).toLocal();
         final delay = scheduledAt.difference(DateTime.now());

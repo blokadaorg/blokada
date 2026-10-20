@@ -8,6 +8,32 @@ mixin PaymentChannel {
   Future<void> showPaymentScreen(Marker m, Placement placement, {bool forceReload = false});
   Future<void> closePaymentScreen(bool isError);
   Future<void> setCustomAttributes(Marker m, Map<String, dynamic> attributes);
+
+  /// The active Adapty access levels, for Settings "Your plan". Only the store
+  /// knows whether a subscription renews; the backend account has just the end
+  /// date. Read-only: never restores or checks out.
+  Future<List<StoreSubscription>> fetchActiveSubscriptions(Marker m);
+
+  /// Restores store purchases outside the paywall (Settings). Returns the
+  /// Adapty profile id when the restore granted an active access level, null
+  /// otherwise; a restore without one must not run checkout (see #376).
+  Future<String?> restorePurchases(Marker m);
+}
+
+/// One active Adapty access level. [store] is Adapty's store id (app_store,
+/// play_store, stripe, adapty, ...); [expiresAt] is null for lifetime access.
+class StoreSubscription {
+  final String accessLevelId;
+  final String store;
+  final bool willRenew;
+  final DateTime? expiresAt;
+
+  const StoreSubscription({
+    required this.accessLevelId,
+    required this.store,
+    required this.willRenew,
+    required this.expiresAt,
+  });
 }
 
 const cmdPaymentHandleSuccess = "paymentHandleSuccess";

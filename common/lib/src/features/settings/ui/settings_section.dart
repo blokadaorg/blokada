@@ -27,6 +27,7 @@ import 'package:common/src/shared/ui/vendor/input_code_field/input_code_field.da
 
 import 'package:common/src/features/lock/domain/lock.dart';
 import 'package:common/src/features/notification/domain/notification.dart';
+import 'package:common/src/features/plan/ui/plan_rows.dart';
 
 /// Vertical gap between Settings sections, the same for all of them.
 const double _sectionGap = 40;
@@ -295,15 +296,15 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text(
-                          "Weekly privacy report",
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                          "settings weekly report title".i18n,
+                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                         ),
-                        SizedBox(height: 4),
+                        const SizedBox(height: 4),
                         Text(
-                          "Send a weekly summary of tracker activity",
-                          style: TextStyle(fontSize: 13),
+                          "settings weekly report brief".i18n,
+                          style: const TextStyle(fontSize: 13),
                         ),
                       ],
                     ),
@@ -340,10 +341,12 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
             ),
           ],
           const SizedBox(height: _sectionGap),
-          SectionLabel(text: "account section header my subscription".i18n.capitalize()),
+          SectionLabel(text: "settings section header your plan".i18n),
           CommonCard(
             child: Column(
               children: [
+                const PlanRows(),
+                const CommonDivider(),
                 (!Core.act.isFamily || !Core.act.isRelease)
                     ? Column(
                         children: [

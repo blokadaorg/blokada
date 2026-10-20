@@ -18,6 +18,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import channel.command.CommandName
+import channel.payment.OpsSubscription
 import channel.payment.PaymentOps
 import com.adapty.Adapty
 import com.adapty.errors.AdaptyError
@@ -159,6 +160,49 @@ object PaymentBinding : PaymentOps, AdaptyFlowDefaultEventListener() {
             }
         } catch (e: Exception) {
             callback(Result.failure(e))
+        }
+    }
+
+    // Settings "Your plan" shows whether the subscription renews or ends, which
+    // only the store knows; the backend account carries just the end date.
+    // Read-only: never restores or checks out.
+    override fun doFetchActiveSubscriptions(callback: (Result<List<OpsSubscription>>) -> Unit) {
+        Adapty.getProfile { result ->
+            when (result) {
+                is AdaptyResult.Success -> {
+                    val subscriptions =
+                        result.value.accessLevels.values
+                            .filter { it.isActive }
+                            .map {
+                                OpsSubscription(
+                                    accessLevelId = it.id,
+                                    store = it.store,
+                                    willRenew = it.willRenew,
+                                    expiresAt = it.expiresAt,
+                                )
+                            }
+                    callback(Result.success(subscriptions))
+                }
+
+                is AdaptyResult.Error -> callback(Result.failure(result.error))
+            }
+        }
+    }
+
+    // Settings "Restore purchases", outside the paywall. Returns the profile id
+    // only when the restore granted an active access level, so the caller runs
+    // the same checkout as a paywall restore; null means nothing to restore
+    // (the #376 guard: a restore without active access must not check out).
+    override fun doRestorePurchases(callback: (Result<String?>) -> Unit) {
+        Adapty.restorePurchases { result ->
+            when (result) {
+                is AdaptyResult.Success -> {
+                    val profile = result.value
+                    callback(Result.success(if (hasActiveAccess(profile)) profile.profileId else null))
+                }
+
+                is AdaptyResult.Error -> callback(Result.failure(result.error))
+            }
         }
     }
 
