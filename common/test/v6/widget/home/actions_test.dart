@@ -1,0 +1,109 @@
+import 'package:common/src/app_variants/v6/widget/home/actions.dart';
+import 'package:common/src/core/core.dart';
+import 'package:common/src/platform/app/channel.pg.dart';
+import 'package:common/src/platform/device/device.dart';
+import 'package:common/src/shared/automation/ids.dart';
+import 'package:common/src/shared/ui/action_sheet.dart';
+import 'package:common/src/shared/ui/app.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mobx/mobx.dart';
+
+import '../../../golden/fixtures.dart';
+import '../../../golden/golden_tools.dart';
+
+final _pausedElsewhereText =
+    "${"home status paused elsewhere".i18n} · ${"universal action resume".i18n}";
+
+Future<void> _pump(WidgetTester tester, {required bool? issuedHere}) async {
+  await bootModules(tester);
+  await seedCloudAccount(tester);
+  seedAppStatus(AppStatus.deactivated);
+  runInAction(() => Core.get<DeviceStore>().cloudEnabled = false);
+  await tester.runAsync(() => Core.get<PauseIssuedHereValue>().change(Markers.testing, issuedHere));
+  await tester.pumpWidget(
+    BlokadaApp(
+      isFamily: false,
+      content: const Scaffold(body: Center(child: HomeActions())),
+    ),
+  );
+  for (var i = 0; i < 3; i++) {
+    await tester.runAsync(() => Future.delayed(const Duration(milliseconds: 100)));
+    await tester.pump(const Duration(seconds: 1));
+  }
+}
+
+Future<void> _unmount(WidgetTester tester) async {
+  await tester.pumpWidget(const SizedBox());
+  await tester.pump(const Duration(minutes: 10));
+}
+
+Finder _pausedElsewhereId() => find.byWidgetPredicate(
+  (w) => w is Semantics && w.properties.identifier == AutomationIds.homePausedElsewhere,
+);
+
+void main() {
+  group('HomeActions pause origin', () {
+    testWidgets('a pause from another device says so and offers resume', (tester) async {
+      await _pump(tester, issuedHere: false);
+
+      expect(find.text(_pausedElsewhereText), findsOneWidget);
+      expect(_pausedElsewhereId(), findsOneWidget);
+
+      await _unmount(tester);
+    });
+
+    testWidgets('our own pause keeps the plain off state', (tester) async {
+      await _pump(tester, issuedHere: true);
+
+      expect(find.text("home action tap to activate".i18n), findsOneWidget);
+      expect(_pausedElsewhereId(), findsNothing);
+
+      await _unmount(tester);
+    });
+
+    testWidgets('an unknown origin keeps the plain off state', (tester) async {
+      await _pump(tester, issuedHere: null);
+
+      expect(find.text("home action tap to activate".i18n), findsOneWidget);
+      expect(_pausedElsewhereId(), findsNothing);
+
+      await _unmount(tester);
+    });
+
+    testWidgets('origin learned later updates the text', (tester) async {
+      await _pump(tester, issuedHere: null);
+      expect(find.text(_pausedElsewhereText), findsNothing);
+
+      await tester.runAsync(() => Core.get<PauseIssuedHereValue>().change(Markers.testing, false));
+      await tester.pump();
+
+      expect(find.text(_pausedElsewhereText), findsOneWidget);
+
+      await _unmount(tester);
+    });
+  });
+
+  testWidgets('the pause sheet says the pause covers every device', (tester) async {
+    await bootModules(tester);
+    await tester.pumpWidget(
+      BlokadaApp(
+        isFamily: false,
+        content: Scaffold(
+          body: Builder(
+            builder: (context) => TextButton(
+              onPressed: () => showPauseActionSheet(context, onSelected: (_) {}),
+              child: const Text('open'),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.tap(find.text('open'));
+    await tester.pumpAndSettle();
+
+    expect(find.text("home power pause scope".i18n), findsOneWidget);
+
+    await _unmount(tester);
+  });
+}

@@ -33,6 +33,7 @@ export const AutomationIds = {
   settingsRetention: "automation.settings_retention",
   settingsWeeklyReport: "automation.settings_weekly_report",
   settingsSupport: "automation.settings_support",
+  homePausedElsewhere: "automation.home_paused_elsewhere",
   powerToggle: "automation.power_toggle",
   powerActionSheet: "automation.power_action_sheet",
   powerActionPauseFive: "automation.power_action_pause_five",

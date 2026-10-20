@@ -23,6 +23,31 @@ extension DeviceRetentionExt on DeviceRetention {
   }
 }
 
+/// Whether this install issued the current pause. v6 pause is one flag per
+/// account on /v2/device, so a device can find itself paused by another one;
+/// the backend does not say who paused, so each install remembers its own
+/// (#455). Null until this install pauses or sees the account unpaused, so an
+/// app updated while its own pause is on does not blame another device.
+class PauseIssuedHereValue extends StringifiedPersistedValue<bool> {
+  PauseIssuedHereValue() : super("device:pause_issued_here");
+
+  @override
+  String toStringified(bool value) => value ? "1" : "0";
+
+  @override
+  bool fromStringified(String value) => value == "1";
+}
+
+/// A pause this install did not start: Home says "Paused from another device"
+/// instead of the plain off state. Only for active accounts, where resuming is
+/// possible; an unknown origin ([issuedHere] null) never claims another device.
+bool isPausedElsewhere({
+  required bool accountActive,
+  required bool? cloudEnabled,
+  required bool? issuedHere,
+}) =>
+    accountActive && cloudEnabled == false && issuedHere == false;
+
 class DeviceStore = DeviceStoreBase with _$DeviceStore;
 
 abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
@@ -31,6 +56,7 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
   late final _account = Core.get<AccountStore>();
   late final _env = Core.get<EnvActor>();
   late final _bootstrapIdentity = Core.get<BootstrapIdentityValue>();
+  late final _pauseIssuedHere = Core.get<PauseIssuedHereValue>();
 
   late final _journalFilter = Core.get<JournalFilterValue>();
 
@@ -48,6 +74,7 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
 
   onRegister() {
     Core.register<DeviceApi>(DeviceApi());
+    Core.register<PauseIssuedHereValue>(PauseIssuedHereValue());
     Core.register<DeviceStore>(this as DeviceStore);
   }
 
@@ -104,6 +131,9 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
       log(m).pair("tagBeforeFetch", deviceTag);
 
       final device = await _api.getDevice(m);
+      // A pause that ended anywhere (resumed, timer ran out) is no longer
+      // ours; the next one may come from another device.
+      if (!device.paused) await _pauseIssuedHere.change(m, false);
       pausedForSeconds = device.pausedForSeconds;
       cloudEnabled = !device.paused;
       lists = device.lists;
@@ -134,6 +164,8 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
 
     return await log(m).trace("setCloudEnabled", (m) async {
       await _api.putDevice(m, paused: !enabled, pausedForSeconds: pauseSeconds);
+      // Before the refresh, so Home never shows our own pause as remote.
+      await _pauseIssuedHere.change(m, !enabled);
       await fetch(m, force: true);
     });
   }
@@ -223,6 +255,8 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
     _lastAccountId = id;
     deviceTag = null;
     await _bootstrapIdentity.change(m, null);
+    // A pause issued under the previous account says nothing about this one.
+    await _pauseIssuedHere.change(m, null);
     await fetch(m, force: true);
   }
 

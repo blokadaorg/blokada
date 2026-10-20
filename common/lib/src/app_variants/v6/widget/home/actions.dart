@@ -1,8 +1,12 @@
+import 'dart:async';
+
+import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/ui/anim/sliding.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/account/account.dart';
 import 'package:common/src/platform/app/app.dart';
 import 'package:common/src/platform/app/start/start.dart';
+import 'package:common/src/platform/device/device.dart';
 import 'package:common/src/app_variants/v6/widget/home/counter.dart';
 import 'package:common/src/app_variants/v6/widget/home/freemium.dart';
 import 'package:common/src/app_variants/v6/widget/home/plusbutton.dart';
@@ -15,6 +19,9 @@ import 'package:mobx/mobx.dart';
 /// counter and then the Plus button, 100 ms apart, so the two arrive as a
 /// staggered pair rather than at once. It owns both animation controllers so
 /// a single reaction to the app status can drive them in that order.
+///
+/// Pause is account-wide in v6, so the off state also says when the pause came
+/// from another device (#455); tapping resumes like the power button does.
 class HomeActions extends StatefulWidget {
   const HomeActions({Key? key}) : super(key: key);
 
@@ -28,6 +35,12 @@ class _HomeActionsState extends State<HomeActions> with TickerProviderStateMixin
   final _app = Core.get<AppStore>();
   final _appStart = Core.get<AppStartStore>();
   final _account = Core.get<AccountStore>();
+  final _device = Core.get<DeviceStore>();
+  final _pauseIssuedHere = Core.get<PauseIssuedHereValue>();
+
+  // Null until loaded: an unknown origin never claims another device.
+  bool? _issuedHere;
+  StreamSubscription? _pauseOriginSub;
 
   late final AnimationController _ctrlCounter = AnimationController(
     duration: const Duration(seconds: 1),
@@ -46,6 +59,15 @@ class _HomeActionsState extends State<HomeActions> with TickerProviderStateMixin
   @override
   void initState() {
     super.initState();
+
+    _pauseOriginSub = _pauseIssuedHere.onChange.listen((it) {
+      if (!mounted) return;
+      setState(() => _issuedHere = it.now);
+    });
+    _pauseIssuedHere.fetch(Markers.ui).then((value) {
+      if (!mounted) return;
+      setState(() => _issuedHere = value);
+    });
 
     _disposeStatusReaction = autorun((_) async {
       final status = _app.status;
@@ -67,6 +89,7 @@ class _HomeActionsState extends State<HomeActions> with TickerProviderStateMixin
   @override
   void dispose() {
     _disposeStatusReaction?.call();
+    _pauseOriginSub?.cancel();
     _ctrlCounter.dispose();
     _ctrlPlus.dispose();
     super.dispose();
@@ -76,6 +99,12 @@ class _HomeActionsState extends State<HomeActions> with TickerProviderStateMixin
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       final status = _app.status;
+      final pausedElsewhere = status.isInactive() &&
+          isPausedElsewhere(
+            accountActive: _account.type.isActive(),
+            cloudEnabled: _device.cloudEnabled,
+            issuedHere: _issuedHere,
+          );
 
       return SizedBox(
         width: 300,
@@ -93,13 +122,18 @@ class _HomeActionsState extends State<HomeActions> with TickerProviderStateMixin
                     await _appStart.toggleApp(m);
                   });
                 },
-                child: Text(
-                  status.isInactive()
-                      ? ((_appStart.pausedForAccurate != null)
-                          ? "home status detail paused".i18n
-                          : "home action tap to activate".i18n)
-                      : "home status detail progress".i18n,
-                  style: Theme.of(context).textTheme.bodyMedium,
+                child: Semantics(
+                  identifier: pausedElsewhere ? AutomationIds.homePausedElsewhere : null,
+                  child: Text(
+                    status.isInactive()
+                        ? (pausedElsewhere
+                            ? "${"home status paused elsewhere".i18n} · ${"universal action resume".i18n}"
+                            : (_appStart.pausedForAccurate != null)
+                                ? "home status detail paused".i18n
+                                : "home action tap to activate".i18n)
+                        : "home status detail progress".i18n,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
                 ),
               ),
             ),
