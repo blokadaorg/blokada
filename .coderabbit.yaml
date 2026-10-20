@@ -1,0 +1,26 @@
+# CodeRabbit is one of the PR reviewers an agent rotates through when another
+# one hits its rate limit, so it reviews only when asked
+# (`@coderabbitai review`), not on every PR or push.
+# Schema: https://coderabbit.ai/integrations/schema.v2.json
+language: en-US
+reviews:
+  profile: chill
+  # Approve once its comments are resolved and the latest commit is reviewed,
+  # so the agent has a clear "clean" signal.
+  request_changes_workflow: true
+  auto_review:
+    enabled: false
+  poem: false
+  in_progress_fortune: false
+  suggested_reviewers: false
+  path_filters:
+    # Generated or downloaded: Adapty fallback exports, translations from the
+    # translate submodule, lockfiles and Pigeon output.
+    - "!common/assets/fallbacks/**"
+    - "!android/app/src/main/assets/fallbacks/**"
+    - "!common/assets/translations/**"
+    - "!android/app/src/main/assets/translations/**"
+    - "!**/pubspec.lock"
+    - "!**/package-lock.json"
+    - "!ios/App/Common.swift"
+    - "!ios/ChannelStatic/Url.swift"
