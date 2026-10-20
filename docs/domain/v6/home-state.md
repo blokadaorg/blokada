@@ -18,6 +18,14 @@ Scope: Home power button behavior.
 Non-rules: Freemium active state should not expose the paid pause action sheet.
 Verification: Check power-button tap handling for working, active paid, and freemium states.
 
+### Rule: Protection confirmed fires once per user activation
+Applies to: v6
+Intent: Give activation feedback (pulse, haptic) only when the user's own switch-on succeeds.
+Rule: `PowerActor.onProtectionConfirmed` fires on the first active status after the user switched protection on from the power button, including an activation that completes after DNS onboarding or the paywall within five minutes. The power button's look and tap action come from `powerButtonState` alone.
+Scope: Power button, activation feedback.
+Non-rules: App start, reconnects (reconfiguring back to active), switching freemium off, and protection coming up without a recent switch-on request do not fire it.
+Verification: Check `common/lib/src/features/home/domain/power.dart` and its tests.
+
 ### Rule: Timer is only relevant for paused state
 Applies to: v6
 Intent: Avoid showing countdown controls where no timer-backed pause exists.
