@@ -39,6 +39,7 @@
     <string name="universal_action_help">Bantuan</string>
     <string name="universal_action_show_log">Log</string>
     <string name="universal_action_share_log">Bagikan log</string>
+    <string name="universal_action_run_check">Jalankan pemeriksaan</string>
     <string name="universal_action_copy">Salin</string>
     <string name="universal_action_save">Simpan</string>
     <string name="universal_action_contact_us">Hubungi kami</string>
@@ -787,4 +788,15 @@
     <string name="stats_range_sevend">7 hari</string>
     <string name="activity_filter_chip_most_common">Yang paling umum terlebih dahulu</string>
     <string name="filter_last_list_note">Satu daftar blokir harus selalu aktif. Gunakan Jeda di Beranda untuk menghentikan pemblokiran.</string>
+    <string name="home_power_button_label">Perlindungan Blokada</string>
+    <string name="home_power_button_state_on">Aktif</string>
+    <string name="home_power_button_state_off">Nonaktif</string>
+    <string name="support_share_log_title">Bagikan log aplikasi Anda?</string>
+    <string name="support_share_log_body">Mengirim log aplikasi terbaru, yang mungkin berisi detail perangkat dan pengaturan.</string>
+    <string name="support_share_log_done">Log aplikasi telah dibagikan</string>
+    <string name="support_share_log_declined">Log aplikasi tidak dibagikan</string>
+    <string name="support_network_check_title">Jalankan pemeriksaan jaringan?</string>
+    <string name="support_network_check_body">Memeriksa apakah DNS ponsel ini melewati Blokada.</string>
+    <string name="support_network_check_done">Pemeriksaan jaringan selesai</string>
+    <string name="support_network_check_declined">Pemeriksaan jaringan tidak dijalankan</string>
 </resources>

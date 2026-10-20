@@ -39,6 +39,7 @@
     <string name="universal_action_help">Hjälp</string>
     <string name="universal_action_show_log">Loggar</string>
     <string name="universal_action_share_log">Dela logg</string>
+    <string name="universal_action_run_check">Kör kontroll</string>
     <string name="universal_action_copy">Kopiera</string>
     <string name="universal_action_save">Spara</string>
     <string name="universal_action_contact_us">Kontakta oss</string>
@@ -787,4 +788,15 @@
     <string name="stats_range_sevend">7 d</string>
     <string name="activity_filter_chip_most_common">Vanligast först</string>
     <string name="filter_last_list_note">En blocklista måste alltid vara aktiv. Använd Pausa på startsidan för att stoppa blockeringen.</string>
+    <string name="home_power_button_label">Blokadas skydd</string>
+    <string name="home_power_button_state_on">Aktiv</string>
+    <string name="home_power_button_state_off">Inaktiv</string>
+    <string name="support_share_log_title">Vill du dela apploggen?</string>
+    <string name="support_share_log_body">Skickar den senaste apploggen, som kan innehålla information om enheten och inställningarna.</string>
+    <string name="support_share_log_done">Apploggen har delats</string>
+    <string name="support_share_log_declined">Apploggen har inte delats</string>
+    <string name="support_network_check_title">Vill du göra en nätverkskontroll?</string>
+    <string name="support_network_check_body">Kontrollerar om den här telefonens DNS-trafik går via Blokada.</string>
+    <string name="support_network_check_done">Nätverkskontrollen är klar</string>
+    <string name="support_network_check_declined">Nätverkskontrollen har inte körts</string>
 </resources>

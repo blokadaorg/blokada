@@ -38,6 +38,7 @@
     "universal action help": "協助",
     "universal action show log": "日誌記錄",
     "universal action share log": "分享日誌紀錄",
+    "universal action run check": "執行檢查",
     "universal action copy": "複製",
     "universal action save": "儲存",
     "universal action contact us": "聯絡我們",
@@ -785,5 +786,16 @@
     "stats range 24h": "24 小時",
     "stats range 7d": "7 天",
     "activity filter chip most common": "出現次數由多到少",
-    "filter last list note": "至少會保留一份啟用中的阻擋清單。若要停止阻擋，請在首頁點選「暫停」。"
+    "filter last list note": "至少會保留一份啟用中的阻擋清單。若要停止阻擋，請在首頁點選「暫停」。",
+    "home power button label": "Blokada 防護",
+    "home power button state on": "開啟",
+    "home power button state off": "關閉",
+    "support share log title": "要分享應用程式日誌紀錄嗎？",
+    "support share log body": "傳送近期的應用程式日誌紀錄，其中可能包含裝置與設定的詳細資訊。",
+    "support share log done": "已分享應用程式日誌紀錄",
+    "support share log declined": "未分享應用程式日誌紀錄",
+    "support network check title": "要執行網路檢查嗎？",
+    "support network check body": "檢查這支手機的 DNS 是否透過 Blokada 處理。",
+    "support network check done": "網路檢查已完成",
+    "support network check declined": "未執行網路檢查"
 } }

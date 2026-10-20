@@ -51,6 +51,7 @@
 "universal action help" = "Aide";
 "universal action show log" = "Journaux";
 "universal action share log" = "Partager l'historique";
+"universal action run check" = "Lancer la vérification";
 "universal action copy" = "Copier";
 "universal action save" = "Sauver";
 "universal action contact us" = "Nous contacter";
@@ -1082,3 +1083,20 @@
 "activity filter chip most common" = "Les plus communs en premier";
 // Shown when the user tries to switch off the only enabled blocklist
 "filter last list note" = "Une liste de blocage doit toujours rester active. Utilisez « Pause » sur l’écran d’accueil pour arrêter le blocage.";
+
+// Screen reader name of the big power button on Home that turns ad blocking on and off
+"home power button label" = "Protection Blokada";
+// Screen reader state of the power button: protection is on / off
+"home power button state on" = "Activé";
+"home power button state off" = "Désactivé";
+// Support chat card that asks before sending the app log, and the note left after it was sent
+"support share log title" = "Partager le journal de l’application ?";
+"support share log body" = "Envoie le journal récent de l’application, qui peut contenir des informations sur l’appareil et sa configuration.";
+"support share log done" = "Journal de l’application partagé";
+"support share log declined" = "Journal de l’application non partagé";
+
+// Support chat card that asks before running a DNS check, and the note left after it
+"support network check title" = "Vérifier le réseau ?";
+"support network check body" = "Vérifie si les requêtes DNS de ce téléphone passent par Blokada.";
+"support network check done" = "Vérification du réseau terminée";
+"support network check declined" = "Vérification du réseau non effectuée";

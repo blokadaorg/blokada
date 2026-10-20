@@ -51,6 +51,7 @@
 "universal action help" = "Hulp";
 "universal action show log" = "Logs";
 "universal action share log" = "Deel log";
+"universal action run check" = "Controle uitvoeren";
 "universal action copy" = "Kopiëren";
 "universal action save" = "Opslaan";
 "universal action contact us" = "Neem contact op";
@@ -1082,3 +1083,20 @@
 "activity filter chip most common" = "Meest voorkomende eerst";
 // Shown when the user tries to switch off the only enabled blocklist
 "filter last list note" = "Er blijft altijd één blokkeerlijst ingeschakeld. Gebruik Pauzeren op het startscherm om het blokkeren te stoppen.";
+
+// Screen reader name of the big power button on Home that turns ad blocking on and off
+"home power button label" = "Blokada-bescherming";
+// Screen reader state of the power button: protection is on / off
+"home power button state on" = "Aan";
+"home power button state off" = "Uit";
+// Support chat card that asks before sending the app log, and the note left after it was sent
+"support share log title" = "Je app-logboek delen?";
+"support share log body" = "Verstuurt het recente app-logboek, dat gegevens over je apparaat en instellingen kan bevatten.";
+"support share log done" = "App-logboek gedeeld";
+"support share log declined" = "App-logboek niet gedeeld";
+
+// Support chat card that asks before running a DNS check, and the note left after it
+"support network check title" = "Netwerkcontrole uitvoeren?";
+"support network check body" = "Controleert of het DNS-verkeer van deze telefoon via Blokada loopt.";
+"support network check done" = "Netwerkcontrole voltooid";
+"support network check declined" = "Netwerkcontrole niet uitgevoerd";

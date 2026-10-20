@@ -38,6 +38,7 @@
     "universal action help": "Bantuan",
     "universal action show log": "Log",
     "universal action share log": "Bagikan log",
+    "universal action run check": "Jalankan pemeriksaan",
     "universal action copy": "Salin",
     "universal action save": "Simpan",
     "universal action contact us": "Hubungi kami",
@@ -785,5 +786,16 @@
     "stats range 24h": "24 jam",
     "stats range 7d": "7 hari",
     "activity filter chip most common": "Yang paling umum terlebih dahulu",
-    "filter last list note": "Satu daftar blokir harus selalu aktif. Gunakan Jeda di Beranda untuk menghentikan pemblokiran."
+    "filter last list note": "Satu daftar blokir harus selalu aktif. Gunakan Jeda di Beranda untuk menghentikan pemblokiran.",
+    "home power button label": "Perlindungan Blokada",
+    "home power button state on": "Aktif",
+    "home power button state off": "Nonaktif",
+    "support share log title": "Bagikan log aplikasi Anda?",
+    "support share log body": "Mengirim log aplikasi terbaru, yang mungkin berisi detail perangkat dan pengaturan.",
+    "support share log done": "Log aplikasi telah dibagikan",
+    "support share log declined": "Log aplikasi tidak dibagikan",
+    "support network check title": "Jalankan pemeriksaan jaringan?",
+    "support network check body": "Memeriksa apakah DNS ponsel ini melewati Blokada.",
+    "support network check done": "Pemeriksaan jaringan selesai",
+    "support network check declined": "Pemeriksaan jaringan tidak dijalankan"
 } }

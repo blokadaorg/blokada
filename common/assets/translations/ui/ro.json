@@ -38,6 +38,7 @@
     "universal action help": "Ajutor",
     "universal action show log": "Jurnale",
     "universal action share log": "Împărtășește jurnal",
+    "universal action run check": "Rulează verificarea",
     "universal action copy": "Copiază",
     "universal action save": "Salvează",
     "universal action contact us": "Contactați-ne",
@@ -785,5 +786,16 @@
     "stats range 24h": "24 h",
     "stats range 7d": "7 z",
     "activity filter chip most common": "Mai întâi cele mai frecvente",
-    "filter last list note": "Cel puțin o listă de blocare trebuie să rămână activă. Folosește opțiunea Pauză de pe ecranul Acasă pentru a opri blocarea."
+    "filter last list note": "Cel puțin o listă de blocare trebuie să rămână activă. Folosește opțiunea Pauză de pe ecranul Acasă pentru a opri blocarea.",
+    "home power button label": "Protecția Blokada",
+    "home power button state on": "Activată",
+    "home power button state off": "Dezactivată",
+    "support share log title": "Trimiți jurnalul aplicației?",
+    "support share log body": "Trimite jurnalul recent al aplicației, care poate include detalii despre dispozitiv și configurare.",
+    "support share log done": "Jurnalul aplicației a fost partajat",
+    "support share log declined": "Jurnalul aplicației nu a fost partajat",
+    "support network check title": "Efectuăm o verificare a rețelei?",
+    "support network check body": "Verifică dacă traficul DNS al acestui telefon trece prin Blokada.",
+    "support network check done": "Verificarea rețelei s-a încheiat",
+    "support network check declined": "Verificarea rețelei nu a fost efectuată"
 }

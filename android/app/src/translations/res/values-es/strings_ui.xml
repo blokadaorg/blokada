@@ -39,6 +39,7 @@
     <string name="universal_action_help">Ayuda</string>
     <string name="universal_action_show_log">Registros</string>
     <string name="universal_action_share_log">Enviar registro</string>
+    <string name="universal_action_run_check">Realizar comprobación</string>
     <string name="universal_action_copy">Copiar</string>
     <string name="universal_action_save">Guardar</string>
     <string name="universal_action_contact_us">Contacta con nosotros</string>
@@ -787,4 +788,15 @@
     <string name="stats_range_sevend">7 d</string>
     <string name="activity_filter_chip_most_common">Los más frecuentes primero</string>
     <string name="filter_last_list_note">Siempre debe haber una lista de bloqueo activada. Usa Pausar en Inicio para dejar de bloquear.</string>
+    <string name="home_power_button_label">Protección de Blokada</string>
+    <string name="home_power_button_state_on">Activado</string>
+    <string name="home_power_button_state_off">Desactivado</string>
+    <string name="support_share_log_title">¿Compartir el registro de su aplicación?</string>
+    <string name="support_share_log_body">Envía el registro reciente de la aplicación, que puede incluir información del dispositivo y de la configuración.</string>
+    <string name="support_share_log_done">Registro de la aplicación compartido</string>
+    <string name="support_share_log_declined">Registro de la aplicación no compartido</string>
+    <string name="support_network_check_title">¿Comprobar la red?</string>
+    <string name="support_network_check_body">Comprueba si las consultas DNS de este teléfono pasan por Blokada.</string>
+    <string name="support_network_check_done">Comprobación de la red completada</string>
+    <string name="support_network_check_declined">No se ha comprobado la red</string>
 </resources>

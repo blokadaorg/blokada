@@ -38,6 +38,7 @@
     "universal action help": "Ajuda",
     "universal action show log": "Registros",
     "universal action share log": "Compartilhar log",
+    "universal action run check": "Executar verificação",
     "universal action copy": "Copiar",
     "universal action save": "Salvar",
     "universal action contact us": "Contate-nos",
@@ -785,5 +786,16 @@
     "stats range 24h": "24 h",
     "stats range 7d": "7 d",
     "activity filter chip most common": "Mais comuns primeiro",
-    "filter last list note": "Uma lista de bloqueio deve permanecer ativada. Use Pausar na tela Início para interromper o bloqueio."
+    "filter last list note": "Uma lista de bloqueio deve permanecer ativada. Use Pausar na tela Início para interromper o bloqueio.",
+    "home power button label": "Proteção do Blokada",
+    "home power button state on": "Ligado",
+    "home power button state off": "Desligado",
+    "support share log title": "Partilhar o registo da aplicação?",
+    "support share log body": "Envia o registo recente da aplicação, que pode incluir detalhes do dispositivo e da configuração.",
+    "support share log done": "Registro do aplicativo compartilhado",
+    "support share log declined": "Registro do aplicativo não compartilhado",
+    "support network check title": "Executar uma verificação de rede?",
+    "support network check body": "Verifica se o DNS deste celular passa pela Blokada.",
+    "support network check done": "Verificação de rede concluída",
+    "support network check declined": "Verificação de rede não executada"
 }

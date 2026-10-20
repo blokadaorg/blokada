@@ -38,6 +38,7 @@
     "universal action help": "Hjälp",
     "universal action show log": "Loggar",
     "universal action share log": "Dela logg",
+    "universal action run check": "Kör kontroll",
     "universal action copy": "Kopiera",
     "universal action save": "Spara",
     "universal action contact us": "Kontakta oss",
@@ -785,5 +786,16 @@
     "stats range 24h": "24 h",
     "stats range 7d": "7 d",
     "activity filter chip most common": "Vanligast först",
-    "filter last list note": "En blocklista måste alltid vara aktiv. Använd Pausa på startsidan för att stoppa blockeringen."
+    "filter last list note": "En blocklista måste alltid vara aktiv. Använd Pausa på startsidan för att stoppa blockeringen.",
+    "home power button label": "Blokadas skydd",
+    "home power button state on": "Aktiv",
+    "home power button state off": "Inaktiv",
+    "support share log title": "Vill du dela apploggen?",
+    "support share log body": "Skickar den senaste apploggen, som kan innehålla information om enheten och inställningarna.",
+    "support share log done": "Apploggen har delats",
+    "support share log declined": "Apploggen har inte delats",
+    "support network check title": "Vill du göra en nätverkskontroll?",
+    "support network check body": "Kontrollerar om den här telefonens DNS-trafik går via Blokada.",
+    "support network check done": "Nätverkskontrollen är klar",
+    "support network check declined": "Nätverkskontrollen har inte körts"
 } }

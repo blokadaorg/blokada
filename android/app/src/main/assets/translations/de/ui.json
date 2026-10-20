@@ -38,6 +38,7 @@
     "universal action help": "Hilfe",
     "universal action show log": "Protokolle",
     "universal action share log": "Protokoll teilen",
+    "universal action run check": "Überprüfung starten",
     "universal action copy": "Kopieren",
     "universal action save": "Speichern",
     "universal action contact us": "Kontaktiere uns",
@@ -785,5 +786,16 @@
     "stats range 24h": "24 h",
     "stats range 7d": "7 T",
     "activity filter chip most common": "Am häufigsten zuerst",
-    "filter last list note": "Eine Sperrliste bleibt immer aktiviert. Um das Blockieren zu beenden, auf der Startseite „Pausieren“ auswählen."
+    "filter last list note": "Eine Sperrliste bleibt immer aktiviert. Um das Blockieren zu beenden, auf der Startseite „Pausieren“ auswählen.",
+    "home power button label": "Blokada-Schutz",
+    "home power button state on": "An",
+    "home power button state off": "Aus",
+    "support share log title": "Möchtest du dein App-Protokoll teilen?",
+    "support share log body": "Sendet das aktuelle App-Protokoll, das Angaben zum Gerät und zur Einrichtung enthalten kann.",
+    "support share log done": "App-Protokoll geteilt",
+    "support share log declined": "App-Protokoll nicht geteilt",
+    "support network check title": "Netzwerk überprüfen?",
+    "support network check body": "Prüft, ob die DNS-Anfragen dieses Smartphones über Blokada laufen.",
+    "support network check done": "Netzwerküberprüfung abgeschlossen",
+    "support network check declined": "Netzwerküberprüfung nicht durchgeführt"
 } }

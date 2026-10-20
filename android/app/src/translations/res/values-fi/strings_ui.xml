@@ -39,6 +39,7 @@
     <string name="universal_action_help">Ohje</string>
     <string name="universal_action_show_log">Lokitiedot</string>
     <string name="universal_action_share_log">Jaa loki</string>
+    <string name="universal_action_run_check">Suorita tarkistus</string>
     <string name="universal_action_copy">Kopioi</string>
     <string name="universal_action_save">Tallenna</string>
     <string name="universal_action_contact_us">Ota yhteyttä</string>
@@ -787,4 +788,15 @@
     <string name="stats_range_sevend">7 pv</string>
     <string name="activity_filter_chip_most_common">Yleisimmät ensin</string>
     <string name="filter_last_list_note">Yksi estolista pysyy aina käytössä. Lopeta esto etusivun Keskeytä-painikkeella.</string>
+    <string name="home_power_button_label">Blokadan suojaus</string>
+    <string name="home_power_button_state_on">Päällä</string>
+    <string name="home_power_button_state_off">Pois päältä</string>
+    <string name="support_share_log_title">Jaetaanko sovelluksen loki?</string>
+    <string name="support_share_log_body">Lähettää viimeisimmän sovelluslokin, joka voi sisältää tietoja laitteesta ja sen asetuksista.</string>
+    <string name="support_share_log_done">Sovellusloki jaettu</string>
+    <string name="support_share_log_declined">Sovelluslokia ei jaettu</string>
+    <string name="support_network_check_title">Suoritetaanko verkkoyhteyden tarkistus?</string>
+    <string name="support_network_check_body">Tarkistaa, kulkevatko tämän puhelimen DNS-kyselyt Blokadan kautta.</string>
+    <string name="support_network_check_done">Verkkoyhteyden tarkistus valmis</string>
+    <string name="support_network_check_declined">Verkkoyhteyden tarkistusta ei suoritettu</string>
 </resources>

@@ -39,6 +39,7 @@
     <string name="universal_action_help">Ajuda</string>
     <string name="universal_action_show_log">Registros</string>
     <string name="universal_action_share_log">Compartilhar log</string>
+    <string name="universal_action_run_check">Executar verificação</string>
     <string name="universal_action_copy">Copiar</string>
     <string name="universal_action_save">Salvar</string>
     <string name="universal_action_contact_us">Contate-nos</string>
@@ -787,4 +788,15 @@
     <string name="stats_range_sevend">7 d</string>
     <string name="activity_filter_chip_most_common">Mais comuns primeiro</string>
     <string name="filter_last_list_note">Uma lista de bloqueio deve permanecer ativada. Use Pausar na tela Início para interromper o bloqueio.</string>
+    <string name="home_power_button_label">Proteção do Blokada</string>
+    <string name="home_power_button_state_on">Ligado</string>
+    <string name="home_power_button_state_off">Desligado</string>
+    <string name="support_share_log_title">Partilhar o registo da aplicação?</string>
+    <string name="support_share_log_body">Envia o registo recente da aplicação, que pode incluir detalhes do dispositivo e da configuração.</string>
+    <string name="support_share_log_done">Registro do aplicativo compartilhado</string>
+    <string name="support_share_log_declined">Registro do aplicativo não compartilhado</string>
+    <string name="support_network_check_title">Executar uma verificação de rede?</string>
+    <string name="support_network_check_body">Verifica se o DNS deste celular passa pela Blokada.</string>
+    <string name="support_network_check_done">Verificação de rede concluída</string>
+    <string name="support_network_check_declined">Verificação de rede não executada</string>
 </resources>

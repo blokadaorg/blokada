@@ -38,6 +38,7 @@
     "universal action help": "Aide",
     "universal action show log": "Journaux",
     "universal action share log": "Partager l'historique",
+    "universal action run check": "Lancer la vérification",
     "universal action copy": "Copier",
     "universal action save": "Sauver",
     "universal action contact us": "Nous contacter",
@@ -785,5 +786,16 @@
     "stats range 24h": "24 h",
     "stats range 7d": "7 j",
     "activity filter chip most common": "Les plus communs en premier",
-    "filter last list note": "Une liste de blocage doit toujours rester active. Utilisez « Pause » sur l’écran d’accueil pour arrêter le blocage."
+    "filter last list note": "Une liste de blocage doit toujours rester active. Utilisez « Pause » sur l’écran d’accueil pour arrêter le blocage.",
+    "home power button label": "Protection Blokada",
+    "home power button state on": "Activé",
+    "home power button state off": "Désactivé",
+    "support share log title": "Partager le journal de l’application ?",
+    "support share log body": "Envoie le journal récent de l’application, qui peut contenir des informations sur l’appareil et sa configuration.",
+    "support share log done": "Journal de l’application partagé",
+    "support share log declined": "Journal de l’application non partagé",
+    "support network check title": "Vérifier le réseau ?",
+    "support network check body": "Vérifie si les requêtes DNS de ce téléphone passent par Blokada.",
+    "support network check done": "Vérification du réseau terminée",
+    "support network check declined": "Vérification du réseau non effectuée"
 } }

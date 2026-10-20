@@ -39,6 +39,7 @@
     <string name="universal_action_help">Pomoc</string>
     <string name="universal_action_show_log">Logi</string>
     <string name="universal_action_share_log">Udostępnij log</string>
+    <string name="universal_action_run_check">Uruchom sprawdzanie</string>
     <string name="universal_action_copy">Kopiuj</string>
     <string name="universal_action_save">Zapisz</string>
     <string name="universal_action_contact_us">Skontaktuj się z nami</string>
@@ -787,4 +788,15 @@
     <string name="stats_range_sevend">7 dni</string>
     <string name="activity_filter_chip_most_common">Najpierw najczęstsze</string>
     <string name="filter_last_list_note">Co najmniej jedna bloklista musi pozostać włączona. Aby wyłączyć blokowanie, użyj przycisku „Wstrzymaj” na ekranie głównym.</string>
+    <string name="home_power_button_label">Ochrona Blokady</string>
+    <string name="home_power_button_state_on">Włączona</string>
+    <string name="home_power_button_state_off">Wyłączona</string>
+    <string name="support_share_log_title">Udostępnić dziennik aplikacji?</string>
+    <string name="support_share_log_body">Wysyła ostatnie wpisy z dziennika aplikacji, które mogą zawierać informacje o urządzeniu i konfiguracji.</string>
+    <string name="support_share_log_done">Udostępniono dziennik aplikacji</string>
+    <string name="support_share_log_declined">Nie udostępniono dziennika aplikacji</string>
+    <string name="support_network_check_title">Sprawdzić sieć?</string>
+    <string name="support_network_check_body">Sprawdza, czy zapytania DNS z tego telefonu przechodzą przez Blokadę.</string>
+    <string name="support_network_check_done">Sprawdzono sieć</string>
+    <string name="support_network_check_declined">Nie sprawdzono sieci</string>
 </resources>

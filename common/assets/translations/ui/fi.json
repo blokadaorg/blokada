@@ -38,6 +38,7 @@
     "universal action help": "Ohje",
     "universal action show log": "Lokitiedot",
     "universal action share log": "Jaa loki",
+    "universal action run check": "Suorita tarkistus",
     "universal action copy": "Kopioi",
     "universal action save": "Tallenna",
     "universal action contact us": "Ota yhteyttä",
@@ -785,5 +786,16 @@
     "stats range 24h": "24 h",
     "stats range 7d": "7 pv",
     "activity filter chip most common": "Yleisimmät ensin",
-    "filter last list note": "Yksi estolista pysyy aina käytössä. Lopeta esto etusivun Keskeytä-painikkeella."
+    "filter last list note": "Yksi estolista pysyy aina käytössä. Lopeta esto etusivun Keskeytä-painikkeella.",
+    "home power button label": "Blokadan suojaus",
+    "home power button state on": "Päällä",
+    "home power button state off": "Pois päältä",
+    "support share log title": "Jaetaanko sovelluksen loki?",
+    "support share log body": "Lähettää viimeisimmän sovelluslokin, joka voi sisältää tietoja laitteesta ja sen asetuksista.",
+    "support share log done": "Sovellusloki jaettu",
+    "support share log declined": "Sovelluslokia ei jaettu",
+    "support network check title": "Suoritetaanko verkkoyhteyden tarkistus?",
+    "support network check body": "Tarkistaa, kulkevatko tämän puhelimen DNS-kyselyt Blokadan kautta.",
+    "support network check done": "Verkkoyhteyden tarkistus valmis",
+    "support network check declined": "Verkkoyhteyden tarkistusta ei suoritettu"
 }

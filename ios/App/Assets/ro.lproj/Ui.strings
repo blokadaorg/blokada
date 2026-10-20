@@ -51,6 +51,7 @@
 "universal action help" = "Ajutor";
 "universal action show log" = "Jurnale";
 "universal action share log" = "Împărtășește jurnal";
+"universal action run check" = "Rulează verificarea";
 "universal action copy" = "Copiază";
 "universal action save" = "Salvează";
 "universal action contact us" = "Contactați-ne";
@@ -1082,3 +1083,20 @@
 "activity filter chip most common" = "Mai întâi cele mai frecvente";
 // Shown when the user tries to switch off the only enabled blocklist
 "filter last list note" = "Cel puțin o listă de blocare trebuie să rămână activă. Folosește opțiunea Pauză de pe ecranul Acasă pentru a opri blocarea.";
+
+// Screen reader name of the big power button on Home that turns ad blocking on and off
+"home power button label" = "Protecția Blokada";
+// Screen reader state of the power button: protection is on / off
+"home power button state on" = "Activată";
+"home power button state off" = "Dezactivată";
+// Support chat card that asks before sending the app log, and the note left after it was sent
+"support share log title" = "Trimiți jurnalul aplicației?";
+"support share log body" = "Trimite jurnalul recent al aplicației, care poate include detalii despre dispozitiv și configurare.";
+"support share log done" = "Jurnalul aplicației a fost partajat";
+"support share log declined" = "Jurnalul aplicației nu a fost partajat";
+
+// Support chat card that asks before running a DNS check, and the note left after it
+"support network check title" = "Efectuăm o verificare a rețelei?";
+"support network check body" = "Verifică dacă traficul DNS al acestui telefon trece prin Blokada.";
+"support network check done" = "Verificarea rețelei s-a încheiat";
+"support network check declined" = "Verificarea rețelei nu a fost efectuată";

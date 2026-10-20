@@ -39,6 +39,7 @@
     <string name="universal_action_help">Aiuto</string>
     <string name="universal_action_show_log">Log</string>
     <string name="universal_action_share_log">Condividi Log</string>
+    <string name="universal_action_run_check">Esegui verifica</string>
     <string name="universal_action_copy">Copia</string>
     <string name="universal_action_save">Salva</string>
     <string name="universal_action_contact_us">Contattaci</string>
@@ -787,4 +788,15 @@
     <string name="stats_range_sevend">7 g</string>
     <string name="activity_filter_chip_most_common">Prima i più comuni</string>
     <string name="filter_last_list_note">Almeno una lista di blocco deve restare attiva. Usa Pausa nella Home per interrompere il blocco.</string>
+    <string name="home_power_button_label">Protezione di Blokada</string>
+    <string name="home_power_button_state_on">Attiva</string>
+    <string name="home_power_button_state_off">Spento</string>
+    <string name="support_share_log_title">Vuoi condividere il log dell\'app?</string>
+    <string name="support_share_log_body">Invia il log recente dell\'app, che può includere informazioni sul dispositivo e sulla configurazione.</string>
+    <string name="support_share_log_done">Registro dell\'app condiviso</string>
+    <string name="support_share_log_declined">Registro dell\'app non condiviso</string>
+    <string name="support_network_check_title">Eseguire una verifica della rete?</string>
+    <string name="support_network_check_body">Verifica se le richieste DNS di questo telefono passano attraverso Blokada.</string>
+    <string name="support_network_check_done">Verifica della rete completata</string>
+    <string name="support_network_check_declined">Verifica della rete non eseguita</string>
 </resources>

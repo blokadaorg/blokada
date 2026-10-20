@@ -39,6 +39,7 @@
     <string name="universal_action_help">Hulp</string>
     <string name="universal_action_show_log">Logs</string>
     <string name="universal_action_share_log">Deel log</string>
+    <string name="universal_action_run_check">Controle uitvoeren</string>
     <string name="universal_action_copy">Kopiëren</string>
     <string name="universal_action_save">Opslaan</string>
     <string name="universal_action_contact_us">Neem contact op</string>
@@ -787,4 +788,15 @@
     <string name="stats_range_sevend">7 d</string>
     <string name="activity_filter_chip_most_common">Meest voorkomende eerst</string>
     <string name="filter_last_list_note">Er blijft altijd één blokkeerlijst ingeschakeld. Gebruik Pauzeren op het startscherm om het blokkeren te stoppen.</string>
+    <string name="home_power_button_label">Blokada-bescherming</string>
+    <string name="home_power_button_state_on">Aan</string>
+    <string name="home_power_button_state_off">Uit</string>
+    <string name="support_share_log_title">Je app-logboek delen?</string>
+    <string name="support_share_log_body">Verstuurt het recente app-logboek, dat gegevens over je apparaat en instellingen kan bevatten.</string>
+    <string name="support_share_log_done">App-logboek gedeeld</string>
+    <string name="support_share_log_declined">App-logboek niet gedeeld</string>
+    <string name="support_network_check_title">Netwerkcontrole uitvoeren?</string>
+    <string name="support_network_check_body">Controleert of het DNS-verkeer van deze telefoon via Blokada loopt.</string>
+    <string name="support_network_check_done">Netwerkcontrole voltooid</string>
+    <string name="support_network_check_declined">Netwerkcontrole niet uitgevoerd</string>
 </resources>

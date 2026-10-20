@@ -38,6 +38,7 @@
     "universal action help": "Pomoc",
     "universal action show log": "Logi",
     "universal action share log": "Udostępnij log",
+    "universal action run check": "Uruchom sprawdzanie",
     "universal action copy": "Kopiuj",
     "universal action save": "Zapisz",
     "universal action contact us": "Skontaktuj się z nami",
@@ -785,5 +786,16 @@
     "stats range 24h": "24 h",
     "stats range 7d": "7 dni",
     "activity filter chip most common": "Najpierw najczęstsze",
-    "filter last list note": "Co najmniej jedna bloklista musi pozostać włączona. Aby wyłączyć blokowanie, użyj przycisku „Wstrzymaj” na ekranie głównym."
+    "filter last list note": "Co najmniej jedna bloklista musi pozostać włączona. Aby wyłączyć blokowanie, użyj przycisku „Wstrzymaj” na ekranie głównym.",
+    "home power button label": "Ochrona Blokady",
+    "home power button state on": "Włączona",
+    "home power button state off": "Wyłączona",
+    "support share log title": "Udostępnić dziennik aplikacji?",
+    "support share log body": "Wysyła ostatnie wpisy z dziennika aplikacji, które mogą zawierać informacje o urządzeniu i konfiguracji.",
+    "support share log done": "Udostępniono dziennik aplikacji",
+    "support share log declined": "Nie udostępniono dziennika aplikacji",
+    "support network check title": "Sprawdzić sieć?",
+    "support network check body": "Sprawdza, czy zapytania DNS z tego telefonu przechodzą przez Blokadę.",
+    "support network check done": "Sprawdzono sieć",
+    "support network check declined": "Nie sprawdzono sieci"
 } }

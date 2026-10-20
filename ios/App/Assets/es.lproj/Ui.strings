@@ -51,6 +51,7 @@
 "universal action help" = "Ayuda";
 "universal action show log" = "Registros";
 "universal action share log" = "Enviar registro";
+"universal action run check" = "Realizar comprobación";
 "universal action copy" = "Copiar";
 "universal action save" = "Guardar";
 "universal action contact us" = "Contacta con nosotros";
@@ -1082,3 +1083,20 @@
 "activity filter chip most common" = "Los más frecuentes primero";
 // Shown when the user tries to switch off the only enabled blocklist
 "filter last list note" = "Siempre debe haber una lista de bloqueo activada. Usa Pausar en Inicio para dejar de bloquear.";
+
+// Screen reader name of the big power button on Home that turns ad blocking on and off
+"home power button label" = "Protección de Blokada";
+// Screen reader state of the power button: protection is on / off
+"home power button state on" = "Activado";
+"home power button state off" = "Desactivado";
+// Support chat card that asks before sending the app log, and the note left after it was sent
+"support share log title" = "¿Compartir el registro de su aplicación?";
+"support share log body" = "Envía el registro reciente de la aplicación, que puede incluir información del dispositivo y de la configuración.";
+"support share log done" = "Registro de la aplicación compartido";
+"support share log declined" = "Registro de la aplicación no compartido";
+
+// Support chat card that asks before running a DNS check, and the note left after it
+"support network check title" = "¿Comprobar la red?";
+"support network check body" = "Comprueba si las consultas DNS de este teléfono pasan por Blokada.";
+"support network check done" = "Comprobación de la red completada";
+"support network check declined" = "No se ha comprobado la red";
