@@ -40,3 +40,22 @@ jobs:
           # Post each finding as a line comment, so it gets a thread to resolve.
           pr_reviewer.inline_key_issues: "true"
           pr_reviewer.num_max_findings: "5"
+
+      # PR-Agent's summary does not name the model, and it rewrites the
+      # comment every round, so add the label back after each run.
+      - name: Label the review as GLM
+        if: startsWith(github.event.comment.body, '/review')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.issue.number }}
+        run: |
+          label='<sub>Reviewed by GLM 5.3 (Z.ai) via PR-Agent</sub>'
+          gh api "repos/$REPO/issues/$PR/comments" --paginate \
+            --jq '.[] | select(.user.login == "github-actions[bot]" and (.body | contains("PR Reviewer Guide"))) | .id' |
+          while read -r id; do
+            body=$(gh api "repos/$REPO/issues/comments/$id" --jq .body)
+            case "$body" in *"$label"*) continue ;; esac
+            gh api -X PATCH "repos/$REPO/issues/comments/$id" \
+              -f body="$(printf '%s\n\n%s' "$body" "$label")" > /dev/null
+          done
