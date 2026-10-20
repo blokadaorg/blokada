@@ -3,6 +3,9 @@
 # It reviews only when a team member comments `/review` (or `/improve`) on a
 # PR, so outside commenters cannot spend the API budget.
 name: GLM review
+# A comment-triggered run carries no PR number, so put it in the run's name for
+# the reviewer watcher to find this PR's run.
+run-name: "GLM review: #${{ github.event.issue.number }} ${{ github.event.issue.title }}"
 
 on:
   issue_comment:
@@ -34,9 +37,11 @@ jobs:
           OPENAI__API_BASE: https://api.z.ai/api/paas/v4
           config.model: openai/glm-5.3
           config.fallback_models: '["openai/glm-5.3"]'
-          # GLM 5.3 takes 1M tokens; capping what PR-Agent sends keeps a large
-          # PR from turning into an expensive review.
-          config.custom_model_max_tokens: "200000"
+          # GLM 5.3 takes 1M tokens. PR-Agent sends at most max_model_tokens
+          # (its default is 32k, which cuts large diffs); 128k covers most PRs
+          # while keeping a review under about $0.20.
+          config.custom_model_max_tokens: "1000000"
+          config.max_model_tokens: "128000"
           # Post each finding as a line comment, so it gets a thread to resolve.
           pr_reviewer.inline_key_issues: "true"
           pr_reviewer.num_max_findings: "5"
