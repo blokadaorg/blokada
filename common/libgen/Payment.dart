@@ -41,6 +41,10 @@ class OpsSubscription {
   bool willRenew;
   // ISO 8601, null for lifetime access.
   String? expiresAt;
+  // The Adapty profile's customer user id (our account id), so levels read
+  // right after an account switch are not taken for the new account's.
+  String? customerUserId;
 
-  OpsSubscription(this.accessLevelId, this.store, this.willRenew, this.expiresAt);
+  OpsSubscription(
+      this.accessLevelId, this.store, this.willRenew, this.expiresAt, this.customerUserId);
 }

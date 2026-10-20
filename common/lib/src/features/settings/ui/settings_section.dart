@@ -346,7 +346,6 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
             child: Column(
               children: [
                 const PlanRows(),
-                const CommonDivider(),
                 (!Core.act.isFamily || !Core.act.isRelease)
                     ? Column(
                         children: [

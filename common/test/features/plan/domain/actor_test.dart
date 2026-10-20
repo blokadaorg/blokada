@@ -1,3 +1,4 @@
+import 'package:common/src/app_variants/v6/module/attach/attach.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/features/link/domain/link.dart';
 import 'package:common/src/features/payment/domain/payment.dart';
@@ -18,12 +19,15 @@ class _MockPaymentActor extends Mock implements PaymentActor {}
 
 class _MockStageStore extends Mock implements StageStore {}
 
+class _MockAttachActor extends Mock implements AttachActor {}
+
 void main() {
   group('PlanActor', () {
     late _MockAccountStore account;
     late _MockPaymentChannel channel;
     late _MockPaymentActor payment;
     late _MockStageStore stage;
+    late _MockAttachActor attach;
     late CurrentPlanValue plan;
     late PlanActor actor;
 
@@ -51,11 +55,13 @@ void main() {
       channel = _MockPaymentChannel();
       payment = _MockPaymentActor();
       stage = _MockStageStore();
+      attach = _MockAttachActor();
       plan = CurrentPlanValue();
       Core.register<AccountStore>(account);
       Core.register<PaymentChannel>(channel);
       Core.register<PaymentActor>(payment);
       Core.register<StageStore>(stage);
+      Core.register<AttachActor>(attach);
       Core.register<CurrentPlanValue>(plan);
       actor = PlanActor();
     }
@@ -71,6 +77,7 @@ void main() {
               store: 'app_store',
               willRenew: false,
               expiresAt: DateTime.utc(2027, 2, 14),
+              customerUserId: 'testaccount01',
             ),
           ],
         );
@@ -110,14 +117,32 @@ void main() {
     test('manage opens the store the plan was bought in', () async {
       await withTrace((m) async {
         setup();
-        seedAccount('cloud', 'paypal');
+        seedAccount('cloud', 'google');
         when(() => channel.fetchActiveSubscriptions(any())).thenAnswer((_) async => []);
         when(() => stage.openLink(any(), any())).thenAnswer((_) async {});
 
         await actor.refresh(m);
         await actor.manage(m);
 
-        verify(() => stage.openLink(LinkId.manageSubscriptionsWeb, any())).called(1);
+        // Tests run as iOS, so a Play plan gets the Play-specific link.
+        verify(() => stage.openLink(LinkId.manageSubscriptionsPlayStore, any())).called(1);
+      });
+    });
+
+    test('manage of a web plan signs in to the dashboard through a one-time link', () async {
+      await withTrace((m) async {
+        setup();
+        seedAccount('cloud', 'paypal');
+        when(() => channel.fetchActiveSubscriptions(any())).thenAnswer((_) async => []);
+        when(() => attach.openInBrowser(any())).thenAnswer((_) async {});
+
+        await actor.refresh(m);
+        await actor.manage(m);
+
+        // Never a URL carrying the account ID.
+        verify(() => attach.openInBrowser(any())).called(1);
+        verifyNever(() => stage.openLink(any(), any()));
+        verifyNever(() => stage.openUrl(any(), any()));
       });
     });
 
@@ -137,35 +162,50 @@ void main() {
     test('restore with an active purchase checks out as a restore', () async {
       await withTrace((m) async {
         setup();
-        seedAccount('cloud', 'apple');
+        seedAccount('libre', 'apple');
         when(() => channel.restorePurchases(any())).thenAnswer((_) async => 'profile-1');
         when(() => channel.fetchActiveSubscriptions(any())).thenAnswer((_) async => []);
         when(
-          () => payment.checkoutSuccessfulPayment(any(), restore: any(named: 'restore')),
+          () => payment.checkoutSuccessfulPayment(
+            any(),
+            restore: any(named: 'restore'),
+            reportAlways: any(named: 'reportAlways'),
+          ),
         ).thenAnswer((_) async {});
 
         final outcome = await actor.restorePurchases(m);
 
         expect(outcome, PlanRestoreOutcome.restored);
-        verify(() => payment.checkoutSuccessfulPayment('profile-1', restore: true)).called(1);
+        // reportAlways: an earlier paywall error must not hide this one's failure.
+        verify(
+          () => payment.checkoutSuccessfulPayment('profile-1', restore: true, reportAlways: true),
+        ).called(1);
       });
     });
 
     test('restore with nothing active reports not found and skips checkout', () async {
       await withTrace((m) async {
         setup();
+        seedAccount('libre', '');
         when(() => channel.restorePurchases(any())).thenAnswer((_) async => null);
 
         final outcome = await actor.restorePurchases(m);
 
         expect(outcome, PlanRestoreOutcome.notFound);
-        verifyNever(() => payment.checkoutSuccessfulPayment(any(), restore: any(named: 'restore')));
+        verifyNever(
+          () => payment.checkoutSuccessfulPayment(
+            any(),
+            restore: any(named: 'restore'),
+            reportAlways: any(named: 'reportAlways'),
+          ),
+        );
       });
     });
 
     test('restore failure shows the restore-failed path', () async {
       await withTrace((m) async {
         setup();
+        seedAccount('libre', '');
         when(() => channel.restorePurchases(any())).thenThrow(Exception('store down'));
         when(
           () => payment.handleFailure(
@@ -175,6 +215,7 @@ void main() {
             s: any(named: 's'),
             restore: any(named: 'restore'),
             temporary: any(named: 'temporary'),
+            reportAlways: any(named: 'reportAlways'),
           ),
         ).thenAnswer((_) async {});
 
@@ -189,8 +230,21 @@ void main() {
             s: any(named: 's'),
             restore: true,
             temporary: any(named: 'temporary'),
+            reportAlways: true,
           ),
         ).called(1);
+      });
+    });
+
+    test('restore is refused for an active account', () async {
+      await withTrace((m) async {
+        setup();
+        seedAccount('cloud', 'stripe');
+
+        // Checkout would replace the account with whichever one owns the
+        // store purchase, so an active account must never get here.
+        await expectLater(actor.restorePurchases(m), throwsStateError);
+        verifyNever(() => channel.restorePurchases(any()));
       });
     });
   });

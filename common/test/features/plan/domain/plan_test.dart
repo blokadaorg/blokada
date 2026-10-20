@@ -25,8 +25,14 @@ StoreSubscription _sub(
   String store = 'app_store',
   bool willRenew = true,
   DateTime? expiresAt,
-}) =>
-    StoreSubscription(accessLevelId: id, store: store, willRenew: willRenew, expiresAt: expiresAt);
+  String? customerUserId = 'testaccount01',
+}) => StoreSubscription(
+  accessLevelId: id,
+  store: store,
+  willRenew: willRenew,
+  expiresAt: expiresAt,
+  customerUserId: customerUserId,
+);
 
 void main() {
   group('resolvePlan', () {
@@ -80,6 +86,39 @@ void main() {
       );
       expect(plan.renewal, PlanRenewal.ends);
       expect(plan.store, PlanStore.playStore);
+    });
+
+    test('a level of another tier is ignored: active until, store from payment source', () {
+      final plan = resolvePlan(
+        account: _account(type: 'plus', source: 'stripe', until: _until),
+        subscriptions: [
+          _sub('cloud', store: 'app_store', willRenew: false, expiresAt: DateTime.utc(2026, 11, 1)),
+        ],
+        now: _now,
+      );
+      expect(
+        plan,
+        Plan(
+          type: AccountType.plus,
+          renewal: PlanRenewal.activeUntil,
+          date: _until,
+          store: PlanStore.web,
+        ),
+      );
+    });
+
+    test('levels of another Adapty customer are ignored', () {
+      for (final customer in ['otheraccount', null]) {
+        final plan = resolvePlan(
+          account: _account(type: 'cloud', source: 'apple', until: _until),
+          subscriptions: [
+            _sub('cloud', willRenew: false, expiresAt: _until, customerUserId: customer),
+          ],
+          now: _now,
+        );
+        expect(plan.renewal, PlanRenewal.activeUntil, reason: '$customer');
+        expect(plan.store, PlanStore.appStore);
+      }
     });
 
     test('picks the access level of the account tier when several are active', () {
@@ -177,9 +216,73 @@ void main() {
       );
     });
 
-    test('web purchases go to the dashboard; nothing else has a link', () {
-      expect(manageLinkFor(PlanStore.web, PlatformType.iOS), LinkId.manageSubscriptionsWeb);
+    test('web and unknown stores have no store link', () {
+      expect(manageLinkFor(PlanStore.web, PlatformType.iOS), isNull);
       expect(manageLinkFor(PlanStore.none, PlatformType.iOS), isNull);
+    });
+  });
+
+  group('canManagePlan', () {
+    Plan plan(
+      PlanStore store, {
+      PlanRenewal renewal = PlanRenewal.activeUntil,
+      AccountType type = AccountType.cloud,
+    }) => Plan(type: type, renewal: renewal, date: _until, store: store);
+
+    test('store plans can always be managed, also lapsed (billing issues)', () {
+      expect(canManagePlan(plan(PlanStore.appStore), PlatformType.android), isTrue);
+      expect(
+        canManagePlan(
+          plan(PlanStore.playStore, renewal: PlanRenewal.expired),
+          PlatformType.android,
+        ),
+        isTrue,
+      );
+    });
+
+    test('web plans only while active, the dashboard link needs an active account', () {
+      expect(canManagePlan(plan(PlanStore.web), PlatformType.iOS), isTrue);
+      expect(
+        canManagePlan(plan(PlanStore.web, renewal: PlanRenewal.expired), PlatformType.iOS),
+        isFalse,
+      );
+    });
+
+    test('web Family plans have no dashboard to go to', () {
+      expect(
+        canManagePlan(plan(PlanStore.web, type: AccountType.family), PlatformType.iOS),
+        isFalse,
+      );
+    });
+
+    test('nothing to manage without a store', () {
+      expect(canManagePlan(plan(PlanStore.none), PlatformType.iOS), isFalse);
+    });
+  });
+
+  group('canRestore', () {
+    test('only without an active plan, like the paywall', () {
+      expect(Plan.empty.canRestore, isTrue);
+      expect(
+        const Plan(
+          type: AccountType.libre,
+          renewal: PlanRenewal.expired,
+          date: null,
+          store: PlanStore.appStore,
+        ).canRestore,
+        isTrue,
+      );
+      // An active account restoring could be switched to whichever account owns
+      // the store purchase.
+      expect(
+        Plan(
+          type: AccountType.cloud,
+          renewal: PlanRenewal.renews,
+          date: _until,
+          store: PlanStore.web,
+        ).canRestore,
+        isFalse,
+      );
     });
   });
 }

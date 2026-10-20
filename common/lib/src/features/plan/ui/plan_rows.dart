@@ -47,8 +47,9 @@ String planStatusText(Plan plan, DateTime now, String locale) {
 }
 
 /// The plan rows at the top of Settings "Your plan" (#454): status, Cloud →
-/// Plus upgrade, manage in the right store, and restore purchases. The account
-/// rows (account ID, Restore Account ID) follow them in the same card.
+/// Plus upgrade, manage in the right store, and restore purchases. Every row
+/// ends with a divider: the account rows (account ID, Restore Account ID)
+/// follow them in the same card.
 class PlanRows extends StatefulWidget {
   const PlanRows({super.key});
 
@@ -79,7 +80,7 @@ class _PlanRowsState extends State<PlanRows> with Logging, Disposables {
   Widget build(BuildContext context) {
     final plan = _plan.now;
     final status = planStatusText(plan, DateTime.now(), Localizations.localeOf(context).toString());
-    final canManage = manageLinkFor(plan.store, Core.act.platform) != null;
+    final canManage = canManagePlan(plan, Core.act.platform);
     final canUpgrade = plan.isActive && plan.type == AccountType.cloud;
 
     return Column(
@@ -123,18 +124,28 @@ class _PlanRowsState extends State<PlanRows> with Logging, Disposables {
             automationId: AutomationIds.settingsPlanManage,
             onTap: () {
               log(Markers.userTap).trace("settingsPlanManage", (m) async {
-                await _actor.manage(m);
+                try {
+                  await _actor.manage(m);
+                } catch (_) {
+                  // Logged by the trace. A web plan mints a sign-in link,
+                  // which can fail on the network; say so instead of nothing.
+                  if (mounted) showErrorDialog(this.context, null);
+                  rethrow;
+                }
               });
             },
           ),
           const CommonDivider(),
         ],
-        SettingsItem(
-          icon: CupertinoIcons.arrow_clockwise,
-          text: "payment action restore".i18n,
-          automationId: AutomationIds.settingsPlanRestore,
-          onTap: _restore,
-        ),
+        if (plan.canRestore) ...[
+          SettingsItem(
+            icon: CupertinoIcons.arrow_clockwise,
+            text: "payment action restore".i18n,
+            automationId: AutomationIds.settingsPlanRestore,
+            onTap: _restore,
+          ),
+          const CommonDivider(),
+        ],
       ],
     );
   }

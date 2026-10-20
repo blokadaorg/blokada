@@ -22,17 +22,22 @@ mixin PaymentChannel {
 
 /// One active Adapty access level. [store] is Adapty's store id (app_store,
 /// play_store, stripe, adapty, ...); [expiresAt] is null for lifetime access.
+/// [customerUserId] is the Adapty profile's customer (our account id), null
+/// for an anonymous profile; levels of another customer must not describe
+/// the current account.
 class StoreSubscription {
   final String accessLevelId;
   final String store;
   final bool willRenew;
   final DateTime? expiresAt;
+  final String? customerUserId;
 
   const StoreSubscription({
     required this.accessLevelId,
     required this.store,
     required this.willRenew,
     required this.expiresAt,
+    required this.customerUserId,
   });
 }
 

@@ -170,6 +170,7 @@ object PaymentBinding : PaymentOps, AdaptyFlowDefaultEventListener() {
         Adapty.getProfile { result ->
             when (result) {
                 is AdaptyResult.Success -> {
+                    val customerUserId = result.value.customerUserId
                     val subscriptions =
                         result.value.accessLevels.values
                             .filter { it.isActive }
@@ -179,6 +180,7 @@ object PaymentBinding : PaymentOps, AdaptyFlowDefaultEventListener() {
                                     store = it.store,
                                     willRenew = it.willRenew,
                                     expiresAt = it.expiresAt,
+                                    customerUserId = customerUserId,
                                 )
                             }
                     callback(Result.success(subscriptions))

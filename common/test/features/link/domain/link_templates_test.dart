@@ -40,8 +40,6 @@ void main() {
             "https://play.google.com/store/account/subscriptions?package=org.blokada.sex");
         expect(_select(LinkId.manageSubscriptionsPlayStore, platform, Flavor.family),
             "https://play.google.com/store/account/subscriptions?package=org.blokada.family");
-        expect(_select(LinkId.manageSubscriptionsWeb, platform, Flavor.v6),
-            "https://app.blokada.org/account?account-id=ACCOUNTID");
       }
     });
 

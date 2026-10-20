@@ -183,7 +183,11 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
     });
   }
 
-  checkoutSuccessfulPayment(String profileId, {bool restore = false}) async {
+  /// [reportAlways] is for callers outside the paywall (Settings restore),
+  /// whose failure must show even after an earlier paywall error; see
+  /// [handleFailure].
+  checkoutSuccessfulPayment(String profileId,
+      {bool restore = false, bool reportAlways = false}) async {
     await log(Markers.ui).trace("checkoutSuccessfulPayment", (m) async {
       try {
         final account = await _api.postCheckout(m, profileId);
@@ -200,16 +204,24 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
 
         await emitValue(paymentSuccessful, restore, m);
       } catch (e, s) {
-        await handleFailure(m, "Failed checkout", e, s: s, restore: restore);
+        await handleFailure(m, "Failed checkout", e,
+            s: s, restore: restore, reportAlways: reportAlways);
       }
     });
   }
 
+  /// Shows one failure sheet per paywall open: [_isError] holds until the
+  /// paywall opens again, so an Adapty error loop does not stack sheets.
+  /// [reportAlways] bypasses that for callers outside the paywall, which
+  /// would otherwise stay silent after any earlier paywall error.
   handleFailure(Marker m, String msg, Object e,
-      {StackTrace? s, bool restore = false, bool temporary = false}) async {
+      {StackTrace? s,
+      bool restore = false,
+      bool temporary = false,
+      bool reportAlways = false}) async {
     log(m).e(msg: "Adapty: $msg", err: e, stack: s);
 
-    if (_isError) return;
+    if (_isError && !reportAlways) return;
     _isError = true;
 
     var sheet = StageModal.paymentFailed;

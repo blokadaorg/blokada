@@ -1,3 +1,4 @@
+import 'package:common/src/app_variants/v6/module/attach/attach.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/features/link/domain/link.dart';
 import 'package:common/src/features/payment/domain/payment.dart';
@@ -52,6 +53,11 @@ class Plan {
       renewal == PlanRenewal.renews ||
       renewal == PlanRenewal.ends ||
       renewal == PlanRenewal.activeUntil;
+
+  /// Restore purchases, like the paywall, is only for accounts without an
+  /// active plan: checkout replaces the current account with whichever one
+  /// owns the store purchase, which must never happen to an active account.
+  bool get canRestore => !isActive;
 
   /// One tier naming across the app: "Blokada Cloud", "Blokada Plus".
   String get tierName => "Blokada ${type.name.firstLetterUppercase()}";
@@ -120,11 +126,12 @@ Plan resolvePlan({
     );
   }
 
-  // Prefer the level matching the account tier (a Cloud → Plus upgrade can
-  // briefly leave both active).
-  final sub =
-      subscriptions.firstOrNullWhere((it) => it.accessLevelId == type.name) ??
-      subscriptions.firstOrNull;
+  // Only a level of this account and of its tier describes this plan. Another
+  // tier's level (an old App Store Cloud sub on a Stripe Plus account) or one
+  // read for another customer (right after an account switch) would not.
+  final sub = subscriptions.firstOrNullWhere(
+    (it) => it.customerUserId == account.id && it.accessLevelId == type.name,
+  );
   final store = resolvePlanStore(adaptyStore: sub?.store, paymentSource: account.paymentSource);
 
   final expiresAt = sub?.expiresAt;
@@ -140,9 +147,10 @@ Plan resolvePlan({
   return Plan(type: type, renewal: PlanRenewal.activeUntil, date: activeUntil, store: store);
 }
 
-/// Where "Manage subscription" goes. The plan's own store, not the current
-/// platform's: a plan bought on iPhone is managed in the App Store even when
-/// viewed on Android. Null when there is nothing to manage.
+/// The store page for "Manage subscription". The plan's own store, not the
+/// current platform's: a plan bought on iPhone is managed in the App Store even
+/// when viewed on Android. Null for web plans (see [canManagePlan]) and plans
+/// with no store.
 LinkId? manageLinkFor(PlanStore store, PlatformType platform) {
   switch (store) {
     case PlanStore.appStore:
@@ -154,10 +162,21 @@ LinkId? manageLinkFor(PlanStore store, PlatformType platform) {
           ? LinkId.manageSubscriptions
           : LinkId.manageSubscriptionsPlayStore;
     case PlanStore.web:
-      return LinkId.manageSubscriptionsWeb;
     case PlanStore.none:
       return null;
   }
+}
+
+/// Whether Settings offers "Manage subscription". Store plans always, so a
+/// lapsed one with a billing issue can still be fixed. Web plans (#204) are
+/// managed in the dashboard, reached through a one-time sign-in link that the
+/// backend only mints for active accounts, and only Cloud and Plus have a
+/// dashboard.
+bool canManagePlan(Plan plan, PlatformType platform) {
+  if (plan.store == PlanStore.web) {
+    return plan.isActive && plan.type != AccountType.family;
+  }
+  return manageLinkFor(plan.store, platform) != null;
 }
 
 /// The plan Settings shows; [PlanActor] keeps it current.

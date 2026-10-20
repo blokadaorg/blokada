@@ -22,7 +22,7 @@ Future<void> _pump(WidgetTester tester, {required String? type, String? source})
   final json = JsonAccount(
     id: 'testaccount01',
     activeUntil: '2099-01-01T00:00:00Z',
-    active: type != null,
+    active: type != null && type != 'libre',
     type: type,
   );
   json.paymentSource = source;
@@ -99,7 +99,7 @@ void main() {
   });
 
   group('PlanRows', () {
-    testWidgets('a Cloud plan from the App Store can upgrade, manage and restore', (tester) async {
+    testWidgets('an active Cloud plan from the App Store can upgrade and manage', (tester) async {
       await _pump(tester, type: 'cloud', source: 'apple');
 
       expect(
@@ -110,7 +110,8 @@ void main() {
       );
       expect(_byId(AutomationIds.settingsPlanUpgrade), findsOneWidget);
       expect(_byId(AutomationIds.settingsPlanManage), findsOneWidget);
-      expect(_byId(AutomationIds.settingsPlanRestore), findsOneWidget);
+      // Restore is for inactive accounts only, like the paywall.
+      expect(_byId(AutomationIds.settingsPlanRestore), findsNothing);
 
       await _unmount(tester);
     });
@@ -120,6 +121,17 @@ void main() {
 
       expect(_byId(AutomationIds.settingsPlanUpgrade), findsNothing);
       expect(_byId(AutomationIds.settingsPlanManage), findsNothing);
+      expect(_byId(AutomationIds.settingsPlanRestore), findsNothing);
+
+      await _unmount(tester);
+    });
+
+    testWidgets('a lapsed store plan can be restored and managed', (tester) async {
+      await _pump(tester, type: 'libre', source: 'apple');
+
+      expect(find.text("notification acc header".i18n), findsOneWidget);
+      expect(_byId(AutomationIds.settingsPlanUpgrade), findsNothing);
+      expect(_byId(AutomationIds.settingsPlanManage), findsOneWidget);
       expect(_byId(AutomationIds.settingsPlanRestore), findsOneWidget);
 
       await _unmount(tester);

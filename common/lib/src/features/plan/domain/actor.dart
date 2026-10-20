@@ -22,6 +22,8 @@ class PlanActor with Logging, Actor {
   late final _payment = Core.get<PaymentActor>();
   late final _stage = Core.get<StageStore>();
   late final _plan = Core.get<CurrentPlanValue>();
+  // Only reached for web plans, which only v6 offers (see canManagePlan).
+  late final _attach = Core.get<AttachActor>();
 
   /// Last access levels read from the store, reused when only the account
   /// changes so an account refresh does not call the store every time.
@@ -66,9 +68,18 @@ class PlanActor with Logging, Actor {
   /// Changing plan also happens there; there is no in-app downgrade (#1, #37).
   Future<void> manage(Marker m) async {
     return await log(m).trace("planManage", (m) async {
-      final link = manageLinkFor(_plan.now.store, Core.act.platform);
-      if (link == null) throw Exception("No store to manage plan in");
-      await _stage.openLink(link, m);
+      final plan = _plan.now;
+      if (!canManagePlan(plan, Core.act.platform)) {
+        throw StateError("No store to manage plan in");
+      }
+      if (plan.store == PlanStore.web) {
+        // A one-time sign-in link: the account ID is the credential and must
+        // not land in a URL (browser history, sync, referers). The dashboard
+        // opens on its home page; the link cannot target the account page.
+        await _attach.openInBrowser(m);
+        return;
+      }
+      await _stage.openLink(manageLinkFor(plan.store, Core.act.platform)!, m);
     });
   }
 
@@ -79,19 +90,32 @@ class PlanActor with Logging, Actor {
 
   /// Same path as the paywall's restore: an active access level goes through
   /// checkout as a restore (so its failure shows the restore-failed sheet), and
-  /// none at all is reported back for the #395 message.
+  /// none at all is reported back for the #395 message. Only for accounts
+  /// without an active plan (see [Plan.canRestore]). Failures are always
+  /// shown, even after an earlier paywall error.
   Future<PlanRestoreOutcome> restorePurchases(Marker m) async {
     return await log(m).trace("planRestore", (m) async {
+      if (_account.type.isActive()) {
+        throw StateError("Restore purchases is only for inactive accounts");
+      }
+
       final String? profileId;
       try {
         profileId = await _channel.restorePurchases(m);
       } catch (e, s) {
-        await _payment.handleFailure(m, "Failed restore", e, s: s, restore: true);
+        await _payment.handleFailure(
+          m,
+          "Failed restore",
+          e,
+          s: s,
+          restore: true,
+          reportAlways: true,
+        );
         return PlanRestoreOutcome.failed;
       }
 
       if (profileId == null) return PlanRestoreOutcome.notFound;
-      await _payment.checkoutSuccessfulPayment(profileId, restore: true);
+      await _payment.checkoutSuccessfulPayment(profileId, restore: true, reportAlways: true);
       await refresh(m);
       return PlanRestoreOutcome.restored;
     });

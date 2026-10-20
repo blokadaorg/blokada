@@ -49,8 +49,6 @@ final linkTemplates = {
       "https://play.google.com/store/account/subscriptions?package=org.blokada.sex"),
   LinkTemplate(LinkId.manageSubscriptionsPlayStore, null, Flavor.family,
       "https://play.google.com/store/account/subscriptions?package=org.blokada.family"),
-  // The dashboard signs in from the account-id parameter.
-  LinkTemplate(LinkId.manageSubscriptionsWeb, null, null, "https://app.blokada.org/account?$_keyAcc"),
   LinkTemplate(LinkId.credits, null, null, "https://blokada.org/"),
   // Less important (mostly legacy) links
   LinkTemplate(LinkId.whyVpn, null, null, "https://go.blokada.org/vpn"),

@@ -332,6 +332,7 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIFlows
               store: level.store,
               willRenew: level.willRenew,
               expiresAt: level.expiresAt,
+              customerUserId: profile.customerUserId,
             ))
         .toList();
   }
