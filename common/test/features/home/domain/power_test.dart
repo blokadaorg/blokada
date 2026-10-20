@@ -5,7 +5,6 @@ import 'package:common/src/platform/app/app.dart';
 import 'package:common/src/platform/app/channel.pg.dart';
 import 'package:common/src/platform/app/start/start.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 
 import '../../../tools.dart';
 
