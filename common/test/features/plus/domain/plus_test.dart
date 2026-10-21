@@ -37,6 +37,9 @@ import 'lease/fixtures.dart';
 import 'plus_test.mocks.dart';
 
 void main() {
+  // newPlus confirms a new location with a haptic, which needs the binding.
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   group("store", () {
     test("load", () async {
       await withTrace((m) async {

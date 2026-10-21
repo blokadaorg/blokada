@@ -1,3 +1,4 @@
+import 'package:common/src/shared/ui/blokada_segmented_control.dart';
 import 'package:common/src/features/customlist/domain/customlist.dart';
 import 'package:common/src/features/journal/domain/journal.dart';
 import 'package:common/src/shared/automation/ids.dart';
@@ -86,7 +87,7 @@ class ExceptionsSectionState extends State<ExceptionsSection>
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: CupertinoSlidingSegmentedControl<ExceptionsTab>(
+                    child: BlokadaSegmentedControl<ExceptionsTab>(
                       groupValue: _selectedTab,
                       onValueChanged: (value) {
                         if (value != null) {

@@ -1,3 +1,4 @@
+import 'package:common/src/shared/ui/blokada_segmented_control.dart';
 import 'package:common/src/features/journal/domain/journal.dart';
 import 'package:common/src/shared/layout/detail_route.dart';
 import 'package:common/src/shared/layout/with_detail_pane.dart';
@@ -152,7 +153,7 @@ class TopDomainsState extends State<TopDomains> {
                     padding: const EdgeInsets.all(16.0),
                     child: SizedBox(
                       width: double.infinity,
-                      child: CupertinoSlidingSegmentedControl<ToplistTab>(
+                      child: BlokadaSegmentedControl<ToplistTab>(
                         groupValue: _selectedTab,
                         onValueChanged: (ToplistTab? value) {
                           if (value != null) {

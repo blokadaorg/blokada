@@ -15,6 +15,8 @@ import 'package:common/src/features/plus/domain/plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart' as mobx;
+import 'dart:async';
+import 'package:common/src/shared/ui/haptics.dart';
 
 class PlusButton extends StatefulWidget {
   PlusButton({Key? key}) : super(key: key);
@@ -155,6 +157,7 @@ class _PlusButtonState extends State<PlusButton>
   }
 
   Future<void> _displayLocations(Marker m) async {
+    unawaited(Haptics.tap());
     await _stage.showModal(StageModal.plusLocationSelect, m);
   }
 
