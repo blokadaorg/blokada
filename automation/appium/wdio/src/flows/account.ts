@@ -19,10 +19,6 @@ const supportRowSelector = `~${AutomationIds.settingsSupport}`;
 // chat screen has exactly one text input.
 const chatInputSelector =
   "-ios predicate string: type == 'XCUIElementTypeTextField' OR type == 'XCUIElementTypeTextView'";
-const chatSendLabelSelectors = [
-  "~Send",
-  "-ios predicate string: type == 'XCUIElementTypeButton' AND (label CONTAINS[c] 'Send' OR name CONTAINS[c] 'Send')"
-];
 
 export interface AccountIds {
   active: string;
@@ -74,21 +70,9 @@ export async function openSupportChat(timeout = 15000): Promise<void> {
 }
 
 async function tapChatSend(): Promise<void> {
-  // The send IconButton (Icons.send) has no label; try a label match first,
-  // then fall back to tapping the far-right of the composer row (the send
-  // button sits to the right of the input). Device geometry is fixed in CI.
-  for (const selector of chatSendLabelSelectors) {
-    try {
-      const button = await $(selector);
-      if (await button.isExisting()) {
-        await button.click();
-        return;
-      }
-    } catch {
-      // try the next selector
-    }
-  }
-
+  // The composer's send IconButton (Icons.send) has no label, so tap the
+  // far-right of the composer row, where it sits next to the input. Do not
+  // match "Send" by label: on iOS 27 that is the keyboard's return key.
   const input = await $(chatInputSelector);
   const location = await input.getLocation();
   const size = await input.getSize();
@@ -97,6 +81,37 @@ async function tapChatSend(): Promise<void> {
     x: Math.round(rect.width - 28),
     y: Math.round(location.y + size.height / 2)
   });
+}
+
+async function chatInputValue(): Promise<string> {
+  try {
+    const input = await $(chatInputSelector);
+    if (!(await input.isExisting())) return "";
+    return (await input.getAttribute("value")) ?? "";
+  } catch {
+    return "";
+  }
+}
+
+/**
+ * Tap send until the composer gives up the typed text. On iOS 27 the app takes
+ * in text typed through XCTest a moment late, and a send tapped before that
+ * does nothing while the field keeps showing the text.
+ */
+async function submitChatText(text: string, timeout = 15000): Promise<boolean> {
+  const end = Date.now() + timeout;
+  while (Date.now() < end) {
+    await tapChatSend();
+    const sent = await driver
+      .waitUntil(async () => (await chatInputValue()) !== text, {
+        timeout: 2000,
+        interval: 250
+      })
+      .then(() => true)
+      .catch(() => false);
+    if (sent) return true;
+  }
+  return false;
 }
 
 /**
@@ -117,12 +132,17 @@ export async function sendChatCommand(command: string): Promise<void> {
   } catch {
     // field may already be empty / not clearable — ignore
   }
-  await input.setValue(`cc ${command}`);
-  await tapChatSend();
+  const text = `cc ${command}`;
+  await input.setValue(text);
+  if (!(await submitChatText(text))) {
+    // Name only the command: its argument may be an account id.
+    throw new Error(
+      `Support chat never sent "cc ${command.split(" ")[0]}": the text stayed in the composer.`
+    );
+  }
 
-  // The return key inserts a newline rather than submitting, so the tap above
-  // is the only submit path. Brief settle for the user bubble to echo; callers
-  // that need command completion (see restoreAccount) wait on a real signal.
+  // Brief settle for the user bubble to echo; callers that need command
+  // completion (see restoreAccount) wait on a real signal.
   await driver.pause(1000);
 }
 
