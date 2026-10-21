@@ -129,8 +129,12 @@ class _HomeCounterState extends State<HomeCounter> with WidgetsBindingObserver, 
     super.dispose();
   }
 
+  // A failed refresh keeps the last count on screen; the retry is only for
+  // a card that has nothing to show.
+  bool get _showRetry => _error && !_hasStats;
+
   void _onTap() {
-    if (_error) {
+    if (_showRetry) {
       unawaited(_stats.retry(Markers.userTap, StatsPart.stats));
       return;
     }
@@ -141,7 +145,7 @@ class _HomeCounterState extends State<HomeCounter> with WidgetsBindingObserver, 
   Widget build(BuildContext context) {
     final theme = Theme.of(context).extension<BlokadaTheme>()!;
     final Widget big;
-    if (_error) {
+    if (_showRetry) {
       big = Icon(Icons.refresh, size: 34, color: theme.textSecondary);
     } else if (_hasStats) {
       big = MiniCardCounter(counter: counter, lastCounter: lastCounter);
@@ -161,7 +165,7 @@ class _HomeCounterState extends State<HomeCounter> with WidgetsBindingObserver, 
         ),
         big: big,
         small: "",
-        footer: _error
+        footer: _showRetry
             ? "universal action try again".i18n
             : "home counter caption blocked".i18n,
       ),

@@ -1,6 +1,7 @@
 import 'package:common/src/app_variants/v6/widget/home/counter.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/features/api/domain/api.dart';
+import 'package:common/src/features/stats/domain/controller.dart';
 import 'package:common/src/platform/app/channel.pg.dart';
 import 'package:common/src/platform/stats/stats.dart';
 import 'package:common/src/shared/ui/app.dart';
@@ -171,5 +172,22 @@ void main() {
 
     expect(find.byType(MiniCardCounter), findsOneWidget);
     expect(find.text('home counter caption blocked'.i18n), findsOneWidget);
+  });
+
+  testWidgets('a failed refresh keeps showing the last count', (tester) async {
+    final http = await _boot(tester, AppStatus.activatedCloud);
+    await _pumpCounter(tester);
+    await _idle(tester, const Duration(seconds: 3));
+    final shown = tester.widget<MiniCardCounter>(find.byType(MiniCardCounter)).counter;
+
+    // The next 30 s refresh fails.
+    http.failStats = true;
+    await _idle(tester, const Duration(seconds: 31));
+    expect(Core.get<StatsController>().stats.now.isError, isTrue);
+
+    // Still the last good number, and a tap still opens Privacy Pulse.
+    expect(tester.widget<MiniCardCounter>(find.byType(MiniCardCounter)).counter, shown);
+    expect(find.text('home counter caption blocked'.i18n), findsOneWidget);
+    expect(find.text('universal action try again'.i18n), findsNothing);
   });
 }

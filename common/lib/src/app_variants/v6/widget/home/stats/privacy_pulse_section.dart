@@ -244,6 +244,17 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging, 
 
   UiStats get _statsData => _stats.stats.now.data ?? UiStats.empty();
 
+  /// The charts draw both sections: a counters failure first, then stats
+  /// that failed with nothing loaded (drawing them would show zeros).
+  Widget? _chartsError(StatsSection<PulseCounters> counters) {
+    if (counters.isError) return StatsError(onRetry: () => _retry(StatsPart.counters));
+    final stats = _stats.stats.now;
+    if (stats.isError && stats.data == null) {
+      return StatsError(onRetry: () => _retry(StatsPart.stats));
+    }
+    return null;
+  }
+
   Widget _buildChartsCard(BuildContext context) {
     final counters = _stats.counters.now;
     return MiniCard(
@@ -258,9 +269,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging, 
           deltaReady: counters.data?.deltaReady ?? false,
           sparklineSeries: counters.data?.sparkline,
           trailing: _buildToplistRangeToggle(context),
-          error: counters.isError
-              ? StatsError(onRetry: () => _retry(StatsPart.counters))
-              : null,
+          error: _chartsError(counters),
         ),
       ),
     );
