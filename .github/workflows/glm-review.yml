@@ -1,0 +1,66 @@
+# GLM review: one of the PR reviewers an agent rotates through when another
+# hits its limit. PR-Agent runs GLM through Z.ai's pay-as-you-go API.
+# It reviews only when a team member comments `/review` (or `/improve`) on a
+# PR, so outside commenters cannot spend the API budget.
+name: GLM review
+# A comment-triggered run carries no PR number, so put it in the run's name for
+# the reviewer watcher to find this PR's run.
+run-name: "GLM review: #${{ github.event.issue.number }} ${{ github.event.issue.title }}"
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions: {}
+
+jobs:
+  review:
+    if: >-
+      github.event.issue.pull_request &&
+      (startsWith(github.event.comment.body, '/review') ||
+       startsWith(github.event.comment.body, '/improve')) &&
+      contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.comment.author_association)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+    concurrency:
+      group: glm-review-${{ github.event.issue.number }}
+      cancel-in-progress: false
+    steps:
+      - uses: the-pr-agent/pr-agent@981344be2755e303df501e18e3f60b848a188a80 # v0.48.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENAI__KEY: ${{ secrets.ZAI_API_KEY }}
+          OPENAI__API_BASE: https://api.z.ai/api/paas/v4
+          config.model: openai/glm-5.3
+          config.fallback_models: '["openai/glm-5.3"]'
+          # GLM 5.3 takes 1M tokens. PR-Agent sends at most max_model_tokens
+          # (its default is 32k, which cuts large diffs); 128k covers most PRs
+          # while keeping a review under about $0.20.
+          config.custom_model_max_tokens: "1000000"
+          config.max_model_tokens: "128000"
+          # Post each finding as a line comment, so it gets a thread to resolve.
+          pr_reviewer.inline_key_issues: "true"
+          pr_reviewer.num_max_findings: "5"
+
+      # PR-Agent's summary does not name the model, and it rewrites the
+      # comment every round, so add the label back after each run.
+      - name: Label the review as GLM
+        if: startsWith(github.event.comment.body, '/review')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.issue.number }}
+        run: |
+          label='<sub>Reviewed by GLM 5.3 (Z.ai) via PR-Agent</sub>'
+          gh api "repos/$REPO/issues/$PR/comments" --paginate \
+            --jq '.[] | select(.user.login == "github-actions[bot]" and (.body | contains("PR Reviewer Guide"))) | .id' |
+          while read -r id; do
+            body=$(gh api "repos/$REPO/issues/comments/$id" --jq .body)
+            case "$body" in *"$label"*) continue ;; esac
+            gh api -X PATCH "repos/$REPO/issues/comments/$id" \
+              -f body="$(printf '%s\n\n%s' "$body" "$label")" > /dev/null
+          done
