@@ -5,6 +5,7 @@ import 'package:common/src/core/core.dart';
 import 'package:common/src/features/home/domain/power.dart';
 import 'package:common/src/platform/app/channel.pg.dart';
 import 'package:common/src/shared/ui/app.dart';
+import 'package:common/src/shared/ui/touch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -15,8 +16,13 @@ import '../../../golden/golden_tools.dart';
 class _FakePowerActor extends Fake implements PowerActor {
   final confirmed = StreamController<void>.broadcast();
 
+  int toggles = 0;
+
   @override
   Stream<void> get onProtectionConfirmed => confirmed.stream;
+
+  @override
+  Future<void> toggle(Marker m) async => toggles++;
 }
 
 PowerButtonPainter _painter(WidgetTester tester) {
@@ -56,7 +62,7 @@ Future<(_FakePowerActor, List<String>)> _pump(
 
   await tester.pumpWidget(
     MediaQuery(
-      data: MediaQueryData(disableAnimations: reduceMotion),
+      data: MediaQueryData.fromView(tester.view).copyWith(disableAnimations: reduceMotion),
       child: BlokadaApp(
         isFamily: false,
         content: Scaffold(body: Center(child: PowerButton())),
@@ -76,6 +82,33 @@ Future<void> _unmount(WidgetTester tester) async {
 }
 
 void main() {
+  testWidgets('a tap thumps, the ring ticks as it winds up, then a rising run', (tester) async {
+    final (power, haptics) = await _pump(tester, status: AppStatus.deactivated);
+
+    await tester.tap(find.descendant(of: find.byType(PowerButton), matching: find.byType(Touch)));
+    await tester.pump();
+    expect(power.toggles, 1);
+    expect(haptics, ['HapticFeedbackType.mediumImpact']);
+    haptics.clear();
+
+    seedAppStatus(AppStatus.activatedCloud);
+    await tester.pump(const Duration(milliseconds: 250));
+    power.confirmed.add(null);
+    for (var i = 0; i < 20; i++) {
+      await tester.pump(const Duration(milliseconds: 50));
+    }
+    expect(haptics, [
+      'HapticFeedbackType.selectionClick',
+      'HapticFeedbackType.selectionClick',
+      'HapticFeedbackType.selectionClick',
+      'HapticFeedbackType.lightImpact',
+      'HapticFeedbackType.mediumImpact',
+      'HapticFeedbackType.heavyImpact',
+    ]);
+
+    await _unmount(tester);
+  });
+
   testWidgets('the ring draws round, then pulses once with the success haptic', (tester) async {
     final (power, haptics) = await _pump(tester, status: AppStatus.activatedCloud);
 
