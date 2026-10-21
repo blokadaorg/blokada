@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:common/src/core/core.dart';
 import 'package:common/src/features/journal/domain/journal.dart';
 import 'package:common/src/features/stats/domain/controller.dart';
@@ -40,6 +42,7 @@ class _FakeStatsStore extends Fake implements StatsStore {
   List<UiToplistEntry> nextToplist = _toplist;
   StatsCounters weekCounters = const StatsCounters(allowed: 200, blocked: 90, total: 290);
   Object? failDay;
+  Completer<void>? dayGate;
   Object? failToplists;
 
   final calls = <String>[];
@@ -47,6 +50,8 @@ class _FakeStatsStore extends Fake implements StatsStore {
   @override
   Future<UiStats> fetchDay(Marker m, {bool force = false}) async {
     calls.add('day force=$force');
+    final gate = dayGate;
+    if (gate != null) await gate.future;
     if (failDay != null) throw failDay!;
     stats = next;
     hasStats = true;
@@ -95,19 +100,29 @@ class _FakeStatsStore extends Fake implements StatsStore {
 }
 
 class _FakeDeltaStore extends Fake implements StatsDeltaStore {
+  final gates = <String, Completer<void>>{};
+  final percent = <String, int>{};
+
   @override
   Future<void> refresh(
     Marker m, {
     required String deviceName,
     required String range,
     bool force = false,
-  }) async {}
+  }) async {
+    final gate = gates[deviceName];
+    if (gate != null) await gate.future;
+  }
 
   @override
   List<ToplistDelta> deltasFor(String deviceName, String range, {required bool blocked}) => [];
 
   @override
-  CounterDelta counterDeltaFor(String deviceName, String range) => CounterDelta.empty();
+  CounterDelta counterDeltaFor(String deviceName, String range) => CounterDelta(
+    allowedPercent: 0,
+    blockedPercent: percent[deviceName] ?? 0,
+    hasComparison: true,
+  );
 }
 
 class _FakeDeviceStore extends Fake implements DeviceStore {
@@ -132,6 +147,7 @@ class _FakeJournal extends Fake implements JournalActor {
   List<UiJournalEntry> blocked = [_entry('doubleclick.net', UiJournalAction.block)];
   List<UiJournalEntry> allowed = [_entry('apple.com', UiJournalAction.allow)];
   Object? fail;
+  final gates = <String, Completer<void>>{};
   int previews = 0;
   int fetches = 0;
 
@@ -146,7 +162,10 @@ class _FakeJournal extends Fake implements JournalActor {
     bool exactMatchDomain = false,
   }) async {
     previews++;
+    final gate = gates[deviceName];
+    if (gate != null) await gate.future;
     if (fail != null) throw fail!;
+    if (deviceName != 'Pixel') return [_entry('$deviceName.example', action)];
     return action == UiJournalAction.block ? blocked : allowed;
   }
 
@@ -172,6 +191,7 @@ void main() {
     late _FakeStatsStore store;
     late _FakeDeviceStore device;
     late _FakeJournal journal;
+    late _FakeDeltaStore deltas;
     late StatsController controller;
 
     void setUp(Marker m) {
@@ -179,7 +199,8 @@ void main() {
       device = _FakeDeviceStore();
       journal = _FakeJournal();
       Core.register<StatsStore>(store);
-      Core.register<StatsDeltaStore>(_FakeDeltaStore());
+      deltas = _FakeDeltaStore();
+      Core.register<StatsDeltaStore>(deltas);
       Core.register<DeviceStore>(device);
       Core.register<JournalActor>(journal);
       Core.register<JournalEntriesValue>(JournalEntriesValue());
@@ -361,6 +382,69 @@ void main() {
         Core.get<JournalEntriesValue>().now = [];
         await pumpEventQueue();
         expect(journal.previews, before + 2);
+      });
+    });
+    test('a stats fetch for the previous device is not published', () async {
+      await withTrace((m) async {
+        setUp(m);
+        store.dayGate = Completer<void>();
+        controller.setHomeRefresh(true);
+        await pumpEventQueue();
+
+        // The device is renamed while the fetch for the old name is in flight.
+        device.deviceAlias = 'Tablet';
+        store.dayGate!.complete();
+        await pumpEventQueue();
+
+        expect(controller.stats.now.status, StatsStatus.loading);
+        expect(controller.stats.now.data, isNull);
+        controller.setHomeRefresh(false);
+      });
+    });
+
+    test('deltas for the previous device are not published', () async {
+      await withTrace((m) async {
+        setUp(m);
+        deltas.percent['Pixel'] = 11;
+        deltas.percent['Tablet'] = 22;
+        final oldDevice = Completer<void>();
+        deltas.gates['Pixel'] = oldDevice;
+        unawaited(controller.openPulse(m));
+        await pumpEventQueue();
+
+        device.deviceAlias = 'Tablet';
+        await device.changed();
+        expect(controller.counters.now.data!.delta!.blockedPercent, 22);
+
+        oldDevice.complete();
+        await pumpEventQueue();
+        expect(controller.counters.now.data!.delta!.blockedPercent, 22);
+      });
+    });
+
+    test('recent activity for the previous device is not published', () async {
+      await withTrace((m) async {
+        setUp(m);
+        final oldDevice = Completer<void>();
+        journal.gates['Pixel'] = oldDevice;
+        final published = <RecentPreview>[];
+        controller.recent.onChange.listen((it) {
+          final data = it.now.data;
+          if (data != null) published.add(data);
+        });
+        unawaited(controller.openPulse(m));
+        await pumpEventQueue();
+
+        device.deviceAlias = 'Tablet';
+        unawaited(device.changed());
+        oldDevice.complete();
+        await pumpEventQueue();
+
+        expect(published, isNotEmpty);
+        for (final p in published) {
+          expect(p.blocked.single.domainName, 'Tablet.example');
+        }
+        expect(controller.recent.now.data!.blocked.single.domainName, 'Tablet.example');
       });
     });
   });

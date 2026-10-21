@@ -259,19 +259,24 @@ class StatsController with Logging, Actor {
     return StatsSection(s.dayTotal == 0 ? StatsStatus.empty : StatsStatus.ready, s);
   }
 
+  /// The device was renamed while a load for [deviceName] was in flight: its
+  /// result belongs to the old name, and the rename starts a new load.
+  bool _renamed(String deviceName) => _device.deviceAlias != deviceName;
+
   Future<void> _loadStats(Marker m, {required bool force}) async {
     final gen = ++_statsGen;
+    final deviceName = _device.deviceAlias;
     final week = _pulseViews > 0;
     stats.now = stats.now.withStatus(StatsStatus.loading);
     _publishCounters();
     try {
       await _store.fetchDay(m, force: force);
       if (week) await _store.fetchWeek(m, force: force);
-      if (gen != _statsGen) return;
+      if (gen != _statsGen || _renamed(deviceName)) return;
       stats.now = _statsFromStore();
     } catch (e, s) {
       log(m).e(msg: "stats: fetch failed", err: e, stack: s);
-      if (gen != _statsGen) return;
+      if (gen != _statsGen || _renamed(deviceName)) return;
       stats.now = stats.now.withStatus(StatsStatus.error);
     }
     _publishCounters();
@@ -283,12 +288,13 @@ class StatsController with Logging, Actor {
     if (selected == ToplistRange.daily) return await _loadStats(m, force: force);
 
     final gen = ++_countersGen;
+    final deviceName = _device.deviceAlias;
     _weekCounters = _weekCounters.withStatus(StatsStatus.loading);
     _publishCounters();
     try {
       final counters = await _store.countersForRange(selected.api, m, force: force);
       final sparkline = await _store.allowedDailySeries(m, days: 7, force: force);
-      if (gen != _countersGen) return;
+      if (gen != _countersGen || _renamed(deviceName)) return;
       _weekCounters = StatsSection(
         counters.total == 0 ? StatsStatus.empty : StatsStatus.ready,
         counters,
@@ -298,7 +304,7 @@ class StatsController with Logging, Actor {
       if (_store.hasStats) stats.now = _statsFromStore();
     } catch (e, s) {
       log(m).e(msg: "stats: weekly counters failed", err: e, stack: s);
-      if (gen != _countersGen) return;
+      if (gen != _countersGen || _renamed(deviceName)) return;
       _weekCounters = _weekCounters.withStatus(StatsStatus.error);
     }
     _publishCounters();
@@ -324,6 +330,7 @@ class StatsController with Logging, Actor {
       log(m).e(msg: "stats: deltas failed", err: e, stack: s);
       result = const _Deltas();
     }
+    if (_renamed(deviceName)) return;
     _deltas[selected] = result;
     _publishCounters();
     _publishToplists(toplists.now.status);
@@ -336,15 +343,16 @@ class StatsController with Logging, Actor {
     toplists.now = const StatsSection.loading();
 
     final future = () async {
-      if (_device.deviceAlias.isEmpty) return;
+      final deviceName = _device.deviceAlias;
+      if (deviceName.isEmpty) return;
       try {
         await _store.fetchToplists(m, range: selected.api);
-        if (gen != _toplistsGen) return;
+        if (gen != _toplistsGen || _renamed(deviceName)) return;
         _toplistEntries = _store.stats.toplist;
         _publishToplists(_toplistEntries.isEmpty ? StatsStatus.empty : StatsStatus.ready);
       } catch (e, s) {
         log(m).e(msg: "stats: toplists failed", err: e, stack: s);
-        if (gen != _toplistsGen) return;
+        if (gen != _toplistsGen || _renamed(deviceName)) return;
         toplists.now = const StatsSection(StatsStatus.error);
       }
     }();
@@ -373,10 +381,12 @@ class StatsController with Logging, Actor {
       ]);
       final preview = RecentPreview(blocked: results[0], allowed: results[1]);
       final empty = preview.blocked.isEmpty && preview.allowed.isEmpty;
-      recent.now = StatsSection(empty ? StatsStatus.empty : StatsStatus.ready, preview);
+      if (!_renamed(deviceName)) {
+        recent.now = StatsSection(empty ? StatsStatus.empty : StatsStatus.ready, preview);
+      }
     } catch (e, s) {
       log(m).e(msg: "stats: recent activity failed", err: e, stack: s);
-      recent.now = recent.now.withStatus(StatsStatus.error);
+      if (!_renamed(deviceName)) recent.now = recent.now.withStatus(StatsStatus.error);
     } finally {
       _recentLoading = false;
     }
