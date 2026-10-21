@@ -1,6 +1,6 @@
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
-import 'package:common/src/app_variants/family/module/stats/stats.dart';
+import 'package:common/src/platform/stats/model.dart';
 import 'package:common/src/platform/stats/delta_store.dart';
 import 'package:common/src/platform/stats/stats.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,6 +16,9 @@ class PrivacyPulseCharts extends StatelessWidget {
   final bool statsReady;
   final bool deltaReady;
 
+  /// Drawn instead of the charts when their numbers failed to load.
+  final Widget? error;
+
   const PrivacyPulseCharts({
     Key? key,
     required this.stats,
@@ -25,6 +28,7 @@ class PrivacyPulseCharts extends StatelessWidget {
     this.sparklineSeries,
     this.statsReady = true,
     this.deltaReady = true,
+    this.error,
   }) : super(key: key);
 
   @override
@@ -74,14 +78,15 @@ class PrivacyPulseCharts extends StatelessWidget {
         ),
         const SizedBox(height: 24),
         // Main content using HorizontalRadialSegment
-        HorizontalRadialSegment(
-          stats: stats,
-          counters: counters,
-          counterDelta: counterDelta,
-          sparklineSeries: sparklineSeries,
-          statsReady: statsReady,
-          deltaReady: deltaReady,
-        ),
+        error ??
+            HorizontalRadialSegment(
+              stats: stats,
+              counters: counters,
+              counterDelta: counterDelta,
+              sparklineSeries: sparklineSeries,
+              statsReady: statsReady,
+              deltaReady: deltaReady,
+            ),
       ],
     );
   }

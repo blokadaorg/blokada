@@ -1,5 +1,6 @@
-part of 'stats.dart';
-
+/// Stats as the screens draw them: one device's counters, the hourly
+/// histogram of the last 24 hours, and its toplist. Shared by Blokada 6
+/// (StatsStore) and Family (StatsActor), so it lives outside both.
 class UiStats {
   final int totalAllowed;
   final int totalBlocked;

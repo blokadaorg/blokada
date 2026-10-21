@@ -4,7 +4,7 @@ import 'package:common/src/platform/account/account.dart';
 import 'package:common/src/platform/account/api.dart';
 import 'package:common/src/platform/app/app.dart';
 import 'package:common/src/platform/app/channel.pg.dart';
-import 'package:common/src/app_variants/family/module/stats/stats.dart';
+import 'package:common/src/platform/stats/model.dart';
 import 'package:common/src/platform/device/device.dart';
 import 'package:common/src/platform/stats/stats.dart';
 import 'package:flutter_test/flutter_test.dart';
