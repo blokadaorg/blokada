@@ -92,15 +92,25 @@ class JsonSupportPayloadMessage {
   late String? message;
   late SupportEvent? event;
 
+  /// Sent with every message, so an app updated mid-chat reports its new
+  /// version and tools. The real value, not the Http placeholder: a
+  /// placeholder would also be replaced inside the user's message text.
+  late String userAgent;
+  late List<SupportClientTool> clientTools;
+
   JsonSupportPayloadMessage({
     required this.sessionId,
+    required this.userAgent,
     this.message,
     this.event,
+    this.clientTools = const [],
   });
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> json = {
       'session_id': sessionId,
+      'user_agent': userAgent,
+      'client_tools': clientTools.map((e) => e.constant).toList(),
       'message': message,
       'event': event?.constant,
     };

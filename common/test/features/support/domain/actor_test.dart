@@ -656,6 +656,18 @@ void main() {
       expect(payload["client_tools"], ["attach_log", "dns_check"]);
     });
 
+    test("a message carries the user agent and client tools", () {
+      final payload = jsonDecode(JsonSupportMarshal().fromMessage(
+          JsonSupportPayloadMessage(
+              sessionId: "s",
+              userAgent: 'blokada/26.1.1 (android-35 "x")',
+              message: "my (user_agent) is",
+              clientTools: SupportClientTool.values)));
+      expect(payload["user_agent"], 'blokada/26.1.1 (android-35 "x")');
+      expect(payload["message"], "my (user_agent) is");
+      expect(payload["client_tools"], ["attach_log", "dns_check"]);
+    });
+
     test("parses actions on an agent message, and none when absent", () {
       final response = JsonSupportMarshal().toResponse(jsonEncode({
         "messages": [
