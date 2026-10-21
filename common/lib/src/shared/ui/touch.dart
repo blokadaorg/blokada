@@ -1,5 +1,9 @@
+import 'package:common/src/shared/ui/motion.dart';
 import 'package:flutter/material.dart';
 
+/// Press feedback for cards and buttons: a highlight from [decorationBuilder]
+/// and a shrink to 97%, about 100 ms in and 200 ms out. With Reduce Motion,
+/// highlight only.
 class Touch extends StatefulWidget {
   final Widget child;
   final EdgeInsetsGeometry? padding;
@@ -8,20 +12,27 @@ class Touch extends StatefulWidget {
   final VoidCallback? onTap;
   final VoidCallback? onLongTap;
 
-  const Touch(
-      {super.key,
-      required this.child,
-      this.maxValue = 0.6,
-      required this.decorationBuilder,
-      this.padding,
-      this.onTap,
-      this.onLongTap});
+  /// Whether the child shrinks while pressed. Off for overlays on a painted
+  /// control, like the power button.
+  final bool shrink;
+
+  const Touch({
+    super.key,
+    required this.child,
+    this.maxValue = 0.6,
+    required this.decorationBuilder,
+    this.padding,
+    this.onTap,
+    this.onLongTap,
+    this.shrink = true,
+  });
 
   @override
   State<StatefulWidget> createState() => TouchState();
 }
 
-// TODO: use AnimatedWidgetBaseState
+const _pressScale = 0.97;
+
 class TouchState extends State<Touch> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _anim;
@@ -29,8 +40,12 @@ class TouchState extends State<Touch> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this);
-    _anim = Tween<double>(begin: 0, end: widget.maxValue).animate(_controller)
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 100),
+      reverseDuration: const Duration(milliseconds: 200),
+    );
+    _anim = CurvedAnimation(parent: _controller, curve: Curves.easeOut, reverseCurve: Curves.easeIn)
       ..addListener(() {
         setState(() {
           // Rebuild the widget tree
@@ -48,7 +63,7 @@ class TouchState extends State<Touch> with SingleTickerProviderStateMixin {
     if (_isInteractive()) {
       // A short timer so that the button doesn't flash
       Future.delayed(const Duration(milliseconds: 100), () {
-        _controller.duration = const Duration(milliseconds: 300);
+        if (!mounted) return;
         _controller.reverse();
       });
     }
@@ -60,7 +75,6 @@ class TouchState extends State<Touch> with SingleTickerProviderStateMixin {
       onTapDown: (details) {
         setState(() {
           if (_isInteractive()) {
-            _controller.duration = const Duration(milliseconds: 50);
             _controller.forward();
           }
         });
@@ -73,10 +87,13 @@ class TouchState extends State<Touch> with SingleTickerProviderStateMixin {
       },
       onTap: () => widget.onTap?.call(),
       onLongPress: () => widget.onLongTap?.call(),
-      child: Container(
-        decoration: widget.decorationBuilder(_anim.value),
-        padding: widget.padding,
-        child: widget.child,
+      child: Transform.scale(
+        scale: widget.shrink && !Motion.reduced(context) ? 1 - (1 - _pressScale) * _anim.value : 1,
+        child: Container(
+          decoration: widget.decorationBuilder(_anim.value * widget.maxValue),
+          padding: widget.padding,
+          child: widget.child,
+        ),
       ),
     );
   }

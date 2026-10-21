@@ -411,6 +411,8 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
               child: Touch(
                 onTap: () => _onTap(state.tap),
                 onLongTap: () => _onTap(state.longTap),
+                // The ring animation is this button's moment; no shrink.
+                shrink: false,
                 maxValue: 0.5,
                 decorationBuilder: (value) {
                   return BoxDecoration(
