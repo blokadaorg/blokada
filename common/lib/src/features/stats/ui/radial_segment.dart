@@ -1,6 +1,6 @@
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
-import 'package:common/src/app_variants/family/module/stats/stats.dart';
+import 'package:common/src/platform/stats/model.dart';
 import 'package:common/src/app_variants/v6/widget/home/stats/radial_chart.dart';
 import 'package:countup/countup.dart';
 import 'package:flutter/material.dart';

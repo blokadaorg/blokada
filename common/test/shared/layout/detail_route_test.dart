@@ -1,7 +1,7 @@
 import 'package:common/src/app_variants/family/module/device_v3/device.dart';
 import 'package:common/src/app_variants/family/module/family/family.dart';
 import 'package:common/src/app_variants/family/module/profile/profile.dart';
-import 'package:common/src/app_variants/family/module/stats/stats.dart';
+import 'package:common/src/platform/stats/model.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/features/journal/domain/journal.dart';
 import 'package:common/src/features/stats/ui/domain_detail_section.dart';

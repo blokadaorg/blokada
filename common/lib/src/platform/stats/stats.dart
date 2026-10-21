@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:common/src/core/core.dart';
-import 'package:common/src/app_variants/family/module/stats/stats.dart';
+import 'package:common/src/platform/stats/model.dart';
 import 'package:common/src/platform/device/device.dart';
 import 'package:common/src/platform/stats/toplist_store.dart';
 import 'package:mobx/mobx.dart';
@@ -73,9 +73,6 @@ abstract class StatsStoreBase with Store, Logging, Actor {
 
   @observable
   bool hasStats = false;
-
-  @observable
-  bool toplistsLoading = false;
 
   @action
   Future<void> fetch(Marker m) async {
@@ -244,94 +241,74 @@ abstract class StatsStoreBase with Store, Logging, Actor {
     return _lastRolling2wEndpoint!;
   }
 
+  /// Loads the 24h or 7d toplists into [stats]. Throws on failure and leaves
+  /// [stats] as it was, so StatsController can show an error with a retry.
   @action
   Future<void> fetchToplists(Marker m, {String range = "24h"}) async {
-    toplistsLoading = true;
-    try {
-      return await log(m).trace("fetchToplists", (m) async {
-        try {
-          final deviceName = _device.deviceAlias;
+    return await log(m).trace("fetchToplists", (m) async {
+      final deviceName = _device.deviceAlias;
 
-          // Guard: Don't fetch if deviceAlias is not set yet
-          if (deviceName.isEmpty) {
-            log(m).w("deviceAlias not set yet, skipping toplist fetch");
-            toplistsLoading = false;
-            return;
-          }
+      // Guard: Don't fetch if deviceAlias is not set yet
+      if (deviceName.isEmpty) {
+        log(m).w("deviceAlias not set yet, skipping toplist fetch");
+        return;
+      }
 
-          // Fetch blocked entries
-          final toplistBlocked = await _toplists.fetch(
-            m: m,
-            deviceName: deviceName,
-            level: 1,
-            action: "blocked",
-            limit: 12,
-            range: range,
-          );
+      // Fetch blocked entries
+      final toplistBlocked = await _toplists.fetch(
+        m: m,
+        deviceName: deviceName,
+        level: 1,
+        action: "blocked",
+        limit: 12,
+        range: range,
+      );
 
-          // Fetch allowed entries (both "allowed" and "fallthrough" types)
-          final toplistAllowed = await _toplists.fetch(
-            m: m,
-            deviceName: deviceName,
-            level: 1,
-            action: "allowed",
-            limit: 12,
-            range: range,
-          );
+      // Fetch allowed entries (both "allowed" and "fallthrough" types)
+      final toplistAllowed = await _toplists.fetch(
+        m: m,
+        deviceName: deviceName,
+        level: 1,
+        action: "allowed",
+        limit: 12,
+        range: range,
+      );
 
-          final toplistFallthrough = await _toplists.fetch(
-            m: m,
-            deviceName: deviceName,
-            level: 1,
-            action: "fallthrough",
-            limit: 12,
-            range: range,
-          );
+      final toplistFallthrough = await _toplists.fetch(
+        m: m,
+        deviceName: deviceName,
+        level: 1,
+        action: "fallthrough",
+        limit: 12,
+        range: range,
+      );
 
-          // Convert and merge allowed + fallthrough entries
-          List<UiToplistEntry> convertedToplist = [];
-          if (toplistBlocked != null) {
-            convertedToplist.addAll(_convertToplistV2(toplistBlocked));
-          }
+      // Convert and merge allowed + fallthrough entries
+      List<UiToplistEntry> convertedToplist = [];
+      if (toplistBlocked != null) {
+        convertedToplist.addAll(_convertToplistV2(toplistBlocked));
+      }
 
-          // Merge allowed and fallthrough entries
-          if (toplistAllowed != null || toplistFallthrough != null) {
-            convertedToplist.addAll(_mergeAllowedToplists(toplistAllowed, toplistFallthrough));
-          }
+      // Merge allowed and fallthrough entries
+      if (toplistAllowed != null || toplistFallthrough != null) {
+        convertedToplist.addAll(_mergeAllowedToplists(toplistAllowed, toplistFallthrough));
+      }
 
-          // Update stats with new toplist
-          stats = UiStats(
-            totalAllowed: stats.totalAllowed,
-            totalBlocked: stats.totalBlocked,
-            allowedHistogram: stats.allowedHistogram,
-            blockedHistogram: stats.blockedHistogram,
-            toplist: convertedToplist,
-            avgDayAllowed: stats.avgDayAllowed,
-            avgDayBlocked: stats.avgDayBlocked,
-            avgDayTotal: stats.avgDayTotal,
-            latestTimestamp: stats.latestTimestamp,
-          );
-          deviceStatsChangesCounter++;
-        } catch (e) {
-          log(m).w("Failed to fetch toplists: $e");
-          // Set empty toplist on error - only update toplist field
-          stats = UiStats(
-            totalAllowed: stats.totalAllowed,
-            totalBlocked: stats.totalBlocked,
-            allowedHistogram: stats.allowedHistogram.isEmpty ? [0] : stats.allowedHistogram,
-            blockedHistogram: stats.blockedHistogram.isEmpty ? [0] : stats.blockedHistogram,
-            toplist: [],
-            avgDayAllowed: stats.avgDayAllowed == 0 ? 1 : stats.avgDayAllowed,
-            avgDayBlocked: stats.avgDayBlocked == 0 ? 1 : stats.avgDayBlocked,
-            avgDayTotal: stats.avgDayTotal,
-            latestTimestamp: stats.latestTimestamp,
-          );
-          deviceStatsChangesCounter++;
-        }
-      });
-    } finally {
-      toplistsLoading = false;
-    }
+      // Update stats with new toplist. The toplists can land before the first
+      // stats fetch, when the histograms are still empty (UiStats sums them).
+      stats = UiStats(
+        totalAllowed: stats.totalAllowed,
+        totalBlocked: stats.totalBlocked,
+        allowedHistogram: stats.allowedHistogram.isEmpty ? [0] : stats.allowedHistogram,
+        blockedHistogram: stats.blockedHistogram.isEmpty ? [0] : stats.blockedHistogram,
+        toplist: convertedToplist,
+        avgDayAllowed: stats.avgDayAllowed,
+        avgDayBlocked: stats.avgDayBlocked,
+        avgDayTotal: stats.avgDayTotal,
+        latestTimestamp: stats.latestTimestamp,
+      );
+      deviceStatsChangesCounter++;
+    });
   }
 
   @action
@@ -519,10 +496,16 @@ StatsComputationResult computeStatsBaselines(
     final isAllowed = action == "fallthrough" || action == "allowed";
     metric.dps.sort((a, b) => a.timestamp.compareTo(b.timestamp));
     for (var d in metric.dps) {
-      final diffHours = ((now - d.timestamp) ~/ 3600);
+      // Bucket by the hour the point falls in, the same window as
+      // buildHourlyPeriodCountersFromRollingStats, so Home's 24h count matches
+      // Privacy Pulse's. Truncating the raw difference instead put a point
+      // from the current hour and one from the hour before into the same
+      // bucket, counting 25 hours when timestamps are not on the hour.
+      final bucket = d.timestamp - d.timestamp % 3600;
+      final diffHours = ((now - bucket) ~/ 3600);
       final hourIndex = 24 - diffHours - 1;
 
-      if (hourIndex < 0) continue;
+      if (hourIndex < 0 || hourIndex > 23) continue;
       if (latestTimestamp < d.timestamp * 1000) {
         latestTimestamp = d.timestamp * 1000;
       }
