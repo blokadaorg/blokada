@@ -76,7 +76,6 @@ class PrivacyPulseScreenState extends State<PrivacyPulseScreen> with Logging {
       title: "privacy pulse section header".i18n,
       screenSemanticsId: AutomationIds.screenPrivacyPulse,
       master: PrivacyPulseSection(
-        autoRefresh: true,
         controller: ScrollController(),
         initialRange: widget.initialToplistRange,
       ),

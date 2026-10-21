@@ -1,36 +1,22 @@
 import 'dart:async';
 import 'dart:math' as math;
-import 'dart:ui' as ui;
 
 import 'package:common/src/shared/ui/action_sheet.dart';
 import 'package:common/src/shared/automation/ids.dart';
-import 'package:common/src/features/modal/domain/modal.dart';
+import 'package:common/src/features/home/domain/power.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/shared/ui/touch.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/account/account.dart';
 import 'package:common/src/platform/app/app.dart';
-import 'package:common/src/platform/app/channel.pg.dart';
 import 'package:common/src/platform/app/start/start.dart';
 import 'package:common/src/platform/stats/stats.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:mobx/mobx.dart' as mobx;
 import 'package:relative_scale/relative_scale.dart';
 
-import 'home.dart';
-
-bool shouldShowPauseTimer(AppStatus status, int remainingSeconds) {
-  return status.isInactive() && remainingSeconds > 0;
-}
-
-double pauseTimerArcValue(AppStatus status, int remainingSeconds) {
-  if (!shouldShowPauseTimer(status, remainingSeconds)) {
-    return 1.0;
-  }
-  return 1 - (remainingSeconds / 300.0);
-}
-
+/// The Home power button. What it shows and what a tap does come from
+/// [powerButtonState]; the widget only draws and animates that state.
 class PowerButton extends StatefulWidget {
   PowerButton({Key? key}) : super(key: key);
 
@@ -44,11 +30,8 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
   late final _app = Core.get<AppStore>();
   late final _appStart = Core.get<AppStartStore>();
   late final _stats = Core.get<StatsStore>();
-  late final _home = Core.get<HomeStore>();
-  late final _modal = Core.get<CurrentModalValue>();
   late final _account = Core.get<AccountStore>();
-
-  late Future<List<ui.Image>> loadIcons;
+  late final _power = Core.get<PowerActor>();
 
   late AnimationController animCtrlLoading;
   late AnimationController animCtrlLibre;
@@ -70,7 +53,11 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
   late Animation<double> animArc2Counter;
   late Animation<double> animArcTimerCounter;
 
-  bool pressed = false;
+  final _reactions = <mobx.ReactionDisposer>[];
+
+  // The stats rings take over from the spinner only once it has faded out
+  // with protection on; switching off or reconnecting hides them again.
+  bool _statsRingsShown = false;
 
   var loadingCounter = 0.5;
   var counter = 0.3;
@@ -78,10 +65,15 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
 
   Timer? timerRefresh;
 
+  PowerButtonState get _state => powerButtonState(
+        status: _app.status,
+        isFreemium: _account.isFreemium,
+        pauseSecondsLeft: _getRemainingSeconds(),
+      );
+
   @override
   void initState() {
     super.initState();
-    loadIcons = _loadIcons(["assets/images/ic_power.png", "assets/images/ic_pause.png"]);
 
     animCtrlLibre = AnimationController(vsync: this, duration: Duration(milliseconds: 500));
     animLibre = Tween<double>(begin: 0, end: 1).animate(animCtrlLibre)
@@ -135,7 +127,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
       ..addListener(() {
         _setState();
       });
-    animCtrlArcTimerCounter.value = pauseTimerArcValue(_app.status, _getRemainingSeconds());
+    animCtrlArcTimerCounter.value = _state.pauseArc;
 
     animCtrlLoading = AnimationController(
       vsync: this,
@@ -146,50 +138,31 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
         _setState();
       })
       ..addStatusListener((status) {
-        if (status == AnimationStatus.dismissed) {
-          // Once the loading spinning is stopped, signal it to other parts of the UI
-          // This is when the "counter count up" animation should start
-          final status = _app.status;
-          //log(m).i("loading animation dismissed");
-          if (status.isActive()) {
-            log(Markers.root).i("loading animation dismissed, power on is ready");
-            _home.powerOnIsReady();
-          }
+        // The spinner has faded out: the stats rings count up in its place.
+        if (status == AnimationStatus.dismissed && _app.status.isActive()) {
+          _showStatsRings();
         }
       });
 
-    mobx.autorun((_) {
+    _reactions.add(mobx.autorun((_) {
       final s = _app.status;
-      pressed = (s.isActive()) || (s.isWorking());
-      // A bit of a hack to make sure the flag is flagged
-      //log(m).i("app status changed");
-      if (s.isActive() && !_home.powerOnAnimationReady && animLoading.isDismissed) {
-        _home.powerOnIsReady();
-        log(Markers.root).i("app status active, power on is ready");
+      if (!s.isActive()) {
+        _statsRingsShown = false;
+      } else if (animLoading.isDismissed) {
+        // No spinner to wait for (protection was already on at start).
+        _showStatsRings();
       }
       _scheduleUpdateAnimations();
       _scheduleTimerRefresh();
-    });
+    }));
 
-    mobx.autorun((_) {
-      final s = _app.status;
-      final hasStats = _stats.hasStats;
-      final stats = _stats.stats;
-
-      //log(m).i("another callback triggerred");
-      if (_home.powerOnAnimationReady && s.isActive() && hasStats) {
-        //log(m).i("moving loading ring on pos to display the active anim");
-        // Max is 2.0 so that it can display ring overlap
-        newCounter = math.min(2.0, stats.dayAllowedRatio / 100);
-
-        // A hack to move the loading spinner to the position 0 and animate stats counter instead
-        animCtrlArcStart.animateTo(0.999);
-
-        _animateStatusRingTo(newCounter);
-        //animCtrlArc2Counter.reset();
-        animCtrlArc2Counter.forward();
-      }
-    });
+    _reactions.add(mobx.autorun((_) {
+      // Read here so the reaction tracks them.
+      _app.status;
+      _stats.hasStats;
+      _stats.stats;
+      _updateStatsRings();
+    }));
 
     _scheduleUpdateAnimations();
   }
@@ -202,6 +175,27 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
     }
   }
 
+  void _showStatsRings() {
+    if (_statsRingsShown) return;
+    _statsRingsShown = true;
+    // Untracked: the status reaction calling this must not also react to stats.
+    mobx.untracked(_updateStatsRings);
+  }
+
+  void _updateStatsRings() {
+    final stats = _stats.stats;
+    if (!_statsRingsShown || !_app.status.isActive() || !_stats.hasStats) return;
+
+    // Max is 2.0 so that it can display ring overlap
+    newCounter = math.min(2.0, stats.dayAllowedRatio / 100);
+
+    // Park the loading arc at the top so the stats arcs replace it
+    animCtrlArcStart.animateTo(0.999);
+
+    _animateStatusRingTo(newCounter);
+    animCtrlArc2Counter.forward();
+  }
+
   _scheduleUpdateAnimations() {
     timer ??= Timer(const Duration(milliseconds: 200), () {
       _updateAnimations();
@@ -211,9 +205,9 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
 
   _scheduleTimerRefresh() {
     timerRefresh?.cancel();
-    if (shouldShowPauseTimer(_app.status, _getRemainingSeconds())) {
+    if (_state.pauseSecondsLeft != null) {
       timerRefresh = Timer.periodic(const Duration(seconds: 1), (timer) {
-        if (shouldShowPauseTimer(_app.status, _getRemainingSeconds())) {
+        if (_state.pauseSecondsLeft != null) {
           _setState();
         } else {
           timer.cancel();
@@ -224,10 +218,8 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
   }
 
   _updateAnimations() {
-    final status = _app.status;
-    final remainingSeconds = _getRemainingSeconds();
-    final hasPauseTimer = shouldShowPauseTimer(status, remainingSeconds);
-    if (status.isWorking()) {
+    final state = _state;
+    if (state.working) {
       _animateStatusRingTo(loadingCounter);
 
       animCtrlLoading.forward();
@@ -236,17 +228,16 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
       animCtrlArc2Counter.reverse();
     } else {
       animCtrlLoading.reverse();
-      if (status.isInactive()) {
+      if (state.inactive) {
         animCtrlArcAlpha.reverse();
       } else {
-        //log(m).i("not working, but active, change arc alpha");
         animCtrlArcAlpha.forward();
       }
     }
 
-    if (status.isActive()) {
+    if (state.active) {
       animCtrlLibre.forward();
-      if (status == AppStatus.activatedPlus) {
+      if (state.plus) {
         animCtrlPlus.forward();
       } else {
         animCtrlPlus.reverse();
@@ -256,15 +247,15 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
       animCtrlPlus.reverse();
     }
 
-    if (pressed) {
+    if (state.pressed) {
       animCtrlCover.forward();
     } else {
       animCtrlCover.reverse();
     }
 
-    if (hasPauseTimer) {
+    if (state.pauseSecondsLeft != null) {
       // If the app is paused, animate the timer arc
-      animCtrlArcTimerCounter.value = pauseTimerArcValue(status, remainingSeconds);
+      animCtrlArcTimerCounter.value = state.pauseArc;
       animCtrlArcTimerCounter.forward();
     } else {
       // Hide the timer arc when there is no actual pause timer.
@@ -279,7 +270,6 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
       return;
     }
 
-    //log.v("Animating status ring from ${animArcCounter.value} to $value, isAnimating: ${animCtrlArcCounter.isAnimating}");
     animArcCounter = Tween<double>(begin: animArcCounter.value, end: value)
         .animate(CurvedAnimation(parent: animCtrlArcCounter, curve: Curves.easeOutQuad))
       ..addListener(() {
@@ -290,13 +280,29 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
     animCtrlArcCounter.forward();
   }
 
+  void _onTap(PowerTap tap) {
+    switch (tap) {
+      case PowerTap.none:
+        return;
+      case PowerTap.toggle:
+        unawaited(_power.toggle(Markers.userTap));
+      case PowerTap.pauseSheet:
+        showPauseActionSheet(context, onSelected: (duration) {
+          unawaited(_power.pause(Markers.userTap, duration));
+        });
+    }
+    // Toggling can switch the status synchronously; start the spinner now
+    // rather than after the scheduled update.
+    _updateAnimations();
+    _setState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final status = _app.status;
+    final state = _state;
     final stats = _stats.stats;
     final theme = Theme.of(context).extension<BlokadaTheme>()!;
-    final remainingSeconds = _getRemainingSeconds();
-    final hasPauseTimer = shouldShowPauseTimer(status, remainingSeconds);
+    final pauseSecondsLeft = state.pauseSecondsLeft;
 
     return RelativeBuilder(builder: (context, height, width, sy, sx) {
       final buttonSize = math.min(sy(140), 180.0);
@@ -305,54 +311,38 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
           SizedBox(
             width: buttonSize,
             height: buttonSize,
-            child: FutureBuilder<List<ui.Image>>(
-              future: loadIcons,
-              builder: (BuildContext context, AsyncSnapshot<List<ui.Image>> snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.waiting:
-                    return const CircularProgressIndicator();
-                  default:
-                    if (snapshot.hasError) {
-                      return Text('Error: ${snapshot.error}');
-                    } else {
-                      return AnimatedBuilder(
-                        animation: Listenable.merge([
-                          animLoading,
-                          animLibre,
-                          animPlus,
-                          animCover,
-                          animArcLoading,
-                          animArcCounter,
-                          animArcAlpha,
-                          animArc2Counter,
-                          animArcTimerCounter,
-                        ]),
-                        builder: (BuildContext context, Widget? child) {
-                          return CustomPaint(
-                            painter: PowerButtonPainter(
-                              iconImage: hasPauseTimer ? snapshot.data![1] : snapshot.data![0],
-                              alphaLoading: animLoading.value,
-                              alphaCover: animCover.value,
-                              alphaLibre: animLibre.value,
-                              alphaPlus: animPlus.value,
-                              arcAlpha: animArcAlpha.value,
-                              arcStart: animArcLoading.value,
-                              arcEnd: animArcCounter.value,
-                              arcTimerEnd: animArcTimerCounter.value,
-                              arcCounter: [
-                                animArc2Counter.value *
-                                    math.min(2.0, (stats.dayBlockedRatio / 100)),
-                                0,
-                                0
-                              ],
-                              colorShadow: theme.shadow,
-                              isFreemium: _account.isFreemium,
-                            ),
-                          );
-                        },
-                      );
-                    }
-                }
+            child: AnimatedBuilder(
+              animation: Listenable.merge([
+                animLoading,
+                animLibre,
+                animPlus,
+                animCover,
+                animArcLoading,
+                animArcCounter,
+                animArcAlpha,
+                animArc2Counter,
+                animArcTimerCounter,
+              ]),
+              builder: (BuildContext context, Widget? child) {
+                return CustomPaint(
+                  painter: PowerButtonPainter(
+                    alphaLoading: animLoading.value,
+                    alphaCover: animCover.value,
+                    alphaLibre: animLibre.value,
+                    alphaPlus: animPlus.value,
+                    arcAlpha: animArcAlpha.value,
+                    arcStart: animArcLoading.value,
+                    arcEnd: animArcCounter.value,
+                    arcTimerEnd: animArcTimerCounter.value,
+                    arcCounter: [
+                      animArc2Counter.value * math.min(2.0, (stats.dayBlockedRatio / 100)),
+                      0,
+                      0
+                    ],
+                    colorShadow: theme.shadow,
+                    isFreemium: state.freemium,
+                  ),
+                );
               },
             ),
           ),
@@ -365,48 +355,13 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
               label: "home power button label".i18n,
               // The value stays untranslated for the Appium flows; screen
               // readers get the translated state from the hint.
-              value: status.isActive() ? 'active' : 'inactive',
-              hint: status.isActive()
+              value: state.active ? 'active' : 'inactive',
+              hint: state.active
                   ? "home power button state on".i18n
                   : "home power button state off".i18n,
               child: Touch(
-                onTap: () {
-                  if (!status.isWorking()) {
-                    setState(() {
-                      log(Markers.userTap).trace("tappedPowerButton", (m) async {
-                        if (!status.isActive() || _account.isFreemium) {
-                          try {
-                            await _appStart.toggleApp(m);
-                          } on OnboardingException catch (_) {
-                            _modal.change(Markers.userTap, Modal.onboardPrivateDns);
-                          }
-                        } else {
-                          // Show pause action sheet for deactivating only if not freemium
-                          showPauseActionSheet(context, onSelected: (duration) {
-                            log(Markers.userTap).trace("tappedPowerButtonDialog", (m) async {
-                              _appStart.toggleApp(m, duration: duration);
-                            });
-                          });
-                        }
-                      });
-                      _updateAnimations();
-                    });
-                  }
-                },
-                onLongTap: () {
-                  if (!status.isWorking()) {
-                    setState(() {
-                      log(Markers.userTap).trace("tappedPowerButtonLong", (m) async {
-                        try {
-                          await _appStart.toggleApp(m);
-                        } on OnboardingException catch (_) {
-                          _modal.change(Markers.userTap, Modal.onboardPrivateDns);
-                        }
-                      });
-                      _updateAnimations();
-                    });
-                  }
-                },
+                onTap: () => _onTap(state.tap),
+                onLongTap: () => _onTap(state.longTap),
                 maxValue: 0.5,
                 decorationBuilder: (value) {
                   return BoxDecoration(
@@ -415,9 +370,9 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
                   );
                 },
                 child: Center(
-                  child: hasPauseTimer
+                  child: pauseSecondsLeft != null
                       ? Text(
-                          _formatTime(remainingSeconds),
+                          _formatTime(pauseSecondsLeft),
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
@@ -429,7 +384,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
                       : Icon(
                           Icons.power_settings_new_sharp,
                           size: 32,
-                          color: (status.isInactive() ? Colors.black : theme.textPrimary)
+                          color: (state.inactive ? Colors.black : theme.textPrimary)
                               .withOpacity(0.8),
                         ),
                 ),
@@ -456,6 +411,10 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
 
   @override
   void dispose() {
+    for (final dispose in _reactions) {
+      dispose();
+    }
+    _reactions.clear();
     timer?.cancel();
     timerRefresh?.cancel();
     animCtrlLoading.stop();
@@ -478,18 +437,9 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
     animCtrlArcTimerCounter.dispose();
     super.dispose();
   }
-
-  Future<List<ui.Image>> _loadIcons(List<String> paths) async {
-    return await Future.wait(paths.map((path) async {
-      var bytes = await rootBundle.load(path);
-      return decodeImageFromList(bytes.buffer.asUint8List());
-    }));
-  }
 }
 
 class PowerButtonPainter extends CustomPainter {
-  final ui.Image iconImage;
-
   final edge = 9.0;
   final ringWidth = 6.0;
   final timerRingWidth = 12.0;
@@ -521,7 +471,6 @@ class PowerButtonPainter extends CustomPainter {
   late Color colorTimer = colorShadow;
 
   PowerButtonPainter({
-    required this.iconImage,
     required this.alphaCover,
     required this.alphaPlus,
     required this.alphaLibre,

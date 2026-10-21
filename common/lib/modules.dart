@@ -7,6 +7,7 @@ import 'package:common/src/features/env/domain/env.dart';
 import 'package:common/src/features/filter/domain/filter.dart';
 import 'package:common/src/features/journal/domain/journal.dart';
 import 'package:common/src/features/link/domain/link.dart';
+import 'package:common/src/features/stats/domain/controller.dart';
 import 'package:common/src/features/list/domain/list.dart';
 import 'package:common/src/features/lock/domain/lock.dart';
 import 'package:common/src/features/modal/domain/modal.dart';
@@ -42,7 +43,7 @@ import 'package:common/src/features/plus/domain/plus.dart';
 import 'package:common/src/app_variants/v6/module/attach/attach.dart';
 import 'package:common/src/app_variants/v6/module/freemium/freemium.dart';
 import 'package:common/src/app_variants/v6/module/onboard/onboard.dart';
-import 'package:common/src/app_variants/v6/widget/home/home.dart';
+import 'package:common/src/features/home/domain/power.dart';
 
 import 'package:common/src/platform/account/account.dart';
 import 'package:common/src/platform/account/refresh/refresh.dart';
@@ -147,12 +148,13 @@ class Modules with Logging {
       await _registerModule(PlatformPlusModule());
       // Both platforms: the hand-off is a web link, nothing platform-specific.
       await _registerModule(AttachModule());
-      HomeStore().onRegister();
+      await _registerModule(HomeModule());
     }
 
     StatsStore().onRegister();
     ToplistStore().onRegister();
     StatsDeltaStore().onRegister();
+    await _registerModule(StatsControllerModule());
     BootstrapIdentityValue().onRegister();
 
     if (Core.act.isFamily) {

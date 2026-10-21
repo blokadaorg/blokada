@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:common/src/features/journal/domain/journal.dart';
 import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/layout/with_detail_pane.dart';
@@ -9,13 +7,18 @@ import 'package:common/src/shared/ui/common_clickable.dart';
 import 'package:common/src/shared/ui/common_divider.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
-import 'package:common/src/platform/device/device.dart';
+import 'package:common/src/features/stats/domain/controller.dart';
+import 'package:common/src/features/stats/ui/stats_error.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mobx/mobx.dart' as mobx;
 
+/// Privacy Pulse's latest blocked and allowed requests. Draws the recent
+/// section of [StatsController]; it fetches nothing itself.
 class RecentActivity extends StatefulWidget {
-  const RecentActivity({super.key});
+  final StatsSection<RecentPreview> section;
+  final VoidCallback onRetry;
+
+  const RecentActivity({super.key, required this.section, required this.onRetry});
 
   @override
   State<StatefulWidget> createState() => RecentActivityState();
@@ -26,58 +29,18 @@ enum ActivityTab { blocked, allowed }
 class RecentActivityState extends State<RecentActivity>
     with Logging, AutomaticKeepAliveClientMixin {
   ActivityTab _selectedTab = ActivityTab.blocked;
-  late final _journal = Core.get<JournalActor>();
-  late final _deviceStore = Core.get<DeviceStore>();
-  late final _journalEntries = Core.get<JournalEntriesValue>();
-
-  final List<UiJournalEntry> _blockedEntries = [];
-  final List<UiJournalEntry> _allowedEntries = [];
-  bool _isLoading = false;
-  int _fetchGeneration = 0;
-  String? _lastDeviceAlias;
-  mobx.ReactionDisposer? _deviceReaction;
-  StreamSubscription? _entriesSubscription;
-  bool _pendingRefresh = false;
 
   @override
   bool get wantKeepAlive => true;
 
   @override
-  void initState() {
-    super.initState();
-    _deviceReaction = mobx.autorun((_) {
-      final alias = _deviceStore.deviceAlias;
-      if (alias.isEmpty) {
-        _lastDeviceAlias = null;
-        return;
-      }
-      if (_lastDeviceAlias == alias) return;
-      _lastDeviceAlias = alias;
-      _fetchEntries(alias);
-    });
-
-    _entriesSubscription = _journalEntries.onChange.listen((_) {
-      final alias = _deviceStore.deviceAlias;
-      if (alias.isEmpty) return;
-      if (_isLoading && alias == _lastDeviceAlias) {
-        _pendingRefresh = true;
-        return;
-      }
-      _fetchEntries(alias);
-    });
-  }
-
-  @override
-  void dispose() {
-    _deviceReaction?.call();
-    _entriesSubscription?.cancel();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     super.build(context);
-    final currentEntries = _selectedTab == ActivityTab.blocked ? _blockedEntries : _allowedEntries;
+    final data = widget.section.data;
+    final isError = widget.section.isError;
+    final isLoading = !isError && data == null;
+    final currentEntries =
+        (_selectedTab == ActivityTab.blocked ? data?.blocked : data?.allowed) ?? const [];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -183,7 +146,9 @@ class RecentActivityState extends State<RecentActivity>
               const CommonDivider(),
 
               // Activity list or empty state
-              if (_isLoading && currentEntries.isEmpty)
+              if (isError)
+                StatsError(onRetry: widget.onRetry)
+              else if (isLoading)
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 24),
                   child: Center(child: CircularProgressIndicator()),
@@ -272,63 +237,5 @@ class RecentActivityState extends State<RecentActivity>
         ),
       ),
     );
-  }
-
-  Future<void> _fetchEntries(String deviceName) async {
-    final token = ++_fetchGeneration;
-    setState(() {
-      _isLoading = true;
-    });
-
-    try {
-      final results = await Future.wait([
-        _journal.fetchPreview(
-          Markers.stats,
-          action: UiJournalAction.block,
-          deviceName: deviceName,
-          limit: 5,
-        ),
-        _journal.fetchPreview(
-          Markers.stats,
-          action: UiJournalAction.allow,
-          deviceName: deviceName,
-          limit: 5,
-        ),
-      ]);
-
-      if (!mounted || token != _fetchGeneration) return;
-
-      setState(() {
-        _blockedEntries
-          ..clear()
-          ..addAll(results[0]);
-        _allowedEntries
-          ..clear()
-          ..addAll(results[1]);
-        _isLoading = false;
-      });
-      if (_pendingRefresh) {
-        _pendingRefresh = false;
-        final alias = _lastDeviceAlias;
-        if (alias != null && alias.isNotEmpty) {
-          _fetchEntries(alias);
-        }
-      }
-    } catch (e, s) {
-      log(Markers.stats).e(msg: "Failed to fetch recent activity preview", err: e, stack: s);
-      if (!mounted || token != _fetchGeneration) return;
-      setState(() {
-        _blockedEntries.clear();
-        _allowedEntries.clear();
-        _isLoading = false;
-      });
-      if (_pendingRefresh) {
-        _pendingRefresh = false;
-        final alias = _lastDeviceAlias;
-        if (alias != null && alias.isNotEmpty) {
-          _fetchEntries(alias);
-        }
-      }
-    }
   }
 }
