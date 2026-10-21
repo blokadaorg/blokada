@@ -323,6 +323,27 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIFlows
       profile.accessLevels.values.any((level) => level.isActive);
 
   @override
+  Future<List<StoreSubscription>> fetchActiveSubscriptions(Marker m) async {
+    final profile = await _adapty.getProfile();
+    return profile.accessLevels.values
+        .where((level) => level.isActive)
+        .map((level) => StoreSubscription(
+              accessLevelId: level.id,
+              store: level.store,
+              willRenew: level.willRenew,
+              expiresAt: level.expiresAt,
+              customerUserId: profile.customerUserId,
+            ))
+        .toList();
+  }
+
+  @override
+  Future<String?> restorePurchases(Marker m) async {
+    final profile = await _adapty.restorePurchases();
+    return _hasActiveAccess(profile) ? profile.profileId : null;
+  }
+
+  @override
   void flowViewDidPerformAction(AdaptyUIFlowView view, AdaptyUIAction action) {
     switch (action) {
       case const CloseAction():

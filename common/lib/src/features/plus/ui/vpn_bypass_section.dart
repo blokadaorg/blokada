@@ -93,7 +93,7 @@ class VpnBypassSectionState extends State<VpnBypassSection>
                 SizedBox(height: getTopPadding(context)),
                 ExpandableInfoCard(text: "bypass info".i18n),
                 const SizedBox(height: 40),
-                Text("Bypassed apps",
+                Text("bypass list header".i18n,
                     style: Theme.of(context)
                         .textTheme
                         .headlineSmall!

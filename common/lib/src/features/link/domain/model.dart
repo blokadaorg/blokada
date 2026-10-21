@@ -8,6 +8,10 @@ enum LinkId {
   privacy,
   privacyCloud,
   manageSubscriptions,
+  // Settings "Your plan" routes by where the plan was bought, which can differ
+  // from the platform the app runs on (bought on iPhone, now on Android).
+  manageSubscriptionsAppStore,
+  manageSubscriptionsPlayStore,
   credits,
 
   // Less important (mostly legacy) links

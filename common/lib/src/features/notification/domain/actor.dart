@@ -8,8 +8,6 @@ part of 'notification.dart';
 
 class NotificationActor with Logging, Actor {
   static const _activityLoggingReminderDelay = Duration(minutes: 1);
-  static const _activityLoggingReminderBody =
-      "Enable activity logging to receive your weekly Privacy Pulse reports.";
 
   // TODO: fix those dependencies
   late final _stage = Core.get<StageStore>();
@@ -583,7 +581,7 @@ class NotificationActor with Logging, Actor {
       await showWithBody(
         NotificationId.activityLoggingReminder,
         m,
-        _activityLoggingReminderBody,
+        "notification activity logging reminder body".i18n,
         when: DateTime.now().add(_activityLoggingReminderDelay),
       );
     });

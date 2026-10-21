@@ -66,7 +66,7 @@ class WeeklyRefreshSheetIosState extends State<WeeklyRefreshSheetIos> {
                     children: [
                       const SizedBox(height: 24),
                       Text(
-                        "Update your filters",
+                        "freemium refresh header".i18n,
                         style: Theme.of(context)
                             .textTheme
                             .headlineMedium!
@@ -77,7 +77,7 @@ class WeeklyRefreshSheetIosState extends State<WeeklyRefreshSheetIos> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 32.0),
                         child: Text(
-                          "It's been a while since you updated your ad-block filters. Fetch them now to ensure you have the latest rules and improvements.",
+                          "freemium refresh brief".i18n,
                           softWrap: true,
                           textAlign: TextAlign.start,
                           style: TextStyle(color: context.theme.textSecondary, fontSize: 14),
@@ -100,8 +100,10 @@ class WeeklyRefreshSheetIosState extends State<WeeklyRefreshSheetIos> {
               const SizedBox(height: 24),
               Text(
                 updated
-                    ? "Filters updated successfully"
-                    : (updating ? "Updating filters..." : "Ready for an update"),
+                    ? "freemium refresh status done".i18n
+                    : (updating
+                        ? "freemium refresh status updating".i18n
+                        : "freemium refresh status ready".i18n),
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
@@ -118,7 +120,7 @@ class WeeklyRefreshSheetIosState extends State<WeeklyRefreshSheetIos> {
                           height: 32,
                           child: Center(
                             child: Text(
-                              "Update now",
+                              "freemium refresh action update".i18n,
                               style: TextStyle(
                                 color: context.theme.textPrimary,
                                 fontWeight: FontWeight.w600,
@@ -156,7 +158,7 @@ class WeeklyRefreshSheetIosState extends State<WeeklyRefreshSheetIos> {
                               const SizedBox(width: 12),
                               Center(
                                 child: Text(
-                                  "Upgrade for automatic updates",
+                                  "freemium refresh action upgrade".i18n,
                                   style: TextStyle(
                                       color: context.theme.onAccent, fontWeight: FontWeight.w600),
                                   overflow: TextOverflow.ellipsis,

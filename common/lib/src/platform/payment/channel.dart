@@ -27,4 +27,22 @@ class PlatformPaymentChannel with PaymentChannel {
   @override
   Future<void> setCustomAttributes(Marker m, Map<String, dynamic> attributes) =>
       _ops.doSetCustomAttributes(attributes);
+
+  @override
+  Future<List<StoreSubscription>> fetchActiveSubscriptions(Marker m) async {
+    final ops = await _ops.doFetchActiveSubscriptions();
+    return ops
+        .whereType<OpsSubscription>()
+        .map((it) => StoreSubscription(
+              accessLevelId: it.accessLevelId,
+              store: it.store,
+              willRenew: it.willRenew,
+              expiresAt: it.expiresAt == null ? null : DateTime.tryParse(it.expiresAt!),
+              customerUserId: it.customerUserId,
+            ))
+        .toList();
+  }
+
+  @override
+  Future<String?> restorePurchases(Marker m) => _ops.doRestorePurchases();
 }

@@ -40,6 +40,15 @@ final linkTemplates = {
   // pre-split behavior instead of failing template preparation at startup.
   LinkTemplate(LinkId.manageSubscriptions, null, null,
       "https://apps.apple.com/account/subscriptions"),
+  // Store-specific, for a plan bought in the other platform's store. Same URLs
+  // as manageSubscriptions above (the App Store one also opens the StoreKit
+  // sheet on iOS); keep them in sync.
+  LinkTemplate(LinkId.manageSubscriptionsAppStore, null, null,
+      "https://apps.apple.com/account/subscriptions"),
+  LinkTemplate(LinkId.manageSubscriptionsPlayStore, null, Flavor.v6,
+      "https://play.google.com/store/account/subscriptions?package=org.blokada.sex"),
+  LinkTemplate(LinkId.manageSubscriptionsPlayStore, null, Flavor.family,
+      "https://play.google.com/store/account/subscriptions?package=org.blokada.family"),
   LinkTemplate(LinkId.credits, null, null, "https://blokada.org/"),
   // Less important (mostly legacy) links
   LinkTemplate(LinkId.whyVpn, null, null, "https://go.blokada.org/vpn"),
