@@ -16,10 +16,10 @@ import 'package:common/src/features/support/domain/support.dart';
 import 'package:common/src/features/support/ui/support_section.dart';
 import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/navigation.dart';
-import 'package:common/src/shared/ui/common_clickable.dart';
 import 'package:common/src/shared/ui/dialog.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:common/src/shared/ui/nav_bar_button.dart';
 
 /// Domain shown by a deviceStatsDetail selection, so master list rows can
 /// highlight the entry whose detail pane is open. Mirrors the argument
@@ -221,7 +221,7 @@ class DetailRoutes with Logging {
       child: Semantics(
         identifier: AutomationIds.exceptionAddButton,
         button: true,
-        child: CommonClickable(
+        child: NavBarButton(
           onTap: () {
             showAddExceptionDialog(context, onConfirm: (entry, blocked) {
               final trimmed = entry.trim();
@@ -247,7 +247,7 @@ class DetailRoutes with Logging {
   }
 
   Widget _endSupportAction(BuildContext context) {
-    return CommonClickable(
+    return NavBarButton(
         onTap: () {
           // Pop only when chat is its own pushed route; rendered in a
           // detail pane there is nothing to pop (it would dismiss the whole

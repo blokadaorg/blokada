@@ -11,6 +11,7 @@ import 'package:common/src/shared/ui/dialog.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:common/src/shared/ui/nav_bar_button.dart';
 
 /// Modal sheet for creating or editing a single [RuleModel].
 ///
@@ -432,7 +433,7 @@ class _RuleEditorSheetState extends State<RuleEditorSheet> {
                 color: context.theme.textPrimary,
                 fontSize: 17,
                 fontWeight: FontWeight.w600)),
-        trailing: CommonClickable(
+        trailing: NavBarButton(
           key: const Key('rule_editor_save'),
           // Pass null when the gate is closed so the press highlight
           // also suppresses — a no-op closure animates the tap and

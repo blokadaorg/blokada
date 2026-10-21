@@ -5,6 +5,7 @@ import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/layout/detail_route.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/route.dart';
+import 'package:common/src/shared/ui/nav_bar_button.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
 import 'package:flutter/material.dart';
@@ -163,6 +164,7 @@ class TopCommonBarState extends State<TopCommonBar> {
   @override
   Widget build(BuildContext context) {
     return Consumer<TopBarController>(builder: (context, ctrl, child) {
+      if (useIosBarStyle(context)) return _buildIos(context, ctrl);
       return SizedBox(
         height: widget.height,
         child: Padding(
@@ -248,6 +250,32 @@ class TopCommonBarState extends State<TopCommonBar> {
         ),
       );
     });
+  }
+
+  /// iOS 26 back row: the chevron alone in a bubble, without the sliding
+  /// previous-title labels. It sits as low as [TopBar]'s trailing actions so
+  /// both bubbles line up with the title.
+  Widget _buildIos(BuildContext context, TopBarController ctrl) {
+    if (ctrl.nav.length <= 1) return SizedBox(height: widget.height);
+    return SizedBox(
+      height: widget.height,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 8.0, bottom: 2.0),
+        child: Align(
+          alignment: Alignment.bottomLeft,
+          child: Opacity(
+            opacity: ctrl.show <= 0.5
+                ? (ctrl.nav.length > 2 ? (1.0 - ctrl.show) : xpow(ctrl.show, 8))
+                : ctrl.show,
+            child: NavBarBackButton(
+              identifier: AutomationIds.navBack,
+              destination: ctrl.nav.elementAt(ctrl.nav.length - 2),
+              onTap: ctrl.goBackFromPlatform,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
 
