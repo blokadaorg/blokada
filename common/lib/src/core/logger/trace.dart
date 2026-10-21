@@ -17,7 +17,7 @@ class LogTracerActor with Actor {
     if (current == null) {
       final l = ["Marker.${Markers.toName(m)}"];
       l.addAll(lines);
-      _logger.log(lvl, l.join("\n"));
+      _logger.log(lvl, l.join("\n"), error: err, stackTrace: stack);
       return;
     }
 
