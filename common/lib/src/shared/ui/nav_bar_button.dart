@@ -12,14 +12,16 @@ import 'package:flutter/material.dart';
 bool useIosBarStyle(BuildContext context) => Theme.of(context).platform == TargetPlatform.iOS;
 
 /// Height of a bar button bubble, the same for text and the back chevron so
-/// both sides of a bar line up.
-const double navBarButtonHeight = 40;
+/// both sides of a bar line up. 44 is Apple's minimum tap target.
+const double navBarButtonHeight = 44;
 
 const _bubbleShape = RoundedSuperellipseBorder(
   borderRadius: BorderRadius.all(Radius.circular(navBarButtonHeight / 2)),
 );
 
-Color _bubbleColor(BuildContext context) => context.theme.bgColorCard.withOpacity(0.85);
+/// A tint of the text colour rather than a surface colour, so the bubble
+/// shows on every bar: page-coloured, card-coloured and blurred alike.
+Color _bubbleColor(BuildContext context) => context.theme.textPrimary.withOpacity(0.08);
 
 /// A tappable action in a top bar (Search, Add, Save, Done...).
 ///
@@ -61,7 +63,9 @@ class NavBarButton extends StatelessWidget {
         shape: _bubbleShape,
         bgColor: selected ? context.theme.selection : _bubbleColor(context),
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
-        child: child,
+        // The minimum height stretches the box past a short label, which
+        // would otherwise sit at its top instead of the bubble's middle.
+        child: Center(widthFactor: 1, heightFactor: 1, child: child),
       ),
     );
   }
@@ -70,7 +74,7 @@ class NavBarButton extends StatelessWidget {
 /// The iOS 26 back button: a bare chevron in a round bubble.
 ///
 /// The bar no longer prints where back goes, so the destination moves into
-/// the semantics value: VoiceOver reads "Back, <destination>, button", the
+/// the semantics value: VoiceOver reads "Back, `destination`, button", the
 /// same as the label used to say on screen.
 class NavBarBackButton extends StatelessWidget {
   final VoidCallback? onTap;

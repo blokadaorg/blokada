@@ -61,6 +61,7 @@ class BackTitleNavBar extends StatelessWidget
     // ink-style interactions inside (the back row's CommonClickable
     // press highlight) keep working.
     final fill = (backgroundColor ?? context.theme.bgColor).withOpacity(0.78);
+    final iosStyle = useIosBarStyle(context);
     return ClipRect(
       child: BackdropFilter(
         filter: ui.ImageFilter.blur(sigmaX: 18, sigmaY: 18),
@@ -88,7 +89,7 @@ class BackTitleNavBar extends StatelessWidget
                     onBackTap ?? () => Navigator.of(context).maybePop();
                 final leading = Align(
                   alignment: Alignment.centerLeft,
-                  child: useIosBarStyle(context)
+                  child: iosStyle
                       ? Padding(
                           padding: const EdgeInsets.only(left: 8),
                           child: NavBarBackButton(
@@ -123,8 +124,7 @@ class BackTitleNavBar extends StatelessWidget
                 // On iOS the bubbles keep off the screen edge, as the back
                 // bubble does on the leading side.
                 final trailingChild = Padding(
-                  padding: EdgeInsets.only(
-                      right: useIosBarStyle(context) ? 8 : 0),
+                  padding: EdgeInsets.only(right: iosStyle ? 8 : 0),
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: trailing ?? const SizedBox.shrink(),

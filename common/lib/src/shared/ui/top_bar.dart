@@ -174,9 +174,7 @@ class TopCommonBarState extends State<TopCommonBar> {
             children: [
               ctrl.nav.length > 1
                   ? Opacity(
-                      opacity: ctrl.show <= 0.5
-                          ? (ctrl.nav.length > 2 ? (1.0 - ctrl.show) : xpow(ctrl.show, 8))
-                          : ctrl.show,
+                      opacity: _backOpacity(ctrl),
                       // MergeSemantics + a single Semantics node collapses the
                       // bare back Icon into one button element so the stable
                       // identifier reaches the iOS accessibility tree (a plain
@@ -252,6 +250,13 @@ class TopCommonBarState extends State<TopCommonBar> {
     });
   }
 
+  /// Fade of the back chevron while a route slides in or out. It stays up
+  /// through the swipe when a back still remains after it (deeper than one
+  /// level) and fades with the route when it leads to Home.
+  double _backOpacity(TopBarController ctrl) => ctrl.show <= 0.5
+      ? (ctrl.nav.length > 2 ? (1.0 - ctrl.show) : xpow(ctrl.show, 8))
+      : ctrl.show;
+
   /// iOS 26 back row: the chevron alone in a bubble, without the sliding
   /// previous-title labels. It sits as low as [TopBar]'s trailing actions so
   /// both bubbles line up with the title.
@@ -264,9 +269,7 @@ class TopCommonBarState extends State<TopCommonBar> {
         child: Align(
           alignment: Alignment.bottomLeft,
           child: Opacity(
-            opacity: ctrl.show <= 0.5
-                ? (ctrl.nav.length > 2 ? (1.0 - ctrl.show) : xpow(ctrl.show, 8))
-                : ctrl.show,
+            opacity: _backOpacity(ctrl),
             child: NavBarBackButton(
               identifier: AutomationIds.navBack,
               destination: ctrl.nav.elementAt(ctrl.nav.length - 2),
