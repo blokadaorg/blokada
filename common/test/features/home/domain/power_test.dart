@@ -36,6 +36,7 @@ class _FakeAppStartStore extends Fake implements AppStartStore {
   final _FakeAppStore app;
   List<AppStatus> onToggle = [];
   bool throwOnboarding = false;
+  Object? throwOther;
   final toggles = <Duration?>[];
 
   @override
@@ -45,6 +46,7 @@ class _FakeAppStartStore extends Fake implements AppStartStore {
       await app.emitStatus(s);
     }
     if (throwOnboarding) throw OnboardingException();
+    if (throwOther != null) throw throwOther!;
   }
 }
 
@@ -155,6 +157,21 @@ void main() {
 
         appStart.onToggle = [AppStatus.reconfiguring, AppStatus.paused];
         await actor.toggle(m);
+        await settle();
+        expect(confirmed, 0);
+      });
+    });
+
+    test('a toggle that throws leaves no pending activation', () async {
+      await withTrace((m) async {
+        await setUp(m);
+        await app.emitStatus(AppStatus.deactivated);
+
+        appStart.throwOther = Exception('toggle failed');
+        await expectLater(actor.toggle(m), throwsException);
+
+        // Protection coming up another way must not be credited to the failed tap.
+        await app.emitStatus(AppStatus.activatedCloud);
         await settle();
         expect(confirmed, 0);
       });

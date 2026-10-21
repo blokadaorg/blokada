@@ -170,6 +170,10 @@ class PowerActor with Logging, Actor {
       } on OnboardingException catch (_) {
         // Activation continues after onboarding, so the request stays pending.
         await _modal.change(m, Modal.onboardPrivateDns);
+      } catch (_) {
+        // The tap failed: protection coming up later another way is not its doing.
+        _activationRequestedAt = null;
+        rethrow;
       }
     });
   }
