@@ -68,6 +68,12 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
   // waits for the ring to close.
   bool _pulsePending = false;
 
+  // After a user tap, the ring ticks as it passes each quarter, winding up or
+  // down. Never on app open or a reconnect.
+  bool _ringTicksArmed = false;
+  bool _ringTicked = false;
+  int _ringQuarter = 0;
+
   // The stats rings take over from the spinner only once it has faded out
   // with protection on; switching off or reconnecting hides them again.
   bool _statsRingsShown = false;
@@ -91,11 +97,15 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
     animCtrlLibre = AnimationController(vsync: this, duration: Duration(milliseconds: 600));
     animLibre = CurvedAnimation(parent: animCtrlLibre, curve: Curves.easeOut)
       ..addListener(() {
+        _tickRing();
         _setState();
       })
       ..addStatusListener((status) {
-        if (status == AnimationStatus.completed && _pulsePending) {
-          _startPulse();
+        if (status == AnimationStatus.completed) {
+          _ringTicksArmed = false;
+          if (_pulsePending) _startPulse();
+        } else if (status == AnimationStatus.dismissed && _ringTicked) {
+          _ringTicksArmed = false;
         } else if (status == AnimationStatus.reverse) {
           _pulsePending = false;
         }
@@ -206,6 +216,22 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
     }
     _pulsePending = true;
     if (animCtrlLibre.isCompleted) _startPulse();
+  }
+
+  void _armRingTicks() {
+    _ringTicksArmed = true;
+    _ringTicked = false;
+  }
+
+  /// One selection tick each time the ring crosses a quarter, in either
+  /// direction. The ends are left to the success haptic and the tap.
+  void _tickRing() {
+    final quarter = (animLibre.value * 4).floor().clamp(0, 4);
+    if (quarter == _ringQuarter) return;
+    _ringQuarter = quarter;
+    if (!_ringTicksArmed || _reduceMotion || quarter == 0 || quarter == 4) return;
+    _ringTicked = true;
+    unawaited(Haptics.selection());
   }
 
   void _startPulse() {
@@ -330,9 +356,14 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
       case PowerTap.none:
         return;
       case PowerTap.toggle:
+        unawaited(Haptics.tap());
+        _armRingTicks();
         unawaited(_power.toggle(Markers.userTap));
       case PowerTap.pauseSheet:
+        unawaited(Haptics.tap());
         showPauseActionSheet(context, onSelected: (duration) {
+          unawaited(Haptics.light());
+          _armRingTicks();
           unawaited(_power.pause(Markers.userTap, duration));
         });
     }

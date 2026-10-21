@@ -16,10 +16,12 @@ class Haptics {
   static Future<void> selection() => HapticFeedback.selectionClick();
 
   /// A confirmed outcome, like protection turning on. Flutter has no success
-  /// type, so it's two light impacts close together.
+  /// type, so it's a short rising run: light, medium, heavy.
   static Future<void> success() async {
     await HapticFeedback.lightImpact();
-    await Future.delayed(const Duration(milliseconds: 80));
-    await HapticFeedback.lightImpact();
+    await Future.delayed(const Duration(milliseconds: 70));
+    await HapticFeedback.mediumImpact();
+    await Future.delayed(const Duration(milliseconds: 70));
+    await HapticFeedback.heavyImpact();
   }
 }
