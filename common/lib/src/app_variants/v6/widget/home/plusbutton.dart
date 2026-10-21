@@ -129,11 +129,16 @@ class _PlusButtonState extends State<PlusButton>
             child: BlokadaSwitch(
               value: activated,
               activeColor: theme.accent,
+              // Plus on rises and off falls, like the power button.
+              haptic: false,
               onChanged: (value) {
+                unawaited(value ? Haptics.switchOn() : Haptics.switchOff());
                 setState(() {
                   _doActionOrAskPerm((m) async {
                     activated = value;
                     await _plus.switchPlus(value, m);
+                    // Plus is up: the same rising run as protection.
+                    if (value) unawaited(Haptics.success());
                   });
                 });
               },

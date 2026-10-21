@@ -80,7 +80,7 @@ class PlusActor with Logging, Actor {
         await _lease.newLease(id, m);
         await switchPlus(true, m);
         // The new location is up: confirm the pick from the native picker.
-        unawaited(Haptics.light());
+        unawaited(Haptics.success());
       } on TooManyLeasesException catch (_) {
         await _app.plusActivated(false, m);
         _modal.change(m, Modal.plusDeviceLimitReached);

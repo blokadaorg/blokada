@@ -15,6 +15,21 @@ class Haptics {
   /// A value changed: switches and segmented controls.
   static Future<void> selection() => HapticFeedback.selectionClick();
 
+  /// Something switched on, like protection or Plus: a rising double,
+  /// medium then heavy.
+  static Future<void> switchOn() async {
+    await HapticFeedback.mediumImpact();
+    await Future.delayed(const Duration(milliseconds: 60));
+    await HapticFeedback.heavyImpact();
+  }
+
+  /// Something switched off or paused: a falling double, heavy then light.
+  static Future<void> switchOff() async {
+    await HapticFeedback.heavyImpact();
+    await Future.delayed(const Duration(milliseconds: 60));
+    await HapticFeedback.lightImpact();
+  }
+
   /// A confirmed outcome, like protection turning on. Flutter has no success
   /// type, so it's a short rising run: light, medium, heavy.
   static Future<void> success() async {
