@@ -2,6 +2,7 @@ import 'package:common/src/features/env/domain/env.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/account/account.dart';
 import 'package:common/src/platform/app/app.dart';
+import 'package:common/src/platform/app/channel.pg.dart';
 import 'package:common/src/platform/device/device.dart';
 import 'package:common/src/platform/plus/channel.pg.dart';
 import 'package:common/src/platform/stage/stage.dart';
@@ -213,6 +214,98 @@ void main() {
         await subject.switchPlus(true, m);
         verify(vpn.turnVpnOn(any)).called(1);
         verify(lease.fetch(any, noRetry: true));
+      });
+    });
+
+    test("switchPlusKeepsPlusOnWhileStartIsPending", () async {
+      await withTrace((m) async {
+        final persistence = MockPersistence();
+        Core.register<Persistence>(persistence, tag: Persistence.secure);
+        Core.register<Persistence>(persistence);
+
+        final device = MockDeviceStore();
+        when(device.currentDeviceTag).thenReturn("some device tag");
+        Core.register<DeviceStore>(device);
+
+        final currentGateway = CurrentGatewayValue();
+        await currentGateway.change(m, fixtureGatewayEntries.first.toGateway);
+        Core.register(currentGateway);
+
+        final gateway = MockGatewayActor();
+        Core.register<GatewayActor>(gateway);
+
+        final currentKeypair = CurrentKeypairValue();
+        await currentKeypair.change(m, Fixtures.keypair);
+        Core.register(currentKeypair);
+
+        final keypair = MockKeypairActor();
+        Core.register<KeypairActor>(keypair);
+
+        final bypassed = BypassedPackagesValue();
+        await bypassed.change(m, <String>{});
+        Core.register(bypassed);
+
+        final ops = MockPlusOps();
+        Core.register<PlusOps>(ops);
+
+        final app = MockAppStore();
+        Core.register<AppStore>(app);
+
+        final currentLease = CurrentLeaseValue();
+        await currentLease.change(m, fixtureLeaseEntries.first.toLease);
+        Core.register(currentLease);
+
+        final lease = MockLeaseActor();
+        Core.register<LeaseActor>(lease);
+
+        final vpn = MockVpnActor();
+        Core.register<VpnActor>(vpn);
+
+        final plusEnabled = PlusEnabledValue();
+        Core.register(plusEnabled);
+
+        final subject = PlusActor();
+
+        // iOS holds the start during an extension update: no error sheet
+        // (StageStore is not registered), Plus and the lease stay.
+        when(vpn.turnVpnOn(any)).thenThrow(VpnStartPendingException());
+        await subject.switchPlus(true, m);
+        expect(plusEnabled.present, true);
+        verify(app.plusActivated(false, any)).called(1);
+        verifyNever(lease.deleteLease(any, any));
+        verifyNever(lease.fetch(any, noRetry: true));
+        verify(vpn.turnVpnOff(any)).called(1); // only the stop that always comes first
+      });
+    });
+
+    test("reactToAppStatusLeavesAPendingStartToTheOs", () async {
+      await withTrace((m) async {
+        final persistence = MockPersistence();
+        Core.register<Persistence>(persistence);
+
+        final app = MockAppStore();
+        when(app.conditions).thenReturn(AppStatusStrategy(accountIsPlus: true));
+        when(app.status).thenReturn(AppStatus.activatedCloud);
+        Core.register<AppStore>(app);
+
+        final vpnStatus = CurrentVpnStatusValue();
+        vpnStatus.now = VpnStatus.deactivated;
+        Core.register(vpnStatus);
+
+        final vpn = MockVpnActor();
+        when(vpn.startPending).thenReturn(true);
+        Core.register<VpnActor>(vpn);
+
+        final plusEnabled = PlusEnabledValue();
+        await plusEnabled.change(m, true);
+        Core.register(plusEnabled);
+
+        // Plus is on but the tunnel is down: normally a restart, but iOS
+        // already holds a start and brings the tunnel up itself.
+        final subject = PlusActor();
+        await subject.reactToAppStatus(m);
+        verifyNever(vpn.turnVpnOff(any));
+        verifyNever(vpn.turnVpnOn(any));
       });
     });
 

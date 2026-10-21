@@ -126,7 +126,16 @@ class PlusActor with Logging, Actor {
           log(m).pair("bypassed apps", b);
 
           await _vpn.setVpnConfig(_assembleConfig(k, g, l, b), m);
-          await _vpn.turnVpnOn(m);
+          try {
+            await _vpn.turnVpnOn(m);
+          } on VpnStartPendingException {
+            // iOS holds the start while it swaps in an updated VPN extension
+            // and brings the tunnel up itself afterwards. Keep Plus on and
+            // the lease: tearing down here turned Plus off after updates.
+            log(m).w("VPN start pending, keeping Plus on");
+            await _app.plusActivated(false, m);
+            return;
+          }
 
           var requestAttempts = 5;
           while (requestAttempts-- > 0) {
@@ -193,6 +202,9 @@ class PlusActor with Logging, Actor {
   reactToAppStatus(Marker m) async {
     final plusEnabled = await _plusEnabled.now();
     if (!_app.conditions.accountIsPlus || _isSwitching) return;
+    // The OS brings a held start up by itself; asking again on every status
+    // change only stops and requeues it.
+    if (_vpn.startPending) return;
     if (plusEnabled &&
         _app.status == AppStatus.activatedCloud &&
         _vpnStatus.now == VpnStatus.deactivated) {
