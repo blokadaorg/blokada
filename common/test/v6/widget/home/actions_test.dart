@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:common/src/app_variants/v6/widget/home/actions.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/app/channel.pg.dart';
@@ -65,6 +67,45 @@ void main() {
   setUpAll(() => registerFallbackValue(Markers.testing));
 
   group('HomeActions pause origin', () {
+    testWidgets('a stored origin read late does not undo a newer change', (tester) async {
+      await bootModules(tester);
+      await seedCloudAccount(tester);
+      seedAppStatus(AppStatus.deactivated);
+      runInAction(() => Core.get<DeviceStore>().cloudEnabled = false);
+
+      // The stored value loads slowly; meanwhile the account is seen paused
+      // by another device.
+      final stored = Completer<bool?>();
+      final origin = PauseIssuedHereValue()
+        ..load = ((_) => stored.future)
+        ..save = ((_, _) async {});
+      Core.di.allowReassignment = true;
+      try {
+        Core.register<PauseIssuedHereValue>(origin);
+      } finally {
+        Core.di.allowReassignment = false;
+      }
+
+      await tester.pumpWidget(
+        BlokadaApp(
+          isFamily: false,
+          content: const Scaffold(body: Center(child: HomeActions())),
+        ),
+      );
+      await tester.runAsync(() => origin.change(Markers.testing, false));
+      await tester.pump();
+      expect(find.text(_pausedElsewhereText), findsOneWidget);
+
+      // The old stored value (our own pause) arrives after the change.
+      stored.complete(true);
+      await tester.runAsync(() => Future.delayed(const Duration(milliseconds: 100)));
+      await tester.pump(const Duration(seconds: 1));
+
+      expect(find.text(_pausedElsewhereText), findsOneWidget);
+
+      await _unmount(tester);
+    });
+
     testWidgets('a pause from another device says so and offers resume', (tester) async {
       final handle = tester.ensureSemantics();
       await _pump(tester, issuedHere: false);

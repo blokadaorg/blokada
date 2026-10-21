@@ -40,6 +40,8 @@ class _HomeActionsState extends State<HomeActions> with TickerProviderStateMixin
 
   // Null until loaded: an unknown origin never claims another device.
   bool? _issuedHere;
+  // Set by the first change event; a stored value read later is older.
+  bool _gotOriginChange = false;
   StreamSubscription? _pauseOriginSub;
 
   late final AnimationController _ctrlCounter = AnimationController(
@@ -61,13 +63,11 @@ class _HomeActionsState extends State<HomeActions> with TickerProviderStateMixin
     super.initState();
 
     _pauseOriginSub = _pauseIssuedHere.onChange.listen((it) {
+      _gotOriginChange = true;
       if (!mounted) return;
       setState(() => _issuedHere = it.now);
     });
-    _pauseIssuedHere.fetch(Markers.ui).then((value) {
-      if (!mounted) return;
-      setState(() => _issuedHere = value);
-    });
+    _loadStoredOrigin();
 
     _disposeStatusReaction = autorun((_) async {
       final status = _app.status;
@@ -84,6 +84,30 @@ class _HomeActionsState extends State<HomeActions> with TickerProviderStateMixin
         _ctrlPlus.reverse();
       }
     });
+  }
+
+  /// Reads the stored origin without publishing it. A pause issued while the
+  /// read is in flight is newer than what it returns, so the stored value is
+  /// only applied when no change arrived meanwhile. (Value.fetch would publish
+  /// the stale value as a change of its own.)
+  Future<void> _loadStoredOrigin() async {
+    final present = _pauseIssuedHere.present;
+    if (present != null) {
+      _issuedHere = present;
+      return;
+    }
+    final load = _pauseIssuedHere.load;
+    if (load == null) return;
+    final bool? stored;
+    try {
+      stored = await load(Markers.ui);
+    } catch (e, s) {
+      // Unknown origin keeps the plain off state, which is always true.
+      log(Markers.ui).e(msg: "Failed reading pause origin", err: e, stack: s);
+      return;
+    }
+    if (!mounted || _gotOriginChange) return;
+    setState(() => _issuedHere = stored);
   }
 
   @override

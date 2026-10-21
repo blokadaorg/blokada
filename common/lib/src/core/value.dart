@@ -184,13 +184,8 @@ abstract class NullableAsyncValue<T> with Logging {
   }
 
   bool _resolved = false;
-  // The load in progress. Concurrent fetches await it rather than the next
-  // change event, which never comes when the load turns out stale.
-  Future<T?>? _inflight;
+  bool _resolving = false;
   late T? _value;
-  // Bumped on every change, so a load that finishes after a newer change
-  // knows its value is stale.
-  int _version = 0;
 
   final _debounce = Debounce(const Duration(seconds: 15));
 
@@ -210,34 +205,19 @@ abstract class NullableAsyncValue<T> with Logging {
   }
 
   Future<T?> fetch(Marker m, {bool force = false}) async {
-    final inflight = _inflight;
-    if (inflight != null) return await inflight;
+    if (_resolving) return await _waitForResolve();
 
     if (load != null && (!_resolved || force)) {
-      final loading = _load(m);
-      _inflight = loading;
-      try {
-        return await loading;
-      } finally {
-        if (identical(_inflight, loading)) _inflight = null;
-      }
+      _resolving = true;
+      final newValue = await load!.call(m);
+      await change(m, newValue);
+      _resolving = false;
+      return newValue;
     }
 
     if (!_resolved) return await _waitForResolve();
 
     return _value;
-  }
-
-  Future<T?> _load(Marker m) async {
-    final version = _version;
-    final newValue = await load!.call(m);
-    if (_version != version) {
-      // Changed while loading: the loaded value is older than the current
-      // one, so keep the current one and do not publish the stale value.
-      return _value;
-    }
-    await change(m, newValue);
-    return newValue;
   }
 
   Future<T> _waitForResolve() async {
@@ -264,7 +244,6 @@ abstract class NullableAsyncValue<T> with Logging {
     final update = NullableValueUpdate(
         Markers.valueChange, _resolved ? _value : null, newValue);
     _value = newValue;
-    _version++;
     await save?.call(m, newValue);
 
     log(m).logt(
