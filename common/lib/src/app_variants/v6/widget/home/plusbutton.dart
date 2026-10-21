@@ -137,8 +137,11 @@ class _PlusButtonState extends State<PlusButton>
                   _doActionOrAskPerm((m) async {
                     activated = value;
                     await _plus.switchPlus(value, m);
-                    // Plus is up: the same rising run as protection.
-                    if (value) unawaited(Haptics.success());
+                    // Plus is up: the same rising run as protection. Not for a
+                    // start the OS still holds.
+                    if (value && _app.status == AppStatus.activatedPlus) {
+                      unawaited(Haptics.success());
+                    }
                   });
                 });
               },
