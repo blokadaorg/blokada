@@ -133,7 +133,7 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
       final device = await _api.getDevice(m);
       // A pause that ended anywhere (resumed, timer ran out) is no longer
       // ours; the next one may come from another device.
-      if (!device.paused) await _pauseIssuedHere.change(m, false);
+      if (!device.paused) await _recordPauseOrigin(m, false);
       pausedForSeconds = device.pausedForSeconds;
       cloudEnabled = !device.paused;
       lists = device.lists;
@@ -165,7 +165,7 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
     return await log(m).trace("setCloudEnabled", (m) async {
       await _api.putDevice(m, paused: !enabled, pausedForSeconds: pauseSeconds);
       // Before the refresh, so Home never shows our own pause as remote.
-      await _pauseIssuedHere.change(m, !enabled);
+      await _recordPauseOrigin(m, !enabled);
       await fetch(m, force: true);
     });
   }
@@ -256,7 +256,7 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
     deviceTag = null;
     await _bootstrapIdentity.change(m, null);
     // A pause issued under the previous account says nothing about this one.
-    await _pauseIssuedHere.change(m, null);
+    await _recordPauseOrigin(m, null);
     await fetch(m, force: true);
   }
 
@@ -298,6 +298,17 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
         updatedAt: DateTime.now().toUtc(),
       ),
     );
+  }
+
+  /// Writes who issued the pause. Only a Home hint depends on it, so a failed
+  /// write is logged and never aborts the device refresh or a pause the server
+  /// already took; the hint then stays at its previous value.
+  Future<void> _recordPauseOrigin(Marker m, bool? issuedHere) async {
+    try {
+      await _pauseIssuedHere.change(m, issuedHere);
+    } catch (e, s) {
+      log(m).e(msg: "Failed saving pause origin", err: e, stack: s);
+    }
   }
 
   bool _isCacheValid() {

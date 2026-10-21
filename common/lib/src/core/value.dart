@@ -186,6 +186,9 @@ abstract class NullableAsyncValue<T> with Logging {
   bool _resolved = false;
   bool _resolving = false;
   late T? _value;
+  // Bumped on every change, so a load that finishes after a newer change
+  // knows its value is stale.
+  int _version = 0;
 
   final _debounce = Debounce(const Duration(seconds: 15));
 
@@ -209,7 +212,14 @@ abstract class NullableAsyncValue<T> with Logging {
 
     if (load != null && (!_resolved || force)) {
       _resolving = true;
+      final version = _version;
       final newValue = await load!.call(m);
+      if (_version != version) {
+        // Changed while loading: the loaded value is older than the current
+        // one, so keep the current one and do not publish the stale value.
+        _resolving = false;
+        return _value;
+      }
       await change(m, newValue);
       _resolving = false;
       return newValue;
@@ -244,6 +254,7 @@ abstract class NullableAsyncValue<T> with Logging {
     final update = NullableValueUpdate(
         Markers.valueChange, _resolved ? _value : null, newValue);
     _value = newValue;
+    _version++;
     await save?.call(m, newValue);
 
     log(m).logt(

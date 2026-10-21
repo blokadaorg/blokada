@@ -124,6 +124,8 @@ class _HomeActionsState extends State<HomeActions> with TickerProviderStateMixin
                 },
                 child: Semantics(
                   identifier: pausedElsewhere ? AutomationIds.homePausedElsewhere : null,
+                  // Tapping it resumes, so announce it as a button.
+                  button: pausedElsewhere,
                   child: Text(
                     status.isInactive()
                         ? (pausedElsewhere

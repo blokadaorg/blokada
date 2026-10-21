@@ -1,19 +1,38 @@
 import 'package:common/src/app_variants/v6/widget/home/actions.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/app/channel.pg.dart';
+import 'package:common/src/platform/app/start/start.dart';
 import 'package:common/src/platform/device/device.dart';
 import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/ui/action_sheet.dart';
 import 'package:common/src/shared/ui/app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobx/mobx.dart';
+import 'package:mobx/mobx.dart' show runInAction;
+import 'package:mocktail/mocktail.dart';
 
 import '../../../golden/fixtures.dart';
 import '../../../golden/golden_tools.dart';
 
 final _pausedElsewhereText =
     "${"home status paused elsewhere".i18n} · ${"universal action resume".i18n}";
+
+class _MockAppStartStore extends Mock implements AppStartStore {}
+
+/// Replaces the real start store, so a tap is observed instead of running the
+/// whole unpause flow against fake HTTP.
+_MockAppStartStore _mockAppStart() {
+  final appStart = _MockAppStartStore();
+  when(() => appStart.pausedForAccurate).thenReturn(null);
+  when(() => appStart.toggleApp(any(), duration: any(named: 'duration'))).thenAnswer((_) async {});
+  Core.di.allowReassignment = true;
+  try {
+    Core.register<AppStartStore>(appStart);
+  } finally {
+    Core.di.allowReassignment = false;
+  }
+  return appStart;
+}
 
 Future<void> _pump(WidgetTester tester, {required bool? issuedHere}) async {
   await bootModules(tester);
@@ -43,14 +62,38 @@ Finder _pausedElsewhereId() => find.byWidgetPredicate(
 );
 
 void main() {
+  setUpAll(() => registerFallbackValue(Markers.testing));
+
   group('HomeActions pause origin', () {
     testWidgets('a pause from another device says so and offers resume', (tester) async {
+      final handle = tester.ensureSemantics();
       await _pump(tester, issuedHere: false);
+      // After boot, which registers the real store; HomeActions reads it on build.
+      await tester.pumpWidget(const SizedBox());
+      final appStart = _mockAppStart();
+      await tester.pumpWidget(
+        BlokadaApp(
+          isFamily: false,
+          content: const Scaffold(body: Center(child: HomeActions())),
+        ),
+      );
+      await tester.runAsync(() => Future.delayed(const Duration(milliseconds: 100)));
+      await tester.pump(const Duration(seconds: 1));
 
       expect(find.text(_pausedElsewhereText), findsOneWidget);
       expect(_pausedElsewhereId(), findsOneWidget);
+      // A screen reader announces it as the resume button it is.
+      expect(
+        tester.getSemantics(find.text(_pausedElsewhereText)),
+        containsSemantics(isButton: true),
+      );
+
+      await tester.tap(find.text(_pausedElsewhereText));
+      await tester.pump();
+      verify(() => appStart.toggleApp(any())).called(1);
 
       await _unmount(tester);
+      handle.dispose();
     });
 
     testWidgets('our own pause keeps the plain off state', (tester) async {

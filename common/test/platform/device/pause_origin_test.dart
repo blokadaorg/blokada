@@ -140,6 +140,31 @@ void main() {
       });
     });
 
+    test('a failing origin write does not break the device refresh', () async {
+      await withTrace((m) async {
+        setup(pausedOnServer: false);
+        origin.save = (_, _) async => throw Exception('disk full');
+
+        await subject.fetch(m, force: true);
+
+        expect(subject.cloudEnabled, isTrue);
+      });
+    });
+
+    test('a failing origin write after a pause still refreshes', () async {
+      await withTrace((m) async {
+        setup(pausedOnServer: true);
+        subject.cloudEnabled = true;
+        origin.save = (_, _) async => throw Exception('disk full');
+
+        // The server took the pause; the app must show it.
+        await subject.setCloudEnabled(m, false);
+
+        verify(api.putDevice(m, paused: true)).called(1);
+        expect(subject.cloudEnabled, isFalse);
+      });
+    });
+
     test('switching account forgets the previous account\'s pause', () async {
       await withTrace((m) async {
         setup(pausedOnServer: true);
