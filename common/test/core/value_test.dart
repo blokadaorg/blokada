@@ -33,6 +33,22 @@ void main() {
       });
     });
 
+    test("a fetch joining an in-flight load completes after a change", () async {
+      await withTrace((m) async {
+        final loading = Completer<String>();
+        final subject = TestValue(onLoad: (m) => loading.future);
+
+        final first = subject.fetch(m);
+        await subject.change(m, "newer");
+        // Starts after the change: no further change event will come.
+        final second = subject.fetch(m);
+        loading.complete("stale");
+
+        expect(await first.timeout(const Duration(seconds: 1)), "newer");
+        expect(await second.timeout(const Duration(seconds: 1)), "newer");
+      });
+    });
+
     // test("failing", () async {
     //   final subject = TestValue(onLoad: () => throw Exception("fail"));
     //   try {
