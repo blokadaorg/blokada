@@ -9,6 +9,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../tools.dart';
+import 'pause_origin.dart';
 @GenerateNiceMocks([
   MockSpec<DeviceApi>(),
   MockSpec<StageStore>(),
@@ -41,6 +42,7 @@ void main() {
         Core.register<StageStore>(MockStageStore());
         Core.register<AccountStore>(MockAccountStore());
         Core.register<EnvActor>(_FakeEnvActor('Example iPhone'));
+        registerMemoryPauseOrigin();
 
         final api = MockDeviceApi();
         when(api.getDevice(any))
@@ -64,6 +66,7 @@ void main() {
         Core.register<StageStore>(MockStageStore());
         Core.register<AccountStore>(MockAccountStore());
         Core.register<EnvActor>(_FakeEnvActor('Example iPhone'));
+        registerMemoryPauseOrigin();
 
         final api = MockDeviceApi();
         when(api.getDevice(any))
@@ -94,6 +97,7 @@ void main() {
         Core.register<StageStore>(MockStageStore());
         Core.register<AccountStore>(MockAccountStore());
         Core.register<EnvActor>(_FakeEnvActor('Example iPhone'));
+        registerMemoryPauseOrigin();
 
         final api = MockDeviceApi();
         when(api.getDevice(any)).thenThrow(Exception("test"));
@@ -115,6 +119,7 @@ void main() {
         Core.register<StageStore>(MockStageStore());
         Core.register<AccountStore>(MockAccountStore());
         Core.register<EnvActor>(_FakeEnvActor('Example iPhone'));
+        registerMemoryPauseOrigin();
 
         final api = MockDeviceApi();
         when(api.getDevice(any)).thenThrow(Exception("test"));
@@ -132,6 +137,7 @@ void main() {
         Core.register<StageStore>(MockStageStore());
         Core.register<AccountStore>(MockAccountStore());
         Core.register<EnvActor>(_FakeEnvActor('Example iPhone'));
+        registerMemoryPauseOrigin();
 
         final api = MockDeviceApi();
         when(api.getDevice(any)).thenThrow(Exception("test"));

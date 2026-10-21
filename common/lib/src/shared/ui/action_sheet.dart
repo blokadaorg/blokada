@@ -12,7 +12,9 @@ void showPauseActionSheet(BuildContext context,
       container: true,
       child: CupertinoActionSheet(
         title: Text("home power pause status active".i18n),
-        message: Text("home power off menu header".i18n),
+        // Pause is one flag per account in v6: say so before the user picks,
+        // or other phones on the account seem to switch off by themselves (#455).
+        message: Text("home power pause scope".i18n),
         // The identifier must wrap the whole tappable action (merged into one
         // node) to surface as an iOS accessibilityIdentifier; on the inner
         // Text child alone it stays on a non-hittable node and Appium cannot

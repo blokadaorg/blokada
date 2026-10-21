@@ -15,6 +15,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 
 import '../../tools.dart';
+import '../device/pause_origin.dart';
 @GenerateNiceMocks([
   MockSpec<StageStore>(),
   MockSpec<AccountStore>(),
@@ -126,6 +127,7 @@ Future<_Subject> _boot(Marker m) async {
   Core.register<StageStore>(MockStageStore());
   Core.register<AccountStore>(MockAccountStore());
   Core.register<EnvActor>(_FakeEnvActor());
+  registerMemoryPauseOrigin();
   Core.register<AccountActor>(_FakeAccountActor());
   final toast = _RecordingToast();
   Core.register<ToastActor>(toast);

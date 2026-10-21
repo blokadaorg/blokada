@@ -11,6 +11,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../tools.dart';
+import 'pause_origin.dart';
 
 class _MockPersistence extends Mock implements Persistence {}
 
@@ -84,6 +85,7 @@ void main() {
         final stage = StageStore();
         stage.onRegister();
         Core.register<EnvActor>(_FakeEnvActor('Example iPhone'));
+        registerMemoryPauseOrigin();
         final account = AccountStore();
         account.account = AccountState(
           'acc-1',
@@ -120,6 +122,7 @@ void main() {
         final stage = StageStore();
         stage.onRegister();
         Core.register<EnvActor>(_FakeEnvActor('Example iPhone'));
+        registerMemoryPauseOrigin();
         final account = AccountStore();
         account.account = AccountState(
           'acc-1',
@@ -156,6 +159,7 @@ void main() {
         final stage = StageStore();
         stage.onRegister();
         Core.register<EnvActor>(_FakeEnvActor('Example iPhone'));
+        registerMemoryPauseOrigin();
         final account = AccountStore();
         account.account = AccountState(
           'acc-1',
@@ -227,6 +231,7 @@ void main() {
         final stage = StageStore();
         stage.onRegister();
         Core.register<EnvActor>(_FakeEnvActor('Example iPhone'));
+        registerMemoryPauseOrigin();
         final account = AccountStore();
         account.account = AccountState(
           'acc-1',
@@ -267,6 +272,7 @@ void main() {
         final stage = StageStore();
         stage.onRegister();
         Core.register<EnvActor>(_FakeEnvActor('Example iPhone'));
+        registerMemoryPauseOrigin();
         final account = AccountStore();
         account.account = AccountState(
           'acc-1',
@@ -330,6 +336,7 @@ void main() {
         final stage = StageStore();
         stage.onRegister();
         Core.register<EnvActor>(_FakeEnvActor(''));
+        registerMemoryPauseOrigin();
         final account = AccountStore();
         account.account = AccountState(
           'acc-1',

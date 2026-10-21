@@ -66,6 +66,10 @@ class AutomationIds {
   static const attachOpen = 'automation.attach_open';
   static const attachShare = 'automation.attach_share';
 
+  // Home status text while ad blocking is paused from another device of the
+  // account (#455); tapping it resumes.
+  static const homePausedElsewhere = 'automation.home_paused_elsewhere';
+
   static const powerToggle = 'automation.power_toggle';
   static const powerActionSheet = 'automation.power_action_sheet';
   static const powerActionPauseFive = 'automation.power_action_pause_five';
