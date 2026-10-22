@@ -173,7 +173,7 @@ class WgService: NetxServiceIn {
     func startVpn() -> AnyPublisher<Ignored, Error> {
         return startVpnInternal()
         .tryCatch { error in
-            // A delayed retry (total 3 attemps that wait up to 5 sec)
+            // Two more starts (3 attempts that wait up to 10 sec each)
             return self.startVpnInternal()
             .retry(1)
         }
@@ -219,26 +219,17 @@ class WgService: NetxServiceIn {
             .delay(for: 0.5, scheduler: self.bgQueue)
             //.map { _ in self.queryWgState() }
             .map { _ in true }
-            // Wait for completion or timeout
+            // Wait until active state is reported, or time out. Don't fail on
+            // the tunnel reporting off: after an app update the start sits
+            // queued while iOS swaps in the new extension (25s to 5 min),
+            // reporting off the whole time.
             .flatMap { _ in
-                Publishers.Merge(
-                    // Wait until active state is reported
-                    self.wgStateHot.filter { $0 == .activated }.first().tryMap { _ in true }
-                    .eraseToAnyPublisher(),
-
-                    // Also make a timeout
-                    Just(true)
-                    .delay(for: 3.0, scheduler: self.bgQueue)
-                    .flatMap { _ in self.wgStateHot.first() }
-                    .tryMap { state -> Ignored in
-                        if state != .activated {
-                            throw "timeout"
-                        }
-                        return true
-                    }
-                    .eraseToAnyPublisher()
-                )
-                .first()
+                self.wgStateHot.filter { $0 == .activated }.first()
+                .setFailureType(to: Error.self)
+                // The app keeps Plus on for this code: iOS still owns the
+                // queued start and brings the tunnel up when it's ready.
+                .timeout(.seconds(10), scheduler: self.bgQueue, customError: { "vpnStartPending" })
+                .map { _ in true }
                 .eraseToAnyPublisher()
             }
             .eraseToAnyPublisher()
@@ -249,10 +240,26 @@ class WgService: NetxServiceIn {
     func stopVpn() -> AnyPublisher<Ignored, Error> {
         return wgStateHot.filter { $0.isReady() }.first()
         .flatMap { state -> AnyPublisher<Ignored, Error> in
-            // VPN already stopped, ignore
+            // VPN already stopped. Still turn on-demand off: a start iOS
+            // queued during an extension update would otherwise come up later.
             if state == .deactivated { // TODO: paused?
                 self.writeWgState.send(.deactivated)
-                return Just(true).setFailureType(to: Error.self).eraseToAnyPublisher()
+                return self.getManager()
+                .flatMap { manager in
+                    Future<Ignored, Error> { promise in
+                        // No VPN profile (Cloud only): nothing to turn off.
+                        guard manager.numberOfTunnels() > 0 else {
+                            return promise(.success(true))
+                        }
+                        manager.setOnDemandEnabled(false, on: manager.tunnel(at: 0)) { error in
+                            guard error == nil else {
+                                return promise(.failure("stopVpn: could not disable on-demand".cause(error)))
+                            }
+                            return promise(.success(true))
+                        }
+                    }
+                }
+                .eraseToAnyPublisher()
             }
 
             return self.getManager()

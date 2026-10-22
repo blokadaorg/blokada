@@ -20,6 +20,31 @@ class VpnActor with Logging, Actor {
 
   bool _settingConfig = false;
 
+  // When a start the OS is still holding (VpnStartPendingException) began.
+  // Turning off must reach the OS even though the tunnel already reports off.
+  DateTime? _startPendingSince;
+
+  /// Just above the longest iOS hold (300s). A hold that ends without the
+  /// tunnel coming up gives no signal, so after this the app recovers as usual.
+  static const startPendingMax = Duration(minutes: 6);
+
+  final DateTime Function() _now;
+
+  VpnActor({DateTime Function()? now}) : _now = now ?? DateTime.now;
+
+  bool get _startPending {
+    final since = _startPendingSince;
+    if (since == null) return false;
+    if (_now().difference(since) > startPendingMax) {
+      _startPendingSince = null;
+      return false;
+    }
+    return true;
+  }
+
+  /// The OS holds a start and brings the tunnel up itself once it can.
+  bool get startPending => _startPending;
+
   DateTime? _lastReadyTime;
   static const _sustainedReadyDuration = Duration(seconds: 2);
 
@@ -78,7 +103,7 @@ class VpnActor with Logging, Actor {
       if (!_actualStatus.now.isReady()) {
         log(m).i("event queued");
         return;
-      } else if (_actualStatus.now == targetStatus) {
+      } else if (_actualStatus.now == targetStatus && !_startPending) {
         return;
       }
 
@@ -103,6 +128,7 @@ class VpnActor with Logging, Actor {
       );
 
       _actualStatus.now = status;
+      if (status == VpnStatus.activated) _startPendingSince = null;
       if (!_actualStatus.now.isReady()) {
         _lastReadyTime = null;
         await _app.reconfiguring(m);
@@ -156,7 +182,16 @@ class VpnActor with Logging, Actor {
         _statusCompleter?.complete();
         _statusCompleter = null;
         if (targetStatus == VpnStatus.activated) {
-          await turnVpnOn(m);
+          if (_startPending) {
+            // Another start would only disturb the one the OS holds.
+            log(m).w("VPN start pending, the OS will bring it up");
+          } else {
+            try {
+              await turnVpnOn(m);
+            } on VpnStartPendingException {
+              log(m).w("VPN start pending, the OS will bring it up");
+            }
+          }
         } else {
           await turnVpnOff(m);
         }
@@ -173,6 +208,20 @@ class VpnActor with Logging, Actor {
       await _statusCompleter?.future;
       _statusCompleter = null;
       await _stopCommandTimeout(m);
+      _startPendingSince = null;
+    } on PlatformException catch (e) {
+      await _stopCommandTimeout(m);
+      if (active && e.code == _startPendingCode) {
+        _statusCompleter = null;
+        _startPendingSince = _now();
+        if (targetStatus != VpnStatus.activated) {
+          // Turned off while the start was in flight: cancel the held start,
+          // or the OS brings the tunnel up later anyway.
+          await turnVpnOff(m);
+        }
+        throw VpnStartPendingException();
+      }
+      rethrow;
     } catch (_) {
       await _stopCommandTimeout(m);
       rethrow;

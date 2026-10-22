@@ -7,7 +7,9 @@ class CoreConfig {
   Duration deviceRefreshCooldown = const Duration(seconds: 60);
   Duration plusLeaseRefreshCooldown = const Duration(seconds: 60);
   Duration plusGatewayRefreshCooldown = const Duration(seconds: 60);
-  Duration plusVpnCommandTimeout = const Duration(seconds: 5);
+  // Above the native start wait (3 attempts of 10s). A longer hold, such as
+  // iOS swapping in an updated VPN extension, comes back as a pending start.
+  Duration plusVpnCommandTimeout = const Duration(seconds: 35);
   Duration statsRefreshWhenOnAnotherScreen = const Duration(seconds: 240);
   Duration refreshVeryFrequent = const Duration(seconds: 5);
   Duration refreshOnHome = const Duration(seconds: 15);

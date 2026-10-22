@@ -3,9 +3,21 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/app/app.dart';
+import 'package:flutter/services.dart';
 
 part 'actor.dart';
 part 'model.dart';
+
+/// The OS accepted the start but holds it: iOS does this while it swaps in an
+/// updated VPN extension, for up to five minutes, then starts the tunnel by
+/// itself. Not a failure to undo.
+class VpnStartPendingException implements Exception {
+  @override
+  String toString() => "VpnStartPendingException";
+}
+
+/// The error code iOS returns when the start is held (see WgService.swift).
+const _startPendingCode = "vpnStartPending";
 
 @PlatformProvided()
 mixin VpnChannel {
