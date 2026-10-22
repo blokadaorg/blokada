@@ -233,6 +233,18 @@ void main() {
       });
     });
 
+    test("an off report while a start is held does not start again", () async {
+      await withTrace((m) async {
+        final (subject, ops) = await setUp(m);
+        when(ops.doSetVpnActive(true)).thenThrow(PlatformException(code: "vpnStartPending"));
+        await expectLater(subject.turnVpnOn(m), throwsA(isA<VpnStartPendingException>()));
+        clearInteractions(ops);
+
+        await subject.setActualStatus("deactivated", m);
+        verifyNever(ops.doSetVpnActive(any));
+      });
+    });
+
     test("turning off without a pending start skips the OS when already off", () async {
       await withTrace((m) async {
         final (subject, ops) = await setUp(m);

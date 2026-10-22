@@ -128,6 +128,20 @@ class PlusActor with Logging, Actor {
           await _vpn.setVpnConfig(_assembleConfig(k, g, l, b), m);
           try {
             await _vpn.turnVpnOn(m);
+
+            var requestAttempts = 5;
+            while (requestAttempts-- > 0) {
+              try {
+                // A quick lease check to ensure connectivity
+                await _lease.fetch(m, noRetry: true);
+                requestAttempts = 0;
+              } catch (_) {
+                // Super lame but VPN service seems very brittle
+                log(m).i("Retrying switching plus");
+                await _vpn.turnVpnOff(m);
+                await _vpn.turnVpnOn(m);
+              }
+            }
           } on VpnStartPendingException {
             // iOS holds the start while it swaps in an updated VPN extension
             // and brings the tunnel up itself afterwards. Keep Plus on and
@@ -135,20 +149,6 @@ class PlusActor with Logging, Actor {
             log(m).w("VPN start pending, keeping Plus on");
             await _app.plusActivated(false, m);
             return;
-          }
-
-          var requestAttempts = 5;
-          while (requestAttempts-- > 0) {
-            try {
-              // A quick lease check to ensure connectivity
-              await _lease.fetch(m, noRetry: true);
-              requestAttempts = 0;
-            } catch (_) {
-              // Super lame but VPN service seems very brittle
-              log(m).i("Retrying switching plus");
-              await _vpn.turnVpnOff(m);
-              await _vpn.turnVpnOn(m);
-            }
           }
         }
       } on Exception catch (e) {
@@ -191,7 +191,8 @@ class PlusActor with Logging, Actor {
     return await log(m).trace("reactToAppPause", (m) async {
       final plusEnabled = await _plusEnabled.now();
       if (!_app.conditions.accountIsPlus) return;
-      if (appActive && plusEnabled && !_vpnStatus.now.isActive()) {
+      // A held start comes up by itself; switchPlus would cancel and requeue it.
+      if (appActive && plusEnabled && !_vpnStatus.now.isActive() && !_vpn.startPending) {
         await switchPlus(true, m);
       } else if (!appActive && (plusEnabled || _vpnStatus.now.isActive())) {
         await _vpn.turnVpnOff(m);

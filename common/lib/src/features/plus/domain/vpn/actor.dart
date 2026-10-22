@@ -164,10 +164,15 @@ class VpnActor with Logging, Actor {
         _statusCompleter?.complete();
         _statusCompleter = null;
         if (targetStatus == VpnStatus.activated) {
-          try {
-            await turnVpnOn(m);
-          } on VpnStartPendingException {
+          if (_startPending) {
+            // Another start would only disturb the one the OS holds.
             log(m).w("VPN start pending, the OS will bring it up");
+          } else {
+            try {
+              await turnVpnOn(m);
+            } on VpnStartPendingException {
+              log(m).w("VPN start pending, the OS will bring it up");
+            }
           }
         } else {
           await turnVpnOff(m);
