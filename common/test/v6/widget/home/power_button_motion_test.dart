@@ -168,6 +168,7 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 100));
     expect(haptics, isNotEmpty);
+    expect(_painter(tester).pulse, isNull);
 
     await tester.pump(const Duration(seconds: 1));
     expect(_painter(tester).pulse, isNull);
