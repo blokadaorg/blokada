@@ -99,6 +99,7 @@ class _GatedJournal extends JournalActor {
   bool more = false;
   Object? pageError;
   var pageRequests = 0;
+  var loads = 0;
 
   void finish() {
     _gate.complete();
@@ -112,6 +113,7 @@ class _GatedJournal extends JournalActor {
       if (pageError != null) throw pageError!;
       return;
     }
+    loads++;
     await _gate.future;
     if (error != null) throw error!;
     hasMoreData = more;
