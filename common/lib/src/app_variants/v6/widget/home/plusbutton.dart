@@ -43,6 +43,10 @@ class _PlusButtonState extends State<PlusButton>
   var location = "";
   var isPlus = false;
 
+  // The user switched Plus on and it is not up yet: the success run plays
+  // once it is, which can be minutes later when the OS holds the start.
+  var _successPending = false;
+
   @override
   void initState() {
     super.initState();
@@ -52,6 +56,13 @@ class _PlusButtonState extends State<PlusButton>
       final gateway = _gateway.present;
       final plusEnabled =
           _plusEnabled.present == true && status == AppStatus.activatedPlus;
+
+      if (_successPending && plusEnabled) {
+        _successPending = false;
+        unawaited(Haptics.success());
+      } else if (_plusEnabled.present != true) {
+        _successPending = false;
+      }
 
       setState(() {
         final flag = gateway?.flag;
@@ -136,11 +147,13 @@ class _PlusButtonState extends State<PlusButton>
                 setState(() {
                   _doActionOrAskPerm((m) async {
                     activated = value;
-                    await _plus.switchPlus(value, m);
-                    // Plus is up: the same rising run as protection. Not for a
-                    // start the OS still holds.
-                    if (value && _app.status == AppStatus.activatedPlus) {
-                      unawaited(Haptics.success());
+                    // Plus coming up plays the same rising run as protection.
+                    _successPending = value;
+                    try {
+                      await _plus.switchPlus(value, m);
+                    } catch (_) {
+                      _successPending = false;
+                      rethrow;
                     }
                   });
                 });
