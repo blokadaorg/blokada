@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:common/src/features/customlist/domain/customlist.dart';
 import 'package:common/src/features/journal/domain/journal.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/common_divider.dart';
+import 'package:common/src/shared/ui/haptics.dart';
 import 'package:common/src/features/stats/ui/activity_item.dart';
 import 'package:common/src/features/stats/ui/stats_error.dart';
 import 'package:common/src/features/stats/ui/stats_filter_chips.dart';
@@ -40,9 +43,12 @@ class StatsSectionState extends State<StatsSection> with Disposables {
   // The last load (or the last page) failed; shows an error with a retry.
   bool _failed = false;
   bool _moreFailed = false;
-  // A pull to refresh is reloading: the list is not ready until it is done,
-  // even when the cleared or reloaded entries arrive first.
+  // A pull to refresh is loading; rows stay on screen, but no page may load,
+  // as it would start from the old cursor and mix with the fresh first page.
   bool _refreshing = false;
+  // Row keys on screen, and the ones a reload just added, which fade in.
+  Set<String> _shownKeys = {};
+  Set<String> _freshKeys = {};
 
   bool get _isFreemium {
     return _accountStore.isFreemium;
@@ -123,7 +129,11 @@ class StatsSectionState extends State<StatsSection> with Disposables {
   }
 
   rebuildEntries(dynamic it) {
-    if (!mounted || _refreshing) return;
+    if (!mounted) return;
+    final keys = _rowKeys(_entries.now).toSet();
+    // Only rows added to a list already on screen; the first load just shows.
+    _freshKeys = _isReady && _shownKeys.isNotEmpty ? keys.difference(_shownKeys) : {};
+    _shownKeys = keys;
     setState(() {
       _isReady = true;
       _failed = false;
@@ -133,6 +143,8 @@ class StatsSectionState extends State<StatsSection> with Disposables {
     // After rebuilding, check if the list is scrollable
     // If not scrollable and more data available, fetch more
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Rows built from now on, like ones scrolled into view, just show.
+      _freshKeys = {};
       _checkIfNeedsMoreData();
     });
   }
@@ -150,23 +162,20 @@ class StatsSectionState extends State<StatsSection> with Disposables {
     }
   }
 
+  /// Reloads in place: the current rows stay while the indicator spins, and
+  /// rows that weren't there before fade in. A failure shows the error.
   Future<void> _pullToRefresh() async {
-    _refreshing = true;
-    // To make it more obvious visually
-    _journal.clear();
+    unawaited(Haptics.light());
     setState(() {
-      _isReady = false;
       _failed = false;
+      _moreFailed = false;
     });
-    await sleepAsync(const Duration(milliseconds: 200));
-
+    _refreshing = true;
     try {
       await rebuild(null);
     } finally {
       _refreshing = false;
     }
-    // Ready only now; an unchanged result may not notify the listener.
-    if (mounted && !_failed) rebuildEntries(null);
   }
 
   @override
@@ -253,14 +262,30 @@ class StatsSectionState extends State<StatsSection> with Disposables {
     );
   }
 
+  /// Keys rows by domain and time, so a reload keeps the rows it already
+  /// shows. A repeat gets a count, since keys must be unique.
+  static List<String> _rowKeys(List<UiJournalEntry> entries) {
+    final seen = <String, int>{};
+    return entries.map((it) {
+      final key = "${it.domainName}|${it.timestamp.toIso8601String()}";
+      final count = seen[key] = (seen[key] ?? 0) + 1;
+      return count == 1 ? key : "$key#$count";
+    }).toList();
+  }
+
   List<Widget> _buildItems(BuildContext context) {
+    final keys = _rowKeys(_entries.now);
     return _entries.now.mapIndexed((index, it) {
-      return Container(
-        color: context.theme.bgMiniCard,
-        child: Column(children: [
-          ActivityItem(entry: it),
-          index < _entries.now.length - 1 ? const CommonDivider(indent: 60) : Container(),
-        ]),
+      return _FadeIn(
+        key: ValueKey(keys[index]),
+        animate: _freshKeys.contains(keys[index]),
+        child: Container(
+          color: context.theme.bgMiniCard,
+          child: Column(children: [
+            ActivityItem(entry: it),
+            index < _entries.now.length - 1 ? const CommonDivider(indent: 60) : Container(),
+          ]),
+        ),
       );
     }).toList();
   }
@@ -300,5 +325,42 @@ class StatsSectionState extends State<StatsSection> with Disposables {
       color: context.theme.bgMiniCard,
       child: StatsError(onRetry: onRetry),
     );
+  }
+}
+
+/// Fades a row in when [animate] is set as it first appears; otherwise
+/// shows it as is.
+class _FadeIn extends StatefulWidget {
+  final bool animate;
+  final Widget child;
+
+  const _FadeIn({super.key, required this.animate, required this.child});
+
+  @override
+  State<_FadeIn> createState() => _FadeInState();
+}
+
+class _FadeInState extends State<_FadeIn> with SingleTickerProviderStateMixin {
+  late final _controller = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 250),
+    value: widget.animate ? 0.0 : 1.0,
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.animate) _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FadeTransition(opacity: _controller, child: widget.child);
   }
 }

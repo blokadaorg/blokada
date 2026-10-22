@@ -6,6 +6,7 @@ import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/common_card.dart';
 import 'package:common/src/shared/ui/common_clickable.dart';
 import 'package:common/src/shared/ui/common_divider.dart';
+import 'package:common/src/shared/ui/crossfade.dart';
 import 'package:common/src/shared/ui/placeholder.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
@@ -148,23 +149,30 @@ class RecentActivityState extends State<RecentActivity>
               const CommonDivider(),
 
               // Activity list or empty state
-              if (isError)
-                StatsError(onRetry: widget.onRetry)
-              else if (isLoading)
-                // Shaped like the activity rows: up to five, title and time.
-                LoadingPlaceholder.rows(
-                  count: 5,
-                  rowHeight: 50,
-                  dividerIndent: 44,
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                )
-              else if (currentEntries.isEmpty)
-                _buildEmptyState()
-              else
-                for (int i = 0; i < currentEntries.length; i++) ...{
-                  _buildActivityItem(currentEntries[i]),
-                  if (i < currentEntries.length - 1) const CommonDivider(),
-                },
+              Crossfade(
+                switchKey: _selectedTab,
+                child: Column(
+                  children: [
+                    if (isError)
+                      StatsError(onRetry: widget.onRetry)
+                    else if (isLoading)
+                      // Shaped like the activity rows: up to five, title and time.
+                      LoadingPlaceholder.rows(
+                        count: 5,
+                        rowHeight: 50,
+                        dividerIndent: 44,
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                      )
+                    else if (currentEntries.isEmpty)
+                      _buildEmptyState()
+                    else
+                      for (int i = 0; i < currentEntries.length; i++) ...{
+                        _buildActivityItem(currentEntries[i]),
+                        if (i < currentEntries.length - 1) const CommonDivider(),
+                      },
+                  ],
+                ),
+              ),
             ],
           ),
         ),
