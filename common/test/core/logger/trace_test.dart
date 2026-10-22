@@ -21,12 +21,14 @@ void main() {
     );
     final tracer = LogTracerActor();
 
+    final stack = StackTrace.current;
     tracer.sink(Markers.ui, Level.error, [
       "⛔ PaymentActor: Adapty: Failed purchase",
-    ], err: Exception("AdaptyError code 1003"));
+    ], err: Exception("AdaptyError code 1003"), stack: stack);
 
     expect(output.events, hasLength(1));
     expect(output.events.single.origin.error, isA<Exception>());
+    expect(output.events.single.origin.stackTrace, same(stack));
     expect(output.events.single.lines.join("\n"), contains("AdaptyError code 1003"));
   });
 }
