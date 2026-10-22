@@ -421,7 +421,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
                     colorShadow: theme.shadow,
                     isFreemium: state.freemium,
                     sweepRings: !_reduceMotion,
-                    pulse: animCtrlPulse.isAnimating ? animPulse.value : null,
+                    pulse: animCtrlPulse.isAnimating && !_reduceMotion ? animPulse.value : null,
                   ),
                 );
               },
