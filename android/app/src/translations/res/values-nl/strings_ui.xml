@@ -799,4 +799,23 @@
     <string name="support_network_check_body">Controleert of het DNS-verkeer van deze telefoon via Blokada loopt.</string>
     <string name="support_network_check_done">Netwerkcontrole voltooid</string>
     <string name="support_network_check_declined">Netwerkcontrole niet uitgevoerd</string>
+    <string name="settings_section_header_your_plan">Je abonnement</string>
+    <string name="settings_plan_status_renews">%s · wordt verlengd op %s</string>
+    <string name="settings_plan_status_ends">%s · eindigt op %s</string>
+    <string name="settings_plan_status_active_until">%s · actief tot %s</string>
+    <string name="settings_plan_action_upgrade_plus">Upgraden naar Blokada Plus</string>
+    <string name="settings_weekly_report_title">Wekelijks privacyrapport</string>
+    <string name="settings_weekly_report_brief">Stuur wekelijks een overzicht van de activiteit van trackers</string>
+    <string name="notification_activity_logging_reminder_body">Schakel activiteitenregistratie in om je wekelijkse Privacy Pulse-rapporten te ontvangen.</string>
+    <string name="bypass_list_header">Uitgesloten apps</string>
+    <string name="freemium_refresh_header">Werk je filters bij</string>
+    <string name="freemium_refresh_brief">Je hebt je filters voor het blokkeren van advertenties al een tijdje niet bijgewerkt. Werk ze nu bij voor de nieuwste regels en verbeteringen.</string>
+    <string name="freemium_refresh_status_done">Filters succesvol bijgewerkt</string>
+    <string name="freemium_refresh_status_updating">Filters bijwerken...</string>
+    <string name="freemium_refresh_status_ready">Klaar voor een update</string>
+    <string name="freemium_refresh_action_update">Nu bijwerken</string>
+    <string name="freemium_refresh_action_upgrade">Upgrade voor automatische updates</string>
+    <string name="home_power_pause_scope">Pauzeert het blokkeren van advertenties op alle apparaten die dit account gebruiken</string>
+    <string name="home_status_paused_elsewhere">Gepauzeerd vanaf een ander apparaat</string>
+    <string name="universal_action_resume">Hervatten</string>
 </resources>

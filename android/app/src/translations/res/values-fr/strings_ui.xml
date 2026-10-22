@@ -799,4 +799,23 @@
     <string name="support_network_check_body">Vérifie si les requêtes DNS de ce téléphone passent par Blokada.</string>
     <string name="support_network_check_done">Vérification du réseau terminée</string>
     <string name="support_network_check_declined">Vérification du réseau non effectuée</string>
+    <string name="settings_section_header_your_plan">Votre abonnement</string>
+    <string name="settings_plan_status_renews">%s · renouvellement le %s</string>
+    <string name="settings_plan_status_ends">%s · prend fin le %s</string>
+    <string name="settings_plan_status_active_until">%s · actif jusqu\'au %s</string>
+    <string name="settings_plan_action_upgrade_plus">Passer à Blokada Plus</string>
+    <string name="settings_weekly_report_title">Rapport hebdomadaire sur la protection de la vie privée</string>
+    <string name="settings_weekly_report_brief">Envoyer un récapitulatif hebdomadaire de l’activité des traqueurs</string>
+    <string name="notification_activity_logging_reminder_body">Activez la journalisation de l’activité pour recevoir vos rapports hebdomadaires Privacy Pulse.</string>
+    <string name="bypass_list_header">Applications exclues</string>
+    <string name="freemium_refresh_header">Mettez vos listes de filtres à jour</string>
+    <string name="freemium_refresh_brief">Vous n’avez pas mis à jour vos listes de filtres anti-publicité depuis un certain temps. Téléchargez-les maintenant pour bénéficier des dernières règles et améliorations.</string>
+    <string name="freemium_refresh_status_done">Listes mises à jour avec succès</string>
+    <string name="freemium_refresh_status_updating">Mise à jour des listes...</string>
+    <string name="freemium_refresh_status_ready">Mise à jour disponible</string>
+    <string name="freemium_refresh_action_update">Mettre à jour maintenant</string>
+    <string name="freemium_refresh_action_upgrade">Passez à la version supérieure pour bénéficier des mises à jour automatiques</string>
+    <string name="home_power_pause_scope">Suspend le blocage des publicités sur tous les appareils associés à ce compte</string>
+    <string name="home_status_paused_elsewhere">En pause depuis un autre appareil</string>
+    <string name="universal_action_resume">Reprendre</string>
 </resources>

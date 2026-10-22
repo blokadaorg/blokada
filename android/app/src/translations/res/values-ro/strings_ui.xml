@@ -799,4 +799,23 @@
     <string name="support_network_check_body">Verifică dacă traficul DNS al acestui telefon trece prin Blokada.</string>
     <string name="support_network_check_done">Verificarea rețelei s-a încheiat</string>
     <string name="support_network_check_declined">Verificarea rețelei nu a fost efectuată</string>
+    <string name="settings_section_header_your_plan">Planul tău</string>
+    <string name="settings_plan_status_renews">%s · se reînnoiește pe %s</string>
+    <string name="settings_plan_status_ends">%s · se încheie pe %s</string>
+    <string name="settings_plan_status_active_until">%s · activ până la %s</string>
+    <string name="settings_plan_action_upgrade_plus">Treci la Blokada Plus</string>
+    <string name="settings_weekly_report_title">Raport săptămânal privind confidențialitatea</string>
+    <string name="settings_weekly_report_brief">Trimite un rezumat săptămânal al activității elementelor de urmărire</string>
+    <string name="notification_activity_logging_reminder_body">Activează înregistrarea activității pentru a primi rapoartele săptămânale Privacy Pulse.</string>
+    <string name="bypass_list_header">Aplicații ocolite</string>
+    <string name="freemium_refresh_header">Actualizează-ți filtrele</string>
+    <string name="freemium_refresh_brief">A trecut ceva timp de când ți-ai actualizat filtrele de blocare a reclamelor. Descarcă-le acum pentru a avea cele mai recente reguli și îmbunătățiri.</string>
+    <string name="freemium_refresh_status_done">Filtrele au fost actualizate cu succes</string>
+    <string name="freemium_refresh_status_updating">Se actualizează filtrele...</string>
+    <string name="freemium_refresh_status_ready">Gata de actualizare</string>
+    <string name="freemium_refresh_action_update">Actualizează acum</string>
+    <string name="freemium_refresh_action_upgrade">Treci la versiunea premium pentru actualizări automate</string>
+    <string name="home_power_pause_scope">Întrerupe blocarea reclamelor pe toate dispozitivele care folosesc acest cont</string>
+    <string name="home_status_paused_elsewhere">Blocarea reclamelor a fost întreruptă de pe alt dispozitiv</string>
+    <string name="universal_action_resume">Reia</string>
 </resources>

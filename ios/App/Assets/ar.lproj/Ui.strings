@@ -1100,3 +1100,40 @@
 "support network check body" = "يتحقق مما إذا كانت طلبات DNS من هذا الهاتف تمر عبر Blokada.";
 "support network check done" = "اكتمل فحص الشبكة";
 "support network check declined" = "لم يُجرَ فحص الشبكة";
+
+// Settings section header for the user's subscription: status, manage, restore
+"settings section header your plan" = "خطتك";
+// Subscription status in Settings. First %s is the plan name (e.g. "Blokada Cloud"), second %s is a short date (e.g. "14 Feb")
+"settings plan status renews" = "%s · يتجدد في %s";
+// Same as above, for a subscription that was cancelled and stops on that date
+"settings plan status ends" = "%s · ينتهي في %s";
+// Same as above, when the app can't tell whether it renews (e.g. bought on the website)
+"settings plan status active until" = "%s · صالح لغاية %s";
+// Settings row that opens the purchase screen to move from Blokada Cloud to Blokada Plus
+"settings plan action upgrade plus" = "الترقية إلى Blokada Plus";
+
+// Settings toggle for the weekly privacy report notification: title and description
+"settings weekly report title" = "تقرير الخصوصية الأسبوعي";
+"settings weekly report brief" = "إرسال ملخص أسبوعي لنشاط أدوات التتبع";
+// Notification asking the user to turn on activity logging so weekly reports work
+"notification activity logging reminder body" = "فعّل تسجيل النشاط لتتلقى تقارير نبض الخصوصية الأسبوعية.";
+// Header of the list of apps excluded from the VPN (Android, Blokada Plus)
+"bypass list header" = "التطبيقات المستثناة";
+
+// Sheet for free users whose blocklists haven't been updated for a while
+"freemium refresh header" = "حدّث فلاترك";
+"freemium refresh brief" = "مضت فترة منذ آخر تحديث لفلاتر حظر الإعلانات. حدّثها الآن للحصول على أحدث القواعد والتحسينات.";
+// Status line of the same sheet: done / in progress / not started yet
+"freemium refresh status done" = "تم تحديث الفلاتر بنجاح";
+"freemium refresh status updating" = "جارِ تحديث الفلاتر...";
+"freemium refresh status ready" = "جاهزة للتحديث";
+// Buttons of the same sheet
+"freemium refresh action update" = "حدّث الآن";
+"freemium refresh action upgrade" = "قم بالترقية للحصول على تحديثات تلقائية";
+
+// Pause menu on Home: pausing turns off ad blocking account-wide, not just on this phone
+"home power pause scope" = "يوقف حظر الإعلانات مؤقتًا على جميع الأجهزة التي تستخدم هذا الحساب";
+// Home status when ad blocking was paused on another device of the same account
+"home status paused elsewhere" = "أُوقف حظر الإعلانات مؤقتًا من جهاز آخر";
+// Short action to turn ad blocking back on after a pause
+"universal action resume" = "استئناف";

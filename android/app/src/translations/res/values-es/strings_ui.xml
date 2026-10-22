@@ -799,4 +799,23 @@
     <string name="support_network_check_body">Comprueba si las consultas DNS de este teléfono pasan por Blokada.</string>
     <string name="support_network_check_done">Comprobación de la red completada</string>
     <string name="support_network_check_declined">No se ha comprobado la red</string>
+    <string name="settings_section_header_your_plan">Su plan</string>
+    <string name="settings_plan_status_renews">%s · se renueva el %s</string>
+    <string name="settings_plan_status_ends">%s · finaliza el %s</string>
+    <string name="settings_plan_status_active_until">%s · activo hasta el %s</string>
+    <string name="settings_plan_action_upgrade_plus">Pasar a Blokada Plus</string>
+    <string name="settings_weekly_report_title">Informe semanal de privacidad</string>
+    <string name="settings_weekly_report_brief">Enviar un resumen semanal de la actividad de los rastreadores</string>
+    <string name="notification_activity_logging_reminder_body">Active el registro de actividad para recibir sus informes semanales de Privacy Pulse.</string>
+    <string name="bypass_list_header">Aplicaciones omitidas</string>
+    <string name="freemium_refresh_header">Actualice sus filtros</string>
+    <string name="freemium_refresh_brief">Hace tiempo que no actualiza sus filtros de bloqueo de anuncios. Descárguelos ahora para disponer de las reglas y mejoras más recientes.</string>
+    <string name="freemium_refresh_status_done">Filtros actualizados correctamente</string>
+    <string name="freemium_refresh_status_updating">Actualizando filtros...</string>
+    <string name="freemium_refresh_status_ready">Actualización disponible</string>
+    <string name="freemium_refresh_action_update">Actualizar ahora</string>
+    <string name="freemium_refresh_action_upgrade">Pásese a un plan superior para obtener actualizaciones automáticas</string>
+    <string name="home_power_pause_scope">Pausa el bloqueo de anuncios en todos los dispositivos que usan esta cuenta</string>
+    <string name="home_status_paused_elsewhere">Pausado desde otro dispositivo</string>
+    <string name="universal_action_resume">Reanudar</string>
 </resources>

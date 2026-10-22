@@ -1100,3 +1100,40 @@
 "support network check body" = "Memeriksa apakah DNS ponsel ini melewati Blokada.";
 "support network check done" = "Pemeriksaan jaringan selesai";
 "support network check declined" = "Pemeriksaan jaringan tidak dijalankan";
+
+// Settings section header for the user's subscription: status, manage, restore
+"settings section header your plan" = "Paket Anda";
+// Subscription status in Settings. First %s is the plan name (e.g. "Blokada Cloud"), second %s is a short date (e.g. "14 Feb")
+"settings plan status renews" = "%s · akan diperpanjang pada %s";
+// Same as above, for a subscription that was cancelled and stops on that date
+"settings plan status ends" = "%s · berakhir pada %s";
+// Same as above, when the app can't tell whether it renews (e.g. bought on the website)
+"settings plan status active until" = "%s · aktif sampai %s";
+// Settings row that opens the purchase screen to move from Blokada Cloud to Blokada Plus
+"settings plan action upgrade plus" = "Tingkatkan ke Blokada Plus";
+
+// Settings toggle for the weekly privacy report notification: title and description
+"settings weekly report title" = "Laporan privasi mingguan";
+"settings weekly report brief" = "Kirim ringkasan aktivitas pelacak setiap minggu";
+// Notification asking the user to turn on activity logging so weekly reports work
+"notification activity logging reminder body" = "Aktifkan pencatatan aktivitas untuk menerima laporan Privacy Pulse mingguan Anda.";
+// Header of the list of apps excluded from the VPN (Android, Blokada Plus)
+"bypass list header" = "Aplikasi yang dikecualikan";
+
+// Sheet for free users whose blocklists haven't been updated for a while
+"freemium refresh header" = "Perbarui filter Anda";
+"freemium refresh brief" = "Sudah cukup lama sejak terakhir kali Anda memperbarui filter pemblokir iklan. Perbarui sekarang untuk mendapatkan aturan dan penyempurnaan terbaru.";
+// Status line of the same sheet: done / in progress / not started yet
+"freemium refresh status done" = "Filter berhasil diperbarui";
+"freemium refresh status updating" = "Memperbaharui filter...";
+"freemium refresh status ready" = "Siap diperbarui";
+// Buttons of the same sheet
+"freemium refresh action update" = "Perbarui sekarang";
+"freemium refresh action upgrade" = "Tingkatkan paket untuk pembaruan otomatis";
+
+// Pause menu on Home: pausing turns off ad blocking account-wide, not just on this phone
+"home power pause scope" = "Menjeda pemblokiran iklan di semua perangkat yang menggunakan akun ini";
+// Home status when ad blocking was paused on another device of the same account
+"home status paused elsewhere" = "Dijeda dari perangkat lain";
+// Short action to turn ad blocking back on after a pause
+"universal action resume" = "Lanjutkan";

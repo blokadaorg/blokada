@@ -799,4 +799,23 @@
     <string name="support_network_check_body">Verifica se o DNS deste celular passa pela Blokada.</string>
     <string name="support_network_check_done">Verificação de rede concluída</string>
     <string name="support_network_check_declined">Verificação de rede não executada</string>
+    <string name="settings_section_header_your_plan">O seu plano</string>
+    <string name="settings_plan_status_renews">%s · renova em %s</string>
+    <string name="settings_plan_status_ends">%s · termina em %s</string>
+    <string name="settings_plan_status_active_until">%s · ativo até %s</string>
+    <string name="settings_plan_action_upgrade_plus">Mudar para o Blokada Plus</string>
+    <string name="settings_weekly_report_title">Relatório semanal de privacidade</string>
+    <string name="settings_weekly_report_brief">Enviar um resumo semanal da atividade dos rastreadores</string>
+    <string name="notification_activity_logging_reminder_body">Ative o registo de atividade para receber os seus relatórios semanais do Privacy Pulse.</string>
+    <string name="bypass_list_header">Apps ignoradas</string>
+    <string name="freemium_refresh_header">Atualize os seus filtros</string>
+    <string name="freemium_refresh_brief">Já passou algum tempo desde que atualizou os seus filtros de bloqueio de anúncios. Atualize-os agora para obter as regras e melhorias mais recentes.</string>
+    <string name="freemium_refresh_status_done">Filtros atualizados com sucesso</string>
+    <string name="freemium_refresh_status_updating">Atualizando filtros...</string>
+    <string name="freemium_refresh_status_ready">Atualização disponível</string>
+    <string name="freemium_refresh_action_update">Atualizar agora</string>
+    <string name="freemium_refresh_action_upgrade">Atualize o seu plano para obter atualizações automáticas</string>
+    <string name="home_power_pause_scope">Pausa o bloqueio de anúncios em todos os dispositivos que utilizam esta conta</string>
+    <string name="home_status_paused_elsewhere">Bloqueio pausado a partir de outro dispositivo</string>
+    <string name="universal_action_resume">Retomar</string>
 </resources>
