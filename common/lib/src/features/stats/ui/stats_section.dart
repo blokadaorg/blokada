@@ -40,6 +40,9 @@ class StatsSectionState extends State<StatsSection> with Disposables {
   // The last load (or the last page) failed; shows an error with a retry.
   bool _failed = false;
   bool _moreFailed = false;
+  // A pull to refresh is reloading: the list is not ready until it is done,
+  // even when the cleared or reloaded entries arrive first.
+  bool _refreshing = false;
 
   bool get _isFreemium {
     return _accountStore.isFreemium;
@@ -78,7 +81,7 @@ class StatsSectionState extends State<StatsSection> with Disposables {
   /// refetching on every scroll, and nothing loads before the first page
   /// arrives: both start from no cursor and would add the same rows twice.
   Future<void> _loadMore({bool retry = false}) async {
-    if (!_isReady || _journal.isLoadingMore || !_journal.hasMoreData) return;
+    if (!_isReady || _refreshing || _journal.isLoadingMore || !_journal.hasMoreData) return;
     if (_moreFailed && !retry) return;
 
     print("📊 Fetching more activity entries (current: ${_entries.now.length})");
@@ -120,7 +123,7 @@ class StatsSectionState extends State<StatsSection> with Disposables {
   }
 
   rebuildEntries(dynamic it) {
-    if (!mounted) return;
+    if (!mounted || _refreshing) return;
     setState(() {
       _isReady = true;
       _failed = false;
@@ -148,6 +151,7 @@ class StatsSectionState extends State<StatsSection> with Disposables {
   }
 
   Future<void> _pullToRefresh() async {
+    _refreshing = true;
     // To make it more obvious visually
     _journal.clear();
     setState(() {
@@ -156,8 +160,13 @@ class StatsSectionState extends State<StatsSection> with Disposables {
     });
     await sleepAsync(const Duration(milliseconds: 200));
 
-    rebuild(null);
-    rebuildEntries(null);
+    try {
+      await rebuild(null);
+    } finally {
+      _refreshing = false;
+    }
+    // Ready only now; an unchanged result may not notify the listener.
+    if (mounted && !_failed) rebuildEntries(null);
   }
 
   @override

@@ -55,6 +55,7 @@ class _GatedJournal extends JournalActor {
   bool more = false;
   Object? pageError;
   var pageRequests = 0;
+  var loads = 0;
 
   void finish() {
     _gate.complete();
@@ -68,6 +69,7 @@ class _GatedJournal extends JournalActor {
       if (pageError != null) throw pageError!;
       return;
     }
+    loads++;
     await _gate.future;
     if (error != null) throw error!;
     hasMoreData = more;
@@ -240,6 +242,31 @@ void main() {
       await _finish(tester, journal);
       expect(_placeholder, findsNothing);
       expect(find.text("universal status waiting for data".i18n), findsOneWidget);
+      await _unmount(tester);
+    });
+
+    testWidgets('a refresh shows the placeholder until the reload is done', (tester) async {
+      final journal = await _pumpActivity(tester);
+      journal.result = [_entry("ads.example.com", UiJournalAction.block)];
+      await _finish(tester, journal);
+      expect(find.byType(ActivityItem), findsOneWidget);
+
+      final refresh = tester.state<RefreshIndicatorState>(find.byType(RefreshIndicator));
+      final before = journal.loads;
+      unawaited(refresh.show());
+      // The indicator animates in before it asks for the reload.
+      for (var i = 0; i < 30 && journal.loads == before; i++) {
+        await tester.pump(const Duration(milliseconds: 100));
+      }
+      expect(journal.loads, before + 1);
+      // Still loading: not ready, so no empty text and no paging.
+      expect(_placeholder, findsOneWidget);
+      expect(find.text("universal status waiting for data".i18n), findsNothing);
+
+      await _finish(tester, journal);
+      await tester.pump(const Duration(seconds: 1));
+      expect(_placeholder, findsNothing);
+      expect(find.byType(ActivityItem), findsOneWidget);
       await _unmount(tester);
     });
 
