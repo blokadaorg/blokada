@@ -1101,3 +1101,40 @@
 "support network check body" = "Ellenőrzi, hogy a telefon DNS-forgalma a Blokadán keresztül halad-e.";
 "support network check done" = "A hálózati ellenőrzés befejeződött";
 "support network check declined" = "A hálózati ellenőrzés nem indult el";
+
+// Settings section header for the user's subscription: status, manage, restore
+"settings section header your plan" = "Előfizetésed";
+// Subscription status in Settings. First %s is the plan name (e.g. "Blokada Cloud"), second %s is a short date (e.g. "14 Feb")
+"settings plan status renews" = "%s · megújul: %s";
+// Same as above, for a subscription that was cancelled and stops on that date
+"settings plan status ends" = "%s · lejár: %s";
+// Same as above, when the app can't tell whether it renews (e.g. bought on the website)
+"settings plan status active until" = "%s · eddig aktív: %s";
+// Settings row that opens the purchase screen to move from Blokada Cloud to Blokada Plus
+"settings plan action upgrade plus" = "Váltás a Blokada Plusra";
+
+// Settings toggle for the weekly privacy report notification: title and description
+"settings weekly report title" = "Heti adatvédelmi jelentés";
+"settings weekly report brief" = "Heti összefoglaló küldése a nyomkövetők tevékenységéről";
+// Notification asking the user to turn on activity logging so weekly reports work
+"notification activity logging reminder body" = "Kapcsold be a tevékenységnaplózást, hogy megkapd a heti Privacy Pulse-jelentéseidet.";
+// Header of the list of apps excluded from the VPN (Android, Blokada Plus)
+"bypass list header" = "Megkerült alkalmazások";
+
+// Sheet for free users whose blocklists haven't been updated for a while
+"freemium refresh header" = "Frissítsd a szűrőidet";
+"freemium refresh brief" = "Már egy ideje nem frissítetted a hirdetésblokkoló szűrőidet. Töltsd le őket most, hogy a legújabb szabályok és fejlesztések is érvénybe lépjenek.";
+// Status line of the same sheet: done / in progress / not started yet
+"freemium refresh status done" = "A szűrők sikeresen frissültek";
+"freemium refresh status updating" = "Szűrők frissítése...";
+"freemium refresh status ready" = "Frissítésre kész";
+// Buttons of the same sheet
+"freemium refresh action update" = "Frissítés most";
+"freemium refresh action upgrade" = "Váltás fizetős csomagra az automatikus frissítésekért";
+
+// Pause menu on Home: pausing turns off ad blocking account-wide, not just on this phone
+"home power pause scope" = "Szünetelteti a hirdetésblokkolást a fiókot használó összes eszközön";
+// Home status when ad blocking was paused on another device of the same account
+"home status paused elsewhere" = "Szüneteltetve egy másik eszközről";
+// Short action to turn ad blocking back on after a pause
+"universal action resume" = "Folytatás";

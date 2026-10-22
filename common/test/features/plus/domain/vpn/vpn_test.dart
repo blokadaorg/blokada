@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/app/app.dart';
 import 'package:common/src/features/plus/domain/vpn/vpn.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -153,6 +154,120 @@ void main() {
         Core.config.plusVpnCommandTimeout = const Duration(seconds: 0);
 
         await expectLater(subject.turnVpnOn(m), throwsException);
+      });
+    });
+  });
+
+  group("start pending", () {
+    Future<(VpnActor, MockVpnChannel)> setUp(Marker m, {DateTime Function()? now}) async {
+      final ops = MockVpnChannel();
+      Core.register<VpnChannel>(ops);
+      Core.register(CurrentVpnStatusValue());
+      Core.register<AppStore>(MockAppStore());
+      Core.register<Scheduler>(MockScheduler());
+
+      final subject = VpnActor(now: now);
+      await subject.setActualStatus("deactivated", m);
+      return (subject, ops);
+    }
+
+    test("an iOS start held during an extension update is pending, not failed", () async {
+      await withTrace((m) async {
+        final (subject, ops) = await setUp(m);
+        when(ops.doSetVpnActive(true)).thenThrow(PlatformException(code: "vpnStartPending"));
+
+        await expectLater(subject.turnVpnOn(m), throwsA(isA<VpnStartPendingException>()));
+      });
+    });
+
+    test("other start errors still fail", () async {
+      await withTrace((m) async {
+        final (subject, ops) = await setUp(m);
+        when(ops.doSetVpnActive(true)).thenThrow(PlatformException(code: "No VPN perms yet"));
+
+        await expectLater(subject.turnVpnOn(m), throwsA(isA<PlatformException>()));
+      });
+    });
+
+    test("turning off reaches the OS while a start is pending", () async {
+      await withTrace((m) async {
+        final (subject, ops) = await setUp(m);
+        when(ops.doSetVpnActive(true)).thenThrow(PlatformException(code: "vpnStartPending"));
+        await expectLater(subject.turnVpnOn(m), throwsA(isA<VpnStartPendingException>()));
+
+        when(ops.doSetVpnActive(false)).thenAnswer((_) async {
+          Timer(const Duration(milliseconds: 1), () => subject.setActualStatus("deactivated", m));
+        });
+        await subject.turnVpnOff(m);
+        verify(ops.doSetVpnActive(false)).called(1);
+
+        // Once off, a second off has nothing left to stop.
+        await subject.turnVpnOff(m);
+        verifyNever(ops.doSetVpnActive(false));
+      });
+    });
+
+    test("turning off during an in-flight start cancels it once it comes back held", () async {
+      await withTrace((m) async {
+        final (subject, ops) = await setUp(m);
+        final startHeld = Completer<void>();
+        when(ops.doSetVpnActive(true)).thenAnswer((_) async {
+          await startHeld.future;
+          throw PlatformException(code: "vpnStartPending");
+        });
+        when(ops.doSetVpnActive(false)).thenAnswer((_) async {
+          Timer(const Duration(milliseconds: 1), () => subject.setActualStatus("deactivated", m));
+        });
+
+        final starting = expectLater(
+          subject.turnVpnOn(m),
+          throwsA(isA<VpnStartPendingException>()),
+        );
+        // Still off and nothing pending yet, so this alone cannot reach the OS.
+        await subject.turnVpnOff(m);
+        verifyNever(ops.doSetVpnActive(false));
+
+        startHeld.complete();
+        await starting;
+        verify(ops.doSetVpnActive(false)).called(1);
+      });
+    });
+
+    test("an off report while a start is held does not start again", () async {
+      await withTrace((m) async {
+        final (subject, ops) = await setUp(m);
+        when(ops.doSetVpnActive(true)).thenThrow(PlatformException(code: "vpnStartPending"));
+        await expectLater(subject.turnVpnOn(m), throwsA(isA<VpnStartPendingException>()));
+        clearInteractions(ops);
+
+        await subject.setActualStatus("deactivated", m);
+        verifyNever(ops.doSetVpnActive(any));
+      });
+    });
+
+    test("a hold that never comes up expires and recovery resumes", () async {
+      await withTrace((m) async {
+        var now = DateTime(2026, 1, 1, 12);
+        final (subject, ops) = await setUp(m, now: () => now);
+        when(ops.doSetVpnActive(true)).thenThrow(PlatformException(code: "vpnStartPending"));
+        await expectLater(subject.turnVpnOn(m), throwsA(isA<VpnStartPendingException>()));
+        expect(subject.startPending, true);
+
+        now = now.add(VpnActor.startPendingMax + const Duration(seconds: 1));
+        expect(subject.startPending, false);
+
+        // An off report retries the start again.
+        clearInteractions(ops);
+        await subject.setActualStatus("deactivated", m);
+        verify(ops.doSetVpnActive(true)).called(1);
+      });
+    });
+
+    test("turning off without a pending start skips the OS when already off", () async {
+      await withTrace((m) async {
+        final (subject, ops) = await setUp(m);
+        await subject.turnVpnOff(m);
+        verifyNever(ops.doSetVpnActive(any));
       });
     });
   });

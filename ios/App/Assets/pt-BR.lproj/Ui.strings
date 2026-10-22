@@ -1100,3 +1100,40 @@
 "support network check body" = "Verifica se as consultas DNS deste celular passam pelo Blokada.";
 "support network check done" = "Verificação da rede concluída";
 "support network check declined" = "Verificação da rede não realizada";
+
+// Settings section header for the user's subscription: status, manage, restore
+"settings section header your plan" = "Seu plano";
+// Subscription status in Settings. First %s is the plan name (e.g. "Blokada Cloud"), second %s is a short date (e.g. "14 Feb")
+"settings plan status renews" = "%s · renova em %s";
+// Same as above, for a subscription that was cancelled and stops on that date
+"settings plan status ends" = "%s · termina em %s";
+// Same as above, when the app can't tell whether it renews (e.g. bought on the website)
+"settings plan status active until" = "%s · ativo até %s";
+// Settings row that opens the purchase screen to move from Blokada Cloud to Blokada Plus
+"settings plan action upgrade plus" = "Mudar para o Blokada Plus";
+
+// Settings toggle for the weekly privacy report notification: title and description
+"settings weekly report title" = "Relatório semanal de privacidade";
+"settings weekly report brief" = "Enviar um resumo semanal da atividade dos rastreadores";
+// Notification asking the user to turn on activity logging so weekly reports work
+"notification activity logging reminder body" = "Ative o registro de atividades para receber seus relatórios semanais do Privacy Pulse.";
+// Header of the list of apps excluded from the VPN (Android, Blokada Plus)
+"bypass list header" = "Apps ignorados";
+
+// Sheet for free users whose blocklists haven't been updated for a while
+"freemium refresh header" = "Atualize seus filtros";
+"freemium refresh brief" = "Faz um tempo que você não atualiza seus filtros de bloqueio de anúncios. Atualize-os agora para ter as regras e melhorias mais recentes.";
+// Status line of the same sheet: done / in progress / not started yet
+"freemium refresh status done" = "Filtros atualizados com sucesso";
+"freemium refresh status updating" = "Atualizando filtros...";
+"freemium refresh status ready" = "Pronto para atualização";
+// Buttons of the same sheet
+"freemium refresh action update" = "Atualizar agora";
+"freemium refresh action upgrade" = "Faça upgrade para receber atualizações automáticas";
+
+// Pause menu on Home: pausing turns off ad blocking account-wide, not just on this phone
+"home power pause scope" = "Pausa o bloqueio de anúncios em todos os dispositivos que usam esta conta";
+// Home status when ad blocking was paused on another device of the same account
+"home status paused elsewhere" = "Pausado em outro dispositivo";
+// Short action to turn ad blocking back on after a pause
+"universal action resume" = "Retomar";

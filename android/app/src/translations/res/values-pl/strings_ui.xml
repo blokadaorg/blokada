@@ -799,4 +799,23 @@
     <string name="support_network_check_body">Sprawdza, czy zapytania DNS z tego telefonu przechodzą przez Blokadę.</string>
     <string name="support_network_check_done">Sprawdzono sieć</string>
     <string name="support_network_check_declined">Nie sprawdzono sieci</string>
+    <string name="settings_section_header_your_plan">Twój plan</string>
+    <string name="settings_plan_status_renews">%s · odnowienie %s</string>
+    <string name="settings_plan_status_ends">%s · wygasa %s</string>
+    <string name="settings_plan_status_active_until">%s · aktywny do %s</string>
+    <string name="settings_plan_action_upgrade_plus">Przejdź na Blokadę Plus</string>
+    <string name="settings_weekly_report_title">Cotygodniowy raport o prywatności</string>
+    <string name="settings_weekly_report_brief">Wysyłaj cotygodniowe podsumowanie aktywności elementów śledzących</string>
+    <string name="notification_activity_logging_reminder_body">Włącz rejestrowanie aktywności, aby otrzymywać cotygodniowe raporty Privacy Pulse.</string>
+    <string name="bypass_list_header">Pomijane aplikacje</string>
+    <string name="freemium_refresh_header">Zaktualizuj filtry</string>
+    <string name="freemium_refresh_brief">Od ostatniej aktualizacji filtrów blokowania reklam minęło już trochę czasu. Pobierz je teraz, aby korzystać z najnowszych reguł i ulepszeń.</string>
+    <string name="freemium_refresh_status_done">Filtry zostały zaktualizowane</string>
+    <string name="freemium_refresh_status_updating">Aktualizuję filtry...</string>
+    <string name="freemium_refresh_status_ready">Gotowe do aktualizacji</string>
+    <string name="freemium_refresh_action_update">Zaktualizuj teraz</string>
+    <string name="freemium_refresh_action_upgrade">Przejdź na wyższy plan, aby włączyć automatyczne aktualizacje</string>
+    <string name="home_power_pause_scope">Wstrzymuje blokowanie reklam na wszystkich urządzeniach korzystających z tego konta</string>
+    <string name="home_status_paused_elsewhere">Wstrzymano na innym urządzeniu</string>
+    <string name="universal_action_resume">Wznów</string>
 </resources>

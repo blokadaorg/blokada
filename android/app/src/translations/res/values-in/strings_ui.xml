@@ -799,4 +799,23 @@
     <string name="support_network_check_body">Memeriksa apakah DNS ponsel ini melewati Blokada.</string>
     <string name="support_network_check_done">Pemeriksaan jaringan selesai</string>
     <string name="support_network_check_declined">Pemeriksaan jaringan tidak dijalankan</string>
+    <string name="settings_section_header_your_plan">Paket Anda</string>
+    <string name="settings_plan_status_renews">%s · akan diperpanjang pada %s</string>
+    <string name="settings_plan_status_ends">%s · berakhir pada %s</string>
+    <string name="settings_plan_status_active_until">%s · aktif sampai %s</string>
+    <string name="settings_plan_action_upgrade_plus">Tingkatkan ke Blokada Plus</string>
+    <string name="settings_weekly_report_title">Laporan privasi mingguan</string>
+    <string name="settings_weekly_report_brief">Kirim ringkasan aktivitas pelacak setiap minggu</string>
+    <string name="notification_activity_logging_reminder_body">Aktifkan pencatatan aktivitas untuk menerima laporan Privacy Pulse mingguan Anda.</string>
+    <string name="bypass_list_header">Aplikasi yang dikecualikan</string>
+    <string name="freemium_refresh_header">Perbarui filter Anda</string>
+    <string name="freemium_refresh_brief">Sudah cukup lama sejak terakhir kali Anda memperbarui filter pemblokir iklan. Perbarui sekarang untuk mendapatkan aturan dan penyempurnaan terbaru.</string>
+    <string name="freemium_refresh_status_done">Filter berhasil diperbarui</string>
+    <string name="freemium_refresh_status_updating">Memperbaharui filter...</string>
+    <string name="freemium_refresh_status_ready">Siap diperbarui</string>
+    <string name="freemium_refresh_action_update">Perbarui sekarang</string>
+    <string name="freemium_refresh_action_upgrade">Tingkatkan paket untuk pembaruan otomatis</string>
+    <string name="home_power_pause_scope">Menjeda pemblokiran iklan di semua perangkat yang menggunakan akun ini</string>
+    <string name="home_status_paused_elsewhere">Dijeda dari perangkat lain</string>
+    <string name="universal_action_resume">Lanjutkan</string>
 </resources>

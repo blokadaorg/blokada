@@ -51,7 +51,7 @@
 "universal action help" = "Помощ";
 "universal action show log" = "Дневници";
 "universal action share log" = "Споделяне на дневника";
-"universal action run check" = "Run check";
+"universal action run check" = "Стартиране на проверка";
 "universal action copy" = "Копиране";
 "universal action save" = "Запазване";
 "universal action contact us" = "Свържете се с нас";
@@ -1059,44 +1059,81 @@
 "web plaintext error generic" = "Нещо се обърка. Моля, опитайте отново по-късно.";
 
 // Caption under the Home "Last 24h" number. The number counts only blocked requests.
-"home counter caption blocked" = "Ads and trackers blocked";
+"home counter caption blocked" = "Блокирани реклами и тракери";
 
 // Short confirmation pills shown at the bottom of the screen after an action
-"toast save failed" = "Couldn't save the change. Try again.";
-"toast blocklists saved" = "Blocklists updated";
-"toast removed from allowed" = "Removed from Allowed";
-"toast removed from blocked" = "Removed from Blocked";
+"toast save failed" = "Промяната не можа да бъде запазена. Опитайте отново.";
+"toast blocklists saved" = "Списъците за блокиране са актуализирани";
+"toast removed from allowed" = "Премахнато от разрешените";
+"toast removed from blocked" = "Премахнато от Блокирани";
 
 // Settings row that opens the setting for storing activity history (logging)
-"settings row activity history" = "Activity history";
+"settings row activity history" = "История на активността";
 // Settings section header for the main protection settings (exceptions, activity, devices)
-"account section header protection" = "Protection";
-"settings section header notifications" = "Notifications";
+"account section header protection" = "Защита";
+"settings section header notifications" = "Известия";
 // Shown in the empty detail pane on wide screens, before anything in the list is selected
-"universal label select item details" = "Select an item to see details";
+"universal label select item details" = "Изберете елемент, за да видите подробности";
 // Badge next to a domain that appeared in the top list for the first time
-"stats label new" = "New";
+"stats label new" = "Нов";
 // Short labels for the time range switch: last 24 hours and last 7 days
-"stats range 24h" = "24 h";
-"stats range 7d" = "7 d";
+"stats range 24h" = "24 ч";
+"stats range 7d" = "7 дн";
 // Label of a removable chip above the activity list when it is sorted by frequency
-"activity filter chip most common" = "Most common first";
+"activity filter chip most common" = "Първо най-честите";
 // Shown when the user tries to switch off the only enabled blocklist
-"filter last list note" = "One blocklist always stays on. Use Pause on Home to stop blocking.";
+"filter last list note" = "Един списък за блокиране винаги остава включен. Използвайте „Пауза“ на екрана „Начало“, за да спрете блокирането.";
 
 // Screen reader name of the big power button on Home that turns ad blocking on and off
-"home power button label" = "Blokada protection";
+"home power button label" = "Защита на Blokada";
 // Screen reader state of the power button: protection is on / off
-"home power button state on" = "On";
-"home power button state off" = "Off";
+"home power button state on" = "Включена";
+"home power button state off" = "Изключена";
 // Support chat card that asks before sending the app log, and the note left after it was sent
-"support share log title" = "Share your app log?";
-"support share log body" = "Sends the recent app log, which can include device and setup details.";
-"support share log done" = "App log shared";
-"support share log declined" = "App log not shared";
+"support share log title" = "Да споделим ли дневника на приложението?";
+"support share log body" = "Ще се изпрати последния дневник на приложението, който може да съдържа данни за устройството и настройките.";
+"support share log done" = "Дневникът на Блокада е изпратен";
+"support share log declined" = "Дневникът на Блокада не е изпратен";
 
 // Support chat card that asks before running a DNS check, and the note left after it
-"support network check title" = "Run a network check?";
-"support network check body" = "Checks whether this phone's DNS goes through Blokada.";
-"support network check done" = "Network check done";
-"support network check declined" = "Network check not run";
+"support network check title" = "Да се извърши ли проверка на мрежата?";
+"support network check body" = "Проверява се дали DNS на този телефон минава през Blokada.";
+"support network check done" = "Проверката на мрежата е завършена";
+"support network check declined" = "Проверката на мрежата не е извършена";
+
+// Settings section header for the user's subscription: status, manage, restore
+"settings section header your plan" = "Вашият план";
+// Subscription status in Settings. First %s is the plan name (e.g. "Blokada Cloud"), second %s is a short date (e.g. "14 Feb")
+"settings plan status renews" = "%s · подновява се на %s";
+// Same as above, for a subscription that was cancelled and stops on that date
+"settings plan status ends" = "%s · изтича на %s";
+// Same as above, when the app can't tell whether it renews (e.g. bought on the website)
+"settings plan status active until" = "%s · активен до %s";
+// Settings row that opens the purchase screen to move from Blokada Cloud to Blokada Plus
+"settings plan action upgrade plus" = "Надградете до Blokada Plus";
+
+// Settings toggle for the weekly privacy report notification: title and description
+"settings weekly report title" = "Седмичен доклад за поверителност";
+"settings weekly report brief" = "Изпраща седмично обобщение на активността на тракерите";
+// Notification asking the user to turn on activity logging so weekly reports work
+"notification activity logging reminder body" = "Включете регистрирането на активността, за да получавате седмичните си доклади за Privacy Pulse.";
+// Header of the list of apps excluded from the VPN (Android, Blokada Plus)
+"bypass list header" = "Заобиколени приложения";
+
+// Sheet for free users whose blocklists haven't been updated for a while
+"freemium refresh header" = "Update your filters";
+"freemium refresh brief" = "It's been a while since you updated your ad-block filters. Fetch them now to ensure you have the latest rules and improvements.";
+// Status line of the same sheet: done / in progress / not started yet
+"freemium refresh status done" = "Filters updated successfully";
+"freemium refresh status updating" = "Updating filters...";
+"freemium refresh status ready" = "Ready for an update";
+// Buttons of the same sheet
+"freemium refresh action update" = "Update now";
+"freemium refresh action upgrade" = "Upgrade for automatic updates";
+
+// Pause menu on Home: pausing turns off ad blocking account-wide, not just on this phone
+"home power pause scope" = "Pauses ad blocking on all devices using this account";
+// Home status when ad blocking was paused on another device of the same account
+"home status paused elsewhere" = "Paused from another device";
+// Short action to turn ad blocking back on after a pause
+"universal action resume" = "Resume";

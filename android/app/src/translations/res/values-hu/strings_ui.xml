@@ -799,4 +799,23 @@
     <string name="support_network_check_body">Ellenőrzi, hogy a telefon DNS-forgalma a Blokadán keresztül halad-e.</string>
     <string name="support_network_check_done">A hálózati ellenőrzés befejeződött</string>
     <string name="support_network_check_declined">A hálózati ellenőrzés nem indult el</string>
+    <string name="settings_section_header_your_plan">Előfizetésed</string>
+    <string name="settings_plan_status_renews">%s · megújul: %s</string>
+    <string name="settings_plan_status_ends">%s · lejár: %s</string>
+    <string name="settings_plan_status_active_until">%s · eddig aktív: %s</string>
+    <string name="settings_plan_action_upgrade_plus">Váltás a Blokada Plusra</string>
+    <string name="settings_weekly_report_title">Heti adatvédelmi jelentés</string>
+    <string name="settings_weekly_report_brief">Heti összefoglaló küldése a nyomkövetők tevékenységéről</string>
+    <string name="notification_activity_logging_reminder_body">Kapcsold be a tevékenységnaplózást, hogy megkapd a heti Privacy Pulse-jelentéseidet.</string>
+    <string name="bypass_list_header">Megkerült alkalmazások</string>
+    <string name="freemium_refresh_header">Frissítsd a szűrőidet</string>
+    <string name="freemium_refresh_brief">Már egy ideje nem frissítetted a hirdetésblokkoló szűrőidet. Töltsd le őket most, hogy a legújabb szabályok és fejlesztések is érvénybe lépjenek.</string>
+    <string name="freemium_refresh_status_done">A szűrők sikeresen frissültek</string>
+    <string name="freemium_refresh_status_updating">Szűrők frissítése...</string>
+    <string name="freemium_refresh_status_ready">Frissítésre kész</string>
+    <string name="freemium_refresh_action_update">Frissítés most</string>
+    <string name="freemium_refresh_action_upgrade">Váltás fizetős csomagra az automatikus frissítésekért</string>
+    <string name="home_power_pause_scope">Szünetelteti a hirdetésblokkolást a fiókot használó összes eszközön</string>
+    <string name="home_status_paused_elsewhere">Szüneteltetve egy másik eszközről</string>
+    <string name="universal_action_resume">Folytatás</string>
 </resources>

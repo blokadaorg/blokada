@@ -799,4 +799,23 @@
     <string name="support_network_check_body">يتحقق مما إذا كانت طلبات DNS من هذا الهاتف تمر عبر Blokada.</string>
     <string name="support_network_check_done">اكتمل فحص الشبكة</string>
     <string name="support_network_check_declined">لم يُجرَ فحص الشبكة</string>
+    <string name="settings_section_header_your_plan">خطتك</string>
+    <string name="settings_plan_status_renews">%s · يتجدد في %s</string>
+    <string name="settings_plan_status_ends">%s · ينتهي في %s</string>
+    <string name="settings_plan_status_active_until">%s · صالح لغاية %s</string>
+    <string name="settings_plan_action_upgrade_plus">الترقية إلى Blokada Plus</string>
+    <string name="settings_weekly_report_title">تقرير الخصوصية الأسبوعي</string>
+    <string name="settings_weekly_report_brief">إرسال ملخص أسبوعي لنشاط أدوات التتبع</string>
+    <string name="notification_activity_logging_reminder_body">فعّل تسجيل النشاط لتتلقى تقارير نبض الخصوصية الأسبوعية.</string>
+    <string name="bypass_list_header">التطبيقات المستثناة</string>
+    <string name="freemium_refresh_header">حدّث فلاترك</string>
+    <string name="freemium_refresh_brief">مضت فترة منذ آخر تحديث لفلاتر حظر الإعلانات. حدّثها الآن للحصول على أحدث القواعد والتحسينات.</string>
+    <string name="freemium_refresh_status_done">تم تحديث الفلاتر بنجاح</string>
+    <string name="freemium_refresh_status_updating">جارِ تحديث الفلاتر...</string>
+    <string name="freemium_refresh_status_ready">جاهزة للتحديث</string>
+    <string name="freemium_refresh_action_update">حدّث الآن</string>
+    <string name="freemium_refresh_action_upgrade">قم بالترقية للحصول على تحديثات تلقائية</string>
+    <string name="home_power_pause_scope">يوقف حظر الإعلانات مؤقتًا على جميع الأجهزة التي تستخدم هذا الحساب</string>
+    <string name="home_status_paused_elsewhere">أُوقف حظر الإعلانات مؤقتًا من جهاز آخر</string>
+    <string name="universal_action_resume">استئناف</string>
 </resources>

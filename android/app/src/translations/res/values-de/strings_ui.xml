@@ -799,4 +799,23 @@
     <string name="support_network_check_body">Prüft, ob die DNS-Anfragen dieses Smartphones über Blokada laufen.</string>
     <string name="support_network_check_done">Netzwerküberprüfung abgeschlossen</string>
     <string name="support_network_check_declined">Netzwerküberprüfung nicht durchgeführt</string>
+    <string name="settings_section_header_your_plan">Dein Tarif</string>
+    <string name="settings_plan_status_renews">%s · verlängert sich am %s</string>
+    <string name="settings_plan_status_ends">%s · endet am %s</string>
+    <string name="settings_plan_status_active_until">%s · aktiv bis %s</string>
+    <string name="settings_plan_action_upgrade_plus">Auf Blokada Plus umsteigen</string>
+    <string name="settings_weekly_report_title">Wöchentlicher Datenschutzbericht</string>
+    <string name="settings_weekly_report_brief">Wöchentliche Zusammenfassung der Tracker-Aktivität senden</string>
+    <string name="notification_activity_logging_reminder_body">Aktiviere die Aktivitätsprotokollierung, um deine wöchentlichen Privacy Pulse-Berichte zu erhalten.</string>
+    <string name="bypass_list_header">Vom VPN ausgenommene Apps</string>
+    <string name="freemium_refresh_header">Aktualisiere deine Filter</string>
+    <string name="freemium_refresh_brief">Du hast deine Werbeblocker-Filter schon länger nicht mehr aktualisiert. Aktualisiere sie jetzt, damit du die neuesten Regeln und Verbesserungen erhältst.</string>
+    <string name="freemium_refresh_status_done">Filter erfolgreich aktualisiert</string>
+    <string name="freemium_refresh_status_updating">Filter aktualisieren...</string>
+    <string name="freemium_refresh_status_ready">Bereit für die Aktualisierung</string>
+    <string name="freemium_refresh_action_update">Jetzt aktualisieren</string>
+    <string name="freemium_refresh_action_upgrade">Für automatische Updates upgraden</string>
+    <string name="home_power_pause_scope">Pausiert die Werbeblockierung auf allen Geräten mit diesem Konto</string>
+    <string name="home_status_paused_elsewhere">Auf einem anderen Gerät pausiert</string>
+    <string name="universal_action_resume">Fortsetzen</string>
 </resources>
