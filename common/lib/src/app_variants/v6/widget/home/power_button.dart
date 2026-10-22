@@ -71,7 +71,9 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
   // After a user tap, the ring ticks as it passes each quarter, winding up or
   // down. Never on app open or a reconnect.
   bool _ringTicksArmed = false;
-  bool _ringTicked = false;
+  // The ring moved since the ticks were armed: reaching an end disarms them.
+  // A tap from a ring already at zero sees `dismissed` before it moves.
+  bool _ringMoved = false;
   int _ringQuarter = 0;
 
   // The stats rings take over from the spinner only once it has faded out
@@ -104,7 +106,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
         if (status == AnimationStatus.completed) {
           _ringTicksArmed = false;
           if (_pulsePending) _startPulse();
-        } else if (status == AnimationStatus.dismissed && _ringTicked) {
+        } else if (status == AnimationStatus.dismissed && _ringMoved) {
           _ringTicksArmed = false;
         } else if (status == AnimationStatus.reverse) {
           _pulsePending = false;
@@ -220,17 +222,17 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
 
   void _armRingTicks() {
     _ringTicksArmed = true;
-    _ringTicked = false;
+    _ringMoved = false;
   }
 
   /// One selection tick each time the ring crosses a quarter, in either
   /// direction. The ends are left to the success haptic and the tap.
   void _tickRing() {
+    if (_ringTicksArmed) _ringMoved = true;
     final quarter = (animLibre.value * 4).floor().clamp(0, 4);
     if (quarter == _ringQuarter) return;
     _ringQuarter = quarter;
     if (!_ringTicksArmed || _reduceMotion || quarter == 0 || quarter == 4) return;
-    _ringTicked = true;
     unawaited(Haptics.selection());
   }
 
