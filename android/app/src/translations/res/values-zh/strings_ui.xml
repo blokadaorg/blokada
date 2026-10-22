@@ -799,4 +799,23 @@
     <string name="support_network_check_body">檢查這支手機的 DNS 是否透過 Blokada 處理。</string>
     <string name="support_network_check_done">網路檢查已完成</string>
     <string name="support_network_check_declined">未執行網路檢查</string>
+    <string name="settings_section_header_your_plan">你的方案</string>
+    <string name="settings_plan_status_renews">%s · 將於 %s 續訂</string>
+    <string name="settings_plan_status_ends">%s · 將於 %s 到期</string>
+    <string name="settings_plan_status_active_until">%s · 已啟動，有效至 %s</string>
+    <string name="settings_plan_action_upgrade_plus">升級至 Blokada Plus</string>
+    <string name="settings_weekly_report_title">每週隱私報告</string>
+    <string name="settings_weekly_report_brief">每週傳送追蹤器活動摘要</string>
+    <string name="notification_activity_logging_reminder_body">啟用活動日誌紀錄，即可接收每週的 Privacy Pulse 報告。</string>
+    <string name="bypass_list_header">已略過的 App</string>
+    <string name="freemium_refresh_header">更新您的過濾器</string>
+    <string name="freemium_refresh_brief">您的廣告阻擋過濾器已經有一段時間沒有更新了。立即取得更新，確保使用最新規則與改進內容。</string>
+    <string name="freemium_refresh_status_done">過濾器已成功更新</string>
+    <string name="freemium_refresh_status_updating">正在更新過濾器…</string>
+    <string name="freemium_refresh_status_ready">已準備好更新</string>
+    <string name="freemium_refresh_action_update">立即更新</string>
+    <string name="freemium_refresh_action_upgrade">升級以取得自動更新</string>
+    <string name="home_power_pause_scope">會在使用此帳號的所有裝置上暫停廣告阻擋</string>
+    <string name="home_status_paused_elsewhere">已從其他裝置暫停廣告阻擋</string>
+    <string name="universal_action_resume">恢復</string>
 </resources>

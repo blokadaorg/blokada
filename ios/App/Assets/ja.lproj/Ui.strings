@@ -1101,3 +1101,40 @@
 "support network check body" = "このスマートフォンのDNS通信がBlokadaを経由しているか確認します。";
 "support network check done" = "ネットワークの確認が完了しました";
 "support network check declined" = "ネットワークの確認は実行されませんでした";
+
+// Settings section header for the user's subscription: status, manage, restore
+"settings section header your plan" = "ご利用中のプラン";
+// Subscription status in Settings. First %s is the plan name (e.g. "Blokada Cloud"), second %s is a short date (e.g. "14 Feb")
+"settings plan status renews" = "%s · %sに自動更新";
+// Same as above, for a subscription that was cancelled and stops on that date
+"settings plan status ends" = "%s · %sに終了";
+// Same as above, when the app can't tell whether it renews (e.g. bought on the website)
+"settings plan status active until" = "%s · %sまで有効";
+// Settings row that opens the purchase screen to move from Blokada Cloud to Blokada Plus
+"settings plan action upgrade plus" = "Blokada Plus にアップグレード";
+
+// Settings toggle for the weekly privacy report notification: title and description
+"settings weekly report title" = "毎週のプライバシーレポート";
+"settings weekly report brief" = "トラッカーのアクティビティを毎週まとめて送信する";
+// Notification asking the user to turn on activity logging so weekly reports work
+"notification activity logging reminder body" = "毎週のPrivacy Pulseレポートを受け取るには、アクティビティの記録を有効にしてください。";
+// Header of the list of apps excluded from the VPN (Android, Blokada Plus)
+"bypass list header" = "バイパス対象のアプリ";
+
+// Sheet for free users whose blocklists haven't been updated for a while
+"freemium refresh header" = "フィルターを更新する";
+"freemium refresh brief" = "広告ブロック用フィルターをしばらく更新していません。今すぐ取得して、最新のルールや改善を反映させましょう。";
+// Status line of the same sheet: done / in progress / not started yet
+"freemium refresh status done" = "フィルターを更新しました";
+"freemium refresh status updating" = "フィルターを更新しています...";
+"freemium refresh status ready" = "更新できます";
+// Buttons of the same sheet
+"freemium refresh action update" = "今すぐ更新";
+"freemium refresh action upgrade" = "アップグレードして自動更新を利用する";
+
+// Pause menu on Home: pausing turns off ad blocking account-wide, not just on this phone
+"home power pause scope" = "このアカウントを使用しているすべてのデバイスで広告ブロックを一時停止します";
+// Home status when ad blocking was paused on another device of the same account
+"home status paused elsewhere" = "別のデバイスから一時停止中";
+// Short action to turn ad blocking back on after a pause
+"universal action resume" = "再開";

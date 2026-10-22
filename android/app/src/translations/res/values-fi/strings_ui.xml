@@ -799,4 +799,23 @@
     <string name="support_network_check_body">Tarkistaa, kulkevatko tämän puhelimen DNS-kyselyt Blokadan kautta.</string>
     <string name="support_network_check_done">Verkkoyhteyden tarkistus valmis</string>
     <string name="support_network_check_declined">Verkkoyhteyden tarkistusta ei suoritettu</string>
+    <string name="settings_section_header_your_plan">Tilauksesi</string>
+    <string name="settings_plan_status_renews">%s · uusiutuu %s</string>
+    <string name="settings_plan_status_ends">%s · päättyy %s</string>
+    <string name="settings_plan_status_active_until">%s · voimassa %s asti</string>
+    <string name="settings_plan_action_upgrade_plus">Päivitä Blokada Plussaan</string>
+    <string name="settings_weekly_report_title">Viikoittainen yksityisyysraportti</string>
+    <string name="settings_weekly_report_brief">Lähetä viikoittainen yhteenveto seurantapalvelujen toiminnasta</string>
+    <string name="notification_activity_logging_reminder_body">Ota toiminnan lokitus käyttöön, jotta saat viikoittaiset Privacy Pulse -raporttisi.</string>
+    <string name="bypass_list_header">Ohitetut sovellukset</string>
+    <string name="freemium_refresh_header">Päivitä suodattimet</string>
+    <string name="freemium_refresh_brief">Mainosten estosuodattimiesi edellisestä päivityksestä on jo aikaa. Päivitä ne nyt, jotta saat uusimmat säännöt ja parannukset käyttöösi.</string>
+    <string name="freemium_refresh_status_done">Suodattimet päivitetty onnistuneesti</string>
+    <string name="freemium_refresh_status_updating">Päivitetään suodattimia...</string>
+    <string name="freemium_refresh_status_ready">Päivitys saatavilla</string>
+    <string name="freemium_refresh_action_update">Päivitä nyt</string>
+    <string name="freemium_refresh_action_upgrade">Siirry maksulliseen versioon ja saat automaattiset päivitykset</string>
+    <string name="home_power_pause_scope">Keskeyttää mainosten eston kaikilla tätä tiliä käyttävillä laitteilla</string>
+    <string name="home_status_paused_elsewhere">Mainosten esto keskeytetty toisella laitteella</string>
+    <string name="universal_action_resume">Jatka</string>
 </resources>

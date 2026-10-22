@@ -799,4 +799,23 @@
     <string name="support_network_check_body">Verifica se as consultas DNS deste celular passam pelo Blokada.</string>
     <string name="support_network_check_done">Verificação da rede concluída</string>
     <string name="support_network_check_declined">Verificação da rede não realizada</string>
+    <string name="settings_section_header_your_plan">Seu plano</string>
+    <string name="settings_plan_status_renews">%s · renova em %s</string>
+    <string name="settings_plan_status_ends">%s · termina em %s</string>
+    <string name="settings_plan_status_active_until">%s · ativo até %s</string>
+    <string name="settings_plan_action_upgrade_plus">Mudar para o Blokada Plus</string>
+    <string name="settings_weekly_report_title">Relatório semanal de privacidade</string>
+    <string name="settings_weekly_report_brief">Enviar um resumo semanal da atividade dos rastreadores</string>
+    <string name="notification_activity_logging_reminder_body">Ative o registro de atividades para receber seus relatórios semanais do Privacy Pulse.</string>
+    <string name="bypass_list_header">Apps ignorados</string>
+    <string name="freemium_refresh_header">Atualize seus filtros</string>
+    <string name="freemium_refresh_brief">Faz um tempo que você não atualiza seus filtros de bloqueio de anúncios. Atualize-os agora para ter as regras e melhorias mais recentes.</string>
+    <string name="freemium_refresh_status_done">Filtros atualizados com sucesso</string>
+    <string name="freemium_refresh_status_updating">Atualizando filtros...</string>
+    <string name="freemium_refresh_status_ready">Pronto para atualização</string>
+    <string name="freemium_refresh_action_update">Atualizar agora</string>
+    <string name="freemium_refresh_action_upgrade">Faça upgrade para receber atualizações automáticas</string>
+    <string name="home_power_pause_scope">Pausa o bloqueio de anúncios em todos os dispositivos que usam esta conta</string>
+    <string name="home_status_paused_elsewhere">Pausado em outro dispositivo</string>
+    <string name="universal_action_resume">Retomar</string>
 </resources>

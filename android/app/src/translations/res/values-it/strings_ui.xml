@@ -799,4 +799,23 @@
     <string name="support_network_check_body">Verifica se le richieste DNS di questo telefono passano attraverso Blokada.</string>
     <string name="support_network_check_done">Verifica della rete completata</string>
     <string name="support_network_check_declined">Verifica della rete non eseguita</string>
+    <string name="settings_section_header_your_plan">Il tuo piano</string>
+    <string name="settings_plan_status_renews">%s · si rinnova il %s</string>
+    <string name="settings_plan_status_ends">%s · termina il %s</string>
+    <string name="settings_plan_status_active_until">%s · attivo fino al %s</string>
+    <string name="settings_plan_action_upgrade_plus">Passa a Blokada Plus</string>
+    <string name="settings_weekly_report_title">Resoconto privacy settimanale</string>
+    <string name="settings_weekly_report_brief">Invia un riepilogo settimanale dell\'attività dei tracker</string>
+    <string name="notification_activity_logging_reminder_body">Attiva la registrazione delle attività per ricevere i tuoi report settimanali di Privacy Pulse.</string>
+    <string name="bypass_list_header">App escluse</string>
+    <string name="freemium_refresh_header">Aggiorna i filtri</string>
+    <string name="freemium_refresh_brief">È passato un po\' da quando hai aggiornato i filtri anti pubblicità. Aggiornali ora per assicurarti le ultime regole e migliorie.</string>
+    <string name="freemium_refresh_status_done">Filtri aggiornati correttamente</string>
+    <string name="freemium_refresh_status_updating">Aggiornamento filtri...</string>
+    <string name="freemium_refresh_status_ready">Aggiornamento disponibile</string>
+    <string name="freemium_refresh_action_update">Aggiorna ora</string>
+    <string name="freemium_refresh_action_upgrade">Passa a un piano a pagamento per ricevere aggiornamenti automatici</string>
+    <string name="home_power_pause_scope">Sospende il blocco delle pubblicità su tutti i dispositivi che usano questo account</string>
+    <string name="home_status_paused_elsewhere">Blocco sospeso da un altro dispositivo</string>
+    <string name="universal_action_resume">Riprendi</string>
 </resources>

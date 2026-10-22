@@ -799,4 +799,23 @@
     <string name="support_network_check_body">このスマートフォンのDNS通信がBlokadaを経由しているか確認します。</string>
     <string name="support_network_check_done">ネットワークの確認が完了しました</string>
     <string name="support_network_check_declined">ネットワークの確認は実行されませんでした</string>
+    <string name="settings_section_header_your_plan">ご利用中のプラン</string>
+    <string name="settings_plan_status_renews">%s · %sに自動更新</string>
+    <string name="settings_plan_status_ends">%s · %sに終了</string>
+    <string name="settings_plan_status_active_until">%s · %sまで有効</string>
+    <string name="settings_plan_action_upgrade_plus">Blokada Plus にアップグレード</string>
+    <string name="settings_weekly_report_title">毎週のプライバシーレポート</string>
+    <string name="settings_weekly_report_brief">トラッカーのアクティビティを毎週まとめて送信する</string>
+    <string name="notification_activity_logging_reminder_body">毎週のPrivacy Pulseレポートを受け取るには、アクティビティの記録を有効にしてください。</string>
+    <string name="bypass_list_header">バイパス対象のアプリ</string>
+    <string name="freemium_refresh_header">フィルターを更新する</string>
+    <string name="freemium_refresh_brief">広告ブロック用フィルターをしばらく更新していません。今すぐ取得して、最新のルールや改善を反映させましょう。</string>
+    <string name="freemium_refresh_status_done">フィルターを更新しました</string>
+    <string name="freemium_refresh_status_updating">フィルターを更新しています...</string>
+    <string name="freemium_refresh_status_ready">更新できます</string>
+    <string name="freemium_refresh_action_update">今すぐ更新</string>
+    <string name="freemium_refresh_action_upgrade">アップグレードして自動更新を利用する</string>
+    <string name="home_power_pause_scope">このアカウントを使用しているすべてのデバイスで広告ブロックを一時停止します</string>
+    <string name="home_status_paused_elsewhere">別のデバイスから一時停止中</string>
+    <string name="universal_action_resume">再開</string>
 </resources>

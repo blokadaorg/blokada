@@ -799,4 +799,23 @@
     <string name="support_network_check_body">Ověří, zda požadavky DNS z tohoto telefonu procházejí přes Blokadu.</string>
     <string name="support_network_check_done">Kontrola sítě dokončena</string>
     <string name="support_network_check_declined">Kontrola sítě nebyla spuštěna</string>
+    <string name="settings_section_header_your_plan">Váš tarif</string>
+    <string name="settings_plan_status_renews">%s · obnoví se %s</string>
+    <string name="settings_plan_status_ends">%s · skončí %s</string>
+    <string name="settings_plan_status_active_until">%s · aktivní do %s</string>
+    <string name="settings_plan_action_upgrade_plus">Přejít na Blokada Plus</string>
+    <string name="settings_weekly_report_title">Týdenní přehled ochrany soukromí</string>
+    <string name="settings_weekly_report_brief">Zasílat týdenní přehled aktivity sledovacích prvků</string>
+    <string name="notification_activity_logging_reminder_body">Zapněte zaznamenávání aktivity, abyste mohli dostávat týdenní přehledy Privacy Pulse.</string>
+    <string name="bypass_list_header">Vyloučené aplikace</string>
+    <string name="freemium_refresh_header">Aktualizujte své filtry</string>
+    <string name="freemium_refresh_brief">Filtry pro blokování reklam jste už nějakou dobu neaktualizovali. Stáhněte si je nyní, abyste měli nejnovější pravidla a vylepšení.</string>
+    <string name="freemium_refresh_status_done">Filtry byly úspěšně aktualizovány</string>
+    <string name="freemium_refresh_status_updating">Aktualizování filtrů...</string>
+    <string name="freemium_refresh_status_ready">Připraveno k aktualizaci</string>
+    <string name="freemium_refresh_action_update">Aktualizovat nyní</string>
+    <string name="freemium_refresh_action_upgrade">Přejít na placenou verzi s automatickými aktualizacemi</string>
+    <string name="home_power_pause_scope">Pozastaví blokování reklam na všech zařízeních používajících tento účet</string>
+    <string name="home_status_paused_elsewhere">Pozastaveno z jiného zařízení</string>
+    <string name="universal_action_resume">Obnovit</string>
 </resources>

@@ -799,4 +799,23 @@
     <string name="support_network_check_body">Kontrollerar om den här telefonens DNS-trafik går via Blokada.</string>
     <string name="support_network_check_done">Nätverkskontrollen är klar</string>
     <string name="support_network_check_declined">Nätverkskontrollen har inte körts</string>
+    <string name="settings_section_header_your_plan">Ditt abonnemang</string>
+    <string name="settings_plan_status_renews">%s · förnyas %s</string>
+    <string name="settings_plan_status_ends">%s · upphör %s</string>
+    <string name="settings_plan_status_active_until">%s · aktiv tills %s</string>
+    <string name="settings_plan_action_upgrade_plus">Uppgradera till Blokada Plus</string>
+    <string name="settings_weekly_report_title">Veckovis integritetsrapport</string>
+    <string name="settings_weekly_report_brief">Send a weekly summary of tracker activity</string>
+    <string name="notification_activity_logging_reminder_body">Enable activity logging to receive your weekly Privacy Pulse reports.</string>
+    <string name="bypass_list_header">Bypassed apps</string>
+    <string name="freemium_refresh_header">Update your filters</string>
+    <string name="freemium_refresh_brief">It\'s been a while since you updated your ad-block filters. Fetch them now to ensure you have the latest rules and improvements.</string>
+    <string name="freemium_refresh_status_done">Filters updated successfully</string>
+    <string name="freemium_refresh_status_updating">Updating filters...</string>
+    <string name="freemium_refresh_status_ready">Ready for an update</string>
+    <string name="freemium_refresh_action_update">Update now</string>
+    <string name="freemium_refresh_action_upgrade">Upgrade for automatic updates</string>
+    <string name="home_power_pause_scope">Pauses ad blocking on all devices using this account</string>
+    <string name="home_status_paused_elsewhere">Paused from another device</string>
+    <string name="universal_action_resume">Resume</string>
 </resources>

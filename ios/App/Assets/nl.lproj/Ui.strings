@@ -1100,3 +1100,40 @@
 "support network check body" = "Controleert of het DNS-verkeer van deze telefoon via Blokada loopt.";
 "support network check done" = "Netwerkcontrole voltooid";
 "support network check declined" = "Netwerkcontrole niet uitgevoerd";
+
+// Settings section header for the user's subscription: status, manage, restore
+"settings section header your plan" = "Je abonnement";
+// Subscription status in Settings. First %s is the plan name (e.g. "Blokada Cloud"), second %s is a short date (e.g. "14 Feb")
+"settings plan status renews" = "%s · wordt verlengd op %s";
+// Same as above, for a subscription that was cancelled and stops on that date
+"settings plan status ends" = "%s · eindigt op %s";
+// Same as above, when the app can't tell whether it renews (e.g. bought on the website)
+"settings plan status active until" = "%s · actief tot %s";
+// Settings row that opens the purchase screen to move from Blokada Cloud to Blokada Plus
+"settings plan action upgrade plus" = "Upgraden naar Blokada Plus";
+
+// Settings toggle for the weekly privacy report notification: title and description
+"settings weekly report title" = "Wekelijks privacyrapport";
+"settings weekly report brief" = "Stuur wekelijks een overzicht van de activiteit van trackers";
+// Notification asking the user to turn on activity logging so weekly reports work
+"notification activity logging reminder body" = "Schakel activiteitenregistratie in om je wekelijkse Privacy Pulse-rapporten te ontvangen.";
+// Header of the list of apps excluded from the VPN (Android, Blokada Plus)
+"bypass list header" = "Uitgesloten apps";
+
+// Sheet for free users whose blocklists haven't been updated for a while
+"freemium refresh header" = "Werk je filters bij";
+"freemium refresh brief" = "Je hebt je filters voor het blokkeren van advertenties al een tijdje niet bijgewerkt. Werk ze nu bij voor de nieuwste regels en verbeteringen.";
+// Status line of the same sheet: done / in progress / not started yet
+"freemium refresh status done" = "Filters succesvol bijgewerkt";
+"freemium refresh status updating" = "Filters bijwerken...";
+"freemium refresh status ready" = "Klaar voor een update";
+// Buttons of the same sheet
+"freemium refresh action update" = "Nu bijwerken";
+"freemium refresh action upgrade" = "Upgrade voor automatische updates";
+
+// Pause menu on Home: pausing turns off ad blocking account-wide, not just on this phone
+"home power pause scope" = "Pauzeert het blokkeren van advertenties op alle apparaten die dit account gebruiken";
+// Home status when ad blocking was paused on another device of the same account
+"home status paused elsewhere" = "Gepauzeerd vanaf een ander apparaat";
+// Short action to turn ad blocking back on after a pause
+"universal action resume" = "Hervatten";
