@@ -6,6 +6,7 @@ import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/common_card.dart';
 import 'package:common/src/shared/ui/common_clickable.dart';
 import 'package:common/src/shared/ui/common_divider.dart';
+import 'package:common/src/shared/ui/crossfade.dart';
 import 'package:common/src/shared/ui/placeholder.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
@@ -212,24 +213,31 @@ class TopDomainsState extends State<TopDomains> {
                   const CommonDivider(),
 
                   // Domain list, loading state, or empty state
-                  if (isError)
-                    StatsError(onRetry: widget.onRetry)
-                  else if (isLoading)
-                    _buildLoadingState()
-                  else if (currentDomains.isEmpty)
-                    _buildEmptyState()
-                  else
-                    for (int i = 0; i < currentDomains.length; i++) ...{
-                      _buildDomainItem(
-                        currentDomains[i],
-                        delta: limitedDeltas[_normalized(currentDomains[i])],
-                        isHighlighted: highlightVisible &&
-                            _normalized(currentDomains[i]) == highlightName,
-                        isSelected: selectedDomain != null &&
-                            _normalized(currentDomains[i]) == selectedDomain,
-                      ),
-                      if (i < currentDomains.length - 1) const CommonDivider(),
-                    },
+                  Crossfade(
+                    switchKey: (_selectedTab, widget.range),
+                    child: Column(
+                      children: [
+                        if (isError)
+                          StatsError(onRetry: widget.onRetry)
+                        else if (isLoading)
+                          _buildLoadingState()
+                        else if (currentDomains.isEmpty)
+                          _buildEmptyState()
+                        else
+                          for (int i = 0; i < currentDomains.length; i++) ...{
+                            _buildDomainItem(
+                              currentDomains[i],
+                              delta: limitedDeltas[_normalized(currentDomains[i])],
+                              isHighlighted: highlightVisible &&
+                                  _normalized(currentDomains[i]) == highlightName,
+                              isSelected: selectedDomain != null &&
+                                  _normalized(currentDomains[i]) == selectedDomain,
+                            ),
+                            if (i < currentDomains.length - 1) const CommonDivider(),
+                          },
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),

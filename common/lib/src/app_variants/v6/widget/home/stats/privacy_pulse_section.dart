@@ -3,6 +3,8 @@ import 'dart:async';
 
 import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/navigation.dart' show maxContentWidth, getTopPadding;
+import 'package:common/src/shared/ui/haptics.dart';
+import 'package:common/src/shared/ui/motion.dart';
 import 'package:common/src/features/notification/domain/notification.dart';
 import 'package:common/src/shared/ui/minicard/minicard.dart';
 import 'package:common/src/shared/ui/theme.dart';
@@ -47,6 +49,8 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging, 
   late final _weeklyReport = Core.get<WeeklyReportActor>();
 
   WeeklyReportEvent? _weeklyEvent;
+  // The card the user just closed, kept on screen while it animates out.
+  WeeklyReportEvent? _closingWeeklyEvent;
   WeeklyReportToplistHighlight? _weeklyHighlight;
   final List<mobx.ReactionDisposer> _disposers = [];
   final _topDomainsHeaderKey = GlobalKey();
@@ -89,6 +93,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging, 
   }
 
   Future<void> _pullToRefresh() async {
+    unawaited(Haptics.light());
     await _stats.refreshPulse(Markers.userTap);
   }
 
@@ -216,10 +221,26 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging, 
   }
 
   List<Widget> _buildWeeklyCard(BuildContext context) {
-    if (_weeklyEvent == null) return const [];
+    final closing = _closingWeeklyEvent;
+    if (_weeklyEvent == null && closing != null) {
+      return [
+        _WeeklyCardExit(
+          key: ValueKey(closing),
+          onDone: () {
+            if (mounted) setState(() => _closingWeeklyEvent = null);
+          },
+          child: Column(children: _buildWeeklyCardFor(context, closing)),
+        ),
+      ];
+    }
+    final event = _weeklyEvent;
+    if (event == null) return const [];
+    return _buildWeeklyCardFor(context, event);
+  }
+
+  List<Widget> _buildWeeklyCardFor(BuildContext context, WeeklyReportEvent event) {
     return [
       Builder(builder: (context) {
-        final event = _weeklyEvent!;
         final isToplist = event.type == WeeklyReportEventType.toplistChange;
         final timeLabel = timeago.format(event.generatedAt, allowFromNow: true);
         return WeeklyReportCard(
@@ -236,7 +257,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging, 
           icon: _iconFor(event.icon),
           iconColor: context.theme.accent,
           onTap: isToplist ? _handleWeeklyReportTap : null,
-          onDismiss: () => _dismissWeeklyReport(),
+          onDismiss: () => _dismissWeeklyReport(animate: true),
         );
       }),
       const SizedBox(height: 16),
@@ -429,9 +450,12 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging, 
     }
   }
 
-  void _dismissWeeklyReport({bool keepHighlight = false}) {
+  /// [animate] shrinks and fades the card out; the toplist tap removes it at
+  /// once, because it scrolls to a position measured without the card.
+  void _dismissWeeklyReport({bool keepHighlight = false, bool animate = false}) {
     _weeklyReport.dismissCurrent(Markers.userTap);
     setState(() {
+      _closingWeeklyEvent = animate ? _weeklyEvent : null;
       _weeklyEvent = null;
       if (!keepHighlight) {
         _weeklyHighlight = null;
@@ -450,5 +474,48 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging, 
       case WeeklyReportIcon.trendDown:
         return CupertinoIcons.arrow_down_right;
     }
+  }
+}
+
+/// Shrinks and fades the closed weekly card, so the content below slides up
+/// instead of jumping, then calls [onDone] to remove it. With Reduce Motion
+/// it only fades and the space closes at the end.
+class _WeeklyCardExit extends StatefulWidget {
+  final Widget child;
+  final VoidCallback onDone;
+
+  const _WeeklyCardExit({super.key, required this.child, required this.onDone});
+
+  @override
+  State<_WeeklyCardExit> createState() => _WeeklyCardExitState();
+}
+
+class _WeeklyCardExitState extends State<_WeeklyCardExit> with SingleTickerProviderStateMixin {
+  late final _controller = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 250),
+    value: 1.0,
+  );
+  late final _curve = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.reverse().whenComplete(widget.onDone);
+  }
+
+  @override
+  void dispose() {
+    _curve.dispose();
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // Already closed: no second tap on its buttons.
+    final faded = IgnorePointer(child: FadeTransition(opacity: _curve, child: widget.child));
+    if (Motion.reduced(context)) return faded;
+    return SizeTransition(sizeFactor: _curve, axisAlignment: -1.0, child: faded);
   }
 }
