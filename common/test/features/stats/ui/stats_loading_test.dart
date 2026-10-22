@@ -52,6 +52,9 @@ class _GatedJournal extends JournalActor {
   var _gate = Completer<void>();
   List<UiJournalEntry> result = [];
   Object? error;
+  bool more = false;
+  Object? pageError;
+  var pageRequests = 0;
 
   void finish() {
     _gate.complete();
@@ -60,10 +63,14 @@ class _GatedJournal extends JournalActor {
 
   @override
   fetch(Marker m, {DeviceTag? tag, bool append = false}) async {
-    if (append) return;
+    if (append) {
+      pageRequests++;
+      if (pageError != null) throw pageError!;
+      return;
+    }
     await _gate.future;
     if (error != null) throw error!;
-    hasMoreData = false;
+    hasMoreData = more;
     allEntries = result;
     filteredEntries.now = result;
   }
@@ -233,6 +240,35 @@ void main() {
       await _finish(tester, journal);
       expect(_placeholder, findsNothing);
       expect(find.text("universal status waiting for data".i18n), findsOneWidget);
+      await _unmount(tester);
+    });
+
+    testWidgets('a failed page waits for the retry tap, not the next scroll', (tester) async {
+      final journal = await _pumpActivity(tester);
+      journal.more = true;
+      journal.pageError = Exception("offline");
+      journal.result = [
+        for (var i = 0; i < 30; i++) _entry("ads$i.example.com", UiJournalAction.block),
+      ];
+      await _finish(tester, journal);
+
+      final list = find.byType(Scrollable).first;
+      await tester.drag(list, const Offset(0, -5000));
+      await tester.pump();
+      await tester.pump();
+      expect(journal.pageRequests, 1);
+      await tester.scrollUntilVisible(_retry, 300, scrollable: list);
+      expect(_retry, findsOneWidget);
+
+      // More scrolling at the bottom does not ask again.
+      await tester.drag(list, const Offset(0, -500));
+      await tester.pump();
+      expect(journal.pageRequests, 1);
+
+      journal.pageError = null;
+      await tester.tap(_retry);
+      await tester.pump();
+      expect(journal.pageRequests, 2);
       await _unmount(tester);
     });
 
