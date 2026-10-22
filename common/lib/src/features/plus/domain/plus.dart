@@ -12,6 +12,8 @@ import 'package:common/src/features/plus/domain/keypair/keypair.dart';
 import 'package:common/src/features/plus/domain/lease/lease.dart';
 import 'package:common/src/features/plus/domain/vpn/vpn.dart';
 import 'package:common/src/features/plus/ui/device_limit_sheet.dart';
+import 'dart:async';
+import 'package:common/src/shared/ui/haptics.dart';
 
 part 'actor.dart';
 part 'command.dart';

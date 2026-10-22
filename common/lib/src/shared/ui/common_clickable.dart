@@ -29,6 +29,7 @@ class CommonClickable extends StatefulWidget {
 }
 
 const _pressHighlightDuration = Duration(milliseconds: 100);
+const _releaseHighlightDuration = Duration(milliseconds: 200);
 
 class CommonClickableState extends State<CommonClickable> {
   /// Press-highlight color, exposed so list rows can paint a persistent
@@ -67,15 +68,15 @@ class CommonClickableState extends State<CommonClickable> {
       onTapUp: disabled ? null : _onTapUp,
       onTapCancel: disabled ? null : _depress,
       onTap: widget.onTap,
-      child: Container(
+      // Rows highlight without the shrink cards and buttons get from Touch.
+      child: AnimatedContainer(
+        duration: pressed ? _pressHighlightDuration : _releaseHighlightDuration,
+        curve: Curves.easeInOut,
         decoration: BoxDecoration(
           borderRadius: widget.tapBorderRadius ?? BorderRadius.circular(12),
           color: pressed ? (widget.tapBgColor ?? pressColor(context)) : widget.bgColor,
         ),
-        child: Padding(
-          padding: widget.padding ?? const EdgeInsets.all(12.0),
-          child: widget.child,
-        ),
+        child: Padding(padding: widget.padding ?? const EdgeInsets.all(12.0), child: widget.child),
       ),
     );
   }

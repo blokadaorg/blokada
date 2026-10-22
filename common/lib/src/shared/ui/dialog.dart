@@ -1,3 +1,4 @@
+import 'package:common/src/shared/ui/blokada_segmented_control.dart';
 import 'dart:io' as io;
 
 import 'package:common/src/features/toast/domain/toast.dart';
@@ -348,7 +349,7 @@ void showAddExceptionDialog(
               borderRadius: BorderRadius.circular(12.0),
               child: Container(
                 color: context.theme.bgColor,
-                child: CupertinoSlidingSegmentedControl<bool>(
+                child: BlokadaSegmentedControl<bool>(
                   groupValue: blocked,
                   onValueChanged: (value) {
                     if (value != null) {

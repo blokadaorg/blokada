@@ -161,9 +161,10 @@ Future<void> _settle(WidgetTester tester) async {
   await tester.pump();
 }
 
+/// The tint the action settles on; the change itself eases in.
 Color? _bgColor(WidgetTester tester) {
-  final box = tester.widget<Container>(find
-      .descendant(of: find.byType(StatsFilterAction), matching: find.byType(Container))
+  final box = tester.widget<AnimatedContainer>(find
+      .descendant(of: find.byType(StatsFilterAction), matching: find.byType(AnimatedContainer))
       .first);
   return (box.decoration as BoxDecoration).color;
 }

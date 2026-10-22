@@ -82,13 +82,13 @@ Future<void> _unmount(WidgetTester tester) async {
 }
 
 void main() {
-  testWidgets('a tap thumps, the ring ticks as it winds up, then a rising run', (tester) async {
+  testWidgets('switching on rises, the ring ticks as it winds up, then a rising run', (tester) async {
     final (power, haptics) = await _pump(tester, status: AppStatus.deactivated);
 
     await tester.tap(find.descendant(of: find.byType(PowerButton), matching: find.byType(Touch)));
-    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 100));
     expect(power.toggles, 1);
-    expect(haptics, ['HapticFeedbackType.mediumImpact']);
+    expect(haptics, ['HapticFeedbackType.mediumImpact', 'HapticFeedbackType.heavyImpact']);
     haptics.clear();
 
     seedAppStatus(AppStatus.activatedCloud);

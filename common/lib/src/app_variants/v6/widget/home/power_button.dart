@@ -359,13 +359,13 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
       case PowerTap.none:
         return;
       case PowerTap.toggle:
-        unawaited(Haptics.tap());
+        unawaited(_state.active ? Haptics.switchOff() : Haptics.switchOn());
         _armRingTicks();
         unawaited(_power.toggle(Markers.userTap));
       case PowerTap.pauseSheet:
         unawaited(Haptics.tap());
         showPauseActionSheet(context, onSelected: (duration) {
-          unawaited(Haptics.light());
+          unawaited(Haptics.switchOff());
           _armRingTicks();
           unawaited(_power.pause(Markers.userTap, duration));
         });
@@ -445,6 +445,8 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
               child: Touch(
                 onTap: () => _onTap(state.tap),
                 onLongTap: () => _onTap(state.longTap),
+                // The ring animation is this button's moment; no shrink.
+                shrink: false,
                 maxValue: 0.5,
                 decorationBuilder: (value) {
                   return BoxDecoration(

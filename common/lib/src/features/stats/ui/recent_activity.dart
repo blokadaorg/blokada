@@ -1,3 +1,4 @@
+import 'package:common/src/shared/ui/blokada_segmented_control.dart';
 import 'package:common/src/features/journal/domain/journal.dart';
 import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/layout/with_detail_pane.dart';
@@ -88,7 +89,7 @@ class RecentActivityState extends State<RecentActivity>
                 padding: const EdgeInsets.all(16.0),
                 child: SizedBox(
                   width: double.infinity,
-                  child: CupertinoSlidingSegmentedControl<ActivityTab>(
+                  child: BlokadaSegmentedControl<ActivityTab>(
                     groupValue: _selectedTab,
                     onValueChanged: (ActivityTab? value) {
                       if (value != null) {

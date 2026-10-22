@@ -1,3 +1,4 @@
+import 'package:common/src/shared/ui/blokada_segmented_control.dart';
 import 'dart:async';
 
 import 'package:common/src/shared/automation/ids.dart';
@@ -302,7 +303,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging, 
   }
 
   Widget _buildToplistRangeToggle(BuildContext context) {
-    return CupertinoSlidingSegmentedControl<ToplistRange>(
+    return BlokadaSegmentedControl<ToplistRange>(
       groupValue: _toplistRange,
       onValueChanged: (ToplistRange? value) {
         if (value != null) {

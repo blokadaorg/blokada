@@ -15,6 +15,8 @@ import 'package:common/src/features/plus/domain/plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart' as mobx;
+import 'dart:async';
+import 'package:common/src/shared/ui/haptics.dart';
 
 class PlusButton extends StatefulWidget {
   PlusButton({Key? key}) : super(key: key);
@@ -41,6 +43,10 @@ class _PlusButtonState extends State<PlusButton>
   var location = "";
   var isPlus = false;
 
+  // The user switched Plus on and it is not up yet: the success run plays
+  // once it is, which can be minutes later when the OS holds the start.
+  var _successPending = false;
+
   @override
   void initState() {
     super.initState();
@@ -50,6 +56,13 @@ class _PlusButtonState extends State<PlusButton>
       final gateway = _gateway.present;
       final plusEnabled =
           _plusEnabled.present == true && status == AppStatus.activatedPlus;
+
+      if (_successPending && plusEnabled) {
+        _successPending = false;
+        unawaited(Haptics.success());
+      } else if (_plusEnabled.present != true) {
+        _successPending = false;
+      }
 
       setState(() {
         final flag = gateway?.flag;
@@ -127,11 +140,21 @@ class _PlusButtonState extends State<PlusButton>
             child: BlokadaSwitch(
               value: activated,
               activeColor: theme.accent,
+              // Plus on rises and off falls, like the power button.
+              haptic: false,
               onChanged: (value) {
+                unawaited(value ? Haptics.switchOn() : Haptics.switchOff());
                 setState(() {
                   _doActionOrAskPerm((m) async {
                     activated = value;
-                    await _plus.switchPlus(value, m);
+                    // Plus coming up plays the same rising run as protection.
+                    _successPending = value;
+                    try {
+                      await _plus.switchPlus(value, m);
+                    } catch (_) {
+                      _successPending = false;
+                      rethrow;
+                    }
                   });
                 });
               },
@@ -155,6 +178,7 @@ class _PlusButtonState extends State<PlusButton>
   }
 
   Future<void> _displayLocations(Marker m) async {
+    unawaited(Haptics.tap());
     await _stage.showModal(StageModal.plusLocationSelect, m);
   }
 

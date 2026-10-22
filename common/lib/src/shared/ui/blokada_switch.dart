@@ -2,13 +2,21 @@ import 'package:common/src/shared/ui/haptics.dart';
 import 'package:flutter/cupertino.dart';
 
 /// The app's on/off switch: a [CupertinoSwitch] that gives a selection click
-/// when the user flips it.
+/// when the user flips it, or no haptic when [haptic] is off and the caller
+/// plays its own.
 class BlokadaSwitch extends StatelessWidget {
   final bool value;
   final ValueChanged<bool>? onChanged;
   final Color? activeColor;
+  final bool haptic;
 
-  const BlokadaSwitch({super.key, required this.value, required this.onChanged, this.activeColor});
+  const BlokadaSwitch({
+    super.key,
+    required this.value,
+    required this.onChanged,
+    this.activeColor,
+    this.haptic = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +27,7 @@ class BlokadaSwitch extends StatelessWidget {
       onChanged: onChanged == null
           ? null
           : (v) {
-              Haptics.selection();
+              if (haptic) Haptics.selection();
               onChanged(v);
             },
     );
