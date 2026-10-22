@@ -6,6 +6,7 @@ import 'package:common/src/platform/app/channel.pg.dart';
 import 'package:common/src/platform/stats/stats.dart';
 import 'package:common/src/shared/ui/app.dart';
 import 'package:common/src/shared/ui/minicard/counter.dart';
+import 'package:common/src/shared/ui/placeholder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -100,6 +101,19 @@ void main() {
     expect(find.text('home counter caption blocked'.i18n), findsOneWidget);
   });
 
+  testWidgets('shows a placeholder until the count loads', (tester) async {
+    await _boot(tester, AppStatus.activatedCloud);
+    await _pumpCounter(tester);
+
+    expect(find.byType(LoadingPlaceholder), findsOneWidget);
+    expect(find.byType(MiniCardCounter), findsNothing);
+    expect(find.text('...'), findsNothing);
+
+    await _idle(tester, const Duration(seconds: 3));
+    expect(find.byType(LoadingPlaceholder), findsNothing);
+    expect(find.byType(MiniCardCounter), findsOneWidget);
+  });
+
   testWidgets('refreshes every 30 s without drawing frames while idle', (tester) async {
     final http = await _boot(tester, AppStatus.activatedCloud);
     await _pumpCounter(tester);
@@ -164,6 +178,7 @@ void main() {
     await _idle(tester, const Duration(seconds: 3));
 
     expect(find.byType(MiniCardCounter), findsNothing);
+    expect(find.byType(LoadingPlaceholder), findsNothing);
     expect(find.text('universal action try again'.i18n), findsOneWidget);
 
     http.failStats = false;

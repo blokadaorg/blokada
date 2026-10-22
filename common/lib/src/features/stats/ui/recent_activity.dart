@@ -6,6 +6,7 @@ import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/common_card.dart';
 import 'package:common/src/shared/ui/common_clickable.dart';
 import 'package:common/src/shared/ui/common_divider.dart';
+import 'package:common/src/shared/ui/placeholder.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/features/stats/domain/controller.dart';
@@ -150,9 +151,12 @@ class RecentActivityState extends State<RecentActivity>
               if (isError)
                 StatsError(onRetry: widget.onRetry)
               else if (isLoading)
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 24),
-                  child: Center(child: CircularProgressIndicator()),
+                // Shaped like the activity rows: up to five, title and time.
+                LoadingPlaceholder.rows(
+                  count: 5,
+                  rowHeight: 50,
+                  dividerIndent: 44,
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
                 )
               else if (currentEntries.isEmpty)
                 _buildEmptyState()

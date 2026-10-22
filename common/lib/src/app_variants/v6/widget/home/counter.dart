@@ -6,6 +6,7 @@ import 'package:common/src/shared/ui/minicard/counter.dart';
 import 'package:common/src/shared/ui/minicard/header.dart';
 import 'package:common/src/shared/ui/minicard/minicard.dart';
 import 'package:common/src/shared/ui/minicard/summary.dart';
+import 'package:common/src/shared/ui/placeholder.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/app/app.dart';
@@ -62,6 +63,8 @@ class _HomeCounterState extends State<HomeCounter> with WidgetsBindingObserver, 
     _disposers.add(
       mobx.reaction<bool>((_) => _app.status.isActive(), (active) {
         _active = active;
+        // The placeholder only shimmers while protection is on.
+        if (mounted) setState(() {});
         _syncRefresh();
       }),
     );
@@ -150,7 +153,14 @@ class _HomeCounterState extends State<HomeCounter> with WidgetsBindingObserver, 
     } else if (_hasStats) {
       big = MiniCardCounter(counter: counter, lastCounter: lastCounter);
     } else {
-      big = const Text("...", style: TextStyle(fontSize: 34, fontWeight: FontWeight.w600));
+      // Still loading. Off screen while protection is off, so no shimmer then.
+      big = LoadingPlaceholder(
+        animate: _active,
+        child: const SizedBox(
+          height: 40,
+          child: Center(child: PlaceholderBar(width: 96, height: 28, radius: 6)),
+        ),
+      );
     }
 
     return MiniCard(

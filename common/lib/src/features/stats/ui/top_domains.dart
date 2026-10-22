@@ -6,6 +6,7 @@ import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/common_card.dart';
 import 'package:common/src/shared/ui/common_clickable.dart';
 import 'package:common/src/shared/ui/common_divider.dart';
+import 'package:common/src/shared/ui/placeholder.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/features/stats/domain/controller.dart';
@@ -238,12 +239,14 @@ class TopDomainsState extends State<TopDomains> {
     );
   }
 
+  // Shaped like the domain rows below, so the card keeps its height.
   Widget _buildLoadingState() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-      child: Center(
-        child: CircularProgressIndicator(),
-      ),
+    return LoadingPlaceholder.rows(
+      count: 5,
+      rowHeight: 64,
+      subtitle: false,
+      dividerIndent: 44,
+      padding: const EdgeInsets.only(left: 38, right: 24),
     );
   }
 
