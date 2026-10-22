@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:common/src/shared/ui/action_sheet.dart';
+import 'package:common/src/shared/ui/haptics.dart';
+import 'package:common/src/shared/ui/motion.dart';
 import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/features/home/domain/power.dart';
 import 'package:common/src/shared/ui/theme.dart';
@@ -42,6 +44,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
   late AnimationController animCtrlArcCounter;
   late AnimationController animCtrlArc2Counter;
   late AnimationController animCtrlArcTimerCounter;
+  late AnimationController animCtrlPulse;
 
   late Animation<double> animLoading;
   late Animation<double> animLibre;
@@ -52,8 +55,26 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
   late Animation<double> animArcCounter;
   late Animation<double> animArc2Counter;
   late Animation<double> animArcTimerCounter;
+  late Animation<double> animPulse;
 
   final _reactions = <mobx.ReactionDisposer>[];
+  StreamSubscription<void>? _confirmedSub;
+
+  // Read from MediaQuery on each build: with Reduce Motion the rings fade
+  // instead of drawing round, and no pulse plays.
+  bool _reduceMotion = false;
+
+  // Protection was confirmed while the ring was still drawing; the pulse
+  // waits for the ring to close.
+  bool _pulsePending = false;
+
+  // After a user tap, the ring ticks as it passes each quarter, winding up or
+  // down. Never on app open or a reconnect.
+  bool _ringTicksArmed = false;
+  // The ring moved since the ticks were armed: reaching an end disarms them.
+  // A tap from a ring already at zero sees `dismissed` before it moves.
+  bool _ringMoved = false;
+  int _ringQuarter = 0;
 
   // The stats rings take over from the spinner only once it has faded out
   // with protection on; switching off or reconnecting hides them again.
@@ -75,14 +96,31 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
   void initState() {
     super.initState();
 
-    animCtrlLibre = AnimationController(vsync: this, duration: Duration(milliseconds: 500));
-    animLibre = Tween<double>(begin: 0, end: 1).animate(animCtrlLibre)
+    animCtrlLibre = AnimationController(vsync: this, duration: Duration(milliseconds: 600));
+    animLibre = CurvedAnimation(parent: animCtrlLibre, curve: Curves.easeOut)
+      ..addListener(() {
+        _tickRing();
+        _setState();
+      })
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          _ringTicksArmed = false;
+          if (_pulsePending) _startPulse();
+        } else if (status == AnimationStatus.dismissed && _ringMoved) {
+          _ringTicksArmed = false;
+        } else if (status == AnimationStatus.reverse) {
+          _pulsePending = false;
+        }
+      });
+
+    animCtrlPlus = AnimationController(vsync: this, duration: Duration(milliseconds: 600));
+    animPlus = CurvedAnimation(parent: animCtrlPlus, curve: Curves.easeOut)
       ..addListener(() {
         _setState();
       });
 
-    animCtrlPlus = AnimationController(vsync: this, duration: Duration(milliseconds: 500));
-    animPlus = Tween<double>(begin: 0, end: 1).animate(animCtrlPlus)
+    animCtrlPulse = AnimationController(vsync: this, duration: Duration(milliseconds: 700));
+    animPulse = CurvedAnimation(parent: animCtrlPulse, curve: Curves.easeOut)
       ..addListener(() {
         _setState();
       });
@@ -164,10 +202,46 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
       _updateStatsRings();
     }));
 
+    _confirmedSub = _power.onProtectionConfirmed.listen((_) => _onProtectionConfirmed());
+
     _scheduleUpdateAnimations();
   }
 
   Timer? timer;
+
+  /// Protection the user switched on is up: one pulse out from the ring once
+  /// it has closed, with the success haptic.
+  void _onProtectionConfirmed() {
+    if (_reduceMotion) {
+      unawaited(Haptics.success());
+      return;
+    }
+    _pulsePending = true;
+    if (animCtrlLibre.isCompleted) _startPulse();
+  }
+
+  void _armRingTicks() {
+    _ringTicksArmed = true;
+    _ringMoved = false;
+  }
+
+  /// One selection tick each time the ring crosses a quarter, in either
+  /// direction. The ends are left to the success haptic and the tap.
+  void _tickRing() {
+    if (_ringTicksArmed) _ringMoved = true;
+    final quarter = (animLibre.value * 4).floor().clamp(0, 4);
+    if (quarter == _ringQuarter) return;
+    _ringQuarter = quarter;
+    if (!_ringTicksArmed || _reduceMotion || quarter == 0 || quarter == 4) return;
+    unawaited(Haptics.selection());
+  }
+
+  void _startPulse() {
+    _pulsePending = false;
+    unawaited(Haptics.success());
+    // Reduce Motion may have come on while the ring was drawing.
+    if (!_reduceMotion) animCtrlPulse.forward(from: 0);
+  }
 
   _setState() {
     if (mounted) {
@@ -285,9 +359,14 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
       case PowerTap.none:
         return;
       case PowerTap.toggle:
+        unawaited(Haptics.tap());
+        _armRingTicks();
         unawaited(_power.toggle(Markers.userTap));
       case PowerTap.pauseSheet:
+        unawaited(Haptics.tap());
         showPauseActionSheet(context, onSelected: (duration) {
+          unawaited(Haptics.light());
+          _armRingTicks();
           unawaited(_power.pause(Markers.userTap, duration));
         });
     }
@@ -303,6 +382,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
     final stats = _stats.stats;
     final theme = Theme.of(context).extension<BlokadaTheme>()!;
     final pauseSecondsLeft = state.pauseSecondsLeft;
+    _reduceMotion = Motion.reduced(context);
 
     return RelativeBuilder(builder: (context, height, width, sy, sx) {
       final buttonSize = math.min(sy(140), 180.0);
@@ -322,6 +402,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
                 animArcAlpha,
                 animArc2Counter,
                 animArcTimerCounter,
+                animPulse,
               ]),
               builder: (BuildContext context, Widget? child) {
                 return CustomPaint(
@@ -341,6 +422,8 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
                     ],
                     colorShadow: theme.shadow,
                     isFreemium: state.freemium,
+                    sweepRings: !_reduceMotion,
+                    pulse: animCtrlPulse.isAnimating && !_reduceMotion ? animPulse.value : null,
                   ),
                 );
               },
@@ -415,6 +498,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
       dispose();
     }
     _reactions.clear();
+    _confirmedSub?.cancel();
     timer?.cancel();
     timerRefresh?.cancel();
     animCtrlLoading.stop();
@@ -435,6 +519,8 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
     animCtrlArc2Counter.dispose();
     animCtrlArcTimerCounter.stop();
     animCtrlArcTimerCounter.dispose();
+    animCtrlPulse.stop();
+    animCtrlPulse.dispose();
     super.dispose();
   }
 }
@@ -458,14 +544,25 @@ class PowerButtonPainter extends CustomPainter {
   final Color colorShadow;
   final bool isFreemium;
 
+  /// Rings draw round from the top as they come on; off, they fade (Reduce
+  /// Motion).
+  final bool sweepRings;
+
+  /// Progress of the confirmation pulse, or null when none is playing.
+  final double? pulse;
+
+  // A sweeping ring is drawn opaque; its progress is the sweep, not the alpha.
+  late final double _libreOpacity = sweepRings ? (alphaLibre > 0 ? 1.0 : 0.0) : alphaLibre;
+  late final double _plusOpacity = sweepRings ? (alphaPlus > 0 ? 1.0 : 0.0) : alphaPlus;
+
   late Color colorCover1 = Colors.white.withOpacity(alphaCover);
   late Color colorCover2 = Colors.white.withOpacity(alphaCover);
-  late Color colorRingLibre1 = Color(0xFF007AFF).withOpacity(alphaLibre);
-  late Color colorRingLibre2 = Color(0xFF5856D5).withOpacity(alphaLibre);
-  late Color colorRingPlus1 = Color(0xFFFF9400).withOpacity(alphaPlus);
-  late Color colorRingPlus2 = Color(0xFFEF6049).withOpacity(alphaPlus);
-  late Color colorLibreFreemium1 = Color(0xFFACBDBA).withOpacity(alphaLibre);
-  late Color colorLibreFreemium2 = Color(0xFF48A9A6).withOpacity(alphaLibre);
+  late Color colorRingLibre1 = Color(0xFF007AFF).withOpacity(_libreOpacity);
+  late Color colorRingLibre2 = Color(0xFF5856D5).withOpacity(_libreOpacity);
+  late Color colorRingPlus1 = Color(0xFFFF9400).withOpacity(_plusOpacity);
+  late Color colorRingPlus2 = Color(0xFFEF6049).withOpacity(_plusOpacity);
+  late Color colorLibreFreemium1 = Color(0xFFACBDBA).withOpacity(_libreOpacity);
+  late Color colorLibreFreemium2 = Color(0xFF48A9A6).withOpacity(_libreOpacity);
   late Color colorText = Colors.white;
   late Color colorLoading = Colors.white.withOpacity(alphaLoading);
   late Color colorTimer = colorShadow;
@@ -482,6 +579,8 @@ class PowerButtonPainter extends CustomPainter {
     required this.arcTimerEnd,
     required this.colorShadow,
     required this.isFreemium,
+    this.sweepRings = true,
+    this.pulse,
   });
 
   @override
@@ -577,20 +676,25 @@ class PowerButtonPainter extends CustomPainter {
         Offset(size.width / 2, size.height / 2), size.width / 2 - edge * 1.5, innerShadowPaint);
 
     // ring blue
-    //libreRingPaint.alpha = alphaBlue
-    canvas.drawCircle(
-        Offset(size.width / 2, size.height / 2), size.width / 2 - ringWidth, libreRingPaint);
+    _drawRing(canvas, size, libreRingPaint, alphaLibre);
 
     if (isFreemium) {
       // ring freemium
-      canvas.drawCircle(
-          Offset(size.width / 2, size.height / 2), size.width / 2 - ringWidth, freemiumRingPaint);
+      _drawRing(canvas, size, freemiumRingPaint, alphaLibre);
     }
 
     // ring orange
-    // plusRingPaint.alpha = alphaOrange
-    canvas.drawCircle(
-        Offset(size.width / 2, size.height / 2), size.width / 2 - ringWidth, plusRingPaint);
+    _drawRing(canvas, size, plusRingPaint, alphaPlus);
+
+    // confirmation pulse: the top ring scales out and fades
+    final p = pulse;
+    if (p != null) {
+      final top = alphaPlus > 0 ? plusRingPaint : (isFreemium ? freemiumRingPaint : libreRingPaint);
+      canvas.saveLayer(null, Paint()..color = Colors.black.withOpacity(1 - p));
+      canvas.drawCircle(Offset(size.width / 2, size.height / 2),
+          (size.width / 2 - ringWidth) * (1 + 0.2 * p), top);
+      canvas.restore();
+    }
 
     // ring loading
     // loadingRingPaint.alpha = alphaLoading
@@ -651,6 +755,24 @@ class PowerButtonPainter extends CustomPainter {
         math.max(0, arcCounter[0] - 1.0) * math.pi * 2,
         false,
         loadingArc2Paint);
+  }
+
+  /// A status ring: drawn round from the top by [progress], or a full circle
+  /// whose paint already carries the fade.
+  void _drawRing(Canvas canvas, Size size, Paint paint, double progress) {
+    final center = Offset(size.width / 2, size.height / 2);
+    final radius = size.width / 2 - ringWidth;
+    if (!sweepRings) {
+      canvas.drawCircle(center, radius, paint);
+      return;
+    }
+    if (progress <= 0) return;
+    if (progress >= 1) {
+      canvas.drawCircle(center, radius, paint);
+      return;
+    }
+    canvas.drawArc(Rect.fromCircle(center: center, radius: radius), -math.pi / 2,
+        progress * math.pi * 2, false, paint);
   }
 
   @override
