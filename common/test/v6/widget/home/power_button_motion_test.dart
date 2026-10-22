@@ -145,6 +145,17 @@ void main() {
     await _unmount(tester);
   });
 
+  testWidgets('iOS Reduce Motion, a separate flag, also makes the ring fade', (tester) async {
+    tester.platformDispatcher.accessibilityFeaturesTestValue =
+        const FakeAccessibilityFeatures(reduceMotion: true);
+    addTearDown(tester.platformDispatcher.clearAccessibilityFeaturesTestValue);
+
+    await _pump(tester, status: AppStatus.activatedCloud);
+    expect(_painter(tester).sweepRings, isFalse);
+
+    await _unmount(tester);
+  });
+
   testWidgets('with Reduce Motion the ring fades and only the haptic plays', (tester) async {
     final (power, haptics) = await _pump(
       tester,
