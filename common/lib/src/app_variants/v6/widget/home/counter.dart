@@ -156,9 +156,16 @@ class _HomeCounterState extends State<HomeCounter> with WidgetsBindingObserver, 
       // Still loading. Off screen while protection is off, so no shimmer then.
       big = LoadingPlaceholder(
         animate: _active,
-        child: const SizedBox(
-          height: 40,
-          child: Center(child: PlaceholderBar(width: 96, height: 28, radius: 6)),
+        // As tall as one line of the number, so nothing shifts when it arrives.
+        child: const Stack(
+          alignment: Alignment.center,
+          children: [
+            Opacity(
+              opacity: 0,
+              child: Text("0", style: TextStyle(fontSize: 34, fontWeight: FontWeight.w600)),
+            ),
+            PlaceholderBar(width: 96, height: 28, radius: 6),
+          ],
         ),
       );
     }

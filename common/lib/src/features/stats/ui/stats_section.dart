@@ -80,8 +80,12 @@ class StatsSectionState extends State<StatsSection> with Disposables {
     }
   }
 
-  Future<void> _loadMore() async {
-    if (_journal.isLoadingMore || !_journal.hasMoreData) return;
+  /// Next page. A failed page waits for the retry tap ([retry]) rather than
+  /// refetching on every scroll, and nothing loads before the first page
+  /// arrives: both start from no cursor and would add the same rows twice.
+  Future<void> _loadMore({bool retry = false}) async {
+    if (!_isReady || _journal.isLoadingMore || !_journal.hasMoreData) return;
+    if (_moreFailed && !retry) return;
 
     print("📊 Fetching more activity entries (current: ${_entries.now.length})");
     _moreFailed = false;
@@ -208,7 +212,7 @@ class StatsSectionState extends State<StatsSection> with Disposables {
                           : _journal.isLoadingMore
                               ? [_buildLoading(context, rows: 2)]
                               : _moreFailed
-                                  ? [_buildError(context, _loadMore)]
+                                  ? [_buildError(context, () => _loadMore(retry: true))]
                                   : []) +
                       [
                         Container(
