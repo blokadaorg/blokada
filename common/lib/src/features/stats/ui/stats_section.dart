@@ -43,6 +43,9 @@ class StatsSectionState extends State<StatsSection> with Disposables {
   // The last load (or the last page) failed; shows an error with a retry.
   bool _failed = false;
   bool _moreFailed = false;
+  // A pull to refresh is loading; rows stay on screen, but no page may load,
+  // as it would start from the old cursor and mix with the fresh first page.
+  bool _refreshing = false;
   // Row keys on screen, and the ones a reload just added, which fade in.
   Set<String> _shownKeys = {};
   Set<String> _freshKeys = {};
@@ -84,7 +87,7 @@ class StatsSectionState extends State<StatsSection> with Disposables {
   /// refetching on every scroll, and nothing loads before the first page
   /// arrives: both start from no cursor and would add the same rows twice.
   Future<void> _loadMore({bool retry = false}) async {
-    if (!_isReady || _journal.isLoadingMore || !_journal.hasMoreData) return;
+    if (!_isReady || _refreshing || _journal.isLoadingMore || !_journal.hasMoreData) return;
     if (_moreFailed && !retry) return;
 
     print("📊 Fetching more activity entries (current: ${_entries.now.length})");
@@ -167,7 +170,12 @@ class StatsSectionState extends State<StatsSection> with Disposables {
       _failed = false;
       _moreFailed = false;
     });
-    await rebuild(null);
+    _refreshing = true;
+    try {
+      await rebuild(null);
+    } finally {
+      _refreshing = false;
+    }
   }
 
   @override

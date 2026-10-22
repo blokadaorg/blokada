@@ -464,6 +464,28 @@ void main() {
       await _unmount(tester);
     });
 
+    testWidgets('no page loads while a refresh is in flight', (tester) async {
+      final journal = await _pumpActivity(tester);
+      journal.more = true;
+      journal.result = [
+        for (var i = 0; i < 30; i++) _entry("ads$i.example.com", UiJournalAction.block),
+      ];
+      await _finish(tester, journal);
+      expect(journal.pageRequests, 0);
+
+      await pullToRefresh(tester);
+      final list = find.byType(Scrollable).first;
+      await tester.drag(list, const Offset(0, -5000));
+      await tester.pump();
+      expect(journal.pageRequests, 0);
+
+      await _finish(tester, journal);
+      await tester.drag(list, const Offset(0, -500));
+      await tester.pump();
+      expect(journal.pageRequests, 1);
+      await _unmount(tester);
+    });
+
     testWidgets('a failed refresh shows the error', (tester) async {
       final journal = await _pumpActivity(tester);
       journal.result = [_entry("ads.example.com", UiJournalAction.block)];
