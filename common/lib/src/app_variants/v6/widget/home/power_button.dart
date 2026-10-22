@@ -237,7 +237,8 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
   void _startPulse() {
     _pulsePending = false;
     unawaited(Haptics.success());
-    animCtrlPulse.forward(from: 0);
+    // Reduce Motion may have come on while the ring was drawing.
+    if (!_reduceMotion) animCtrlPulse.forward(from: 0);
   }
 
   _setState() {
