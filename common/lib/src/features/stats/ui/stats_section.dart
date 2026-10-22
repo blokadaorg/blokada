@@ -3,7 +3,9 @@ import 'package:common/src/features/journal/domain/journal.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/common_divider.dart';
 import 'package:common/src/features/stats/ui/activity_item.dart';
+import 'package:common/src/features/stats/ui/stats_error.dart';
 import 'package:common/src/features/stats/ui/stats_filter_chips.dart';
+import 'package:common/src/shared/ui/placeholder.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/app_variants/family/module/device_v3/device.dart';
@@ -35,6 +37,12 @@ class StatsSectionState extends State<StatsSection> with Disposables {
 
   final ScrollController _scrollController = ScrollController();
   bool _isReady = false;
+  // The last load (or the last page) failed; shows an error with a retry.
+  bool _failed = false;
+  bool _moreFailed = false;
+  // A pull to refresh is reloading: the list is not ready until it is done,
+  // even when the cleared or reloaded entries arrive first.
+  bool _refreshing = false;
 
   bool get _isFreemium {
     return _accountStore.isFreemium;
@@ -69,12 +77,25 @@ class StatsSectionState extends State<StatsSection> with Disposables {
     }
   }
 
-  Future<void> _loadMore() async {
-    if (_journal.isLoadingMore || !_journal.hasMoreData) return;
+  /// Next page. A failed page waits for the retry tap ([retry]) rather than
+  /// refetching on every scroll, and nothing loads before the first page
+  /// arrives: both start from no cursor and would add the same rows twice.
+  Future<void> _loadMore({bool retry = false}) async {
+    if (!_isReady || _refreshing || _journal.isLoadingMore || !_journal.hasMoreData) return;
+    if (_moreFailed && !retry) return;
 
     print("📊 Fetching more activity entries (current: ${_entries.now.length})");
-    await _journal.fetch(Markers.stats, tag: widget.deviceTag, append: true);
-    print("📊 Fetch completed (total: ${_entries.now.length})");
+    _moreFailed = false;
+    try {
+      final fetch = _journal.fetch(Markers.stats, tag: widget.deviceTag, append: true);
+      // Shows the placeholder row while the page loads.
+      if (mounted) setState(() {});
+      await fetch;
+      print("📊 Fetch completed (total: ${_entries.now.length})");
+    } catch (_) {
+      // The fetch logs it.
+      _moreFailed = true;
+    }
 
     // Trigger rebuild to show new entries and update loading indicator
     if (mounted) {
@@ -85,13 +106,28 @@ class StatsSectionState extends State<StatsSection> with Disposables {
   @override
   rebuild(dynamic it) async {
     if (!mounted) return;
-    await _journal.fetch(Markers.stats, tag: widget.deviceTag);
+    try {
+      await _journal.fetch(Markers.stats, tag: widget.deviceTag);
+    } catch (_) {
+      // The fetch logs it.
+      if (mounted) setState(() => _failed = true);
+    }
+  }
+
+  void _retry() {
+    setState(() {
+      _failed = false;
+      _isReady = false;
+    });
+    rebuild(null);
   }
 
   rebuildEntries(dynamic it) {
-    if (!mounted) return;
+    if (!mounted || _refreshing) return;
     setState(() {
       _isReady = true;
+      _failed = false;
+      _moreFailed = false;
     });
 
     // After rebuilding, check if the list is scrollable
@@ -115,15 +151,22 @@ class StatsSectionState extends State<StatsSection> with Disposables {
   }
 
   Future<void> _pullToRefresh() async {
+    _refreshing = true;
     // To make it more obvious visually
     _journal.clear();
     setState(() {
       _isReady = false;
+      _failed = false;
     });
     await sleepAsync(const Duration(milliseconds: 200));
 
-    rebuild(null);
-    rebuildEntries(null);
+    try {
+      await rebuild(null);
+    } finally {
+      _refreshing = false;
+    }
+    // Ready only now; an unchanged result may not notify the listener.
+    if (mounted && !_failed) rebuildEntries(null);
   }
 
   @override
@@ -156,12 +199,20 @@ class StatsSectionState extends State<StatsSection> with Disposables {
                           height: 12,
                         ),
                       ] +
-                      (!_isReady || _entries.now.isEmpty
-                          ? _buildEmpty(context)
-                          : _buildItems(context)) +
-                      (_journal.isLoadingMore
-                          ? [_buildLoadingIndicator(context)]
-                          : []) +
+                      (_failed
+                          ? [_buildError(context, _retry)]
+                          : !_isReady
+                              ? [_buildLoading(context, rows: 8)]
+                              : _entries.now.isEmpty
+                                  ? _buildEmpty(context)
+                                  : _buildItems(context)) +
+                      (_failed || !_isReady
+                          ? []
+                          : _journal.isLoadingMore
+                              ? [_buildLoading(context, rows: 2)]
+                              : _moreFailed
+                                  ? [_buildError(context, () => _loadMore(retry: true))]
+                                  : []) +
                       [
                         Container(
                           decoration: BoxDecoration(
@@ -220,7 +271,7 @@ class StatsSectionState extends State<StatsSection> with Disposables {
         color: context.theme.bgMiniCard,
         child: Center(
           child: Text(
-            (!_isReady || _journal.allEntries.isEmpty)
+            _journal.allEntries.isEmpty
                 ? "universal status waiting for data".i18n
                 : "family search empty".i18n,
             textAlign: TextAlign.center,
@@ -230,13 +281,24 @@ class StatsSectionState extends State<StatsSection> with Disposables {
     ];
   }
 
-  Widget _buildLoadingIndicator(BuildContext context) {
+  // Shaped like [ActivityItem] rows.
+  Widget _buildLoading(BuildContext context, {required int rows}) {
     return Container(
       color: context.theme.bgMiniCard,
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
-      child: const Center(
-        child: CircularProgressIndicator(),
+      child: LoadingPlaceholder.rows(
+        count: rows,
+        rowHeight: 76,
+        leading: 52,
+        dividerIndent: 60,
+        padding: const EdgeInsets.only(left: 12, right: 14),
       ),
+    );
+  }
+
+  Widget _buildError(BuildContext context, VoidCallback onRetry) {
+    return Container(
+      color: context.theme.bgMiniCard,
+      child: StatsError(onRetry: onRetry),
     );
   }
 }
