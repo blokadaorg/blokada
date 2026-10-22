@@ -159,14 +159,14 @@ void main() {
   });
 
   group("start pending", () {
-    Future<(VpnActor, MockVpnChannel)> setUp(Marker m) async {
+    Future<(VpnActor, MockVpnChannel)> setUp(Marker m, {DateTime Function()? now}) async {
       final ops = MockVpnChannel();
       Core.register<VpnChannel>(ops);
       Core.register(CurrentVpnStatusValue());
       Core.register<AppStore>(MockAppStore());
       Core.register<Scheduler>(MockScheduler());
 
-      final subject = VpnActor();
+      final subject = VpnActor(now: now);
       await subject.setActualStatus("deactivated", m);
       return (subject, ops);
     }
@@ -242,6 +242,24 @@ void main() {
 
         await subject.setActualStatus("deactivated", m);
         verifyNever(ops.doSetVpnActive(any));
+      });
+    });
+
+    test("a hold that never comes up expires and recovery resumes", () async {
+      await withTrace((m) async {
+        var now = DateTime(2026, 1, 1, 12);
+        final (subject, ops) = await setUp(m, now: () => now);
+        when(ops.doSetVpnActive(true)).thenThrow(PlatformException(code: "vpnStartPending"));
+        await expectLater(subject.turnVpnOn(m), throwsA(isA<VpnStartPendingException>()));
+        expect(subject.startPending, true);
+
+        now = now.add(VpnActor.startPendingMax + const Duration(seconds: 1));
+        expect(subject.startPending, false);
+
+        // An off report retries the start again.
+        clearInteractions(ops);
+        await subject.setActualStatus("deactivated", m);
+        verify(ops.doSetVpnActive(true)).called(1);
       });
     });
 
