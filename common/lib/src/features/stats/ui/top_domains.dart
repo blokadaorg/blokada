@@ -7,6 +7,7 @@ import 'package:common/src/shared/ui/common_card.dart';
 import 'package:common/src/shared/ui/common_clickable.dart';
 import 'package:common/src/shared/ui/common_divider.dart';
 import 'package:common/src/shared/ui/crossfade.dart';
+import 'package:common/src/shared/ui/motion.dart';
 import 'package:common/src/shared/ui/placeholder.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
@@ -105,6 +106,8 @@ class TopDomainsState extends State<TopDomains> {
             deltaMap[d.name.toLowerCase()] = d;
           }
         }
+        // Bars are sized against the top entry.
+        final topValue = currentDomains.fold<int>(0, (top, e) => e.value > top ? e.value : top);
         final limitedDeltas = <String, ToplistDelta>{};
         for (final entry in currentDomains) {
           if (limitedDeltas.length >= 3) break;
@@ -227,6 +230,7 @@ class TopDomainsState extends State<TopDomains> {
                           for (int i = 0; i < currentDomains.length; i++) ...{
                             _buildDomainItem(
                               currentDomains[i],
+                              share: topValue > 0 ? currentDomains[i].value / topValue : 0,
                               delta: limitedDeltas[_normalized(currentDomains[i])],
                               isHighlighted: highlightVisible &&
                                   _normalized(currentDomains[i]) == highlightName,
@@ -259,7 +263,10 @@ class TopDomainsState extends State<TopDomains> {
   }
 
   Widget _buildDomainItem(UiToplistEntry entry,
-      {ToplistDelta? delta, bool isHighlighted = false, bool isSelected = false}) {
+      {required double share,
+      ToplistDelta? delta,
+      bool isHighlighted = false,
+      bool isSelected = false}) {
     final domainName = entry.company ?? entry.tld ?? "Unknown";
 
     // Selection tint wraps the clickable so it covers the full row
@@ -288,7 +295,22 @@ class TopDomainsState extends State<TopDomains> {
       // Matches the pre-refactor box: the clickable's default 12pt plus the
       // old inner paddings (4+6 vertical, 12 trailing).
       padding: const EdgeInsets.only(left: 12, right: 24, top: 22, bottom: 22),
-      child: Row(
+      // The bar sits in the row's bottom padding, so rows keep their height.
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Positioned(
+            // From the domain name to the count: past the 26pt delta slot,
+            // and short of the 24pt chevron.
+            left: 26,
+            right: 24,
+            bottom: -12,
+            child: _ShareBar(
+              share: share,
+              color: entry.blocked ? context.theme.textBlocked : context.theme.textAllowed,
+            ),
+          ),
+          Row(
             children: [
               if (delta != null && delta.type != ToplistDeltaType.same) ...[
                 SizedBox(
@@ -356,6 +378,8 @@ class TopDomainsState extends State<TopDomains> {
                 size: 16,
               ),
             ],
+          ),
+        ],
       ),
       ),
     );
@@ -401,6 +425,43 @@ class TopDomainsState extends State<TopDomains> {
           ),
         ),
       ),
+    );
+  }
+}
+
+/// A thin bar under a toplist row, as wide as the row's [share] of the top
+/// entry, so the counts compare at a glance. Grows in when the list appears
+/// (a new range or tab); with Reduce Motion it is drawn at its width.
+class _ShareBar extends StatelessWidget {
+  static const duration = Duration(milliseconds: 600);
+
+  final double share;
+  final Color color;
+
+  const _ShareBar({required this.share, required this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    Widget bar(double factor) => Align(
+      alignment: AlignmentDirectional.centerStart,
+      child: FractionallySizedBox(
+        widthFactor: factor.clamp(0.0, 1.0),
+        child: Container(
+          height: 3,
+          decoration: BoxDecoration(
+            color: color.withOpacity(0.25),
+            borderRadius: BorderRadius.circular(1.5),
+          ),
+        ),
+      ),
+    );
+
+    if (Motion.reduced(context)) return bar(share);
+    return TweenAnimationBuilder<double>(
+      tween: Tween(begin: 0, end: share),
+      duration: duration,
+      curve: Curves.easeOutCubic,
+      builder: (context, value, _) => bar(value),
     );
   }
 }

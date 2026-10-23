@@ -1,5 +1,6 @@
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
+import 'package:common/src/features/stats/domain/controller.dart';
 import 'package:common/src/platform/stats/model.dart';
 import 'package:common/src/platform/stats/delta_store.dart';
 import 'package:common/src/platform/stats/stats.dart';
@@ -15,6 +16,7 @@ class PrivacyPulseCharts extends StatelessWidget {
   final DailySeries? sparklineSeries;
   final bool statsReady;
   final bool deltaReady;
+  final ToplistRange range;
 
   /// Drawn instead of the charts when their numbers failed to load.
   final Widget? error;
@@ -28,6 +30,7 @@ class PrivacyPulseCharts extends StatelessWidget {
     this.sparklineSeries,
     this.statsReady = true,
     this.deltaReady = true,
+    this.range = ToplistRange.daily,
     this.error,
   }) : super(key: key);
 
@@ -81,6 +84,7 @@ class PrivacyPulseCharts extends StatelessWidget {
         error ??
             HorizontalRadialSegment(
               stats: stats,
+              range: range,
               counters: counters,
               counterDelta: counterDelta,
               sparklineSeries: sparklineSeries,
