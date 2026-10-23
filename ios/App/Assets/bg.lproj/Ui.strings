@@ -1090,7 +1090,7 @@
 "home power button state on" = "Включена";
 "home power button state off" = "Изключена";
 // Support chat card that asks before sending the app log, and the note left after it was sent
-"support share log title" = "Да споделим ли дневника на приложението?";
+"support share log title" = "Да се подели ли дневника на приложението?";
 "support share log body" = "Ще се изпрати последния дневник на приложението, който може да съдържа данни за устройството и настройките.";
 "support share log done" = "Дневникът на Блокада е изпратен";
 "support share log declined" = "Дневникът на Блокада не е изпратен";
@@ -1121,19 +1121,19 @@
 "bypass list header" = "Заобиколени приложения";
 
 // Sheet for free users whose blocklists haven't been updated for a while
-"freemium refresh header" = "Update your filters";
-"freemium refresh brief" = "It's been a while since you updated your ad-block filters. Fetch them now to ensure you have the latest rules and improvements.";
+"freemium refresh header" = "Актуализирайте филтрите си";
+"freemium refresh brief" = "Мина известно време, откакто актуализирахте филтрите си за блокиране на реклами. Изтеглете ги сега, за да сте сигурни, че имате най-новите правила и подобрения.";
 // Status line of the same sheet: done / in progress / not started yet
-"freemium refresh status done" = "Filters updated successfully";
-"freemium refresh status updating" = "Updating filters...";
-"freemium refresh status ready" = "Ready for an update";
+"freemium refresh status done" = "Филтрите са актуализирани успешно";
+"freemium refresh status updating" = "Актуализиране на филтрите...";
+"freemium refresh status ready" = "Готови за актуализация";
 // Buttons of the same sheet
-"freemium refresh action update" = "Update now";
-"freemium refresh action upgrade" = "Upgrade for automatic updates";
+"freemium refresh action update" = "Актуализирайте сега";
+"freemium refresh action upgrade" = "Надградете за автоматични актуализации";
 
 // Pause menu on Home: pausing turns off ad blocking account-wide, not just on this phone
-"home power pause scope" = "Pauses ad blocking on all devices using this account";
+"home power pause scope" = "Спира блокирането на реклами на всички устройства, използващи този акаунт";
 // Home status when ad blocking was paused on another device of the same account
-"home status paused elsewhere" = "Paused from another device";
+"home status paused elsewhere" = "Спряно от друго устройство";
 // Short action to turn ad blocking back on after a pause
-"universal action resume" = "Resume";
+"universal action resume" = "Възобновявяне";
