@@ -18,6 +18,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:common/src/shared/ui/nav_bar_button.dart';
 
 class LinkDeviceSheet extends StatefulWidget {
   final JsonDevice? device;
@@ -287,13 +288,10 @@ class LinkDeviceSheetState extends State<LinkDeviceSheet> with Logging {
                     ? "family device header add".i18n
                     : "family device header link".i18n,
                 animateBg: true,
-                trailing: GestureDetector(
+                trailing: NavBarButton(
                   onTap: () => Navigator.of(context).pop(),
-                  child: CommonClickable(
-                    onTap: () => Navigator.of(context).pop(),
-                    child: Text("universal action cancel".i18n,
-                        style: TextStyle(color: context.theme.accent)),
-                  ),
+                  child: Text("universal action cancel".i18n,
+                      style: TextStyle(color: context.theme.accent)),
                 ),
               ),
             ),

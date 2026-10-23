@@ -2,7 +2,6 @@ import 'package:common/src/app_variants/v6/module/attach/attach.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/features/api/domain/api.dart';
 import 'package:common/src/shared/automation/ids.dart';
-import 'package:common/src/shared/ui/common_clickable.dart';
 import 'package:common/src/shared/ui/dialog.dart';
 import 'package:common/src/shared/ui/minicard/minicard.dart';
 import 'package:common/src/shared/ui/theme.dart';
@@ -10,6 +9,7 @@ import 'package:common/src/shared/ui/top_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:common/src/shared/ui/nav_bar_button.dart';
 
 /// Offers the two ways to hand this account over to another device: open the
 /// link right here (when the other device is this one's browser) or share it
@@ -146,7 +146,7 @@ class AttachSheetState extends State<AttachSheet> with Logging {
                 // room for it; the bar only holds the way out.
                 title: "",
                 animateBg: true,
-                trailing: CommonClickable(
+                trailing: NavBarButton(
                   // Not while a link is being minted: the tap would still
                   // open the browser or the share sheet once the token
                   // arrived, with no sheet left on screen.

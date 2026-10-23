@@ -11,6 +11,7 @@ import 'package:common/src/shared/ui/dialog.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:common/src/shared/ui/nav_bar_button.dart';
 
 /// Modal sheet for creating or editing a single [RuleModel].
 ///
@@ -23,9 +24,10 @@ import 'package:flutter/material.dart';
 /// edit — the delete button is hidden when null.
 class RuleEditorSheet extends StatefulWidget {
   final DeviceTag deviceTag;
-  /// Display name of the device this rule belongs to. Rendered next to
-  /// the AppBar's back chevron so the nav matches the iOS-standard
-  /// "back to <previous screen>" convention used by the blocklist view.
+  /// Display name of the device this rule belongs to, i.e. where back goes.
+  /// Android prints it next to the back chevron; iOS shows a bare chevron
+  /// and keeps the name only as the back button's accessibility value, so
+  /// VoiceOver still reads the destination.
   final String deviceName;
   final RuleModel? initialRule;
   final List<JsonProfile> availableProfiles;
@@ -432,7 +434,7 @@ class _RuleEditorSheetState extends State<RuleEditorSheet> {
                 color: context.theme.textPrimary,
                 fontSize: 17,
                 fontWeight: FontWeight.w600)),
-        trailing: CommonClickable(
+        trailing: NavBarButton(
           key: const Key('rule_editor_save'),
           // Pass null when the gate is closed so the press highlight
           // also suppresses — a no-op closure animates the tap and

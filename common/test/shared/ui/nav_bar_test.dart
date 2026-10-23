@@ -1,0 +1,142 @@
+import 'package:common/src/shared/automation/ids.dart';
+import 'package:common/src/shared/ui/back_title_nav_bar.dart';
+import 'package:common/src/shared/ui/nav_bar_button.dart';
+import 'package:common/src/shared/ui/theme.dart';
+import 'package:common/src/shared/ui/top_bar.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart';
+
+import '../../tools.dart';
+
+Widget _wrapOn(TargetPlatform platform, Widget child) => MaterialApp(
+      theme: ThemeData(
+        platform: platform,
+        extensions: const [
+          BlokadaTheme(
+            bgColor: Colors.black,
+            bgColorHome1: Colors.black,
+            bgColorHome2: Colors.black,
+            bgColorHome3: Colors.black,
+            bgColorCard: Colors.black,
+            panelBackground: Colors.black,
+            cloud: Colors.blue,
+            accent: Colors.blue,
+            freemium: Colors.orange,
+            shadow: Colors.black,
+            bgMiniCard: Colors.black,
+            textPrimary: Colors.white,
+            textSecondary: Colors.white70,
+            divider: Colors.grey,
+          ),
+        ],
+      ),
+      home: Scaffold(body: child),
+    );
+
+Widget _commonBar(TargetPlatform platform) {
+  final ctrl = TopBarController()
+    ..nav = ['Home', 'Settings']
+    ..show = 1.0;
+  return _wrapOn(
+    platform,
+    ChangeNotifierProvider.value(value: ctrl, child: const TopCommonBar()),
+  );
+}
+
+Decoration? _decorationAround(WidgetTester tester, Finder child) {
+  final container = tester.widget<Container>(
+      find.ancestor(of: child, matching: find.byType(Container)).first);
+  return container.decoration;
+}
+
+void main() {
+  group('TopCommonBar', () {
+    testWidgets('iOS shows the chevron alone and names the destination for screen readers',
+        (tester) async {
+      await withTrace((_) async {
+        final semantics = tester.ensureSemantics();
+        await tester.pumpWidget(_commonBar(TargetPlatform.iOS));
+
+        expect(find.text('Home'), findsNothing);
+        expect(find.bySemanticsIdentifier(AutomationIds.navBack), findsOneWidget);
+        expect(tester.getSemantics(find.byType(NavBarBackButton)),
+            containsSemantics(value: 'Home', isButton: true, hasTapAction: true));
+        semantics.dispose();
+      });
+    });
+
+    testWidgets('Android keeps the previous title label', (tester) async {
+      await withTrace((_) async {
+        await tester.pumpWidget(_commonBar(TargetPlatform.android));
+
+        expect(find.text('Home'), findsOneWidget);
+        expect(find.byIcon(Icons.arrow_back_ios), findsOneWidget);
+      });
+    });
+  });
+
+  group('BackTitleNavBar', () {
+    Widget bar(TargetPlatform platform, VoidCallback onBack) => _wrapOn(
+          platform,
+          BackTitleNavBar(
+            previousPageTitle: 'Kid phone',
+            backKey: const Key('back'),
+            onBackTap: onBack,
+            title: const Text('Edit rule'),
+          ),
+        );
+
+    testWidgets('iOS drops the back label but keeps the tap and the destination',
+        (tester) async {
+      await withTrace((_) async {
+        final semantics = tester.ensureSemantics();
+        var tapped = false;
+        await tester.pumpWidget(bar(TargetPlatform.iOS, () => tapped = true));
+
+        expect(find.text('Kid phone'), findsNothing);
+        expect(tester.getSemantics(find.byKey(const Key('back'))),
+            containsSemantics(value: 'Kid phone', isButton: true));
+        await tester.tap(find.byKey(const Key('back')));
+        // Let the press highlight reset before the tree is torn down.
+        await tester.pump(const Duration(milliseconds: 200));
+        expect(tapped, isTrue);
+        semantics.dispose();
+      });
+    });
+
+    testWidgets('Android keeps the back label', (tester) async {
+      await withTrace((_) async {
+        await tester.pumpWidget(bar(TargetPlatform.android, () {}));
+
+        expect(find.text('Kid phone'), findsOneWidget);
+      });
+    });
+  });
+
+  group('NavBarButton', () {
+    Widget button(TargetPlatform platform) =>
+        _wrapOn(platform, Center(child: NavBarButton(onTap: () {}, child: const Text('Add'))));
+
+    testWidgets('iOS draws a superellipse bubble', (tester) async {
+      await withTrace((_) async {
+        await tester.pumpWidget(button(TargetPlatform.iOS));
+
+        final decoration = _decorationAround(tester, find.text('Add'));
+        expect(decoration, isA<ShapeDecoration>());
+        expect((decoration as ShapeDecoration).shape, isA<RoundedSuperellipseBorder>());
+        expect(decoration.color, isNotNull);
+      });
+    });
+
+    testWidgets('Android keeps the plain rounded press highlight', (tester) async {
+      await withTrace((_) async {
+        await tester.pumpWidget(button(TargetPlatform.android));
+
+        final decoration = _decorationAround(tester, find.text('Add'));
+        expect(decoration, isA<BoxDecoration>());
+        expect((decoration as BoxDecoration).color, isNull);
+      });
+    });
+  });
+}

@@ -12,6 +12,12 @@ class CommonClickable extends StatefulWidget {
   final Color? bgColor;
   final Color? tapBgColor;
   final BorderRadius? tapBorderRadius;
+
+  /// Outline for the fill and press highlight, replacing the rounded
+  /// rectangle of [tapBorderRadius]. Exists so bar buttons on iOS can take
+  /// the system's superellipse bubble while every other caller keeps the
+  /// rectangle.
+  final OutlinedBorder? shape;
   final Widget child;
 
   const CommonClickable({
@@ -22,6 +28,7 @@ class CommonClickable extends StatefulWidget {
     this.bgColor,
     this.tapBgColor,
     this.tapBorderRadius,
+    this.shape,
   });
 
   @override
@@ -59,6 +66,7 @@ class CommonClickableState extends State<CommonClickable> {
   @override
   Widget build(BuildContext context) {
     final disabled = widget.onTap == null;
+    final color = pressed ? (widget.tapBgColor ?? pressColor(context)) : widget.bgColor;
     return GestureDetector(
       // When disabled, suppress every gesture callback so the press
       // highlight doesn't fire either — a no-op `onTap` would still let
@@ -72,10 +80,12 @@ class CommonClickableState extends State<CommonClickable> {
       child: AnimatedContainer(
         duration: pressed ? _pressHighlightDuration : _releaseHighlightDuration,
         curve: Curves.easeInOut,
-        decoration: BoxDecoration(
-          borderRadius: widget.tapBorderRadius ?? BorderRadius.circular(12),
-          color: pressed ? (widget.tapBgColor ?? pressColor(context)) : widget.bgColor,
-        ),
+        decoration: widget.shape != null
+            ? ShapeDecoration(shape: widget.shape!, color: color)
+            : BoxDecoration(
+                borderRadius: widget.tapBorderRadius ?? BorderRadius.circular(12),
+                color: color,
+              ),
         child: Padding(padding: widget.padding ?? const EdgeInsets.all(12.0), child: widget.child),
       ),
     );

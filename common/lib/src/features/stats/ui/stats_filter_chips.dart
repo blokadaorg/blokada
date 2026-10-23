@@ -4,6 +4,7 @@ import 'package:common/src/features/stats/ui/stats_filter.dart';
 import 'package:common/src/shared/ui/common_clickable.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:common/src/shared/ui/nav_bar_button.dart';
 
 /// One active, non-default field of the journal filter, and how to reset it.
 class StatsFilterChipData {
@@ -137,13 +138,13 @@ class StatsFilterActionState extends State<StatsFilterAction> with Disposables {
     final filtered = statsFilterChips(_filter.now).isNotEmpty;
     return Semantics(
       selected: filtered,
-      child: CommonClickable(
+      child: NavBarButton(
         onTap: () {
           showStatsFilterDialog(context, onConfirm: (filter) {
             _filter.now = filter;
           });
         },
-        bgColor: filtered ? context.theme.selection : null,
+        selected: filtered,
         child: Text(
           "universal action search".i18n,
           style: context.theme.linkStyle(
