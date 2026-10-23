@@ -9,6 +9,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ActivityItem extends StatefulWidget {
+  /// Status shield size; small so the log reads as a list, not an alarm.
+  static const double iconSize = 24;
+
+  /// Height of a row at the default text size; loading placeholders match it.
+  static const double rowHeight = 56;
+  static const double rowPadding = 8;
+
   final UiJournalEntry entry;
 
   const ActivityItem({
@@ -30,64 +37,84 @@ class ActivityItemState extends State<ActivityItem> {
         selectionArguments.domainName == widget.entry.domainName &&
         selectionArguments.timestamp == widget.entry.timestamp;
 
+    final blocked = widget.entry.isBlocked();
+    final status = blocked ? "stats label blocked".i18n : "stats label allowed".i18n;
+    final subtitle = widget.entry.requests > 1
+        ? "${widget.entry.timestampText} · ${_getActionString()}"
+        : widget.entry.timestampText;
+
+    // One spoken label in a fixed order: domain, blocked or allowed, time.
     return MergeSemantics(
       child: Semantics(
         identifier: AutomationIds.activityItem,
         button: true,
+        label: "${widget.entry.domainName}\n$status\n$subtitle",
         child: Container(
           // Unified list-selection style: full-row square tint in the
           // shared accent-derived selection color.
           color: isSelected ? context.theme.selection : null,
           child: CommonClickable(
-      onTap: () {
-        Navigation.open(Paths.deviceStatsDetail, arguments: widget.entry);
-      },
-      tapBorderRadius: BorderRadius.zero,
-      padding: const EdgeInsets.only(top: 12, bottom: 12, left: 0, right: 8),
-      child: Opacity(
-        opacity: widget.entry.modified ? 0.5 : 1,
-        child: Row(
-          children: [
-            const SizedBox(width: 12),
-            Icon(
-                widget.entry.isBlocked()
-                    ? CupertinoIcons.xmark_shield_fill
-                    : CupertinoIcons.checkmark_shield_fill,
-                color: widget.entry.isBlocked() ? Colors.red : Colors.green,
-                semanticLabel: widget.entry.isBlocked()
-                    ? "stats label blocked".i18n
-                    : "stats label allowed".i18n,
-                size: 52),
-            const SizedBox(width: 6),
-            Expanded(
-              flex: 1,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(middleEllipsis(widget.entry.domainName),
-                      style: const TextStyle(fontSize: 18), overflow: TextOverflow.clip),
-                  Text(
-                    widget.entry.timestampText,
-                    style: TextStyle(color: context.theme.textSecondary, fontSize: 12),
+            onTap: () {
+              Navigation.open(Paths.deviceStatsDetail, arguments: widget.entry);
+            },
+            tapBorderRadius: BorderRadius.zero,
+            padding: const EdgeInsets.symmetric(vertical: ActivityItem.rowPadding),
+            child: ExcludeSemantics(
+              child: Opacity(
+                opacity: widget.entry.modified ? 0.5 : 1,
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(
+                    minHeight: ActivityItem.rowHeight - 2 * ActivityItem.rowPadding,
                   ),
-                  if (widget.entry.requests > 1)
-                    Text(
-                      _getActionString(),
-                      style: TextStyle(color: context.theme.textSecondary, fontSize: 12),
-                    ),
-                ],
+                  child: Row(
+                    children: [
+                      const SizedBox(width: 12),
+                      Expanded(
+                        flex: 1,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              middleEllipsis(widget.entry.domainName, maxLength: 32),
+                              style: const TextStyle(fontSize: 16),
+                              // One line each, so the row stays the placeholder's height.
+                              maxLines: 1,
+                              overflow: TextOverflow.clip,
+                            ),
+                            Text(
+                              subtitle,
+                              style: TextStyle(color: context.theme.textSecondary, fontSize: 12),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      // Small, after the domain: the shield is a status, not the
+                      // headline. The cross or check inside it keeps blocked and
+                      // allowed apart without relying on colour.
+                      Icon(
+                        blocked
+                            ? CupertinoIcons.xmark_shield_fill
+                            : CupertinoIcons.checkmark_shield_fill,
+                        color: blocked ? Colors.red : Colors.green,
+                        size: ActivityItem.iconSize,
+                      ),
+                      const SizedBox(width: 8),
+                      Icon(
+                        CupertinoIcons.right_chevron,
+                        color: context.theme.textSecondary,
+                        size: 16,
+                      ),
+                      const SizedBox(width: 8),
+                    ],
+                  ),
+                ),
               ),
             ),
-            Icon(
-              CupertinoIcons.right_chevron,
-              color: context.theme.textPrimary,
-              size: 20,
-            ),
-            const SizedBox(width: 6),
-          ],
-        ),
-      ),
-        ),
+          ),
         ),
       ),
     );

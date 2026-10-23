@@ -1,10 +1,10 @@
 import 'package:common/src/shared/ui/dialog.dart';
-import 'package:common/src/shared/ui/common_clickable.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/features/plus/domain/bypass/bypass.dart';
 import 'package:common/src/features/plus/ui/vpn_bypass_item.dart';
 import 'package:flutter/material.dart';
+import 'package:common/src/shared/ui/nav_bar_button.dart';
 
 class BypassAddDialog with Logging {
   late final _bypass = Core.get<BypassActor>();
@@ -12,7 +12,7 @@ class BypassAddDialog with Logging {
   late final TextEditingController _ctrl = TextEditingController(text: "");
 
   Widget? getBypassAction(BuildContext context) {
-    return CommonClickable(
+    return NavBarButton(
         onTap: () {
           _showAddBypassDialog(context, apps: _bypass.allApps,
               onConfirm: (entry) async {

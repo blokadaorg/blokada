@@ -2,6 +2,7 @@ import 'dart:ui' as ui;
 
 import 'package:common/src/core/core.dart';
 import 'package:common/src/shared/ui/common_clickable.dart';
+import 'package:common/src/shared/ui/nav_bar_button.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,9 @@ import 'package:flutter/material.dart';
 ///
 /// Falls back to the universal "Back" label when [previousPageTitle] is
 /// null, so a caller that doesn't know the previous screen's name still
-/// gets a sensible back-row instead of a bare chevron.
+/// gets a sensible back-row instead of a bare chevron. On iOS the row is
+/// the bare chevron in a bubble, as iOS 26 draws it, and the previous
+/// title is only read out by screen readers.
 class BackTitleNavBar extends StatelessWidget
     implements PreferredSizeWidget {
   final String? previousPageTitle;
@@ -58,6 +61,7 @@ class BackTitleNavBar extends StatelessWidget
     // ink-style interactions inside (the back row's CommonClickable
     // press highlight) keep working.
     final fill = (backgroundColor ?? context.theme.bgColor).withOpacity(0.78);
+    final iosStyle = useIosBarStyle(context);
     return ClipRect(
       child: BackdropFilter(
         filter: ui.ImageFilter.blur(sigmaX: 18, sigmaY: 18),
@@ -81,35 +85,50 @@ class BackTitleNavBar extends StatelessWidget
                 // nor a long trailing action can overrun the centred
                 // title. The back label ellipsises within this cap.
                 final sideMax = constraints.maxWidth * 0.45;
+                final onBack =
+                    onBackTap ?? () => Navigator.of(context).maybePop();
                 final leading = Align(
                   alignment: Alignment.centerLeft,
-                  child: CommonClickable(
-                    key: backKey,
-                    onTap:
-                        onBackTap ?? () => Navigator.of(context).maybePop(),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8, vertical: 10),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(CupertinoIcons.chevron_back,
-                            color: context.theme.link, size: 22),
-                        const SizedBox(width: 2),
-                        Flexible(
-                          child: Text(backText,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              style: context.theme.linkStyle(
-                                  const TextStyle(fontSize: 17),
-                                  underline: false)),
+                  child: iosStyle
+                      ? Padding(
+                          padding: const EdgeInsets.only(left: 8),
+                          child: NavBarBackButton(
+                            key: backKey,
+                            onTap: onBack,
+                            destination: previousPageTitle,
+                          ),
+                        )
+                      : CommonClickable(
+                          key: backKey,
+                          onTap: onBack,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 10),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(CupertinoIcons.chevron_back,
+                                  color: context.theme.link, size: 22),
+                              const SizedBox(width: 2),
+                              Flexible(
+                                child: Text(backText,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    style: context.theme.linkStyle(
+                                        const TextStyle(fontSize: 17),
+                                        underline: false)),
+                              ),
+                            ],
+                          ),
                         ),
-                      ],
-                    ),
-                  ),
                 );
-                final trailingChild = Align(
-                  alignment: Alignment.centerRight,
-                  child: trailing ?? const SizedBox.shrink(),
+                // On iOS the bubbles keep off the screen edge, as the back
+                // bubble does on the leading side.
+                final trailingChild = Padding(
+                  padding: EdgeInsets.only(right: iosStyle ? 8 : 0),
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: trailing ?? const SizedBox.shrink(),
+                  ),
                 );
                 // Reserve a symmetric inset on both sides so the centred
                 // title never runs under either action. Cap it at 40% of

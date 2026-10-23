@@ -820,9 +820,10 @@ void main() {
   });
 
   testWidgets(
-      'AppBar leading shows the device name; trailing shows Save',
+      'AppBar back chevron names the device for screen readers; trailing shows Save',
       (tester) async {
     await withTrace((_) async {
+      final semantics = tester.ensureSemantics();
       await tester.pumpWidget(_wrap(RuleEditorSheet(
         deviceTag: 'tag1',
         deviceName: 'Beaver',
@@ -837,9 +838,11 @@ void main() {
       )));
       await tester.pump();
 
-      // Device name renders next to the back chevron — the "back to
-      // previous screen" iOS pattern.
-      expect(find.text('Beaver'), findsOneWidget);
+      // iOS 26 draws a bare back chevron, so the device name is no longer
+      // on screen; screen readers still announce where back goes.
+      expect(find.text('Beaver'), findsNothing);
+      expect(tester.getSemantics(find.byKey(const Key('rule_editor_back'))),
+          containsSemantics(value: 'Beaver', isButton: true));
       // Centered title is the screen name (i18n key in test env).
       expect(find.text('family schedule rule editor title new'),
           findsOneWidget);
@@ -849,6 +852,7 @@ void main() {
       // pop to assert — the test wrapper has no parent route — but the
       // tap target must exist for the screen to be dismissible).
       expect(find.byKey(const Key('rule_editor_back')), findsOneWidget);
+      semantics.dispose();
     });
   });
 
