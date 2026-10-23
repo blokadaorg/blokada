@@ -42,6 +42,10 @@ class ToplistRangeValue extends Value<ToplistRange> {
   ToplistRangeValue() : super(load: () => ToplistRange.daily);
 }
 
+class CollectingValue extends Value<bool> {
+  CollectingValue() : super(load: () => false);
+}
+
 /// The Privacy Pulse chart numbers for the selected range.
 class PulseCounters {
   final StatsCounters counters;
@@ -132,6 +136,11 @@ class StatsController with Logging, Actor {
   /// The range Pulse shows.
   final range = ToplistRangeValue();
 
+  /// True from the moment activity logging is turned on here until the first
+  /// results show up, so empty lists say they are coming instead of that
+  /// there is nothing. Not kept across restarts.
+  final collecting = CollectingValue();
+
   Timer? _homeTimer;
   int _pulseViews = 0;
   StreamSubscription? _journalSub;
@@ -215,6 +224,20 @@ class StatsController with Logging, Actor {
     await Future.wait([_loadCounters(m, force: true), _loadDeltas(m, next), _loadToplists(m)]);
   }
 
+  /// Turns activity logging on (retention "24h"). Logging is off by default;
+  /// this is the one-tap opt-in from the logging-off preview.
+  Future<void> enableLogging(Marker m) async {
+    return await log(m).trace("enableLogging", (m) async {
+      collecting.now = true;
+      try {
+        await _device.setRetention("24h", m);
+      } catch (_) {
+        collecting.now = false;
+        rethrow;
+      }
+    });
+  }
+
   /// Retries a section, usually one showing an error.
   Future<void> retry(Marker m, StatsPart part) async {
     switch (part) {
@@ -240,6 +263,7 @@ class StatsController with Logging, Actor {
   }
 
   Future<void> _onDeviceChanged(Marker m) async {
+    if (collecting.now && _device.retention != "24h") collecting.now = false;
     final alias = _device.deviceAlias;
     if (alias.isEmpty || alias == _lastAlias) return;
     _lastAlias = alias;
@@ -349,6 +373,7 @@ class StatsController with Logging, Actor {
         await _store.fetchToplists(m, range: selected.api);
         if (gen != _toplistsGen || _renamed(deviceName)) return;
         _toplistEntries = _store.stats.toplist;
+        if (_toplistEntries.isNotEmpty) collecting.now = false;
         _publishToplists(_toplistEntries.isEmpty ? StatsStatus.empty : StatsStatus.ready);
       } catch (e, s) {
         log(m).e(msg: "stats: toplists failed", err: e, stack: s);
@@ -381,6 +406,7 @@ class StatsController with Logging, Actor {
       ]);
       final preview = RecentPreview(blocked: results[0], allowed: results[1]);
       final empty = preview.blocked.isEmpty && preview.allowed.isEmpty;
+      if (!empty) collecting.now = false;
       if (!_renamed(deviceName)) {
         recent.now = StatsSection(empty ? StatsStatus.empty : StatsStatus.ready, preview);
       }

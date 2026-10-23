@@ -1,5 +1,5 @@
 import 'package:common/src/core/core.dart';
-import 'package:common/src/features/settings/ui/retention_section.dart';
+import 'package:common/src/features/stats/ui/logging_preview.dart';
 import 'package:common/src/features/stats/ui/stats_section.dart';
 import 'package:common/src/features/payment/domain/payment.dart';
 import 'package:common/src/platform/account/account.dart';
@@ -16,8 +16,8 @@ import 'package:mobx/mobx.dart';
 
 /// v6 activity journal. With retention enabled (or freemium sample data)
 /// the journal is the master pane and tapped domains render alongside it
-/// on expanded windows; without retention it renders the retention
-/// opt-in alone. The search action belongs to the journal list, so it
+/// on expanded windows; without retention it shows sample rows behind the
+/// offer to turn activity logging on. The search action belongs to the journal list, so it
 /// shows in both layout modes regardless of the pane content.
 class ActivityScreen extends StatefulWidget {
   const ActivityScreen({Key? key}) : super(key: key);
@@ -64,7 +64,9 @@ class ActivityScreenState extends State<ActivityScreen> with Logging {
         identifier: AutomationIds.screenActivity,
         child: WithTopBar(
           title: "main tab activity".i18n,
-          child: const RetentionSection(),
+          overlay: const LoggingOffer(),
+          // Made up, so screen readers and automation skip it.
+          child: const ExcludeSemantics(child: SampleActivityList()),
         ),
       );
     }

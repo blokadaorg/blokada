@@ -51,6 +51,8 @@ class BlurBackgroundState extends State<BlurBackground> with TickerProviderState
 
     // Show the view soon after creating
     Future.delayed(const Duration(milliseconds: 1), () {
+      // Gone already, like a gate removed as soon as it was shown.
+      if (!mounted) return;
       setState(() {
         _opacity = 1.0;
       });

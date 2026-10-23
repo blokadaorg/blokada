@@ -29,6 +29,10 @@ class TopDomains extends StatefulWidget {
   final ToplistRange range;
   final StatsSection<PulseToplists> section;
   final VoidCallback onRetry;
+
+  /// Logging was just turned on: an empty list says results are coming.
+  final bool collecting;
+
   const TopDomains({
     super.key,
     this.headerKey,
@@ -36,6 +40,7 @@ class TopDomains extends StatefulWidget {
     required this.range,
     required this.section,
     required this.onRetry,
+    this.collecting = false,
   });
 
   @override
@@ -418,7 +423,7 @@ class TopDomainsState extends State<TopDomains> {
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 24),
       child: Center(
         child: Text(
-          "privacy pulse empty".i18n,
+          widget.collecting ? "activity logging collecting".i18n : "privacy pulse empty".i18n,
           style: TextStyle(
             color: context.theme.textSecondary,
             fontSize: 16,

@@ -21,7 +21,15 @@ class RecentActivity extends StatefulWidget {
   final StatsSection<RecentPreview> section;
   final VoidCallback onRetry;
 
-  const RecentActivity({super.key, required this.section, required this.onRetry});
+  /// Logging was just turned on: an empty list says results are coming.
+  final bool collecting;
+
+  const RecentActivity({
+    super.key,
+    required this.section,
+    required this.onRetry,
+    this.collecting = false,
+  });
 
   @override
   State<StatefulWidget> createState() => RecentActivityState();
@@ -242,7 +250,7 @@ class RecentActivityState extends State<RecentActivity>
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 24),
       child: Center(
         child: Text(
-          "privacy pulse empty".i18n,
+          widget.collecting ? "activity logging collecting".i18n : "privacy pulse empty".i18n,
           style: TextStyle(
             color: context.theme.textSecondary,
             fontSize: 16,

@@ -35,6 +35,8 @@ class AutomationIds {
   static const settingsWeeklyReport = 'automation.settings_weekly_report';
   static const settingsSupport = 'automation.settings_support';
   static const retentionToggle = 'automation.retention_toggle';
+  // Turns activity logging on from the sample Pulse and Activity shown while it is off.
+  static const loggingEnable = 'automation.logging_enable';
 
   // Exceptions sub-page controls (so exploration can switch tabs and open a
   // domain row to reach the domain-detail level instead of guessing labels).
