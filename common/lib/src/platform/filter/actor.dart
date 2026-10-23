@@ -32,6 +32,10 @@ class PlatformFilterActor with Logging, Actor {
   // moved it; restored with the selection if the save fails. Null: unchanged.
   ({String? tag})? _unsavedPick;
 
+  // Counts saves started, so a save that fails after a newer one started
+  // leaves the rollback to that newer save.
+  int _saveCount = 0;
+
   PlatformFilterActor({Duration debounce = const Duration(seconds: 1)})
       : _debounce = Debounce(debounce);
 
@@ -246,6 +250,7 @@ class PlatformFilterActor with Logging, Actor {
   /// an error toast replaces the confirmation and the switches go back to
   /// what is saved.
   Future<void> _save(List<String> lists, Marker m) async {
+    final save = ++_saveCount;
     final before = _unsaved;
     final pickBefore = _unsavedPick;
     _unsaved = null;
@@ -259,9 +264,9 @@ class PlatformFilterActor with Logging, Actor {
       // apply and retry them in a loop.
       if (before == null) return;
       _toast.showError("toast save failed".i18n);
-      // A toggle made while this save was in flight is pending with the full
-      // selection; rolling back now would drop it, so its save goes ahead.
-      if (_unsaved != null) return;
+      // A toggle made while this save was in flight is pending or already
+      // saved with the full selection; rolling back now would undo it.
+      if (_unsaved != null || save != _saveCount) return;
       try {
         await _restoreSaved(before, m);
         if (pickBefore != null) await _mainPick.change(m, pickBefore.tag);

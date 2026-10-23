@@ -28,7 +28,7 @@ const _nsfw = "id-oisd-nsfw";
 
 /// Stands in for the v2 device endpoint: PUT stores the lists, GET returns
 /// them. [fail] makes every PUT reject like a failed request, [failNext] only
-/// that many, [failGet] the GET, and [gate] holds a PUT until completed.
+/// that many, [failGet] the GET, and [gate] holds the next PUT until completed.
 class _FakeDeviceApi extends DeviceApi {
   bool fail = false;
   int failNext = 0;
@@ -57,11 +57,13 @@ class _FakeDeviceApi extends DeviceApi {
       String? retention,
       bool? safeSearch}) async {
     puts.add(lists!);
-    await gate?.future;
-    if (failNext > 0) {
-      failNext--;
-      throw Exception("network down");
-    }
+    // Decided when the PUT starts, so a later PUT can finish first.
+    final failThis = failNext > 0;
+    if (failThis) failNext--;
+    final held = gate;
+    gate = null;
+    await held?.future;
+    if (failThis) throw Exception("network down");
     if (fail) throw Exception("network down");
     stored = lists.toList();
   }
@@ -306,12 +308,12 @@ void main() {
       await withTrace((m) async {
         final s = await _boot(m);
         s.api.failNext = 1;
-        s.api.gate = Completer();
+        final held = s.api.gate = Completer();
 
         await s.actor.toggleFilterOption("oisd", "big", m);
         await _settle(); // The first save is now waiting on the server.
         await s.actor.toggleFilterOption("oisd", "nsfw", m);
-        s.api.gate!.complete();
+        held.complete();
         await _settle();
 
         expect(s.api.puts, hasLength(2));
@@ -471,6 +473,29 @@ void main() {
 
         expect(await s.main(m), unified);
         expect(await s.extras(m), {big});
+      });
+    });
+
+    test("olderFailedSaveKeepsNewerPick", () async {
+      await withTrace((m) async {
+        final s = await _boot(m, stored: [_small, _big], wide: true);
+        await s.actor.selectMainBlocklist(unified, m);
+        await _settle();
+
+        // The main change waits on the server, then fails after the extra
+        // toggle that followed it was saved.
+        s.api.failNext = 1;
+        final held = s.api.gate = Completer();
+        await s.actor.selectMainBlocklist(small, m);
+        await _settle();
+        await s.actor.toggleExtraBlocklist(unified, true, m);
+        await _settle();
+        held.complete();
+        await _settle();
+
+        expect(s.api.stored.toSet(), {_small, _big, _unified});
+        expect(await s.main(m), small);
+        expect(await s.extras(m), {big, unified});
       });
     });
 
