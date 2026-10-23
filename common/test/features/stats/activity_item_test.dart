@@ -113,4 +113,22 @@ void main() {
     );
     expect(tester.getSize(find.byType(ActivityItem)).height, ActivityItem.rowHeight);
   });
+
+  testWidgets('a long domain and count on a narrow screen keep one line each', (tester) async {
+    tester.view.physicalSize = const Size(280, 800);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    final entry = UiJournalEntry(
+      deviceName: "Example Phone",
+      domainName: "very-long-subdomain-name.tracking.example.com",
+      action: UiJournalAction.block,
+      listId: "list1",
+      profileId: null,
+      timestamp: DateTime(2026, 1, 1),
+      requests: 123456,
+    )..timestampText = "2 minutes ago";
+    await tester.pumpWidget(_wrap(Column(children: [ActivityItem(entry: entry)])));
+
+    expect(tester.getSize(find.byType(ActivityItem)).height, ActivityItem.rowHeight);
+  });
 }
