@@ -24,9 +24,10 @@ import 'package:common/src/shared/ui/nav_bar_button.dart';
 /// edit — the delete button is hidden when null.
 class RuleEditorSheet extends StatefulWidget {
   final DeviceTag deviceTag;
-  /// Display name of the device this rule belongs to. Rendered next to
-  /// the AppBar's back chevron so the nav matches the iOS-standard
-  /// "back to <previous screen>" convention used by the blocklist view.
+  /// Display name of the device this rule belongs to, i.e. where back goes.
+  /// Android prints it next to the back chevron; iOS shows a bare chevron
+  /// and keeps the name only as the back button's accessibility value, so
+  /// VoiceOver still reads the destination.
   final String deviceName;
   final RuleModel? initialRule;
   final List<JsonProfile> availableProfiles;
