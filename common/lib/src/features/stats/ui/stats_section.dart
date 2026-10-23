@@ -5,6 +5,7 @@ import 'package:common/src/features/journal/domain/journal.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/common_divider.dart';
 import 'package:common/src/shared/ui/haptics.dart';
+import 'package:common/src/features/stats/ui/activity_groups.dart';
 import 'package:common/src/features/stats/ui/activity_item.dart';
 import 'package:common/src/features/stats/ui/stats_error.dart';
 import 'package:common/src/features/stats/ui/stats_filter_chips.dart';
@@ -20,10 +21,14 @@ class StatsSection extends StatefulWidget {
   final DeviceTag? deviceTag;
   final bool isHeader;
 
+  /// The time the rows are grouped against; tests pass a fixed one.
+  final DateTime Function() now;
+
   const StatsSection({
     Key? key,
     required this.deviceTag,
     required this.isHeader,
+    this.now = DateTime.now,
   }) : super(key: key);
 
   @override
@@ -130,7 +135,7 @@ class StatsSectionState extends State<StatsSection> with Disposables {
 
   rebuildEntries(dynamic it) {
     if (!mounted) return;
-    final keys = _rowKeys(_entries.now).toSet();
+    final keys = _listKeys(_entries.now).toSet();
     // Only rows added to a list already on screen; the first load just shows.
     _freshKeys = _isReady && _shownKeys.isNotEmpty ? keys.difference(_shownKeys) : {};
     _shownKeys = keys;
@@ -211,7 +216,7 @@ class StatsSectionState extends State<StatsSection> with Disposables {
                       (_failed
                           ? [_buildError(context, _retry)]
                           : !_isReady
-                              ? [_buildLoading(context, rows: 8)]
+                              ? [_buildLoading(context, rows: 8, header: true)]
                               : _entries.now.isEmpty
                                   ? _buildEmpty(context)
                                   : _buildItems(context)) +
@@ -273,21 +278,68 @@ class StatsSectionState extends State<StatsSection> with Disposables {
     }).toList();
   }
 
+  /// The time group header of each entry, worked out again on every build,
+  /// so rows loaded later, and time passing, land in the right group.
+  List<String> _groupLabels(List<UiJournalEntry> entries) {
+    final now = widget.now();
+    final locale = Localizations.maybeLocaleOf(context)?.toString() ?? "en_US";
+    return activityGroupLabels(entries.map((it) => it.timestamp), now, locale);
+  }
+
+  /// Keys of the group headers, one per header shown, in list order.
+  static List<String?> _headerKeys(List<String> labels) {
+    final seen = <String, int>{};
+    return labels.mapIndexed((index, label) {
+      if (index > 0 && labels[index - 1] == label) return null;
+      final count = seen[label] = (seen[label] ?? 0) + 1;
+      return count == 1 ? "group|$label" : "group|$label#$count";
+    }).toList();
+  }
+
+  /// Every row and header key, for telling which ones a reload added.
+  List<String> _listKeys(List<UiJournalEntry> entries) {
+    return [..._rowKeys(entries), ..._headerKeys(_groupLabels(entries)).whereNotNull()];
+  }
+
   List<Widget> _buildItems(BuildContext context) {
-    final keys = _rowKeys(_entries.now);
-    return _entries.now.mapIndexed((index, it) {
-      return _FadeIn(
-        key: ValueKey(keys[index]),
-        animate: _freshKeys.contains(keys[index]),
-        child: Container(
-          color: context.theme.bgMiniCard,
-          child: Column(children: [
-            ActivityItem(entry: it),
-            index < _entries.now.length - 1 ? const CommonDivider(indent: 60) : Container(),
-          ]),
+    final entries = _entries.now;
+    final keys = _rowKeys(entries);
+    final labels = _groupLabels(entries);
+    final headerKeys = _headerKeys(labels);
+    final items = <Widget>[];
+    for (var index = 0; index < entries.length; index++) {
+      final headerKey = headerKeys[index];
+      if (headerKey != null) {
+        items.add(
+          _FadeIn(
+            key: ValueKey(headerKey),
+            animate: _freshKeys.contains(headerKey),
+            child: Container(
+              color: context.theme.bgMiniCard,
+              child: _GroupHeader(label: labels[index], first: index == 0),
+            ),
+          ),
+        );
+      }
+      // No divider before the next group's header, or after the last row.
+      final lastInGroup = index == entries.length - 1 || headerKeys[index + 1] != null;
+      items.add(
+        _FadeIn(
+          key: ValueKey(keys[index]),
+          animate: _freshKeys.contains(keys[index]),
+          child: Container(
+            color: context.theme.bgMiniCard,
+            child: Column(
+              children: [
+                ActivityItem(entry: entries[index]),
+                if (!lastInGroup) const CommonDivider(indent: 12),
+              ],
+            ),
+          ),
         ),
       );
-    }).toList();
+    }
+    return items;
   }
 
   List<Widget> _buildEmpty(BuildContext context) {
@@ -306,16 +358,28 @@ class StatsSectionState extends State<StatsSection> with Disposables {
     ];
   }
 
-  // Shaped like [ActivityItem] rows.
-  Widget _buildLoading(BuildContext context, {required int rows}) {
+  // Shaped like [ActivityItem] rows, with room for the first group
+  // [header], so nothing moves when the entries arrive.
+  Widget _buildLoading(BuildContext context, {required int rows, bool header = false}) {
     return Container(
       color: context.theme.bgMiniCard,
-      child: LoadingPlaceholder.rows(
-        count: rows,
-        rowHeight: 76,
-        leading: 52,
-        dividerIndent: 60,
-        padding: const EdgeInsets.only(left: 12, right: 14),
+      child: Column(
+        children: [
+          // An unseen header, so the room matches at any text size.
+          if (header)
+            ExcludeSemantics(
+              child: Opacity(
+                opacity: 0,
+                child: _GroupHeader(label: "activity group just now".i18n, first: true),
+              ),
+            ),
+          LoadingPlaceholder.rows(
+            count: rows,
+            rowHeight: ActivityItem.rowHeight,
+            dividerIndent: 12,
+            padding: const EdgeInsets.only(left: 12, right: 14),
+          ),
+        ],
       ),
     );
   }
@@ -324,6 +388,35 @@ class StatsSectionState extends State<StatsSection> with Disposables {
     return Container(
       color: context.theme.bgMiniCard,
       child: StatsError(onRetry: onRetry),
+    );
+  }
+}
+
+/// Names the time group of the rows below it, e.g. "Yesterday". Marked as a
+/// header, so screen readers can jump from group to group.
+class _GroupHeader extends StatelessWidget {
+  final String label;
+  final bool first;
+
+  const _GroupHeader({required this.label, required this.first});
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      header: true,
+      child: Padding(
+        // The first sits right under the card's top edge; later ones keep
+        // a gap from the group above.
+        padding: EdgeInsets.only(left: 12, right: 12, top: first ? 4 : 16, bottom: 6),
+        child: Text(
+          label,
+          style: TextStyle(
+            color: context.theme.textSecondary,
+            fontSize: 13,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
     );
   }
 }
