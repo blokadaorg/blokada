@@ -95,51 +95,55 @@ void _showMaterialSheet(BuildContext context,
         identifier: AutomationIds.powerActionSheet,
         container: true,
         child: SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(24, 0, 24, 8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("home power pause status active".i18n,
-                        style: Theme.of(context).textTheme.titleMedium),
-                    const SizedBox(height: 4),
-                    // Pause is one flag per account in v6 (#455).
-                    Text("home power pause scope".i18n,
-                        style: TextStyle(color: context.theme.textSecondary)),
-                  ],
+          // Scrolls when the sheet's capped height (landscape, large text)
+          // can't fit all three actions.
+          child: SingleChildScrollView(
+              child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(24, 0, 24, 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("home power pause status active".i18n,
+                          style: Theme.of(context).textTheme.titleMedium),
+                      const SizedBox(height: 4),
+                      // Pause is one flag per account in v6 (#455).
+                      Text("home power pause scope".i18n,
+                          style: TextStyle(color: context.theme.textSecondary)),
+                    ],
+                  ),
                 ),
-              ),
-              _MaterialAction(
-                identifier: AutomationIds.powerActionPauseFive,
-                icon: Icons.pause_circle_outline,
-                text: "home power action pause five".i18n,
-                onTap: () {
-                  onSelected(const Duration(minutes: 5));
-                  Navigator.pop(context);
-                },
-              ),
-              _MaterialAction(
-                identifier: AutomationIds.powerActionTurnOff,
-                icon: Icons.power_settings_new,
-                text: "home power action off all".i18n,
-                color: error,
-                onTap: () {
-                  onSelected(null);
-                  Navigator.pop(context);
-                },
-              ),
-              _MaterialAction(
-                identifier: AutomationIds.powerActionCancel,
-                icon: Icons.close,
-                text: "universal action cancel".i18n,
-                onTap: () => Navigator.pop(context),
-              ),
-              const SizedBox(height: 8),
-            ],
+                _MaterialAction(
+                  identifier: AutomationIds.powerActionPauseFive,
+                  icon: Icons.pause_circle_outline,
+                  text: "home power action pause five".i18n,
+                  onTap: () {
+                    onSelected(const Duration(minutes: 5));
+                    Navigator.pop(context);
+                  },
+                ),
+                _MaterialAction(
+                  identifier: AutomationIds.powerActionTurnOff,
+                  icon: Icons.power_settings_new,
+                  text: "home power action off all".i18n,
+                  color: error,
+                  onTap: () {
+                    onSelected(null);
+                    Navigator.pop(context);
+                  },
+                ),
+                _MaterialAction(
+                  identifier: AutomationIds.powerActionCancel,
+                  icon: Icons.close,
+                  text: "universal action cancel".i18n,
+                  onTap: () => Navigator.pop(context),
+                ),
+                const SizedBox(height: 8),
+              ],
+            ),
           ),
         ),
       );

@@ -1,3 +1,4 @@
+import 'package:common/src/core/core.dart';
 import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/ui/action_sheet.dart';
 import 'package:common/src/shared/ui/theme.dart';
@@ -109,4 +110,23 @@ void main() {
       });
     });
   }
+
+  testWidgets('on a short screen with large text the Android sheet scrolls to every action',
+      (tester) async {
+    tester.view.physicalSize = const Size(640, 360);
+    tester.view.devicePixelRatio = 1;
+    tester.platformDispatcher.textScaleFactorTestValue = 2;
+    addTearDown(tester.view.reset);
+    addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+
+    final picked = await _open(tester, TargetPlatform.android);
+    expect(tester.takeException(), isNull);
+
+    final cancel = find.text('universal action cancel'.i18n);
+    await tester.scrollUntilVisible(cancel, 100, scrollable: find.byType(Scrollable).last);
+    await tester.tap(cancel);
+    await tester.pumpAndSettle();
+    expect(picked, isEmpty);
+    expect(find.byType(BottomSheet), findsNothing);
+  });
 }
