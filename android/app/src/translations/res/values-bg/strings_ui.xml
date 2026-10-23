@@ -791,7 +791,7 @@
     <string name="home_power_button_label">Защита на Blokada</string>
     <string name="home_power_button_state_on">Включена</string>
     <string name="home_power_button_state_off">Изключена</string>
-    <string name="support_share_log_title">Да споделим ли дневника на приложението?</string>
+    <string name="support_share_log_title">Да се подели ли дневника на приложението?</string>
     <string name="support_share_log_body">Ще се изпрати последния дневник на приложението, който може да съдържа данни за устройството и настройките.</string>
     <string name="support_share_log_done">Дневникът на Блокада е изпратен</string>
     <string name="support_share_log_declined">Дневникът на Блокада не е изпратен</string>
@@ -808,14 +808,14 @@
     <string name="settings_weekly_report_brief">Изпраща седмично обобщение на активността на тракерите</string>
     <string name="notification_activity_logging_reminder_body">Включете регистрирането на активността, за да получавате седмичните си доклади за Privacy Pulse.</string>
     <string name="bypass_list_header">Заобиколени приложения</string>
-    <string name="freemium_refresh_header">Update your filters</string>
-    <string name="freemium_refresh_brief">It\'s been a while since you updated your ad-block filters. Fetch them now to ensure you have the latest rules and improvements.</string>
-    <string name="freemium_refresh_status_done">Filters updated successfully</string>
-    <string name="freemium_refresh_status_updating">Updating filters...</string>
-    <string name="freemium_refresh_status_ready">Ready for an update</string>
-    <string name="freemium_refresh_action_update">Update now</string>
-    <string name="freemium_refresh_action_upgrade">Upgrade for automatic updates</string>
-    <string name="home_power_pause_scope">Pauses ad blocking on all devices using this account</string>
-    <string name="home_status_paused_elsewhere">Paused from another device</string>
-    <string name="universal_action_resume">Resume</string>
+    <string name="freemium_refresh_header">Актуализирайте филтрите си</string>
+    <string name="freemium_refresh_brief">Мина известно време, откакто актуализирахте филтрите си за блокиране на реклами. Изтеглете ги сега, за да сте сигурни, че имате най-новите правила и подобрения.</string>
+    <string name="freemium_refresh_status_done">Филтрите са актуализирани успешно</string>
+    <string name="freemium_refresh_status_updating">Актуализиране на филтрите...</string>
+    <string name="freemium_refresh_status_ready">Готови за актуализация</string>
+    <string name="freemium_refresh_action_update">Актуализирайте сега</string>
+    <string name="freemium_refresh_action_upgrade">Надградете за автоматични актуализации</string>
+    <string name="home_power_pause_scope">Спира блокирането на реклами на всички устройства, използващи този акаунт</string>
+    <string name="home_status_paused_elsewhere">Спряно от друго устройство</string>
+    <string name="universal_action_resume">Възобновявяне</string>
 </resources>
