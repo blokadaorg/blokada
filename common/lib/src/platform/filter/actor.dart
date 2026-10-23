@@ -28,6 +28,10 @@ class PlatformFilterActor with Logging, Actor {
   // refresh leave it null, so only a save the user asked for gets a toast.
   List<FilterSelection>? _unsaved;
 
+  // The v6 main pick from before the pending user change, when that change
+  // moved it; restored with the selection if the save fails. Null: unchanged.
+  ({String? tag})? _unsavedPick;
+
   PlatformFilterActor({Duration debounce = const Duration(seconds: 1)})
       : _debounce = Debounce(debounce);
 
@@ -160,7 +164,7 @@ class PlatformFilterActor with Logging, Actor {
       // main even if another general list that sorts before it stays on.
       await _mainPick.change(m, key.tag);
       await _selectedFilters.change(m, selected);
-      if (!await _applyUserChange(was, m)) {
+      if (!await _applyUserChange(was, m, pickWas: (tag: pick?.tag))) {
         await _mainPick.change(m, pick?.tag);
       }
     });
@@ -186,7 +190,8 @@ class PlatformFilterActor with Logging, Actor {
   /// changes here; the debounced [_save] sends it and confirms or rolls it
   /// back. If building the config fails, the selection goes back to [was]
   /// and this returns false.
-  Future<bool> _applyUserChange(List<FilterSelection> was, Marker m) async {
+  Future<bool> _applyUserChange(List<FilterSelection> was, Marker m,
+      {({String? tag})? pickWas}) async {
     // Whether this change started the pending user change, to undo if it fails.
     var started = false;
     try {
@@ -199,13 +204,19 @@ class PlatformFilterActor with Logging, Actor {
           _unsaved = was;
           started = true;
         }
+        // The pick from before the first change in this save, so a failed
+        // save puts back the main list it showed.
+        if (_unsaved != null && pickWas != null) _unsavedPick ??= pickWas;
         await _userConfig.change(m, config);
         // v2 api will be updated by the callback below, which confirms the save
       });
       return true;
     } catch (e, s) {
       log(m).e(msg: "Error toggling filter option", err: e, stack: s);
-      if (started) _unsaved = null;
+      if (started) {
+        _unsaved = null;
+        _unsavedPick = null;
+      }
       _toast.showError("toast save failed".i18n);
       await _selectedFilters.change(m, was);
       return false;
@@ -219,6 +230,7 @@ class PlatformFilterActor with Logging, Actor {
       // Back to what the device has, so an earlier toggle must not be sent.
       _debounce.cancel();
       _unsaved = null;
+      _unsavedPick = null;
       return;
     }
     if (lists.isEmpty) return; // Skip setting empty list, not supported by v2
@@ -235,7 +247,9 @@ class PlatformFilterActor with Logging, Actor {
   /// what is saved.
   Future<void> _save(List<String> lists, Marker m) async {
     final before = _unsaved;
+    final pickBefore = _unsavedPick;
     _unsaved = null;
+    _unsavedPick = null;
     final bool saved;
     try {
       saved = await _device.setLists(lists, m);
@@ -250,6 +264,7 @@ class PlatformFilterActor with Logging, Actor {
       if (_unsaved != null) return;
       try {
         await _restoreSaved(before, m);
+        if (pickBefore != null) await _mainPick.change(m, pickBefore.tag);
       } catch (e, s) {
         // Runs from a timer, so nobody else would see this error.
         log(m).e(msg: "Error restoring saved blocklists", err: e, stack: s);

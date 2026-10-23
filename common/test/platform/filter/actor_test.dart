@@ -456,6 +456,24 @@ void main() {
       });
     });
 
+    test("failedMainChangePutsBackTheOldPick", () async {
+      await withTrace((m) async {
+        // Steven Black is main with OISD Big as an extra; Big sorts first, so
+        // only the stored pick keeps Steven Black as main.
+        final s = await _boot(m, stored: [_small, _big], wide: true);
+        await s.actor.selectMainBlocklist(unified, m);
+        await _settle();
+        expect(await s.main(m), unified);
+
+        s.api.fail = true;
+        await s.actor.selectMainBlocklist(small, m);
+        await _settle();
+
+        expect(await s.main(m), unified);
+        expect(await s.extras(m), {big});
+      });
+    });
+
     test("pickingAnExtraAsMainDropsTheOldMain", () async {
       await withTrace((m) async {
         final s = await _boot(m, stored: [_small, _big], wide: true);
