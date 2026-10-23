@@ -816,5 +816,8 @@
     "freemium refresh action upgrade": "Upgrade for automatic updates",
     "home power pause scope": "Pauses ad blocking on all devices using this account",
     "home status paused elsewhere": "Paused from another device",
-    "universal action resume": "Resume"
+    "universal action resume": "Resume",
+    "activity group just now": "Just now",
+    "activity group earlier today": "Earlier today",
+    "activity group yesterday": "Yesterday"
 }
