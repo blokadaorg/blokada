@@ -2,6 +2,7 @@ part of 'support.dart';
 
 class SupportApi with Logging {
   late final _api = Core.get<Api>();
+  late final _userAgent = Core.get<UserAgent>();
   late final _marshal = JsonSupportMarshal();
 
   Future<JsonSupportSession> createSession(Marker m, String language,
@@ -25,26 +26,28 @@ class SupportApi with Logging {
 
   Future<JsonSupportResponse> sendEvent(
       Marker m, String sessionId, SupportEvent event) async {
-    final result = await _api.request(ApiEndpoint.putSupport, m,
-        payload: _marshal.fromMessage(JsonSupportPayloadMessage(
-          sessionId: sessionId,
-          event: event,
-        )));
+    final result = await _put(m, sessionId, event: event);
     log(m).i("send event response: $result");
     return _marshal.toResponse(result);
   }
 
   Future<JsonSupportResponse> sendMessage(
       Marker m, String sessionId, String message) async {
-    final payload = _marshal.fromMessage(JsonSupportPayloadMessage(
-      sessionId: sessionId,
-      message: message,
-    ));
-
-    final result =
-        await _api.request(ApiEndpoint.putSupport, m, payload: payload);
+    final result = await _put(m, sessionId, message: message);
     log(m).i("send msg response: $result");
     return _marshal.toResponse(result);
+  }
+
+  Future<JsonString> _put(Marker m, String sessionId,
+      {String? message, SupportEvent? event}) async {
+    return await _api.request(ApiEndpoint.putSupport, m,
+        payload: _marshal.fromMessage(JsonSupportPayloadMessage(
+          sessionId: sessionId,
+          userAgent: await _userAgent.now(),
+          message: message,
+          event: event,
+          clientTools: SupportClientTool.values,
+        )));
   }
 
   /// Uploads [appLog] for the agent's open attach_log action [actionId], and
