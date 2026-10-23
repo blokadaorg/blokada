@@ -5,6 +5,7 @@ import 'package:common/src/features/journal/domain/journal.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/common_divider.dart';
 import 'package:common/src/shared/ui/haptics.dart';
+import 'package:common/src/features/stats/domain/controller.dart' show StatsController;
 import 'package:common/src/features/stats/ui/activity_groups.dart';
 import 'package:common/src/features/stats/ui/activity_item.dart';
 import 'package:common/src/features/stats/ui/stats_error.dart';
@@ -42,6 +43,7 @@ class StatsSectionState extends State<StatsSection> with Disposables {
   late final _entries = Core.get<JournalEntriesValue>();
   late final _customlist = Core.get<CustomListsValue>();
   late final _accountStore = Core.get<AccountStore>();
+  late final _collecting = Core.get<StatsController>().collecting;
 
   final ScrollController _scrollController = ScrollController();
   bool _isReady = false;
@@ -66,6 +68,7 @@ class StatsSectionState extends State<StatsSection> with Disposables {
     disposeLater(_entries.onChange.listen(rebuildEntries));
     disposeLater(_filter.onChange.listen(rebuild));
     disposeLater(_customlist.onChange.listen(rebuild));
+    disposeLater(_collecting.onChange.listen((_) => setState(() {})));
     rebuild(null);
     _custom.fetch(Markers.stats);
   }
@@ -348,9 +351,11 @@ class StatsSectionState extends State<StatsSection> with Disposables {
         color: context.theme.bgMiniCard,
         child: Center(
           child: Text(
-            _journal.allEntries.isEmpty
-                ? "universal status waiting for data".i18n
-                : "family search empty".i18n,
+            _journal.allEntries.isNotEmpty
+                ? "family search empty".i18n
+                : _collecting.now
+                ? "activity logging collecting".i18n
+                : "universal status waiting for data".i18n,
             textAlign: TextAlign.center,
           ),
         ),

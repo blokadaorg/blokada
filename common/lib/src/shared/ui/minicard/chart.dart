@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class MiniCardChart extends StatelessWidget {
+  /// How long the line takes to draw in when [animate] is on.
+  static const drawDuration = Duration(milliseconds: 2000);
+
   final UiStats stats;
   final Color color;
   final bool animate;
@@ -153,7 +156,7 @@ class _ColumnChart extends StatelessWidget {
         enableAxisAnimation: animate,
         series: [
           SplineSeries<_ChartData, DateTime>(
-            animationDuration: animate ? 2000 : 0,
+            animationDuration: animate ? MiniCardChart.drawDuration.inMilliseconds.toDouble() : 0,
             dataSource: dataGreen,
             xValueMapper: (_ChartData data, _) => data.x,
             yValueMapper: (_ChartData data, _) => data.y,
@@ -188,4 +191,12 @@ class _ChartData {
 
   final DateTime x;
   final int y;
+
+  // The chart compares data sources by element. Without this every rebuild
+  // looked like new data and restarted the line's animation.
+  @override
+  bool operator ==(Object other) => other is _ChartData && other.x == x && other.y == y;
+
+  @override
+  int get hashCode => Object.hash(x, y);
 }

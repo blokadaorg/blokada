@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:common/src/features/payment/domain/payment.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/minicard/minicard.dart';
@@ -7,16 +9,37 @@ import 'package:common/src/core/core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+/// A blurred gate over a screen showing sample data, with one call to
+/// action. By default it offers the upgrade for [placement]; [onAction]
+/// replaces that with another action (turning activity logging on).
 class FreemiumScreen extends StatefulWidget {
   final String title;
   final String subtitle;
   final Placement placement;
 
+  /// Small label above the title, like "Sample".
+  final String? badge;
+
+  /// The call to action, instead of the upgrade.
+  final String? actionLabel;
+  final IconData? actionIcon;
+  final Future<void> Function()? onAction;
+  final String? actionSemanticsId;
+
+  /// Below the call to action, like a link to the privacy policy.
+  final Widget? footer;
+
   const FreemiumScreen({
     Key? key,
     required this.title,
     required this.subtitle,
-    required this.placement,
+    this.placement = Placement.primary,
+    this.badge,
+    this.actionLabel,
+    this.actionIcon,
+    this.onAction,
+    this.actionSemanticsId,
+    this.footer,
   }) : super(key: key);
 
   @override
@@ -74,6 +97,25 @@ class _FreemiumScreenState extends State<FreemiumScreen>
     );
   }
 
+  Widget _buildBadge(BuildContext context, String text) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      decoration: BoxDecoration(
+        color: context.theme.accent.withOpacity(0.15),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Text(
+        text.toUpperCase(),
+        style: TextStyle(
+          color: context.theme.accent,
+          fontSize: 12,
+          fontWeight: FontWeight.w700,
+          letterSpacing: 1,
+        ),
+      ),
+    );
+  }
+
   Widget _buildCtaDialog(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(32.0),
@@ -86,6 +128,10 @@ class _FreemiumScreenState extends State<FreemiumScreen>
         child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: Column(mainAxisSize: MainAxisSize.min, children: [
+            if (widget.badge != null) ...[
+              _buildBadge(context, widget.badge!),
+              const SizedBox(height: 12),
+            ],
             Text(
               widget.title,
               style:
@@ -99,36 +145,48 @@ class _FreemiumScreenState extends State<FreemiumScreen>
               textAlign: TextAlign.start,
             ),
             const SizedBox(height: 32),
-            MiniCard(
-                onTap: () {
-                  log(Markers.userTap).trace("tappedUpgrade", (m) async {
-                    await _payment.openPaymentScreen(m, placement: widget.placement);
-                  });
-                },
-                color: context.theme.accent,
-                child: SizedBox(
-                  height: 32,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        CupertinoIcons.heart_fill,
-                        color: context.theme.onAccent,
+            MergeSemantics(
+              child: Semantics(
+                identifier: widget.actionSemanticsId,
+                button: true,
+                child: MiniCard(
+                    onTap: () {
+                      final onAction = widget.onAction;
+                      if (onAction != null) {
+                        unawaited(onAction());
+                        return;
+                      }
+                      log(Markers.userTap).trace("tappedUpgrade", (m) async {
+                        await _payment.openPaymentScreen(m, placement: widget.placement);
+                      });
+                    },
+                    color: context.theme.accent,
+                    child: SizedBox(
+                      height: 32,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            widget.actionIcon ?? CupertinoIcons.heart_fill,
+                            color: context.theme.onAccent,
+                          ),
+                          const SizedBox(width: 12),
+                          Flexible(
+                            child: Text(
+                              widget.actionLabel ?? "universal action upgrade short".i18n,
+                              style: TextStyle(
+                                  color: context.theme.onAccent,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(width: 12),
-                      Center(
-                        child: Text(
-                          "universal action upgrade short".i18n,
-                          style: TextStyle(
-                              color: context.theme.onAccent,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
-                  ),
-                )),
+                    )),
+              ),
+            ),
+            if (widget.footer != null) widget.footer!,
             const SizedBox(height: 8),
           ]),
         ),

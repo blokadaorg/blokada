@@ -28,6 +28,7 @@ export const AutomationIds = {
   settingsPlanManage: "automation.settings_plan_manage",
   settingsPlanRestore: "automation.settings_plan_restore",
   retentionToggle: "automation.retention_toggle",
+  loggingEnable: "automation.logging_enable",
   homeSettings: "automation.home_settings",
   homePrivacyPulse: "automation.home_privacy_pulse",
   homeAdvanced: "automation.home_advanced",

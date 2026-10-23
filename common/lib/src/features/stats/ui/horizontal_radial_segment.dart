@@ -4,6 +4,10 @@ import 'package:common/src/platform/stats/model.dart';
 import 'package:common/src/platform/stats/delta_store.dart';
 import 'package:common/src/platform/stats/stats.dart';
 import 'package:common/src/app_variants/v6/widget/home/stats/radial_chart.dart';
+import 'package:common/src/features/stats/domain/controller.dart';
+import 'package:common/src/shared/ui/motion.dart';
+import 'dart:async';
+
 import 'package:countup/countup.dart';
 import 'package:flutter/material.dart';
 
@@ -17,9 +21,13 @@ class HorizontalRadialSegment extends StatefulWidget {
   final bool statsReady;
   final bool deltaReady;
 
+  /// The range the numbers are for. The trend line draws in once per range.
+  final ToplistRange range;
+
   const HorizontalRadialSegment({
     Key? key,
     required this.stats,
+    this.range = ToplistRange.daily,
     this.counters,
     this.counterDelta,
     this.sparklineSeries,
@@ -39,6 +47,38 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
   var lastAllowed = 0.0;
   var lastTotal = 0.0;
   RadialRing? _selectedRing;
+
+  // The trend line draws in when Pulse opens and when the range changes, but
+  // not when the stats refresh (every 30 s), which would replay it. The
+  // chart is rebuilt under a new key for each draw-in and animates only
+  // while that draw-in runs.
+  ToplistRange? _drawnRange;
+  int _drawCount = 0;
+  bool _drawing = false;
+  Timer? _drawTimer;
+
+  /// Whether the trend line is drawing in now. Waits for the range's
+  /// numbers and the chart's own data, so the draw-in is not spent on the
+  /// previous range or on the chart's waiting state.
+  bool _updateDraw(BuildContext context) {
+    if (widget.counters == null || !widget.statsReady || _drawnRange == widget.range) {
+      return _drawing;
+    }
+    _drawnRange = widget.range;
+    _drawCount++;
+    _drawTimer?.cancel();
+    _drawing = !Motion.reduced(context);
+    if (_drawing) {
+      _drawTimer = Timer(MiniCardChart.drawDuration, () => _drawing = false);
+    }
+    return _drawing;
+  }
+
+  @override
+  void dispose() {
+    _drawTimer?.cancel();
+    super.dispose();
+  }
 
   _calculate() {
     lastAllowed = allowed;
@@ -92,6 +132,8 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
   @override
   Widget build(BuildContext context) {
     _calculate();
+    final drawing = _updateDraw(context);
+    final countDuration = Motion.reduced(context) ? Duration.zero : const Duration(seconds: 1);
     final selectedRing = _selectedRing;
     final blockedOpacity = selectedRing == null || selectedRing == RadialRing.blocked ? 1.0 : 0.4;
     final allowedOpacity = selectedRing == null || selectedRing == RadialRing.allowed ? 1.0 : 0.4;
@@ -151,7 +193,7 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
                             Countup(
                               begin: lastBlocked,
                               end: blocked,
-                              duration: const Duration(seconds: 1),
+                              duration: countDuration,
                               style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w600,
@@ -182,7 +224,7 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
                             Countup(
                               begin: lastAllowed,
                               end: allowed,
-                              duration: const Duration(seconds: 1),
+                              duration: countDuration,
                               style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w600,
@@ -250,9 +292,10 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
               SizedBox(height: 8),
               // Second row: line chart
               MiniCardChart(
+                  key: ValueKey(_drawCount),
                   stats: widget.stats,
                   color: Color(0xff33c75a),
-                  animate: false,
+                  animate: drawing,
                   height: 42,
                   seriesValues: widget.sparklineSeries?.values,
                   seriesEnd: widget.sparklineSeries?.end,

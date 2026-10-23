@@ -33,10 +33,15 @@ class PrivacyPulseSection extends StatefulWidget {
   final ScrollController controller;
   final ToplistRange? initialRange;
 
+  /// Draws this made-up data instead of the device's, with taps ignored and
+  /// no weekly card: the preview shown while activity logging is off.
+  final StatsController? sample;
+
   const PrivacyPulseSection({
     Key? key,
     required this.controller,
     this.initialRange,
+    this.sample,
   }) : super(key: key);
 
   @override
@@ -44,7 +49,7 @@ class PrivacyPulseSection extends StatefulWidget {
 }
 
 class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging, Disposables {
-  late final _stats = Core.get<StatsController>();
+  late final _stats = widget.sample ?? Core.get<StatsController>();
   late final _accountStore = Core.get<AccountStore>();
   late final _weeklyReport = Core.get<WeeklyReportActor>();
 
@@ -69,8 +74,10 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging, 
     disposeLater(_stats.toplists.onChange.listen(rebuild));
     disposeLater(_stats.recent.onChange.listen(rebuild));
     disposeLater(_stats.range.onChange.listen(rebuild));
+    disposeLater(_stats.collecting.onChange.listen(rebuild));
     unawaited(_stats.openPulse(Markers.stats, initialRange: widget.initialRange));
 
+    if (widget.sample != null) return;
     _disposers.add(mobx.autorun((_) {
       setState(() {
         _weeklyEvent = _weeklyReport.currentEvent.value;
@@ -126,7 +133,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging, 
     return Stack(
       children: [
         IgnorePointer(
-          ignoring: _isFreemium,
+          ignoring: _isFreemium || widget.sample != null,
           child: Container(
             decoration: BoxDecoration(
               color: theme.bgColor,
@@ -290,6 +297,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging, 
           statsReady: _stats.stats.now.data != null,
           deltaReady: counters.data?.deltaReady ?? false,
           sparklineSeries: counters.data?.sparkline,
+          range: _toplistRange,
           trailing: _buildToplistRangeToggle(context),
           error: _chartsError(counters),
         ),
@@ -303,6 +311,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging, 
       highlight: _weeklyHighlight ?? _weeklyEvent?.toplistHighlight,
       range: _toplistRange,
       section: _stats.toplists.now,
+      collecting: _stats.collecting.now,
       onRetry: () => _retry(StatsPart.toplists),
     );
   }
@@ -310,6 +319,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging, 
   Widget _buildRecentActivity() {
     return RecentActivity(
       section: _stats.recent.now,
+      collecting: _stats.collecting.now,
       onRetry: () => _retry(StatsPart.recent),
     );
   }

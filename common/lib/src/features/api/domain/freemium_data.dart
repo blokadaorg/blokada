@@ -1,6 +1,23 @@
 part of 'api.dart';
 
 class FreemiumDataProvider {
+  /// Made-up names, shared with the logging-off preview so both samples
+  /// look the same.
+  static const sampleBlockedCompanies = ['Example Analytics', 'Ad Platform Inc', 'Site Analytics'];
+  static const sampleAllowedCompanies = ['Cloudflare', 'Google', 'GitHub'];
+  static const sampleJournalDomains = [
+    'tracker.example.com',
+    'ads.platform.com',
+    'cdn.cloudflare.com',
+    'api.github.com',
+    'fonts.googleapis.com',
+    'analytics.site.com',
+    'pixel.tracking.net',
+    'metrics.service.io',
+    'content.delivery.net',
+    'images.unsplash.com',
+  ];
+
   final _random = math.Random();
 
   bool shouldMockEndpoint(ApiEndpoint endpoint) {
@@ -39,28 +56,28 @@ class FreemiumDataProvider {
         'metrics': [
           // Blocked metrics by company
           {
-            'tags': {'action': 'blocked', 'company': 'Example Analytics'},
+            'tags': {'action': 'blocked', 'company': sampleBlockedCompanies[0]},
             'dps': _generateTimeSeries(now, 24, 20, 100),
           },
           {
-            'tags': {'action': 'blocked', 'company': 'Ad Platform Inc'},
+            'tags': {'action': 'blocked', 'company': sampleBlockedCompanies[1]},
             'dps': _generateTimeSeries(now, 24, 15, 80),
           },
           {
-            'tags': {'action': 'blocked', 'company': 'Site Analytics'},
+            'tags': {'action': 'blocked', 'company': sampleBlockedCompanies[2]},
             'dps': _generateTimeSeries(now, 24, 10, 60),
           },
           // Allowed metrics by company
           {
-            'tags': {'action': 'allowed', 'company': 'Cloudflare'},
+            'tags': {'action': 'allowed', 'company': sampleAllowedCompanies[0]},
             'dps': _generateTimeSeries(now, 24, 200, 500),
           },
           {
-            'tags': {'action': 'allowed', 'company': 'Google'},
+            'tags': {'action': 'allowed', 'company': sampleAllowedCompanies[1]},
             'dps': _generateTimeSeries(now, 24, 100, 300),
           },
           {
-            'tags': {'action': 'allowed', 'company': 'GitHub'},
+            'tags': {'action': 'allowed', 'company': sampleAllowedCompanies[2]},
             'dps': _generateTimeSeries(now, 24, 50, 150),
           },
           // Blocked metrics by device
@@ -168,18 +185,7 @@ class FreemiumDataProvider {
 
   List<Map<String, dynamic>> _generateJournalActivity(DateTime now, int count) {
     final activity = <Map<String, dynamic>>[];
-    final domains = [
-      'tracker.example.com',
-      'ads.platform.com',
-      'cdn.cloudflare.com',
-      'api.github.com',
-      'fonts.googleapis.com',
-      'analytics.site.com',
-      'pixel.tracking.net',
-      'metrics.service.io',
-      'content.delivery.net',
-      'images.unsplash.com',
-    ];
+    const domains = sampleJournalDomains;
 
     final devices = ['iPhone', 'iPad', 'Android Phone'];
     final lists = ['ads', 'trackers', 'malware', 'allowed'];

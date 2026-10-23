@@ -1,6 +1,7 @@
 import 'package:common/src/app_variants/v6/widget/home/stats/privacy_pulse_section.dart';
 import 'package:common/src/core/core.dart';
-import 'package:common/src/features/settings/ui/retention_section.dart';
+import 'package:common/src/features/stats/domain/sample.dart';
+import 'package:common/src/features/stats/ui/logging_preview.dart';
 import 'package:common/src/features/stats/ui/top_domains.dart';
 import 'package:common/src/features/payment/domain/payment.dart';
 import 'package:common/src/platform/account/account.dart';
@@ -16,8 +17,8 @@ import 'package:mobx/mobx.dart';
 
 /// v6 Privacy Pulse (toplists/charts). With retention enabled (or
 /// freemium sample data) the pulse is the master pane and tapped domains
-/// render alongside it on expanded windows; without retention it renders
-/// the retention opt-in alone.
+/// render alongside it on expanded windows; without retention it shows
+/// sample data behind the offer to turn activity logging on.
 class PrivacyPulseScreen extends StatefulWidget {
   final ToplistRange? initialToplistRange;
 
@@ -33,6 +34,9 @@ class PrivacyPulseScreen extends StatefulWidget {
 class PrivacyPulseScreenState extends State<PrivacyPulseScreen> with Logging {
   final _device = Core.get<DeviceStore>();
   late final _account = Core.get<AccountStore>();
+
+  // Only drawn while logging is off.
+  late final _sample = SampleStatsController();
 
   var _showStats = false;
   var _isFreemium = false;
@@ -67,7 +71,14 @@ class PrivacyPulseScreenState extends State<PrivacyPulseScreen> with Logging {
         identifier: AutomationIds.screenPrivacyPulse,
         child: WithTopBar(
           title: "privacy pulse section header".i18n,
-          child: const RetentionSection(),
+          overlay: const LoggingOffer(),
+          // Made up, so screen readers and automation skip it.
+          child: ExcludeSemantics(
+            child: PrivacyPulseSection(
+              controller: ScrollController(),
+              sample: _sample,
+            ),
+          ),
         ),
       );
     }
