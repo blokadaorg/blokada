@@ -3,6 +3,7 @@ import 'package:common/src/features/journal/domain/journal.dart';
 import 'package:common/src/features/stats/ui/activity_item.dart';
 import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/ui/theme.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -57,4 +58,77 @@ void main() {
       handle.dispose();
     });
   }
+
+  // Screen readers hear the domain first, then blocked or allowed, then time.
+  testWidgets('the row reads domain, status, time in that order', (tester) async {
+    final handle = tester.ensureSemantics();
+    await tester.pumpWidget(_wrap(ActivityItem(entry: _entry(UiJournalAction.block))));
+
+    final row = tester
+        .getSemantics(find.bySemanticsIdentifier(AutomationIds.activityItem))
+        .getSemanticsData();
+    expect(row.label, "ads.example.com\n${"stats label blocked".i18n}\n2 minutes ago");
+    expect(row.flagsCollection.isButton, isTrue);
+    handle.dispose();
+  });
+
+  // A small shield, but still with the cross or check inside, so blocked
+  // and allowed differ by shape, not only by colour.
+  for (final (action, icon) in [
+    (UiJournalAction.block, CupertinoIcons.xmark_shield_fill),
+    (UiJournalAction.allow, CupertinoIcons.checkmark_shield_fill),
+  ]) {
+    testWidgets('a ${action.name} row has a small shield with its mark', (tester) async {
+      await tester.pumpWidget(_wrap(ActivityItem(entry: _entry(action))));
+
+      final shield = tester.widget<Icon>(find.byIcon(icon));
+      expect(shield.size, ActivityItem.iconSize);
+      expect(ActivityItem.iconSize, lessThanOrEqualTo(24));
+      expect(tester.getSize(find.byIcon(icon)).height, ActivityItem.iconSize);
+    });
+  }
+
+  testWidgets('rows are the height the loading placeholder uses', (tester) async {
+    await tester.pumpWidget(
+      _wrap(Column(children: [ActivityItem(entry: _entry(UiJournalAction.block))])),
+    );
+    expect(tester.getSize(find.byType(ActivityItem)).height, ActivityItem.rowHeight);
+  });
+
+  testWidgets('a repeat count shares the time line, keeping the row height', (tester) async {
+    final entry = UiJournalEntry(
+      deviceName: "Example Phone",
+      domainName: "ads.example.com",
+      action: UiJournalAction.block,
+      listId: "list1",
+      profileId: null,
+      timestamp: DateTime(2026, 1, 1),
+      requests: 3,
+    )..timestampText = "2 minutes ago";
+    await tester.pumpWidget(_wrap(Column(children: [ActivityItem(entry: entry)])));
+
+    expect(
+      find.text("2 minutes ago · ${"family activity blocked times".i18n.withParams(3)}"),
+      findsOneWidget,
+    );
+    expect(tester.getSize(find.byType(ActivityItem)).height, ActivityItem.rowHeight);
+  });
+
+  testWidgets('a long domain and count on a narrow screen keep one line each', (tester) async {
+    tester.view.physicalSize = const Size(280, 800);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    final entry = UiJournalEntry(
+      deviceName: "Example Phone",
+      domainName: "very-long-subdomain-name.tracking.example.com",
+      action: UiJournalAction.block,
+      listId: "list1",
+      profileId: null,
+      timestamp: DateTime(2026, 1, 1),
+      requests: 123456,
+    )..timestampText = "2 minutes ago";
+    await tester.pumpWidget(_wrap(Column(children: [ActivityItem(entry: entry)])));
+
+    expect(tester.getSize(find.byType(ActivityItem)).height, ActivityItem.rowHeight);
+  });
 }

@@ -98,6 +98,8 @@ class _GatedJournal extends JournalActor {
   Object? error;
   bool more = false;
   Object? pageError;
+  // Entries the next page adds.
+  List<UiJournalEntry> page = [];
   var pageRequests = 0;
   var loads = 0;
 
@@ -111,6 +113,11 @@ class _GatedJournal extends JournalActor {
     if (append) {
       pageRequests++;
       if (pageError != null) throw pageError!;
+      if (page.isNotEmpty) {
+        allEntries = [...allEntries, ...page];
+        page = [];
+        filteredEntries.now = allEntries;
+      }
       return;
     }
     loads++;
@@ -122,7 +129,11 @@ class _GatedJournal extends JournalActor {
   }
 }
 
-Future<_GatedJournal> _pumpActivity(WidgetTester tester, {bool reduceMotion = false}) async {
+Future<_GatedJournal> _pumpActivity(
+  WidgetTester tester, {
+  bool reduceMotion = false,
+  DateTime Function()? now,
+}) async {
   await bootModules(tester);
   await seedCloudAccount(tester);
   final journal = _GatedJournal();
@@ -132,7 +143,11 @@ Future<_GatedJournal> _pumpActivity(WidgetTester tester, {bool reduceMotion = fa
   } finally {
     Core.di.allowReassignment = false;
   }
-  const content = Scaffold(body: activity.StatsSection(deviceTag: null, isHeader: false));
+  final content = Scaffold(
+    body: now == null
+        ? const activity.StatsSection(deviceTag: null, isHeader: false)
+        : activity.StatsSection(deviceTag: null, isHeader: false, now: now),
+  );
   await tester.pumpWidget(
     BlokadaApp(isFamily: false, content: reduceMotion ? _reduced(tester, content) : content),
   );
@@ -513,6 +528,168 @@ void main() {
       await _finish(tester, journal);
       expect(find.text("ads.example.com"), findsOneWidget);
       expect(_opacityOf(tester, find.text("ads.example.com")), 1.0);
+      await _unmount(tester);
+    });
+  });
+
+  group('time groups', () {
+    // 23 Oct 2026, 14:00 local.
+    final now = DateTime(2026, 10, 23, 14);
+    DateTime clock() => now;
+
+    String justNow() => "activity group just now".i18n;
+    String today() => "activity group earlier today".i18n;
+    String yesterday() => "activity group yesterday".i18n;
+
+    // The group headers on screen, top to bottom.
+    List<String> headers(WidgetTester tester) {
+      final texts = [
+        for (final label in [justNow(), today(), yesterday(), "Tue, Oct 20", "Mon, Oct 19"])
+          if (find.text(label).evaluate().isNotEmpty) label,
+      ];
+      texts.sort(
+        (a, b) => tester.getTopLeft(find.text(a)).dy.compareTo(tester.getTopLeft(find.text(b)).dy),
+      );
+      return texts;
+    }
+
+    double top(WidgetTester tester, String text) => tester.getTopLeft(find.text(text)).dy;
+
+    testWidgets('rows sit under just now, earlier today, yesterday and a date', (tester) async {
+      final journal = await _pumpActivity(tester, now: clock);
+      journal.result = [
+        _entry("a.example.com", UiJournalAction.block, at: DateTime(2026, 10, 23, 13, 50)),
+        _entry("b.example.com", UiJournalAction.allow, at: DateTime(2026, 10, 23, 13, 40)),
+        _entry("c.example.com", UiJournalAction.block, at: DateTime(2026, 10, 23, 9)),
+        _entry("d.example.com", UiJournalAction.block, at: DateTime(2026, 10, 22, 23, 59)),
+        _entry("e.example.com", UiJournalAction.allow, at: DateTime(2026, 10, 20, 8)),
+      ];
+      await _finish(tester, journal);
+
+      expect(headers(tester), [justNow(), today(), yesterday(), "Tue, Oct 20"]);
+      final order = [
+        justNow(),
+        "a.example.com",
+        "b.example.com",
+        today(),
+        "c.example.com",
+        yesterday(),
+        "d.example.com",
+        "Tue, Oct 20",
+        "e.example.com",
+      ];
+      for (var i = 1; i < order.length; i++) {
+        expect(top(tester, order[i - 1]), lessThan(top(tester, order[i])), reason: order[i]);
+      }
+      await _unmount(tester);
+    });
+
+    testWidgets('group headers are marked as headers', (tester) async {
+      final handle = tester.ensureSemantics();
+      final journal = await _pumpActivity(tester, now: clock);
+      journal.result = [
+        _entry("a.example.com", UiJournalAction.block, at: DateTime(2026, 10, 23, 13, 50)),
+      ];
+      await _finish(tester, journal);
+
+      final header = tester.getSemantics(find.text(justNow())).getSemanticsData();
+      expect(header.flagsCollection.isHeader, isTrue);
+      handle.dispose();
+      await _unmount(tester);
+    });
+
+    testWidgets('a loaded page is grouped with the rest', (tester) async {
+      final journal = await _pumpActivity(tester, now: clock);
+      journal.more = true;
+      journal.result = [
+        for (var i = 0; i < 20; i++)
+          _entry("a$i.example.com", UiJournalAction.block, at: DateTime(2026, 10, 23, 13, 59 - i)),
+      ];
+      journal.page = [
+        _entry("late.example.com", UiJournalAction.block, at: DateTime(2026, 10, 23, 13, 20)),
+        _entry("old.example.com", UiJournalAction.allow, at: DateTime(2026, 10, 19, 8)),
+      ];
+      await _finish(tester, journal);
+      expect(find.text("Mon, Oct 19"), findsNothing);
+
+      final list = find.byType(Scrollable).first;
+      await tester.drag(list, const Offset(0, -5000));
+      await tester.pump();
+      await tester.pump();
+      expect(journal.pageRequests, greaterThan(0));
+      await tester.drag(list, const Offset(0, -5000));
+      await tester.pump();
+
+      // The page's row from the last hour joins the group above it, with no
+      // second header, and the older day gets its own.
+      expect(find.text("late.example.com"), findsOneWidget);
+      expect(find.text("Mon, Oct 19"), findsOneWidget);
+      expect(top(tester, "late.example.com"), lessThan(top(tester, "Mon, Oct 19")));
+      expect(top(tester, "Mon, Oct 19"), lessThan(top(tester, "old.example.com")));
+      await tester.drag(list, const Offset(0, 5000));
+      await tester.pump();
+      expect(find.text(justNow()), findsOneWidget);
+      await _unmount(tester);
+    });
+
+    testWidgets('a new group from a refresh fades in with its rows', (tester) async {
+      final journal = await _pumpActivity(tester, now: clock);
+      final old = _entry("old.example.com", UiJournalAction.block, at: DateTime(2026, 10, 23, 9));
+      journal.result = [old];
+      await _finish(tester, journal);
+      expect(headers(tester), [today()]);
+
+      journal.result = [
+        _entry("new.example.com", UiJournalAction.block, at: DateTime(2026, 10, 23, 13, 55)),
+        old,
+      ];
+      unawaited(tester.state<RefreshIndicatorState>(find.byType(RefreshIndicator)).show());
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
+      await tester.pump(const Duration(seconds: 1));
+      await _finish(tester, journal);
+      await tester.pump(const Duration(milliseconds: 100));
+
+      expect(headers(tester), [justNow(), today()]);
+      expect(_opacityOf(tester, find.text(justNow())), inExclusiveRange(0, 1));
+      expect(_opacityOf(tester, find.text(today())), 1.0);
+      await tester.pump(const Duration(milliseconds: 300));
+      expect(_opacityOf(tester, find.text(justNow())), 1.0);
+      await _unmount(tester);
+    });
+
+    testWidgets('a filter change reloads and regroups the rows', (tester) async {
+      final journal = await _pumpActivity(tester, now: clock);
+      final allowed = _entry("b.example.com", UiJournalAction.allow, at: DateTime(2026, 10, 22, 9));
+      journal.result = [
+        _entry("a.example.com", UiJournalAction.block, at: DateTime(2026, 10, 23, 13, 50)),
+        allowed,
+      ];
+      await _finish(tester, journal);
+      expect(headers(tester), [justNow(), yesterday()]);
+      final loads = journal.loads;
+
+      final filter = Core.get<JournalFilterValue>();
+      journal.result = [allowed];
+      filter.now = filter.now.updateOnly(showOnly: JournalFilterType.passed);
+      await tester.pump();
+      expect(journal.loads, loads + 1);
+      await _finish(tester, journal);
+
+      expect(find.text("a.example.com"), findsNothing);
+      expect(headers(tester), [yesterday()]);
+      await _unmount(tester);
+    });
+
+    testWidgets('the first-load placeholder leaves room for the header', (tester) async {
+      final journal = await _pumpActivity(tester, now: clock);
+      final firstRow = tester.getTopLeft(find.byType(LoadingPlaceholder)).dy;
+      journal.result = [
+        _entry("a.example.com", UiJournalAction.block, at: DateTime(2026, 10, 23, 13, 50)),
+      ];
+      await _finish(tester, journal);
+
+      expect(tester.getTopLeft(find.byType(ActivityItem)).dy, firstRow);
       await _unmount(tester);
     });
   });
