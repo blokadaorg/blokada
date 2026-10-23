@@ -1,5 +1,6 @@
 import 'package:common/src/core/core.dart';
 import 'package:common/src/features/api/domain/api.dart' as api;
+import 'package:common/src/features/filter/domain/filter.dart';
 import 'package:common/src/platform/account/account.dart';
 import 'package:common/src/platform/account/api.dart';
 import 'package:common/src/platform/app/app.dart';
@@ -40,6 +41,15 @@ void seedDevice() {
     device.cloudEnabled = true;
     device.retention = '24h';
   });
+}
+
+/// The default blocklist plus one extra, so the blocklists screen shows a
+/// main list and an extra instead of its loading state.
+Future<void> seedBlocklists(WidgetTester tester) async {
+  await tester.runAsync(() => Core.get<SelectedFilters>().change(Markers.testing, [
+        FilterSelection("oisd", ["small"]),
+        FilterSelection("adaway", ["standard"]),
+      ]));
 }
 
 void seedStats() {

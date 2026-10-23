@@ -16,6 +16,7 @@ class PlatformFilterActor with Logging, Actor {
   late final _selectedFilters = Core.get<SelectedFilters>();
   late final _knownFilters = Core.get<KnownFilters>();
   late final _acc = Core.get<AccountActor>();
+  late final _mainPick = Core.get<BlocklistMainPick>();
 
   late final _toast = Core.get<ToastActor>();
 
@@ -103,8 +104,8 @@ class PlatformFilterActor with Logging, Actor {
     }
   }
 
-  /// Flips one option from the blocklists screen. Only the selection changes
-  /// here; the debounced [_save] sends it and confirms or rolls it back.
+  /// Flips one option, for the platform `toggleListByTag` command. The v6
+  /// screen uses [selectMainBlocklist] and [toggleExtraBlocklist] instead.
   toggleFilterOption(String filterName, String option, Marker m) async {
     return await log(m).trace("toggleFilterOption", (m) async {
       final known = _knownFilters
@@ -133,29 +134,82 @@ class PlatformFilterActor with Logging, Actor {
         selected.add(newFilter);
       }
       await _selectedFilters.change(m, selected);
+      await _applyUserChange(was, m);
+    });
+  }
 
-      // Whether this toggle started the pending user change, to undo if it fails.
-      var started = false;
-      try {
-        final config =
-            await _controller.getConfig(await _selectedFilters.now(), m);
-        await log(m).trace("toggleFilterOptionLegacy", (m) async {
-          log(m).pair("lists", config.lists);
-          // An unchanged config sends nothing, so there is nothing to confirm.
-          if (_unsaved == null && config != _userConfig.present) {
-            _unsaved = was;
-            started = true;
-          }
-          await _userConfig.change(m, config);
-          // v2 api will be updated by the callback below, which confirms the save
-        });
-      } catch (e, s) {
-        log(m).e(msg: "Error toggling filter option", err: e, stack: s);
-        if (started) _unsaved = null;
-        _toast.showError("toast save failed".i18n);
-        await _selectedFilters.change(m, was);
+  /// Makes [key] the main blocklist of the v6 screen: the old main list goes
+  /// off and [key] comes on, sent as one save. Extras stay as they are.
+  Future<void> selectMainBlocklist(BlocklistKey key, Marker m) async {
+    return await log(m).trace("selectMainBlocklist", (m) async {
+      if (!v6MainBlocklists.contains(key)) {
+        log(m).w("not a main blocklist: $key");
+        return;
+      }
+
+      final was = await _selectedFilters.now();
+      final pick = BlocklistKey.fromTag(await _mainPick.fetch(m));
+      final current = v6MainBlocklist(was, pick: pick);
+      if (current == key) return;
+
+      var selected = was;
+      if (current != null) selected = withBlocklist(selected, current, false);
+      selected = withBlocklist(selected, key, true);
+
+      // Saved first, so the selection change below already shows [key] as
+      // main even if another general list that sorts before it stays on.
+      await _mainPick.change(m, key.tag);
+      await _selectedFilters.change(m, selected);
+      if (!await _applyUserChange(was, m)) {
+        await _mainPick.change(m, pick?.tag);
       }
     });
+  }
+
+  /// Turns an extra on or off on the v6 screen. Refuses to turn off the last
+  /// list that is on: v6 has no "no blocklists" state, and an empty list would
+  /// make FilterActor quietly put the defaults back.
+  Future<void> toggleExtraBlocklist(BlocklistKey key, bool on, Marker m) async {
+    return await log(m).trace("toggleExtraBlocklist", (m) async {
+      final was = await _selectedFilters.now();
+      final selected = withBlocklist(was, key, on);
+      if (selectedBlocklists(selected).isEmpty) {
+        log(m).w("refusing to turn off the last blocklist: $key");
+        return;
+      }
+      await _selectedFilters.change(m, selected);
+      await _applyUserChange(was, m);
+    });
+  }
+
+  /// Sends the selection the user just changed from [was]. Only the config
+  /// changes here; the debounced [_save] sends it and confirms or rolls it
+  /// back. If building the config fails, the selection goes back to [was]
+  /// and this returns false.
+  Future<bool> _applyUserChange(List<FilterSelection> was, Marker m) async {
+    // Whether this change started the pending user change, to undo if it fails.
+    var started = false;
+    try {
+      final config =
+          await _controller.getConfig(await _selectedFilters.now(), m);
+      await log(m).trace("toggleFilterOptionLegacy", (m) async {
+        log(m).pair("lists", config.lists);
+        // An unchanged config sends nothing, so there is nothing to confirm.
+        if (_unsaved == null && config != _userConfig.present) {
+          _unsaved = was;
+          started = true;
+        }
+        await _userConfig.change(m, config);
+        // v2 api will be updated by the callback below, which confirms the save
+      });
+      return true;
+    } catch (e, s) {
+      log(m).e(msg: "Error toggling filter option", err: e, stack: s);
+      if (started) _unsaved = null;
+      _toast.showError("toast save failed".i18n);
+      await _selectedFilters.change(m, was);
+      return false;
+    }
   }
 
   onUserConfigChanged(UserFilterConfig? config) {

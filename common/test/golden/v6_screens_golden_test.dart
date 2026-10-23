@@ -51,6 +51,7 @@ void main() {
       testWidgets('advanced', (tester) async {
         await bootModules(tester);
         await seedCloudAccount(tester);
+        await seedBlocklists(tester);
         seedAppStatus(AppStatus.activatedCloud);
         await expectScreen(tester, golden('advanced'),
             path: Paths.advanced, brightness: brightness);

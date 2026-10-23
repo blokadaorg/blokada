@@ -1,18 +1,26 @@
-import 'package:collection/collection.dart';
-import 'package:common/src/features/filter/domain/filter.dart';
-import 'package:common/src/shared/navigation.dart';
-import 'package:common/src/features/filter/ui/filter.dart';
 import 'package:common/src/core/core.dart';
-import 'package:common/src/app_variants/family/module/profile/profile.dart';
+import 'package:common/src/features/filter/domain/filter.dart';
+import 'package:common/src/features/settings/ui/settings_item.dart';
 import 'package:common/src/platform/account/account.dart';
 import 'package:common/src/platform/filter/filter.dart';
-import 'package:flutter/material.dart';
+import 'package:common/src/shared/automation/ids.dart';
+import 'package:common/src/shared/navigation.dart';
+import 'package:common/src/shared/ui/blokada_switch.dart';
+import 'package:common/src/shared/ui/common_card.dart';
+import 'package:common/src/shared/ui/common_clickable.dart';
+import 'package:common/src/shared/ui/common_divider.dart';
+import 'package:common/src/shared/ui/section_label.dart';
+import 'package:common/src/shared/ui/theme.dart';
+import 'package:flutter/cupertino.dart';
 
+/// The v6 blocklists screen: one required main list and optional extras
+/// grouped by what they block. v6 has its own widget so Family keeps its
+/// provider cards (FilterWidget) unchanged.
+///
+/// Main and extras are only a grouping here; every change still goes to the
+/// server as one flat list through [PlatformFilterActor].
 class V6FiltersSection extends StatefulWidget {
-
-  const V6FiltersSection({
-    Key? key,
-  }) : super(key: key);
+  const V6FiltersSection({super.key});
 
   @override
   State<StatefulWidget> createState() => V6FiltersSectionState();
@@ -21,19 +29,17 @@ class V6FiltersSection extends StatefulWidget {
 class V6FiltersSectionState extends State<V6FiltersSection> with Logging, Disposables {
   late final _knownFilters = Core.get<KnownFilters>();
   late final _selectedFilters = Core.get<SelectedFilters>();
+  late final _mainPick = Core.get<BlocklistMainPick>();
   late final _legacy = Core.get<PlatformFilterActor>();
   late final _accountStore = Core.get<AccountStore>();
-
-  late JsonProfile profile;
-
-  bool get _isFreemium {
-    return _accountStore.isFreemium;
-  }
 
   @override
   void initState() {
     super.initState();
     disposeLater(_selectedFilters.onChange.listen(rebuild));
+    disposeLater(_mainPick.onChange.listen(rebuild));
+    // Reading the pick only loads it; nothing is saved by opening the screen.
+    _mainPick.fetch(Markers.ui);
   }
 
   @override
@@ -42,131 +48,326 @@ class V6FiltersSectionState extends State<V6FiltersSection> with Logging, Dispos
     disposeAll();
   }
 
-  /// Filter cards go two-per-row once the section is wide enough that a
-  /// single stretched column reads worse than a grid; in practice only the
-  /// expanded-window content box (up to maxContentWidthTwoPane) crosses
-  /// this, since narrower layouts cap the box at maxContentWidth.
-  static const double _twoColumnMinWidth = 700.0;
-
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      return _buildSection(context, twoColumns: constraints.maxWidth >= _twoColumnMinWidth);
-    });
-  }
+    final filters = _knownFilters.get();
+    final selected = _selectedFilters.present ?? [];
+    final on = selectedBlocklists(selected);
+    final main = v6MainBlocklist(selected, pick: BlocklistKey.fromTag(_mainPick.present));
+    // v6 always has a list on, so an empty selection means it is not loaded
+    // yet. Taps then would save over lists the server has.
+    final loading = on.isEmpty;
 
-  Widget _buildSection(BuildContext context, {required bool twoColumns}) {
-    final padding = SizedBox(height: getTopPadding(context)) as Widget;
-    final filters = twoColumns ? _buildFiltersTwoColumns(context) : _buildFilters(context);
+    final colors = _providerColors(filters);
+    final extras = <BlocklistGroup, List<BlocklistKey>>{};
+    for (final key in blocklistKeys(filters)) {
+      if (key == main) continue;
+      final group = v6BlocklistGroup(key);
+      // With no main list, general lists are only offered as the main one.
+      if (main == null && group == BlocklistGroup.general) continue;
+      extras.putIfAbsent(group, () => []).add(key);
+    }
 
-    return Stack(
-      children: [
-        IgnorePointer(
-          ignoring: _isFreemium,
-          child: ListView(primary: true, children: [padding] + filters),
+    final children = <Widget>[
+      SizedBox(height: getTopPadding(context)),
+      _Summary(
+        main: main == null ? null : blocklistName(main, filters),
+        extras: on.where((it) => it != main).map((it) => blocklistName(it, filters)).toList(),
+        loading: loading,
+      ),
+      const SizedBox(height: 16),
+      CommonCard(
+        child: SettingsItem(
+          icon: CupertinoIcons.shield_lefthalf_fill,
+          text: "family stats title".i18n, // My exceptions
+          automationId: AutomationIds.blocklistsExceptions,
+          onTap: () => Navigation.open(Paths.settingsExceptions),
         ),
-      ],
+      ),
+      const SizedBox(height: 24),
+      SectionLabel(text: "blocklists main header".i18n),
+      if (main == null && !loading)
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 4),
+          child: Text(
+            "blocklists main pick".i18n,
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: context.theme.accent,
+            ),
+          ),
+        ),
+      const SizedBox(height: 4),
+      _group(context, [
+        for (final key in v6MainBlocklists)
+          if (filters.any(
+            (it) =>
+                it.filterName == key.filterName &&
+                it.options.any((o) => o.optionName == key.optionName),
+          ))
+            _MainRow(
+              name: blocklistName(key, filters),
+              brief: blocklistBrief(key),
+              color: colors[key.filterName],
+              selected: key == main,
+              automationId: _automationId("blocklist_main", key),
+              onTap: () => _legacy.selectMainBlocklist(key, Markers.userTap),
+            ),
+      ]),
+      for (final group in BlocklistGroup.values)
+        if (extras[group]?.isNotEmpty ?? false) ...[
+          const SizedBox(height: 24),
+          SectionLabel(text: group.titleKey.i18n),
+          const SizedBox(height: 4),
+          _group(context, [
+            for (final key in extras[group]!)
+              _ExtraRow(
+                name: blocklistName(key, filters),
+                brief: blocklistBrief(key),
+                color: colors[key.filterName],
+                selected: on.contains(key),
+                // The last list on can't go off: there is no "no blocklists".
+                locked: main == null && on.length == 1 && on.contains(key),
+                // Same ids as the old cards, which the smoke suite toggles.
+                automationId: _automationId("filter_option", key),
+                onChanged: (value) => _legacy.toggleExtraBlocklist(key, value, Markers.userTap),
+              ),
+          ]),
+        ],
+      const SizedBox(height: 48),
+    ];
+
+    return IgnorePointer(
+      ignoring: _accountStore.isFreemium || loading,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: ListView(primary: true, children: children),
+      ),
     );
   }
 
-  /// Two independent columns that each stack tightly (pairing cards into
-  /// Rows forced every pair to the taller card's height). Cards go to the
-  /// currently-shorter column by estimated height, so tall cards don't
-  /// pile up on one side.
-  List<Widget> _buildFiltersTwoColumns(BuildContext context) {
-    final left = <Widget>[];
-    final right = <Widget>[];
-    var leftHeight = 0.0;
-    var rightHeight = 0.0;
-    for (final (card, height) in _buildWeightedFilters(context)) {
-      if (leftHeight <= rightHeight) {
-        left.add(card);
-        leftHeight += height;
-      } else {
-        right.add(card);
-        rightHeight += height;
-      }
-    }
-    return [
-      Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _group(BuildContext context, List<Widget> rows) {
+    return CommonCard(
+      child: Column(
         children: [
-          Expanded(child: Column(children: left)),
-          Expanded(child: Column(children: right)),
+          for (final (i, row) in rows.indexed) ...[if (i > 0) const CommonDivider(indent: 34), row],
         ],
       ),
-    ];
+    );
   }
 
-  List<Widget> _buildFilters(BuildContext context) {
-    return _buildWeightedFilters(context).map((it) => it.$1).toList();
+  /// Keeps the colours the provider cards had, as a small dot per row.
+  Map<FilterName, Color> _providerColors(List<Filter> filters) {
+    return {
+      for (final (i, filter) in filters.indexed) filter.filterName: _palette[i % _palette.length],
+    };
   }
 
-  /// Cards paired with a rough height estimate so the wide layout can
-  /// balance its columns; only relative accuracy matters. Option rows
-  /// dominate a card's height, wrapped description lines add the rest.
-  List<(Widget, double)> _buildWeightedFilters(BuildContext context) {
-    final filters = <(Widget, double)>[];
-    int i = 0;
-    final colors = Core.act.isFamily ? _cardColorsFamily : _cardColorsV6;
-    for (final filter in _knownFilters.get()) {
-      final color = colors.elementAtOrNull(i++);
-      final selected = _selectedFilters.present
-              ?.firstWhereOrNull((it) => it.filterName == filter.filterName)
-              ?.options ??
-          [];
-      try {
-        filters.add((
-          _buildFilter(context, filter, selected, color: color),
-          _estimateFilterHeight(filter),
-        ));
-      } catch (e) {
-        print("ERROR: Unknown filter from API: '${filter.filterName}' - skipping. Add FilterDecor entry to filter_decor_defaults.dart");
-        // Continue processing other filters instead of crashing
-      }
-    }
-    return filters;
-  }
-
-  double _estimateFilterHeight(Filter filter) {
-    final texts = filterDecorDefaults
-        .firstWhereOrNull((it) => it.filterName == filter.filterName);
-    final descriptionLines = ((texts?.description.i18n.length ?? 80) / 60).ceilToDouble();
-    return 170 + descriptionLines * 22 + filter.options.length * 60;
-  }
-
-  final List<Color?> _cardColorsFamily = [
-    const Color(0xFFA9CCFE),
-    null,
-    const Color(0xFFF4B1C6),
-    const Color(0xFFFDB39C),
+  static const _palette = [
+    Color(0xFFFFCD8C),
+    Color(0xFFB1CCF4),
+    Color(0xFFFFA0EC),
+    Color(0xFFB1F4C8),
+    Color(0xFFFDB39C),
   ];
 
-  final List<Color?> _cardColorsV6 = [
-    const Color(0xFFFFCD8C),
-    null,
-    const Color(0xFFB1CCF4),
-    const Color(0xFFFFA0EC),
-    null,
-    const Color(0xFFB1F4C8),
-    null,
-    const Color(0xFFFDB39C),
-  ];
+  String _automationId(String kind, BlocklistKey key) {
+    final filterName = _sanitizeAutomationSegment(key.filterName);
+    final optionName = _sanitizeAutomationSegment(key.optionName);
+    return "automation.$kind.$filterName.$optionName";
+  }
 
-  Widget _buildFilter(BuildContext context, Filter filter, List<String> selections,
-      {Color? color}) {
-    try {
-      final texts = filterDecorDefaults.firstWhere((it) => it.filterName == filter.filterName);
-      return FilterWidget(
-          filter: filter,
-          texts: texts,
-          selections: selections.toList(), // To not edit in place
-          onSelect: (sel, option) {
-            _legacy.toggleFilterOption(filter.filterName, option, Markers.userTap);
-          },
-          bgColor: color);
-    } catch (e) {
-      throw Exception("Error getting filter decor, filter: ${filter.filterName}: $e");
-    }
+  String _sanitizeAutomationSegment(String value) {
+    final sanitized = value.replaceAll(RegExp(r'[^A-Za-z0-9._-]+'), '_');
+    return sanitized.isEmpty ? "unknown" : sanitized;
+  }
+}
+
+/// What is on, so the user doesn't have to scan every group.
+class _Summary extends StatelessWidget {
+  final String? main;
+  final List<String> extras;
+  final bool loading;
+
+  const _Summary({required this.main, required this.extras, required this.loading});
+
+  @override
+  Widget build(BuildContext context) {
+    final main = this.main;
+    return MergeSemantics(
+      child: Semantics(
+        identifier: AutomationIds.blocklistsSummary,
+        child: CommonCard(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                "blocklists summary header".i18n,
+                style: TextStyle(fontSize: 14, color: context.theme.textSecondary),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                loading ? " " : (main ?? "blocklists main none".i18n),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: main == null ? context.theme.accent : null,
+                ),
+              ),
+              if (extras.isNotEmpty) ...[
+                const SizedBox(height: 4),
+                Text(
+                  "+ ${extras.join(", ")}",
+                  style: TextStyle(fontSize: 14, color: context.theme.textSecondary),
+                ),
+              ],
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// The provider's colour, kept small so it reads as a hint, not a tile.
+class _Dot extends StatelessWidget {
+  final Color? color;
+
+  const _Dot({required this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 10,
+      height: 10,
+      decoration: BoxDecoration(color: color ?? context.theme.divider, shape: BoxShape.circle),
+    );
+  }
+}
+
+/// Name and optional one-line trade-off of a list.
+class _RowText extends StatelessWidget {
+  final String name;
+  final String? brief;
+
+  const _RowText({required this.name, required this.brief});
+
+  @override
+  Widget build(BuildContext context) {
+    final brief = this.brief;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(name, style: const TextStyle(fontSize: 16)),
+        if (brief != null) ...[
+          const SizedBox(height: 2),
+          Text(brief, style: TextStyle(fontSize: 13, color: context.theme.textSecondary)),
+        ],
+      ],
+    );
+  }
+}
+
+/// One choice of the main list. Tapping it swaps the main list.
+class _MainRow extends StatelessWidget {
+  final String name;
+  final String? brief;
+  final Color? color;
+  final bool selected;
+  final String automationId;
+  final VoidCallback onTap;
+
+  const _MainRow({
+    required this.name,
+    required this.brief,
+    required this.color,
+    required this.selected,
+    required this.automationId,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return MergeSemantics(
+      child: Semantics(
+        identifier: automationId,
+        button: true,
+        inMutuallyExclusiveGroup: true,
+        selected: selected,
+        child: CommonClickable(
+          tapBorderRadius: BorderRadius.zero,
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+          onTap: selected ? null : onTap,
+          child: Row(
+            children: [
+              _Dot(color: color),
+              const SizedBox(width: 12),
+              Expanded(
+                child: _RowText(name: name, brief: brief),
+              ),
+              const SizedBox(width: 8),
+              SizedBox(
+                width: 24,
+                child: selected
+                    ? Icon(CupertinoIcons.checkmark_alt, size: 22, color: context.theme.accent)
+                    : null,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// One optional list, with a switch.
+class _ExtraRow extends StatelessWidget {
+  final String name;
+  final String? brief;
+  final Color? color;
+  final bool selected;
+  final bool locked;
+  final String automationId;
+  final ValueChanged<bool> onChanged;
+
+  const _ExtraRow({
+    required this.name,
+    required this.brief,
+    required this.color,
+    required this.selected,
+    required this.locked,
+    required this.automationId,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      child: Row(
+        children: [
+          _Dot(color: color),
+          const SizedBox(width: 12),
+          Expanded(
+            child: _RowText(name: name, brief: brief),
+          ),
+          const SizedBox(width: 8),
+          // Id on the switch itself, so automation reads its on/off value.
+          MergeSemantics(
+            child: Semantics(
+              identifier: automationId,
+              toggled: selected,
+              child: BlokadaSwitch(
+                activeColor: context.theme.accent,
+                value: selected,
+                onChanged: locked ? null : onChanged,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
