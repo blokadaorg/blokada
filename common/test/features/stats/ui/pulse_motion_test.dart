@@ -50,7 +50,13 @@ Widget _segment(
   ToplistRange range, {
   int allowedPerHour = 2,
   StatsCounters? counters = _counters,
-}) => HorizontalRadialSegment(stats: _stats(allowedPerHour), range: range, counters: counters);
+  bool statsReady = true,
+}) => HorizontalRadialSegment(
+  stats: _stats(allowedPerHour),
+  range: range,
+  counters: counters,
+  statsReady: statsReady,
+);
 
 MiniCardChart _chart(WidgetTester tester) => tester.widget(find.byType(MiniCardChart));
 
@@ -107,6 +113,19 @@ void main() {
       await _show(tester, _segment(ToplistRange.weekly));
       expect(_chart(tester).animate, isTrue);
       expect(_chart(tester).key, isNot(daily));
+
+      await _unmount(tester);
+    });
+
+    testWidgets('waits for the chart\'s data, not only the counters', (tester) async {
+      await bootModules(tester);
+      await _show(tester, _segment(ToplistRange.daily, statsReady: false));
+      expect(_chart(tester).animate, isFalse);
+
+      // The data arrives after the draw would have ended: it still draws in.
+      await tester.pump(MiniCardChart.drawDuration);
+      await _show(tester, _segment(ToplistRange.daily));
+      expect(_chart(tester).animate, isTrue);
 
       await _unmount(tester);
     });

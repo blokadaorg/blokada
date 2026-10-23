@@ -58,9 +58,12 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
   Timer? _drawTimer;
 
   /// Whether the trend line is drawing in now. Waits for the range's
-  /// numbers, so the line doesn't draw in for the previous range's data.
+  /// numbers and the chart's own data, so the draw-in is not spent on the
+  /// previous range or on the chart's waiting state.
   bool _updateDraw(BuildContext context) {
-    if (widget.counters == null || _drawnRange == widget.range) return _drawing;
+    if (widget.counters == null || !widget.statsReady || _drawnRange == widget.range) {
+      return _drawing;
+    }
     _drawnRange = widget.range;
     _drawCount++;
     _drawTimer?.cancel();
