@@ -16,6 +16,7 @@ class PlatformFilterActor with Logging, Actor {
   late final _selectedFilters = Core.get<SelectedFilters>();
   late final _knownFilters = Core.get<KnownFilters>();
   late final _acc = Core.get<AccountActor>();
+  late final _mainPick = Core.get<BlocklistMainPick>();
 
   late final _toast = Core.get<ToastActor>();
 
@@ -26,6 +27,14 @@ class PlatformFilterActor with Logging, Actor {
   // or null when no user change is pending. Saves of the defaults or a device
   // refresh leave it null, so only a save the user asked for gets a toast.
   List<FilterSelection>? _unsaved;
+
+  // The v6 main pick from before the pending user change, when that change
+  // moved it; restored with the selection if the save fails. Null: unchanged.
+  ({String? tag})? _unsavedPick;
+
+  // Counts saves started, so a save that fails after a newer one started
+  // leaves the rollback to that newer save.
+  int _saveCount = 0;
 
   PlatformFilterActor({Duration debounce = const Duration(seconds: 1)})
       : _debounce = Debounce(debounce);
@@ -103,8 +112,8 @@ class PlatformFilterActor with Logging, Actor {
     }
   }
 
-  /// Flips one option from the blocklists screen. Only the selection changes
-  /// here; the debounced [_save] sends it and confirms or rolls it back.
+  /// Flips one option, for the platform `toggleListByTag` command. The v6
+  /// screen uses [selectMainBlocklist] and [toggleExtraBlocklist] instead.
   toggleFilterOption(String filterName, String option, Marker m) async {
     return await log(m).trace("toggleFilterOption", (m) async {
       final known = _knownFilters
@@ -133,29 +142,89 @@ class PlatformFilterActor with Logging, Actor {
         selected.add(newFilter);
       }
       await _selectedFilters.change(m, selected);
+      await _applyUserChange(was, m);
+    });
+  }
 
-      // Whether this toggle started the pending user change, to undo if it fails.
-      var started = false;
-      try {
-        final config =
-            await _controller.getConfig(await _selectedFilters.now(), m);
-        await log(m).trace("toggleFilterOptionLegacy", (m) async {
-          log(m).pair("lists", config.lists);
-          // An unchanged config sends nothing, so there is nothing to confirm.
-          if (_unsaved == null && config != _userConfig.present) {
-            _unsaved = was;
-            started = true;
-          }
-          await _userConfig.change(m, config);
-          // v2 api will be updated by the callback below, which confirms the save
-        });
-      } catch (e, s) {
-        log(m).e(msg: "Error toggling filter option", err: e, stack: s);
-        if (started) _unsaved = null;
-        _toast.showError("toast save failed".i18n);
-        await _selectedFilters.change(m, was);
+  /// Makes [key] the main blocklist of the v6 screen: the old main list goes
+  /// off and [key] comes on, sent as one save. Extras stay as they are.
+  Future<void> selectMainBlocklist(BlocklistKey key, Marker m) async {
+    return await log(m).trace("selectMainBlocklist", (m) async {
+      if (!v6MainBlocklists.contains(key)) {
+        log(m).w("not a main blocklist: $key");
+        return;
+      }
+
+      final was = await _selectedFilters.now();
+      final pick = BlocklistKey.fromTag(await _mainPick.fetch(m));
+      final current = v6MainBlocklist(was, pick: pick);
+      if (current == key) return;
+
+      var selected = was;
+      if (current != null) selected = withBlocklist(selected, current, false);
+      selected = withBlocklist(selected, key, true);
+
+      // Saved first, so the selection change below already shows [key] as
+      // main even if another general list that sorts before it stays on.
+      await _mainPick.change(m, key.tag);
+      await _selectedFilters.change(m, selected);
+      if (!await _applyUserChange(was, m, pickWas: (tag: pick?.tag))) {
+        await _mainPick.change(m, pick?.tag);
       }
     });
+  }
+
+  /// Turns an extra on or off on the v6 screen. Refuses to turn off the last
+  /// list that is on: v6 has no "no blocklists" state, and an empty list would
+  /// make FilterActor quietly put the defaults back.
+  Future<void> toggleExtraBlocklist(BlocklistKey key, bool on, Marker m) async {
+    return await log(m).trace("toggleExtraBlocklist", (m) async {
+      final was = await _selectedFilters.now();
+      final selected = withBlocklist(was, key, on);
+      if (selectedBlocklists(selected).isEmpty) {
+        log(m).w("refusing to turn off the last blocklist: $key");
+        return;
+      }
+      await _selectedFilters.change(m, selected);
+      await _applyUserChange(was, m);
+    });
+  }
+
+  /// Sends the selection the user just changed from [was]. Only the config
+  /// changes here; the debounced [_save] sends it and confirms or rolls it
+  /// back. If building the config fails, the selection goes back to [was]
+  /// and this returns false.
+  Future<bool> _applyUserChange(List<FilterSelection> was, Marker m,
+      {({String? tag})? pickWas}) async {
+    // Whether this change started the pending user change, to undo if it fails.
+    var started = false;
+    try {
+      final config =
+          await _controller.getConfig(await _selectedFilters.now(), m);
+      await log(m).trace("toggleFilterOptionLegacy", (m) async {
+        log(m).pair("lists", config.lists);
+        // An unchanged config sends nothing, so there is nothing to confirm.
+        if (_unsaved == null && config != _userConfig.present) {
+          _unsaved = was;
+          started = true;
+        }
+        // The pick from before the first change in this save, so a failed
+        // save puts back the main list it showed.
+        if (_unsaved != null && pickWas != null) _unsavedPick ??= pickWas;
+        await _userConfig.change(m, config);
+        // v2 api will be updated by the callback below, which confirms the save
+      });
+      return true;
+    } catch (e, s) {
+      log(m).e(msg: "Error toggling filter option", err: e, stack: s);
+      if (started) {
+        _unsaved = null;
+        _unsavedPick = null;
+      }
+      _toast.showError("toast save failed".i18n);
+      await _selectedFilters.change(m, was);
+      return false;
+    }
   }
 
   onUserConfigChanged(UserFilterConfig? config) {
@@ -165,6 +234,7 @@ class PlatformFilterActor with Logging, Actor {
       // Back to what the device has, so an earlier toggle must not be sent.
       _debounce.cancel();
       _unsaved = null;
+      _unsavedPick = null;
       return;
     }
     if (lists.isEmpty) return; // Skip setting empty list, not supported by v2
@@ -180,8 +250,11 @@ class PlatformFilterActor with Logging, Actor {
   /// an error toast replaces the confirmation and the switches go back to
   /// what is saved.
   Future<void> _save(List<String> lists, Marker m) async {
+    final save = ++_saveCount;
     final before = _unsaved;
+    final pickBefore = _unsavedPick;
     _unsaved = null;
+    _unsavedPick = null;
     final bool saved;
     try {
       saved = await _device.setLists(lists, m);
@@ -191,11 +264,12 @@ class PlatformFilterActor with Logging, Actor {
       // apply and retry them in a loop.
       if (before == null) return;
       _toast.showError("toast save failed".i18n);
-      // A toggle made while this save was in flight is pending with the full
-      // selection; rolling back now would drop it, so its save goes ahead.
-      if (_unsaved != null) return;
+      // A toggle made while this save was in flight is pending or already
+      // saved with the full selection; rolling back now would undo it.
+      if (_unsaved != null || save != _saveCount) return;
       try {
         await _restoreSaved(before, m);
+        if (pickBefore != null) await _mainPick.change(m, pickBefore.tag);
       } catch (e, s) {
         // Runs from a timer, so nobody else would see this error.
         log(m).e(msg: "Error restoring saved blocklists", err: e, stack: s);

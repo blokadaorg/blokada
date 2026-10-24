@@ -28,7 +28,7 @@ const _nsfw = "id-oisd-nsfw";
 
 /// Stands in for the v2 device endpoint: PUT stores the lists, GET returns
 /// them. [fail] makes every PUT reject like a failed request, [failNext] only
-/// that many, [failGet] the GET, and [gate] holds a PUT until completed.
+/// that many, [failGet] the GET, and [gate] holds the next PUT until completed.
 class _FakeDeviceApi extends DeviceApi {
   bool fail = false;
   int failNext = 0;
@@ -57,28 +57,46 @@ class _FakeDeviceApi extends DeviceApi {
       String? retention,
       bool? safeSearch}) async {
     puts.add(lists!);
-    await gate?.future;
-    if (failNext > 0) {
-      failNext--;
-      throw Exception("network down");
-    }
+    // Decided when the PUT starts, so a later PUT can finish first.
+    final failThis = failNext > 0;
+    if (failThis) failNext--;
+    final held = gate;
+    gate = null;
+    await held?.future;
+    if (failThis) throw Exception("network down");
     if (fail) throw Exception("network down");
     stored = lists.toList();
   }
 }
 
+// Lists beyond OISD, for the v6 main list and extras.
+const _unified = "id-stevenblack-unified";
+const _adult = "id-stevenblack-adult";
+const _adaway = "id-adaway-standard";
+
 class _FakeListApi extends ListApi {
+  /// Also lists Steven Black and AdAway, which the older tests rely on
+  /// being missing from the catalog.
+  final bool wide;
+
+  _FakeListApi({this.wide = false});
+
   @override
   Future<List<JsonListItem>> get(Marker m) async => [
-        _list(_small, "small"),
-        _list(_big, "big"),
-        _list(_nsfw, "nsfw"),
+        _list(_small, "oisd", "small"),
+        _list(_big, "oisd", "big"),
+        _list(_nsfw, "oisd", "nsfw"),
+        if (wide) ...[
+          _list(_unified, "stevenblack", "unified"),
+          _list(_adult, "stevenblack", "adult"),
+          _list(_adaway, "adaway", "standard"),
+        ],
       ];
 
-  JsonListItem _list(String id, String variant) => JsonListItem(
+  JsonListItem _list(String id, String vendor, String variant) => JsonListItem(
         id: id,
-        path: "mirror/v5/oisd/$variant/hosts.txt",
-        vendor: "oisd",
+        path: "mirror/v5/$vendor/$variant/hosts.txt",
+        vendor: vendor,
         variant: variant,
         managed: true,
         allowlist: false,
@@ -119,11 +137,26 @@ class _Subject {
     final selected = await Core.get<SelectedFilters>().now();
     return selected.firstWhere((it) => it.filterName == "oisd").options;
   }
+
+  /// The main list as the v6 screen shows it.
+  Future<BlocklistKey?> main(Marker m) async {
+    final pick = await Core.get<BlocklistMainPick>().fetch(m);
+    return v6MainBlocklist(await Core.get<SelectedFilters>().now(),
+        pick: BlocklistKey.fromTag(pick));
+  }
+
+  /// The lists that are on besides the main one.
+  Future<Set<BlocklistKey>> extras(Marker m) async {
+    final main = await this.main(m);
+    return selectedBlocklists(await Core.get<SelectedFilters>().now())
+      ..remove(main);
+  }
 }
 
 /// Wires the real filter, device and legacy filter actors over fake
 /// endpoints, and waits until the device's lists show as selected.
-Future<_Subject> _boot(Marker m) async {
+Future<_Subject> _boot(Marker m,
+    {List<String>? stored, bool wide = false}) async {
   Core.register<StageStore>(MockStageStore());
   Core.register<AccountStore>(MockAccountStore());
   Core.register<EnvActor>(_FakeEnvActor());
@@ -133,11 +166,14 @@ Future<_Subject> _boot(Marker m) async {
   Core.register<ToastActor>(toast);
 
   final api = _FakeDeviceApi();
+  if (stored != null) api.stored = stored;
   Core.register<DeviceApi>(api);
   final device = DeviceStore();
   Core.register<DeviceStore>(device);
 
-  Core.register<ListApi>(_FakeListApi());
+  Core.register<ListApi>(_FakeListApi(wide: wide));
+  Core.register<Persistence>(Persistence(isSecure: false));
+  Core.register<BlocklistMainPick>(BlocklistMainPick());
   Core.register<KnownFilters>(KnownFilters(isFamily: false));
   Core.register<DefaultFilters>(DefaultFilters(false));
   Core.register<CurrentConfig>(CurrentConfig());
@@ -272,12 +308,12 @@ void main() {
       await withTrace((m) async {
         final s = await _boot(m);
         s.api.failNext = 1;
-        s.api.gate = Completer();
+        final held = s.api.gate = Completer();
 
         await s.actor.toggleFilterOption("oisd", "big", m);
         await _settle(); // The first save is now waiting on the server.
         await s.actor.toggleFilterOption("oisd", "nsfw", m);
-        s.api.gate!.complete();
+        held.complete();
         await _settle();
 
         expect(s.api.puts, hasLength(2));
@@ -337,6 +373,221 @@ void main() {
         expect(s.api.puts, hasLength(1));
         expect(s.toast.shown, isEmpty);
         expect(s.toast.errors, isEmpty);
+      });
+    });
+  });
+
+  group("v6 blocklists", () {
+    const small = BlocklistKey("oisd", "small");
+    const big = BlocklistKey("oisd", "big");
+    const nsfw = BlocklistKey("oisd", "nsfw");
+    const unified = BlocklistKey("stevenblack", "unified");
+    const adult = BlocklistKey("stevenblack", "adult");
+    const adaway = BlocklistKey("adaway", "standard");
+
+    test("freshAccountGetsOisdSmallAsMain", () async {
+      await withTrace((m) async {
+        // The server has nothing yet, so the defaults go on at start.
+        final s = await _boot(m, stored: [], wide: true);
+
+        expect(await s.main(m), small);
+        expect(await s.extras(m), isEmpty);
+        expect(s.api.puts, [
+          [_small]
+        ]);
+      });
+    });
+
+    test("loadingExistingSelectionSavesNothing", () async {
+      await withTrace((m) async {
+        final s = await _boot(m, stored: [_big, _adaway], wide: true);
+
+        expect(await s.main(m), big);
+        expect(await s.extras(m), {adaway});
+        expect(s.api.puts, isEmpty);
+        expect(s.toast.shown, isEmpty);
+      });
+    });
+
+    test("twoGeneralListsFirstInMainOrderIsMain", () async {
+      await withTrace((m) async {
+        final s = await _boot(m, stored: [_unified, _big], wide: true);
+
+        expect(await s.main(m), big);
+        expect(await s.extras(m), {unified});
+        expect(s.api.puts, isEmpty);
+      });
+    });
+
+    test("noMainListIsLeftAsIs", () async {
+      await withTrace((m) async {
+        final s = await _boot(m, stored: [_adaway], wide: true);
+
+        expect(await s.main(m), isNull);
+        expect(await s.extras(m), {adaway});
+        expect(s.api.puts, isEmpty);
+      });
+    });
+
+    test("mainChangeSwapsListsInOneSave", () async {
+      await withTrace((m) async {
+        final s = await _boot(m, stored: [_small, _nsfw], wide: true);
+
+        await s.actor.selectMainBlocklist(unified, m);
+        await _settle();
+
+        expect(s.api.puts, hasLength(1));
+        expect(s.api.puts.single.toSet(), {_unified, _nsfw});
+        expect(await s.main(m), unified);
+        expect(await s.extras(m), {nsfw});
+        expect(s.toast.shown, ["toast blocklists saved".i18n]);
+      });
+    });
+
+    test("mainChangeKeepsPickOverEarlierGeneralExtra", () async {
+      await withTrace((m) async {
+        // OISD Big sorts before Steven Black, but stays an extra.
+        final s = await _boot(m, stored: [_small, _big], wide: true);
+
+        await s.actor.selectMainBlocklist(unified, m);
+        await _settle();
+
+        expect(s.api.puts.single.toSet(), {_big, _unified});
+        expect(await s.main(m), unified);
+        expect(await s.extras(m), {big});
+      });
+    });
+
+    test("failedMainChangePutsBackTheOldPick", () async {
+      await withTrace((m) async {
+        // Steven Black is main with OISD Big as an extra; Big sorts first, so
+        // only the stored pick keeps Steven Black as main.
+        final s = await _boot(m, stored: [_small, _big], wide: true);
+        await s.actor.selectMainBlocklist(unified, m);
+        await _settle();
+        expect(await s.main(m), unified);
+
+        s.api.fail = true;
+        await s.actor.selectMainBlocklist(small, m);
+        await _settle();
+
+        expect(await s.main(m), unified);
+        expect(await s.extras(m), {big});
+      });
+    });
+
+    test("olderFailedSaveKeepsNewerPick", () async {
+      await withTrace((m) async {
+        final s = await _boot(m, stored: [_small, _big], wide: true);
+        await s.actor.selectMainBlocklist(unified, m);
+        await _settle();
+
+        // The main change waits on the server, then fails after the extra
+        // toggle that followed it was saved.
+        s.api.failNext = 1;
+        final held = s.api.gate = Completer();
+        await s.actor.selectMainBlocklist(small, m);
+        await _settle();
+        await s.actor.toggleExtraBlocklist(unified, true, m);
+        await _settle();
+        held.complete();
+        await _settle();
+
+        expect(s.api.stored.toSet(), {_small, _big, _unified});
+        expect(await s.main(m), small);
+        expect(await s.extras(m), {big, unified});
+      });
+    });
+
+    test("pickingAnExtraAsMainDropsTheOldMain", () async {
+      await withTrace((m) async {
+        final s = await _boot(m, stored: [_small, _big], wide: true);
+
+        await s.actor.selectMainBlocklist(big, m);
+        await _settle();
+
+        expect(s.api.puts.single, [_big]);
+        expect(await s.main(m), big);
+        expect(await s.extras(m), isEmpty);
+      });
+    });
+
+    test("pickingTheCurrentMainSendsNothing", () async {
+      await withTrace((m) async {
+        final s = await _boot(m, wide: true);
+
+        await s.actor.selectMainBlocklist(small, m);
+        await _settle();
+
+        expect(s.api.puts, isEmpty);
+      });
+    });
+
+    test("pickingMainWithNoneOnAddsIt", () async {
+      await withTrace((m) async {
+        final s = await _boot(m, stored: [_adaway], wide: true);
+
+        await s.actor.selectMainBlocklist(small, m);
+        await _settle();
+
+        expect(s.api.puts.single.toSet(), {_small, _adaway});
+        expect(await s.main(m), small);
+      });
+    });
+
+    test("extraToggleKeepsMain", () async {
+      await withTrace((m) async {
+        final s = await _boot(m, wide: true);
+
+        await s.actor.toggleExtraBlocklist(adult, true, m);
+        await _settle();
+        expect(s.api.puts.last.toSet(), {_small, _adult});
+        expect(await s.extras(m), {adult});
+
+        await s.actor.toggleExtraBlocklist(adult, false, m);
+        await _settle();
+        expect(s.api.puts.last, [_small]);
+        expect(await s.main(m), small);
+        expect(await s.extras(m), isEmpty);
+      });
+    });
+
+    test("lastListCannotBeTurnedOff", () async {
+      await withTrace((m) async {
+        final s = await _boot(m, stored: [_adaway], wide: true);
+
+        await s.actor.toggleExtraBlocklist(adaway, false, m);
+        await _settle();
+
+        expect(s.api.puts, isEmpty);
+        expect(await s.extras(m), {adaway});
+      });
+    });
+
+    test("noTapSequenceEmptiesTheLists", () async {
+      await withTrace((m) async {
+        final s = await _boot(m, wide: true);
+        final configs = <UserFilterConfig?>[];
+        s.config.onChange.listen((it) => configs.add(it.now));
+
+        // Every main pick and every extra both ways, as the screen offers them.
+        for (final key in [big, unified, small]) {
+          await s.actor.selectMainBlocklist(key, m);
+          await _tapGap();
+          for (final extra in [nsfw, adult, adaway, big, unified]) {
+            if (extra == key) continue;
+            await s.actor.toggleExtraBlocklist(extra, true, m);
+            await _tapGap();
+            await s.actor.toggleExtraBlocklist(extra, false, m);
+            await _tapGap();
+          }
+        }
+        await _settle();
+
+        expect(configs.where((it) => it == null || it.lists.isEmpty), isEmpty);
+        expect(s.api.puts.where((it) => it.isEmpty), isEmpty);
+        expect(await s.main(m), small);
+        expect(await s.extras(m), isEmpty);
       });
     });
   });
