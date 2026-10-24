@@ -816,5 +816,19 @@
     "freemium refresh action upgrade": "Siirry maksulliseen versioon ja saat automaattiset päivitykset",
     "home power pause scope": "Keskeyttää mainosten eston kaikilla tätä tiliä käyttävillä laitteilla",
     "home status paused elsewhere": "Mainosten esto keskeytetty toisella laitteella",
-    "universal action resume": "Jatka"
+    "universal action resume": "Jatka",
+    "activity group just now": "Just now",
+    "activity group earlier today": "Earlier today",
+    "activity group yesterday": "Yesterday",
+    "activity logging sample": "Sample",
+    "activity logging offer header": "See what Blokada blocks",
+    "activity logging offer brief": "Blokada keeps the requests from your devices for 24 hours, and you can turn this off any time in Settings.",
+    "activity logging action enable": "Turn on activity logging",
+    "activity logging collecting": "Collecting your first results",
+    "privacy pulse insight blocked one": "%s blocked in %s",
+    "privacy pulse insight blocked many": "%s blocked in %s",
+    "privacy pulse insight fewer 24h": "%s% fewer than the 24 h before",
+    "privacy pulse insight more 24h": "%s% more than the 24 h before",
+    "privacy pulse insight fewer 7d": "%s% fewer than the week before",
+    "privacy pulse insight more 7d": "%s% more than the week before"
 }
