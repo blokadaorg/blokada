@@ -818,4 +818,18 @@
     <string name="home_power_pause_scope">Pauzeert het blokkeren van advertenties op alle apparaten die dit account gebruiken</string>
     <string name="home_status_paused_elsewhere">Gepauzeerd vanaf een ander apparaat</string>
     <string name="universal_action_resume">Hervatten</string>
+    <string name="activity_group_just_now">Just now</string>
+    <string name="activity_group_earlier_today">Earlier today</string>
+    <string name="activity_group_yesterday">Yesterday</string>
+    <string name="activity_logging_sample">Sample</string>
+    <string name="activity_logging_offer_header">See what Blokada blocks</string>
+    <string name="activity_logging_offer_brief">Blokada keeps the requests from your devices for 24 hours, and you can turn this off any time in Settings.</string>
+    <string name="activity_logging_action_enable">Turn on activity logging</string>
+    <string name="activity_logging_collecting">Collecting your first results</string>
+    <string name="privacy_pulse_insight_blocked_one">%s blocked in %s</string>
+    <string name="privacy_pulse_insight_blocked_many">%s blocked in %s</string>
+    <string name="privacy_pulse_insight_fewer_twofourh">%s% fewer than the 24 h before</string>
+    <string name="privacy_pulse_insight_more_twofourh">%s% more than the 24 h before</string>
+    <string name="privacy_pulse_insight_fewer_sevend">%s% fewer than the week before</string>
+    <string name="privacy_pulse_insight_more_sevend">%s% more than the week before</string>
 </resources>

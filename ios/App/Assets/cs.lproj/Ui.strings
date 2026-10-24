@@ -1137,3 +1137,27 @@
 "home status paused elsewhere" = "Pozastaveno z jiného zařízení";
 // Short action to turn ad blocking back on after a pause
 "universal action resume" = "Obnovit";
+
+// Activity list: headers grouping entries by when they happened; older days show a date instead
+"activity group just now" = "Just now";
+"activity group earlier today" = "Earlier today";
+"activity group yesterday" = "Yesterday";
+
+// Privacy Pulse and Activity while activity logging is off: made-up numbers, blurred, behind an offer to turn logging on.
+// The badge that marks the numbers as made up
+"activity logging sample" = "Sample";
+"activity logging offer header" = "See what Blokada blocks";
+// What turning logging on keeps, and for how long
+"activity logging offer brief" = "Blokada keeps the requests from your devices for 24 hours, and you can turn this off any time in Settings.";
+"activity logging action enable" = "Turn on activity logging";
+// Shown instead of an empty list right after activity logging was turned on, until the first requests show up
+"activity logging collecting" = "Collecting your first results";
+
+// Top line of Privacy Pulse. First %s is how many requests were blocked (e.g. "36" or "12.3K"), second %s is the range ("24 h" or "7 d"). One form for a count of 1, the other for all other counts.
+"privacy pulse insight blocked one" = "%s blocked in %s";
+"privacy pulse insight blocked many" = "%s blocked in %s";
+// Added after the line above when there is something to compare with. %s is a percentage, without the sign (e.g. "12").
+"privacy pulse insight fewer 24h" = "%s% fewer than the 24 h before";
+"privacy pulse insight more 24h" = "%s% more than the 24 h before";
+"privacy pulse insight fewer 7d" = "%s% fewer than the week before";
+"privacy pulse insight more 7d" = "%s% more than the week before";

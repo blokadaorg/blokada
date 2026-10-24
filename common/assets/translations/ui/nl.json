@@ -816,5 +816,19 @@
     "freemium refresh action upgrade": "Upgrade voor automatische updates",
     "home power pause scope": "Pauzeert het blokkeren van advertenties op alle apparaten die dit account gebruiken",
     "home status paused elsewhere": "Gepauzeerd vanaf een ander apparaat",
-    "universal action resume": "Hervatten"
+    "universal action resume": "Hervatten",
+    "activity group just now": "Just now",
+    "activity group earlier today": "Earlier today",
+    "activity group yesterday": "Yesterday",
+    "activity logging sample": "Sample",
+    "activity logging offer header": "See what Blokada blocks",
+    "activity logging offer brief": "Blokada keeps the requests from your devices for 24 hours, and you can turn this off any time in Settings.",
+    "activity logging action enable": "Turn on activity logging",
+    "activity logging collecting": "Collecting your first results",
+    "privacy pulse insight blocked one": "%s blocked in %s",
+    "privacy pulse insight blocked many": "%s blocked in %s",
+    "privacy pulse insight fewer 24h": "%s% fewer than the 24 h before",
+    "privacy pulse insight more 24h": "%s% more than the 24 h before",
+    "privacy pulse insight fewer 7d": "%s% fewer than the week before",
+    "privacy pulse insight more 7d": "%s% more than the week before"
 }
