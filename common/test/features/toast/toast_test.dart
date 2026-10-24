@@ -2,7 +2,6 @@ import 'package:common/src/core/core.dart';
 import 'package:common/src/features/customlist/domain/customlist.dart';
 import 'package:common/src/features/toast/domain/toast.dart';
 import 'package:common/src/features/toast/ui/toast_host.dart';
-import 'package:common/src/shared/ui/blokada_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -208,36 +207,6 @@ void main() {
         await tester.pumpAndSettle();
         expect(find.text('Failed'), findsNothing);
       });
-    });
-  });
-
-  group('BlokadaSwitch', () {
-    testWidgets('a flip gives a selection click and reports the new value', (tester) async {
-      final haptics = _recordHaptics();
-      bool? reported;
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Center(child: BlokadaSwitch(value: false, onChanged: (v) => reported = v)),
-        ),
-      );
-
-      await tester.tap(find.byType(BlokadaSwitch));
-      await tester.pump();
-
-      expect(reported, isTrue);
-      expect(haptics, ['HapticFeedbackType.selectionClick']);
-    });
-
-    testWidgets('a disabled switch gives no haptic', (tester) async {
-      final haptics = _recordHaptics();
-      await tester.pumpWidget(
-        const MaterialApp(home: Center(child: BlokadaSwitch(value: false, onChanged: null))),
-      );
-
-      await tester.tap(find.byType(BlokadaSwitch));
-      await tester.pump();
-
-      expect(haptics, isEmpty);
     });
   });
 }

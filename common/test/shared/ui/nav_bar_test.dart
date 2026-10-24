@@ -3,6 +3,7 @@ import 'package:common/src/shared/ui/back_title_nav_bar.dart';
 import 'package:common/src/shared/ui/nav_bar_button.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/shared/ui/top_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
@@ -59,6 +60,8 @@ void main() {
         await tester.pumpWidget(_commonBar(TargetPlatform.iOS));
 
         expect(find.text('Home'), findsNothing);
+        expect(find.byIcon(CupertinoIcons.chevron_back), findsOneWidget);
+        expect(find.byIcon(Icons.arrow_back), findsNothing);
         expect(find.bySemanticsIdentifier(AutomationIds.navBack), findsOneWidget);
         expect(tester.getSemantics(find.byType(NavBarBackButton)),
             containsSemantics(value: 'Home', isButton: true, hasTapAction: true));
@@ -66,12 +69,17 @@ void main() {
       });
     });
 
-    testWidgets('Android keeps the previous title label', (tester) async {
+    testWidgets('Android shows its arrow and keeps the previous title label', (tester) async {
       await withTrace((_) async {
+        final semantics = tester.ensureSemantics();
         await tester.pumpWidget(_commonBar(TargetPlatform.android));
 
         expect(find.text('Home'), findsOneWidget);
-        expect(find.byIcon(Icons.arrow_back_ios), findsOneWidget);
+        expect(find.byIcon(Icons.arrow_back), findsOneWidget);
+        expect(find.byIcon(Icons.arrow_back_ios), findsNothing);
+        expect(tester.getSemantics(find.bySemanticsIdentifier(AutomationIds.navBack)),
+            containsSemantics(label: 'back', isButton: true, hasTapAction: true));
+        semantics.dispose();
       });
     });
   });
@@ -95,6 +103,8 @@ void main() {
         await tester.pumpWidget(bar(TargetPlatform.iOS, () => tapped = true));
 
         expect(find.text('Kid phone'), findsNothing);
+        expect(find.byIcon(CupertinoIcons.chevron_back), findsOneWidget);
+        expect(find.byIcon(Icons.arrow_back), findsNothing);
         expect(tester.getSemantics(find.byKey(const Key('back'))),
             containsSemantics(value: 'Kid phone', isButton: true));
         await tester.tap(find.byKey(const Key('back')));
@@ -105,11 +115,17 @@ void main() {
       });
     });
 
-    testWidgets('Android keeps the back label', (tester) async {
+    testWidgets('Android shows its arrow and keeps the back label', (tester) async {
       await withTrace((_) async {
-        await tester.pumpWidget(bar(TargetPlatform.android, () {}));
+        var tapped = false;
+        await tester.pumpWidget(bar(TargetPlatform.android, () => tapped = true));
 
         expect(find.text('Kid phone'), findsOneWidget);
+        expect(find.byIcon(Icons.arrow_back), findsOneWidget);
+        expect(find.byIcon(CupertinoIcons.chevron_back), findsNothing);
+        await tester.tap(find.byKey(const Key('back')));
+        await tester.pump(const Duration(milliseconds: 200));
+        expect(tapped, isTrue);
       });
     });
   });

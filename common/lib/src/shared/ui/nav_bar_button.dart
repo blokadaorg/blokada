@@ -8,7 +8,8 @@ import 'package:flutter/material.dart';
 /// bubbles and a back chevron without the previous screen's name.
 ///
 /// Read from the theme rather than `dart:io` so widget tests can render the
-/// iOS branch. Android keeps the older look until its own style is decided.
+/// iOS branch. Elsewhere the bars keep the plain look, with Android's arrow
+/// for back.
 bool useIosBarStyle(BuildContext context) => Theme.of(context).platform == TargetPlatform.iOS;
 
 /// Height of a bar button bubble, the same for text and the back chevron so

@@ -191,7 +191,7 @@ class TopCommonBarState extends State<TopCommonBar> {
                             onTap: () {
                               ctrl.goBackFromPlatform();
                             },
-                            child: Icon(Icons.arrow_back_ios, color: context.theme.link),
+                            child: Icon(Icons.arrow_back, color: context.theme.link),
                           ),
                         ),
                       ),
@@ -199,7 +199,7 @@ class TopCommonBarState extends State<TopCommonBar> {
                   : Container(),
               ctrl.nav.length > 1
                   ? Transform.translate(
-                      offset: Offset(20 + (1.0 - ctrl.show) * 100, 0),
+                      offset: Offset(28 + (1.0 - ctrl.show) * 100, 0),
                       child: Opacity(
                         opacity: xpow(ctrl.show, 8),
                         child: GestureDetector(
@@ -222,7 +222,7 @@ class TopCommonBarState extends State<TopCommonBar> {
                   : Container(),
               ctrl.nav.length > 2
                   ? Transform.translate(
-                      offset: Offset(-80 + (1.0 - ctrl.show) * 100, 0),
+                      offset: Offset(-72 + (1.0 - ctrl.show) * 100, 0),
                       child: Opacity(
                         opacity: xpow(1.0 - ctrl.show, 8),
                         child: GestureDetector(

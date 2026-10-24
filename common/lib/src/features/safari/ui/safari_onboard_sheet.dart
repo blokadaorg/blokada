@@ -99,6 +99,8 @@ class SafariOnboardSheetIosState extends State<SafariOnboardSheetIos> {
                                 scale: 0.8,
                                 child: Transform.translate(
                                   offset: const Offset(12, 0),
+                                  // A picture of the switch in iOS Settings, not a control of ours,
+                                  // so it stays the iOS one rather than a BlokadaSwitch.
                                   child: CupertinoSwitch(value: true, onChanged: (_) => {}),
                                 ),
                               ),
