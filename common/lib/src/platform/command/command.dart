@@ -44,6 +44,7 @@ class CommandStore with Logging, Actor implements CommandEvents {
     "SHARELOG",
     "SUPPORTNOTIFY",
     "FAMILYLINK",
+    "FAMILYLINKEXTERNAL",
     "ENABLEDECK",
     "DISABLEDECK",
     "TOGGLELISTBYTAG",
@@ -172,8 +173,9 @@ class CommandStore with Logging, Actor implements CommandEvents {
   _executeUrl(String url, Marker m) async {
     try {
       if (url.startsWith(familyLinkBase)) {
-        // Validated properly in LinkActor; here we only route.
-        return await onCommandWithParam("FAMILYLINK", url, m);
+        // Validated properly in LinkActor; here we only route. URL commands
+        // carry links opened from outside the app, which always confirm.
+        return await onCommandWithParam("FAMILYLINKEXTERNAL", url, m);
         // } else if (url.startsWith(onboardLinkBase)) {
         //   // Show onboard
         //   final screen = url.split("screen=").last.trim();

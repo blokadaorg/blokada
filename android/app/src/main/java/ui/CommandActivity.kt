@@ -17,7 +17,6 @@ import android.content.Intent
 import android.content.Intent.ACTION_VIEW
 import android.net.Uri
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import binding.AppBinding
 import binding.CommandBinding
@@ -87,10 +86,13 @@ class CommandActivity : AppCompatActivity() {
                     throw BlokadaException("Family link param not provided")
                 }
 
-                Toast.makeText(this, "Linking device ...", Toast.LENGTH_LONG).show()
-
+                // Sent as a URL, not FAMILYLINK: this activity has to stay
+                // exported for verified app links, so any installed app can
+                // start it. The URL command marks the link as coming from
+                // outside the app, which always asks the user to confirm.
+                // FAMILYLINK is reserved for the in-app scanner.
                 scope.launch {
-                    cmd.execute(CommandName.FAMILYLINK, param)
+                    cmd.execute(CommandName.URL, param)
                 }
             }
         }
@@ -98,19 +100,9 @@ class CommandActivity : AppCompatActivity() {
 
     private fun interpretCommand(input: String): Pair<Command, Param?>? {
         return when {
-            // Family link command
-            input.startsWith("https://go.blokada.org/family/link_device") -> {
-                input.replace("https://go.blokada.org/family/link_device", "")
-                    .replace("?token=", "")
-                    .trimEnd('/')
-                    .let {
-                        try {
-                            Command.FAMILY_LINK to it
-                        } catch (ex: Exception) {
-                            null
-                        }
-                    }
-            }
+            // Family link command, passed on whole so the app parses the token
+            input.startsWith("https://go.blokada.org/family/link_device") ->
+                Command.FAMILY_LINK to input
 
             else -> null
         }
