@@ -127,7 +127,7 @@ class _ScheduleSectionState extends State<ScheduleSection> {
     );
   }
 
-  /// "Use schedule" as a standard list row with a trailing [CupertinoSwitch],
+  /// "Use schedule" as a standard list row with a trailing [BlokadaSwitch],
   /// replacing the Material switch that used to float in the section header.
   ///
   /// Toggle is positive-state: ON = the schedule enforces its rules. The

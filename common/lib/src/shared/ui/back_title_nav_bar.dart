@@ -4,12 +4,11 @@ import 'package:common/src/core/core.dart';
 import 'package:common/src/shared/ui/common_clickable.dart';
 import 'package:common/src/shared/ui/nav_bar_button.dart';
 import 'package:common/src/shared/ui/theme.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-/// iOS-style top navigation bar: back chevron with the previous screen's
-/// title on the leading edge, centered current-screen [title] in the
-/// middle, optional [trailing] action on the right.
+/// Top navigation bar: back arrow with the previous screen's title on the
+/// leading edge, centered current-screen [title] in the middle, optional
+/// [trailing] action on the right.
 ///
 /// Used as `Scaffold.appBar` via `PreferredSizeWidget`. Built as an
 /// explicit 1/2/1 [Row] rather than a Material [AppBar] because that
@@ -18,7 +17,7 @@ import 'package:flutter/material.dart';
 ///
 /// Falls back to the universal "Back" label when [previousPageTitle] is
 /// null, so a caller that doesn't know the previous screen's name still
-/// gets a sensible back-row instead of a bare chevron. On iOS the row is
+/// gets a sensible back-row instead of a bare arrow. On iOS the row is
 /// the bare chevron in a bubble, as iOS 26 draws it, and the previous
 /// title is only read out by screen readers.
 class BackTitleNavBar extends StatelessWidget
@@ -106,9 +105,9 @@ class BackTitleNavBar extends StatelessWidget
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(CupertinoIcons.chevron_back,
+                              Icon(Icons.arrow_back,
                                   color: context.theme.link, size: 22),
-                              const SizedBox(width: 2),
+                              const SizedBox(width: 6),
                               Flexible(
                                 child: Text(backText,
                                     overflow: TextOverflow.ellipsis,
