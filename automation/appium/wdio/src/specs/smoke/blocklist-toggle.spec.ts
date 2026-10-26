@@ -1,4 +1,4 @@
-import { $, driver } from "@wdio/globals";
+import { driver } from "@wdio/globals";
 import { expect } from "chai";
 
 import { activateApp, terminateApp } from "../../flows/app.js";
@@ -9,6 +9,7 @@ import { dismissIntroOverlayIfPresent } from "../../flows/onboarding.js";
 import { dismissRatePromptIfPresent } from "../../flows/modals.js";
 import { goBackToHome, openHubScreen } from "../../flows/nav.js";
 import { AutomationIds } from "../../support/automationIds.js";
+import { automationIdOf, byId, byIdPrefix, scrollIntoView, switchStateOf, tap } from "../../support/platform.js";
 import { registerFailureArtifacts } from "../../support/artifacts.js";
 
 registerFailureArtifacts();
@@ -16,21 +17,21 @@ registerFailureArtifacts();
 const APP_BUNDLE_ID = process.env.APP_BUNDLE_ID ?? "net.blocka.app";
 
 // Extra blocklist switches expose ids like `automation.filter_option.<filter>.<option>`
-// (v6 filters_section.dart `_automationId`) with the CupertinoSwitch state on the
-// element `value` ("1"/"0"). Main list rows use `automation.blocklist_main.` instead,
+// (v6 filters_section.dart `_automationId`) with the switch state on the element
+// `value` ("1"/"0") on iOS and `checked` on Android (see platform.ts). Main list rows use `automation.blocklist_main.` instead,
 // so this never picks a row that can't be flipped back. Match by id prefix so the spec isn't pinned
 // to one pack name (which varies by account/flavor); the first match is then pinned
 // by its exact id so a list rebuild on toggle can't retarget a different option.
-const filterOptionPrefixSelector =
-  "-ios predicate string: name BEGINSWITH 'automation.filter_option.'";
+const filterOptionPrefixSelector = () => byIdPrefix("automation.filter_option.");
 
 // The filter actor debounces the backend write ~1s then syncs; give margin before
 // asserting the new state and before toggling back so each write commits.
 const SYNC_WAIT_MS = 2000;
 
+// Toggling an extra grows the summary card above the list, which can push the
+// switch off screen; Android only exposes on-screen nodes, so bring it back first.
 async function valueOf(selector: string): Promise<string | undefined> {
-  const value = await (await $(selector)).getAttribute("value");
-  return typeof value === "string" ? value : undefined;
+  return switchStateOf(await scrollIntoView(selector));
 }
 
 // Exercises the core blocking config: enable/disable a filter option, confirm the
@@ -54,19 +55,20 @@ describe("Smoke: blocklist pack toggle", () => {
 
     // First available filter option. Fail loudly if none render (wrong account type
     // or the Advanced list failed to populate).
-    const firstOption = await $(filterOptionPrefixSelector);
+    // Android only exposes on-screen nodes; the extras sit below the main lists.
+    const firstOption = await scrollIntoView(filterOptionPrefixSelector());
     await firstOption.waitForExist({ timeout: 15000 });
-    const optionId = await firstOption.getAttribute("name");
+    const optionId = await automationIdOf(firstOption);
     expect(optionId, "filter option should expose its automation id")
       .to.be.a("string")
       .and.match(/^automation\.filter_option\./);
-    const optionSelector = `~${optionId}`;
+    const optionSelector = byId(String(optionId));
 
     const initial = await valueOf(optionSelector);
     expect(initial, "filter option should expose a switch value").to.be.a("string");
 
     // Flip it and confirm the switch state changed (optimistic UI update).
-    await (await $(optionSelector)).click();
+    await tap(await scrollIntoView(optionSelector));
     await driver.pause(SYNC_WAIT_MS);
     await driver.waitUntil(async () => (await valueOf(optionSelector)) !== initial, {
       timeout: 10000,
@@ -77,7 +79,7 @@ describe("Smoke: blocklist pack toggle", () => {
     });
 
     // Restore the original state so the spec leaves the account's config unchanged.
-    await (await $(optionSelector)).click();
+    await tap(await scrollIntoView(optionSelector));
     await driver.pause(SYNC_WAIT_MS);
     await driver.waitUntil(async () => (await valueOf(optionSelector)) === initial, {
       timeout: 10000,

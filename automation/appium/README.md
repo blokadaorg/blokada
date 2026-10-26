@@ -111,6 +111,26 @@ Local harness-only tests:
 
 Reusable flows and helpers live under `automation/appium/wdio/src/flows/` and `automation/appium/wdio/src/support/`. Specs in `src/specs/smoke/` compose these flows to exercise end-to-end journeys.
 
+## Android Smoke Tests (emulator)
+
+A subset of the smoke specs also runs on an Android emulator through
+UiAutomator2: Private DNS activation (`android-protection.spec.ts`), Home hub
+and Settings navigation, Privacy Pulse range, blocklist toggle and power pause.
+CI runs it in `.github/workflows/appium-smoke-android.yml`; the iPhone run stays
+the final check.
+
+```bash
+make build-android-six-debug        # once, or after app changes
+BLOKADA_ACTIVE_ACCOUNT_ID=… BLOKADA_INACTIVE_ACCOUNT_ID=… make appium-test-android
+```
+
+- `ANDROID_UDID=emulator-5554` – pick the emulator (default: the first `emulator-*` in `adb devices`). Use an emulator: the run turns Private DNS off and on.
+- `APPIUM_PORT=4724` – port of the Appium server; one already listening there is reused, otherwise the run starts one with the `uiautomator2` driver.
+- `APP_INSTALL=0` – keep the installed app instead of reinstalling it.
+
+The APK is about 260 MB, so give the emulator a data partition of 6 GB or more.
+Selectors and commands that differ per platform live in `wdio/src/support/platform.ts`.
+
 ## AI Explorer
 
 ```bash

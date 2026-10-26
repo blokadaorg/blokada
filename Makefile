@@ -36,6 +36,7 @@ ADAPTY_VER := 4_0_0
 	appium-explore-session \
 	appium-ai-explore \
 	appium-test \
+	appium-test-android \
 
 translate:
 	$(TRANSLATE_SCRIPT)
@@ -132,6 +133,29 @@ appium-test:
 		echo "appium-test: device wake FAILED (continuing; WDA will activate)" >&2; \
 	fi; \
 	node scripts/run-wdio.mjs
+
+# Run the Android smoke subset against an emulator (UiAutomator2). Build the APK
+# first with `make build-android-six-debug`. Reinstalls the app from scratch, the
+# way CI runs it. Needs BLOKADA_ACTIVE_ACCOUNT_ID / BLOKADA_INACTIVE_ACCOUNT_ID.
+# Usage: make appium-test-android [ANDROID_UDID=emulator-5554] [APPIUM_PORT=4724] [APP_INSTALL=0]
+ANDROID_SMOKE_APK ?= $(CURDIR)/android/app/build/outputs/apk/six/debug/app-six-debug.apk
+appium-test-android:
+	@set -eu; \
+	cd automation/appium/wdio && \
+	npm ci >/dev/null && \
+	rm -rf ../output/junit && mkdir -p ../output/junit && \
+	ANDROID_UDID="$${ANDROID_UDID:-$$(adb devices | awk '/^emulator-[0-9]+[[:space:]]+device$$/ {print $$1; exit}')}"; \
+	if [ -z "$$ANDROID_UDID" ]; then echo "appium-test-android: no emulator found; set ANDROID_UDID" >&2; exit 1; fi; \
+	export ANDROID_UDID; \
+	export APP_BUNDLE_ID="$${APP_BUNDLE_ID:-org.blokada.sex}"; \
+	export APPIUM_PORT="$${APPIUM_PORT:-4724}"; \
+	if [ "$${APP_INSTALL:-1}" != "0" ]; then \
+		if adb -s "$$ANDROID_UDID" shell pm list packages "$$APP_BUNDLE_ID" | grep -qx "package:$$APP_BUNDLE_ID"; then \
+			adb -s "$$ANDROID_UDID" uninstall "$$APP_BUNDLE_ID" >/dev/null; \
+		fi; \
+		adb -s "$$ANDROID_UDID" install "$(ANDROID_SMOKE_APK)"; \
+	fi; \
+	node scripts/run-wdio-android.mjs
 
 # Run the AI-driven exploratory pass against an already installed/onboarded app.
 # Intended CI usage: run this immediately after make appium-test with APP_INSTALL=0.

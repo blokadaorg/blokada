@@ -56,3 +56,34 @@ export function getRemoteOptions(env = process.env) {
     logLevel: (env.WDIO_LOG_LEVEL ?? "warn").toLowerCase()
   };
 }
+
+export const ANDROID_SIX_PACKAGE = "org.blokada.sex";
+export const ANDROID_LAUNCH_ACTIVITY = "ui.MainActivity";
+
+// Android emulator/device via UiAutomator2. The APK is installed beforehand by
+// `make appium-test-android` (or CI), so the session only attaches to it.
+export function buildAndroidCapabilities(env = process.env) {
+  if (!env.ANDROID_UDID) {
+    throw new Error("ANDROID_UDID is not set; it names the adb device under test.");
+  }
+  return {
+    platformName: "Android",
+    "appium:automationName": "UiAutomator2",
+    "appium:udid": env.ANDROID_UDID,
+    "appium:appPackage": env.APP_BUNDLE_ID ?? ANDROID_SIX_PACKAGE,
+    "appium:appActivity": env.ANDROID_APP_ACTIVITY ?? ANDROID_LAUNCH_ACTIVITY,
+    "appium:noReset": true,
+    "appium:newCommandTimeout": 240,
+    // Flutter redraws continuously, so UiAutomator's wait-for-idle before each
+    // lookup times out every time (~10s per command). Same fix as the iOS
+    // waitForIdleTimeout above.
+    // A driver setting on UiAutomator2, not a capability like on XCUITest.
+    "appium:settings[waitForIdleTimeout]": 0,
+    // Hosted emulators are slow to install the UiAutomator2 server on first use.
+    "appium:uiautomator2ServerInstallTimeout": 120000,
+    "appium:adbExecTimeout": 60000,
+    // Phones that block adb from writing global settings (OnePlus, Xiaomi)
+    // otherwise fail session start on the hidden API policy reset.
+    "appium:ignoreHiddenApiPolicyError": true
+  };
+}

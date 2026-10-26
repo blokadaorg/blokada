@@ -1,5 +1,7 @@
 import { driver } from "@wdio/globals";
 
+import { isAndroid, tap } from "../support/platform.js";
+
 const notificationButtonLabels = [
   "Allow",
   "Allow While Using App",
@@ -81,7 +83,29 @@ function looksLikeNotification(text: string | undefined): boolean {
   );
 }
 
+// Android's runtime permission dialog. The harness grants POST_NOTIFICATIONS
+// before the run (see wdio.android.conf.ts), so this is only a safety net.
+const androidPermissionAllowSelector =
+  'android=new UiSelector().resourceId("com.android.permissioncontroller:id/permission_allow_button")';
+
+async function acceptAndroidPermissionDialog(): Promise<void> {
+  try {
+    const allow = await driver.$(androidPermissionAllowSelector);
+    if (await allow.isExisting()) {
+      await tap(allow);
+      await driver.pause(500);
+    }
+  } catch {
+    // No dialog — nothing to accept.
+  }
+}
+
 export async function acceptNotificationAlert(timeout = 8000): Promise<void> {
+  if (isAndroid()) {
+    await acceptAndroidPermissionDialog();
+    return;
+  }
+
   const end = Date.now() + timeout;
 
   while (Date.now() < end) {

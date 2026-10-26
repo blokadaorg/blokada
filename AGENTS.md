@@ -296,3 +296,8 @@ that is modified.
   Assistants can invoke these specs to validate behaviour on a real device
   (notification handling, DNS provisioning, screenshots, etc.) before or after
   making code changes.
+- An Android subset runs on an emulator with `make appium-test-android` (build
+  the APK first with `make build-android-six-debug`); see
+  `automation/appium/README.md`. Shared flows pick selectors per platform via
+  `automation/appium/wdio/src/support/platform.ts`, so keep iOS paths unchanged
+  when editing them.

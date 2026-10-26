@@ -1,0 +1,174 @@
+name: Appium smoke (Android, emulator)
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
+  # workflow_run always uses main's copy of this file, so a PR that edits the
+  # workflow would otherwise never run its own version.
+  pull_request:
+    branches: [main]
+    paths:
+      - .github/workflows/appium-smoke-android.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  # Posts the "Appium smoke (Android)" commit status on the PR's head commit,
+  # like appium-smoke.yml does for the iPhone run.
+  statuses: write
+
+# Latest commit wins per branch; workflow_dispatch runs always run.
+concurrency:
+  group: appium-smoke-android-${{ github.event.workflow_run.head_branch || github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+# An extra check next to the iPhone suite, which stays the final one. Runs a
+# subset of the smoke specs (see automation/appium/wdio/wdio.android.conf.ts)
+# against a Google APIs emulator on a hosted runner. Same guards as the iOS
+# workflow: same-repo PRs only, since the job reads the account secrets.
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'pull_request' &&
+       github.event.pull_request.head.repo.full_name == github.repository) ||
+      (github.event.workflow_run.event == 'pull_request' &&
+       github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_repository.full_name == github.repository)
+    env:
+      LANG: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
+      GRADLE_OPTS: -Dorg.gradle.unsafe.disable.watch-fs=true -Dorg.gradle.vfs.watch=false
+      EMULATOR_API_LEVEL: "36"
+    steps:
+      - name: Report smoke status as pending
+        if: github.event_name == 'workflow_run'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SHA: ${{ github.event.workflow_run.head_sha }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/statuses/$SHA" \
+            -d "{\"state\":\"pending\",\"context\":\"Appium smoke (Android)\",\"description\":\"Running on the emulator\",\"target_url\":\"$RUN_URL\"}"
+
+      - uses: actions/checkout@v7
+        with:
+          submodules: true
+          fetch-depth: 1
+          # Nothing here pushes; keep the token off the disk the specs run on.
+          persist-credentials: false
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+      - uses: ./.github/actions/setup-flutter
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: automation/appium/wdio/package-lock.json
+
+      # Same build as the CI "Android assemble" job (non-mocked six debug), so
+      # the specs restore the test account through the support chat as on iOS.
+      - name: Build Flutter Android debug library
+        run: make regen-android
+
+      - name: Assemble six debug APK
+        run: make -C android apk-six-debug
+
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' \
+            | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Cache AVD
+        id: avd-cache
+        uses: actions/cache@v6
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: avd-${{ env.EMULATOR_API_LEVEL }}-google_apis-x86_64-pixel_6-v1
+
+      - name: Cache Appium driver
+        uses: actions/cache@v6
+        with:
+          path: automation/appium/.appium
+          key: appium-uiautomator2-${{ hashFiles('automation/appium/wdio/scripts/run-wdio-android.mjs', 'automation/appium/wdio/package-lock.json') }}
+
+      - name: Create AVD snapshot
+        if: steps.avd-cache.outputs.cache-hit != 'true'
+        uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d # v2.38.0
+        with:
+          api-level: ${{ env.EMULATOR_API_LEVEL }}
+          target: google_apis
+          arch: x86_64
+          profile: pixel_6
+          # The debug APK is ~260 MB; installs fail on the default data partition.
+          disk-size: 8G
+          force-avd-creation: false
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: true
+          script: echo "Generated AVD snapshot for caching."
+
+      - name: "Run appium smoke (flavor: six)"
+        uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d # v2.38.0
+        env:
+          # Same dev account the iOS smoke restores via the support-chat command
+          # bus (the inactive one is read but unused by the Android subset).
+          BLOKADA_ACTIVE_ACCOUNT_ID: ${{ secrets.BLOKADA_ACTIVE_ACCOUNT_ID }}
+          BLOKADA_INACTIVE_ACCOUNT_ID: ${{ secrets.BLOKADA_INACTIVE_ACCOUNT_ID }}
+          ANDROID_UDID: emulator-5554
+        with:
+          api-level: ${{ env.EMULATOR_API_LEVEL }}
+          target: google_apis
+          arch: x86_64
+          profile: pixel_6
+          disk-size: 8G
+          force-avd-creation: false
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: true
+          script: make appium-test-android
+
+      - name: Report smoke status result
+        if: always() && github.event_name == 'workflow_run'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SHA: ${{ github.event.workflow_run.head_sha }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          JOB_STATUS: ${{ job.status }}
+        run: |
+          case "$JOB_STATUS" in
+            success) state=success; desc="Smoke passed" ;;
+            failure) state=failure; desc="Smoke failed" ;;
+            *) state=error; desc="Smoke $JOB_STATUS" ;;
+          esac
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/statuses/$SHA" \
+            -d "{\"state\":\"$state\",\"context\":\"Appium smoke (Android)\",\"description\":\"$desc\",\"target_url\":\"$RUN_URL\"}"
+
+      - name: Publish per-scenario summary
+        if: always()
+        continue-on-error: true
+        run: node automation/appium/wdio/scripts/junit-summary.mjs >> "$GITHUB_STEP_SUMMARY"
+
+      # JUnit results and screenshots only. Page-source XML, logcat and the
+      # Appium server log can hold the Private DNS hostname (it carries the
+      # device tag), so they stay on the runner.
+      - name: Upload appium smoke artifacts
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: appium-smoke-android-${{ github.run_id }}
+          path: |
+            automation/appium/output/junit/*.xml
+            automation/appium/output/*.png
+          if-no-files-found: warn
+          retention-days: 14

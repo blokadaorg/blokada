@@ -1,13 +1,14 @@
 import { $, driver } from "@wdio/globals";
 
 import { AutomationIds } from "../support/automationIds.js";
+import { byId, settleNavigation, tap } from "../support/platform.js";
 
-const screenTitleSelector = `~${AutomationIds.screenTitle}`;
-const navBackSelector = `~${AutomationIds.navBack}`;
-const settingsExceptionsSelector = `~${AutomationIds.settingsExceptions}`;
-const settingsRetentionSelector = `~${AutomationIds.settingsRetention}`;
-const exceptionsTabBlockedSelector = `~${AutomationIds.exceptionsTabBlocked}`;
-const retentionToggleSelector = `~${AutomationIds.retentionToggle}`;
+const screenTitleSelector = () => byId(AutomationIds.screenTitle);
+const navBackSelector = () => byId(AutomationIds.navBack);
+const settingsExceptionsSelector = () => byId(AutomationIds.settingsExceptions);
+const settingsRetentionSelector = () => byId(AutomationIds.settingsRetention);
+const exceptionsTabBlockedSelector = () => byId(AutomationIds.exceptionsTabBlocked);
+const retentionToggleSelector = () => byId(AutomationIds.retentionToggle);
 
 interface WaitForScreenOptions {
   withTitle?: boolean;
@@ -23,9 +24,9 @@ export async function waitForScreen(
   screenId: string,
   { withTitle = true, timeout = 15000 }: WaitForScreenOptions = {}
 ): Promise<void> {
-  await (await $(`~${screenId}`)).waitForExist({ timeout });
+  await (await $(byId(screenId))).waitForExist({ timeout });
   if (withTitle) {
-    await (await $(screenTitleSelector)).waitForExist({ timeout });
+    await (await $(screenTitleSelector())).waitForExist({ timeout });
   }
 }
 
@@ -39,10 +40,11 @@ export async function openHubScreen(
   screenId: string,
   timeout = 15000
 ): Promise<void> {
-  const button = await $(`~${buttonId}`);
+  const button = await $(byId(buttonId));
   await button.waitForExist({ timeout });
-  await button.click();
+  await tap(button);
   await waitForScreen(screenId, { timeout });
+  await settleNavigation();
 }
 
 /**
@@ -51,14 +53,15 @@ export async function openHubScreen(
  * assert arrival on an expected screen marker.
  */
 export async function tapBack(expectScreenId?: string, timeout = 15000): Promise<void> {
-  const back = await $(navBackSelector);
+  const back = await $(navBackSelector());
   await back.waitForExist({ timeout });
-  await back.click();
+  await tap(back);
   if (expectScreenId) {
-    await (await $(`~${expectScreenId}`)).waitForExist({ timeout });
+    await (await $(byId(expectScreenId))).waitForExist({ timeout });
   } else {
     await driver.pause(500);
   }
+  await settleNavigation();
 }
 
 export async function goBackToHome(timeout = 15000): Promise<void> {
@@ -70,10 +73,11 @@ export async function goBackToHome(timeout = 15000): Promise<void> {
  * tab segments to render. Call after `openSettingsScreen()`.
  */
 export async function openExceptionsSubPage(timeout = 15000): Promise<void> {
-  const row = await $(settingsExceptionsSelector);
+  const row = await $(settingsExceptionsSelector());
   await row.waitForExist({ timeout });
-  await row.click();
-  await (await $(exceptionsTabBlockedSelector)).waitForExist({ timeout });
+  await tap(row);
+  await (await $(exceptionsTabBlockedSelector())).waitForExist({ timeout });
+  await settleNavigation();
 }
 
 /**
@@ -81,8 +85,9 @@ export async function openExceptionsSubPage(timeout = 15000): Promise<void> {
  * for its toggle to render. Call after `openSettingsScreen()`.
  */
 export async function openRetentionSubPage(timeout = 15000): Promise<void> {
-  const row = await $(settingsRetentionSelector);
+  const row = await $(settingsRetentionSelector());
   await row.waitForExist({ timeout });
-  await row.click();
-  await (await $(retentionToggleSelector)).waitForExist({ timeout });
+  await tap(row);
+  await (await $(retentionToggleSelector())).waitForExist({ timeout });
+  await settleNavigation();
 }

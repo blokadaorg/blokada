@@ -1,16 +1,21 @@
 import { $, driver } from "@wdio/globals";
 
 import { AutomationIds } from "../support/automationIds.js";
+import { byId, isAndroid, semanticValueOf, tap } from "../support/platform.js";
 import { dismissRatePromptIfPresent } from "./modals.js";
 
-const powerToggleSelector = `~${AutomationIds.powerToggle}`;
+const powerToggleSelector = () => byId(AutomationIds.powerToggle);
 
-const fallbackPowerSelectors = [
+const iosFallbackPowerSelectors = [
   "~power-toggle",
   "-ios predicate string: (name CONTAINS[c] 'power' OR label CONTAINS[c] 'power') AND (type == 'XCUIElementTypeButton' OR type == 'XCUIElementTypeOther')",
   "-ios class chain:**/XCUIElementTypeButton[`name CONTAINS[c] 'Power' OR label CONTAINS[c] 'Power'`]",
   "-ios class chain:**/XCUIElementTypeOther[`name CONTAINS[c] 'Power' OR label CONTAINS[c] 'Power'`]"
 ];
+
+// Legacy iOS fallbacks. On Android `~` is content-desc, which Flutter fills
+// with value/label/hint text, so none of them apply there.
+const fallbackPowerSelectors = () => (isAndroid() ? [] : iosFallbackPowerSelectors);
 
 async function locateElement(selector: string) {
   const element = await $(selector);
@@ -18,7 +23,7 @@ async function locateElement(selector: string) {
 }
 
 export async function waitForPowerButton(timeout = 20000): Promise<void> {
-  const semanticElement = await $(powerToggleSelector);
+  const semanticElement = await $(powerToggleSelector());
   try {
     await semanticElement.waitForExist({ timeout });
   } catch (error) {
@@ -28,17 +33,17 @@ export async function waitForPowerButton(timeout = 20000): Promise<void> {
 }
 
 export async function tapPowerButton(): Promise<void> {
-  const semanticButton = await locateElement(powerToggleSelector);
+  const semanticButton = await locateElement(powerToggleSelector());
   if (semanticButton) {
-    await semanticButton.click();
+    await tap(semanticButton);
     return;
   }
 
-  for (const selector of fallbackPowerSelectors) {
+  for (const selector of fallbackPowerSelectors()) {
     try {
       const element = await locateElement(selector);
       if (element) {
-        await element.click();
+        await tap(element);
         return;
       }
     } catch (error) {
@@ -52,11 +57,11 @@ export async function tapPowerButton(): Promise<void> {
 export async function waitForProtectionInactive(timeout = 20000): Promise<void> {
   await driver.waitUntil(
     async () => {
-      const element = await locateElement(powerToggleSelector);
+      const element = await locateElement(powerToggleSelector());
       if (!element) {
         return false;
       }
-      const value = await element.getAttribute("value");
+      const value = await semanticValueOf(element);
       return typeof value === "string" && value.toLowerCase() === "inactive";
     },
     { timeout, timeoutMsg: "Power toggle did not report inactive state in time" }
@@ -66,11 +71,11 @@ export async function waitForProtectionInactive(timeout = 20000): Promise<void> 
 export async function waitForProtectionActive(timeout = 20000): Promise<void> {
   await driver.waitUntil(
     async () => {
-      const element = await locateElement(powerToggleSelector);
+      const element = await locateElement(powerToggleSelector());
       if (!element) {
         return false;
       }
-      const value = await element.getAttribute("value");
+      const value = await semanticValueOf(element);
       return typeof value === "string" && value.toLowerCase() === "active";
     },
     { timeout, timeoutMsg: "Power toggle did not report active state in time" }
@@ -78,11 +83,11 @@ export async function waitForProtectionActive(timeout = 20000): Promise<void> {
 }
 
 export async function getProtectionState(): Promise<string | undefined> {
-  const element = await locateElement(powerToggleSelector);
+  const element = await locateElement(powerToggleSelector());
   if (!element) {
     return undefined;
   }
-  const value = await element.getAttribute("value");
+  const value = await semanticValueOf(element);
   return typeof value === "string" ? value.toLowerCase() : undefined;
 }
 
@@ -90,24 +95,24 @@ export async function getProtectionState(): Promise<string | undefined> {
 // Tapping power while protection is ON (active, non-freemium account) opens an
 // action sheet to pause or turn off. Inactive / freemium taps toggle directly.
 
-const pauseSheetSelector = `~${AutomationIds.powerActionSheet}`;
-const turnOffSelector = `~${AutomationIds.powerActionTurnOff}`;
-const cancelActionSelector = `~${AutomationIds.powerActionCancel}`;
+const pauseSheetSelector = () => byId(AutomationIds.powerActionSheet);
+const turnOffSelector = () => byId(AutomationIds.powerActionTurnOff);
+const cancelActionSelector = () => byId(AutomationIds.powerActionCancel);
 
 export async function waitForPauseActionSheet(timeout = 10000): Promise<void> {
-  await (await $(pauseSheetSelector)).waitForExist({ timeout });
+  await (await $(pauseSheetSelector())).waitForExist({ timeout });
 }
 
 export async function tapTurnOff(): Promise<void> {
-  const action = await $(turnOffSelector);
+  const action = await $(turnOffSelector());
   await action.waitForExist({ timeout: 5000 });
-  await action.click();
+  await tap(action);
 }
 
 /** Dismiss the pause action sheet if it is open (Cancel does not change state). */
 export async function cancelActionSheetIfPresent(): Promise<void> {
-  const action = await $(cancelActionSelector);
+  const action = await $(cancelActionSelector());
   if (await action.isExisting()) {
-    await action.click();
+    await tap(action);
   }
 }
