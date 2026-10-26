@@ -12,8 +12,8 @@ void main() {
       }
     });
 
-    test("every option has a group by what it blocks", () {
-      for (final key in keys) {
+    test("every extra has a group by what it blocks", () {
+      for (final key in keys.where((it) => !v6MainBlocklists.contains(it))) {
         expect(v6BlocklistGroup(key), isNot(BlocklistGroup.other), reason: "$key has no group");
       }
     });

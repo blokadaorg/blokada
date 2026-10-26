@@ -43,8 +43,6 @@ const v6MainBlocklists = [
 
 /// What an extra blocks. Extras are grouped by this, not by provider.
 enum BlocklistGroup {
-  // The main lists not picked as main.
-  general("blocklists group general"),
   ads("blocklists group ads"),
   security("blocklists group security"),
   adult("blocklists group adult"),
@@ -95,10 +93,8 @@ final _v6Groups = <BlocklistKey, BlocklistGroup>{
   BlocklistKey("developerdan", "amp"): BlocklistGroup.apps,
 };
 
-BlocklistGroup v6BlocklistGroup(BlocklistKey key) {
-  if (v6MainBlocklists.contains(key)) return BlocklistGroup.general;
-  return _v6Groups[key] ?? BlocklistGroup.other;
-}
+/// The group of an extra. The [v6MainBlocklists] are never extras.
+BlocklistGroup v6BlocklistGroup(BlocklistKey key) => _v6Groups[key] ?? BlocklistGroup.other;
 
 /// Every option the filters offer, as keys.
 List<BlocklistKey> blocklistKeys(List<Filter> filters) => [

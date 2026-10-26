@@ -7,6 +7,7 @@ import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/ui/blokada_switch.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../tools.dart';
@@ -98,6 +99,21 @@ String _extraId(String filter, String option) => "automation.filter_option.$filt
 bool _mainSelected(WidgetTester tester, String filter, String option) =>
     tester.widget<Semantics>(_id(_mainId(filter, option))).properties.selected ?? false;
 
+String _name(String filter, String option) =>
+    blocklistName(BlocklistKey(filter, option), KnownFilters(isFamily: false).get());
+
+/// The haptic types played from now on.
+List<String> _haptics(WidgetTester tester) {
+  final played = <String>[];
+  final messenger = tester.binding.defaultBinaryMessenger;
+  messenger.setMockMethodCallHandler(SystemChannels.platform, (call) async {
+    if (call.method == 'HapticFeedback.vibrate') played.add(call.arguments as String);
+    return null;
+  });
+  addTearDown(() => messenger.setMockMethodCallHandler(SystemChannels.platform, null));
+  return played;
+}
+
 BlokadaSwitch _switch(WidgetTester tester, String filter, String option) =>
     tester.widget<BlokadaSwitch>(
       find.descendant(of: _id(_extraId(filter, option)), matching: find.byType(BlokadaSwitch)),
@@ -115,7 +131,9 @@ void main() {
         expect(_mainSelected(tester, "oisd", "big"), isFalse);
         // The main list is not offered again as an extra.
         expect(_id(_extraId("oisd", "small")), findsNothing);
-        expect(_switch(tester, "oisd", "big").value, isFalse);
+        // Nor are the other general lists: they don't stack.
+        expect(_id(_extraId("oisd", "big")), findsNothing);
+        expect(find.text("blocklists group general".i18n), findsNothing);
         expect(_switch(tester, "oisd", "nsfw").value, isFalse);
         expect(find.text("blocklists main pick".i18n), findsNothing);
         expect(_id(AutomationIds.blocklistsSummary), findsOneWidget);
@@ -155,6 +173,7 @@ void main() {
         final s = await _open(tester, [
           FilterSelection("oisd", ["small"]),
         ]);
+        final haptics = _haptics(tester);
 
         await tester.tap(_id(_mainId("stevenblack", "unified")));
         await tester.pump();
@@ -165,6 +184,7 @@ void main() {
 
         expect(s.actor.mains, [const BlocklistKey("stevenblack", "unified")]);
         expect(s.actor.extras, isEmpty);
+        expect(haptics, ['HapticFeedbackType.selectionClick']);
       });
     });
 
@@ -173,6 +193,7 @@ void main() {
         final s = await _open(tester, [
           FilterSelection("oisd", ["small"]),
         ]);
+        final haptics = _haptics(tester);
 
         await tester.tap(
           find.descendant(
@@ -184,20 +205,29 @@ void main() {
 
         expect(s.actor.extras, [(const BlocklistKey("stevenblack", "adult"), true)]);
         expect(s.actor.mains, isEmpty);
+        // The switch plays it; the screen doesn't add a second one.
+        expect(haptics, ['HapticFeedbackType.selectionClick']);
       });
     });
 
     testWidgets("two general lists: the first in main order is main", (tester) async {
       await withTrace((_) async {
-        await _open(tester, [
+        final s = await _open(tester, [
           FilterSelection("oisd", ["big"]),
           FilterSelection("stevenblack", ["unified"]),
         ]);
 
         expect(_mainSelected(tester, "oisd", "big"), isTrue);
         expect(_mainSelected(tester, "stevenblack", "unified"), isFalse);
-        expect(_switch(tester, "stevenblack", "unified").value, isTrue);
-        expect(_id(_extraId("oisd", "big")), findsNothing);
+        expect(_id(_extraId("stevenblack", "unified")), findsNothing);
+        // Not switchable, but the summary still shows it is on.
+        expect(find.text("+ ${_name("stevenblack", "unified")}"), findsOneWidget);
+        expect(s.pick.changes, 0);
+
+        // Tapping the main list drops the stacked one.
+        await tester.tap(_id(_mainId("oisd", "big")));
+        await tester.pump(const Duration(milliseconds: 300));
+        expect(s.actor.mains, [const BlocklistKey("oisd", "big")]);
       });
     });
 
@@ -210,7 +240,7 @@ void main() {
         await tester.pump();
 
         expect(_mainSelected(tester, "stevenblack", "unified"), isTrue);
-        expect(_switch(tester, "oisd", "big").value, isTrue);
+        expect(find.text("+ ${_name("oisd", "big")}"), findsOneWidget);
       });
     });
 
