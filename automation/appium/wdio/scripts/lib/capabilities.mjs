@@ -77,7 +77,8 @@ export function buildAndroidCapabilities(env = process.env) {
     // Flutter redraws continuously, so UiAutomator's wait-for-idle before each
     // lookup times out every time (~10s per command). Same fix as the iOS
     // waitForIdleTimeout above.
-    "appium:waitForIdleTimeout": 0,
+    // A driver setting on UiAutomator2, not a capability like on XCUITest.
+    "appium:settings[waitForIdleTimeout]": 0,
     // Hosted emulators are slow to install the UiAutomator2 server on first use.
     "appium:uiautomator2ServerInstallTimeout": 120000,
     "appium:adbExecTimeout": 60000,

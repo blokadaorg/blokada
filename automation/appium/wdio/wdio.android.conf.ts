@@ -13,7 +13,10 @@ import { config as iosConfig } from "./wdio.conf.js";
 // Scope is the specs that work on Android so far. android-protection replaces
 // dns-onboarding (Private DNS instead of the iOS DNS profile) and must run
 // first: the rest expect protection on.
-const packageName = process.env.APP_BUNDLE_ID ?? ANDROID_SIX_PACKAGE;
+// Shared specs default APP_BUNDLE_ID to the iOS bundle id; set the Android
+// package before workers start so they launch the right app.
+const packageName: string = process.env.APP_BUNDLE_ID ?? ANDROID_SIX_PACKAGE;
+process.env.APP_BUNDLE_ID = packageName;
 
 function adb(args: string[]): string {
   const serial = process.env.ANDROID_UDID;
@@ -26,29 +29,41 @@ function adb(args: string[]): string {
   });
 }
 
-// The spec sets Private DNS with `settings put global`, grants the VPN with
-// appops, and Appium reads the clipboard through its own keyboard. Some phones
-// (OnePlus, Oppo, Xiaomi) block all three over adb until "Disable permission
-// monitoring" (or "USB debugging (Security settings)") is turned on in
-// Developer options. Fail up front with that hint instead of mid-run.
 // The device's own Private DNS setting, put back after the run so a phone
 // isn't left on the test account's hostname. Kept in memory, never logged.
 const privateDnsKeys = ["private_dns_mode", "private_dns_specifier"] as const;
 let savedPrivateDns: Map<string, string> | undefined;
 
 function restorePrivateDns(): void {
-  if (!savedPrivateDns) return;
-  for (const [key, value] of savedPrivateDns) {
-    // `settings get` prints "null" for a key that was never set.
-    adb(
-      value === "null"
-        ? ["shell", "settings", "delete", "global", key]
-        : ["shell", "settings", "put", "global", key, value]
-    );
-  }
+  const saved = savedPrivateDns;
+  if (!saved) return;
   savedPrivateDns = undefined;
+  try {
+    for (const [key, value] of saved) {
+      // `settings get` prints "null" for a key that was never set.
+      adb(
+        value === "null"
+          ? ["shell", "settings", "delete", "global", key]
+          : ["shell", "settings", "put", "global", key, value]
+      );
+    }
+  } catch {
+    // The adb error carries the command line, which holds the hostname.
+    console.error("Could not restore the device's Private DNS setting; check it in Settings.");
+    process.exitCode = 1;
+  }
 }
 
+// WebdriverIO exits on SIGINT/SIGTERM without calling onComplete. The adb
+// calls are synchronous, so they still run from the exit event; a second call
+// after onComplete is a no-op, and workers never saved anything.
+process.once("exit", restorePrivateDns);
+
+// The spec sets Private DNS with `settings put global`, grants the VPN with
+// appops, and Appium reads the clipboard through its own keyboard. Some phones
+// (OnePlus, Oppo, Xiaomi) block all three over adb until "Disable permission
+// monitoring" (or "USB debugging (Security settings)") is turned on in
+// Developer options. Fail up front with that hint instead of mid-run.
 function prepareDevice(): void {
   try {
     adb(["shell", "appops", "set", packageName, "ACTIVATE_VPN", "allow"]);
