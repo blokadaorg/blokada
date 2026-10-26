@@ -127,12 +127,20 @@ object SecureStorageService {
     // account this install never saw. Kept in the secure file, which is local.
     private fun unverifiedKey(key: String) = "blockstore_unverified:$key"
     private fun isUnverified(key: String) = prefs.getBoolean(unverifiedKey(key), false)
-    private fun setUnverified(key: String, unverified: Boolean, migrated: String? = null) =
+    private fun setUnverified(key: String, unverified: Boolean, migrated: String? = null) {
         prefs.edit(commit = true) {
             if (unverified) putBoolean(unverifiedKey(key), true)
             else remove(unverifiedKey(key)).remove(migratedKey(key))
-            migrated?.let { putString(migratedKey(key), it) }
         }
+        // Encrypted like the values: the account ID is the login.
+        migrated?.let {
+            try {
+                save(migratedKey(key), it)
+            } catch (e: Exception) {
+                log.w("Could not save the moved $key: ${e.message}")
+            }
+        }
+    }
 
     // The account ID moved from a plain copy while Block Store was unreadable.
     // That copy may be an old Auto Backup, so it being active does not let it
@@ -158,7 +166,7 @@ object SecureStorageService {
             return false
         }
         val newId = value?.let(::accountId)
-        val migrated = prefs.getString(migratedKey(key), null)
+        val migrated = load(migratedKey(key))
         val replace = stored == null || stored == value ||
             accountId(stored) != null && accountId(stored) == newId ||
             !isActiveAccount(stored) ||
