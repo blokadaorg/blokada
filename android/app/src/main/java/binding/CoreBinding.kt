@@ -31,6 +31,7 @@ import service.ContextService
 import service.FlutterService
 import service.JsonSerializationService
 import service.PersistenceService
+import service.SecureStorageService
 import utils.Intents
 import utils.Logger
 import java.io.File
@@ -215,6 +216,25 @@ object CoreBinding : CoreOps {
     }
 
     // Persistence
+    //
+    // Secure values are encrypted with a Keystore key (SecureStorageService)
+    // and never written to the plain preferences. Older versions kept them
+    // there, so a secure read that finds nothing encrypted moves a plain
+    // value over and deletes it. Secure values that are also backed up (the
+    // account) get a Block Store copy, which brings them back on a reinstall
+    // or a new phone.
+
+    private val secure by lazy { SecureStorageService }
+    private val storageLog = Logger("Storage")
+
+    // Block Store calls run one at a time in the order they were made, so a
+    // delete followed by a save (a replaced account) cannot land reversed.
+    private val blockStoreIo = Dispatchers.IO.limitedParallelism(1)
+    private val blockStoreMutex = Mutex()
+
+    private fun inBlockStore(block: suspend () -> Unit) {
+        scope.launch(blockStoreIo) { blockStoreMutex.withLock { block() } }
+    }
 
     override fun doSave(
         key: String,
@@ -223,12 +243,20 @@ object CoreBinding : CoreOps {
         isBackup: Boolean,
         callback: (Result<Unit>) -> Unit
     ) {
-        if (isBackup) {
-            backedUpSharedPreferences.save(key, value)
-        } else {
-            localSharedPreferences.save(key, value)
+        try {
+            if (isSecure) {
+                secure.save(key, value)
+                removePlain(key)
+                if (isBackup) inBlockStore { secure.saveToBlockStore(key, value) }
+            } else if (isBackup) {
+                backedUpSharedPreferences.save(key, value)
+            } else {
+                localSharedPreferences.save(key, value)
+            }
+            callback(Result.success(Unit))
+        } catch (e: Exception) {
+            callback(Result.failure(e))
         }
-        callback(Result.success(Unit))
     }
 
     private fun SharedPreferences.save(key: String, value: String) {
@@ -243,15 +271,64 @@ object CoreBinding : CoreOps {
         isBackup: Boolean,
         callback: (Result<String>) -> Unit
     ) {
-        var result = if (isBackup) {
-            backedUpSharedPreferences.getString(key, null)
-        } else {
-            localSharedPreferences.getString(key, null)
+        if (!isSecure) {
+            var result = if (isBackup) {
+                backedUpSharedPreferences.getString(key, null)
+            } else {
+                localSharedPreferences.getString(key, null)
+            }
+            if (key == "account:jsonAccount") result = handleLegacyAccount(result)
+            if (result != null) callback(Result.success(result))
+            else callback(Result.failure(Exception("No value for key $key")))
+            return
         }
 
-        if (key == "account:jsonAccount") result = handleLegacyAccount(result)
-        if (result != null) callback(Result.success(result))
-        else callback(Result.failure(Exception("No value for key $key")))
+        scope.launch(Dispatchers.IO) {
+            var result = loadSecure(key, isBackup)
+            if (key == "account:jsonAccount") result = handleLegacyAccount(result)
+            withContext(Dispatchers.Main) {
+                if (result != null) callback(Result.success(result))
+                else callback(Result.failure(Exception("No value for key $key")))
+            }
+        }
+    }
+
+    private suspend fun loadSecure(key: String, isBackup: Boolean): String? {
+        secure.load(key)?.let { return it }
+
+        val plain = (if (isBackup) backedUpSharedPreferences else localSharedPreferences)
+            .getString(key, null)
+        if (plain != null) {
+            storageLog.v("Moving $key to secure storage")
+            storeLocally(key, plain, removePlain = true)
+            if (isBackup) inBlockStore { secure.saveToBlockStore(key, plain) }
+            return plain
+        }
+
+        if (!isBackup) return null
+        val restored = withContext(blockStoreIo) {
+            blockStoreMutex.withLock { secure.loadFromBlockStore(key) }
+        } ?: return null
+        storageLog.v("Restored $key from Block Store")
+        storeLocally(key, restored, removePlain = false)
+        return restored
+    }
+
+    // A failed write leaves the plain copy in place, so the value is not lost
+    // and the move is tried again on the next read.
+    private fun storeLocally(key: String, value: String, removePlain: Boolean) {
+        try {
+            secure.save(key, value)
+            if (removePlain) removePlain(key)
+        } catch (e: Exception) {
+            storageLog.w("Could not save $key to secure storage: ${e.message}")
+        }
+    }
+
+    // Older versions could have a copy in either file.
+    private fun removePlain(key: String) {
+        backedUpSharedPreferences.edit(commit = true) { remove(key) }
+        localSharedPreferences.edit(commit = true) { remove(key) }
     }
 
     override fun doDelete(
@@ -260,7 +337,11 @@ object CoreBinding : CoreOps {
         isBackup: Boolean,
         callback: (Result<Unit>) -> Unit
     ) {
-        if (isBackup) {
+        if (isSecure) {
+            secure.delete(key)
+            removePlain(key)
+            if (isBackup) inBlockStore { secure.deleteFromBlockStore(key) }
+        } else if (isBackup) {
             backedUpSharedPreferences.edit(commit = true) { remove(key) }
         } else {
             localSharedPreferences.edit(commit = true) { remove(key) }

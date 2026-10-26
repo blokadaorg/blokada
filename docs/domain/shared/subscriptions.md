@@ -55,6 +55,14 @@ Scope: Paywall restore handling.
 Non-rules: This is not a restore failure; the "restore failed" modal is for errors from the store, and it closes the paywall. Lapsed access levels do not prove this store account bought before: the profile is tied to the Blokada account, so expired and never-bought share one message.
 Verification: Restore on a store account with no purchase; check the dialog shows and the paywall stays open.
 
+### Rule: The account ID survives a reinstall only through encrypted storage
+Applies to: shared
+Intent: Keep the account ID, which is the login, out of plain storage and plain backups, while the app still finds the account again after a reinstall, since there is no email login.
+Rule: The account, the WireGuard keypair, the Family link token and the lock PIN are secure values: Keychain on iOS, a Keystore-encrypted file excluded from Auto Backup on Android. The account alone is also backed up: a syncing iCloud Keychain item on iOS, Block Store on Android. Values older versions kept in plain storage (iCloud key-value storage, SharedPreferences) move on first read, and the plain copy is deleted once the secure write succeeded.
+Scope: Platform persistence for secure values.
+Non-rules: The link token and the PIN still end with the install, as they did as plain values; a reinstall starts without them. Restore Purchases on the paywall stays the other way back to a paid account.
+Verification: Upgrade a device with an account from an older version, then reinstall; check the same account ID comes back and no plain copy remains.
+
 ## Identity Notes
 
 - Payment-provider identity should only be attached to an account after that account has been active before. This avoids creating duplicate purchase-provider profiles for brand-new users.

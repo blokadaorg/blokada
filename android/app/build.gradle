@@ -189,6 +189,10 @@ dependencies {
     // Hopefully normal date api?
     implementation 'net.danlew:android.joda:2.15.0'
 
+    // Block Store keeps the account across reinstalls without a plain backup copy
+    implementation 'com.google.android.gms:play-services-auth-blockstore:16.4.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.11.0'
+
     // Biometric api to protect account id
     implementation "androidx.biometric:biometric-ktx:1.4.0-alpha02"
 

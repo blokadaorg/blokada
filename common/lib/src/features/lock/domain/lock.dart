@@ -13,7 +13,8 @@ class HasPin extends Value<bool> {
   HasPin() : super(load: () => false);
 }
 
-class ExistingPin extends StringPersistedValue {
+/// The PIN that unlocks the app's settings, kept in secure storage.
+class ExistingPin extends SecureStringPersistedValue {
   ExistingPin() : super("lock:pin");
 }
 

@@ -223,6 +223,8 @@ void main() {
       // ThisDevice and CurrentToken read through Persistence, which withTrace
       // does not register. The channel it registers is an in-memory map.
       Core.register<Persistence>(Persistence(isSecure: false));
+      Core.register<Persistence>(Persistence(isSecure: true),
+          tag: Persistence.secure);
 
       final thisDevice = ThisDevice();
       Core.register<ThisDevice>(thisDevice);

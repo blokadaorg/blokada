@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Auto Backup and device transfer for Android 12 and higher. Same rules as
+     backup_rules.xml: the Keystore-encrypted preferences stay on the device,
+     and the Adapty SDK exclusion these rules replace is kept. -->
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="sharedpref" path="secure.xml" />
+        <exclude domain="sharedpref" path="AdaptySDKPrefs.xml" />
+    </cloud-backup>
+    <device-transfer>
+        <exclude domain="sharedpref" path="secure.xml" />
+        <exclude domain="sharedpref" path="AdaptySDKPrefs.xml" />
+    </device-transfer>
+</data-extraction-rules>

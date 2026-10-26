@@ -20,10 +20,11 @@ extension URL: Identifiable {
     }
 }
 
-// TODO: currently if asked for secure AND backup store, we will use the
-// iCloud backup store which does not do any encryption. Account ID is store
-// there, keypair is stored as secure and non backup.
-
+// Persistence: secure values go to the Keychain, even when also asked to be
+// backed up. Secure and backed up values (the account) use a Keychain item
+// that syncs through iCloud Keychain, so the account still comes back on a
+// reinstall or a new device without a plain copy in iCloud key-value storage.
+// Secure values that are not backed up (the keypair) stay on this device.
 
 class CoreBinding: CoreOps {
 
@@ -43,6 +44,7 @@ class CoreBinding: CoreOps {
     private let sharedStorage = UserDefaults(suiteName: "group.net.blocka.app")
     private let iCloud = NSUbiquitousKeyValueStore()
     private let keychain = KeychainSwift()
+    private let backupKeychain = KeychainSwift()
 
     init() {
         maxFileSize = 5 * 1024 * 1024
@@ -52,6 +54,7 @@ class CoreBinding: CoreOps {
     
         // Keypair needs to stay local
         keychain.synchronizable = false
+        backupKeychain.synchronizable = true
     }
 
     // Logger
@@ -223,12 +226,17 @@ class CoreBinding: CoreOps {
         if (key == "blockaweb:status") {
             saveAppStatusForBlockaweb(value)
             completion(.success(()))
+        } else if (isSecure) {
+            guard secureStore(isBackup).set(value, forKey: key, withAccess: .accessibleAfterFirstUnlock) else {
+                return completion(.failure("failed saving \(key) to keychain"))
+            }
+            if (isBackup) {
+                removeFromICloud(key)
+            }
+            completion(.success(()))
         } else if (isBackup) {
             self.iCloud.set(value, forKey: key)
             self.iCloud.synchronize()
-            completion(.success(()))
-        } else if (isSecure) {
-            self.keychain.set(value, forKey: key, withAccess: .accessibleAfterFirstUnlock)
             completion(.success(()))
         } else {
             self.localStorage.set(value, forKey: key)
@@ -243,13 +251,16 @@ class CoreBinding: CoreOps {
                 return completion(.failure(CommonError.emptyResult))
             }
             completion(.success(it))
-        } else if (isBackup) {
-            guard let it = self.iCloud.string(forKey: key) else {
+        } else if (isSecure) {
+            if let it = secureStore(isBackup).get(key) {
+                return completion(.success(it))
+            }
+            guard isBackup, let it = migrateFromICloud(key) else {
                 return completion(.failure(CommonError.emptyResult))
             }
             completion(.success(it))
-        } else if (isSecure) {
-            guard let it = self.keychain.get(key) else {
+        } else if (isBackup) {
+            guard let it = self.iCloud.string(forKey: key) else {
                 return completion(.failure(CommonError.emptyResult))
             }
             completion(.success(it))
@@ -263,16 +274,43 @@ class CoreBinding: CoreOps {
 
     func doDelete(key: String, isSecure: Bool, isBackup: Bool,
                   completion: @escaping (Result<Void, Error>) -> Void) {
-        if (isBackup) {
-            self.iCloud.removeObject(forKey: key)
+        if (isSecure) {
+            secureStore(isBackup).delete(key)
+            if (isBackup) {
+                removeFromICloud(key)
+            }
             completion(.success(()))
-        } else if (isSecure) {
-            self.keychain.delete(key)
+        } else if (isBackup) {
+            self.iCloud.removeObject(forKey: key)
             completion(.success(()))
         } else {
             self.localStorage.removeObject(forKey: key)
             completion(.success(()))
         }
+    }
+
+    private func secureStore(_ isBackup: Bool) -> KeychainSwift {
+        return isBackup ? backupKeychain : keychain
+    }
+
+    // Older versions kept secure and backed up values (the account) in iCloud
+    // key-value storage, unencrypted. Move such a value into the Keychain on
+    // first read, and drop the iCloud copy only once the Keychain holds it, so
+    // a failed write never loses the account.
+    private func migrateFromICloud(_ key: String) -> String? {
+        guard let it = self.iCloud.string(forKey: key) else {
+            return nil
+        }
+        if backupKeychain.set(it, forKey: key, withAccess: .accessibleAfterFirstUnlock) {
+            removeFromICloud(key)
+        }
+        return it
+    }
+
+    private func removeFromICloud(_ key: String) {
+        guard self.iCloud.object(forKey: key) != nil else { return }
+        self.iCloud.removeObject(forKey: key)
+        self.iCloud.synchronize()
     }
 
     // Special case to provide app status to blockaweb extension

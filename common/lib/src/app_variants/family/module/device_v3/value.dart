@@ -1,6 +1,8 @@
 part of 'device.dart';
 
-class CurrentToken extends StringPersistedValue {
+/// The token a linked child device authenticates with. It acts for the
+/// parent's account, so it is kept in secure storage.
+class CurrentToken extends SecureStringPersistedValue {
   CurrentToken() : super("linked_status");
 }
 

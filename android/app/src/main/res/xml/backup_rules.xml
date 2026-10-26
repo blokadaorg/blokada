@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Auto Backup for Android 11 and lower. The secure preferences are encrypted
+     with a Keystore key that never leaves the device, so a restored copy could
+     not be read. Secure values that should survive come back from Block Store. -->
+<full-backup-content>
+    <exclude domain="sharedpref" path="secure.xml" />
+    <!-- Kept from the Adapty SDK rules, which these replace. -->
+    <exclude domain="sharedpref" path="AdaptySDKPrefs.xml" />
+</full-backup-content>
