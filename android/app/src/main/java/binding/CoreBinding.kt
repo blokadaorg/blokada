@@ -249,10 +249,10 @@ object CoreBinding : CoreOps {
     ) {
         try {
             if (isSecure) {
-                synchronized(secureLock) {
-                    secure.save(key, value)
-                    removePlain(key)
-                }
+                // The plain copy is not removed here: whoever moves it
+                // (loadSecure, or the Dart side for install-scoped values)
+                // removes it once the move is complete.
+                synchronized(secureLock) { secure.save(key, value) }
                 if (isBackup) inBlockStore { secure.saveToBlockStore(key, value) }
             } else if (isBackup) {
                 backedUpSharedPreferences.save(key, value)
