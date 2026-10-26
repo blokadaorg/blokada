@@ -172,7 +172,7 @@ dependencies {
     implementation 'androidx.preference:preference-ktx:1.2.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.browser:browser:1.10.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.12.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.11.0'
 
     // gplay rate prompt
     implementation 'com.google.android.play:review:2.0.2'
