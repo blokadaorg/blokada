@@ -458,9 +458,9 @@ void main() {
         await actor.requestLink(jwt, m, fromScanner: true);
 
         expect(Core.get<PendingLinkValue>().present, isNull);
-        verify((Core.get<StageStore>() as MockStageStore)
-                .showModal(StageModal.faultLocked, any))
-            .called(1);
+        // No modal: it would dismiss the lock screen, also a stage modal.
+        verifyNever((Core.get<StageStore>() as MockStageStore)
+            .showModal(any, any));
         verifyNever(auth.useToken(any, any));
       });
     });
@@ -482,9 +482,9 @@ void main() {
         verifyNever(device.setThisDeviceForLinked(any, any, any,
             confirmed: anyNamed('confirmed')));
         expect(Core.get<PendingLinkValue>().present, isNull);
-        verify((Core.get<StageStore>() as MockStageStore)
-                .showModal(StageModal.faultLocked, any))
-            .called(1);
+        // No modal: it would dismiss the lock screen, also a stage modal.
+        verifyNever((Core.get<StageStore>() as MockStageStore)
+            .showModal(any, any));
 
         // The claim is released, so a later link after unlocking still parks.
         Core.get<IsLocked>().now = false;

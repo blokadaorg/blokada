@@ -230,12 +230,13 @@ class LinkActor with Logging, Actor {
   /// [fromScanner] is set only by the app's own QR scanners. Everything else
   /// counts as coming from outside and is always confirmed. Refused outright
   /// while the parental lock is on, so a locked child device cannot be moved.
+  /// The refusal raises no modal: showing one would dismiss the lock screen
+  /// (also a stage modal) and leave the locked device open.
   Future<void> requestLink(String rawInput, Marker m,
       {bool fromScanner = false}) async {
     return await log(m).trace("requestLink", (m) async {
       if (_isLocked.now) {
         log(m).w("locked, refusing link");
-        await _stage.showModal(StageModal.faultLocked, m);
         return;
       }
       final token = parseFamilyLinkToken(rawInput);
@@ -267,12 +268,12 @@ class LinkActor with Logging, Actor {
 
   /// Drops the parked [token] when the parental lock is on. A cold-start link
   /// can be parked before the lock state is read, so requestLink alone cannot
-  /// catch it. Returns true when the link was refused.
+  /// catch it. Returns true when the link was refused. Silent for the same
+  /// reason as requestLink: a modal here would replace the lock screen.
   Future<bool> refuseIfLocked(String token, Marker m) async {
     if (!_isLocked.now) return false;
     log(m).w("locked, refusing parked link");
     await cancelPendingLink(token, m);
-    await _stage.showModal(StageModal.faultLocked, m);
     return true;
   }
 

@@ -17,7 +17,6 @@ import android.content.Intent
 import android.content.Intent.ACTION_VIEW
 import android.net.Uri
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import binding.AppBinding
 import binding.CommandBinding
@@ -86,8 +85,6 @@ class CommandActivity : AppCompatActivity() {
                 if (param?.isBlank() != false) {
                     throw BlokadaException("Family link param not provided")
                 }
-
-                Toast.makeText(this, "Linking device ...", Toast.LENGTH_LONG).show()
 
                 // Sent as a URL, not FAMILYLINK: this activity has to stay
                 // exported for verified app links, so any installed app can
