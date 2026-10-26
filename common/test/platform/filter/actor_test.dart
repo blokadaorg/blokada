@@ -201,7 +201,7 @@ Future<void> _tapGap() => Future.delayed(const Duration(milliseconds: 50));
 
 void main() {
   group("toggleFilterOption", () {
-    test("successfulSaveShowsOneConfirmation", () async {
+    test("successfulSaveShowsNoToast", () async {
       await withTrace((m) async {
         final s = await _boot(m);
         expect(await s.oisd(), ["small"]);
@@ -213,7 +213,7 @@ void main() {
           [_small, _big]
         ]);
         expect(await s.oisd(), ["small", "big"]);
-        expect(s.toast.shown, ["toast blocklists saved".i18n]);
+        expect(s.toast.shown, isEmpty);
         expect(s.toast.errors, isEmpty);
       });
     });
@@ -244,7 +244,7 @@ void main() {
       });
     });
 
-    test("rapidTogglesSaveOnceWithOneConfirmation", () async {
+    test("rapidTogglesSaveOnce", () async {
       await withTrace((m) async {
         final s = await _boot(m);
 
@@ -255,7 +255,7 @@ void main() {
 
         expect(s.api.puts, hasLength(1));
         expect(s.api.puts.single.toSet(), {_small, _big, _nsfw});
-        expect(s.toast.shown, ["toast blocklists saved".i18n]);
+        expect(s.toast.shown, isEmpty);
         expect(s.toast.errors, isEmpty);
       });
     });
@@ -289,7 +289,7 @@ void main() {
         expect(s.toast.shown, isEmpty);
       });
     });
-    test("refreshFailureAfterSaveStillConfirms", () async {
+    test("refreshFailureAfterSaveShowsNoError", () async {
       await withTrace((m) async {
         final s = await _boot(m);
         s.api.failGet = true;
@@ -299,7 +299,7 @@ void main() {
 
         expect(s.api.stored, [_small, _big]);
         expect(await s.oisd(), ["small", "big"]);
-        expect(s.toast.shown, ["toast blocklists saved".i18n]);
+        expect(s.toast.shown, isEmpty);
         expect(s.toast.errors, isEmpty);
       });
     });
@@ -320,7 +320,7 @@ void main() {
         expect(s.api.stored.toSet(), {_small, _big, _nsfw});
         expect(await s.oisd(), ["small", "big", "nsfw"]);
         expect(s.toast.errors, ["toast save failed".i18n]);
-        expect(s.toast.shown, ["toast blocklists saved".i18n]);
+        expect(s.toast.shown, isEmpty);
       });
     });
 
@@ -440,39 +440,70 @@ void main() {
         expect(s.api.puts.single.toSet(), {_unified, _nsfw});
         expect(await s.main(m), unified);
         expect(await s.extras(m), {nsfw});
-        expect(s.toast.shown, ["toast blocklists saved".i18n]);
+        expect(s.toast.shown, isEmpty);
       });
     });
 
-    test("mainChangeKeepsPickOverEarlierGeneralExtra", () async {
+    test("mainPickTurnsOffEveryOtherGeneralList", () async {
       await withTrace((m) async {
-        // OISD Big sorts before Steven Black, but stays an extra.
-        final s = await _boot(m, stored: [_small, _big], wide: true);
+        // Stacked general lists from before the main pick existed.
+        final s = await _boot(m, stored: [_small, _big, _nsfw], wide: true);
 
         await s.actor.selectMainBlocklist(unified, m);
         await _settle();
 
-        expect(s.api.puts.single.toSet(), {_big, _unified});
+        expect(s.api.puts.single.toSet(), {_unified, _nsfw});
         expect(await s.main(m), unified);
-        expect(await s.extras(m), {big});
+        expect(await s.extras(m), {nsfw});
+        expect(s.toast.shown, isEmpty);
       });
     });
 
-    test("failedMainChangePutsBackTheOldPick", () async {
+    test("pickingTheStackedMainDropsTheOthers", () async {
       await withTrace((m) async {
-        // Steven Black is main with OISD Big as an extra; Big sorts first, so
-        // only the stored pick keeps Steven Black as main.
         final s = await _boot(m, stored: [_small, _big], wide: true);
-        await s.actor.selectMainBlocklist(unified, m);
-        await _settle();
-        expect(await s.main(m), unified);
 
-        s.api.fail = true;
         await s.actor.selectMainBlocklist(small, m);
         await _settle();
 
-        expect(await s.main(m), unified);
-        expect(await s.extras(m), {big});
+        expect(s.api.puts.single, [_small]);
+        expect(await s.main(m), small);
+        expect(await s.extras(m), isEmpty);
+      });
+    });
+
+    test("failedMainChangeShowsErrorAndPutsBackServerSelection", () async {
+      await withTrace((m) async {
+        // OISD Small sorts first, so only the stored pick keeps Big as main.
+        final s = await _boot(m, stored: [_small, _big], wide: true);
+        await Core.get<BlocklistMainPick>().change(m, big.tag);
+        expect(await s.main(m), big);
+
+        s.api.fail = true;
+        await s.actor.selectMainBlocklist(unified, m);
+        await _settle();
+
+        expect(s.toast.errors, ["toast save failed".i18n]);
+        expect(s.toast.shown, isEmpty);
+        expect(s.api.stored.toSet(), {_small, _big});
+        expect(await s.main(m), big);
+        expect(await s.extras(m), {small});
+      });
+    });
+
+    test("failedExtraToggleShowsErrorAndRollsBack", () async {
+      await withTrace((m) async {
+        final s = await _boot(m, wide: true);
+        s.api.fail = true;
+
+        await s.actor.toggleExtraBlocklist(adult, true, m);
+        expect(await s.extras(m), {adult}); // Shown before the save.
+        await _settle();
+
+        expect(s.toast.errors, ["toast save failed".i18n]);
+        expect(s.toast.shown, isEmpty);
+        expect(await s.main(m), small);
+        expect(await s.extras(m), isEmpty);
       });
     });
 
@@ -488,14 +519,26 @@ void main() {
         final held = s.api.gate = Completer();
         await s.actor.selectMainBlocklist(small, m);
         await _settle();
-        await s.actor.toggleExtraBlocklist(unified, true, m);
+        await s.actor.toggleExtraBlocklist(adult, true, m);
         await _settle();
         held.complete();
         await _settle();
 
-        expect(s.api.stored.toSet(), {_small, _big, _unified});
+        expect(s.api.stored.toSet(), {_small, _adult});
         expect(await s.main(m), small);
-        expect(await s.extras(m), {big, unified});
+        expect(await s.extras(m), {adult});
+      });
+    });
+
+    test("generalListIsNotAnExtra", () async {
+      await withTrace((m) async {
+        final s = await _boot(m, wide: true);
+
+        await s.actor.toggleExtraBlocklist(big, true, m);
+        await _settle();
+
+        expect(s.api.puts, isEmpty);
+        expect(await s.extras(m), isEmpty);
       });
     });
 
@@ -574,8 +617,7 @@ void main() {
         for (final key in [big, unified, small]) {
           await s.actor.selectMainBlocklist(key, m);
           await _tapGap();
-          for (final extra in [nsfw, adult, adaway, big, unified]) {
-            if (extra == key) continue;
+          for (final extra in [nsfw, adult, adaway]) {
             await s.actor.toggleExtraBlocklist(extra, true, m);
             await _tapGap();
             await s.actor.toggleExtraBlocklist(extra, false, m);

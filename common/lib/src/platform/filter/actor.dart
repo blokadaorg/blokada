@@ -25,7 +25,7 @@ class PlatformFilterActor with Logging, Actor {
 
   // The selection from before the user's first change that is not saved yet,
   // or null when no user change is pending. Saves of the defaults or a device
-  // refresh leave it null, so only a save the user asked for gets a toast.
+  // refresh leave it null, so only a save the user asked for is rolled back.
   List<FilterSelection>? _unsaved;
 
   // The v6 main pick from before the pending user change, when that change
@@ -146,8 +146,9 @@ class PlatformFilterActor with Logging, Actor {
     });
   }
 
-  /// Makes [key] the main blocklist of the v6 screen: the old main list goes
-  /// off and [key] comes on, sent as one save. Extras stay as they are.
+  /// Makes [key] the main blocklist of the v6 screen: every other general
+  /// list goes off and [key] comes on, sent as one save. Extras stay as they
+  /// are. General lists don't stack: for more blocking, pick a bigger one.
   Future<void> selectMainBlocklist(BlocklistKey key, Marker m) async {
     return await log(m).trace("selectMainBlocklist", (m) async {
       if (!v6MainBlocklists.contains(key)) {
@@ -157,15 +158,19 @@ class PlatformFilterActor with Logging, Actor {
 
       final was = await _selectedFilters.now();
       final pick = BlocklistKey.fromTag(await _mainPick.fetch(m));
-      final current = v6MainBlocklist(was, pick: pick);
-      if (current == key) return;
+      final on = selectedBlocklists(was);
+      final others =
+          v6MainBlocklists.where((it) => it != key && on.contains(it));
+      // Already the only general list on.
+      if (on.contains(key) && others.isEmpty) return;
 
       var selected = was;
-      if (current != null) selected = withBlocklist(selected, current, false);
+      for (final other in others) {
+        selected = withBlocklist(selected, other, false);
+      }
       selected = withBlocklist(selected, key, true);
 
-      // Saved first, so the selection change below already shows [key] as
-      // main even if another general list that sorts before it stays on.
+      // Saved first, so the selection change below already shows [key] as main.
       await _mainPick.change(m, key.tag);
       await _selectedFilters.change(m, selected);
       if (!await _applyUserChange(was, m, pickWas: (tag: pick?.tag))) {
@@ -174,11 +179,16 @@ class PlatformFilterActor with Logging, Actor {
     });
   }
 
-  /// Turns an extra on or off on the v6 screen. Refuses to turn off the last
-  /// list that is on: v6 has no "no blocklists" state, and an empty list would
+  /// Turns an extra on or off on the v6 screen. Refuses general lists, which
+  /// only change through [selectMainBlocklist], and turning off the last list
+  /// that is on: v6 has no "no blocklists" state, and an empty list would
   /// make FilterActor quietly put the defaults back.
   Future<void> toggleExtraBlocklist(BlocklistKey key, bool on, Marker m) async {
     return await log(m).trace("toggleExtraBlocklist", (m) async {
+      if (v6MainBlocklists.contains(key)) {
+        log(m).w("not an extra blocklist: $key");
+        return;
+      }
       final was = await _selectedFilters.now();
       final selected = withBlocklist(was, key, on);
       if (selectedBlocklists(selected).isEmpty) {
@@ -246,8 +256,8 @@ class PlatformFilterActor with Logging, Actor {
   }
 
   /// Pushes [lists] to the v2 device, the only place blocklists are saved.
-  /// A user change is confirmed once the server took it. If the save failed,
-  /// an error toast replaces the confirmation and the switches go back to
+  /// A saved change needs no confirmation: the switches already show it. If
+  /// a user change failed, an error toast shows and the switches go back to
   /// what is saved.
   Future<void> _save(List<String> lists, Marker m) async {
     final save = ++_saveCount;
@@ -255,9 +265,8 @@ class PlatformFilterActor with Logging, Actor {
     final pickBefore = _unsavedPick;
     _unsaved = null;
     _unsavedPick = null;
-    final bool saved;
     try {
-      saved = await _device.setLists(lists, m);
+      await _device.setLists(lists, m);
     } catch (e, s) {
       log(m).e(msg: "Error saving blocklists", err: e, stack: s);
       // Only a user change is rolled back: rolling back the defaults would
@@ -274,9 +283,7 @@ class PlatformFilterActor with Logging, Actor {
         // Runs from a timer, so nobody else would see this error.
         log(m).e(msg: "Error restoring saved blocklists", err: e, stack: s);
       }
-      return;
     }
-    if (saved && before != null) _toast.show("toast blocklists saved".i18n);
   }
 
   // The device lists are what the server has; FilterActor maps them back to
