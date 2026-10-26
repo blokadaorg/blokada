@@ -3,7 +3,7 @@ import { execFileSync } from "node:child_process";
 import { $, driver } from "@wdio/globals";
 
 import { AutomationIds } from "../support/automationIds.js";
-import { byId, tap } from "../support/platform.js";
+import { byId, tap, tapAt } from "../support/platform.js";
 import { activateApp, terminateApp } from "./app.js";
 import { getProtectionState, waitForProtectionActive } from "./home.js";
 
@@ -50,7 +50,12 @@ async function openSystemSettingsFromSheet(appPackage: string): Promise<void> {
     if ((await driver.getCurrentPackage()) !== appPackage) {
       return;
     }
-    await tap(await $(openSettingsSelector()));
+    // Android 13+ shows a clipboard preview over the bottom-left corner after
+    // Copy, on top of this button; tap its right end, which the preview leaves
+    // free.
+    const button = await $(openSettingsSelector());
+    const rect = await driver.getElementRect(await button.elementId);
+    await tapAt(rect.x + rect.width * 0.9, rect.y + rect.height / 2);
     await driver.pause(2000);
   }
   if ((await driver.getCurrentPackage()) === appPackage) {
