@@ -172,17 +172,17 @@ dependencies {
     implementation 'androidx.preference:preference-ktx:1.2.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.browser:browser:1.10.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.11.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.12.0'
 
     // gplay rate prompt
     implementation 'com.google.android.play:review:2.0.2'
 
     // json serialisation
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.12.0"
 
     // http and rest
     implementation 'com.squareup.retrofit2:retrofit:3.0.0'
-    implementation platform('com.squareup.okhttp3:okhttp-bom:5.5.0')
+    implementation platform('com.squareup.okhttp3:okhttp-bom:5.5.1')
     implementation 'com.squareup.okhttp3:okhttp'
     implementation 'com.squareup.okhttp3:logging-interceptor'
 
@@ -199,7 +199,7 @@ dependencies {
     // wireguard deps
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
     sixImplementation fileTree(include: ['*.aar'], dir: 'wireguard-android/lib')
-    sixImplementation "androidx.datastore:datastore-preferences:1.2.1"
+    sixImplementation "androidx.datastore:datastore-preferences:1.3.0"
     sixImplementation "androidx.annotation:annotation:1.11.0"
     sixImplementation "androidx.lifecycle:lifecycle-runtime-ktx:2.11.0"
     sixImplementation "androidx.activity:activity-ktx:1.13.0"
@@ -221,7 +221,7 @@ dependencies {
     sixImplementation 'io.adapty:android-ui'
 
     // Firebase Cloud Messaging (v6 only)
-    sixImplementation platform('com.google.firebase:firebase-bom:35.0.2')
+    sixImplementation platform('com.google.firebase:firebase-bom:35.1.0')
     sixImplementation 'com.google.firebase:firebase-messaging'
 
     // test deps
