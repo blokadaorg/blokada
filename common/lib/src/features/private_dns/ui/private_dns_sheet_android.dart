@@ -218,14 +218,23 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
               children: [
                 Expanded(
                   child: SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: _buildContent(context),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: _buildContent(context),
+                        ),
+                        // Right under the steps, not pinned to the bottom: on
+                        // Android 13+ the clipboard preview after Copy covers
+                        // the bottom-left corner of the screen.
+                        const SizedBox(height: 24),
+                        ..._buildActions(context),
+                        const SizedBox(height: 16),
+                      ],
                     ),
                   ),
                 ),
-                ..._buildActions(context),
-                const SizedBox(height: 16),
               ],
             ),
           ),
