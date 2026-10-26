@@ -227,7 +227,14 @@ class CoreBinding: CoreOps {
             saveAppStatusForBlockaweb(value)
             completion(.success(()))
         } else if (isSecure) {
-            guard secureStore(isBackup).set(value, forKey: key, withAccess: .accessibleAfterFirstUnlock) else {
+            // KeychainSwift deletes the old item before adding the new one, so
+            // a failed add would leave nothing. Put the previous value back.
+            let store = secureStore(isBackup)
+            let previous = store.get(key)
+            guard store.set(value, forKey: key, withAccess: .accessibleAfterFirstUnlock) else {
+                if let previous = previous {
+                    _ = store.set(previous, forKey: key, withAccess: .accessibleAfterFirstUnlock)
+                }
                 return completion(.failure("failed saving \(key) to keychain"))
             }
             if (isBackup) {
