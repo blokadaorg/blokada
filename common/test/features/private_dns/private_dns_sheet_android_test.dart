@@ -56,6 +56,7 @@ Future<_Setup> _pump(
   required String manufacturer,
   PrivateDnsState? state,
   List<Object?> probe = const ["cloud"],
+  bool failClipboard = false,
 }) async {
   Core.act = ActScreenplay(ActScenario.test, Flavor.v6, PlatformType.android);
   final channel = FakeDnsChannel(state ?? dnsState(null));
@@ -70,6 +71,7 @@ Future<_Setup> _pump(
     call,
   ) async {
     if (call.method == "Clipboard.setData") {
+      if (failClipboard) throw PlatformException(code: "clipboard");
       clipboard.add((call.arguments as Map)["text"] as String?);
     }
     return null;
@@ -126,6 +128,38 @@ void main() {
       expect(s.channel.openSettingsCalls, 1);
       // The sheet stays, so it can check the result on return.
       expect(find.byType(PrivateDnsSheetAndroid), findsOneWidget);
+    });
+  });
+
+  testWidgets("a failed copy still opens Settings, without claiming a copy", (tester) async {
+    await withTrace((m) async {
+      final s = await _pump(tester, m, manufacturer: "Google", failClipboard: true);
+
+      await tester.tap(find.text("dnsprofile action open settings".i18n));
+      await tester.pumpAndSettle();
+
+      expect(tester.takeException(), isNull);
+      expect(find.byIcon(Icons.check), findsNothing);
+      expect(find.text("private dns android copied hint".i18n), findsNothing);
+      expect(s.channel.openSettingsCalls, 1);
+    });
+  });
+
+  testWidgets("Settings failing to open keeps the setup step", (tester) async {
+    await withTrace((m) async {
+      final s = await _pump(tester, m, manufacturer: "Google");
+      s.channel.failOpenSettings = true;
+
+      await tester.tap(find.text("dnsprofile action open settings".i18n));
+      await tester.pumpAndSettle();
+      expect(tester.takeException(), isNull);
+
+      // Not counted as an attempt, so a return to the app still shows setup.
+      s.channel.state = dnsState("other.example.com");
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+      await tester.pumpAndSettle();
+      expect(_byId(AutomationIds.dnsSetupHelp), findsNothing);
+      expect(find.text(_hostname), findsOneWidget);
     });
   });
 

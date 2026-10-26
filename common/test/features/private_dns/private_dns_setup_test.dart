@@ -5,12 +5,15 @@ import 'package:common/src/platform/perm/channel.pg.dart';
 import 'package:common/src/platform/perm/dnscheck.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:flutter/services.dart';
+
 import '../../tools.dart';
 
 /// Returns a fixed Private DNS state, as the native side would.
 class FakeDnsChannel with PermChannel {
   PrivateDnsState state;
   var openSettingsCalls = 0;
+  var failOpenSettings = false;
 
   FakeDnsChannel(this.state);
 
@@ -18,7 +21,10 @@ class FakeDnsChannel with PermChannel {
   Future<PrivateDnsState> getPrivateDnsState() async => state;
 
   @override
-  Future<void> doOpenPermSettings() async => openSettingsCalls++;
+  Future<void> doOpenPermSettings() async {
+    openSettingsCalls++;
+    if (failOpenSettings) throw PlatformException(code: "Exception");
+  }
 
   @override
   Future<bool> doAuthenticate() async => true;

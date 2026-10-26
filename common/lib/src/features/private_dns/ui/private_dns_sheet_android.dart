@@ -120,23 +120,37 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
     setState(() => _step = step);
   }
 
-  Future<void> _copy() async {
+  /// Returns false when the clipboard refused the hostname; it stays on screen
+  /// to type by hand.
+  Future<bool> _copy() async {
     log(Markers.userTap).t("Copying the Private DNS hostname");
-    await Clipboard.setData(ClipboardData(text: _hostname));
+    try {
+      await Clipboard.setData(ClipboardData(text: _hostname));
+    } catch (e, s) {
+      log(Markers.userTap).e(msg: "Private DNS sheet: copy failed", err: e, stack: s);
+      return false;
+    }
     if (mounted) setState(() => _copied = true);
+    return true;
   }
 
   // Copies for users who skip Copy, but visibly: the button flips and a line
   // says so, and the sheet waits a moment so it is seen before Settings opens.
   Future<void> _openSettings() async {
     log(Markers.userTap).t("Opening system Settings for Private DNS");
-    _attempted = true;
-    if (!_copied) {
-      await _copy();
+    if (!_copied && await _copy()) {
       if (mounted) setState(() => _copiedBySettings = true);
       await sleepAsync(widget.copiedBeforeSettingsDelay);
     }
-    await _channel.doOpenPermSettings();
+    try {
+      await _channel.doOpenPermSettings();
+    } catch (e, s) {
+      // The sheet keeps the steps on screen, so Settings can still be opened
+      // by hand; only count an attempt once Settings really opened.
+      log(Markers.userTap).e(msg: "Private DNS sheet: opening Settings failed", err: e, stack: s);
+      return;
+    }
+    _attempted = true;
   }
 
   Future<void> _retry() async {
