@@ -39,8 +39,10 @@ abstract class StringPersistedValue extends NullableAsyncValue<String?> {
 /// as plain values: the iOS Keychain outlives a reinstall, while the plain
 /// storage and the rest of the app state do not. A plain marker records that
 /// this install wrote the secret, and a secret without one is left over from
-/// an earlier install and is dropped. The secret is not backed up, so a
-/// restored install starts without it, as a reinstall does.
+/// an earlier install and is dropped. The secret is never put in a
+/// backed-up secure store: on Android it stays out of Auto Backup, while on
+/// iOS an encrypted device backup carries both the Keychain item and the
+/// marker, so a restored device keeps it, as it kept the plain value.
 ///
 /// A value an older version stored in plain storage moves to secure storage
 /// on its first read.
@@ -48,6 +50,7 @@ abstract class SecureStringPersistedValue extends NullableAsyncValue<String?>
     with Logging {
   late final _plain = Core.get<Persistence>();
   late final _secure = Core.get<Persistence>(tag: Persistence.secure);
+  bool _unreadable = false;
 
   SecureStringPersistedValue(String key) : super(sensitive: true) {
     final marker = "$key:secure";
@@ -60,10 +63,18 @@ abstract class SecureStringPersistedValue extends NullableAsyncValue<String?>
         await _secure.delete(m, key);
         return null;
       }
-      return await _secure.load(m, key);
+      final value = await _secure.load(m, key);
+      // The marker says this install wrote a secret, so a miss is a failed
+      // read. Keep the stored secret instead of letting fetch save the null
+      // back over it.
+      _unreadable = value == null;
+      return value;
     };
     save = (Marker m, String? value) async {
+      final unreadable = _unreadable;
+      _unreadable = false;
       if (value == null) {
+        if (unreadable) return;
         await _secure.delete(m, key);
         await _plain.delete(m, marker);
         await _plain.delete(m, key);

@@ -137,21 +137,32 @@ object SecureStorageService {
         }
     }
 
+    /**
+     * Returns null when Block Store holds nothing. A failed or slow read is
+     * tried once more first: the caller creates a new account on null, and
+     * that account's save would then replace the one held here.
+     */
     suspend fun loadFromBlockStore(key: String): String? {
-        return try {
-            val request = RetrieveBytesRequest.Builder()
-                .setKeys(listOf(blockStoreKey(key)))
-                .build()
-            val response = withTimeoutOrNull(blockStoreTimeoutMs) {
-                blockStore.retrieveBytes(request).await()
-            } ?: return null
-            response.blockstoreDataMap[blockStoreKey(key)]?.bytes
-                ?.toString(Charsets.UTF_8)
-                ?.takeIf { it.isNotEmpty() }
-        } catch (e: Exception) {
-            log.w("Could not load $key from Block Store: ${e.message}")
-            null
+        val request = RetrieveBytesRequest.Builder()
+            .setKeys(listOf(blockStoreKey(key)))
+            .build()
+        repeat(2) { attempt ->
+            try {
+                val response = withTimeoutOrNull(blockStoreTimeoutMs) {
+                    blockStore.retrieveBytes(request).await()
+                }
+                if (response != null) {
+                    return response.blockstoreDataMap[blockStoreKey(key)]?.bytes
+                        ?.toString(Charsets.UTF_8)
+                        ?.takeIf { it.isNotEmpty() }
+                }
+                log.w("Timed out loading $key from Block Store, attempt ${attempt + 1}")
+            } catch (e: Exception) {
+                log.w("Could not load $key from Block Store, attempt ${attempt + 1}: ${e.message}")
+            }
         }
+        log.w("Gave up loading $key from Block Store")
+        return null
     }
 
     suspend fun deleteFromBlockStore(key: String) {

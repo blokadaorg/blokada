@@ -227,6 +227,10 @@ object CoreBinding : CoreOps {
     private val secure by lazy { SecureStorageService }
     private val storageLog = Logger("Storage")
 
+    // Saves and deletes of secure values run on the main thread while a load
+    // runs on IO, so they share this lock.
+    private val secureLock = Any()
+
     // Block Store calls run one at a time in the order they were made, so a
     // delete followed by a save (a replaced account) cannot land reversed.
     private val blockStoreIo = Dispatchers.IO.limitedParallelism(1)
@@ -245,8 +249,10 @@ object CoreBinding : CoreOps {
     ) {
         try {
             if (isSecure) {
-                secure.save(key, value)
-                removePlain(key)
+                synchronized(secureLock) {
+                    secure.save(key, value)
+                    removePlain(key)
+                }
                 if (isBackup) inBlockStore { secure.saveToBlockStore(key, value) }
             } else if (isBackup) {
                 backedUpSharedPreferences.save(key, value)
@@ -284,12 +290,17 @@ object CoreBinding : CoreOps {
         }
 
         scope.launch(Dispatchers.IO) {
-            var result = loadSecure(key, isBackup)
-            if (key == "account:jsonAccount") result = handleLegacyAccount(result)
-            withContext(Dispatchers.Main) {
-                if (result != null) callback(Result.success(result))
-                else callback(Result.failure(Exception("No value for key $key")))
+            // Always answer: an exception escaping this coroutine would crash
+            // the app and leave the Dart side waiting forever.
+            val result = try {
+                var value = loadSecure(key, isBackup)
+                if (key == "account:jsonAccount") value = handleLegacyAccount(value)
+                if (value != null) Result.success(value)
+                else Result.failure(Exception("No value for key $key"))
+            } catch (e: Exception) {
+                Result.failure(e)
             }
+            withContext(Dispatchers.Main) { callback(result) }
         }
     }
 
@@ -300,9 +311,9 @@ object CoreBinding : CoreOps {
             .getString(key, null)
         if (plain != null) {
             storageLog.v("Moving $key to secure storage")
-            storeLocally(key, plain, removePlain = true)
-            if (isBackup) inBlockStore { secure.saveToBlockStore(key, plain) }
-            return plain
+            val stored = storeLocally(key, plain, removePlain = true)
+            if (isBackup && stored == plain) inBlockStore { secure.saveToBlockStore(key, plain) }
+            return stored
         }
 
         if (!isBackup) return null
@@ -310,25 +321,31 @@ object CoreBinding : CoreOps {
             blockStoreMutex.withLock { secure.loadFromBlockStore(key) }
         } ?: return null
         storageLog.v("Restored $key from Block Store")
-        storeLocally(key, restored, removePlain = false)
-        return restored
+        return storeLocally(key, restored, removePlain = false)
     }
 
-    // A failed write leaves the plain copy in place, so the value is not lost
-    // and the move is tried again on the next read.
-    private fun storeLocally(key: String, value: String, removePlain: Boolean) {
-        try {
-            secure.save(key, value)
-            if (removePlain) removePlain(key)
-        } catch (e: Exception) {
-            storageLog.w("Could not save $key to secure storage: ${e.message}")
+    // Returns the value now stored. A save that landed while this load was
+    // reading the plain copy or Block Store is newer and is kept. A failed
+    // write leaves the plain copy in place, so the value is not lost and the
+    // move is tried again on the next read.
+    private fun storeLocally(key: String, value: String, removePlain: Boolean): String =
+        synchronized(secureLock) {
+            secure.load(key)?.let { return it }
+            try {
+                secure.save(key, value)
+                if (removePlain) removePlain(key)
+            } catch (e: Exception) {
+                storageLog.w("Could not save $key to secure storage: ${e.message}")
+            }
+            value
         }
-    }
 
-    // Older versions could have a copy in either file.
+    // Older versions could have a copy in either file. Each commit is a disk
+    // write, so only files that still hold the key are touched.
     private fun removePlain(key: String) {
-        backedUpSharedPreferences.edit(commit = true) { remove(key) }
-        localSharedPreferences.edit(commit = true) { remove(key) }
+        listOf(backedUpSharedPreferences, localSharedPreferences)
+            .filter { it.contains(key) }
+            .forEach { it.edit(commit = true) { remove(key) } }
     }
 
     override fun doDelete(
@@ -338,8 +355,10 @@ object CoreBinding : CoreOps {
         callback: (Result<Unit>) -> Unit
     ) {
         if (isSecure) {
-            secure.delete(key)
-            removePlain(key)
+            synchronized(secureLock) {
+                secure.delete(key)
+                removePlain(key)
+            }
             if (isBackup) inBlockStore { secure.deleteFromBlockStore(key) }
         } else if (isBackup) {
             backedUpSharedPreferences.edit(commit = true) { remove(key) }
@@ -351,6 +370,7 @@ object CoreBinding : CoreOps {
 
     // A temporary code to recover the account IDs saved in the old version of the app
     private val log = Logger("Legacy")
+    private const val legacyAccountKey = "account"
     private val legacyPersistence by lazy { PersistenceService }
     private val deserializer by lazy { JsonSerializationService }
     private fun handleLegacyAccount(json: String?): String? {
@@ -367,12 +387,12 @@ object CoreBinding : CoreOps {
         if (tryRecover) {
             try {
                 val acc = legacyPersistence.load(LegacyAccount::class)
+                // The legacy copy is plain and backed up. Recovery is one-time,
+                // so it is removed once used, or once it has nothing to give.
+                removePlain(legacyAccountKey)
                 if (acc.active) {
                     log.v("Recovered legacy account")
-                    val oldJson = deserializer.serialize(acc)
-                    // To make sure one-time recovery
-                    legacyPersistence.save(acc.copy(active = false))
-                    return oldJson
+                    return deserializer.serialize(acc)
                 }
             } catch (e: Throwable) {
             }

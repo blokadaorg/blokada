@@ -47,6 +47,20 @@ void main() {
       });
     });
 
+    test("a failed read does not delete the secret", () async {
+      await withTrace((m) async {
+        final store = _setUp();
+        await _Secret().change(m, "token");
+        store.failSecure = true;
+
+        expect(await _Secret().fetch(m), isNull);
+
+        store.failSecure = false;
+        expect(store.secure["key"], "token");
+        expect(await _Secret().fetch(m), "token");
+      });
+    });
+
     test("clearing removes the secret and its marker", () async {
       await withTrace((m) async {
         final store = _setUp();
@@ -84,7 +98,7 @@ _Store _setUp({
 class _Store with PersistenceChannel {
   final Map<String, String> plain;
   final Map<String, String> secure;
-  final bool failSecure;
+  bool failSecure;
 
   _Store(this.plain, this.secure, this.failSecure);
 
