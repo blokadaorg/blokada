@@ -128,8 +128,9 @@ object SecureStorageService {
                 .setBytes(value.toByteArray(Charsets.UTF_8))
                 .setShouldBackupToCloud(true)
                 .build()
-            withTimeoutOrNull(blockStoreTimeoutMs) { blockStore.storeBytes(data).await() }
-                ?: log.w("Timed out saving $key to Block Store")
+            // No timeout: the queue stays ordered only if each write has
+            // really finished before the next one starts.
+            blockStore.storeBytes(data).await()
         } catch (e: Exception) {
             // Play services may be missing or outdated. The local copy still
             // works, only the restore on reinstall is lost.
@@ -170,7 +171,7 @@ object SecureStorageService {
             val request = DeleteBytesRequest.Builder()
                 .setKeys(listOf(blockStoreKey(key)))
                 .build()
-            withTimeoutOrNull(blockStoreTimeoutMs) { blockStore.deleteBytes(request).await() }
+            blockStore.deleteBytes(request).await()
         } catch (e: Exception) {
             log.w("Could not delete $key from Block Store: ${e.message}")
         }

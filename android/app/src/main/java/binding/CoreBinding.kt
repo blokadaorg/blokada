@@ -231,7 +231,7 @@ object CoreBinding : CoreOps {
     // runs on IO, so they share this lock.
     private val secureLock = Any()
 
-    // Block Store calls run one at a time in the order they were made, so a
+    // Block Store writes run one at a time in the order they were made, so a
     // delete followed by a save (a replaced account) cannot land reversed.
     private val blockStoreIo = Dispatchers.IO.limitedParallelism(1)
     private val blockStoreMutex = Mutex()
@@ -317,9 +317,9 @@ object CoreBinding : CoreOps {
         }
 
         if (!isBackup) return null
-        val restored = withContext(blockStoreIo) {
-            blockStoreMutex.withLock { secure.loadFromBlockStore(key) }
-        } ?: return null
+        // Not queued behind writes: those have no timeout, and this read
+        // sits on the startup path.
+        val restored = secure.loadFromBlockStore(key) ?: return null
         storageLog.v("Restored $key from Block Store")
         return storeLocally(key, restored, removePlain = false)
     }
