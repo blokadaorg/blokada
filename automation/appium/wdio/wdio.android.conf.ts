@@ -31,9 +31,30 @@ function adb(args: string[]): string {
 // (OnePlus, Oppo, Xiaomi) block all three over adb until "Disable permission
 // monitoring" (or "USB debugging (Security settings)") is turned on in
 // Developer options. Fail up front with that hint instead of mid-run.
+// The device's own Private DNS setting, put back after the run so a phone
+// isn't left on the test account's hostname. Kept in memory, never logged.
+const privateDnsKeys = ["private_dns_mode", "private_dns_specifier"] as const;
+let savedPrivateDns: Map<string, string> | undefined;
+
+function restorePrivateDns(): void {
+  if (!savedPrivateDns) return;
+  for (const [key, value] of savedPrivateDns) {
+    // `settings get` prints "null" for a key that was never set.
+    adb(
+      value === "null"
+        ? ["shell", "settings", "delete", "global", key]
+        : ["shell", "settings", "put", "global", key, value]
+    );
+  }
+  savedPrivateDns = undefined;
+}
+
 function prepareDevice(): void {
   try {
     adb(["shell", "appops", "set", packageName, "ACTIVATE_VPN", "allow"]);
+    savedPrivateDns = new Map(
+      privateDnsKeys.map((key) => [key, adb(["shell", "settings", "get", "global", key]).trim()])
+    );
     adb(["shell", "settings", "put", "global", "private_dns_mode", "off"]);
   } catch (e) {
     // A plain Error in onPrepare is only logged and the specs run anyway.
@@ -69,6 +90,9 @@ const androidConfig = {
       adb(["shell", "pm", "grant", packageName, "android.permission.POST_NOTIFICATIONS"]);
     }
     prepareDevice();
+  },
+  onComplete: function () {
+    restorePrivateDns();
   },
   beforeSession: undefined,
   after: undefined
