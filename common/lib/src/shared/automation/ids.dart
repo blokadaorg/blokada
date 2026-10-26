@@ -93,6 +93,10 @@ class AutomationIds {
 
   static const dnsOnboardingSheet = 'automation.dns_onboard_sheet';
   static const dnsOpenSettings = 'automation.dns_open_settings';
+  // Android sheet: the visible hostname copy button and the result steps.
+  static const dnsCopyHostname = 'automation.dns_copy_hostname';
+  static const dnsSetupSuccess = 'automation.dns_setup_success';
+  static const dnsSetupHelp = 'automation.dns_setup_help';
 
   static const onboardIntroSheet = 'automation.onboard_intro_sheet';
   static const onboardContinue = 'automation.onboard_continue';

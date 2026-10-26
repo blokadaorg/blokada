@@ -430,6 +430,56 @@ void main() {
       });
     });
 
+    test("hand-typed hostname for the tag is accepted", () async {
+      await withTrace((m) async {
+        Core.act = ActScreenplay(ActScenario.test, Flavor.v6, PlatformType.android);
+        final harness = await createHarness(
+          m,
+          route: StageRouteState.init().newFg(),
+          privateDnsStates: [enabledDnsState(" MyPhone-225024.Cloud.Blokada.org. ")],
+          deviceTag: "225024",
+          deviceAlias: "Pixel",
+        );
+
+        await harness.subject.syncPerms(m);
+
+        expect(harness.dnsEnabledFor.present, "225024");
+        expect(harness.app.conditions.cloudPermEnabled, isTrue);
+      });
+    });
+
+    // The bug: after setting the hostname in Settings and switching back,
+    // the app kept showing setup until a cold start. Coming back to the
+    // foreground must read the state again and pick up the new hostname.
+    test("resume re-reads Private DNS and picks up the new hostname", () async {
+      await withTrace((m) async {
+        Core.act = ActScreenplay(ActScenario.test, Flavor.v6, PlatformType.android);
+        final harness = await createHarness(
+          m,
+          route: StageRouteState.init().newFg(),
+          privateDnsStates: [
+            disabledDnsState(null),
+            enabledDnsState("Pixel-225024.cloud.blokada.org"),
+          ],
+          deviceTag: "225024",
+          deviceAlias: "Pixel",
+        );
+
+        await harness.subject.syncPerms(m);
+        expect(harness.app.conditions.cloudPermEnabled, isFalse);
+
+        // To Settings and back.
+        await harness.subject.onRouteChanged(StageRouteState.init(), m);
+        final back = StageRouteState.init().newFg();
+        expect(back.isBecameForeground(), isTrue);
+        await harness.subject.onRouteChanged(back, m);
+
+        expect(harness.channel.getPrivateDnsStateCalls, 2);
+        expect(harness.dnsEnabledFor.present, "225024");
+        expect(harness.app.conditions.cloudPermEnabled, isTrue);
+      });
+    });
+
     test("unavailable DNS settles immediately without retry on Android", () async {
       await withTrace((m) async {
         Core.act = ActScreenplay(ActScenario.test, Flavor.v6, PlatformType.android);

@@ -342,6 +342,42 @@ object ConnectivityService {
         }
     }
 
+    /** Private DNS as the system reports it right now. */
+    data class PrivateDnsReading(val hostname: String?, val broken: Boolean?)
+
+    /**
+     * Reads Private DNS straight from ConnectivityManager instead of the
+     * callback cache. The cache only moves when a NetworkCallback is delivered,
+     * and those can arrive late after the app was in the background (newer
+     * Android holds callbacks for frozen apps). Reading the cache on resume
+     * then misses a hostname the user has just set in Settings.
+     */
+    @Suppress("DEPRECATION") // allNetworks: the only sync way to list non-VPN networks
+    fun readPrivateDns(): PrivateDnsReading {
+        if (Build.VERSION.SDK_INT < 28) return PrivateDnsReading(null, null)
+
+        // Prefer the system default network, unless it is our own VPN.
+        val active = manager.activeNetwork
+        val candidates = listOfNotNull(active) + manager.allNetworks.filter { it != active }
+        for (network in candidates) {
+            val caps = manager.getNetworkCapabilities(network) ?: continue
+            if (!caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)) continue
+            if (!caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)) continue
+            val link = manager.getLinkProperties(network) ?: continue
+            if (!link.isPrivateDnsActive) continue
+            val hostname = link.privateDnsServerName ?: continue
+            // isPrivateDnsBroken() is a system API apps cannot call. With a
+            // hostname set, Android does not validate a network whose Private
+            // DNS it cannot reach, so a missing VALIDATED is the public signal.
+            val broken = !caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
+            privateDns = hostname
+            return PrivateDnsReading(hostname, broken)
+        }
+
+        privateDns = null
+        return PrivateDnsReading(null, null)
+    }
+
     fun getActiveNetwork(): NetworkDescriptor {
         return activeNetwork
     }

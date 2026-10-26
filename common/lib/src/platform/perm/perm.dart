@@ -37,4 +37,7 @@ class PlatformPermModule with Module {
 
 abstract class PrivateDnsStringProvider {
   String getAndroidDnsString();
+
+  /// The tag the Android setup sheet verifies a typed hostname against.
+  DeviceTag getDeviceTag();
 }

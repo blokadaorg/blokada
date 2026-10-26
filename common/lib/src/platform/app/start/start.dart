@@ -96,8 +96,9 @@ abstract class AppStartStoreBase with Store, Logging, Actor {
       if (_app.conditions.cloudPermEnabled) {
         // Auto-dismiss the DNS onboard sheet now that DNS is correctly
         // configured. BottomManagerSheet listens for null transitions and
-        // pops the active sheet.
-        if (_modal.present == Modal.onboardPrivateDns) {
+        // pops the active sheet. On Android the sheet first verifies that DNS
+        // really goes through Blokada, then closes itself or shows help.
+        if (!Core.act.isAndroid && _modal.present == Modal.onboardPrivateDns) {
           await _modal.change(m, null);
         }
         if (_device.cloudEnabled == true) {

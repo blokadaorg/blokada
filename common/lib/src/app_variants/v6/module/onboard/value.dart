@@ -10,4 +10,7 @@ class V6PrivateDnsStringProvider extends PrivateDnsStringProvider {
     final alias = _device.deviceAlias;
     return _check.getAndroidPrivateDnsString(Markers.root, tag, alias);
   }
+
+  @override
+  DeviceTag getDeviceTag() => _device.deviceTag!;
 }
