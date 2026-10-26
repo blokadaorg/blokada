@@ -34,29 +34,31 @@ function adb(args: string[]): string {
 const privateDnsKeys = ["private_dns_mode", "private_dns_specifier"] as const;
 let savedPrivateDns: Map<string, string> | undefined;
 
+// Restores each key on its own and keeps the ones that failed, so the exit
+// handler can try them again.
 function restorePrivateDns(): void {
-  const saved = savedPrivateDns;
-  if (!saved) return;
-  savedPrivateDns = undefined;
-  try {
-    for (const [key, value] of saved) {
+  if (!savedPrivateDns) return;
+  for (const [key, value] of [...savedPrivateDns]) {
+    try {
       // `settings get` prints "null" for a key that was never set.
       adb(
         value === "null"
           ? ["shell", "settings", "delete", "global", key]
           : ["shell", "settings", "put", "global", key, value]
       );
+      savedPrivateDns.delete(key);
+    } catch {
+      // The adb error carries the command line, which holds the hostname.
+      console.error(`Could not restore ${key} on the device; check Private DNS in Settings.`);
+      process.exitCode = 1;
     }
-  } catch {
-    // The adb error carries the command line, which holds the hostname.
-    console.error("Could not restore the device's Private DNS setting; check it in Settings.");
-    process.exitCode = 1;
   }
+  if (savedPrivateDns.size === 0) savedPrivateDns = undefined;
 }
 
 // WebdriverIO exits on SIGINT/SIGTERM without calling onComplete. The adb
-// calls are synchronous, so they still run from the exit event; a second call
-// after onComplete is a no-op, and workers never saved anything.
+// calls are synchronous, so they still run from the exit event; after a full
+// restore in onComplete it is a no-op, and workers never saved anything.
 process.once("exit", restorePrivateDns);
 
 // The spec sets Private DNS with `settings put global`, grants the VPN with
