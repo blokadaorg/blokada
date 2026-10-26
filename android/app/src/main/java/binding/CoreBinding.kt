@@ -310,9 +310,13 @@ object CoreBinding : CoreOps {
         val plain = (if (isBackup) backedUpSharedPreferences else localSharedPreferences)
             .getString(key, null)
         if (plain != null) {
+            // A backed-up plain copy may be an Auto Backup an older version
+            // left, restored on a reinstall. Block Store is written only by
+            // this version, so its entry is newer and wins.
+            val newer = if (isBackup) secure.loadFromBlockStore(key) else null
             storageLog.v("Moving $key to secure storage")
-            val stored = storeLocally(key, plain, removePlain = true)
-            if (isBackup && stored == plain) inBlockStore { secure.saveToBlockStore(key, plain) }
+            val stored = storeLocally(key, newer ?: plain, removePlain = true)
+            if (newer == null && stored == plain) inBlockStore { secure.saveToBlockStore(key, plain) }
             return stored
         }
 

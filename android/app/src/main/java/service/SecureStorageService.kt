@@ -40,7 +40,8 @@ import javax.crypto.spec.GCMParameterSpec
  * read anyway. The account still has to come back on a reinstall or a new
  * phone, since the account ID is the only login, so values that are also
  * marked for backup get a copy in Block Store, which Google Play services
- * keeps across reinstalls and backs up end-to-end encrypted.
+ * keeps across reinstalls. It goes to the cloud only when that copy would be
+ * end-to-end encrypted, which needs a screen lock.
  */
 object SecureStorageService {
 
@@ -168,7 +169,7 @@ object SecureStorageService {
             val data = StoreBytesData.Builder()
                 .setKey(blockStoreKey(key))
                 .setBytes(value.toByteArray(Charsets.UTF_8))
-                .setShouldBackupToCloud(true)
+                .setShouldBackupToCloud(isEndToEndEncryptionAvailable())
                 .build()
             // No timeout: the queue stays ordered only if each write has
             // really finished before the next one starts.
@@ -178,6 +179,17 @@ object SecureStorageService {
             // works, only the restore on reinstall is lost.
             log.w("Could not save $key to Block Store: ${e.message}")
         }
+    }
+
+    // Without a screen lock the cloud copy would not be end-to-end encrypted,
+    // so the entry stays on this device. A later save re-checks.
+    private suspend fun isEndToEndEncryptionAvailable() = try {
+        withTimeoutOrNull(blockStoreTimeoutMs) {
+            blockStore.isEndToEndEncryptionAvailable().await()
+        } ?: false
+    } catch (e: Exception) {
+        log.w("Could not check Block Store encryption: ${e.message}")
+        false
     }
 
     /** Returns null when Block Store holds nothing, throws when it cannot tell. */
