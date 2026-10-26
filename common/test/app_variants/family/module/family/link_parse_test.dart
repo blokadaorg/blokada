@@ -10,7 +10,7 @@ void main() {
       expect(parseFamilyLinkToken('$familyLinkBase?token=$_jwt'), _jwt);
     });
 
-    test('accepts a bare token, as delivered by Android CommandActivity', () {
+    test('accepts a bare token', () {
       expect(parseFamilyLinkToken(_jwt), _jwt);
     });
 

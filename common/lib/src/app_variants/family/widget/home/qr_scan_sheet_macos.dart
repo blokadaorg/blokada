@@ -76,7 +76,7 @@ class QrScanSheetMacosState extends State<QrScanSheetMacos> with Logging {
     Navigator.of(context).pop();
     try {
       await log(Markers.userTap).trace("macosLinkSubmit", (m) async {
-        await _familyLink.requestLink(url, m);
+        await _familyLink.requestLink(url, m, fromScanner: true);
       });
     } catch (e) {
       // The sheet is gone, so there is nowhere left to show this.

@@ -9,6 +9,7 @@ import 'package:common/src/shared/ui/blokada_switch.dart';
 import 'package:common/src/shared/ui/common_card.dart';
 import 'package:common/src/shared/ui/common_clickable.dart';
 import 'package:common/src/shared/ui/common_divider.dart';
+import 'package:common/src/shared/ui/haptics.dart';
 import 'package:common/src/shared/ui/section_label.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:flutter/cupertino.dart';
@@ -59,13 +60,14 @@ class V6FiltersSectionState extends State<V6FiltersSection> with Logging, Dispos
     final loading = on.isEmpty;
 
     final colors = _providerColors(filters);
+    // Older accounts may have several general lists on. They stay as saved,
+    // and show in the summary, until the user picks a main list.
+    final stacked = on.where(v6MainBlocklists.contains).length > 1;
     final extras = <BlocklistGroup, List<BlocklistKey>>{};
     for (final key in blocklistKeys(filters)) {
-      if (key == main) continue;
-      final group = v6BlocklistGroup(key);
-      // With no main list, general lists are only offered as the main one.
-      if (main == null && group == BlocklistGroup.general) continue;
-      extras.putIfAbsent(group, () => []).add(key);
+      // General lists are only offered as the main one; they don't stack.
+      if (v6MainBlocklists.contains(key)) continue;
+      extras.putIfAbsent(v6BlocklistGroup(key), () => []).add(key);
     }
 
     final children = <Widget>[
@@ -112,7 +114,13 @@ class V6FiltersSectionState extends State<V6FiltersSection> with Logging, Dispos
               color: colors[key.filterName],
               selected: key == main,
               automationId: _automationId("blocklist_main", key),
-              onTap: () => _legacy.selectMainBlocklist(key, Markers.userTap),
+              // Tapping the main list again only matters to drop stacked ones.
+              onTap: key == main && !stacked
+                  ? null
+                  : () {
+                      Haptics.selection();
+                      _legacy.selectMainBlocklist(key, Markers.userTap);
+                    },
             ),
       ]),
       for (final group in BlocklistGroup.values)
@@ -277,7 +285,7 @@ class _MainRow extends StatelessWidget {
   final Color? color;
   final bool selected;
   final String automationId;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   const _MainRow({
     required this.name,
@@ -299,7 +307,7 @@ class _MainRow extends StatelessWidget {
         child: CommonClickable(
           tapBorderRadius: BorderRadius.zero,
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-          onTap: selected ? null : onTap,
+          onTap: onTap,
           child: Row(
             children: [
               _Dot(color: color),

@@ -4,6 +4,7 @@ import 'package:common/src/app_variants/family/module/device_v3/device.dart';
 import 'package:common/src/app_variants/family/module/family/family.dart';
 import 'package:common/src/app_variants/family/module/profile/profile.dart';
 import 'package:common/src/core/core.dart';
+import 'package:common/src/features/lock/domain/lock.dart';
 import 'package:common/src/platform/account/account.dart';
 import 'package:common/src/platform/stage/channel.pg.dart';
 import 'package:common/src/platform/stage/stage.dart';
@@ -210,6 +211,8 @@ void main() {
       AccountType accountType = AccountType.libre,
       bool persistedAccountActive = false,
       bool wasSetUp = false,
+      bool locked = false,
+      String? persistedPin,
       required Marker m,
     }) async {
       Core.register<DeviceActor>(device);
@@ -242,7 +245,19 @@ void main() {
 
       Core.register<FamilyLinkedMode>(FamilyLinkedMode());
       Core.register<PendingLinkValue>(PendingLinkValue());
+      Core.register<IsLocked>(IsLocked()..now = locked);
+      Core.register<HasPin>(HasPin()..now = locked);
+      final pin = ExistingPin();
+      Core.register<ExistingPin>(pin);
+      if (persistedPin != null) await pin.change(m, persistedPin);
       return LinkActor();
+    }
+
+    // The device-state checks only decide for scanner links; links from
+    // outside always confirm. Claims the token the way the scanner does.
+    Future<bool> needsConfirmationForScan(LinkActor actor, Marker m) async {
+      await actor.requestLink(jwt, m, fromScanner: true);
+      return await actor.needsConfirmation(jwt, m);
     }
 
     test('an active family account needs confirmation with no local state',
@@ -257,7 +272,7 @@ void main() {
             auth: MockAuthActor(),
             accountType: AccountType.family,
             m: m);
-        expect(await actor.needsConfirmation(m), isTrue);
+        expect(await needsConfirmationForScan(actor, m), isTrue);
       });
     });
 
@@ -272,7 +287,7 @@ void main() {
             auth: MockAuthActor(),
             persistedAccountActive: true,
             m: m);
-        expect(await actor.needsConfirmation(m), isTrue);
+        expect(await needsConfirmationForScan(actor, m), isTrue);
       });
     });
 
@@ -287,7 +302,7 @@ void main() {
             auth: MockAuthActor(),
             wasSetUp: true,
             m: m);
-        expect(await actor.needsConfirmation(m), isTrue);
+        expect(await needsConfirmationForScan(actor, m), isTrue);
       });
     });
 
@@ -411,11 +426,137 @@ void main() {
       });
     });
 
-    test('a fresh device needs no confirmation', () async {
+    test('a fresh device needs no confirmation for its own scan', () async {
       await withTrace((m) async {
         final actor = await setUpActor(
             device: MockDeviceActor(), auth: MockAuthActor(), m: m);
-        expect(await actor.needsConfirmation(m), isFalse);
+        expect(await needsConfirmationForScan(actor, m), isFalse);
+      });
+    });
+
+    test('a fresh device confirms a link from outside the app', () async {
+      await withTrace((m) async {
+        // Verified app links keep the Android entry point open to every
+        // installed app, so a fresh install cannot tell a tapped link from
+        // one another app fired. Only the in-app scanner skips the prompt.
+        final actor = await setUpActor(
+            device: MockDeviceActor(), auth: MockAuthActor(), m: m);
+        await actor.requestLink(jwt, m);
+        expect(await actor.needsConfirmation(jwt, m), isTrue);
+      });
+    });
+
+    test('a token that was never claimed needs confirmation', () async {
+      await withTrace((m) async {
+        final actor = await setUpActor(
+            device: MockDeviceActor(), auth: MockAuthActor(), m: m);
+        expect(await actor.needsConfirmation(jwt, m), isTrue);
+      });
+    });
+
+    test('a link is refused while the parental lock is on', () async {
+      await withTrace((m) async {
+        final auth = MockAuthActor();
+        final actor = await setUpActor(
+            device: MockDeviceActor(), auth: auth, locked: true, m: m);
+
+        await actor.requestLink(jwt, m, fromScanner: true);
+
+        expect(Core.get<PendingLinkValue>().present, isNull);
+        // No modal: it would dismiss the lock screen, also a stage modal.
+        verifyNever((Core.get<StageStore>() as MockStageStore)
+            .showModal(any, any));
+        verifyNever(auth.useToken(any, any));
+      });
+    });
+
+    test('a link parked before the lock loaded is refused on confirm',
+        () async {
+      await withTrace((m) async {
+        // A cold-start link can arrive before the lock state is read, so the
+        // check runs again when the link is about to commit.
+        final device = MockDeviceActor();
+        final auth = MockAuthActor();
+        final actor = await setUpActor(device: device, auth: auth, m: m);
+
+        await actor.requestLink(jwt, m);
+        Core.get<IsLocked>().now = true;
+        await actor.confirmPendingLink(jwt, m);
+
+        verifyNever(auth.useToken(any, any));
+        verifyNever(device.setThisDeviceForLinked(any, any, any,
+            confirmed: anyNamed('confirmed')));
+        expect(Core.get<PendingLinkValue>().present, isNull);
+        // No modal: it would dismiss the lock screen, also a stage modal.
+        verifyNever((Core.get<StageStore>() as MockStageStore)
+            .showModal(any, any));
+
+        // The claim is released, so a later link after unlocking still parks.
+        Core.get<IsLocked>().now = false;
+        await actor.requestLink(otherJwt, m);
+        expect(Core.get<PendingLinkValue>().present, otherJwt);
+      });
+    });
+
+    test('a link before the lock state loads is refused if a PIN is stored',
+        () async {
+      await withTrace((m) async {
+        // On a cold start the link is replayed before LockActor reads the
+        // stored PIN, while IsLocked still holds its default false. A device
+        // with a PIN always starts locked, so the prompt must not appear.
+        final actor = await setUpActor(
+            device: MockDeviceActor(),
+            auth: MockAuthActor(),
+            persistedPin: '1234',
+            m: m);
+
+        await actor.requestLink(jwt, m);
+        expect(Core.get<PendingLinkValue>().present, isNull);
+      });
+    });
+
+    test('a parked link is refused once a stored PIN is found', () async {
+      await withTrace((m) async {
+        final actor = await setUpActor(
+            device: MockDeviceActor(), auth: MockAuthActor(), m: m);
+        await actor.requestLink(jwt, m);
+
+        // The PIN shows up in storage before LockActor has loaded it.
+        await Core.get<ExistingPin>().change(m, '1234');
+        expect(await actor.refuseIfLocked(jwt, m), isTrue);
+        expect(Core.get<PendingLinkValue>().present, isNull);
+      });
+    });
+
+    test('an unlocked device with a PIN can link', () async {
+      await withTrace((m) async {
+        // After the lock loads, HasPin stays true across an unlock, so the
+        // parent who entered the PIN can still link.
+        final actor = await setUpActor(
+            device: MockDeviceActor(),
+            auth: MockAuthActor(),
+            persistedPin: '1234',
+            m: m);
+        Core.get<HasPin>().now = true;
+
+        await actor.requestLink(jwt, m);
+        expect(Core.get<PendingLinkValue>().present, jwt);
+        expect(await actor.refuseIfLocked(jwt, m), isFalse);
+      });
+    });
+
+    test('refuseIfLocked releases a parked link while locked', () async {
+      await withTrace((m) async {
+        final actor = await setUpActor(
+            device: MockDeviceActor(), auth: MockAuthActor(), m: m);
+
+        await actor.requestLink(jwt, m);
+        expect(await actor.refuseIfLocked(jwt, m), isFalse);
+        expect(Core.get<PendingLinkValue>().present, jwt);
+
+        Core.get<IsLocked>().now = true;
+        expect(await actor.refuseIfLocked(jwt, m), isTrue);
+        expect(Core.get<PendingLinkValue>().present, isNull);
       });
     });
 
@@ -427,7 +568,7 @@ void main() {
           persistedToken: 'existing-token',
           m: m,
         );
-        expect(await actor.needsConfirmation(m), isTrue);
+        expect(await needsConfirmationForScan(actor, m), isTrue);
       });
     });
 
@@ -439,7 +580,7 @@ void main() {
           persistedThisDevice: _device('parent-tag', 'Parent', 'p'),
           m: m,
         );
-        expect(await actor.needsConfirmation(m), isTrue);
+        expect(await needsConfirmationForScan(actor, m), isTrue);
       });
     });
 
@@ -465,7 +606,7 @@ void main() {
 
         await expectLater(actor.requestLink('not-a-token', m), throwsException);
         expect(Core.get<PendingLinkValue>().present, isNull);
-        // Android's scanner and CommandActivity invoke FAMILYLINK directly and
+        // The native scanners and link handlers send this as a command and
         // drop the result, so without this the scan fails with no feedback.
         verify((Core.get<StageStore>() as MockStageStore)
                 .showModal(StageModal.fault, any))
@@ -554,6 +695,35 @@ void main() {
         await command.cmdLink(m, ['$familyLinkBase?token=$jwt']);
 
         expect(Core.get<PendingLinkValue>().present, jwt);
+        verifyNever(auth.useToken(any, any));
+      });
+    });
+
+    test('cmdLink is the in-app scanner and skips the fresh-device prompt',
+        () async {
+      await withTrace((m) async {
+        final actor = await setUpActor(
+            device: MockDeviceActor(), auth: MockAuthActor(), m: m);
+        Core.register<LinkActor>(actor);
+
+        await FamilyCommand().cmdLink(m, ['$familyLinkBase?token=$jwt']);
+
+        expect(await actor.needsConfirmation(jwt, m), isFalse);
+      });
+    });
+
+    test('cmdLinkExternal parks a link that always asks first', () async {
+      await withTrace((m) async {
+        final auth = MockAuthActor();
+        final actor = await setUpActor(
+            device: MockDeviceActor(), auth: auth, m: m);
+        Core.register<LinkActor>(actor);
+
+        await FamilyCommand()
+            .cmdLinkExternal(m, ['$familyLinkBase?token=$jwt']);
+
+        expect(Core.get<PendingLinkValue>().present, jwt);
+        expect(await actor.needsConfirmation(jwt, m), isTrue);
         verifyNever(auth.useToken(any, any));
       });
     });
