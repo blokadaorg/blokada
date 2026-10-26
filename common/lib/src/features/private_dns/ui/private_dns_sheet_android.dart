@@ -46,6 +46,9 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
   var _attempted = false;
   var _copied = false;
   var _verifying = false;
+  // A resume during a running check would otherwise be lost, leaving a
+  // result from before the user's latest change in Settings.
+  var _verifyAgain = false;
 
   @override
   void initState() {
@@ -76,7 +79,10 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
   }
 
   Future<void> _verify(Marker m) async {
-    if (_verifying) return;
+    if (_verifying) {
+      _verifyAgain = true;
+      return;
+    }
     _verifying = true;
     try {
       final result = await _verifier.verify(
@@ -98,6 +104,10 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
       _show(_attempted ? PrivateDnsSetupStep.help : PrivateDnsSetupStep.setup);
     } finally {
       _verifying = false;
+    }
+    if (_verifyAgain && mounted) {
+      _verifyAgain = false;
+      await _verify(m);
     }
   }
 
