@@ -2,6 +2,18 @@ import { $, driver } from "@wdio/globals";
 
 import { AutomationIds } from "../support/automationIds.js";
 import { readCurrentAccount, writeCurrentAccount } from "../support/account-state.js";
+import { setSensitiveScreen } from "../support/artifacts.js";
+import {
+  byId,
+  inputTextOf,
+  isAndroid,
+  scrollIntoView,
+  semanticValueOf,
+  settleNavigation,
+  tap,
+  tapAt,
+  textInputSelector
+} from "../support/platform.js";
 import { activateApp, terminateApp } from "./app.js";
 import { acceptNotificationAlert } from "./alerts.js";
 import { waitForPowerButton } from "./home.js";
@@ -10,15 +22,14 @@ import { dismissIntroOverlayIfPresent } from "./onboarding.js";
 
 const APP_BUNDLE_ID = process.env.APP_BUNDLE_ID ?? "net.blocka.app";
 
-const homeSettingsSelector = `~${AutomationIds.homeSettings}`;
-const settingsScreenSelector = `~${AutomationIds.screenSettings}`;
-const supportRowSelector = `~${AutomationIds.settingsSupport}`;
+const homeSettingsSelector = () => byId(AutomationIds.homeSettings);
+const settingsScreenSelector = () => byId(AutomationIds.screenSettings);
+const supportRowSelector = () => byId(AutomationIds.settingsSupport);
 
 // The support-chat composer comes from the third-party `flutter_chat_ui`
 // package and carries no automation ids, so we locate it structurally: the
 // chat screen has exactly one text input.
-const chatInputSelector =
-  "-ios predicate string: type == 'XCUIElementTypeTextField' OR type == 'XCUIElementTypeTextView'";
+const chatInputSelector = () => textInputSelector();
 
 export interface AccountIds {
   active: string;
@@ -54,40 +65,44 @@ async function elementExists(selector: string): Promise<boolean> {
 
 /** Navigate Home -> in-app Settings via the home gear (bottom-tab ids are unreliable). */
 export async function openSettingsScreen(timeout = 15000): Promise<void> {
-  const gear = await $(homeSettingsSelector);
+  const gear = await $(homeSettingsSelector());
   await gear.waitForExist({ timeout });
-  await gear.click();
-  await (await $(settingsScreenSelector)).waitForExist({ timeout });
+  await tap(gear);
+  await (await $(settingsScreenSelector())).waitForExist({ timeout });
+  await settleNavigation();
 }
 
 /** Navigate Home -> Settings -> Support chat and wait for the composer input. */
 export async function openSupportChat(timeout = 15000): Promise<void> {
   await openSettingsScreen(timeout);
-  const row = await $(supportRowSelector);
+  // Support sits below the fold on a phone-sized Android screen.
+  if (isAndroid()) {
+    await (await $(byId(AutomationIds.screenTitle))).waitForExist({ timeout });
+  }
+  const row = await scrollIntoView(supportRowSelector());
   await row.waitForExist({ timeout });
-  await row.click();
-  await (await $(chatInputSelector)).waitForExist({ timeout });
+  await tap(row);
+  await (await $(chatInputSelector())).waitForExist({ timeout });
 }
 
 async function tapChatSend(): Promise<void> {
   // The composer's send IconButton (Icons.send) has no label, so tap the
   // far-right of the composer row, where it sits next to the input. Do not
   // match "Send" by label: on iOS 27 that is the keyboard's return key.
-  const input = await $(chatInputSelector);
+  const input = await $(chatInputSelector());
   const location = await input.getLocation();
   const size = await input.getSize();
   const rect = await driver.getWindowRect();
-  await driver.execute("mobile: tap", {
-    x: Math.round(rect.width - 28),
-    y: Math.round(location.y + size.height / 2)
-  });
+  // iOS reports points; Android reports pixels, so use a share of the width.
+  const inset = isAndroid() ? Math.round(rect.width * 0.08) : 28;
+  await tapAt(Math.round(rect.width - inset), Math.round(location.y + size.height / 2));
 }
 
 async function chatInputValue(): Promise<string> {
   try {
-    const input = await $(chatInputSelector);
+    const input = await $(chatInputSelector());
     if (!(await input.isExisting())) return "";
-    return (await input.getAttribute("value")) ?? "";
+    return await inputTextOf(input);
   } catch {
     return "";
   }
@@ -124,9 +139,9 @@ export async function sendChatCommand(command: string): Promise<void> {
   await dismissRatePromptIfPresent(2000);
   await openSupportChat();
 
-  const input = await $(chatInputSelector);
+  const input = await $(chatInputSelector());
   await input.waitForExist({ timeout: 10000 });
-  await input.click();
+  await tap(input);
   try {
     await input.clearValue();
   } catch {
@@ -152,6 +167,9 @@ export async function sendChatCommand(command: string): Promise<void> {
  * (active restore reroutes to Settings; inactive stays on the chat screen).
  */
 export async function restoreAccount(accountId: string): Promise<void> {
+  // The chat now shows the account id: keep it out of failure screenshots until
+  // the relaunch below leaves the chat. Left set when the restore throws.
+  setSensitiveScreen(true);
   await sendChatCommand(`restore ${accountId}`);
 
   // Wait for the restore to complete before relaunching, so a slow network
@@ -162,7 +180,7 @@ export async function restoreAccount(accountId: string): Promise<void> {
   // a stale message from a prior run's persisted chat history), so fall back to
   // a fixed settle covering the network round trip.
   const rerouted = await driver
-    .waitUntil(async () => await elementExists(settingsScreenSelector), {
+    .waitUntil(async () => await elementExists(settingsScreenSelector()), {
       timeout: 8000,
       interval: 400
     })
@@ -174,6 +192,7 @@ export async function restoreAccount(accountId: string): Promise<void> {
 
   await terminateApp(APP_BUNDLE_ID);
   await activateApp(APP_BUNDLE_ID);
+  setSensitiveScreen(false);
   await dismissRatePromptIfPresent(5000);
   await acceptNotificationAlert();
   await dismissIntroOverlayIfPresent();
@@ -225,10 +244,10 @@ export async function ensureAccountInactive(): Promise<void> {
   await driver
     .waitUntil(
       async () => {
-        if (!(await elementExists(`~${AutomationIds.powerToggle}`))) {
+        if (!(await elementExists(byId(AutomationIds.powerToggle)))) {
           return false;
         }
-        const value = await (await $(`~${AutomationIds.powerToggle}`)).getAttribute("value");
+        const value = await semanticValueOf(await $(byId(AutomationIds.powerToggle)));
         return typeof value === "string" && value.toLowerCase() === "inactive";
       },
       { timeout: 15000, interval: 500 }

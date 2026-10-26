@@ -1,20 +1,23 @@
 import { $, driver } from "@wdio/globals";
 
 import { AutomationIds } from "../support/automationIds.js";
+import { byId, forPlatform, tap } from "../support/platform.js";
 
-const rateModalSelector = `~${AutomationIds.rateModal}`;
-const rateDismissSelectors = [
-  `~${AutomationIds.rateDismiss}`,
+const rateModalSelector = () => byId(AutomationIds.rateModal);
+// "~Cancel" is a content-desc match on Android, where Flutter puts the button
+// label in content-desc, so it still applies; the predicates are iOS-only.
+const rateDismissSelectors = () => forPlatform([
+  byId(AutomationIds.rateDismiss),
   "~Cancel",
   "~Avbryt",
   "-ios predicate string: type == 'XCUIElementTypeButton' AND (label CONTAINS[c] 'Cancel' OR name CONTAINS[c] 'Cancel')",
   "-ios predicate string: type == 'XCUIElementTypeButton' AND (label CONTAINS[c] 'Avbryt' OR name CONTAINS[c] 'Avbryt')"
-];
+]);
 
 let lastDismissAttempt = 0;
 
 async function findAnyRateElement(): Promise<WebdriverIO.Element | undefined> {
-  const selectors = [rateModalSelector, `~${AutomationIds.rateDismiss}`, ...rateDismissSelectors];
+  const selectors = [rateModalSelector(), byId(AutomationIds.rateDismiss), ...rateDismissSelectors()];
   for (const selector of selectors) {
     try {
       const element = await $(selector);
@@ -48,11 +51,11 @@ export async function dismissRatePromptIfPresent(timeout = 1000): Promise<boolea
 
   console.warn("Rate prompt detected, attempting dismissal.");
 
-  for (const selector of rateDismissSelectors) {
+  for (const selector of rateDismissSelectors()) {
     try {
       const button = await $(selector);
       if (await button.isExisting()) {
-        await button.click();
+        await tap(button);
         await driver.pause(500);
         const stillPresent = await findAnyRateElement();
         if (!stillPresent) {

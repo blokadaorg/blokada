@@ -6,6 +6,23 @@ import { ensureDirectory } from "./files.js";
 
 const outputDir = resolve(process.cwd(), "..", "output");
 
+// Set while the screen may show an account id (the support chat during a
+// restore). Android skips screenshots and page source then, since CI uploads
+// them from a public repo. iOS keeps its existing capture behaviour.
+let sensitiveScreen = false;
+
+export function setSensitiveScreen(value: boolean): void {
+  sensitiveScreen = value;
+}
+
+function captureSuppressed(kind: string, name: string): boolean {
+  if (!sensitiveScreen || !driver.isAndroid) {
+    return false;
+  }
+  console.warn(`Skipping ${kind} '${name}': the screen may show an account id.`);
+  return true;
+}
+
 function artifactPath(filename: string): string {
   const fullPath = resolve(outputDir, filename);
   ensureDirectory(fullPath);
@@ -14,18 +31,29 @@ function artifactPath(filename: string): string {
 
 export async function saveScreenshot(name: string): Promise<string> {
   const path = artifactPath(name);
+  if (captureSuppressed("screenshot", name)) {
+    return path;
+  }
   await driver.saveScreenshot(path);
   return path;
 }
 
 export async function savePageSource(name: string): Promise<string> {
   const path = artifactPath(name);
+  if (captureSuppressed("page source", name)) {
+    return path;
+  }
   const source = await driver.getPageSource();
   writeFileSync(path, source, { encoding: "utf8" });
   return path;
 }
 
 export async function saveSyslog(name: string): Promise<string | undefined> {
+  // Android has logcat instead, which can carry the Private DNS hostname; the
+  // Android run does not collect device logs.
+  if (driver.isAndroid) {
+    return undefined;
+  }
   try {
     const path = artifactPath(name);
     const logs = (await driver.getLogs("syslog")) as Array<{

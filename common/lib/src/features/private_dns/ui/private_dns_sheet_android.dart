@@ -1,3 +1,4 @@
+import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/ui/minicard/minicard.dart';
 import 'package:common/src/features/private_dns/ui/private_dns_setting_guide.dart';
 import 'package:common/src/shared/ui/theme.dart';
@@ -15,8 +16,7 @@ class PrivateDnsSheetAndroid extends StatefulWidget {
   State<StatefulWidget> createState() => PrivateDnsSheetAndroidState();
 }
 
-class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
-    with Logging {
+class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid> with Logging {
   late final _channel = Core.get<PermChannel>();
   late final _privateDnsProvider = Core.get<PrivateDnsStringProvider>();
   late final _appName = Core.act.isFamily ? "Blokada Family" : "Blokada 6";
@@ -39,8 +39,7 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
   }
 
   void _checkIfContentIsFullyVisible() {
-    if (_scrollController.position.pixels ==
-        _scrollController.position.maxScrollExtent) {
+    if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
       setState(() {
         _isFullyVisible = true;
       });
@@ -70,8 +69,7 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
   void _performCTA() async {
     Navigator.of(context).pop();
     await sleepAsync(const Duration(milliseconds: 400));
-    Clipboard.setData(
-        ClipboardData(text: _privateDnsProvider.getAndroidDnsString()));
+    Clipboard.setData(ClipboardData(text: _privateDnsProvider.getAndroidDnsString()));
     _channel.doOpenPermSettings();
   }
 
@@ -83,137 +81,127 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: context.theme.bgColorCard,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  controller: _scrollController,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const SizedBox(height: 24),
-                      Text(
-                        "family perms header".i18n,
-                        style: Theme.of(context)
-                            .textTheme
-                            .displaySmall!
-                            .copyWith(fontWeight: FontWeight.w700),
-                      ),
-                      const SizedBox(height: 16),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                        child: Text(
-                          "family perms brief alt".i18n.withParams(_appName),
-                          softWrap: true,
-                          textAlign: TextAlign.start,
-                          style: TextStyle(color: context.theme.textSecondary),
+    return Semantics(
+      identifier: AutomationIds.dnsOnboardingSheet,
+      container: true,
+      explicitChildNodes: true,
+      child: Scaffold(
+        body: Container(
+          color: context.theme.bgColorCard,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    controller: _scrollController,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const SizedBox(height: 24),
+                        Text(
+                          "family perms header".i18n,
+                          style: Theme.of(
+                            context,
+                          ).textTheme.displaySmall!.copyWith(fontWeight: FontWeight.w700),
                         ),
-                      ),
-                      const SizedBox(height: 16), // Replaces Spacer
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "1.",
-                              style:
-                                  TextStyle(color: context.theme.textSecondary),
-                            ),
-                            PrivateDnsSettingGuideWidget(
-                              title: "family perms setting android connections"
-                                  .i18n,
-                              subtitle:
-                                  "family perms setting android similar".i18n,
-                              icon: CupertinoIcons.wifi,
-                              android: true,
-                            ),
-                            const SizedBox(height: 16),
-                            Text(
-                              "2.",
-                              style:
-                                  TextStyle(color: context.theme.textSecondary),
-                            ),
-                            PrivateDnsSettingGuideWidget(
-                              title: "family perms setting android more".i18n,
-                              subtitle:
-                                  "family perms setting android optional".i18n,
-                              android: true,
-                            ),
-                            const SizedBox(height: 16),
-                            Text(
-                              "3.",
-                              style:
-                                  TextStyle(color: context.theme.textSecondary),
-                            ),
-                            PrivateDnsSettingGuideWidget(
-                              title: "family perms setting android dns".i18n,
-                              android: true,
-                            ),
-                            const SizedBox(height: 16),
-                            Text(
-                              "4.",
-                              style:
-                                  TextStyle(color: context.theme.textSecondary),
-                            ),
-                            PrivateDnsSettingGuideWidget(
-                              title: "family perms setting android host".i18n,
-                              subtitle:
-                                  "family perms setting android similar".i18n,
-                              android: true,
-                            ),
-                          ],
+                        const SizedBox(height: 16),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                          child: Text(
+                            "family perms brief alt".i18n.withParams(_appName),
+                            softWrap: true,
+                            textAlign: TextAlign.start,
+                            style: TextStyle(color: context.theme.textSecondary),
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 16), // Replaces Spacer
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                        child: Text(
-                          "family perms copy android".i18n,
-                          softWrap: true,
-                          textAlign: TextAlign.start,
-                          style: TextStyle(color: context.theme.textSecondary),
+                        const SizedBox(height: 16), // Replaces Spacer
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("1.", style: TextStyle(color: context.theme.textSecondary)),
+                              PrivateDnsSettingGuideWidget(
+                                title: "family perms setting android connections".i18n,
+                                subtitle: "family perms setting android similar".i18n,
+                                icon: CupertinoIcons.wifi,
+                                android: true,
+                              ),
+                              const SizedBox(height: 16),
+                              Text("2.", style: TextStyle(color: context.theme.textSecondary)),
+                              PrivateDnsSettingGuideWidget(
+                                title: "family perms setting android more".i18n,
+                                subtitle: "family perms setting android optional".i18n,
+                                android: true,
+                              ),
+                              const SizedBox(height: 16),
+                              Text("3.", style: TextStyle(color: context.theme.textSecondary)),
+                              PrivateDnsSettingGuideWidget(
+                                title: "family perms setting android dns".i18n,
+                                android: true,
+                              ),
+                              const SizedBox(height: 16),
+                              Text("4.", style: TextStyle(color: context.theme.textSecondary)),
+                              PrivateDnsSettingGuideWidget(
+                                title: "family perms setting android host".i18n,
+                                subtitle: "family perms setting android similar".i18n,
+                                android: true,
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 16),
-                    ],
+                        const SizedBox(height: 16), // Replaces Spacer
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                          child: Text(
+                            "family perms copy android".i18n,
+                            softWrap: true,
+                            textAlign: TextAlign.start,
+                            style: TextStyle(color: context.theme.textSecondary),
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: MiniCard(
-                        onTap: _onButtonTap,
-                        color: context.theme.accent,
-                        child: SizedBox(
-                          height: 32,
-                          child: Center(
-                            child: Text(
-                              "dnsprofile action open settings".i18n,
-                              style: TextStyle(
-                                color: context.theme.onAccent,
-                                fontWeight: FontWeight.w600,
+                Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: MergeSemantics(
+                          child: Semantics(
+                            identifier: AutomationIds.dnsOpenSettings,
+                            button: true,
+                            child: MiniCard(
+                              onTap: _onButtonTap,
+                              color: context.theme.accent,
+                              child: SizedBox(
+                                height: 32,
+                                child: Center(
+                                  child: Text(
+                                    "dnsprofile action open settings".i18n,
+                                    style: TextStyle(
+                                      color: context.theme.onAccent,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-            ],
+                  ],
+                ),
+                const SizedBox(height: 16),
+              ],
+            ),
           ),
         ),
       ),
