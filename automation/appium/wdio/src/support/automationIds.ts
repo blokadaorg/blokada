@@ -32,6 +32,8 @@ export const AutomationIds = {
   homeSettings: "automation.home_settings",
   homePrivacyPulse: "automation.home_privacy_pulse",
   homeAdvanced: "automation.home_advanced",
+  blocklistsSummary: "automation.blocklists_summary",
+  blocklistsExceptions: "automation.blocklists_exceptions",
   privacyPulseRangeDaily: "automation.privacy_pulse_range_24h",
   privacyPulseRangeWeekly: "automation.privacy_pulse_range_7d",
   settingsExceptions: "automation.settings_exceptions",

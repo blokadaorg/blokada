@@ -15,9 +15,10 @@ registerFailureArtifacts();
 
 const APP_BUNDLE_ID = process.env.APP_BUNDLE_ID ?? "net.blocka.app";
 
-// Filter option switches expose ids like `automation.filter_option.<filter>.<option>`
-// (filter.dart `_filterOptionAutomationId`) with the CupertinoSwitch state on the
-// element `value` ("1"/"0"). Match any of them by id prefix so the spec isn't pinned
+// Extra blocklist switches expose ids like `automation.filter_option.<filter>.<option>`
+// (v6 filters_section.dart `_automationId`) with the CupertinoSwitch state on the
+// element `value` ("1"/"0"). Main list rows use `automation.blocklist_main.` instead,
+// so this never picks a row that can't be flipped back. Match by id prefix so the spec isn't pinned
 // to one pack name (which varies by account/flavor); the first match is then pinned
 // by its exact id so a list rebuild on toggle can't retarget a different option.
 const filterOptionPrefixSelector =

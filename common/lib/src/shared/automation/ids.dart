@@ -27,6 +27,12 @@ class AutomationIds {
   static const homePrivacyPulse = 'automation.home_privacy_pulse';
   static const homeAdvanced = 'automation.home_advanced';
 
+  /// Blocklists screen: the summary of what is on, and the "My exceptions"
+  /// row. Main list rows use `automation.blocklist_main.<filter>.<option>`;
+  /// extra switches keep `automation.filter_option.<filter>.<option>`.
+  static const blocklistsSummary = 'automation.blocklists_summary';
+  static const blocklistsExceptions = 'automation.blocklists_exceptions';
+
   static const privacyPulseRangeDaily = 'automation.privacy_pulse_range_24h';
   static const privacyPulseRangeWeekly = 'automation.privacy_pulse_range_7d';
 
