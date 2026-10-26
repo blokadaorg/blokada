@@ -35,7 +35,10 @@ struct AccountChangeView: View {
        case .success(let code):
            self.isShowingScanner = false  // dismiss the scanner view
            self.token = code.string
-           self.commands.execute(CommandName.url, self.token)
+           // familyLink, not url: url is how links from outside the app
+           // arrive, and those always ask before linking. A scan made here
+           // is the user's own action.
+           self.commands.execute(CommandName.familyLink, self.token)
        case .failure(let error):
            self.isShowingScanner = false
 

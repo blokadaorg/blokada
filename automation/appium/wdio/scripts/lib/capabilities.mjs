@@ -80,6 +80,9 @@ export function buildAndroidCapabilities(env = process.env) {
     "appium:waitForIdleTimeout": 0,
     // Hosted emulators are slow to install the UiAutomator2 server on first use.
     "appium:uiautomator2ServerInstallTimeout": 120000,
-    "appium:adbExecTimeout": 60000
+    "appium:adbExecTimeout": 60000,
+    // Phones that block adb from writing global settings (OnePlus, Xiaomi)
+    // otherwise fail session start on the hidden API policy reset.
+    "appium:ignoreHiddenApiPolicyError": true
   };
 }

@@ -37,21 +37,8 @@
             android:taskAffinity=""
             android:theme="@style/Theme.Blokada.Translucent"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="cmd"
-                    android:scheme="blocka" />
-                <data
-                    android:host="cmd.blocka.net"
-                    android:scheme="http" />
-            </intent-filter>
-
-            <!-- Handle Family link -->
+            <!-- Exported only for the verified Family link below, so other apps
+                 can still start it. Such links always ask before linking. -->
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
 

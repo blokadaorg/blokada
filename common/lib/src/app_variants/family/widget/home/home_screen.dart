@@ -57,7 +57,9 @@ class FamilyHomeScreenState extends State<FamilyHomeScreen>
     _promptedFor = token;
 
     await log(Markers.ui).trace("resolvePendingLink", (m) async {
-      final needsConfirm = await _link.needsConfirmation(m);
+      // A link parked before the lock state loaded must not reach the prompt.
+      if (await _link.refuseIfLocked(token, m)) return;
+      final needsConfirm = await _link.needsConfirmation(token, m);
       // A newer link can replace the pending value while the predicate runs.
       // Only the resolve that still owns it may prompt or commit, so two links
       // never raise two prompts.

@@ -1,6 +1,7 @@
 import { execFileSync } from "node:child_process";
 
 import type { Options } from "@wdio/types";
+import { SevereServiceError } from "webdriverio";
 
 import { buildAndroidCapabilities, ANDROID_SIX_PACKAGE } from "./scripts/lib/capabilities.mjs";
 import { config as iosConfig } from "./wdio.conf.js";
@@ -14,12 +15,34 @@ import { config as iosConfig } from "./wdio.conf.js";
 // first: the rest expect protection on.
 const packageName = process.env.APP_BUNDLE_ID ?? ANDROID_SIX_PACKAGE;
 
-function adb(args: string[]): void {
+function adb(args: string[]): string {
   const serial = process.env.ANDROID_UDID;
   if (!serial) {
     throw new Error("ANDROID_UDID is not set; it names the adb device under test.");
   }
-  execFileSync("adb", ["-s", serial, ...args], { stdio: "inherit" });
+  return execFileSync("adb", ["-s", serial, ...args], {
+    encoding: "utf8",
+    stdio: ["ignore", "pipe", "inherit"]
+  });
+}
+
+// The spec sets Private DNS with `settings put global`, grants the VPN with
+// appops, and Appium reads the clipboard through its own keyboard. Some phones
+// (OnePlus, Oppo, Xiaomi) block all three over adb until "Disable permission
+// monitoring" (or "USB debugging (Security settings)") is turned on in
+// Developer options. Fail up front with that hint instead of mid-run.
+function prepareDevice(): void {
+  try {
+    adb(["shell", "appops", "set", packageName, "ACTIVATE_VPN", "allow"]);
+    adb(["shell", "settings", "put", "global", "private_dns_mode", "off"]);
+  } catch (e) {
+    // A plain Error in onPrepare is only logged and the specs run anyway.
+    throw new SevereServiceError(
+      "This device blocks adb from changing settings, so the VPN and Private DNS can't be set up. " +
+        "Enable 'Disable permission monitoring' (OnePlus/Oppo) or 'USB debugging (Security settings)' " +
+        `(Xiaomi) in Developer options, then run again. (${e instanceof Error ? e.message : String(e)})`
+    );
+  }
 }
 
 const androidConfig = {
@@ -41,9 +64,11 @@ const androidConfig = {
     // Permissions a user grants by hand: notifications (prompted on first
     // activation) and the VPN consent (Plus accounts). Then turn Private DNS
     // off so android-protection always starts from the onboarding sheet.
-    adb(["shell", "pm", "grant", packageName, "android.permission.POST_NOTIFICATIONS"]);
-    adb(["shell", "appops", "set", packageName, "ACTIVATE_VPN", "allow"]);
-    adb(["shell", "settings", "put", "global", "private_dns_mode", "off"]);
+    // The notification permission exists from Android 13 (API 33).
+    if (Number(adb(["shell", "getprop", "ro.build.version.sdk"]).trim()) >= 33) {
+      adb(["shell", "pm", "grant", packageName, "android.permission.POST_NOTIFICATIONS"]);
+    }
+    prepareDevice();
   },
   beforeSession: undefined,
   after: undefined
