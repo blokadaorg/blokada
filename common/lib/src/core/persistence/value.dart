@@ -46,8 +46,7 @@ abstract class StringPersistedValue extends NullableAsyncValue<String?> {
 ///
 /// A value an older version stored in plain storage moves to secure storage
 /// on its first read.
-abstract class SecureStringPersistedValue extends NullableAsyncValue<String?>
-    with Logging {
+abstract class SecureStringPersistedValue extends NullableAsyncValue<String?> with Logging {
   late final _plain = Core.get<Persistence>();
   late final _secure = Core.get<Persistence>(tag: Persistence.secure);
   bool _unreadable = false;
@@ -63,10 +62,11 @@ abstract class SecureStringPersistedValue extends NullableAsyncValue<String?>
         await _secure.delete(m, key);
         return null;
       }
-      final value = await _secure.load(m, key);
       // The marker says this install wrote a secret, so a miss is a failed
-      // read. Keep the stored secret instead of letting fetch save the null
-      // back over it.
+      // read: try once more, then keep the stored secret instead of letting
+      // fetch save the null back over it. An unreadable secret reads as
+      // absent for this session, the same state a reinstall leaves.
+      final value = await _secure.load(m, key) ?? await _secure.load(m, key);
       _unreadable = value == null;
       return value;
     };
@@ -95,8 +95,7 @@ abstract class SecureStringPersistedValue extends NullableAsyncValue<String?>
   /// Moves a plain value to secure storage. When secure storage fails the
   /// plain value stays and is still returned, so the app keeps working and
   /// the move is tried again on the next read.
-  Future<String> _migrate(
-      Marker m, String key, String marker, String legacy) async {
+  Future<String> _migrate(Marker m, String key, String marker, String legacy) async {
     try {
       await _secure.save(m, key, legacy);
       await _plain.save(m, marker, "1");

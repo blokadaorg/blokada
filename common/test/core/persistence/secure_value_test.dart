@@ -61,6 +61,16 @@ void main() {
       });
     });
 
+    test("a read that fails once is tried again", () async {
+      await withTrace((m) async {
+        final store = _setUp();
+        await _Secret().change(m, "pin");
+        store.secureFailures = 1;
+
+        expect(await _Secret().fetch(m), "pin");
+      });
+    });
+
     test("clearing removes the secret and its marker", () async {
       await withTrace((m) async {
         final store = _setUp();
@@ -89,8 +99,7 @@ _Store _setUp({
   Core.di.unregister<PersistenceChannel>(instanceName: "default");
   Core.register<PersistenceChannel>(store);
   Core.register<Persistence>(Persistence(isSecure: false));
-  Core.register<Persistence>(Persistence(isSecure: true),
-      tag: Persistence.secure);
+  Core.register<Persistence>(Persistence(isSecure: true), tag: Persistence.secure);
   return store;
 }
 
@@ -102,7 +111,13 @@ class _Store with PersistenceChannel {
 
   _Store(this.plain, this.secure, this.failSecure);
 
+  int secureFailures = 0;
+
   Map<String, String> _map(bool isSecure) {
+    if (isSecure && secureFailures > 0) {
+      secureFailures--;
+      throw Exception("secure storage failed once");
+    }
     if (isSecure && failSecure) throw Exception("secure storage unavailable");
     return isSecure ? secure : plain;
   }
@@ -115,8 +130,7 @@ class _Store with PersistenceChannel {
   }
 
   @override
-  Future<void> doSave(
-      String key, String value, bool isSecure, bool isBackup) async {
+  Future<void> doSave(String key, String value, bool isSecure, bool isBackup) async {
     _map(isSecure)[key] = value;
   }
 
