@@ -16,12 +16,13 @@ import {
 import { dismissIntroOverlayIfPresent } from "../../flows/onboarding.js";
 import { dismissRatePromptIfPresent } from "../../flows/modals.js";
 import { AutomationIds } from "../../support/automationIds.js";
+import { byId } from "../../support/platform.js";
 import { registerFailureArtifacts, saveScreenshot } from "../../support/artifacts.js";
 
 registerFailureArtifacts();
 
 const APP_BUNDLE_ID = process.env.APP_BUNDLE_ID ?? "net.blocka.app";
-const dnsSheetSelector = `~${AutomationIds.dnsOnboardingSheet}`;
+const dnsSheetSelector = () => byId(AutomationIds.dnsOnboardingSheet);
 
 /**
  * Tap power until protection reports active. The toggle reads "inactive" the
@@ -63,7 +64,7 @@ async function ensureProtectionActive(): Promise<void> {
     return;
   }
   await tapPowerButton();
-  const onboardingShown = await (await $(dnsSheetSelector))
+  const onboardingShown = await (await $(dnsSheetSelector()))
     .waitForExist({ timeout: 4000 })
     .then(() => true)
     .catch(() => false);

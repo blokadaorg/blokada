@@ -8,13 +8,14 @@ import { dismissIntroOverlayIfPresent } from "../../flows/onboarding.js";
 import { dismissRatePromptIfPresent } from "../../flows/modals.js";
 import { goBackToHome, openHubScreen } from "../../flows/nav.js";
 import { AutomationIds } from "../../support/automationIds.js";
+import { byId, tap } from "../../support/platform.js";
 import { registerFailureArtifacts } from "../../support/artifacts.js";
 
 registerFailureArtifacts();
 
 const APP_BUNDLE_ID = process.env.APP_BUNDLE_ID ?? "net.blocka.app";
-const dailySelector = `~${AutomationIds.privacyPulseRangeDaily}`;
-const weeklySelector = `~${AutomationIds.privacyPulseRangeWeekly}`;
+const dailySelector = () => byId(AutomationIds.privacyPulseRangeDaily);
+const weeklySelector = () => byId(AutomationIds.privacyPulseRangeWeekly);
 
 // Opens Privacy Pulse and flips the 24h <-> 7d toplist range — the one interactive
 // stats control, which tab-navigation only ever opens. The segments expose
@@ -37,7 +38,7 @@ describe("Smoke: Privacy Pulse range toggle", () => {
   it("switches between the 24h and 7d ranges", async () => {
     await openHubScreen(AutomationIds.homePrivacyPulse, AutomationIds.screenPrivacyPulse);
 
-    const weekly = await $(weeklySelector);
+    const weekly = await $(weeklySelector());
     await weekly.waitForExist({ timeout: 15000 });
 
     // Default range is 24h, so the 7d segment should not be selected yet. Both
@@ -49,7 +50,7 @@ describe("Smoke: Privacy Pulse range toggle", () => {
       .then((v) => v === "true" || v === "false")
       .catch(() => false);
 
-    await weekly.click();
+    await tap(weekly);
     if (exposesSelected) {
       await driver.waitUntil(async () => (await weekly.getAttribute("selected")) === "true", {
         timeout: 10000,
@@ -59,13 +60,13 @@ describe("Smoke: Privacy Pulse range toggle", () => {
       console.warn(
         "Privacy Pulse range 'selected' attribute not exposed; asserting page survival only."
       );
-      await (await $(dailySelector)).waitForExist({ timeout: 10000 });
+      await (await $(dailySelector())).waitForExist({ timeout: 10000 });
     }
 
     // Restore the default 24h range.
-    const daily = await $(dailySelector);
+    const daily = await $(dailySelector());
     await daily.waitForExist({ timeout: 10000 });
-    await daily.click();
+    await tap(daily);
     if (exposesSelected) {
       await driver.waitUntil(async () => (await daily.getAttribute("selected")) === "true", {
         timeout: 10000,

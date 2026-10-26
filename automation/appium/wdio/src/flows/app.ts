@@ -1,10 +1,18 @@
 import { driver } from "@wdio/globals";
 
+import { isAndroid } from "../support/platform.js";
+
 const APP_STATE_NOT_RUNNING = 1;
 const APP_STATE_RUNNING_IN_FOREGROUND = 4;
 
+// UiAutomator2's `mobile:` app commands take `appId` (the package name) where
+// XCUITest takes `bundleId`.
+function appArgs(bundleId: string): Record<string, string> {
+  return isAndroid() ? { appId: bundleId } : { bundleId };
+}
+
 async function queryAppState(bundleId: string): Promise<number> {
-  return driver.execute("mobile: queryAppState", { bundleId });
+  return driver.execute("mobile: queryAppState", appArgs(bundleId));
 }
 
 export async function waitForAppForeground(bundleId: string, timeout = 20000): Promise<void> {
@@ -35,7 +43,7 @@ export async function waitForAppTermination(bundleId: string, timeout = 10000): 
 
 export async function terminateApp(bundleId: string): Promise<void> {
   try {
-    await driver.execute("mobile: terminateApp", { bundleId });
+    await driver.execute("mobile: terminateApp", appArgs(bundleId));
   } catch (error) {
     console.warn(`terminateApp failed for ${bundleId}: ${String(error)}`);
   }
@@ -43,11 +51,20 @@ export async function terminateApp(bundleId: string): Promise<void> {
 }
 
 export async function launchApp(bundleId: string): Promise<void> {
-  await driver.execute("mobile: launchApp", { bundleId });
+  if (isAndroid()) {
+    await driver.execute("mobile: activateApp", appArgs(bundleId));
+  } else {
+    await driver.execute("mobile: launchApp", { bundleId });
+  }
   await waitForAppForeground(bundleId);
 }
 
 export async function activateApp(bundleId: string): Promise<void> {
+  if (isAndroid()) {
+    await driver.execute("mobile: activateApp", appArgs(bundleId));
+    await waitForAppForeground(bundleId);
+    return;
+  }
   try {
     await driver.activateApp(bundleId);
   } catch (error) {

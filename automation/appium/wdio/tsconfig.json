@@ -9,5 +9,5 @@
     "outDir": "dist",
     "types": ["node", "@wdio/globals/types", "@wdio/mocha-framework"]
   },
-  "include": ["src/**/*.ts", "wdio.conf.ts"]
+  "include": ["src/**/*.ts", "wdio.conf.ts", "wdio.android.conf.ts"]
 }
