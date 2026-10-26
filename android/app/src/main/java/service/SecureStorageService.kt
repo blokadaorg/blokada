@@ -22,6 +22,7 @@ import com.google.android.gms.auth.blockstore.StoreBytesData
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withTimeoutOrNull
 import model.BlokadaException
+import org.json.JSONObject
 import utils.Logger
 import java.security.KeyStore
 import javax.crypto.Cipher
@@ -132,26 +133,34 @@ object SecureStorageService {
 
     /**
      * Whether a write may replace what Block Store holds. After a failed
-     * restore the app runs on a new account, and writing it would destroy the
-     * one in Block Store, possibly a paid one. So the entry is read again
-     * first, and only an empty or identical entry is replaced. Otherwise the
-     * old entry stays for a later reinstall to find.
+     * restore the app runs on a fallback account, and writing it would
+     * destroy the one in Block Store, possibly a paid one. So the entry is
+     * read again first. It is replaced when it is empty, the same account, or
+     * not active, or when the new value is an active account (a restore or a
+     * purchase the user made). Only an inactive fallback is kept from
+     * replacing an active account, which stays for a later reinstall to find.
      */
     private suspend fun mayReplace(key: String, value: String?): Boolean {
         if (!isUnverified(key)) return true
         val stored = try {
-            retrieve(key) ?: return true.also { setUnverified(key, false) }
+            retrieve(key)
         } catch (e: Exception) {
             log.w("Block Store still unreadable, keeping its $key: ${e.message}")
             return false
         }
-        if (stored == value) {
-            setUnverified(key, false)
-            return true
-        }
-        log.w("Block Store holds a different $key from before, keeping it")
-        return false
+        val replace = stored == null || stored == value ||
+            accountId(stored) != null && accountId(stored) == value?.let(::accountId) ||
+            !isActiveAccount(stored) || value != null && isActiveAccount(value)
+        if (replace) setUnverified(key, false)
+        else log.w("Block Store holds an active $key from before, keeping it")
+        return replace
     }
+
+    private fun accountId(json: String) =
+        try { JSONObject(json).optString("id").ifEmpty { null } } catch (e: Exception) { null }
+
+    private fun isActiveAccount(json: String) =
+        try { JSONObject(json).optBoolean("active", false) } catch (e: Exception) { false }
 
     suspend fun saveToBlockStore(key: String, value: String) {
         try {
