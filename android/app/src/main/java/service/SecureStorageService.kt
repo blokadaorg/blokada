@@ -121,8 +121,41 @@ object SecureStorageService {
     // Block Store keys allow a narrower character set than our persistence keys.
     private fun blockStoreKey(key: String) = key.replace(Regex("[^A-Za-z0-9_-]"), "_")
 
+    // Set when a restore read failed, so Block Store may still hold an
+    // account this install never saw. Kept in the secure file, which is local.
+    private fun unverifiedKey(key: String) = "blockstore_unverified:$key"
+    private fun isUnverified(key: String) = prefs.getBoolean(unverifiedKey(key), false)
+    private fun setUnverified(key: String, unverified: Boolean) =
+        prefs.edit(commit = true) {
+            if (unverified) putBoolean(unverifiedKey(key), true) else remove(unverifiedKey(key))
+        }
+
+    /**
+     * Whether a write may replace what Block Store holds. After a failed
+     * restore the app runs on a new account, and writing it would destroy the
+     * one in Block Store, possibly a paid one. So the entry is read again
+     * first, and only an empty or identical entry is replaced. Otherwise the
+     * old entry stays for a later reinstall to find.
+     */
+    private suspend fun mayReplace(key: String, value: String?): Boolean {
+        if (!isUnverified(key)) return true
+        val stored = try {
+            retrieve(key) ?: return true.also { setUnverified(key, false) }
+        } catch (e: Exception) {
+            log.w("Block Store still unreadable, keeping its $key: ${e.message}")
+            return false
+        }
+        if (stored == value) {
+            setUnverified(key, false)
+            return true
+        }
+        log.w("Block Store holds a different $key from before, keeping it")
+        return false
+    }
+
     suspend fun saveToBlockStore(key: String, value: String) {
         try {
+            if (!mayReplace(key, value)) return
             val data = StoreBytesData.Builder()
                 .setKey(blockStoreKey(key))
                 .setBytes(value.toByteArray(Charsets.UTF_8))
@@ -138,31 +171,34 @@ object SecureStorageService {
         }
     }
 
-    /**
-     * Returns null when Block Store holds nothing. A failed or slow read is
-     * tried once more first: the caller creates a new account on null, and
-     * that account's save would then replace the one held here.
-     */
-    suspend fun loadFromBlockStore(key: String): String? {
+    /** Returns null when Block Store holds nothing, throws when it cannot tell. */
+    private suspend fun retrieve(key: String): String? {
         val request = RetrieveBytesRequest.Builder()
             .setKeys(listOf(blockStoreKey(key)))
             .build()
+        val response = withTimeoutOrNull(blockStoreTimeoutMs) {
+            blockStore.retrieveBytes(request).await()
+        } ?: throw BlokadaException("Timed out")
+        return response.blockstoreDataMap[blockStoreKey(key)]?.bytes
+            ?.toString(Charsets.UTF_8)
+            ?.takeIf { it.isNotEmpty() }
+    }
+
+    /**
+     * Returns null when Block Store holds nothing, or cannot be read after a
+     * second try. The caller then creates a new account, so a failed read is
+     * remembered and keeps that account from replacing the entry (mayReplace).
+     */
+    suspend fun loadFromBlockStore(key: String): String? {
         repeat(2) { attempt ->
             try {
-                val response = withTimeoutOrNull(blockStoreTimeoutMs) {
-                    blockStore.retrieveBytes(request).await()
-                }
-                if (response != null) {
-                    return response.blockstoreDataMap[blockStoreKey(key)]?.bytes
-                        ?.toString(Charsets.UTF_8)
-                        ?.takeIf { it.isNotEmpty() }
-                }
-                log.w("Timed out loading $key from Block Store, attempt ${attempt + 1}")
+                return retrieve(key)
             } catch (e: Exception) {
                 log.w("Could not load $key from Block Store, attempt ${attempt + 1}: ${e.message}")
             }
         }
         log.w("Gave up loading $key from Block Store")
+        setUnverified(key, true)
         return null
     }
 
@@ -171,6 +207,7 @@ object SecureStorageService {
             val request = DeleteBytesRequest.Builder()
                 .setKeys(listOf(blockStoreKey(key)))
                 .build()
+            if (!mayReplace(key, null)) return
             blockStore.deleteBytes(request).await()
         } catch (e: Exception) {
             log.w("Could not delete $key from Block Store: ${e.message}")
