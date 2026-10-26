@@ -81,6 +81,7 @@ Future<_Setup> _pump(
       home: PrivateDnsSheetAndroid(
         manufacturer: manufacturer,
         successDelay: Duration.zero,
+        copiedBeforeSettingsDelay: Duration.zero,
         verifier: PrivateDnsSetupVerifier(
           channel: channel,
           check: FakeOwnerCheck(probe),
@@ -111,17 +112,35 @@ void main() {
     });
   });
 
-  testWidgets("Open Settings opens Settings without touching the clipboard", (tester) async {
+  testWidgets("Open Settings without Copy copies visibly, then opens Settings", (tester) async {
     await withTrace((m) async {
       final s = await _pump(tester, m, manufacturer: "Google");
+      expect(find.byIcon(Icons.check), findsNothing);
 
       await tester.tap(find.text("dnsprofile action open settings".i18n));
       await tester.pumpAndSettle();
 
+      expect(s.clipboard, [_hostname]);
+      expect(find.byIcon(Icons.check), findsOneWidget);
+      expect(find.text("private dns android copied hint".i18n), findsOneWidget);
       expect(s.channel.openSettingsCalls, 1);
-      expect(s.clipboard, isEmpty);
       // The sheet stays, so it can check the result on return.
       expect(find.byType(PrivateDnsSheetAndroid), findsOneWidget);
+    });
+  });
+
+  testWidgets("Open Settings after Copy does not copy again", (tester) async {
+    await withTrace((m) async {
+      final s = await _pump(tester, m, manufacturer: "Google");
+
+      await tester.tap(find.text("universal action copy".i18n));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text("dnsprofile action open settings".i18n));
+      await tester.pumpAndSettle();
+
+      expect(s.clipboard, [_hostname]);
+      expect(find.text("private dns android copied hint".i18n), findsNothing);
+      expect(s.channel.openSettingsCalls, 1);
     });
   });
 

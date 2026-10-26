@@ -20,12 +20,14 @@ class PrivateDnsSheetAndroid extends StatefulWidget {
   final PrivateDnsSetupVerifier? verifier;
   final String? manufacturer;
   final Duration successDelay;
+  final Duration copiedBeforeSettingsDelay;
 
   const PrivateDnsSheetAndroid({
     super.key,
     this.verifier,
     this.manufacturer,
     this.successDelay = const Duration(milliseconds: 1500),
+    this.copiedBeforeSettingsDelay = const Duration(milliseconds: 800),
   });
 
   @override
@@ -45,6 +47,8 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
   var _step = PrivateDnsSetupStep.setup;
   var _attempted = false;
   var _copied = false;
+  // Set when Open Settings did the copy, to tell the user what happened.
+  var _copiedBySettings = false;
   var _verifying = false;
   // A resume during a running check would otherwise be lost, leaving a
   // result from before the user's latest change in Settings.
@@ -122,9 +126,16 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
     if (mounted) setState(() => _copied = true);
   }
 
+  // Copies for users who skip Copy, but visibly: the button flips and a line
+  // says so, and the sheet waits a moment so it is seen before Settings opens.
   Future<void> _openSettings() async {
     log(Markers.userTap).t("Opening system Settings for Private DNS");
     _attempted = true;
+    if (!_copied) {
+      await _copy();
+      if (mounted) setState(() => _copiedBySettings = true);
+      await sleepAsync(widget.copiedBeforeSettingsDelay);
+    }
     await _channel.doOpenPermSettings();
   }
 
@@ -246,6 +257,14 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
         _secondary(context, "private dns android brief".i18n.withParams(_appName)),
         const SizedBox(height: 16),
         _buildHostname(context),
+        if (_copiedBySettings)
+          Padding(
+            padding: const EdgeInsets.only(top: 8),
+            child: Text(
+              "private dns android copied hint".i18n,
+              style: TextStyle(color: context.theme.accent, fontWeight: FontWeight.w600),
+            ),
+          ),
         const SizedBox(height: 16),
         for (var i = 0; i < steps.length; i++)
           Padding(
@@ -308,11 +327,12 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
 
   Widget _buildChecking(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const SizedBox(height: 48),
-        const CircularProgressIndicator(),
+        const Center(child: CircularProgressIndicator()),
         const SizedBox(height: 24),
-        _secondary(context, "private dns android checking".i18n),
+        Center(child: _secondary(context, "private dns android checking".i18n)),
       ],
     );
   }
@@ -322,11 +342,12 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
       identifier: AutomationIds.dnsSetupSuccess,
       container: true,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const SizedBox(height: 32),
           Icon(Icons.check_circle, size: 64, color: context.theme.accent),
           _header(context, "private dns android success header".i18n),
-          _secondary(context, "private dns android success brief".i18n),
+          Center(child: _secondary(context, "private dns android success brief".i18n)),
         ],
       ),
     );
