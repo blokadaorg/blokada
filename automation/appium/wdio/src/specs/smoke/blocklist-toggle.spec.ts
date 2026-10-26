@@ -1,4 +1,4 @@
-import { $, driver } from "@wdio/globals";
+import { driver } from "@wdio/globals";
 import { expect } from "chai";
 
 import { activateApp, terminateApp } from "../../flows/app.js";
@@ -28,8 +28,10 @@ const filterOptionPrefixSelector = () => byIdPrefix("automation.filter_option.")
 // asserting the new state and before toggling back so each write commits.
 const SYNC_WAIT_MS = 2000;
 
+// Toggling an extra grows the summary card above the list, which can push the
+// switch off screen; Android only exposes on-screen nodes, so bring it back first.
 async function valueOf(selector: string): Promise<string | undefined> {
-  return switchStateOf(await $(selector));
+  return switchStateOf(await scrollIntoView(selector));
 }
 
 // Exercises the core blocking config: enable/disable a filter option, confirm the
@@ -66,7 +68,7 @@ describe("Smoke: blocklist pack toggle", () => {
     expect(initial, "filter option should expose a switch value").to.be.a("string");
 
     // Flip it and confirm the switch state changed (optimistic UI update).
-    await tap(await $(optionSelector));
+    await tap(await scrollIntoView(optionSelector));
     await driver.pause(SYNC_WAIT_MS);
     await driver.waitUntil(async () => (await valueOf(optionSelector)) !== initial, {
       timeout: 10000,
@@ -77,7 +79,7 @@ describe("Smoke: blocklist pack toggle", () => {
     });
 
     // Restore the original state so the spec leaves the account's config unchanged.
-    await tap(await $(optionSelector));
+    await tap(await scrollIntoView(optionSelector));
     await driver.pause(SYNC_WAIT_MS);
     await driver.waitUntil(async () => (await valueOf(optionSelector)) === initial, {
       timeout: 10000,
