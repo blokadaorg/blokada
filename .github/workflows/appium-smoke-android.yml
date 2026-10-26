@@ -60,6 +60,8 @@ jobs:
         with:
           submodules: true
           fetch-depth: 1
+          # Nothing here pushes; keep the token off the disk the specs run on.
+          persist-credentials: false
           ref: ${{ github.event.workflow_run.head_sha || github.sha }}
 
       - uses: ./.github/actions/setup-flutter
