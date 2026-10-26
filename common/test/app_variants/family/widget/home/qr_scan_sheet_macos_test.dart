@@ -78,7 +78,8 @@ void main() {
         // Stands in for the home screen, which raises the confirmation as soon
         // as requestLink publishes the pending link. Popping after this point
         // would take the dialog instead of the sheet.
-        when(link.requestLink(any, any)).thenAnswer((_) async {
+        when(link.requestLink(any, any, fromScanner: anyNamed('fromScanner')))
+            .thenAnswer((_) async {
           navKey.currentState!.push(DialogRoute<void>(
             context: navKey.currentContext!,
             builder: (_) => const SizedBox(key: _dialogKey),
@@ -91,7 +92,7 @@ void main() {
 
         await _submit(tester, _validLink);
 
-        verify(link.requestLink(_validLink, any)).called(1);
+        verify(link.requestLink(_validLink, any, fromScanner: true)).called(1);
         expect(find.byType(QrScanSheetMacos), findsNothing);
         expect(find.byKey(_dialogKey), findsOneWidget);
       });
@@ -110,7 +111,8 @@ void main() {
 
         await _submit(tester, "https://example.com/not-a-family-link");
 
-        verifyNever(link.requestLink(any, any));
+        verifyNever(link.requestLink(any, any,
+            fromScanner: anyNamed('fromScanner')));
         expect(find.byType(QrScanSheetMacos), findsOneWidget);
         expect(
           find.text("Invalid link. Please check and try again."),

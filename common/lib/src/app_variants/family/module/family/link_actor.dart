@@ -13,8 +13,8 @@ final _jwtFormat = RegExp(r'^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$');
 
 /// Extracts the enrolment token from an incoming link.
 ///
-/// Accepts the canonical `familyLinkBase?token=...` URL and the bare token that
-/// the Android CommandActivity delivers. Returns null for anything else.
+/// Accepts the canonical `familyLinkBase?token=...` URL and a bare token.
+/// Returns null for anything else.
 String? parseFamilyLinkToken(String input) {
   final trimmed = input.trim();
   if (trimmed.isEmpty) return null;
@@ -40,6 +40,7 @@ class LinkActor with Logging, Actor {
   late final _currentToken = Core.get<CurrentToken>();
   late final _account = Core.get<AccountStore>();
   late final _wasSetUp = Core.get<WasSetUp>();
+  late final _isLocked = Core.get<IsLocked>();
 
   late final linkedMode = Core.get<FamilyLinkedMode>();
   late final pendingLink = Core.get<PendingLinkValue>();
@@ -51,6 +52,11 @@ class LinkActor with Logging, Actor {
   // reports present == null until its first change resolves, so it cannot be
   // the authority for "is a link already awaiting an answer".
   String? _claimedLink;
+
+  // Whether the claimed link came from the app's own scanner. Links arriving
+  // from outside (app links, universal links) can be fired by any installed
+  // app without a tap, so only a scan made in the app may skip the prompt.
+  bool _claimedFromScanner = false;
 
   LinkingDevice? _linkingDevice;
   var linkDeviceHeartbeatReceived = () {};
@@ -179,11 +185,17 @@ class LinkActor with Logging, Actor {
     return onboardLinkTemplate.replaceAll("TOKEN", token.urlEncode);
   }
 
-  /// True when this device has state worth protecting. WasSetUp survives a
-  /// token wipe; ThisDevice and CurrentToken do not, and a refresh failure
-  /// clears both. Do not gate on FamilyPhase or linkedMode, which default to
-  /// the "not set up" value early in boot and would fail open.
-  Future<bool> needsConfirmation(Marker m) async {
+  /// True when the user must confirm [token] before it links this device.
+  ///
+  /// A link from outside the app always asks: another installed app can
+  /// deliver one with no tap, and would otherwise enrol a fresh install into
+  /// its own family. A scan made in the app asks only when this device has
+  /// state worth protecting. WasSetUp survives a token wipe; ThisDevice and
+  /// CurrentToken do not, and a refresh failure clears both. Do not gate on
+  /// FamilyPhase or linkedMode, which default to the "not set up" value early
+  /// in boot and would fail open.
+  Future<bool> needsConfirmation(String token, Marker m) async {
+    if (_claimedLink != token || !_claimedFromScanner) return true;
     try {
       // Read the stored account, not the loaded one: a link can arrive before
       // startup resolves it, and type reports libre while unresolved. On iOS
@@ -214,12 +226,22 @@ class LinkActor with Logging, Actor {
   /// One at a time: a second link arriving while the first still awaits an
   /// answer is dropped, rather than replacing it under an open prompt. The
   /// user re-scans if they meant the newer one.
-  Future<void> requestLink(String rawInput, Marker m) async {
+  ///
+  /// [fromScanner] is set only by the app's own QR scanners. Everything else
+  /// counts as coming from outside and is always confirmed. Refused outright
+  /// while the parental lock is on, so a locked child device cannot be moved.
+  Future<void> requestLink(String rawInput, Marker m,
+      {bool fromScanner = false}) async {
     return await log(m).trace("requestLink", (m) async {
+      if (_isLocked.now) {
+        log(m).w("locked, refusing link");
+        await _stage.showModal(StageModal.faultLocked, m);
+        return;
+      }
       final token = parseFamilyLinkToken(rawInput);
       if (token == null) {
-        // The Android scanner and CommandActivity call this command directly
-        // and discard the result, so a throw alone fails silently for them.
+        // The native scanners and link handlers send this as a command and
+        // discard the result, so a throw alone fails silently for them.
         await _stage.showModal(StageModal.fault, m);
         throw Exception("Malformed family link");
       }
@@ -228,6 +250,7 @@ class LinkActor with Logging, Actor {
         return;
       }
       _claimedLink = token;
+      _claimedFromScanner = fromScanner;
       await pendingLink.change(m, token);
     });
   }
@@ -242,8 +265,20 @@ class LinkActor with Logging, Actor {
     });
   }
 
+  /// Drops the parked [token] when the parental lock is on. A cold-start link
+  /// can be parked before the lock state is read, so requestLink alone cannot
+  /// catch it. Returns true when the link was refused.
+  Future<bool> refuseIfLocked(String token, Marker m) async {
+    if (!_isLocked.now) return false;
+    log(m).w("locked, refusing parked link");
+    await cancelPendingLink(token, m);
+    await _stage.showModal(StageModal.faultLocked, m);
+    return true;
+  }
+
   Future<void> confirmPendingLink(String token, Marker m) async {
     if (_claimedLink != token) return;
+    if (await refuseIfLocked(token, m)) return;
     try {
       await pendingLink.change(m, null);
       return await _commitLink(token, m);
