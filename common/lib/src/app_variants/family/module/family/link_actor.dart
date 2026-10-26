@@ -41,6 +41,8 @@ class LinkActor with Logging, Actor {
   late final _account = Core.get<AccountStore>();
   late final _wasSetUp = Core.get<WasSetUp>();
   late final _isLocked = Core.get<IsLocked>();
+  late final _hasPin = Core.get<HasPin>();
+  late final _existingPin = Core.get<ExistingPin>();
 
   late final linkedMode = Core.get<FamilyLinkedMode>();
   late final pendingLink = Core.get<PendingLinkValue>();
@@ -235,7 +237,7 @@ class LinkActor with Logging, Actor {
   Future<void> requestLink(String rawInput, Marker m,
       {bool fromScanner = false}) async {
     return await log(m).trace("requestLink", (m) async {
-      if (_isLocked.now) {
+      if (await _lockedOrLoading(m)) {
         log(m).w("locked, refusing link");
         return;
       }
@@ -271,10 +273,27 @@ class LinkActor with Logging, Actor {
   /// catch it. Returns true when the link was refused. Silent for the same
   /// reason as requestLink: a modal here would replace the lock screen.
   Future<bool> refuseIfLocked(String token, Marker m) async {
-    if (!_isLocked.now) return false;
+    if (!await _lockedOrLoading(m)) return false;
     log(m).w("locked, refusing parked link");
     await cancelPendingLink(token, m);
     return true;
+  }
+
+  /// True while the lock is on, and also before LockActor has read the stored
+  /// PIN. A cold-start link is replayed before that load, while IsLocked still
+  /// holds its default false. A device with a PIN always starts locked, so a
+  /// stored PIN that HasPin does not reflect yet means locked. Once loaded,
+  /// HasPin stays true across an unlock, which then allows linking. Fails
+  /// closed if the PIN cannot be read.
+  Future<bool> _lockedOrLoading(Marker m) async {
+    if (_isLocked.now) return true;
+    if (_hasPin.now) return false;
+    try {
+      return await _existingPin.fetch(m).timeout(_predicateTimeout) != null;
+    } catch (e) {
+      log(m).e(msg: "could not read lock state, assuming locked: $e");
+      return true;
+    }
   }
 
   Future<void> confirmPendingLink(String token, Marker m) async {

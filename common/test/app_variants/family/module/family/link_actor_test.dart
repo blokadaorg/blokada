@@ -212,6 +212,7 @@ void main() {
       bool persistedAccountActive = false,
       bool wasSetUp = false,
       bool locked = false,
+      String? persistedPin,
       required Marker m,
     }) async {
       Core.register<DeviceActor>(device);
@@ -245,6 +246,10 @@ void main() {
       Core.register<FamilyLinkedMode>(FamilyLinkedMode());
       Core.register<PendingLinkValue>(PendingLinkValue());
       Core.register<IsLocked>(IsLocked()..now = locked);
+      Core.register<HasPin>(HasPin()..now = locked);
+      final pin = ExistingPin();
+      Core.register<ExistingPin>(pin);
+      if (persistedPin != null) await pin.change(m, persistedPin);
       return LinkActor();
     }
 
@@ -490,6 +495,53 @@ void main() {
         Core.get<IsLocked>().now = false;
         await actor.requestLink(otherJwt, m);
         expect(Core.get<PendingLinkValue>().present, otherJwt);
+      });
+    });
+
+    test('a link before the lock state loads is refused if a PIN is stored',
+        () async {
+      await withTrace((m) async {
+        // On a cold start the link is replayed before LockActor reads the
+        // stored PIN, while IsLocked still holds its default false. A device
+        // with a PIN always starts locked, so the prompt must not appear.
+        final actor = await setUpActor(
+            device: MockDeviceActor(),
+            auth: MockAuthActor(),
+            persistedPin: '1234',
+            m: m);
+
+        await actor.requestLink(jwt, m);
+        expect(Core.get<PendingLinkValue>().present, isNull);
+      });
+    });
+
+    test('a parked link is refused once a stored PIN is found', () async {
+      await withTrace((m) async {
+        final actor = await setUpActor(
+            device: MockDeviceActor(), auth: MockAuthActor(), m: m);
+        await actor.requestLink(jwt, m);
+
+        // The PIN shows up in storage before LockActor has loaded it.
+        await Core.get<ExistingPin>().change(m, '1234');
+        expect(await actor.refuseIfLocked(jwt, m), isTrue);
+        expect(Core.get<PendingLinkValue>().present, isNull);
+      });
+    });
+
+    test('an unlocked device with a PIN can link', () async {
+      await withTrace((m) async {
+        // After the lock loads, HasPin stays true across an unlock, so the
+        // parent who entered the PIN can still link.
+        final actor = await setUpActor(
+            device: MockDeviceActor(),
+            auth: MockAuthActor(),
+            persistedPin: '1234',
+            m: m);
+        Core.get<HasPin>().now = true;
+
+        await actor.requestLink(jwt, m);
+        expect(Core.get<PendingLinkValue>().present, jwt);
+        expect(await actor.refuseIfLocked(jwt, m), isFalse);
       });
     });
 
