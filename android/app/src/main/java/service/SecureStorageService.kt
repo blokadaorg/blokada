@@ -127,10 +127,17 @@ object SecureStorageService {
     // account this install never saw. Kept in the secure file, which is local.
     private fun unverifiedKey(key: String) = "blockstore_unverified:$key"
     private fun isUnverified(key: String) = prefs.getBoolean(unverifiedKey(key), false)
-    private fun setUnverified(key: String, unverified: Boolean) =
+    private fun setUnverified(key: String, unverified: Boolean, migrated: String? = null) =
         prefs.edit(commit = true) {
-            if (unverified) putBoolean(unverifiedKey(key), true) else remove(unverifiedKey(key))
+            if (unverified) putBoolean(unverifiedKey(key), true)
+            else remove(unverifiedKey(key)).remove(migratedKey(key))
+            migrated?.let { putString(migratedKey(key), it) }
         }
+
+    // The account ID moved from a plain copy while Block Store was unreadable.
+    // That copy may be an old Auto Backup, so it being active does not let it
+    // replace Block Store the way a restore or purchase does.
+    private fun migratedKey(key: String) = "blockstore_migrated:$key"
 
     /**
      * Whether a write may replace what Block Store holds. After a failed
@@ -138,8 +145,9 @@ object SecureStorageService {
      * destroy the one in Block Store, possibly a paid one. So the entry is
      * read again first. It is replaced when it is empty, the same account, or
      * not active, or when the new value is an active account (a restore or a
-     * purchase the user made). Only an inactive fallback is kept from
-     * replacing an active account, which stays for a later reinstall to find.
+     * purchase the user made) other than one moved from a plain copy. Only an
+     * inactive fallback or a moved plain copy is kept from replacing an active
+     * account, which stays for a later reinstall to find.
      */
     private suspend fun mayReplace(key: String, value: String?): Boolean {
         if (!isUnverified(key)) return true
@@ -149,9 +157,12 @@ object SecureStorageService {
             log.w("Block Store still unreadable, keeping its $key: ${e.message}")
             return false
         }
+        val newId = value?.let(::accountId)
+        val migrated = prefs.getString(migratedKey(key), null)
         val replace = stored == null || stored == value ||
-            accountId(stored) != null && accountId(stored) == value?.let(::accountId) ||
-            !isActiveAccount(stored) || value != null && isActiveAccount(value)
+            accountId(stored) != null && accountId(stored) == newId ||
+            !isActiveAccount(stored) ||
+            value != null && isActiveAccount(value) && (migrated == null || newId != migrated)
         if (replace) setUnverified(key, false)
         else log.w("Block Store holds an active $key from before, keeping it")
         return replace
@@ -207,10 +218,11 @@ object SecureStorageService {
 
     /**
      * Returns null when Block Store holds nothing, or cannot be read after a
-     * second try. The caller then creates a new account, so a failed read is
-     * remembered and keeps that account from replacing the entry (mayReplace).
+     * second try. The caller then creates a new account, or moves [plain]
+     * over, so a failed read is remembered and keeps that account from
+     * replacing the entry (mayReplace).
      */
-    suspend fun loadFromBlockStore(key: String): String? {
+    suspend fun loadFromBlockStore(key: String, plain: String? = null): String? {
         repeat(2) { attempt ->
             try {
                 return retrieve(key)
@@ -219,7 +231,7 @@ object SecureStorageService {
             }
         }
         log.w("Gave up loading $key from Block Store")
-        setUnverified(key, true)
+        setUnverified(key, true, plain?.let(::accountId))
         return null
     }
 

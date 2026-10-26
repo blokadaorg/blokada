@@ -313,7 +313,7 @@ object CoreBinding : CoreOps {
             // A backed-up plain copy may be an Auto Backup an older version
             // left, restored on a reinstall. Block Store is written only by
             // this version, so its entry is newer and wins.
-            val newer = if (isBackup) secure.loadFromBlockStore(key) else null
+            val newer = if (isBackup) secure.loadFromBlockStore(key, plain) else null
             storageLog.v("Moving $key to secure storage")
             val stored = storeLocally(key, newer ?: plain, removePlain = true)
             if (newer == null && stored == plain) inBlockStore { secure.saveToBlockStore(key, plain) }
@@ -331,13 +331,17 @@ object CoreBinding : CoreOps {
     // Returns the value now stored. A save that landed while this load was
     // reading the plain copy or Block Store is newer and is kept. A failed
     // write leaves the plain copy in place, so the value is not lost and the
-    // move is tried again on the next read.
+    // move is tried again on the next read. So does a failed removal of the
+    // plain copy, or it would stay behind for good.
     private fun storeLocally(key: String, value: String, removePlain: Boolean): String =
         synchronized(secureLock) {
             secure.load(key)?.let { return it }
             try {
                 secure.save(key, value)
-                if (removePlain) removePlain(key)
+                if (removePlain && !removePlain(key)) {
+                    storageLog.w("Could not remove plain $key, moving it again next time")
+                    secure.delete(key)
+                }
             } catch (e: Exception) {
                 storageLog.w("Could not save $key to secure storage: ${e.message}")
             }
@@ -346,11 +350,11 @@ object CoreBinding : CoreOps {
 
     // Older versions could have a copy in either file. Each commit is a disk
     // write, so only files that still hold the key are touched.
-    private fun removePlain(key: String) {
+    private fun removePlain(key: String): Boolean =
         listOf(backedUpSharedPreferences, localSharedPreferences)
             .filter { it.contains(key) }
-            .forEach { it.edit(commit = true) { remove(key) } }
-    }
+            .map { it.edit().remove(key).commit() }
+            .all { it }
 
     override fun doDelete(
         key: String,
