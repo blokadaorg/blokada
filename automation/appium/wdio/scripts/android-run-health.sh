@@ -23,7 +23,7 @@ case "${1:-}" in
     nohup sh -c "
       while true; do
         state=\$(adb -s $serial get-state 2>/dev/null || echo offline)
-        if pgrep -f qemu-system >/dev/null; then emu=running; else emu=gone; fi
+        if pgrep -f '[q]emu-system' >/dev/null; then emu=running; else emu=gone; fi
         echo \"\$(date -u +%H:%M:%S) adb=\$state emulator=\$emu\"
         sleep 1
       done" >"$log" 2>&1 &
