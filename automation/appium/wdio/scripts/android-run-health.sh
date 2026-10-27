@@ -2,7 +2,7 @@
 # Host and adb health around the Android emulator smoke run.
 #
 #   android-run-health.sh start   sample host memory and the emulator's adb
-#                                 state every 5s, and keep the system log
+#                                 state every second, and keep the system log
 #   android-run-health.sh report  print adb drops, memory lows and the
 #                                 relevant system log lines, redacted
 #
@@ -29,7 +29,7 @@ case "${1:-}" in
         state=\$(adb -s $serial get-state 2>/dev/null || echo offline)
         mem=\$(free -m | awk '/^Mem:/ {a=\$7} /^Swap:/ {s=\$3\"/\"\$2} END {print \"avail=\" a \"M swap=\" s \"M\"}')
         echo \"\$(date -u +%H:%M:%S) adb=\$state \$mem load=\$(cut -d' ' -f1 /proc/loadavg)\"
-        sleep 5
+        sleep 1
       done" >"$log" 2>&1 &
     echo $! >"$pids"
     adb -s "$serial" logcat -c >/dev/null 2>&1 || echo "Could not clear logcat."
@@ -57,9 +57,13 @@ case "${1:-}" in
       | grep -vE 'jdwp connection|Start proc| I appium  :' \
       | redact | tail -150
     # Everything the system logged just before the emulator first went offline.
-    first=$(grep -v 'adb=device' "$log" | head -1 | cut -d' ' -f1)
+    # Anchor: the first UiAutomator2/adb failure WebdriverIO saw, else the
+    # first offline sample.
+    first=$(grep -E 'instrumentation process is not running|exited with code 255|socket hang up|device offline' \
+      "$out/wdio-run.txt" 2>/dev/null | grep -oE 'T[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]+Z' | head -1 | cut -c2-9)
+    [ -n "$first" ] || first=$(grep -v 'adb=device' "$log" | head -1 | cut -d' ' -f1)
     if [ -n "$first" ]; then
-      echo "System log from 30s before the first offline sample ($first), redacted:"
+      echo "System log from 30s before the first adb/instrumentation failure ($first), redacted:"
       awk -v t="$first" '
         function secs(s) { split(s, p, ":"); return p[1] * 3600 + p[2] * 60 + p[3] }
         !seen[$0]++ && $2 ~ /^[0-9]+:[0-9]+:[0-9]+/ {
@@ -67,7 +71,7 @@ case "${1:-}" in
           if (d >= -30 && d <= 5) print
         }' "$syslog" \
         | grep -vE ' (I appium|[DIV] flutter|[A-Z] Blokada[A-Za-z]*) *:' \
-        | redact | head -250
+        | redact | head -400
     fi
     ;;
   *)

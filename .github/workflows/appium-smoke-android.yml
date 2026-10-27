@@ -155,7 +155,7 @@ jobs:
           disable-animations: true
           # run-health samples host memory and the emulator's adb state, and
           # prints the samples where the emulator dropped off adb.
-          script: bash automation/appium/wdio/scripts/android-run-health.sh start && (make appium-test-android; status=$?; bash automation/appium/wdio/scripts/android-run-health.sh report; exit $status)
+          script: bash automation/appium/wdio/scripts/android-run-health.sh start && (bash -o pipefail -c "make appium-test-android 2>&1 | tee automation/appium/output/wdio-run.txt"; status=$?; bash automation/appium/wdio/scripts/android-run-health.sh report; exit $status)
 
       - name: Report smoke status result
         if: always() && github.event_name == 'workflow_run'
