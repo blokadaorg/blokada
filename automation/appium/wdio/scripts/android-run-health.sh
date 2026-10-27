@@ -16,9 +16,12 @@ log="$out/run-health.txt"
 syslog="$out/logcat-run.txt"
 pids="$out/run-health.pid"
 
+# Drops clipboard traffic (Appium reads the hostname through it, base64
+# encoded) and masks hostnames, base64 blobs, hex tokens and 12-letter ids.
 redact() {
-  sed -E -e 's/[A-Za-z0-9.-]+\.blokada\.org/<host>/g' -e 's/\b[0-9a-fA-F]{16,}\b/<hex>/g' \
-    -e 's/\b[a-z]{12}\b/<id>/g' | cut -c1-300
+  grep -viE 'clipboard|Broadcast completed' \
+    | sed -E -e 's/[A-Za-z0-9.-]+\.blokada\.org/<host>/g' -e 's#[A-Za-z0-9+/]{20,}={0,2}#<b64>#g' \
+      -e 's/\b[0-9a-fA-F]{16,}\b/<hex>/g' -e 's/\b[a-z]{12}\b/<id>/g' | cut -c1-300
 }
 
 case "${1:-}" in
