@@ -57,123 +57,137 @@ class WeeklyRefreshSheetIosState extends State<WeeklyRefreshSheetIos> {
         color: context.theme.bgColorCard,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 24),
-                      Text(
-                        "freemium refresh header".i18n,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium!
-                            .copyWith(fontWeight: FontWeight.w700),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 32),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                        child: Text(
-                          "freemium refresh brief".i18n,
-                          softWrap: true,
-                          textAlign: TextAlign.start,
-                          style: TextStyle(color: context.theme.textSecondary, fontSize: 14),
+          // The text at the top, the status and actions at the bottom; all of
+          // it scrolls when large text needs more room than the sheet has.
+          child: LayoutBuilder(
+            builder: (context, constraints) => SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        const SizedBox(height: 24),
+                        Text(
+                          "freemium refresh header".i18n,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .copyWith(fontWeight: FontWeight.w700),
+                          textAlign: TextAlign.center,
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 24),
-              Center(
-                child: Icon(
-                  updated
-                      ? CupertinoIcons.checkmark_shield
-                      : (updating ? CupertinoIcons.shield : CupertinoIcons.exclamationmark_shield),
-                  color: context.theme.bgColorHome2,
-                  size: 80,
-                ),
-              ),
-              const SizedBox(height: 24),
-              Text(
-                updated
-                    ? "freemium refresh status done".i18n
-                    : (updating
-                        ? "freemium refresh status updating".i18n
-                        : "freemium refresh status ready".i18n),
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 160),
-              Row(
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: MiniCard(
-                        onTap: _updateFilters,
-                        color: context.theme.bgColor,
-                        child: SizedBox(
-                          height: 32,
-                          child: Center(
-                            child: Text(
-                              "freemium refresh action update".i18n,
-                              style: TextStyle(
-                                color: context.theme.textPrimary,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
+                        const SizedBox(height: 32),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                          child: Text(
+                            "freemium refresh brief".i18n,
+                            softWrap: true,
+                            textAlign: TextAlign.start,
+                            style: TextStyle(color: context.theme.textSecondary, fontSize: 14),
                           ),
                         ),
-                      ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 4),
-              Row(
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: MiniCard(
-                        onTap: () async {
-                          _modal.change(Markers.userTap, null);
-                          _payment.openPaymentScreen(Markers.userTap,
-                              placement: Placement.freemiumWeekly);
-                        },
-                        color: context.theme.accent,
-                        child: SizedBox(
-                          height: 32,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                CupertinoIcons.heart_fill,
-                                color: context.theme.onAccent,
-                              ),
-                              const SizedBox(width: 12),
-                              Center(
-                                child: Text(
-                                  "freemium refresh action upgrade".i18n,
-                                  style: TextStyle(
-                                      color: context.theme.onAccent, fontWeight: FontWeight.w600),
-                                  overflow: TextOverflow.ellipsis,
+                    Column(
+                      children: [
+                        const SizedBox(height: 24),
+                        Center(
+                          child: Icon(
+                            updated
+                                ? CupertinoIcons.checkmark_shield
+                                : (updating
+                                    ? CupertinoIcons.shield
+                                    : CupertinoIcons.exclamationmark_shield),
+                            color: context.theme.bgColorHome2,
+                            size: 80,
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        Text(
+                          updated
+                              ? "freemium refresh status done".i18n
+                              : (updating
+                                  ? "freemium refresh status updating".i18n
+                                  : "freemium refresh status ready".i18n),
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        const SizedBox(height: 160),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: MiniCard(
+                                  onTap: _updateFilters,
+                                  color: context.theme.bgColor,
+                                  child: ConstrainedBox(
+                                    constraints: const BoxConstraints(minHeight: 32),
+                                    child: Center(
+                                      child: Text(
+                                        "freemium refresh action update".i18n,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: context.theme.textPrimary,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ),
+                        const SizedBox(height: 4),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: MiniCard(
+                                  onTap: () async {
+                                    _modal.change(Markers.userTap, null);
+                                    _payment.openPaymentScreen(Markers.userTap,
+                                        placement: Placement.freemiumWeekly);
+                                  },
+                                  color: context.theme.accent,
+                                  child: ConstrainedBox(
+                                    constraints: const BoxConstraints(minHeight: 32),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          CupertinoIcons.heart_fill,
+                                          color: context.theme.onAccent,
+                                        ),
+                                        const SizedBox(width: 12),
+                                        // Wraps with large text instead of running off the button.
+                                        Flexible(
+                                          child: Text(
+                                            "freemium refresh action upgrade".i18n,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                color: context.theme.onAccent,
+                                                fontWeight: FontWeight.w600),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                      ],
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-              const SizedBox(height: 20),
-            ],
+            ),
           ),
         ),
       ),

@@ -183,13 +183,18 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("stats label blocked".i18n,
-                                maxLines: 1,
-                                style: TextStyle(
-                                  color: context.theme.textBlocked,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                )),
+                            // A one-word label: shrinks to the column at
+                            // large text sizes instead of being cut off.
+                            FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text("stats label blocked".i18n,
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                    color: context.theme.textBlocked,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                  )),
+                            ),
                             Countup(
                               begin: lastBlocked,
                               end: blocked,
@@ -214,13 +219,16 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("stats label allowed".i18n,
-                                maxLines: 1,
-                                style: TextStyle(
-                                  color: context.theme.textAllowed,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                )),
+                            FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text("stats label allowed".i18n,
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                    color: context.theme.textAllowed,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                  )),
+                            ),
                             Countup(
                               begin: lastAllowed,
                               end: allowed,

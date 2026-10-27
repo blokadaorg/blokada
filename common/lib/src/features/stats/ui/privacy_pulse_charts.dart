@@ -44,8 +44,11 @@ class PrivacyPulseCharts extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Icon(CupertinoIcons.checkmark_shield, color: context.theme.textPrimary, size: 36),
-            const Spacer(),
-            if (trailing != null) trailing!,
+            // The trailing control gets the rest of the row, right-aligned,
+            // so with large text it fits instead of running off the edge.
+            Expanded(
+              child: Align(alignment: Alignment.centerRight, child: trailing),
+            ),
           ],
         ),
         const SizedBox(height: 12),

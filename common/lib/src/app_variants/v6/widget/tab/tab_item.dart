@@ -36,9 +36,11 @@ class TabItemState extends State<TabItem> {
       onTap: widget.onTap,
       child: Container(
         padding: const EdgeInsets.all(0),
-        child: SizedBox(
-          height: 48,
+        // Grows with large text, whose title can wrap.
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(minHeight: 48),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Stack(
                 clipBehavior: Clip.none,

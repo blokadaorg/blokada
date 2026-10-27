@@ -111,6 +111,8 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^2.2.1
   flutter_lints: ">=2.0.0 <7.0.0"
+  # Test seam for the favicon cache (CachedNetworkImageProvider.defaultCacheManager).
+  flutter_cache_manager: ^3.4.1
   mobx_codegen: ^2.0.7+3
   pigeon: ">=12.0.0 <27.0.0"
   mockito: ^5.3.2
