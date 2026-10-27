@@ -34,7 +34,9 @@ class DomainDetailSection extends StatefulWidget {
   final String range; // "24h" or "7d"
   final List<UiJournalEntry>? subdomainEntries; // Deprecated, will be removed
 
-  /// Device whose stats and activity are shown. Null or empty means this device.
+  /// Device whose stats and activity are shown, so an activity entry from
+  /// another device opens with that device's numbers. Null means this device;
+  /// empty means an entry with no device name, which is never this device's.
   final String? deviceName;
 
   const DomainDetailSection({
@@ -85,10 +87,11 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   bool _recentBlockedLoading = false;
   bool _recentAllowedLoading = false;
 
-  String get _deviceName {
-    final name = widget.deviceName?.trim() ?? "";
-    return name.isNotEmpty ? name : _device.deviceAlias.trim();
-  }
+  /// Name the stats and activity queries are keyed on. Falls back to this
+  /// device only when no device was given, so an unnamed entry is not
+  /// attributed to (and counted as) this device.
+  String get _deviceName =>
+      (widget.deviceName ?? _device.deviceAlias).trim();
 
   // Extract TLD domain for favicon (e.g., "ads.apple.com" -> "apple.com")
   String _getTldDomain(String domain) {

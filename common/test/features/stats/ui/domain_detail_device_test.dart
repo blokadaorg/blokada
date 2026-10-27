@@ -38,7 +38,7 @@ class _RecordingHttpChannel extends FakeHttpChannel {
 
   Set<String?> deviceNamesFor(String path) => urls
       .where((it) => it.path == path)
-      .map((it) => Uri.decodeComponent(it.queryParameters['device_name'] ?? ""))
+      .map((it) => it.queryParameters['device_name'])
       .toSet();
 }
 
@@ -49,8 +49,13 @@ Future<_RecordingHttpChannel> _pump(WidgetTester tester, DomainDetailSection sec
   addTearDown(tester.view.reset);
   // The favicon's image cache asks for a directory.
   final dir = Directory.systemTemp.createTempSync("domain_detail");
-  tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
-      const MethodChannel("plugins.flutter.io/path_provider"), (_) async => dir.path);
+  const pathProvider = MethodChannel("plugins.flutter.io/path_provider");
+  tester.binding.defaultBinaryMessenger
+      .setMockMethodCallHandler(pathProvider, (_) async => dir.path);
+  addTearDown(() {
+    tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(pathProvider, null);
+    dir.deleteSync(recursive: true);
+  });
 
   await bootModules(tester);
   await seedCloudAccount(tester);
@@ -132,6 +137,25 @@ void main() {
 
     expect(http.deviceNamesFor("/v2/stats"), {"Pixel"});
     expect(find.text("Pixel"), findsOneWidget);
+
+    await _unmount(tester);
+  });
+
+  testWidgets("an entry without a device name is not counted as this device", (tester) async {
+    final http = await _pump(
+      tester,
+      DomainDetailSection(
+        entry: _entry(),
+        level: 2,
+        domain: "ads.example.com",
+        fetchToplist: false,
+        deviceName: "",
+      ),
+    );
+
+    expect(http.deviceNamesFor("/v2/stats"), isEmpty);
+    expect(find.text("universal label device".i18n), findsNothing);
+    expect(find.text("Pixel"), findsNothing);
 
     await _unmount(tester);
   });
