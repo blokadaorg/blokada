@@ -134,7 +134,7 @@ jobs:
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          script: make appium-test-android
+          script: bash automation/appium/wdio/scripts/android-crash-report.sh start && (make appium-test-android; status=$?; bash automation/appium/wdio/scripts/android-crash-report.sh report; exit $status)
 
       - name: Report smoke status result
         if: always() && github.event_name == 'workflow_run'
