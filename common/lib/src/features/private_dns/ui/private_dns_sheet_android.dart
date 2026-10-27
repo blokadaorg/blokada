@@ -195,53 +195,66 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
           color: context.theme.bgColorCard,
           child: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: setup ? _buildSetup(context) : _buildSuccess(context),
-                    ),
+            child: LayoutBuilder(builder: (context, constraints) {
+              final body = Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: setup ? _buildSetup(context) : _buildSuccess(context),
+              );
+              final footer = setup ? _buildFooter(context) : const <Widget>[];
+              // The steps scroll while the hostname and Open Settings stay at
+              // the bottom. In a short window (split screen, large text) the
+              // footer might not fit, so everything scrolls together instead.
+              final short = constraints.maxHeight < MediaQuery.textScalerOf(context).scale(480);
+              if (short) {
+                return SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [body, ...footer],
                   ),
-                ),
-                // The steps scroll; the hostname and Open Settings stay at
-                // the bottom.
-                if (setup) ...[
-                  const SizedBox(height: 16),
-                  if (_copiedBySettings)
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                      child: Text(
-                        "private dns android copied hint".i18n,
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: context.theme.accent,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: _buildHostname(context),
-                  ),
-                  const SizedBox(height: 6),
-                  _primaryButton(
-                    context,
-                    "dnsprofile action open settings".i18n,
-                    _openSettings,
-                    AutomationIds.dnsOpenSettings,
-                  ),
-                  const SizedBox(height: 16),
+                );
+              }
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Expanded(child: SingleChildScrollView(child: body)),
+                  ...footer,
                 ],
-              ],
-            ),
+              );
+            }),
           ),
         ),
       ),
     );
+  }
+
+  List<Widget> _buildFooter(BuildContext context) {
+    return [
+      const SizedBox(height: 16),
+      if (_copiedBySettings)
+        Padding(
+          padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+          child: Text(
+            "private dns android copied hint".i18n,
+            style: TextStyle(
+              fontSize: 12,
+              color: context.theme.accent,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: _buildHostname(context),
+      ),
+      const SizedBox(height: 6),
+      _primaryButton(
+        context,
+        "dnsprofile action open settings".i18n,
+        _openSettings,
+        AutomationIds.dnsOpenSettings,
+      ),
+      const SizedBox(height: 16),
+    ];
   }
 
   Widget _header(BuildContext context, String text) {

@@ -187,6 +187,21 @@ void main() {
     }
   });
 
+  testWidgets("a short window with large text scrolls to Open Settings", (tester) async {
+    await withTrace((m) async {
+      tester.platformDispatcher.textScaleFactorTestValue = 2;
+      addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+      final s = await _pump(tester, m, manufacturer: "Google", size: const Size(360, 420));
+      expect(tester.takeException(), isNull);
+
+      final open = find.text("dnsprofile action open settings".i18n);
+      await tester.scrollUntilVisible(open, 100, scrollable: find.byType(Scrollable).first);
+      await tester.tap(open);
+      await tester.pumpAndSettle();
+      expect(s.channel.openSettingsCalls, 1);
+    });
+  });
+
   testWidgets("header stays on one line at a narrow width", (tester) async {
     await withTrace((m) async {
       await _pump(tester, m, manufacturer: "Google", size: const Size(300, 800));
