@@ -19,18 +19,27 @@ class StatsDeviceFilter extends StatefulWidget {
   StatsDeviceFilterState createState() => StatsDeviceFilterState();
 }
 
-class StatsDeviceFilterState extends State<StatsDeviceFilter> {
+class StatsDeviceFilterState extends State<StatsDeviceFilter> with Disposables {
   final TextEditingController _ctrl = TextEditingController(text: "");
   late final _devices = Core.get<JournalDevicesValue>();
 
   @override
   void initState() {
     super.initState();
+    // The device list may still be loading when the picker opens.
+    disposeLater(_devices.onChange.listen(rebuild));
     _ctrl.text = widget.filter.draft.searchQuery;
     _ctrl.addListener(() {
       widget.filter.draft =
           widget.filter.draft.updateOnly(searchQuery: _ctrl.text.toLowerCase());
     });
+  }
+
+  @override
+  void dispose() {
+    disposeAll();
+    _ctrl.dispose();
+    super.dispose();
   }
 
   @override
