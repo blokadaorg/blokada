@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:common/src/core/core.dart';
 import 'package:common/src/features/customlist/domain/customlist.dart';
 import 'package:common/src/features/journal/domain/journal.dart';
@@ -10,12 +12,17 @@ import '../../tools.dart';
 class _FakeJournalApi extends Fake implements JournalApi {
   List<String> accountDevices = [];
   Object? devicesError;
+  // When set, the device list waits for it, to answer out of order.
+  Future<void>? devicesGate;
   final rows = <JsonJournalEntry>[];
 
   @override
   Future<List<String>> fetchDevicesForV6(Marker m) async {
+    final names = accountDevices;
+    final gate = devicesGate;
+    if (gate != null) await gate;
     if (devicesError != null) throw devicesError!;
-    return accountDevices;
+    return names;
   }
 
   @override
@@ -46,7 +53,7 @@ void main() {
     late _FakeJournalApi api;
     late JournalActor journal;
 
-    void setUp() {
+    void register() {
       api = _FakeJournalApi();
       Core.register<JournalApi>(api);
       Core.register<CustomListsValue>(CustomListsValue());
@@ -65,7 +72,7 @@ void main() {
 
     test('a device filter keeps the account devices', () async {
       await withTrace((m) async {
-        setUp();
+        register();
         api.accountDevices = ["Router", "iPhone", "iPad"];
         api.rows.addAll([_row("iPhone"), _row("Router")]);
         filterBy("iPhone");
@@ -82,16 +89,16 @@ void main() {
 
     test('devices in the rows and the filtered device are listed', () async {
       await withTrace((m) async {
-        setUp();
+        register();
         api.accountDevices = ["Router"];
         api.rows.add(_row("Laptop"));
         filterBy("Quiet phone");
 
         await journal.loadDevices(m);
         await journal.fetch(m);
+        // Listed while it is the filter; it has no recent activity.
         expect(devices(), {"Quiet phone", "Router"});
 
-        // Listed while it is the filter; it has no recent activity.
         filterBy("");
         await journal.fetch(m);
         expect(devices(), {"Laptop", "Router"});
@@ -100,7 +107,7 @@ void main() {
 
     test('a failed device list falls back to the rows', () async {
       await withTrace((m) async {
-        setUp();
+        register();
         api.devicesError = Exception("not found");
         api.rows.addAll([_row("iPhone"), _row("Router")]);
 
@@ -112,7 +119,7 @@ void main() {
 
     test('a new screen starts the list afresh', () async {
       await withTrace((m) async {
-        setUp();
+        register();
         api.accountDevices = ["Old name"];
         await journal.loadDevices(m);
         expect(devices(), {"Old name"});
@@ -120,6 +127,35 @@ void main() {
         api.accountDevices = ["New name"];
         await journal.loadDevices(m);
         expect(devices(), {"New name"});
+      });
+    });
+
+    test('a slow list from an earlier screen does not replace a later one', () async {
+      await withTrace((m) async {
+        register();
+        final gate = Completer<void>();
+        api.accountDevices = ["Old name"];
+        api.devicesGate = gate.future;
+        final first = journal.loadDevices(m);
+
+        api.accountDevices = ["New name"];
+        api.devicesGate = null;
+        await journal.loadDevices(m);
+        gate.complete();
+        await first;
+        expect(devices(), {"New name"});
+      });
+    });
+
+    test('a padded name in the rows is listed once', () async {
+      await withTrace((m) async {
+        register();
+        api.accountDevices = ["iPhone"];
+        api.rows.add(_row("iPhone "));
+
+        await journal.loadDevices(m);
+        await journal.fetch(m);
+        expect(devices(), {"iPhone"});
       });
     });
   });

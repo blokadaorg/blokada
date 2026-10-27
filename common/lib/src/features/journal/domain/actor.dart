@@ -28,6 +28,9 @@ class JournalActor with Logging, Actor {
   // the rows a filtered fetch returned. [loadDevices] resets them.
   Set<String> _accountDevices = {};
   Set<String> _seenDevices = {};
+  // Bumped by each [loadDevices], so a slow response from an earlier screen
+  // cannot overwrite the list a later one loaded.
+  int _devicesGen = 0;
 
   List<UiJournalEntry> allEntries = [];
   bool isLoadingMore = false;
@@ -99,7 +102,7 @@ class JournalActor with Logging, Actor {
           return;
         }
 
-        final processed = _processEntries(entries, <String>{});
+        final processed = _processEntries(entries);
         final grouped = processed.entries;
         _seenDevices.addAll(processed.deviceNames);
         _publishDevices();
@@ -136,13 +139,16 @@ class JournalActor with Logging, Actor {
   /// has no device filter). The rows each fetch returns add their devices.
   /// If the request fails, the list keeps only the devices in the rows.
   Future<void> loadDevices(Marker m) async {
+    final gen = ++_devicesGen;
     _accountDevices = {};
     _seenDevices = {};
     _publishDevices();
     if (Core.act.isFamily) return;
     await log(m).trace("loadDevices", (m) async {
       try {
-        _accountDevices = (await _api.fetchDevicesForV6(m)).toSet();
+        final names = await _api.fetchDevicesForV6(m);
+        if (gen != _devicesGen) return;
+        _accountDevices = names.toSet();
         _publishDevices();
       } catch (e) {
         log(m).w("journal: device list failed: $e");
@@ -151,11 +157,14 @@ class JournalActor with Logging, Actor {
   }
 
   /// The filtered device stays listed even with no recent activity, so the
-  /// current choice is always on screen.
+  /// current choice is always on screen. Names are trimmed, as the server
+  /// trims the ones it lists and the filter it applies, so a row's padded
+  /// name does not show up twice.
   void _publishDevices() {
-    final filtered = filter.now.deviceName.trim();
-    final names = {..._accountDevices, ..._seenDevices, if (filtered.isNotEmpty) filtered}
-        .where((it) => it.isNotBlank)
+    final names = {..._accountDevices, ..._seenDevices, filter.now.deviceName}
+        .map((it) => it.trim())
+        .where((it) => it.isNotEmpty)
+        .toSet()
         .toList()
       ..sort((a, b) => a.toLowerCase().compareTo(b.toLowerCase()));
     devices.now = names.toSet();
@@ -285,7 +294,8 @@ class JournalActor with Logging, Actor {
     return trimmed;
   }
 
-  _ProcessedEntries _processEntries(List<JsonJournalEntry> entries, Set<String> deviceNames) {
+  _ProcessedEntries _processEntries(List<JsonJournalEntry> entries) {
+    final deviceNames = <String>{};
     final allowed = _customlist.now.allowed;
     final denied = _customlist.now.denied;
 
@@ -375,7 +385,7 @@ class JournalActor with Logging, Actor {
         return [];
       }
 
-      final processed = _processEntries(entries, <String>{});
+      final processed = _processEntries(entries);
       // Grouping can collapse multiple API entries into fewer rows,
       // so we intentionally over-fetch 3x and then clamp to requested size.
       return processed.entries.take(limit).toList();

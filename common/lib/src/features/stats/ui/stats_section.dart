@@ -70,7 +70,7 @@ class StatsSectionState extends State<StatsSection> with Disposables {
     disposeLater(_customlist.onChange.listen(rebuild));
     disposeLater(_collecting.onChange.listen((_) => setState(() {})));
     // Before the first fetch, which then adds the devices in its rows.
-    _journal.loadDevices(Markers.stats);
+    unawaited(_journal.loadDevices(Markers.stats));
     rebuild(null);
     _custom.fetch(Markers.stats);
   }
@@ -181,6 +181,8 @@ class StatsSectionState extends State<StatsSection> with Disposables {
       _moreFailed = false;
     });
     _refreshing = true;
+    // Also retries a device list that failed when the screen opened.
+    unawaited(_journal.loadDevices(Markers.stats));
     try {
       await rebuild(null);
     } finally {
