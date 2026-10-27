@@ -128,14 +128,15 @@ void main() {
   test("displayed hostname breaks only after dots", () {
     const host = "samsung--SMG950F-a1b2c3d4e5.cloud.blokada.org";
     final shown = privateDnsDisplayHostname(host);
-    // Hyphens become non-breaking, and a zero-width space follows each dot.
-    expect(shown.contains("-"), isFalse);
+    // Real hyphens stay (U+2011 draws like a dot in monospace), and a
+    // zero-width space follows each dot.
+    expect(shown.contains("\u2011"), isFalse);
     expect(shown.contains(" "), isFalse);
     for (var i = 0; i < shown.length; i++) {
       if (shown[i] == "\u200B") expect(shown[i - 1], ".");
       if (shown[i] == ".") expect(shown[i + 1], "\u200B");
     }
-    expect(shown.replaceAll("\u200B", "").replaceAll("\u2011", "-"), host);
+    expect(shown.replaceAll("\u200B", ""), host);
   });
 
   testWidgets("narrow screen wraps the hostname only after a dot", (tester) async {
@@ -159,6 +160,31 @@ void main() {
         expect(shown.substring(end - 2, end), ".\u200B");
       }
     });
+  });
+
+  testWidgets("a label too long for one line scales the hostname down", (tester) async {
+    const host = "Google--sdkgphone64arm64-2138cb7c30e.cloud.blokada.org";
+    await tester.pumpWidget(const MaterialApp(
+      home: Center(child: SizedBox(width: 240, child: PrivateDnsHostnameText(host))),
+    ));
+    final shown = privateDnsDisplayHostname(host);
+    final text = tester.widget<Text>(find.text(shown));
+    expect(text.style!.fontSize, lessThan(14));
+
+    final paragraph = tester.renderObject<RenderParagraph>(find.text(shown));
+    final painter = TextPainter(
+      text: paragraph.text,
+      textDirection: TextDirection.ltr,
+      textScaler: paragraph.textScaler,
+    )..layout(maxWidth: paragraph.size.width);
+    addTearDown(painter.dispose);
+    // No label is split: every line but the last ends right after a dot.
+    final lines = painter.computeLineMetrics();
+    for (final line in lines.take(lines.length - 1)) {
+      final pos = painter.getPositionForOffset(Offset(0, line.baseline));
+      final end = painter.getLineBoundary(pos).end;
+      expect(shown.substring(end - 2, end), ".\u200B");
+    }
   });
 
   testWidgets("header stays on one line at a narrow width", (tester) async {

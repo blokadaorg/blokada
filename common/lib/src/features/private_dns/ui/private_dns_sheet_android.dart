@@ -310,10 +310,7 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
                 const SizedBox(height: 2),
                 // Not selectable: a manual copy would carry the display-only
                 // break characters into Settings.
-                Text(
-                  privateDnsDisplayHostname(_hostname),
-                  style: const TextStyle(fontFamily: "monospace", fontWeight: FontWeight.w600),
-                ),
+                PrivateDnsHostnameText(_hostname),
               ],
             ),
           ),
@@ -381,7 +378,50 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
   }
 }
 
-/// The hostname as shown, so it wraps only after a dot: a zero-width space
-/// follows each dot and hyphens are non-breaking. Copies use the real one.
-String privateDnsDisplayHostname(String hostname) =>
-    hostname.replaceAll("-", "‑").replaceAll(".", ".​");
+/// The hostname as shown, so it can wrap after a dot: a zero-width space
+/// follows each dot. Copies use the real one.
+String privateDnsDisplayHostname(String hostname) => hostname.replaceAll(".", ".\u200B");
+
+/// Shows the hostname so no label (the part between dots) is split across
+/// lines: the font shrinks until the longest label fits on one line. Hyphens
+/// stay real hyphens, since monospace fonts draw U+2011 like a dot.
+class PrivateDnsHostnameText extends StatelessWidget {
+  final String hostname;
+
+  const PrivateDnsHostnameText(this.hostname, {super.key});
+
+  static const _style = TextStyle(fontFamily: "monospace", fontWeight: FontWeight.w600);
+
+  @override
+  Widget build(BuildContext context) {
+    final base = DefaultTextStyle.of(context).style.merge(_style);
+    final scaler = MediaQuery.textScalerOf(context);
+    return LayoutBuilder(builder: (context, constraints) {
+      var style = base;
+      final widest = _widestLabel(base, scaler);
+      if (constraints.maxWidth.isFinite && widest > constraints.maxWidth) {
+        // Slightly under the exact ratio, so rounding never tips it over.
+        final size = (base.fontSize ?? 14) * constraints.maxWidth / widest * 0.98;
+        style = base.copyWith(fontSize: size);
+      }
+      return Text(privateDnsDisplayHostname(hostname), style: style);
+    });
+  }
+
+  double _widestLabel(TextStyle style, TextScaler scaler) {
+    final labels = hostname.split(".");
+    var widest = 0.0;
+    for (var i = 0; i < labels.length; i++) {
+      final label = i < labels.length - 1 ? "${labels[i]}." : labels[i];
+      final painter = TextPainter(
+        text: TextSpan(text: label, style: style),
+        textDirection: TextDirection.ltr,
+        textScaler: scaler,
+        maxLines: 1,
+      )..layout();
+      if (painter.width > widest) widest = painter.width;
+      painter.dispose();
+    }
+    return widest;
+  }
+}
