@@ -151,26 +151,6 @@ void main() {
       });
     });
 
-    test("fresh skips the memoized answer", () async {
-      await withTrace((m) async {
-        final api = MockApi();
-        when(api.request(any, any,
-                skipResolvingParams: anyNamed("skipResolvingParams"),
-                attempts: anyNamed("attempts")))
-            .thenAnswer((_) => Future.value('{"blokada_dns":false}'));
-        Core.register<Api>(api);
-
-        final subject = PrivateDnsCheck();
-        expect(await subject.getDnsOwnerFlavor(m), null);
-        expect(await subject.getDnsOwnerFlavor(m, fresh: true), null);
-
-        verify(api.request(any, any,
-                skipResolvingParams: anyNamed("skipResolvingParams"),
-                attempts: anyNamed("attempts")))
-            .called(2);
-      });
-    });
-
     test("shares one in-flight request across concurrent callers", () async {
       await withTrace((m) async {
         final api = MockApi();

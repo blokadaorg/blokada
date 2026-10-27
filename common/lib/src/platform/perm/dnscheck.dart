@@ -61,14 +61,6 @@ class PrivateDnsCheck with Actor, Logging {
     return label.length > t.length + 1 && label.endsWith("-$t");
   }
 
-  /// Whether a hostname points at Blokada at all, used to tell a typo in our
-  /// hostname apart from some other DNS provider.
-  static bool isBlokadaHostname(String hostname) {
-    var host = hostname.trim().toLowerCase();
-    if (host.endsWith(".")) host = host.substring(0, host.length - 1);
-    return host == "cloud.blokada.org" || host.endsWith(".cloud.blokada.org");
-  }
-
   /// Returns the Blokada flavor (`AccountType` name, e.g. `cloud`/`plus`/`family`)
   /// that currently owns this device's DNS, or null when DNS is not routed
   /// through Blokada. No device tag is sent: Family only needs to know whether
@@ -87,11 +79,9 @@ class PrivateDnsCheck with Actor, Logging {
   DateTime? _ownerFlavorAt;
   Future<String?>? _ownerFlavorInflight;
 
-  /// [fresh] skips the memoized answer, for callers that retry right after a
-  /// DNS change (the Android setup sheet), where a cached "none" is stale.
-  Future<String?> getDnsOwnerFlavor(Marker m, {bool fresh = false}) {
+  Future<String?> getDnsOwnerFlavor(Marker m) {
     final at = _ownerFlavorAt;
-    if (!fresh && at != null && DateTime.now().difference(at) < _ownerCacheTtl) {
+    if (at != null && DateTime.now().difference(at) < _ownerCacheTtl) {
       return Future.value(_ownerFlavor);
     }
     return _ownerFlavorInflight ??=

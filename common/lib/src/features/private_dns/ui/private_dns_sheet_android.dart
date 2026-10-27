@@ -2,7 +2,6 @@ import 'package:common/src/features/env/domain/env.dart';
 import 'package:common/src/features/modal/domain/modal.dart';
 import 'package:common/src/features/private_dns/domain/private_dns_setup.dart';
 import 'package:common/src/shared/automation/ids.dart';
-import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/minicard/minicard.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
@@ -12,9 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 /// Guides Android users through Private DNS, the most asked-about step of
-/// setup. It shows the hostname with a visible Copy button, steps for the
-/// phone's maker, and on return from Settings it checks that DNS really goes
-/// through Blokada before saying so. If it does not, it shows what to try.
+/// setup. It shows steps for the phone's maker and the hostname with a
+/// visible copy button, and on return from Settings it closes itself once
+/// Private DNS holds this device's hostname.
 class PrivateDnsSheetAndroid extends StatefulWidget {
   /// Test seams; production reads these from Core.
   final PrivateDnsSetupVerifier? verifier;
@@ -45,7 +44,6 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
   late final _hostname = _provider.getAndroidDnsString();
 
   var _step = PrivateDnsSetupStep.setup;
-  var _attempted = false;
   var _copied = false;
   // Set when Open Settings did the copy, to tell the user what happened.
   var _copiedBySettings = false;
@@ -89,15 +87,10 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
     }
     _verifying = true;
     try {
-      final result = await _verifier.verify(
-        m,
-        _provider.getDeviceTag(),
-        attempted: _attempted,
-        onChecking: () => _show(PrivateDnsSetupStep.checking),
-      );
-      log(m).pair("privateDnsSetup", result);
-      _show(result.step);
-      if (result.step == PrivateDnsSetupStep.success) {
+      final step = await _verifier.verify(_provider.getDeviceTag());
+      log(m).pair("privateDnsSetup", step);
+      _show(step);
+      if (step == PrivateDnsSetupStep.success) {
         await sleepAsync(widget.successDelay);
         // Closing via the modal value lets BottomManagerSheet pop this exact
         // sheet, never an unrelated route.
@@ -105,7 +98,7 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
       }
     } catch (e, s) {
       log(m).e(msg: "Private DNS verification failed", err: e, stack: s);
-      _show(_attempted ? PrivateDnsSetupStep.help : PrivateDnsSetupStep.setup);
+      _show(PrivateDnsSetupStep.setup);
     } finally {
       _verifying = false;
     }
@@ -146,21 +139,9 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
       await _channel.doOpenPermSettings();
     } catch (e, s) {
       // The sheet keeps the steps on screen, so Settings can still be opened
-      // by hand; only count an attempt once Settings really opened.
+      // by hand.
       log(Markers.userTap).e(msg: "Private DNS sheet: opening Settings failed", err: e, stack: s);
-      return;
     }
-    _attempted = true;
-  }
-
-  Future<void> _retry() async {
-    _attempted = true;
-    await _verify(Markers.userTap);
-  }
-
-  Future<void> _contactSupport() async {
-    await _modal.change(Markers.userTap, null);
-    Navigation.open(Paths.support);
   }
 
   List<String> get _oemSteps {
@@ -204,6 +185,7 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
 
   @override
   Widget build(BuildContext context) {
+    final setup = _step == PrivateDnsSetupStep.setup;
     return Semantics(
       identifier: AutomationIds.dnsOnboardingSheet,
       container: true,
@@ -213,56 +195,80 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
           color: context.theme.bgColorCard,
           child: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          child: _buildContent(context),
-                        ),
-                        // Right under the steps, not pinned to the bottom: on
-                        // Android 13+ the clipboard preview after Copy covers
-                        // the bottom-left corner of the screen.
-                        const SizedBox(height: 24),
-                        ..._buildActions(context),
-                        const SizedBox(height: 16),
-                      ],
-                    ),
+            child: LayoutBuilder(builder: (context, constraints) {
+              final body = Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: setup ? _buildSetup(context) : _buildSuccess(context),
+              );
+              final footer = setup ? _buildFooter(context) : const <Widget>[];
+              // The steps scroll while the hostname and Open Settings stay at
+              // the bottom. In a short window (split screen, large text) the
+              // footer might not fit, so everything scrolls together instead.
+              final short = constraints.maxHeight < MediaQuery.textScalerOf(context).scale(480);
+              if (short) {
+                return SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [body, ...footer],
                   ),
-                ),
-              ],
-            ),
+                );
+              }
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Expanded(child: SingleChildScrollView(child: body)),
+                  ...footer,
+                ],
+              );
+            }),
           ),
         ),
       ),
     );
   }
 
-  Widget _buildContent(BuildContext context) {
-    switch (_step) {
-      case PrivateDnsSetupStep.setup:
-        return _buildSetup(context);
-      case PrivateDnsSetupStep.checking:
-        return _buildChecking(context);
-      case PrivateDnsSetupStep.success:
-        return _buildSuccess(context);
-      case PrivateDnsSetupStep.help:
-        return _buildHelp(context);
-    }
+  List<Widget> _buildFooter(BuildContext context) {
+    return [
+      const SizedBox(height: 16),
+      if (_copiedBySettings)
+        Padding(
+          padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+          child: Text(
+            "private dns android copied hint".i18n,
+            style: TextStyle(
+              fontSize: 12,
+              color: context.theme.accent,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: _buildHostname(context),
+      ),
+      const SizedBox(height: 6),
+      _primaryButton(
+        context,
+        "dnsprofile action open settings".i18n,
+        _openSettings,
+        AutomationIds.dnsOpenSettings,
+      ),
+      const SizedBox(height: 16),
+    ];
   }
 
   Widget _header(BuildContext context, String text) {
     return Padding(
       padding: const EdgeInsets.only(top: 24, bottom: 16),
-      child: Text(
-        text,
-        textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.displaySmall!.copyWith(fontWeight: FontWeight.w700),
+      // One line on narrow phones: shrink rather than wrap.
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Text(
+          text,
+          maxLines: 1,
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.displaySmall!.copyWith(fontWeight: FontWeight.w700),
+        ),
       ),
     );
   }
@@ -278,16 +284,6 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
       children: [
         Center(child: _header(context, "private dns android header".i18n)),
         _secondary(context, "private dns android brief".i18n.withParams(_appName)),
-        const SizedBox(height: 16),
-        _buildHostname(context),
-        if (_copiedBySettings)
-          Padding(
-            padding: const EdgeInsets.only(top: 8),
-            child: Text(
-              "private dns android copied hint".i18n,
-              style: TextStyle(color: context.theme.accent, fontWeight: FontWeight.w600),
-            ),
-          ),
         const SizedBox(height: 16),
         for (var i = 0; i < steps.length; i++)
           Padding(
@@ -321,42 +317,30 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "private dns android hostname label".i18n,
+                  "private dns android blokada hostname label".i18n,
                   style: TextStyle(fontSize: 12, color: context.theme.textSecondary),
                 ),
                 const SizedBox(height: 2),
-                SelectableText(
-                  _hostname,
-                  style: const TextStyle(fontFamily: "monospace", fontWeight: FontWeight.w600),
-                ),
+                // Not selectable: a manual copy would carry the display-only
+                // break characters into Settings.
+                PrivateDnsHostnameText(_hostname),
               ],
             ),
           ),
           MergeSemantics(
             child: Semantics(
               identifier: AutomationIds.dnsCopyHostname,
+              label: "universal action copy".i18n,
               button: true,
-              child: TextButton.icon(
+              child: IconButton(
                 onPressed: _copy,
-                icon: Icon(_copied ? Icons.check : Icons.copy, size: 18),
-                label: Text("universal action copy".i18n),
+                color: context.theme.accent,
+                icon: Icon(_copied ? Icons.check : Icons.copy, size: 20),
               ),
             ),
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildChecking(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        const SizedBox(height: 48),
-        const Center(child: CircularProgressIndicator()),
-        const SizedBox(height: 24),
-        Center(child: _secondary(context, "private dns android checking".i18n)),
-      ],
     );
   }
 
@@ -374,78 +358,6 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
         ],
       ),
     );
-  }
-
-  Widget _buildHelp(BuildContext context) {
-    final tips = [
-      "private dns android help typing".i18n,
-      "private dns android help network".i18n,
-      if (_oem == PrivateDnsOem.samsung) "private dns android help samsung".i18n,
-      "private dns android help support".i18n,
-    ];
-    return Semantics(
-      identifier: AutomationIds.dnsSetupHelp,
-      container: true,
-      explicitChildNodes: true,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Center(child: _header(context, "private dns android help header".i18n)),
-          _buildHostname(context),
-          const SizedBox(height: 16),
-          for (final tip in tips)
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 6),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 24,
-                    child: Text("•", style: TextStyle(color: context.theme.textSecondary)),
-                  ),
-                  Expanded(child: Text(tip)),
-                ],
-              ),
-            ),
-        ],
-      ),
-    );
-  }
-
-  List<Widget> _buildActions(BuildContext context) {
-    switch (_step) {
-      case PrivateDnsSetupStep.setup:
-        return [
-          _primaryButton(
-            context,
-            "dnsprofile action open settings".i18n,
-            _openSettings,
-            AutomationIds.dnsOpenSettings,
-          ),
-        ];
-      case PrivateDnsSetupStep.help:
-        return [
-          _primaryButton(context, "universal action try again".i18n, _retry),
-          Row(
-            children: [
-              Expanded(
-                child: _secondaryButton(
-                  context,
-                  "dnsprofile action open settings".i18n,
-                  _openSettings,
-                  AutomationIds.dnsOpenSettings,
-                ),
-              ),
-              Expanded(
-                child: _secondaryButton(context, "support action chat".i18n, _contactSupport),
-              ),
-            ],
-          ),
-        ];
-      case PrivateDnsSetupStep.checking:
-      case PrivateDnsSetupStep.success:
-        return [];
-    }
   }
 
   Widget _primaryButton(
@@ -477,35 +389,52 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
       ),
     );
   }
+}
 
-  Widget _secondaryButton(
-    BuildContext context,
-    String label,
-    VoidCallback onTap, [
-    String? automationId,
-  ]) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: MergeSemantics(
-        child: Semantics(
-          identifier: automationId,
-          button: true,
-          child: MiniCard(
-            onTap: onTap,
-            outlined: true,
-            child: SizedBox(
-              height: 32,
-              child: Center(
-                child: Text(
-                  label,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: context.theme.accent, fontWeight: FontWeight.w600),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
+/// The hostname as shown, so it can wrap after a dot: a zero-width space
+/// follows each dot. Copies use the real one.
+String privateDnsDisplayHostname(String hostname) => hostname.replaceAll(".", ".\u200B");
+
+/// Shows the hostname so no label (the part between dots) is split across
+/// lines: the font shrinks until the longest label fits on one line. Hyphens
+/// stay real hyphens, since monospace fonts draw U+2011 like a dot.
+class PrivateDnsHostnameText extends StatelessWidget {
+  final String hostname;
+
+  const PrivateDnsHostnameText(this.hostname, {super.key});
+
+  static const _style = TextStyle(fontFamily: "monospace", fontWeight: FontWeight.w600);
+
+  @override
+  Widget build(BuildContext context) {
+    final base = DefaultTextStyle.of(context).style.merge(_style);
+    final scaler = MediaQuery.textScalerOf(context);
+    return LayoutBuilder(builder: (context, constraints) {
+      var style = base;
+      final widest = _widestLabel(base, scaler);
+      if (constraints.maxWidth.isFinite && widest > constraints.maxWidth) {
+        // Slightly under the exact ratio, so rounding never tips it over.
+        final size = (base.fontSize ?? 14) * constraints.maxWidth / widest * 0.98;
+        style = base.copyWith(fontSize: size);
+      }
+      return Text(privateDnsDisplayHostname(hostname), style: style);
+    });
+  }
+
+  double _widestLabel(TextStyle style, TextScaler scaler) {
+    final labels = hostname.split(".");
+    var widest = 0.0;
+    for (var i = 0; i < labels.length; i++) {
+      final label = i < labels.length - 1 ? "${labels[i]}." : labels[i];
+      final painter = TextPainter(
+        text: TextSpan(text: label, style: style),
+        textDirection: TextDirection.ltr,
+        textScaler: scaler,
+        maxLines: 1,
+      )..layout();
+      if (painter.width > widest) widest = painter.width;
+      painter.dispose();
+    }
+    return widest;
   }
 }

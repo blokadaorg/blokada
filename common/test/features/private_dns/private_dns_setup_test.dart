@@ -1,13 +1,9 @@
 import 'package:common/src/app_variants/family/module/perm/perm.dart';
-import 'package:common/src/core/core.dart';
 import 'package:common/src/features/private_dns/domain/private_dns_setup.dart';
 import 'package:common/src/platform/perm/channel.pg.dart';
-import 'package:common/src/platform/perm/dnscheck.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flutter/services.dart';
-
-import '../../tools.dart';
 
 /// Returns a fixed Private DNS state, as the native side would.
 class FakeDnsChannel with PermChannel {
@@ -51,22 +47,6 @@ class FakeDnsChannel with PermChannel {
   Future<bool> isRunningOnMac() async => false;
 }
 
-/// Answers the live probe from a script instead of the network.
-class FakeOwnerCheck extends PrivateDnsCheck {
-  final List<Object?> answers;
-  var probes = 0;
-
-  FakeOwnerCheck(this.answers);
-
-  @override
-  Future<String?> getDnsOwnerFlavor(Marker m, {bool fresh = false}) async {
-    final answer = answers[probes < answers.length ? probes : answers.length - 1];
-    probes++;
-    if (answer is Exception) throw answer;
-    return answer as String?;
-  }
-}
-
 PrivateDnsState dnsState(String? host, {bool? broken}) => PrivateDnsState(
   kind: host == null ? PrivateDnsStateKind.disabled : PrivateDnsStateKind.enabled,
   serverUrl: host,
@@ -74,113 +54,46 @@ PrivateDnsState dnsState(String? host, {bool? broken}) => PrivateDnsState(
 );
 
 const _tag = "abc123";
-const _ours = "pixel-abc123.cloud.blokada.org";
 
 void main() {
-  Future<PrivateDnsSetupResult> run(
-    Marker m,
-    PrivateDnsState state, {
-    List<Object?> probe = const ["cloud"],
-    bool attempted = true,
-    FakeOwnerCheck? check,
-  }) {
-    final verifier = PrivateDnsSetupVerifier(
-      channel: FakeDnsChannel(state),
-      check: check ?? FakeOwnerCheck(probe),
-      probeDelay: Duration.zero,
-    );
-    return verifier.verify(m, _tag, attempted: attempted);
+  Future<PrivateDnsSetupStep> run(PrivateDnsState state) {
+    return PrivateDnsSetupVerifier(channel: FakeDnsChannel(state)).verify(_tag);
   }
 
   group("verify", () {
     test("Private DNS off shows the setup steps", () async {
-      await withTrace((m) async {
-        final r = await run(m, dnsState(null));
-        expect(r.step, PrivateDnsSetupStep.setup);
-      });
+      expect(await run(dnsState(null)), PrivateDnsSetupStep.setup);
     });
 
-    test("matching hostname and live probe show success", () async {
-      await withTrace((m) async {
-        var checking = false;
-        final verifier = PrivateDnsSetupVerifier(
-          channel: FakeDnsChannel(dnsState(" PIXEL-ABC123.cloud.blokada.org. ")),
-          check: FakeOwnerCheck(["cloud"]),
-          probeDelay: Duration.zero,
-        );
-        final r = await verifier.verify(
-          m,
-          _tag,
-          attempted: true,
-          onChecking: () => checking = true,
-        );
-        expect(r.step, PrivateDnsSetupStep.success);
-        expect(checking, isTrue);
-      });
+    test("matching hostname is success", () async {
+      expect(await run(dnsState(" PIXEL-ABC123.cloud.blokada.org. ")), PrivateDnsSetupStep.success);
     });
 
     test("family form counts as a match", () async {
-      await withTrace((m) async {
-        final r = await run(m, dnsState("abc123.cloud.blokada.org"), probe: ["family"]);
-        expect(r.step, PrivateDnsSetupStep.success);
-      });
+      expect(await run(dnsState("abc123.cloud.blokada.org")), PrivateDnsSetupStep.success);
     });
 
-    test("probe retries while Android validates the server", () async {
-      await withTrace((m) async {
-        final check = FakeOwnerCheck([Exception("lookup failed"), null, "plus"]);
-        final r = await run(m, dnsState(_ours), check: check);
-        expect(r.step, PrivateDnsSetupStep.success);
-        expect(check.probes, 3);
-      });
+    test("a broken flag does not override a matching hostname", () async {
+      expect(
+        await run(dnsState("pixel-abc123.cloud.blokada.org", broken: true)),
+        PrivateDnsSetupStep.success,
+      );
     });
 
-    test("hostname matches but DNS is not routed shows help", () async {
-      await withTrace((m) async {
-        final check = FakeOwnerCheck([null]);
-        final r = await run(m, dnsState(_ours), check: check);
-        expect(r.step, PrivateDnsSetupStep.help);
-        expect(r.reason, PrivateDnsHelpReason.notRouted);
-        expect(check.probes, 3);
-      });
+    test("another device's Blokada hostname shows the setup steps", () async {
+      expect(await run(dnsState("pixel-abc124.cloud.blokada.org")), PrivateDnsSetupStep.setup);
     });
 
-    test("unreachable Private DNS shows help when the probe fails", () async {
-      await withTrace((m) async {
-        final check = FakeOwnerCheck([Exception("lookup failed")]);
-        final r = await run(m, dnsState(_ours, broken: true), check: check);
-        expect(r.step, PrivateDnsSetupStep.help);
-        expect(r.reason, PrivateDnsHelpReason.broken);
-      });
+    test("another provider shows the setup steps", () async {
+      expect(await run(dnsState("dns.example.com")), PrivateDnsSetupStep.setup);
     });
 
-    test("a stale broken flag does not override a working probe", () async {
-      await withTrace((m) async {
-        final r = await run(m, dnsState(_ours, broken: true), probe: ["cloud"]);
-        expect(r.step, PrivateDnsSetupStep.success);
-      });
-    });
-
-    test("another tag after going to Settings shows help", () async {
-      await withTrace((m) async {
-        final r = await run(m, dnsState("pixel-abc124.cloud.blokada.org"));
-        expect(r.step, PrivateDnsSetupStep.help);
-        expect(r.reason, PrivateDnsHelpReason.wrongHostname);
-      });
-    });
-
-    test("a mistyped Blokada hostname shows help even before Settings", () async {
-      await withTrace((m) async {
-        final r = await run(m, dnsState("pixel-abc12.cloud.blokada.org"), attempted: false);
-        expect(r.step, PrivateDnsSetupStep.help);
-      });
-    });
-
-    test("another provider before Settings shows the setup steps", () async {
-      await withTrace((m) async {
-        final r = await run(m, dnsState("dns.example.com"), attempted: false);
-        expect(r.step, PrivateDnsSetupStep.setup);
-      });
+    test("a hostname with Private DNS off shows the setup steps", () async {
+      final state = PrivateDnsState(
+        kind: PrivateDnsStateKind.disabled,
+        serverUrl: "pixel-abc123.cloud.blokada.org",
+      );
+      expect(await run(state), PrivateDnsSetupStep.setup);
     });
   });
 
