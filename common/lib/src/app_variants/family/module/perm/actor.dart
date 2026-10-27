@@ -77,6 +77,8 @@ class PermActor with Logging, Actor {
     }
   }
 
+  DeviceTag getDeviceTag() => _deviceTag.present!.deviceTag;
+
   String getAndroidDnsStringToCopy(Marker m) {
     final tag = _deviceTag.present!.deviceTag;
     final alias = _deviceTag.present!.alias;

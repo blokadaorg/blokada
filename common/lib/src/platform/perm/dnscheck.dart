@@ -27,19 +27,46 @@ class PrivateDnsCheck with Actor, Logging {
 
     log(m).pair("current dns", line);
 
-    var expected = getIosPrivateDnsStringV6(m, tag, alias);
+    if (Core.act.isAndroid) {
+      final correct = isAndroidHostnameForTag(line, tag);
+      log(m).pair("expects dns", "any hostname for this tag");
+      return correct;
+    }
 
-    if (Core.act.isAndroid && Core.act.flavor == Flavor.family) {
-      expected = getAndroidPrivateDnsStringFamily(m, tag);
-    } else if (Core.act.isAndroid) {
-      expected = getAndroidPrivateDnsString(m, tag, alias);
-    } else if (Core.act.flavor == Flavor.family) {
+    var expected = getIosPrivateDnsStringV6(m, tag, alias);
+    if (Core.act.flavor == Flavor.family) {
       expected = _getIosPrivateDnsStringFamily(m, tag, alias);
     }
 
     log(m).pair("expects dns", expected);
 
     return line == expected;
+  }
+
+  /// Whether an Android Private DNS hostname belongs to this device tag.
+  /// People type the hostname by hand, so any form we hand out for the tag is
+  /// accepted: `<tag>.cloud.blokada.org` (Family) and
+  /// `<alias>-<tag>.cloud.blokada.org` (Blokada 6), whatever the alias.
+  /// Case, surrounding spaces and a trailing dot are ignored.
+  static bool isAndroidHostnameForTag(String hostname, DeviceTag tag) {
+    var host = hostname.trim().toLowerCase();
+    if (host.endsWith(".")) host = host.substring(0, host.length - 1);
+    final t = tag.trim().toLowerCase();
+    if (t.isEmpty) return false;
+
+    const domain = ".cloud.blokada.org";
+    if (!host.endsWith(domain)) return false;
+    final label = host.substring(0, host.length - domain.length);
+    if (label == t) return true;
+    return label.length > t.length + 1 && label.endsWith("-$t");
+  }
+
+  /// Whether a hostname points at Blokada at all, used to tell a typo in our
+  /// hostname apart from some other DNS provider.
+  static bool isBlokadaHostname(String hostname) {
+    var host = hostname.trim().toLowerCase();
+    if (host.endsWith(".")) host = host.substring(0, host.length - 1);
+    return host == "cloud.blokada.org" || host.endsWith(".cloud.blokada.org");
   }
 
   /// Returns the Blokada flavor (`AccountType` name, e.g. `cloud`/`plus`/`family`)
@@ -60,9 +87,11 @@ class PrivateDnsCheck with Actor, Logging {
   DateTime? _ownerFlavorAt;
   Future<String?>? _ownerFlavorInflight;
 
-  Future<String?> getDnsOwnerFlavor(Marker m) {
+  /// [fresh] skips the memoized answer, for callers that retry right after a
+  /// DNS change (the Android setup sheet), where a cached "none" is stale.
+  Future<String?> getDnsOwnerFlavor(Marker m, {bool fresh = false}) {
     final at = _ownerFlavorAt;
-    if (at != null && DateTime.now().difference(at) < _ownerCacheTtl) {
+    if (!fresh && at != null && DateTime.now().difference(at) < _ownerCacheTtl) {
       return Future.value(_ownerFlavor);
     }
     return _ownerFlavorInflight ??=

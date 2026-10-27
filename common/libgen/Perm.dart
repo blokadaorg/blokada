@@ -13,6 +13,11 @@ enum PrivateDnsStateKind {
 class PrivateDnsState {
   late PrivateDnsStateKind kind;
   late String? serverUrl;
+
+  /// Android only: a hostname is set but the network is not validated,
+  /// which is how the system reports a Private DNS server it cannot reach.
+  /// Null where unknown.
+  late bool? privateDnsBroken;
 }
 
 @HostApi()

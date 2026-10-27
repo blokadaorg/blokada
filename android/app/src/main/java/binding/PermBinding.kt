@@ -53,15 +53,24 @@ object PermBinding : PermOps {
         PermOps.setUp(flutter.engine.dartExecutor.binaryMessenger, this)
     }
 
+    // Reads live, not the callback cache: on resume from Settings the cache
+    // can still hold the old value, which kept the setup sheet open.
     override fun getPrivateDnsState(callback: (Result<PrivateDnsState>) -> Unit) {
-        val current = connectivity.privateDns
+        val current = try {
+            connectivity.readPrivateDns()
+        } catch (ex: Exception) {
+            Logger.e("PermBinding", "Could not read Private DNS".cause(ex))
+            callback(Result.failure(ex))
+            return
+        }
         val state = PrivateDnsState(
-            kind = if (current.isNullOrEmpty()) {
+            kind = if (current.hostname.isNullOrEmpty()) {
                 PrivateDnsStateKind.DISABLED
             } else {
                 PrivateDnsStateKind.ENABLED
             },
-            serverUrl = current
+            serverUrl = current.hostname,
+            privateDnsBroken = current.broken
         )
         callback(Result.success(state))
     }

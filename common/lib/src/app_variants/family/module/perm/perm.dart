@@ -24,4 +24,7 @@ class FamilyPrivateDnsStringProvider extends PrivateDnsStringProvider {
   String getAndroidDnsString() {
     return _actor.getAndroidDnsStringToCopy(Markers.root);
   }
+
+  @override
+  DeviceTag getDeviceTag() => _actor.getDeviceTag();
 }

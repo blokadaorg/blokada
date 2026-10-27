@@ -8,7 +8,7 @@ import { ensureAccountActive } from "../../flows/account.js";
 import { getProtectionState, tapPowerButton, waitForPowerButton } from "../../flows/home.js";
 import { dismissIntroOverlayIfPresent } from "../../flows/onboarding.js";
 import { dismissRatePromptIfPresent } from "../../flows/modals.js";
-import { registerFailureArtifacts, saveScreenshot } from "../../support/artifacts.js";
+import { registerFailureArtifacts, setSensitiveScreen } from "../../support/artifacts.js";
 
 registerFailureArtifacts();
 
@@ -47,14 +47,19 @@ describe("Smoke: Android protection via Private DNS", () => {
     await ensureAccountActive();
   });
 
+  after(() => setSensitiveScreen(false));
+
   it("enables protection through the Private DNS sheet", async () => {
     await waitForPowerButton();
     expect(await getProtectionState(), "protection should start off").to.equal("inactive");
 
+    // The sheet and Settings show the hostname, which carries the device tag,
+    // and CI uploads screenshots from a public repo: no capture until it's gone.
+    // On failure it stays set through the failure capture; `after` clears it.
+    setSensitiveScreen(true);
     await tapPowerUntilSheet();
-    await saveScreenshot("android-private-dns-sheet.png");
-
     const pickedUpBy = await enablePrivateDnsFromSheet(APP_BUNDLE_ID);
+    setSensitiveScreen(false);
     console.warn(`Private DNS change picked up by the app on ${pickedUpBy}.`);
 
     // The app asks for a rating right after the first activation.
