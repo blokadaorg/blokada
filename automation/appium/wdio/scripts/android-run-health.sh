@@ -48,10 +48,10 @@ case "${1:-}" in
     grep -v 'adb=device' "$log" | head -40
     echo "System log (adb, VPN, network, process deaths, instrumentation), redacted:"
     awk '!seen[$0]++' "$syslog" 2>/dev/null \
-      | grep -E ' (adbd|Vpn|VpnService|ConnectivityService|NetworkAgent|ActivityManager|AndroidRuntime|lowmemorykiller|lmkd|Watchdog|UiAutomation|Instrumentation|am_kill|am_proc_died|am_crash|am_anr|DnsResolver|PrivateDns)[ :]' \
-      | grep -vE 'Start proc [0-9]+:com\.google|ActivityManager: (Changes in|Background started|Slow operation)' \
+      | grep -E ' (adbd|Vpn|VpnService|AndroidRuntime|lowmemorykiller|lmkd|UiAutomation|Instrumentation|am_kill|am_proc_died|am_crash|am_anr|am_wtf|PrivateDns)[ :]|ActivityManager: (Force stopping|Process .* has died|Killing|ANR in|Crash)|appium|ConnectivityService: .*(VPN|Vpn|LOST|lost|DISCONNECTED)' \
+      | grep -vE 'jdwp connection|Start proc' \
       | sed -E -e 's/[A-Za-z0-9.-]+\.blokada\.org/<host>/g' -e 's/\b[0-9a-fA-F]{16,}\b/<hex>/g' -e 's/\b[a-z]{12}\b/<id>/g' \
-      | cut -c1-300 | head -300
+      | cut -c1-300 | tail -400
     ;;
   *)
     echo "usage: $0 start|report" >&2
