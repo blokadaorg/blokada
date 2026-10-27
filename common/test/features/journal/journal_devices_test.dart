@@ -14,6 +14,8 @@ class _FakeJournalApi extends Fake implements JournalApi {
   Object? devicesError;
   // When set, the device list waits for it, to answer out of order.
   Future<void>? devicesGate;
+  // When set, the rows wait for it, to answer after a newer screen opened.
+  Future<void>? rowsGate;
   final rows = <JsonJournalEntry>[];
 
   @override
@@ -34,7 +36,10 @@ class _FakeJournalApi extends Fake implements JournalApi {
     String? deviceName,
     int? limit,
   }) async {
-    return rows.where((it) => deviceName == null || it.deviceName == deviceName).toList();
+    final snapshot = List.of(rows);
+    final gate = rowsGate;
+    if (gate != null) await gate;
+    return snapshot.where((it) => deviceName == null || it.deviceName == deviceName).toList();
   }
 }
 
@@ -140,6 +145,25 @@ void main() {
 
         api.accountDevices = ["New name"];
         api.devicesGate = null;
+        await journal.loadDevices(m);
+        gate.complete();
+        await first;
+        expect(devices(), {"New name"});
+      });
+    });
+
+    test('rows from an earlier screen do not add to a later one', () async {
+      await withTrace((m) async {
+        register();
+        await journal.loadDevices(m);
+        final gate = Completer<void>();
+        api.rows.add(_row("Old name"));
+        api.rowsGate = gate.future;
+        final first = journal.fetch(m);
+
+        api.rowsGate = null;
+        api.rows.clear();
+        api.accountDevices = ["New name"];
         await journal.loadDevices(m);
         gate.complete();
         await first;

@@ -54,6 +54,7 @@ class JournalActor with Logging, Actor {
 
       try {
         final currentFilter = filter.now;
+        final devicesGen = _devicesGen;
         final domainParam =
             _normalizeDomainQuery(currentFilter.searchQuery, currentFilter.exactMatch);
         final deviceParam = _normalizeDeviceName(currentFilter.deviceName);
@@ -104,8 +105,12 @@ class JournalActor with Logging, Actor {
 
         final processed = _processEntries(entries);
         final grouped = processed.entries;
-        _seenDevices.addAll(processed.deviceNames);
-        _publishDevices();
+        // Rows from a screen opened before the last [loadDevices] are not
+        // this screen's devices.
+        if (devicesGen == _devicesGen) {
+          _seenDevices.addAll(processed.deviceNames);
+          _publishDevices();
+        }
 
         // Update entries and pagination state
         if (append) {
