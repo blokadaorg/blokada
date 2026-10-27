@@ -1,9 +1,12 @@
+import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:common/src/core/core.dart';
 import 'package:common/src/features/api/domain/api.dart';
 import 'package:common/src/features/journal/domain/journal.dart';
 import 'package:common/src/features/stats/ui/domain_detail_section.dart';
+import 'package:common/src/shared/ui/minicard/chart.dart';
 import 'package:common/src/shared/ui/app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -42,7 +45,49 @@ class _RecordingHttpChannel extends FakeHttpChannel {
       .toSet();
 }
 
-Future<_RecordingHttpChannel> _pump(WidgetTester tester, DomainDetailSection section) async {
+/// Holds every response for [heldDevice] until [release], and answers
+/// [emptyDevice] with no toplist or activity entries.
+class _HeldHttpChannel extends _RecordingHttpChannel {
+  _HeldHttpChannel({required this.heldDevice, required this.emptyDevice});
+
+  final String heldDevice;
+  final String emptyDevice;
+  final _gate = Completer<void>();
+
+  void release() => _gate.complete();
+
+  Future<String> _answer(String url, Future<String> Function() respond) async {
+    final device = Uri.parse(url).queryParameters['device_name'];
+    if (device == heldDevice) await _gate.future;
+    final body = await respond();
+    if (device != emptyDevice) return body;
+    final json = jsonDecode(body) as Map<String, dynamic>;
+    for (final key in ['toplist', 'activity']) {
+      if (json.containsKey(key)) json[key] = [];
+    }
+    return jsonEncode(json);
+  }
+
+  @override
+  Future<String> doGet(String url) => _answer(url, () => super.doGet(url));
+
+  @override
+  Future<String> doRequest(String url, String? payload, String type) =>
+      _answer(url, () => super.doRequest(url, payload, type));
+
+  @override
+  Future<String> doRequestWithHeaders(
+          String url, String? payload, String type, Map<String?, String?> h) =>
+      _answer(url, () => super.doRequestWithHeaders(url, payload, type, h));
+}
+
+Future<void> _settle(WidgetTester tester) async {
+  await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 100)));
+  await tester.pump();
+}
+
+Future<_RecordingHttpChannel> _pump(WidgetTester tester, DomainDetailSection section,
+    {_RecordingHttpChannel? channel}) async {
   // Tall enough that the whole ListView is built.
   tester.view.physicalSize = const Size(1200, 6000);
   tester.view.devicePixelRatio = 3;
@@ -60,7 +105,7 @@ Future<_RecordingHttpChannel> _pump(WidgetTester tester, DomainDetailSection sec
   await bootModules(tester);
   await seedCloudAccount(tester);
   seedDevice(); // This device is "Pixel".
-  final http = _RecordingHttpChannel();
+  final http = channel ?? _RecordingHttpChannel();
   Core.di.allowReassignment = true;
   try {
     Core.register<HttpChannel>(http);
@@ -68,11 +113,13 @@ Future<_RecordingHttpChannel> _pump(WidgetTester tester, DomainDetailSection sec
     Core.di.allowReassignment = false;
   }
 
-  await tester.pumpWidget(BlokadaApp(isFamily: false, content: Scaffold(body: section)));
-  await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 100)));
-  await tester.pump();
+  await tester.pumpWidget(_app(section));
+  await _settle(tester);
   return http;
 }
+
+Widget _app(DomainDetailSection section) =>
+    BlokadaApp(isFamily: false, content: Scaffold(body: section));
 
 Future<void> _unmount(WidgetTester tester) async {
   await tester.pumpWidget(const SizedBox());
@@ -156,6 +203,54 @@ void main() {
     expect(http.deviceNamesFor("/v2/stats"), isEmpty);
     expect(find.text("universal label device".i18n), findsNothing);
     expect(find.text("Pixel"), findsNothing);
+
+    await _unmount(tester);
+  });
+
+  testWidgets("a late response for the previous device does not replace the new one's",
+      (tester) async {
+    final http = _HeldHttpChannel(heldDevice: "Living Room Router", emptyDevice: "Kitchen TV");
+    DomainDetailSection section(String device) => DomainDetailSection(
+          entry: _entry(),
+          level: 2,
+          domain: "example.com",
+          deviceName: device,
+        );
+
+    await _pump(tester, section("Living Room Router"), channel: http);
+    await tester.pumpWidget(_app(section("Kitchen TV")));
+    await _settle(tester);
+    expect(http.deviceNamesFor("/v2/activity/toplist"), contains("Kitchen TV"));
+    expect(http.deviceNamesFor("/v2/activity"), contains("Kitchen TV"));
+
+    http.release();
+    await _settle(tester);
+
+    // Both the subdomain list and recent activity would list it.
+    expect(find.text("doubleclick.net"), findsNothing);
+
+    await _unmount(tester);
+  });
+
+  testWidgets("a late stats response does not count an entry without a device name",
+      (tester) async {
+    final http = _HeldHttpChannel(heldDevice: "Living Room Router", emptyDevice: "");
+    DomainDetailSection section(String device) => DomainDetailSection(
+          entry: _entry(),
+          level: 2,
+          domain: "ads.example.com",
+          fetchToplist: false,
+          deviceName: device,
+        );
+
+    await _pump(tester, section("Living Room Router"), channel: http);
+    await tester.pumpWidget(_app(section("")));
+    await _settle(tester);
+
+    http.release();
+    await _settle(tester);
+
+    expect(find.byType(MiniCardChart), findsNothing);
 
     await _unmount(tester);
   });

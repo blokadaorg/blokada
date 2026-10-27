@@ -68,6 +68,9 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
       _statsRequestsCount; // Stats-based count for current domain/action in selected range
   bool _statsRequestsLoading = false;
   int _statsRequestsFetchGeneration = 0;
+  // Bumped on each new selection, so a late subdomain or recent-activity
+  // response for the previous one is dropped.
+  int _selectionGeneration = 0;
   DateTime? _statsRequestsLastFetchAt;
   String? _statsRequestsLastKey;
   List<int> _statsTimelineValues = const [];
@@ -435,6 +438,9 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   }
 
   void _resetForNewSelection() {
+    _selectionGeneration++;
+    // Also when the new selection starts no stats request of its own.
+    _statsRequestsFetchGeneration++;
     _hasScheduledFetch = false;
     _isLoading = widget.showToplistSection;
     _allSubdomains = [];
@@ -602,6 +608,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   }
 
   Future<void> _fetchSubdomains() async {
+    final generation = _selectionGeneration;
     await log(Markers.userTap).trace("fetchSubdomains", (m) async {
       setState(() {
         _isLoading = true;
@@ -737,7 +744,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
         log(m).pair("subdomain_count", subdomainsList.length);
         log(m).pair("parent_count", parentCount);
 
-        if (mounted) {
+        if (mounted && generation == _selectionGeneration) {
           setState(() {
             _allSubdomains = subdomainsList;
             _filteredSubdomains = subdomainsList;
@@ -747,7 +754,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
         }
       } catch (e) {
         log(m).e(msg: "Failed to fetch subdomains", err: e);
-        if (mounted) {
+        if (mounted && generation == _selectionGeneration) {
           setState(() {
             _allSubdomains = [];
             _filteredSubdomains = [];
@@ -771,6 +778,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   }
 
   Future<void> _fetchRecentActivity() async {
+    final generation = _selectionGeneration;
     await log(Markers.stats).trace("fetchRecentDomainActivity", (m) async {
       final wildcardDomain = _buildWildcardDomain(widget.domain);
       final deviceName = _deviceName.isNotEmpty ? _deviceName : null;
@@ -844,7 +852,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             : Future.value(<UiJournalEntry>[]),
       ]);
 
-      if (!mounted) return;
+      if (!mounted || generation != _selectionGeneration) return;
 
       setState(() {
         if (widget.entry.action == UiJournalAction.block) {
