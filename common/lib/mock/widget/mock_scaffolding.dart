@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:common/src/shared/ui/back_edit_header.dart';
 import 'package:common/src/features/home/ui/header/header.dart';
 import 'package:common/src/features/private_dns/ui/private_dns_setting_guide.dart';
 import 'package:common/src/shared/ui/theme.dart';
@@ -282,10 +281,6 @@ class MockScaffoldingWidget extends StatelessWidget {
               actions: actions,
             ),
           );
-  }
-
-  Widget _buildBackEditHeader(BuildContext context) {
-    return BackEditHeaderWidget(name: "Alva");
   }
 
   Widget _buildTwoLetterIcon(BuildContext context, String name, bool big) {
