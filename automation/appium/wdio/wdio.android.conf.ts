@@ -97,6 +97,21 @@ const androidConfig = {
     "./src/specs/smoke/power-pause.spec.ts" // turns off then re-activates -> resting state
   ],
   capabilities: [buildAndroidCapabilities(process.env)],
+  // run-wdio-android.mjs may run some spec files a second time (see
+  // scripts/lib/instrumentation-retry.mjs); the attempt number keeps both
+  // attempts' JUnit files apart.
+  reporters: (iosConfig.reporters ?? []).map((reporter) =>
+    Array.isArray(reporter) && reporter[0] === "junit"
+      ? [
+          "junit",
+          {
+            ...(reporter[1] as object),
+            outputFileFormat: (options: { cid: string }) =>
+              `results-${process.env.WDIO_ATTEMPT ?? "1"}-${options.cid}.xml`
+          }
+        ]
+      : reporter
+  ),
   onPrepare: function (...args: unknown[]) {
     (iosConfig.onPrepare as (...a: unknown[]) => void)(...args);
     // Permissions a user grants by hand: notifications (prompted on first
