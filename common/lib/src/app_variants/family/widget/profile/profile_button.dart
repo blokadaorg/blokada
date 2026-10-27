@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:common/src/shared/ui/common_clickable.dart';
 
+/// A rounded, tappable row with a leading icon, a name and a trailing widget,
+/// shared by the profile, filter and device pickers.
 class ProfileButton extends StatefulWidget {
   final VoidCallback onTap;
   final String name;
@@ -14,8 +16,13 @@ class ProfileButton extends StatefulWidget {
   final Color? borderColor;
   final Color? tapBgColor;
 
+  /// Starts the name after [leading] instead of centring it across the row.
+  /// The centred name runs under the leading badge once it is long, so lists
+  /// of free-form names (such as device names) set this to keep it readable.
+  final bool nameAfterLeading;
+
   const ProfileButton({
-    Key? key,
+    super.key,
     required this.onTap,
     required this.name,
     this.icon,
@@ -25,7 +32,8 @@ class ProfileButton extends StatefulWidget {
     this.padding = const EdgeInsets.all(20),
     this.borderColor,
     this.tapBgColor,
-  }) : super(key: key);
+    this.nameAfterLeading = false,
+  });
 
   @override
   State<StatefulWidget> createState() => ProfileButtonState();
@@ -51,39 +59,46 @@ class ProfileButtonState extends State<ProfileButton> {
         ),
         child: Padding(
           padding: widget.padding,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  widget.leading ??
-                      Icon(
-                        widget.icon,
-                        color: widget.iconColor,
-                      ),
-                  widget.trailing ??
-                      Icon(
-                        CupertinoIcons.chevron_right,
-                        color: context.theme.textSecondary,
-                      ),
-                ],
-              ),
-              Text(
-                widget.name,
-                style: TextStyle(
-                  color: context.theme.textPrimary,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
+          child: widget.nameAfterLeading
+              ? Row(
+                  children: [
+                    _buildLeading(),
+                    const SizedBox(width: 12),
+                    Expanded(child: _buildName(TextAlign.start)),
+                    _buildTrailing(),
+                  ],
+                )
+              : Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [_buildLeading(), _buildTrailing()],
+                    ),
+                    _buildName(TextAlign.center),
+                  ],
                 ),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
         ),
       ),
     );
   }
+
+  Widget _buildLeading() =>
+      widget.leading ?? Icon(widget.icon, color: widget.iconColor);
+
+  Widget _buildTrailing() =>
+      widget.trailing ??
+      Icon(CupertinoIcons.chevron_right, color: context.theme.textSecondary);
+
+  Widget _buildName(TextAlign align) => Text(
+        widget.name,
+        style: TextStyle(
+          color: context.theme.textPrimary,
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+        ),
+        overflow: TextOverflow.ellipsis,
+        maxLines: 1,
+        textAlign: align,
+      );
 }

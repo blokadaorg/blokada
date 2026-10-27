@@ -62,8 +62,9 @@ class StatsDeviceFilterState extends State<StatsDeviceFilter> with Disposables {
                     ? context.theme.divider.withOpacity(0.20)
                     : null,
                 tapBgColor: context.theme.divider.withOpacity(0.1),
-                padding: const EdgeInsets.only(left: 12),
+                padding: const EdgeInsets.only(left: 12, right: 12),
                 trailing: const SizedBox(height: 48),
+                nameAfterLeading: true,
               ),
             ),
           ] +
@@ -88,8 +89,9 @@ class StatsDeviceFilterState extends State<StatsDeviceFilter> with Disposables {
               ? context.theme.divider.withOpacity(0.20)
               : null,
           tapBgColor: context.theme.divider.withOpacity(0.1),
-          padding: const EdgeInsets.only(left: 12),
+          padding: const EdgeInsets.only(left: 12, right: 12),
           trailing: const SizedBox(height: 48),
+          nameAfterLeading: true,
         ),
       );
     }).toList();
