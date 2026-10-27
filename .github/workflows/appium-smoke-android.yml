@@ -80,6 +80,25 @@ jobs:
       - name: Assemble six debug APK
         run: make -C android apk-six-debug
 
+      # The Gradle and Kotlin daemons from the two builds above stay alive with
+      # several GB of heap (org.gradle.jvmargs=-Xmx4096m each). Left running,
+      # they push the 16 GB runner into full swap once the emulator boots; the
+      # emulator then stalls, adb marks it offline, and UiAutomator2 reports
+      # "instrumentation process is not running" in random specs.
+      - name: Stop Gradle daemons
+        run: |
+          free -m
+          pkill -f 'GradleDaemon|KotlinCompileDaemon|GradleWorkerMain' || echo "No Gradle daemons were running."
+          for _ in $(seq 1 30); do
+            pgrep -f 'GradleDaemon|KotlinCompileDaemon|GradleWorkerMain' >/dev/null || break
+            sleep 1
+          done
+          if pgrep -fa 'GradleDaemon|KotlinCompileDaemon|GradleWorkerMain'; then
+            echo "::error::Gradle daemons still running after 30s"
+            exit 1
+          fi
+          free -m
+
       - name: Enable KVM
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' \
@@ -134,7 +153,9 @@ jobs:
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          script: bash automation/appium/wdio/scripts/android-crash-report.sh start && (make appium-test-android; status=$?; bash automation/appium/wdio/scripts/android-crash-report.sh report; exit $status)
+          # run-health samples host memory and the emulator's adb state, and
+          # prints the samples where the emulator dropped off adb.
+          script: bash automation/appium/wdio/scripts/android-run-health.sh start && (make appium-test-android; status=$?; bash automation/appium/wdio/scripts/android-run-health.sh report; exit $status)
 
       - name: Report smoke status result
         if: always() && github.event_name == 'workflow_run'
