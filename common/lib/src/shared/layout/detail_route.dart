@@ -193,6 +193,7 @@ class DetailRoutes with Logging {
         showToplistSection: arguments['showToplistSection'] as bool?,
         showRecentSection: arguments['showRecentSection'] as bool?,
         range: arguments['range'] as String? ?? "24h",
+        deviceName: arguments['deviceName'] as String?,
       );
     }
 
@@ -209,6 +210,8 @@ class DetailRoutes with Logging {
       level: 2, // Start at level 2 (subdomains)
       domain: entry.domainName,
       fetchToplist: false, // Don't fetch toplists for journal entries
+      // Family keeps showing this device's stats, as before.
+      deviceName: Core.act.isFamily ? null : entry.deviceName,
     );
   }
 

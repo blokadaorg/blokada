@@ -34,6 +34,9 @@ class DomainDetailSection extends StatefulWidget {
   final String range; // "24h" or "7d"
   final List<UiJournalEntry>? subdomainEntries; // Deprecated, will be removed
 
+  /// Device whose stats and activity are shown. Null or empty means this device.
+  final String? deviceName;
+
   const DomainDetailSection({
     super.key,
     required this.entry,
@@ -45,6 +48,7 @@ class DomainDetailSection extends StatefulWidget {
     bool? showRecentSection,
     this.range = "24h",
     this.subdomainEntries,
+    this.deviceName,
   })  : showToplistSection = showToplistSection ?? fetchToplist,
         showRecentSection = showRecentSection ?? fetchToplist;
 
@@ -80,6 +84,11 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   List<UiJournalEntry> _recentAllowedEntries = [];
   bool _recentBlockedLoading = false;
   bool _recentAllowedLoading = false;
+
+  String get _deviceName {
+    final name = widget.deviceName?.trim() ?? "";
+    return name.isNotEmpty ? name : _device.deviceAlias.trim();
+  }
 
   // Extract TLD domain for favicon (e.g., "ads.apple.com" -> "apple.com")
   String _getTldDomain(String domain) {
@@ -401,7 +410,8 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
     final entryChanged =
         widget.entry.domainName != oldWidget.entry.domainName ||
             widget.entry.action != oldWidget.entry.action ||
-            widget.entry.requests != oldWidget.entry.requests;
+            widget.entry.requests != oldWidget.entry.requests ||
+            widget.deviceName != oldWidget.deviceName;
     final navigationChanged = widget.level != oldWidget.level ||
         widget.domain != oldWidget.domain ||
         widget.range != oldWidget.range ||
@@ -479,7 +489,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
     final needsStats = !widget.fetchToplist || widget.entry.requests == 0;
     if (!needsStats) return;
 
-    final deviceName = _device.deviceAlias.trim();
+    final deviceName = _deviceName;
     if (deviceName.isEmpty) return;
     final domain = widget.entry.domainName.trim();
     if (domain.isEmpty) return;
@@ -595,7 +605,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
       });
 
       try {
-        final deviceName = _device.deviceAlias;
+        final deviceName = _deviceName;
         final isBlocked = widget.entry.action == UiJournalAction.block;
 
         log(m).pair("level", widget.level);
@@ -760,8 +770,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   Future<void> _fetchRecentActivity() async {
     await log(Markers.stats).trace("fetchRecentDomainActivity", (m) async {
       final wildcardDomain = _buildWildcardDomain(widget.domain);
-      final deviceName =
-          _device.deviceAlias.isNotEmpty ? _device.deviceAlias : null;
+      final deviceName = _deviceName.isNotEmpty ? _deviceName : null;
       final deviceTag = _device.deviceTag;
 
       if (wildcardDomain.isEmpty) {
@@ -1306,6 +1315,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             'domain':
                 subdomain.domainName, // Use subdomain as the domain context
             'range': widget.range,
+            'deviceName': widget.deviceName,
           });
         }
         // Level 3: Navigate to DomainDetailSection with level 4
@@ -1323,6 +1333,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             'domain': subdomain.domainName,
             'fetchToplist': false, // Don't fetch at level 4 (final level)
             'range': widget.range,
+            'deviceName': widget.deviceName,
           });
         }
         // Level 4+: Do nothing (shouldn't happen, but just in case)
@@ -1527,6 +1538,13 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
               label: "activity domain name".i18n,
               value: widget.entry.domainName,
             ),
+            if (!Core.act.isFamily && _deviceName.isNotEmpty) ...[
+              const SizedBox(height: 12),
+              _buildInfoRow(
+                label: "universal label device".i18n,
+                value: _deviceName,
+              ),
+            ],
             const SizedBox(height: 12),
             // Request count
             _buildInfoRow(
