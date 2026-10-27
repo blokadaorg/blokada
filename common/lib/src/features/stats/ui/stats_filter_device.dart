@@ -108,7 +108,13 @@ void showStatsFilterDeviceDialog(BuildContext context,
       mainAxisSize: MainAxisSize.min,
       children: [
         const SizedBox(height: 16),
-        StatsDeviceFilter(filter: ctrl),
+        // Every device on the account is listed, so the list scrolls past
+        // half the screen instead of overflowing the dialog.
+        ConstrainedBox(
+          constraints: BoxConstraints(
+              maxHeight: MediaQuery.sizeOf(context).height * 0.5),
+          child: SingleChildScrollView(child: StatsDeviceFilter(filter: ctrl)),
+        ),
       ],
     ),
     actions: (context) => [

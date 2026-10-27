@@ -59,4 +59,36 @@ void main() {
     expect(paragraph.didExceedMaxLines, isTrue);
     expect(paragraph.size.height, lessThan(30));
   });
+
+  testWidgets('a long device list scrolls inside the dialog', (tester) async {
+    await bootModules(tester);
+    tester.view.physicalSize = const Size(360, 640);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    Core.get<JournalDevicesValue>().now = {
+      for (var i = 0; i < 30; i++) "Device ${i.toString().padLeft(2, '0')}"
+    };
+    await tester.pumpWidget(
+      BlokadaApp(
+        isFamily: false,
+        content: Scaffold(
+          body: Builder(
+            builder: (context) => TextButton(
+              onPressed: () => showStatsFilterDeviceDialog(context,
+                  onConfirm: (_) {}, ctrl: StatsFilterController()),
+              child: const Text("open"),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.tap(find.text("open"));
+    await tester.pumpAndSettle();
+
+    expect(tester.takeException(), isNull);
+    await tester.scrollUntilVisible(find.text("Device 29"), 200,
+        scrollable: find.ancestor(
+            of: find.byType(StatsDeviceFilter), matching: find.byType(Scrollable)).first);
+    expect(find.text("Device 29").hitTestable(), findsOneWidget);
+  });
 }
