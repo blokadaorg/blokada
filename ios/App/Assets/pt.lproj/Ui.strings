@@ -1163,3 +1163,78 @@ Sério.";
 "privacy pulse insight more 24h" = "%s% more than the 24 h before";
 "privacy pulse insight fewer 7d" = "%s% fewer than the week before";
 "privacy pulse insight more 7d" = "%s% more than the week before";
+
+// Blocklists screen (Blokada 6): one required main list plus optional extras, grouped by what they block.
+// Top card: "Blocking with", followed by the name of the main list, e.g. "OISD Small"
+"blocklists summary header" = "Blocking with";
+// Shown in the top card when no main list is on yet
+"blocklists main none" = "No main list";
+// Header of the group where the user picks exactly one main list
+"blocklists main header" = "Main blocklist";
+// Shown under the header above when no main list is on yet
+"blocklists main pick" = "Pick a main list";
+// Headers of the groups of optional lists, by what they block
+"blocklists group general" = "More general lists";
+"blocklists group ads" = "Ads and trackers";
+"blocklists group security" = "Malware and phishing";
+"blocklists group adult" = "Adult content";
+"blocklists group social" = "Social media";
+"blocklists group gambling" = "Gambling";
+"blocklists group fake news" = "Fake news and hate";
+"blocklists group apps" = "Apps and services";
+"blocklists group other" = "Other lists";
+// One line under a list's name: what it blocks, or what you gain and risk by picking it
+"blocklist brief oisd small" = "Blocks ads and trackers, with the fewest broken sites";
+"blocklist brief oisd big" = "Blocks more, a few sites may break";
+"blocklist brief stevenblack unified" = "Ads and malware, combined from several known lists";
+"blocklist brief 1hosts lite" = "Ads and trackers, a lighter list to try before Pro";
+"blocklist brief 1hosts pro" = "Blocks more than Lite, some sites may break";
+"blocklist brief hblock standard" = "Ads, tracking scripts and malware";
+"blocklist brief oisd nsfw" = "Adult sites";
+"blocklist brief stevenblack adult" = "Adult sites";
+"blocklist brief stevenblack social" = "Social media sites";
+"blocklist brief stevenblack gambling" = "Gambling sites";
+"blocklist brief stevenblack fake news" = "Fake news sites";
+"blocklist brief goodbyeads standard" = "Strict, may break some apps or sites";
+"blocklist brief adaway standard" = "Ads from mobile ad networks";
+"blocklist brief phishingarmy standard" = "Fake sites that try to steal your details";
+"blocklist brief phishingarmy extended" = "More phishing sites, a bigger list";
+"blocklist brief ddgtrackerradar standard" = "Trackers found by DuckDuckGo";
+"blocklist brief urlhaus standard" = "Sites that spread malware";
+"blocklist brief spam404 standard" = "Sites reported for spam and scams";
+"blocklist brief cpbl standard" = "Ads, tracking and malware, medium size";
+"blocklist brief danpollock standard" = "Ad servers, a small list";
+"blocklist brief d3host standard" = "A small list made to pass the d3ward ad block test";
+
+// Android Private DNS setup sheet. Step texts name screens and options in the
+// phone's Settings app: use the wording the phone shows in your language.
+// Param is the app name, Blokada 6 or Blokada Family
+"private dns android brief" = "%@ works through Private DNS. Copy your hostname, then paste it in Settings.";
+"private dns android header" = "Turn on Private DNS";
+// Label above the hostname the user copies
+"private dns android hostname label" = "Your hostname";
+// Steps on Samsung phones
+"private dns android step samsung connections" = "Open Settings, then Connections.";
+"private dns android step samsung more" = "Tap More connection settings, then Private DNS.";
+// Steps on Pixel and other phones with stock Android
+"private dns android step pixel network" = "Open Settings, then Network & internet.";
+// Steps on Xiaomi and OnePlus phones
+"private dns android step connection sharing" = "Open Settings, then Connection & sharing.";
+"private dns android step tap private dns" = "Tap Private DNS.";
+// Option name in the Private DNS screen on Samsung, Pixel, Xiaomi and most phones
+"private dns android step choose hostname" = "Choose Private DNS provider hostname.";
+// Option name in the Private DNS screen on OnePlus
+"private dns android step choose designated" = "Choose Designated private DNS.";
+// Steps on other phones
+"private dns android step search" = "Open Settings and search for Private DNS.";
+"private dns android step paste" = "Paste your hostname and save.";
+"private dns android checking" = "Checking the connection…";
+"private dns android success header" = "You're protected";
+"private dns android success brief" = "Private DNS is on and goes through Blokada.";
+"private dns android help header" = "Not working yet";
+"private dns android help typing" = "Check the hostname. It must match exactly, so paste it instead of typing.";
+"private dns android help network" = "Some networks block Private DNS. Try mobile data or another Wi-Fi.";
+"private dns android help samsung" = "Update Samsung Device Services in the Galaxy Store, then try again.";
+"private dns android help support" = "Still not working? Chat with us and we'll help.";
+// Shown after Open Settings copied the hostname for the user
+"private dns android copied hint" = "Hostname copied. Paste it in Settings.";
