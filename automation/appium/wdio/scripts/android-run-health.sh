@@ -16,6 +16,11 @@ log="$out/run-health.txt"
 syslog="$out/logcat-run.txt"
 pids="$out/run-health.pid"
 
+redact() {
+  sed -E -e 's/[A-Za-z0-9.-]+\.blokada\.org/<host>/g' -e 's/\b[0-9a-fA-F]{16,}\b/<hex>/g' \
+    -e 's/\b[a-z]{12}\b/<id>/g' | cut -c1-300
+}
+
 case "${1:-}" in
   start)
     mkdir -p "$out"
@@ -49,9 +54,21 @@ case "${1:-}" in
     echo "System log (adb, VPN, network, process deaths, instrumentation), redacted:"
     awk '!seen[$0]++' "$syslog" 2>/dev/null \
       | grep -E ' (adbd|Vpn|VpnService|AndroidRuntime|lowmemorykiller|lmkd|UiAutomation|Instrumentation|am_kill|am_proc_died|am_crash|am_anr|am_wtf|PrivateDns)[ :]|ActivityManager: (Force stopping|Process .* has died|Killing|ANR in|Crash)|appium|ConnectivityService: .*(VPN|Vpn|LOST|lost|DISCONNECTED)' \
-      | grep -vE 'jdwp connection|Start proc' \
-      | sed -E -e 's/[A-Za-z0-9.-]+\.blokada\.org/<host>/g' -e 's/\b[0-9a-fA-F]{16,}\b/<hex>/g' -e 's/\b[a-z]{12}\b/<id>/g' \
-      | cut -c1-300 | tail -400
+      | grep -vE 'jdwp connection|Start proc| I appium  :' \
+      | redact | tail -150
+    # Everything the system logged just before the emulator first went offline.
+    first=$(grep -v 'adb=device' "$log" | head -1 | cut -d' ' -f1)
+    if [ -n "$first" ]; then
+      echo "System log from 30s before the first offline sample ($first), redacted:"
+      awk -v t="$first" '
+        function secs(s) { split(s, p, ":"); return p[1] * 3600 + p[2] * 60 + p[3] }
+        !seen[$0]++ && $2 ~ /^[0-9]+:[0-9]+:[0-9]+/ {
+          d = secs(substr($2, 1, 8)) - secs(t)
+          if (d >= -30 && d <= 5) print
+        }' "$syslog" \
+        | grep -vE ' (I appium|[DIV] flutter|[A-Z] Blokada[A-Za-z]*) *:' \
+        | redact | head -250
+    fi
     ;;
   *)
     echo "usage: $0 start|report" >&2
