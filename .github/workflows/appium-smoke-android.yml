@@ -94,7 +94,7 @@ jobs:
           path: |
             ~/.android/avd/*
             ~/.android/adb*
-          key: avd-${{ env.EMULATOR_API_LEVEL }}-google_apis-x86_64-pixel_6-v1
+          key: avd-${{ env.EMULATOR_API_LEVEL }}-google_apis-x86_64-pixel_6-v2
 
       - name: Cache Appium driver
         uses: actions/cache@v6
@@ -102,7 +102,9 @@ jobs:
           path: automation/appium/.appium
           key: appium-uiautomator2-${{ hashFiles('automation/appium/wdio/scripts/run-wdio-android.mjs', 'automation/appium/wdio/package-lock.json') }}
 
-      - name: Create AVD snapshot
+      # Boots the new AVD once so the cached copy is past first-boot setup. No
+      # snapshot: the smoke step always does a full boot (see below).
+      - name: Create AVD
         if: steps.avd-cache.outputs.cache-hit != 'true'
         uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d # v2.38.0
         with:
@@ -112,10 +114,11 @@ jobs:
           profile: pixel_6
           # The debug APK is ~260 MB; installs fail on the default data partition.
           disk-size: 8G
+          cores: 4
           force-avd-creation: false
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          emulator-options: -no-snapshot -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          script: echo "Generated AVD snapshot for caching."
+          script: echo "Created the AVD for caching."
 
       - name: "Run appium smoke (flavor: six)"
         uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d # v2.38.0
@@ -131,8 +134,14 @@ jobs:
           arch: x86_64
           profile: pixel_6
           disk-size: 8G
+          # A full boot on 4 cores, never a restored snapshot. An emulator
+          # restored from the quickboot snapshot kept dropping off adb mid-run
+          # (host adb: "connection terminated: read failed"), which kills the
+          # UiAutomator2 instrumentation: 33 of 58 runs lost specs that way,
+          # against 1 of 12 full boots.
+          cores: 4
           force-avd-creation: false
-          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          emulator-options: -no-snapshot -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
           # run-health prints when the emulator dropped off adb, the cause of
           # "instrumentation process is not running" (see the script).
