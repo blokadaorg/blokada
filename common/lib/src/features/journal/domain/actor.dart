@@ -24,6 +24,11 @@ class JournalActor with Logging, Actor {
 
   late final devices = Core.get<JournalDevicesValue>();
 
+  // The device filter lists both sets, so it never shrinks to the devices in
+  // the rows a filtered fetch returned. [loadDevices] resets them.
+  Set<String> _accountDevices = {};
+  Set<String> _seenDevices = {};
+
   List<UiJournalEntry> allEntries = [];
   bool isLoadingMore = false;
   bool hasMoreData = true;
@@ -81,6 +86,7 @@ class JournalActor with Logging, Actor {
 
         // If no entries returned, we've reached the end
         if (entries.isEmpty) {
+          _publishDevices();
           hasMoreData = false;
           if (!append) {
             allEntries = [];
@@ -93,11 +99,10 @@ class JournalActor with Logging, Actor {
           return;
         }
 
-        // Keep previously discovered devices when using server-side filters
-        final initialDeviceNames = append ? Set<String>.from(devices.now) : <String>{};
-        final processed = _processEntries(entries, initialDeviceNames);
+        final processed = _processEntries(entries, <String>{});
         final grouped = processed.entries;
-        devices.now = processed.deviceNames;
+        _seenDevices.addAll(processed.deviceNames);
+        _publishDevices();
 
         // Update entries and pagination state
         if (append) {
@@ -124,6 +129,36 @@ class JournalActor with Logging, Actor {
         }
       }
     });
+  }
+
+  /// Starts the device filter's list afresh for a newly opened activity
+  /// screen, from the account's recently active devices (v6 only; Family
+  /// has no device filter). The rows each fetch returns add their devices.
+  /// If the request fails, the list keeps only the devices in the rows.
+  Future<void> loadDevices(Marker m) async {
+    _accountDevices = {};
+    _seenDevices = {};
+    _publishDevices();
+    if (Core.act.isFamily) return;
+    await log(m).trace("loadDevices", (m) async {
+      try {
+        _accountDevices = (await _api.fetchDevicesForV6(m)).toSet();
+        _publishDevices();
+      } catch (e) {
+        log(m).w("journal: device list failed: $e");
+      }
+    });
+  }
+
+  /// The filtered device stays listed even with no recent activity, so the
+  /// current choice is always on screen.
+  void _publishDevices() {
+    final filtered = filter.now.deviceName.trim();
+    final names = {..._accountDevices, ..._seenDevices, if (filtered.isNotEmpty) filtered}
+        .where((it) => it.isNotBlank)
+        .toList()
+      ..sort((a, b) => a.toLowerCase().compareTo(b.toLowerCase()));
+    devices.now = names.toSet();
   }
 
   clear() {

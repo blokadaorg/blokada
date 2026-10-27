@@ -50,9 +50,31 @@ class JsonJournalEntry {
   }
 }
 
+/// The device names `v2/activity/devices` lists; `last_seen` is not used.
+class JsonJournalDevicesEndpoint {
+  late List<String> deviceNames;
+
+  JsonJournalDevicesEndpoint.fromJson(Map<String, dynamic> json) {
+    try {
+      deviceNames = <String>[];
+      json['devices'].forEach((v) {
+        deviceNames.add(v['device_name']);
+      });
+    } on TypeError catch (e) {
+      throw JsonError(json, e);
+    } on NoSuchMethodError catch (e) {
+      throw JsonError(json, e);
+    }
+  }
+}
+
 class JsonJournalMarshal {
   JsonJournalEndpoint toEndpoint(JsonString json) {
     return JsonJournalEndpoint.fromJson(jsonDecode(json));
+  }
+
+  JsonJournalDevicesEndpoint toDevicesEndpoint(JsonString json) {
+    return JsonJournalDevicesEndpoint.fromJson(jsonDecode(json));
   }
 }
 
@@ -109,5 +131,12 @@ class JournalApi {
 
     final response = await _api.get(ApiEndpoint.getJournalV2, m, params: params);
     return _marshal.toEndpoint(response).activity;
+  }
+
+  /// The names of the account's devices with activity in the last 2 days.
+  /// Unlike the names in fetched rows, these do not depend on the filter.
+  Future<List<String>> fetchDevicesForV6(Marker m) async {
+    final response = await _api.get(ApiEndpoint.getJournalDevicesV2, m);
+    return _marshal.toDevicesEndpoint(response).deviceNames;
   }
 }

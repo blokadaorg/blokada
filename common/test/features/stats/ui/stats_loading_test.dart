@@ -109,6 +109,9 @@ class _GatedJournal extends JournalActor {
   }
 
   @override
+  Future<void> loadDevices(Marker m) async {}
+
+  @override
   fetch(Marker m, {DeviceTag? tag, bool append = false}) async {
     if (append) {
       pageRequests++;
