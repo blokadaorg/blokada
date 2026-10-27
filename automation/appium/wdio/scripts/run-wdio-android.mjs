@@ -118,13 +118,26 @@ function retryPlan(junitDir) {
   return specsToRetry(results, ANDROID_SETUP_SPEC);
 }
 
+// After a drop adb usually sees the emulator again within seconds. If the
+// emulator process died instead, a retry can't help.
+function deviceBack(serial, timeoutMs = 60000) {
+  const result = spawnSync(
+    "adb",
+    ["-s", serial, "wait-for-device", "shell", "getprop", "sys.boot_completed"],
+    { encoding: "utf8", timeout: timeoutMs }
+  );
+  return result.status === 0 && result.stdout.trim() === "1";
+}
+
 async function main() {
   const stopAppium = await startAppium(process.env);
   let exitCode = await runWdio(1);
   if (exitCode !== 0) {
     const junitDir = `${getProjectPaths(process.env).outputDir}/junit`;
     const retry = retryPlan(junitDir);
-    if (retry.length > 0) {
+    if (retry.length > 0 && !deviceBack(process.env.ANDROID_UDID)) {
+      console.error("UiAutomator2 lost its instrumentation and the emulator did not come back on adb; not retrying.");
+    } else if (retry.length > 0) {
       const message =
         `UiAutomator2 lost its instrumentation (the emulator dropped off adb); ` +
         `running ${retry.length} spec file(s) once more: ${retry.join(", ")}`;
