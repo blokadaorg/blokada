@@ -8,7 +8,7 @@ import { activateApp, terminateApp } from "./app.js";
 import { getProtectionState, waitForProtectionActive } from "./home.js";
 
 // Android activation for a Cloud account goes through system Private DNS: the
-// app's sheet shows a per-device hostname with a Copy button and opens
+// app's sheet shows a per-device hostname with a copy button and opens
 // Settings, where a user would paste it. The harness reads the clipboard and applies it
 // with `adb shell settings` instead of driving the vendor-specific Settings UI.
 //

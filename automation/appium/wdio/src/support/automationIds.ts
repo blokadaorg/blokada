@@ -50,7 +50,6 @@ export const AutomationIds = {
   dnsOpenSettings: "automation.dns_open_settings",
   dnsCopyHostname: "automation.dns_copy_hostname",
   dnsSetupSuccess: "automation.dns_setup_success",
-  dnsSetupHelp: "automation.dns_setup_help",
   onboardIntroSheet: "automation.onboard_intro_sheet",
   onboardContinue: "automation.onboard_continue",
   rateModal: "automation.rate_modal",
