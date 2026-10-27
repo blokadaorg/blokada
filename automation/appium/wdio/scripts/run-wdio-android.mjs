@@ -115,7 +115,15 @@ function retryPlan(junitDir) {
     console.error(`No JUnit results to check for a retry: ${String(error)}`);
     return [];
   }
-  return specsToRetry(results, ANDROID_SETUP_SPEC);
+  const failed = results.filter((r) => r.failures.length > 0);
+  const retry = specsToRetry(results, ANDROID_SETUP_SPEC);
+  if (failed.length > 0 && retry.length === 0) {
+    console.error(
+      `Not retrying: the first failed spec (${failed[0].spec}) failed in the app or the test, ` +
+        "not by losing the UiAutomator2 instrumentation."
+    );
+  }
+  return retry;
 }
 
 // After a drop adb usually sees the emulator again within seconds. If the
