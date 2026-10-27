@@ -129,6 +129,15 @@ BLOKADA_ACTIVE_ACCOUNT_ID=… BLOKADA_INACTIVE_ACCOUNT_ID=… make appium-test-a
 - `APP_INSTALL=0` – keep the installed app instead of reinstalling it.
 
 The APK is about 260 MB, so give the emulator a data partition of 6 GB or more.
+
+The hosted emulator sometimes drops off adb for a few seconds, which kills the
+UiAutomator2 instrumentation ("instrumentation process is not running"). When
+the first failed spec file failed that way, the runner checks the emulator is
+back and runs the failed spec files once more, after `android-protection`
+(see `wdio/scripts/lib/instrumentation-retry.mjs`). A run whose first failure
+comes from the app or a test assertion is never retried. The JUnit files of the
+first attempt move to `output/junit/first-attempt/`.
+
 Selectors and commands that differ per platform live in `wdio/src/support/platform.ts`.
 
 ## AI Explorer
