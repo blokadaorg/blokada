@@ -51,10 +51,10 @@ case "${1:-}" in
     echo "Lowest available memory: $(grep -o 'avail=[0-9]*' "$log" | cut -d= -f2 | sort -n | head -1)M"
     echo "Most swap in use: $(grep -o 'swap=[0-9]*' "$log" | cut -d= -f2 | sort -n | tail -1)M"
     grep -v 'adb=device' "$log" | head -40
-    echo "System log (adb, VPN, network, process deaths, instrumentation), redacted:"
+    echo "System log: adbd and TCP socket teardown over the whole run, redacted:"
     awk '!seen[$0]++' "$syslog" 2>/dev/null \
-      | grep -E ' (adbd|Vpn|VpnService|AndroidRuntime|lowmemorykiller|lmkd|UiAutomation|Instrumentation|am_kill|am_proc_died|am_crash|am_anr|am_wtf|PrivateDns)[ :]|ActivityManager: (Force stopping|Process .* has died|Killing|ANR in|Crash)|appium|ConnectivityService: .*(VPN|Vpn|LOST|lost|DISCONNECTED)' \
-      | grep -vE 'jdwp connection|Start proc| I appium  :' \
+      | grep -E ' adbd *:|InetDiagMessage: Destroyed [1-9]|Destroyed live tcp sockets|ConnectivityService: .*(VPN|Vpn|LOST|lost|DISCONNECTED|PrivateDns|private DNS)' \
+      | grep -vE 'jdwp connection|failed to connect to socket .tcp:6790' \
       | redact | tail -150
     # Everything the system logged just before the emulator first went offline.
     # Anchor: the first UiAutomator2/adb failure WebdriverIO saw, else the
@@ -63,14 +63,15 @@ case "${1:-}" in
       "$out/wdio-run.txt" 2>/dev/null | grep -oE 'T[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]+Z' | head -1 | cut -c2-9)
     [ -n "$first" ] || first=$(grep -v 'adb=device' "$log" | head -1 | cut -d' ' -f1)
     if [ -n "$first" ]; then
-      echo "System log from 30s before the first adb/instrumentation failure ($first), redacted:"
+      echo "System log from 10s before the first adb/instrumentation failure ($first), redacted:"
       awk -v t="$first" '
         function secs(s) { split(s, p, ":"); return p[1] * 3600 + p[2] * 60 + p[3] }
         !seen[$0]++ && $2 ~ /^[0-9]+:[0-9]+:[0-9]+/ {
           d = secs(substr($2, 1, 8)) - secs(t)
-          if (d >= -30 && d <= 5) print
+          if (d >= -10 && d <= 3) print
         }' "$syslog" \
-        | grep -vE ' (I appium|[DIV] flutter|[A-Z] Blokada[A-Za-z]*) *:' \
+        | grep -E ' (adbd|init|kernel|lowmemorykiller|lmkd|ActivityManager|am_[a-z_]+|AndroidRuntime|Watchdog|UiAutomation|TestRunner|appium|InetDiagMessage|ConnectivityService|Vpn|DnsResolver|resolv|system_server|binder|ziparchive|libc|tombstoned|DEBUG|crash_dump64) *:' \
+        | grep -vE ' I appium  :|hiddenapi|AssetManager2|AppsFilter|freezing|unfroze|NetReassign|resolv  : (res_|doQuery|resolv_cache|GetAddrInfo)' \
         | redact | head -400
     fi
     ;;
