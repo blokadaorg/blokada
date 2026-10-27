@@ -56,6 +56,10 @@ case "${1:-}" in
       | grep -E ' adbd *:|InetDiagMessage: Destroyed [1-9]|Destroyed live tcp sockets|ConnectivityService: .*(VPN|Vpn|LOST|lost|DISCONNECTED|PrivateDns|private DNS)' \
       | grep -vE 'jdwp connection|failed to connect to socket .tcp:6790' \
       | redact | tail -150
+    echo "Host adb server log (why it dropped the emulator):"
+    for f in /tmp/adb.*.log "${TMPDIR:-/tmp}"/adb.*.log; do
+      [ -f "$f" ] && grep -viE 'jdwp|track-devices' "$f" | redact | tail -60
+    done
     # Everything the system logged just before the emulator first went offline.
     # Anchor: the first UiAutomator2/adb failure WebdriverIO saw, else the
     # first offline sample.
