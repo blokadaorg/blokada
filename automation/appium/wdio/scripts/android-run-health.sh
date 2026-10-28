@@ -33,6 +33,7 @@ case "${1:-}" in
   start)
     mkdir -p "$out"
     echo "Host memory at start (MB): $(mem_sample)"
+    echo "systemd-oomd: $(systemctl is-active systemd-oomd 2>/dev/null || true)"
     free -m
     echo "  largest processes:"
     top_rss
@@ -44,7 +45,9 @@ case "${1:-}" in
         if pgrep -f '[q]emu-system' >/dev/null; then emu=running; else emu=gone; fi
         echo \"\$(date -u +%H:%M:%S) adb=\$state emulator=\$emu\"
         if [ \$((i % 5)) -eq 0 ]; then
-          free -m | awk -v t=\"\$(date -u +%H:%M:%S)\" '/^Mem:/ { a = \$7 } /^Swap:/ { s = \$3 } END { print t, a, s }' >>'$memlog'
+          qemu=\$(pgrep -f '[q]emu-system' | head -n 1)
+          rss=\$( [ -n \"\$qemu\" ] && ps -o rss= -p \"\$qemu\" || echo 0)
+          free -m | awk -v t=\"\$(date -u +%H:%M:%S)\" -v e=\"\${rss:-0}\" '/^Mem:/ { a = \$7 } /^Swap:/ { s = \$3 } END { print t, a, s, int(e / 1024) }' >>'$memlog'
         fi
         i=\$((i + 1))
         sleep 1
@@ -74,12 +77,13 @@ case "${1:-}" in
       awk '
         NR == 1 || $2 < min { min = $2; mint = $1 }
         $3 > maxs { maxs = $3; maxst = $1 }
-        END { printf "Host memory (MB, every 5 s): lowest available %s at %s, most swap used %s at %s.\n", min, mint, maxs + 0, maxst ? maxst : "-" }
+        $4 > maxe { maxe = $4 }
+        END { printf "Host memory (MB, every 5 s): lowest available %s at %s, most swap used %s at %s, emulator peak RSS %s.\n", min, mint, maxs + 0, maxst ? maxst : "-", maxe + 0 }
       ' "$memlog"
       # Memory just before and after the emulator process left, if it did.
       gone="$(grep -m1 'emulator=gone' "$log" | cut -d' ' -f1)"
       if [ -n "$gone" ]; then
-        echo "  around the emulator process exit at $gone (time avail swap):"
+        echo "  around the emulator process exit at $gone (time avail swap emulator-rss):"
         awk -v g="$gone" '{ l[NR] = $0; t[NR] = $1 } END { for (i = 1; i <= NR; i++) if (t[i] >= g) { for (j = (i > 3 ? i - 3 : 1); j <= i + 1 && j <= NR; j++) print "    " l[j]; break } }' "$memlog"
       fi
     fi
@@ -89,11 +93,22 @@ case "${1:-}" in
     # Only the trigger and victim lines: the oom-kill summary line carries cgroup
     # paths.
     oom="$(sudo -n dmesg -T 2>/dev/null | grep -E 'invoked oom-killer|Out of memory|Killed process' | sed -E 's/ (gfp_mask|order|oom_score_adj)=.*//' || true)"
-    if [ -n "$oom" ]; then
+    if ! sudo -n true 2>/dev/null; then
+      echo "Kernel log: not readable without sudo."
+    elif [ -n "$oom" ]; then
       echo "Kernel OOM killer fired:"
       echo "$oom" | sed -E 's/^/  /'
     else
       echo "Kernel log: no OOM kills."
+    fi
+    # systemd-oomd kills a whole cgroup on swap use or memory pressure, with no
+    # kernel OOM line. Keep the reason, drop the cgroup path.
+    oomd="$(sudo -n journalctl -u systemd-oomd --no-pager -o short-precise 2>/dev/null | grep -E 'Killed|due to' | sed -E 's#Killed /[^ ]*#Killed a cgroup#' || true)"
+    if [ -n "$oomd" ]; then
+      echo "systemd-oomd killed:"
+      echo "$oomd" | sed -E 's/^/  /'
+    else
+      echo "systemd-oomd: no kills logged."
     fi
     # The emulator stores crash reports here when its own crash handler ran; a
     # SIGKILL (OOM) leaves none.
