@@ -28,7 +28,9 @@ class CommandStore with Logging, Actor implements CommandEvents {
 
   void onRegister() {
     Core.register<CommandStore>(this);
-    if (Core.act.isProd) CommandEvents.setup(this);
+    // Mocked builds take native commands too, so a debug restore sent at
+    // launch reaches the simulator and emulator builds it exists for.
+    if (Core.act.isProd || Core.act.isMocked) CommandEvents.setup(this);
   }
 
   Future<void> acceptCommands(Marker m) async {

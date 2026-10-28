@@ -6,7 +6,9 @@ import 'channel.pg.dart';
 class MockCommandOps extends Mock implements CommandOps {}
 
 CommandOps getOps() {
-  if (Core.act.isProd) {
+  // Mocked builds still run the native shell, which queues commands until
+  // this tells it Flutter is ready.
+  if (Core.act.isProd || Core.act.isMocked) {
     return CommandOps();
   }
 
