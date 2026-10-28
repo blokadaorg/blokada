@@ -61,24 +61,28 @@ class SupportSheetState extends State<SupportSheet> {
             : screen - media.viewPadding.top;
         final height = min(screen * SupportSheet.heightFactor, room - keyboard);
 
-        return Container(
+        // The sheet route brings no Material, which the composer's text
+        // field and the default text style need.
+        return Material(
           color: context.theme.bgColor,
-          padding: EdgeInsets.only(bottom: keyboard),
-          child: SizedBox(
-            height: max(0.0, height),
-            child: Column(
-              children: [
-                _header(context),
-                Expanded(
-                  // The sheet already keeps clear of the navigation bar on
-                  // Android, so the composer must not add it again.
-                  child: MediaQuery.removePadding(
-                    context: context,
-                    removeBottom: Platform.isAndroid,
-                    child: const SupportSection(underTopBar: false),
+          child: Padding(
+            padding: EdgeInsets.only(bottom: keyboard),
+            child: SizedBox(
+              height: max(0.0, height),
+              child: Column(
+                children: [
+                  _header(context),
+                  Expanded(
+                    // The sheet already keeps clear of the navigation bar on
+                    // Android, so the composer must not add it again.
+                    child: MediaQuery.removePadding(
+                      context: context,
+                      removeBottom: Platform.isAndroid,
+                      child: const SupportSection(underTopBar: false),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );
@@ -89,6 +93,7 @@ class SupportSheetState extends State<SupportSheet> {
   Widget _header(BuildContext context) {
     return SizedBox(
       height: 52,
+      width: double.infinity,
       child: Stack(
         alignment: Alignment.center,
         children: [

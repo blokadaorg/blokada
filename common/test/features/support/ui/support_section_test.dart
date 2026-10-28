@@ -9,6 +9,7 @@ import 'package:common/src/features/support/ui/support_typing_bubble.dart';
 import 'package:common/src/platform/stage/stage.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:flutter_chat_core/flutter_chat_core.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -44,9 +45,11 @@ class _FakeSupportActor extends SupportActor {
     final tool = current!.tool;
     current = null;
     await controller.insertMessage(
-        SupportMessage.note(SupportNote.of(tool, declined: true),
-                DateTime(2026, 9, 7, 11))
-            .toFlyerMessage(me, notMe));
+      SupportMessage.note(
+        SupportNote.of(tool, declined: true),
+        DateTime(2026, 9, 7, 11),
+      ).toFlyerMessage(me, notMe),
+    );
     onChange();
   }
 
@@ -134,21 +137,24 @@ void main() {
       final unread = _FakeSupportUnreadActor();
       Core.register<SupportUnreadActor>(unread);
 
-      await tester.pumpWidget(MaterialApp(
-        theme: ThemeData(extensions: const [_lightTheme]),
-        home: Builder(
-          builder: (context) => Scaffold(
-            body: TextButton(
-              onPressed: () => showModalBottomSheet(
-                context: context,
-                isScrollControlled: true,
-                builder: (_) => const SupportSheet(),
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: ThemeData(extensions: const [_lightTheme]),
+          home: Builder(
+            builder: (context) => Scaffold(
+              body: TextButton(
+                // The same sheet the app shows, which unlike Material's
+                // brings no Material of its own.
+                onPressed: () => showCupertinoModalBottomSheet(
+                  context: context,
+                  builder: (_) => const SupportSheet(),
+                ),
+                child: const Text("open"),
               ),
-              child: const Text("open"),
             ),
           ),
         ),
-      ));
+      );
       await tester.tap(find.text("open"));
       await tester.pumpAndSettle();
 
@@ -156,7 +162,12 @@ void main() {
       expect(find.byType(TextField), findsOneWidget);
       final screen = tester.view.physicalSize.height / tester.view.devicePixelRatio;
       expect(tester.getSize(find.byType(SupportSheet)).height, screen * 0.6);
-      // × is the only action: no way to end the chat.
+      expect(tester.takeException(), isNull);
+      // × is the only action, centred apart from the title: no way to end
+      // the chat.
+      final title = tester.getRect(find.text("support action chat".i18n));
+      final close = tester.getRect(find.byType(NavCloseButton));
+      expect(close.left, greaterThan(title.right));
       expect(find.text("support action end".i18n), findsNothing);
 
       await tester.tap(find.byType(NavCloseButton));
@@ -190,8 +201,7 @@ void main() {
         await tester.tap(find.widgetWithIcon(IconButton, Icons.send));
         await tester.pump();
         expect(actor.sent, ["first"]);
-        expect(find.text("first"), findsNothing,
-            reason: "an accepted send clears the field");
+        expect(find.text("first"), findsNothing, reason: "an accepted send clears the field");
 
         // A history longer than the screen, so the bubble's place matters.
         await actor.controller.insertAllMessages([
@@ -215,8 +225,7 @@ void main() {
         final bubble = tester.getRect(find.byType(SupportTypingBubble));
         final newest = tester.getRect(find.text("message 29"));
         expect(bubble.top, greaterThanOrEqualTo(newest.bottom));
-        expect(bubble.bottom,
-            lessThanOrEqualTo(tester.getRect(find.byType(TextField)).top));
+        expect(bubble.bottom, lessThanOrEqualTo(tester.getRect(find.byType(TextField)).top));
 
         await tester.enterText(find.byType(TextField), "second");
         await tester.pump();
@@ -246,8 +255,7 @@ void main() {
     });
   }
 
-  testWidgets("asks before sharing the log, and notes it once shared",
-      (tester) async {
+  testWidgets("asks before sharing the log, and notes it once shared", (tester) async {
     await withTrace((_) async {
       Core.register<StageStore>(StageStore());
       final actor = _FakeSupportActor();
@@ -287,8 +295,11 @@ void main() {
 
       // Uploaded: the card gives way to the note in the history.
       await actor.controller.insertMessage(
-          SupportMessage.note(SupportNote.logShared, DateTime(2026, 9, 7, 12))
-              .toFlyerMessage(actor.me, actor.notMe));
+        SupportMessage.note(
+          SupportNote.logShared,
+          DateTime(2026, 9, 7, 12),
+        ).toFlyerMessage(actor.me, actor.notMe),
+      );
       actor.setPending(false);
       actor.setAction(null);
       await tester.pump(const Duration(milliseconds: 500));
@@ -303,8 +314,7 @@ void main() {
     });
   });
 
-  testWidgets("asks before running the DNS check, and notes a cancel",
-      (tester) async {
+  testWidgets("asks before running the DNS check, and notes a cancel", (tester) async {
     await withTrace((_) async {
       Core.register<StageStore>(StageStore());
       final actor = _FakeSupportActor();
@@ -313,13 +323,13 @@ void main() {
       await tester.pumpWidget(_host(dark: false));
       await tester.pump();
 
-      actor.setAction(const SupportAction(SupportClientTool.dnsCheck, "chk-1",
-          subdomain: "k3x9q0b7m2ta"));
+      actor.setAction(
+        const SupportAction(SupportClientTool.dnsCheck, "chk-1", subdomain: "k3x9q0b7m2ta"),
+      );
       await tester.pump();
       expect(find.text("support network check title"), findsOneWidget);
       expect(find.text("support network check body"), findsOneWidget);
-      expect(find.widgetWithText(FilledButton, "universal action run check"),
-          findsOneWidget);
+      expect(find.widgetWithText(FilledButton, "universal action run check"), findsOneWidget);
 
       await tester.tap(find.text("universal action run check"));
       await tester.pump();
