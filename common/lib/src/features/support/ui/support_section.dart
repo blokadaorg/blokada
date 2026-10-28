@@ -52,9 +52,14 @@ class SupportSectionState extends State<SupportSection> {
     sendDisabled: true,
   );
 
+  /// The section that listened before this one, such as the pushed route
+  /// under the reply sheet, which gets the actor's updates back on dispose.
+  late final Function _previousOnChange;
+
   @override
   void initState() {
     super.initState();
+    _previousOnChange = _actor.onChange;
     _actor.onChange = _refresh;
     _actor.loadOrInit(Markers.support);
     _refresh();
@@ -62,6 +67,7 @@ class SupportSectionState extends State<SupportSection> {
 
   @override
   void dispose() {
+    if (_actor.onChange == _refresh) _actor.onChange = _previousOnChange;
     _composerFocus.dispose();
     _composerText.dispose();
     super.dispose();

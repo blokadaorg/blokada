@@ -38,7 +38,9 @@ class SupportUnreadActor with Logging, Actor {
 
   newMessage(Marker m, String content) async {
     log(m).t("New chat message");
-    if (!isShowingChat) {
+    // A chat left open in the background is not being read, so its replies
+    // still get the flag and the notification.
+    if (!(isForeground && isShowingChat)) {
       log(m).i("Setting chat unread flag");
       await _unread.change(m, true);
       if (!isForeground) {

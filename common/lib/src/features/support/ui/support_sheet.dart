@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/features/support/domain/support.dart';
 import 'package:common/src/features/support/ui/support_section.dart';
+import 'package:common/src/shared/layout/window_shape.dart';
 import 'package:common/src/shared/ui/nav_close_button.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:flutter/material.dart';
@@ -43,12 +44,13 @@ class SupportSheetState extends State<SupportSheet> {
   Widget build(BuildContext context) {
     final media = MediaQuery.of(context);
     // The sheet is not in a Scaffold that would make room for the keyboard,
-    // so it lifts itself. On Android the sheet already sits above the
-    // navigation bar (see BottomManagerSheet), which the keyboard inset
-    // also counts.
+    // so it lifts itself. On an Android phone the sheet already sits above
+    // the navigation bar (see BottomManagerSheet), which the keyboard inset
+    // also counts; the floating sheet on wide screens has no such padding.
+    final aboveNavBar = Platform.isAndroid && media.size.width < minWidthFloatingSheet;
     final keyboard = max(
       0.0,
-      media.viewInsets.bottom - (Platform.isAndroid ? media.viewPadding.bottom : 0.0),
+      media.viewInsets.bottom - (aboveNavBar ? media.viewPadding.bottom : 0.0),
     );
 
     return LayoutBuilder(
@@ -73,11 +75,11 @@ class SupportSheetState extends State<SupportSheet> {
                 children: [
                   _header(context),
                   Expanded(
-                    // The sheet already keeps clear of the navigation bar on
-                    // Android, so the composer must not add it again.
+                    // Where the sheet already keeps clear of the navigation
+                    // bar, the composer must not add it again.
                     child: MediaQuery.removePadding(
                       context: context,
-                      removeBottom: Platform.isAndroid,
+                      removeBottom: aboveNavBar,
                       child: const SupportSection(underTopBar: false),
                     ),
                   ),

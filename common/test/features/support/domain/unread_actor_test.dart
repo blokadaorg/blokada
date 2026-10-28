@@ -54,6 +54,23 @@ void main() {
       });
     });
 
+    test("a reply while the sheet is open in the background still notifies", () async {
+      await withTrace((m) async {
+        final unread = _registerDeps();
+        await unread.change(m, false);
+        final subject = SupportUnreadActor();
+
+        subject.sheetOpened();
+        subject.isForeground = false;
+        await subject.newMessage(m, "reply");
+
+        expect(unread.present, isTrue);
+        verify(
+          Core.get<NotificationActor>().showWithBody(NotificationId.supportNewMessage, m, "reply"),
+        ).called(1);
+      });
+    });
+
     test("opening the sheet clears the unread flag", () async {
       await withTrace((m) async {
         final unread = _registerDeps();
