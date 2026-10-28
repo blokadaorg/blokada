@@ -887,4 +887,5 @@
     <string name="private_dns_android_help_samsung">Update Samsung Device Services in the Galaxy Store, then try again.</string>
     <string name="private_dns_android_help_support">Still not working? Chat with us and we\'ll help.</string>
     <string name="private_dns_android_copied_hint">Hostname copied. Paste it in Settings.</string>
+    <string name="private_dns_android_blokada_hostname_label">Your Blokada hostname</string>
 </resources>

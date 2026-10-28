@@ -112,7 +112,7 @@
 "universal status restart required" = "Değişikliklerin etkili olması için lütfen programı yeniden başlatın.";
 "universal status redirect" = "Blokada uygulaması ile devam edin";
 "universal status confirm" = "Devam etmek istediğinizden emin misiniz?";
-"universal status loading" = "Loading...";
+"universal status loading" = "Yükleniyor...";
 
 "alert error header" = "Hay aksi!";
 "alert vpn expired header" = "BLOKADA+ süresi doldu";
@@ -697,8 +697,8 @@
 "universal action back" = "Back";
 "family profile error used as default" = "Used as default on %@. Change that device's profile first.";
 "family profile error used by rule" = "Used by a rule on %@. Remove that rule first.";
-"family profile editor title" = "Profile";
-"family profile editor delete" = "Delete profile";
+"family profile editor title" = "Profil";
+"family profile editor delete" = "Profili sil";
 "family profile editor delete confirm title" = "Delete \"%@\"?";
 "family profile editor delete confirm message" = "Removes this profile from the account.";
 "family device managed by six" = "Managed in Blokada 6. Family will not change DNS or VPN settings on this device.";
@@ -1236,3 +1236,5 @@
 "private dns android help support" = "Still not working? Chat with us and we'll help.";
 // Shown after Open Settings copied the hostname for the user
 "private dns android copied hint" = "Hostname copied. Paste it in Settings.";
+// Label above the Private DNS hostname on the Android setup sheet
+"private dns android blokada hostname label" = "Your Blokada hostname";

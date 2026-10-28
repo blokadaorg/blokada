@@ -1139,100 +1139,102 @@
 "universal action resume" = "Riprendi";
 
 // Activity list: headers grouping entries by when they happened; older days show a date instead
-"activity group just now" = "Just now";
-"activity group earlier today" = "Earlier today";
-"activity group yesterday" = "Yesterday";
+"activity group just now" = "Adesso";
+"activity group earlier today" = "In precedenza";
+"activity group yesterday" = "Ieri";
 
 // Privacy Pulse and Activity while activity logging is off: made-up numbers, blurred, behind an offer to turn logging on.
 // The badge that marks the numbers as made up
-"activity logging sample" = "Sample";
-"activity logging offer header" = "See what Blokada blocks";
+"activity logging sample" = "Esempio";
+"activity logging offer header" = "Guarda cosa stiamo bloccando";
 // What turning logging on keeps, and for how long
-"activity logging offer brief" = "Blokada keeps the requests from your devices for 24 hours, and you can turn this off any time in Settings.";
-"activity logging action enable" = "Turn on activity logging";
+"activity logging offer brief" = "Blokada mantiene le richieste dai tuoi dispositivi per 24 ore, puoi disattivare questa funzione dalle Impostazioni.";
+"activity logging action enable" = "Abilita registrazione attività";
 // Shown instead of an empty list right after activity logging was turned on, until the first requests show up
-"activity logging collecting" = "Collecting your first results";
+"activity logging collecting" = "Stiamo raccogliendo i primi risultati";
 
 // Top line of Privacy Pulse. First %s is how many requests were blocked (e.g. "36" or "12.3K"), second %s is the range ("24 h" or "7 d"). One form for a count of 1, the other for all other counts.
-"privacy pulse insight blocked one" = "%s blocked in %s";
-"privacy pulse insight blocked many" = "%s blocked in %s";
+"privacy pulse insight blocked one" = "%s bloccate in %s";
+"privacy pulse insight blocked many" = "%s bloccate in %s";
 // Added after the line above when there is something to compare with. %s is a percentage, without the sign (e.g. "12").
-"privacy pulse insight fewer 24h" = "%s% fewer than the 24 h before";
-"privacy pulse insight more 24h" = "%s% more than the 24 h before";
-"privacy pulse insight fewer 7d" = "%s% fewer than the week before";
-"privacy pulse insight more 7d" = "%s% more than the week before";
+"privacy pulse insight fewer 24h" = "%s% in meno delle 24 ore precedenti";
+"privacy pulse insight more 24h" = "%s% in più delle 24 ore precedenti";
+"privacy pulse insight fewer 7d" = "%s% in meno della settimana precedente";
+"privacy pulse insight more 7d" = "%s% in più della settimana precedente";
 
 // Blocklists screen (Blokada 6): one required main list plus optional extras, grouped by what they block.
 // Top card: "Blocking with", followed by the name of the main list, e.g. "OISD Small"
-"blocklists summary header" = "Blocking with";
+"blocklists summary header" = "Sei protetto con";
 // Shown in the top card when no main list is on yet
-"blocklists main none" = "No main list";
+"blocklists main none" = "Nessuna lista principale";
 // Header of the group where the user picks exactly one main list
-"blocklists main header" = "Main blocklist";
+"blocklists main header" = "Lista principale";
 // Shown under the header above when no main list is on yet
-"blocklists main pick" = "Pick a main list";
+"blocklists main pick" = "Scegli una lista principale";
 // Headers of the groups of optional lists, by what they block
-"blocklists group general" = "More general lists";
-"blocklists group ads" = "Ads and trackers";
-"blocklists group security" = "Malware and phishing";
-"blocklists group adult" = "Adult content";
+"blocklists group general" = "Liste generiche";
+"blocklists group ads" = "Pubblicità e tracker";
+"blocklists group security" = "Malware e phishing";
+"blocklists group adult" = "Contenuti per adulti";
 "blocklists group social" = "Social media";
-"blocklists group gambling" = "Gambling";
-"blocklists group fake news" = "Fake news and hate";
-"blocklists group apps" = "Apps and services";
-"blocklists group other" = "Other lists";
+"blocklists group gambling" = "Gioco d'azzardo";
+"blocklists group fake news" = "Bufale e odio";
+"blocklists group apps" = "App e servizi";
+"blocklists group other" = "Altre liste";
 // One line under a list's name: what it blocks, or what you gain and risk by picking it
-"blocklist brief oisd small" = "Blocks ads and trackers, with the fewest broken sites";
-"blocklist brief oisd big" = "Blocks more, a few sites may break";
-"blocklist brief stevenblack unified" = "Ads and malware, combined from several known lists";
-"blocklist brief 1hosts lite" = "Ads and trackers, a lighter list to try before Pro";
-"blocklist brief 1hosts pro" = "Blocks more than Lite, some sites may break";
-"blocklist brief hblock standard" = "Ads, tracking scripts and malware";
-"blocklist brief oisd nsfw" = "Adult sites";
-"blocklist brief stevenblack adult" = "Adult sites";
-"blocklist brief stevenblack social" = "Social media sites";
-"blocklist brief stevenblack gambling" = "Gambling sites";
-"blocklist brief stevenblack fake news" = "Fake news sites";
-"blocklist brief goodbyeads standard" = "Strict, may break some apps or sites";
-"blocklist brief adaway standard" = "Ads from mobile ad networks";
-"blocklist brief phishingarmy standard" = "Fake sites that try to steal your details";
-"blocklist brief phishingarmy extended" = "More phishing sites, a bigger list";
-"blocklist brief ddgtrackerradar standard" = "Trackers found by DuckDuckGo";
-"blocklist brief urlhaus standard" = "Sites that spread malware";
-"blocklist brief spam404 standard" = "Sites reported for spam and scams";
-"blocklist brief cpbl standard" = "Ads, tracking and malware, medium size";
-"blocklist brief danpollock standard" = "Ad servers, a small list";
-"blocklist brief d3host standard" = "A small list made to pass the d3ward ad block test";
+"blocklist brief oisd small" = "Blocca pubblicità e tracker, con pochissimi falsi positivi";
+"blocklist brief oisd big" = "Blocco maggiore, alcuni siti potrebbero non funzionare";
+"blocklist brief stevenblack unified" = "Pubblicità e malware, combinati da liste diverse";
+"blocklist brief 1hosts lite" = "Pubblicità e tracker, una lista più leggera da provare prima della Pro";
+"blocklist brief 1hosts pro" = "Blocco maggiore della Lite, alcuni siti potrebbero non funzionare";
+"blocklist brief hblock standard" = "Pubblicità, script traccianti e malware";
+"blocklist brief oisd nsfw" = "Siti per adulti";
+"blocklist brief stevenblack adult" = "Siti per adulti";
+"blocklist brief stevenblack social" = "Siti social";
+"blocklist brief stevenblack gambling" = "Siti di gioco d'azzardo";
+"blocklist brief stevenblack fake news" = "Siti di bufale";
+"blocklist brief goodbyeads standard" = "Blocco severo, potrebbe bloccare alcune app o siti";
+"blocklist brief adaway standard" = "Pubblicità per dispositivi mobili";
+"blocklist brief phishingarmy standard" = "Siti fasulli che tentano di rubare i tuoi dati";
+"blocklist brief phishingarmy extended" = "Più siti di phishing, lista più grande";
+"blocklist brief ddgtrackerradar standard" = "Tracker trovati da DuckDuckGo";
+"blocklist brief urlhaus standard" = "Siti che diffondono malware";
+"blocklist brief spam404 standard" = "Siti segnalati per spam e truffe";
+"blocklist brief cpbl standard" = "Pubblicità, tracking e malware, lista di medie dimension";
+"blocklist brief danpollock standard" = "Pubblicità, una lista più piccola";
+"blocklist brief d3host standard" = "Una breve lista per superare il test d3ward di blocco pubblicità";
 
 // Android Private DNS setup sheet. Step texts name screens and options in the
 // phone's Settings app: use the wording the phone shows in your language.
 // Param is the app name, Blokada 6 or Blokada Family
-"private dns android brief" = "%@ works through Private DNS. Copy your hostname, then paste it in Settings.";
-"private dns android header" = "Turn on Private DNS";
+"private dns android brief" = "%@ funziona attraverso il DNS Privato. Copia il tuo hostname, poi incollano nelle Impostazioni.";
+"private dns android header" = "Attiva DNS Privato";
 // Label above the hostname the user copies
-"private dns android hostname label" = "Your hostname";
+"private dns android hostname label" = "Il tuo hostname";
 // Steps on Samsung phones
-"private dns android step samsung connections" = "Open Settings, then Connections.";
-"private dns android step samsung more" = "Tap More connection settings, then Private DNS.";
+"private dns android step samsung connections" = "Apri le Impostazioni, poi Connessioni.";
+"private dns android step samsung more" = "Tocca Altre impostazioni di rete, poi DNS Privato.";
 // Steps on Pixel and other phones with stock Android
-"private dns android step pixel network" = "Open Settings, then Network & internet.";
+"private dns android step pixel network" = "Apri Impostazioni, poi Rete e internet.";
 // Steps on Xiaomi and OnePlus phones
-"private dns android step connection sharing" = "Open Settings, then Connection & sharing.";
-"private dns android step tap private dns" = "Tap Private DNS.";
+"private dns android step connection sharing" = "Apri Impostazioni, poi Connessione e condivisione.";
+"private dns android step tap private dns" = "Tocca DNS Privato.";
 // Option name in the Private DNS screen on Samsung, Pixel, Xiaomi and most phones
-"private dns android step choose hostname" = "Choose Private DNS provider hostname.";
+"private dns android step choose hostname" = "Scegli l'hostname del DNS Privato.";
 // Option name in the Private DNS screen on OnePlus
-"private dns android step choose designated" = "Choose Designated private DNS.";
+"private dns android step choose designated" = "Scegli DNS privato designato.";
 // Steps on other phones
-"private dns android step search" = "Open Settings and search for Private DNS.";
-"private dns android step paste" = "Paste your hostname and save.";
-"private dns android checking" = "Checking the connection…";
-"private dns android success header" = "You're protected";
-"private dns android success brief" = "Private DNS is on and goes through Blokada.";
-"private dns android help header" = "Not working yet";
-"private dns android help typing" = "Check the hostname. It must match exactly, so paste it instead of typing.";
-"private dns android help network" = "Some networks block Private DNS. Try mobile data or another Wi-Fi.";
-"private dns android help samsung" = "Update Samsung Device Services in the Galaxy Store, then try again.";
-"private dns android help support" = "Still not working? Chat with us and we'll help.";
+"private dns android step search" = "Apri Impostazioni e cerca DNS Privato.";
+"private dns android step paste" = "Incolla il tuo hostname e salva.";
+"private dns android checking" = "Controllo della connessione…";
+"private dns android success header" = "Sei protetto/a";
+"private dns android success brief" = "Il DNS Privato è attivo e passa attraverso Blokada.";
+"private dns android help header" = "Non ancora funzionante";
+"private dns android help typing" = "Controlla l'hostname. Deve corrispondere perfettamente: incollalo anziché scriverlo.";
+"private dns android help network" = "Alcune reti bloccano il DNS Privato. Prova con i dati mobili o un'altra rete Wi-Fi.";
+"private dns android help samsung" = "Aggiorna i Servizi del dispositivo Samsung dal Galaxy Store, poi riprova.";
+"private dns android help support" = "Ancora non va? Chatta con noi, ti aiuteremo.";
 // Shown after Open Settings copied the hostname for the user
-"private dns android copied hint" = "Hostname copied. Paste it in Settings.";
+"private dns android copied hint" = "Hostname copiato. Incollalo nelle Impostazioni.";
+// Label above the Private DNS hostname on the Android setup sheet
+"private dns android blokada hostname label" = "Il tuo hostname Blokada";
