@@ -8,23 +8,45 @@
 # "instrumentation process is not running" from UiAutomator2 means adb lost the
 # emulator: the host adb server logs "connection terminated" and the run loses
 # the spec in flight. Usually the link is back in seconds; sometimes the
-# emulator process is gone for good. The report shows which, and prints no
-# device data.
+# emulator process is gone for good. The report shows which, plus host memory
+# over the run and any kernel OOM kills, so a dead emulator process can be told
+# apart from a crash. It prints no device data: no logcat, no Appium log.
 set -u
 
 serial="${ANDROID_UDID:-emulator-5554}"
 out="$(cd "$(dirname "$0")/../.." && pwd)/output"
 log="$out/run-health.txt"
+memlog="$out/run-health-mem.txt"
 pidfile="$out/run-health.pid"
+
+# Host memory in MB: "avail=<available> swap=<swap used>".
+mem_sample() {
+  free -m | awk '/^Mem:/ { a = $7 } /^Swap:/ { s = $3 } END { printf "avail=%s swap=%s", a, s }'
+}
+
+# Largest processes by resident memory, command name only.
+top_rss() {
+  ps -eo rss=,comm= --sort=-rss | head -n 6 | awk '{ printf "    %6d MB %s\n", $1 / 1024, $2 }'
+}
 
 case "${1:-}" in
   start)
     mkdir -p "$out"
+    echo "Host memory at start (MB): $(mem_sample)"
+    free -m
+    echo "  largest processes:"
+    top_rss
+    : >"$memlog"
     nohup sh -c "
+      i=0
       while true; do
         state=\$(adb -s $serial get-state 2>/dev/null || echo offline)
         if pgrep -f '[q]emu-system' >/dev/null; then emu=running; else emu=gone; fi
         echo \"\$(date -u +%H:%M:%S) adb=\$state emulator=\$emu\"
+        if [ \$((i % 5)) -eq 0 ]; then
+          free -m | awk -v t=\"\$(date -u +%H:%M:%S)\" '/^Mem:/ { a = \$7 } /^Swap:/ { s = \$3 } END { print t, a, s }' >>'$memlog'
+        fi
+        i=\$((i + 1))
         sleep 1
       done" >"$log" 2>&1 &
     echo $! >"$pidfile"
@@ -48,6 +70,35 @@ case "${1:-}" in
     for f in /tmp/adb.*.log; do
       [ -f "$f" ] && grep -h 'connection terminated' "$f" | sed -E 's/^([0-9-]+ [0-9:.]+) .* (emulator-[0-9]+: connection terminated.*)$/  host adb \1: \2/' | sort -u
     done
+    if [ -s "$memlog" ]; then
+      awk '
+        NR == 1 || $2 < min { min = $2; mint = $1 }
+        $3 > maxs { maxs = $3; maxst = $1 }
+        END { printf "Host memory (MB, every 5 s): lowest available %s at %s, most swap used %s at %s.\n", min, mint, maxs + 0, maxst ? maxst : "-" }
+      ' "$memlog"
+      # Memory just before and after the emulator process left, if it did.
+      gone="$(grep -m1 'emulator=gone' "$log" | cut -d' ' -f1)"
+      if [ -n "$gone" ]; then
+        echo "  around the emulator process exit at $gone (time avail swap):"
+        awk -v g="$gone" '{ l[NR] = $0; t[NR] = $1 } END { for (i = 1; i <= NR; i++) if (t[i] >= g) { for (j = (i > 3 ? i - 3 : 1); j <= i + 1 && j <= NR; j++) print "    " l[j]; break } }' "$memlog"
+      fi
+    fi
+    echo "  largest processes now:"
+    top_rss
+    # Kernel OOM killer. Hosted runners have passwordless sudo.
+    # Only the trigger and victim lines: the oom-kill summary line carries cgroup
+    # paths.
+    oom="$(sudo -n dmesg -T 2>/dev/null | grep -E 'invoked oom-killer|Out of memory|Killed process' | sed -E 's/ (gfp_mask|order|oom_score_adj)=.*//' || true)"
+    if [ -n "$oom" ]; then
+      echo "Kernel OOM killer fired:"
+      echo "$oom" | sed -E 's/^/  /'
+    else
+      echo "Kernel log: no OOM kills."
+    fi
+    # The emulator stores crash reports here when its own crash handler ran; a
+    # SIGKILL (OOM) leaves none.
+    crashes="$(find /tmp/android-runner -maxdepth 3 \( -name '*.dmp' -o -name '*.dmp.*' \) 2>/dev/null | wc -l)"
+    echo "Emulator crash dumps: $crashes."
     ;;
   *)
     echo "usage: $0 start|report" >&2
