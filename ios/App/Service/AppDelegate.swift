@@ -79,8 +79,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.handleBackgroundPing(task: task as! BGAppRefreshTask)
         }
 
+#if DEBUG
+        restoreAccountFromLaunchArguments()
+#endif
+
         return true
     }
+
+#if DEBUG
+    /// Restores the account id passed as `-restoreAccountId <id>` (for example
+    /// `xcrun simctl launch <udid> <bundle> -restoreAccountId <id>`, wrapped by
+    /// `make -C ios restore-account-sim`), so a fresh simulator install can be
+    /// set up with a test account without typing it into the Restore Account ID
+    /// dialog. Debug builds only, so nothing outside a developer's own launch
+    /// can swap the account of a shipped app. The command is queued until
+    /// Flutter accepts commands.
+    private func restoreAccountFromLaunchArguments() {
+        let args = ProcessInfo.processInfo.arguments
+        guard let index = args.firstIndex(of: "-restoreAccountId"), index + 1 < args.count else { return }
+        let accountId = args[index + 1].trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !accountId.isEmpty else { return }
+        commands.execute(.restore, accountId)
+    }
+#endif
 
     var isTaskScheduled = false
 

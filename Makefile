@@ -30,6 +30,7 @@ ADAPTY_VER := 4_0_0
 	gen regen android regen-android regen-ios \
 	install-family install-family-debug \
 	install-six install-six-debug uninstall \
+	restore-account-android restore-account-ios-sim \
 	ci-build-android-family ci-build-android-six \
 	ci-build-ios-family ci-build-ios-six \
 	adapty-paywalls \
@@ -482,6 +483,23 @@ install-six-debug:
 # Uninstall all Android apps
 uninstall: 
 	$(MAKE) -C android/ uninstall
+
+# Restore ACCOUNT_ID into the installed debug app and open it, instead of typing
+# it into Settings > Restore Account ID. Release builds ignore the extra.
+# Usage: make restore-account-android ACCOUNT_ID=<id> [APP_FLAVOR=six|family] [ANDROID_UDID=emulator-5554]
+restore-account-android:
+	@set -eu; \
+	if [ -z "$${ACCOUNT_ID:-}" ]; then echo "restore-account-android: set ACCOUNT_ID" >&2; exit 1; fi; \
+	case "$${APP_FLAVOR:-six}" in \
+		six) PKG=org.blokada.sex ;; \
+		family) PKG=org.blokada.family ;; \
+		*) echo "restore-account-android: APP_FLAVOR must be six or family" >&2; exit 1 ;; \
+	esac; \
+	adb $${ANDROID_UDID:+-s "$$ANDROID_UDID"} shell am start -n "$$PKG/ui.MainActivity" --es restore_account_id "$$ACCOUNT_ID"
+
+# Same for the debug app on this checkout's iOS simulator; see ios/SIMULATOR.md.
+restore-account-ios-sim:
+	$(MAKE) -C ios/ restore-account-sim
 
 
 # CI: build android family app from scratch
