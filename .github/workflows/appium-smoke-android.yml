@@ -18,9 +18,11 @@ permissions:
   # like appium-smoke.yml does for the iPhone run.
   statuses: write
 
-# Latest commit wins per branch; workflow_dispatch runs always run.
+# Latest commit wins per branch and trigger; workflow_dispatch runs always run.
+# The trigger is in the key so the workflow_run run (main's copy of this file)
+# cannot cancel the pull_request run of a PR that edits this workflow.
 concurrency:
-  group: appium-smoke-android-${{ github.event.workflow_run.head_branch || github.head_ref || github.run_id }}
+  group: appium-smoke-android-${{ github.event_name }}-${{ github.event.workflow_run.head_branch || github.head_ref || github.run_id }}
   cancel-in-progress: true
 
 # An extra check next to the iPhone suite, which stays the final one. Runs a
