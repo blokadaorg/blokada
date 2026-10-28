@@ -223,6 +223,27 @@ void main() {
       expect(section.level, 2);
       expect(section.domain, entry.domainName);
       expect(section.fetchToplist, isFalse);
+      expect(section.deviceName, entry.deviceName);
+    });
+
+    testWidgets("family journal entries keep showing this device", (tester) async {
+      Core.act = ActScreenplay(ActScenario.test, Flavor.family, PlatformType.iOS);
+      final routes = DetailRoutes();
+      final context = await contextOf(tester);
+      final section = routes.resolve(Paths.deviceStatsDetail)!.body!(context, journalEntry())
+          as DomainDetailSection;
+      expect(section.deviceName, isNull);
+    });
+
+    testWidgets("deviceStatsDetail Map args carry the device name", (tester) async {
+      final routes = DetailRoutes();
+      final context = await contextOf(tester);
+      final body = routes.resolve(Paths.deviceStatsDetail)!.body!(
+          context, {'mainEntry': mainEntry(), 'deviceName': "Living Room Router"});
+      expect((body as DomainDetailSection).deviceName, "Living Room Router");
+      final minimal = routes.resolve(Paths.deviceStatsDetail)!.body!(
+          context, {'mainEntry': mainEntry()}) as DomainDetailSection;
+      expect(minimal.deviceName, isNull);
     });
 
     testWidgets("deviceStatsDetail pane keeps the journal-entry divergence", (tester) async {
