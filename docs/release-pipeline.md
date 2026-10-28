@@ -445,8 +445,17 @@ went to 100% cannot be halted through the API path here; use Play Console →
 *Production* → *Halt release*.
 
 The workflow has no concurrency group. A halt must not queue behind a release,
-and each action is a single edit committed in seconds; one that collides with
-an open upload edit fails and can be re-run.
+and each action is a single edit committed in seconds. A collision usually
+fails the longer `ci-release` or `promote` run whose open Play edit it
+invalidated, not the rollout itself; re-run that one.
+
+`store-live` is only a gate once it is configured: GitHub creates an
+environment a workflow names on first use, with no protection rules, and its
+jobs then run without waiting. Give it the maintainers as required
+reviewers, and let it deploy only from `main` like `release`, in the repository
+settings before relying on this workflow or on `public_release: true`.
+Self-review stays allowed, so a maintainer can approve a run they dispatched;
+an automation that dispatches these workflows never approves one.
 
 ### Why Android writes the track instead of promoting
 

@@ -37,8 +37,8 @@ permissions:
 # No concurrency group, unlike ci-release.yml and promote.yml. A halt must not
 # wait behind a release that takes most of an hour, and a pending run in a
 # shared group is cancelled by the next one queued. Each action is a single
-# edit committed within seconds; one that collides with an open upload edit
-# fails cleanly and can be re-run.
+# edit committed within seconds, so a collision usually fails the longer
+# ci-release or promote run whose Play edit it invalidated; re-run that one.
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -100,6 +100,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: store-live
     timeout-minutes: 5
+    permissions: {}
     steps:
       - name: Approved
         env:
@@ -123,6 +124,7 @@ jobs:
       FLAVOR: ${{ inputs.flavor }}
       ROLLOUT_ACTION: ${{ inputs.action }}
       ROLLOUT_FRACTION: ${{ inputs.fraction }}
+      PLAY_ROLLOUT_FASTLANE_VERSION: "2.228.0"
     steps:
       - uses: actions/checkout@v7
         with:
@@ -130,11 +132,10 @@ jobs:
 
       # The same release promote.yml pins. play-rollout.rb only uses supply's
       # Play client, which that pin does not affect, but it keeps one known
-      # fastlane on the Play path.
+      # fastlane on the Play path. The script activates this version itself;
+      # a plain require would load the image's newer fastlane.
       - name: Install fastlane
-        env:
-          PROMOTE_FASTLANE_VERSION: "2.228.0"
-        run: sudo gem install fastlane -v "$PROMOTE_FASTLANE_VERSION" --no-document
+        run: sudo gem install fastlane -v "$PLAY_ROLLOUT_FASTLANE_VERSION" --no-document
 
       - name: Change the production rollout
         env:
@@ -153,7 +154,9 @@ jobs:
         needs.check.result == 'success' &&
         (needs.approve.result == 'success' || needs.approve.result == 'skipped')
       }}
-    runs-on: macos-26
+    # Only App Store Connect API calls, so no Mac: a pause should not wait in
+    # the macOS runner queue.
+    runs-on: ubuntu-latest
     environment: release
     timeout-minutes: 15
     env:
@@ -166,9 +169,12 @@ jobs:
         with:
           fetch-depth: 1
 
+      # The system Ruby's gem dir is not writable, so bundle into the checkout.
       - name: Install fastlane
         working-directory: ios
-        run: bundle install
+        run: |
+          bundle config set --local path vendor/bundle
+          bundle install
 
       - name: Change the App Store release
         env:

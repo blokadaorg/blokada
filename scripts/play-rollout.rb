@@ -19,8 +19,13 @@
 
 require 'optparse'
 require_relative 'play_rollout'
+require_relative '../ios/fastlane/ci_annotation'
 
 begin
+  # A plain require activates the newest fastlane installed, and the runner
+  # image ships one newer than the release store-rollout.yml installs.
+  pinned = ENV["PLAY_ROLLOUT_FASTLANE_VERSION"].to_s
+  gem('fastlane', pinned) unless pinned.empty?
   require 'supply'
 rescue LoadError => e
   warn("Error: could not load fastlane's supply library (#{e.message}).")
@@ -31,17 +36,9 @@ end
 TRACK = "production"
 
 def fail_with(message)
-  if ENV["GITHUB_ACTIONS"]
-    puts("::error title=Play rollout refused::#{message.gsub('%', '%25').gsub("\n", '%0A')}")
-  end
+  CiAnnotation.error(title: "Play rollout refused", message: message)
   warn("Error: #{message}")
   exit(1)
-end
-
-def report(message)
-  puts(message)
-  summary = ENV["GITHUB_STEP_SUMMARY"]
-  File.open(summary, "a") { |f| f.puts("- #{message}") } if summary && !summary.empty?
 end
 
 options = {}
@@ -91,13 +88,13 @@ begin
   release = PlayRollout.apply!(track.releases, action: options[:action], fraction: options[:fraction])
 
   if release.nil?
-    report("#{package_name}: nothing to #{options[:action]} on #{TRACK}, #{before}")
+    CiAnnotation.summary("#{package_name}: nothing to #{options[:action]} on #{TRACK}, #{before}")
   else
     track.releases = [release]
     client.update_track(TRACK, track)
     client.commit_current_edit!
     committed = true
-    report("#{package_name}: #{options[:action]} on #{TRACK}, #{before} -> #{PlayRollout.describe([release])}")
+    CiAnnotation.summary("#{package_name}: #{options[:action]} on #{TRACK}, #{before} -> #{PlayRollout.describe([release])}")
   end
 rescue PlayRollout::Refusal => e
   fail_with("#{package_name}: #{e.message}")
