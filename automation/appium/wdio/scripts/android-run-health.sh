@@ -103,7 +103,7 @@ case "${1:-}" in
     fi
     # systemd-oomd kills a whole cgroup on swap use or memory pressure, with no
     # kernel OOM line. Keep the reason, drop the cgroup path.
-    oomd="$(sudo -n journalctl -u systemd-oomd --no-pager -o short-precise 2>/dev/null | grep -E 'Killed|due to' | sed -E 's#Killed /[^ ]*#Killed a cgroup#' || true)"
+    oomd="$(sudo -n journalctl -u systemd-oomd --no-pager -o cat 2>/dev/null | grep -E 'Killed|due to' | sed -E 's#Killed /[^ ]*#Killed a cgroup#' || true)"
     if [ -n "$oomd" ]; then
       echo "systemd-oomd killed:"
       echo "$oomd" | sed -E 's/^/  /'
