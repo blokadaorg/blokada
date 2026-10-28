@@ -1237,3 +1237,5 @@
 "private dns android help support" = "Still not working? Chat with us and we'll help.";
 // Shown after Open Settings copied the hostname for the user
 "private dns android copied hint" = "Hostname copied. Paste it in Settings.";
+// Label above the Private DNS hostname on the Android setup sheet
+"private dns android blokada hostname label" = "Your Blokada hostname";
