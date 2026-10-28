@@ -24,4 +24,14 @@ module CiAnnotation
 
     nil
   end
+
+  # Prints a result line, and on CI also adds it to the step summary.
+  def self.summary(message)
+    puts(message)
+
+    summary = ENV["GITHUB_STEP_SUMMARY"]
+    File.open(summary, "a") { |f| f.puts("- #{message}") } if ENV["GITHUB_ACTIONS"] && summary
+
+    nil
+  end
 end

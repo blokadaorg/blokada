@@ -20,8 +20,8 @@ ADAPTY_VER := 4_0_0
 	build-ios build-ios-family build-ios-six build-ios-six-debug \
 	sign-ios-frameworks \
 	version version-clean \
-	publish-android promote-android gplay-key-unpack gplay-key-clean \
-	promote-ios publish-ios-testflight appstore-key-unpack appstore-key-clean fastlane-match \
+	publish-android promote-android rollout-android gplay-key-unpack gplay-key-clean \
+	promote-ios rollout-ios publish-ios-testflight appstore-key-unpack appstore-key-clean fastlane-match \
 	ci-ios-signing \
 	build-android-family-debug build-android-six-debug \
 	build-android-six-debug-mocked build-android-family-debug-mocked \
@@ -61,6 +61,7 @@ test-scripts:
 	./scripts/test-build-number.sh
 	./scripts/test-version.sh
 	./scripts/test-release-state.rb
+	./scripts/test-store-rollout.rb
 
 # Build everything from scratch
 build:
@@ -328,6 +329,19 @@ promote-android:
 	done
 	$(MAKE) gplay-key-clean
 
+# Raise, halt or resume the staged rollout on Play production (use FLAVOR,
+# ROLLOUT_ACTION=raise|halt|resume, and ROLLOUT_FRACTION for raise, where 1
+# completes the rollout). Never uploads or promotes a build.
+rollout-android:
+	$(MAKE) gplay-key-unpack
+	@PKG=$(if $(filter family,$(FLAVOR)),org.blokada.family,org.blokada.sex); \
+	./scripts/play-rollout.rb \
+	    --json-key blokada-gplay.json \
+	    --package-name "$$PKG" \
+	    --action "$(ROLLOUT_ACTION)" \
+	    $(if $(ROLLOUT_FRACTION),--fraction "$(ROLLOUT_FRACTION)")
+	$(MAKE) gplay-key-clean
+
 # Unpack Google Play api key for publishing (use env var)
 gplay-key-unpack:
 	@if [ -z "$$BLOKADA_GPLAY_KEY_BASE64" ]; then \
@@ -371,6 +385,14 @@ promote-ios:
 	    version_name:$(BLOKADA_VERSION_NAME) \
 	    public_release:$(if $(filter true,$(PUBLIC_RELEASE)),true,false) \
 	    phased_release:$(if $(filter false,$(PHASED_RELEASE)),false,true)
+	$(MAKE) appstore-key-clean
+
+# Pause or resume the live version's phased release, or release the approved
+# version (use FLAVOR and ROLLOUT_ACTION=pause|resume|release).
+rollout-ios:
+	$(MAKE) appstore-key-unpack
+	@BUNDLE=$(if $(filter family,$(FLAVOR)),net.blocka.app.family,net.blocka.app); \
+	cd ios/ && $(FASTLANE) store_rollout bundle_id:$$BUNDLE action:$(ROLLOUT_ACTION)
 	$(MAKE) appstore-key-clean
 
 # Upload an already-built IPA to TestFlight (use FLAVOR param). Continuous

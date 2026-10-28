@@ -26,7 +26,7 @@ on:
         type: choice
         options: [all, ios, android]
       public_release:
-        description: "Go live once approved. OFF: Android stops at alpha+beta, and both iOS apps wait in App Store Connect for you to press Release. ON: Android also goes to production (Six at 1%, Family at 100%) and Family releases itself the moment Apple approves it. Blokada 6 always waits for you either way. Both apps are always submitted for review."
+        description: "Go live once approved. OFF: Android stops at alpha+beta, and both iOS apps wait in App Store Connect for you to press Release. ON: Android also goes to production (Six at 1%, Family at 100%) and Family releases itself the moment Apple approves it. Blokada 6 always waits for you either way. Both apps are always submitted for review. ON also waits for a maintainer to approve the run (store-live environment) before anything is released."
         required: false
         default: false
         type: boolean
@@ -103,9 +103,31 @@ jobs:
             echo "- iOS phased release (Six): \`$IOS_PHASED_RELEASE_INPUT\`"
           } >> "$GITHUB_STEP_SUMMARY"
 
-  promote_android:
+  # Going live waits for a maintainer, on the same `store-live` environment as
+  # store-rollout.yml. Holds no secrets: the jobs below use the keys in
+  # `release` and only start once this has been approved. While it waits, the
+  # run holds the store-publish queue, so merges wait for the answer too.
+  approve_live:
     needs: resolve
-    if: ${{ inputs.platform == 'all' || inputs.platform == 'android' }}
+    if: ${{ inputs.public_release }}
+    runs-on: ubuntu-latest
+    environment: store-live
+    timeout-minutes: 5
+    permissions: {}
+    steps:
+      - name: Approved
+        run: echo "A maintainer approved going live"
+
+  promote_android:
+    needs: [resolve, approve_live]
+    # approve_live is skipped when not going live, and a skipped need skips
+    # this job unless the condition says otherwise.
+    if: >-
+      ${{
+        !cancelled() && needs.resolve.result == 'success' &&
+        (needs.approve_live.result == 'success' || needs.approve_live.result == 'skipped') &&
+        (inputs.platform == 'all' || inputs.platform == 'android')
+      }}
     runs-on: ubuntu-latest
     environment: release
     timeout-minutes: 60
@@ -152,8 +174,13 @@ jobs:
         run: make gplay-key-clean
 
   promote_ios:
-    needs: resolve
-    if: ${{ inputs.platform == 'all' || inputs.platform == 'ios' }}
+    needs: [resolve, approve_live]
+    if: >-
+      ${{
+        !cancelled() && needs.resolve.result == 'success' &&
+        (needs.approve_live.result == 'success' || needs.approve_live.result == 'skipped') &&
+        (inputs.platform == 'all' || inputs.platform == 'ios')
+      }}
     runs-on: macos-26
     environment: release
     timeout-minutes: 60

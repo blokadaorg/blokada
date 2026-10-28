@@ -21,6 +21,7 @@
 # at call time and raises LoadError from any other working directory.
 require_relative "release_state"
 require_relative "ci_annotation"
+require_relative "ios_rollout"
 
 default_platform(:ios)
 
@@ -378,6 +379,59 @@ platform :ios do
         content_rights_contains_third_party_content: false
       }
     )
+  end
+
+  # Pause or resume the phased release of the live version, or release the
+  # version Apple approved (Pending Developer Release). Used by
+  # store-rollout.yml; IosRollout decides whether the action can start.
+  #
+  # Runs in ios/fastlane/ like ensure_promotable, so the key is
+  # "../blokada-appstore.json" -- see the note above ensure_promotable.
+  lane :store_rollout do |options|
+    require "spaceship"
+
+    bundle_id = options[:bundle_id]
+    action = options[:action].to_s
+
+    Spaceship::ConnectAPI.token = Spaceship::ConnectAPI::Token.from_json_file("../blokada-appstore.json")
+    platform = Spaceship::ConnectAPI::Platform::IOS
+
+    app = Spaceship::ConnectAPI::App.find(bundle_id)
+    UI.user_error!("Could not find app '#{bundle_id}' on App Store Connect") if app.nil?
+
+    state = if action == "release"
+              Spaceship::ConnectAPI::AppStoreVersion::AppVersionState::PENDING_DEVELOPER_RELEASE
+            else
+              Spaceship::ConnectAPI::AppStoreVersion::AppVersionState::READY_FOR_DISTRIBUTION
+            end
+    # Included rather than fetched: fetching a version's phased release when it
+    # has none raises "No data" in spaceship instead of returning nil.
+    version = app.get_app_store_versions(
+      filter: { platform: platform, appVersionState: state },
+      includes: "appStoreVersionPhasedRelease"
+    ).first
+    phased = version&.app_store_version_phased_release
+
+    decision = IosRollout.decide(action,
+                                 version_state: version&.app_version_state,
+                                 phased_state: phased&.phased_release_state)
+    if decision.is_a?(String)
+      CiAnnotation.error(title: "Cannot #{action} #{bundle_id}", message: decision)
+      UI.user_error!("#{bundle_id}: #{decision}")
+    end
+
+    label = "#{bundle_id} #{version.version_string}"
+    if decision == :noop
+      CiAnnotation.summary("#{label}: nothing to do, the phased release is already #{phased.phased_release_state}")
+      next
+    end
+
+    case action
+    when "pause" then phased.pause
+    when "resume" then phased.resume
+    when "release" then version.create_app_store_version_release_request
+    end
+    CiAnnotation.summary("#{label}: #{action} done")
   end
 
   # Continuous path: upload to TestFlight only, run on every merge to main.

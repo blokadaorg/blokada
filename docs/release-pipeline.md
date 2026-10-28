@@ -264,6 +264,11 @@ iOS at all; on Play it gains a production release that starts at 1%.
 Default `false` matters because the flag decides whether Play production is
 written. An input nobody thought about must not publish.
 
+A run with `public_release: true` also waits for a maintainer to approve it on
+the `store-live` environment before any promote job starts. The run holds the
+`store-publish` queue while it waits, so a merge landing meanwhile waits for
+the answer too.
+
 ### iOS phased release and automatic release
 
 Six ramps over 7 days unless `ios_phased_release` is unticked, and always waits
@@ -379,15 +384,16 @@ With `public_release: true` it goes further:
 - **The Family App Store version** is created with `automatic_release: true`, so
   Apple publishes it as soon as review passes.
 
-What stays manual, always:
+What `promote.yml` never does on its own:
 
-- **Blokada 6 on the App Store** — App Store Connect → *Release this version*,
-  because six keeps `automatic_release: false`. This is the one click the
-  pipeline will never make.
-- **Raising six's Play rollout** — Play Console → *Production* → the staged
-  release → increase the percentage. Play has no time-based ramp, so nothing
-  raises it on a schedule. `GPLAY_SIX_PRODUCTION_ROLLOUT` sets only the starting
-  fraction.
+- **Blokada 6 on the App Store** — six keeps `automatic_release: false`, so an
+  approved version waits in Pending Developer Release until someone releases
+  it: `store-rollout.yml` with `release`, or App Store Connect → *Release this
+  version*.
+- **Raising six's Play rollout** — `store-rollout.yml` with `raise`, or Play
+  Console → *Production* → the staged release → increase the percentage. Play
+  has no time-based ramp, so nothing raises it on a schedule.
+  `GPLAY_SIX_PRODUCTION_ROLLOUT` sets only the starting fraction.
 
   **This is not optional maintenance — it gates the next public release of
   six.** A track cannot hold two in-progress staged rollouts: Play's own
@@ -407,6 +413,40 @@ sits in `PENDING_DEVELOPER_RELEASE`, and no new version can be created for that
 app until it is released or rejected — so the next promote run for that flavor
 fails the state gate. Family avoids this by publishing itself; six does not, and
 that is the trade for keeping the click.
+
+### Workflow C — `store-rollout.yml`
+
+Moves a release that is already in the stores, without holding store keys
+outside the `release` environment. Dispatched with `flavor` (`six`, `family`),
+`platform` and `action`:
+
+| Platform | Action | Effect | Approval |
+|---|---|---|---|
+| android | `halt` | halts the production staged rollout at its fraction | none |
+| android | `resume` | resumes a halted rollout at the fraction it was halted at | `store-live` |
+| android | `raise` | raises the staged rollout to `fraction`; `1` completes it | `store-live` |
+| ios | `pause` | pauses the live version's phased release | none |
+| ios | `resume` | resumes a paused phased release | `store-live` |
+| ios | `release` | releases the version in Pending Developer Release | `store-live` |
+
+Anything that reaches more users waits for a reviewer on `store-live`; halting
+and pausing run at once, because a bad release has to stop now. The approval
+job holds no secrets, and the job that uses the keys only starts once it has
+passed. An action that finds the store already where it would put it (halting
+a halted rollout) succeeds without a change; one that cannot start (raising a
+halted rollout, lowering a fraction, pausing a version released without a
+phased release) fails and says why.
+
+Play: `scripts/play-rollout.rb` reads the production track, picks its one
+staged release (`inProgress` or `halted`), and writes it back the way supply's
+`update_rollout` does. It does not use `supply --rollout`, which only looks for
+`inProgress` releases and so cannot resume a halted one. A release that already
+went to 100% cannot be halted through the API path here; use Play Console →
+*Production* → *Halt release*.
+
+The workflow has no concurrency group. A halt must not queue behind a release,
+and each action is a single edit committed in seconds; one that collides with
+an open upload edit fails and can be re-run.
 
 ### Why Android writes the track instead of promoting
 
@@ -485,7 +525,9 @@ old patches are <= 75, new ones start at 1000.
 | `promote-android` | release | **new** — preflight the code, then write `alpha`/`beta` (and `production` when `PUBLIC_RELEASE=true`) directly with `--version_codes_to_retain`, plus metadata/changelogs |
 | `publish-ios-testflight` | merge | **new** — `upload_to_testflight` lane |
 | `promote-ios` | release | **renamed from `publish-ios`** — state gate, then `deliver` with `build_number`, `skip_binary_upload` and `submit_for_review` |
-| `test-scripts` | neither | **new** — runs `test-build-number.sh`, `test-version.sh` and `test-release-state.rb`; wired into PR CI on `ubuntu-latest` |
+| `rollout-android` | rollout | raise, halt or resume the Play production staged rollout via `scripts/play-rollout.rb` |
+| `rollout-ios` | rollout | `store_rollout` lane: pause or resume the phased release, or release the approved version |
+| `test-scripts` | neither | **new** — runs `test-build-number.sh`, `test-version.sh`, `test-release-state.rb` and `test-store-rollout.rb`; wired into PR CI on `ubuntu-latest` |
 
 ### iOS submission settings
 

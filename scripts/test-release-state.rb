@@ -127,6 +127,12 @@ Dir.mktmpdir do |dir|
     capture_stdout { CiAnnotation.error(title: "T", message: "a\nb") }.strip == "::error title=T::a%0Ab"
   end
 
+  check("summary line appends to the step summary on CI") do
+    ENV["GITHUB_ACTIONS"] = "true"
+    capture_stdout { CiAnnotation.summary("released 1.2.3") }
+    File.exist?(summary) && File.read(summary).include?("- released 1.2.3")
+  end
+
   check("annotation appends to the step summary") do
     ENV["GITHUB_ACTIONS"] = "true"
     capture_stdout { CiAnnotation.error(title: "T", message: "boom") }
