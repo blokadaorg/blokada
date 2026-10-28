@@ -118,9 +118,18 @@ case "${1:-}" in
       echo "Kernel log, faults:"
       echo "$faults" | sed -E 's/^/  /'
     fi
-    apport="$(sudo -n cat /var/log/apport.log 2>/dev/null | grep -iE 'qemu|emulator' || true)"
+    # apport logs "called for pid N, signal S" then the executable.
+    apport="$(sudo -n cat /var/log/apport.log 2>/dev/null | grep -E 'called for pid|executable:' | sed -E 's/ \(command line .*//' || true)"
     [ -n "$apport" ] && { echo "apport:"; echo "$apport" | sed -E 's/^/  /'; }
-    echo "Core files: $(sudo -n ls /var/crash 2>/dev/null | grep -c . || true), core_pattern: $(cut -c1-40 /proc/sys/kernel/core_pattern)."
+    # systemd-coredump keeps the signal and a symbolized stack. Only those: the
+    # full record also names the host.
+    if sudo -n coredumpctl list --no-pager >/dev/null 2>&1; then
+      echo "Core dumps:"
+      sudo -n coredumpctl info --no-pager 2>/dev/null \
+        | grep -E '^ +(Executable|Signal):|^ +#[0-9]+ ' | head -n 40 | sed -E 's/^ +/  /'
+    else
+      echo "Core dumps: none."
+    fi
     echo "Emulator crash database, files written during the run:"
     find /tmp/android-runner -type f -newer "$memlog" 2>/dev/null | sed -E 's#^/tmp/android-runner/#  #' | head -n 10
     ;;
