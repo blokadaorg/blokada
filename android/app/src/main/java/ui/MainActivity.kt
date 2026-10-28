@@ -204,12 +204,15 @@ class MainActivity : AppCompatActivity() {
      * Restores the account id passed as the restore_account_id extra, so a
      * fresh debug install can be set up with a test account from the command
      * line (`make restore-account-android`) instead of typing it into the
-     * Restore Account ID dialog. Debug builds only: this activity is exported,
-     * so in a release build any app could send the extra and swap the user's
-     * account.
+     * Restore Account ID dialog. Debug build type only: this activity is
+     * exported, so in any shipped build any app could send the extra and swap
+     * the user's account. BuildConfig.DEBUG is not enough, since the beta build
+     * type handed to testers is debuggable too. A relaunch from Recents
+     * redelivers the original intent, which must not restore the account again.
      */
     private fun handleDebugRestore(intent: Intent) {
-        if (!BuildConfig.DEBUG) return
+        if (BuildConfig.BUILD_TYPE != "debug") return
+        if (intent.flags and Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY != 0) return
         val accountId = intent.getStringExtra(EXTRA_RESTORE_ACCOUNT_ID)
         if (accountId.isNullOrBlank()) return
         Logger.w("MainActivity", "Restoring account id from the launch intent (debug build)")

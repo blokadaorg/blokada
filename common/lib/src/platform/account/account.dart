@@ -180,6 +180,9 @@ abstract class AccountStoreBase with Store, Logging, Actor, Emitter {
         final sanitizedId = _sanitizeAccountId(id);
         _ensureValidAccountId(sanitizedId);
         final jsonAccount = await _api.getAccount(sanitizedId, m);
+        // Reject an account of the other flavor before persisting it, or the
+        // next launch fails to load it and replaces it with a new account.
+        _ensureValidAccountType(jsonAccount);
         await _persistence.saveJson(m, keyAccount, jsonAccount.toJson(), isBackup: true);
         await _changeAccount(AccountState(jsonAccount.id, jsonAccount), m);
         if (jsonAccount.isActive()) {

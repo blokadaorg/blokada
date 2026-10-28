@@ -116,6 +116,29 @@ void main() {
       });
     });
 
+    test("restoreWillNotPersistAccountOfOtherFlavor", () async {
+      await withTrace((m) async {
+        Core.register<StageStore>(MockStageStore());
+
+        final persistence = MockPersistence();
+        Core.register<Persistence>(persistence, tag: Persistence.secure);
+
+        final json = MockAccountApi();
+        when(json.getAccount(any, any)).thenAnswer((_) => Future.value(JsonAccount(
+              id: "familyacct1",
+              activeUntil: "2099-01-01T00:00:00Z",
+              active: true,
+              type: AccountType.family.name,
+            )));
+        Core.register<AccountApi>(json);
+
+        final subject = AccountStore();
+
+        await expectLater(subject.restore("familyacct1", m), throwsA(isA<InvalidAccountId>()));
+        verifyNever(persistence.saveJson(any, any, any, isBackup: true));
+      });
+    });
+
     test("expireOfflineWillExpireAccountAndWriteToPersistence", () async {
       await withTrace((m) async {
         final persistence = MockPersistence();

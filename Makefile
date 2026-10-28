@@ -30,7 +30,7 @@ ADAPTY_VER := 4_0_0
 	gen regen android regen-android regen-ios \
 	install-family install-family-debug \
 	install-six install-six-debug uninstall \
-	restore-account-android restore-account-ios-sim \
+	restore-account-android \
 	ci-build-android-family ci-build-android-six \
 	ci-build-ios-family ci-build-ios-six \
 	adapty-paywalls \
@@ -496,10 +496,6 @@ restore-account-android:
 		*) echo "restore-account-android: APP_FLAVOR must be six or family" >&2; exit 1 ;; \
 	esac; \
 	adb $${ANDROID_UDID:+-s "$$ANDROID_UDID"} shell am start -n "$$PKG/ui.MainActivity" --es restore_account_id "$$ACCOUNT_ID"
-
-# Same for the debug app on this checkout's iOS simulator; see ios/SIMULATOR.md.
-restore-account-ios-sim:
-	$(MAKE) -C ios/ restore-account-sim
 
 
 # CI: build android family app from scratch
