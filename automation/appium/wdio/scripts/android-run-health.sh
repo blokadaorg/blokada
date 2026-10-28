@@ -83,7 +83,8 @@ case "${1:-}" in
       gone="$(grep -m1 'emulator=gone' "$log" | cut -d' ' -f1)"
       if [ -n "$gone" ]; then
         echo "  around the emulator process exit at $gone (time avail swap emulator-rss):"
-        awk -v g="$gone" '{ l[NR] = $0; t[NR] = $1 } END { for (i = 1; i <= NR; i++) if (t[i] >= g) { for (j = (i > 3 ? i - 3 : 1); j <= i + 1 && j <= NR; j++) print "    " l[j]; break } }' "$memlog"
+        # With no sample at or after the exit, show the last ones instead.
+        awk -v g="$gone" '{ l[NR] = $0; t[NR] = $1 } END { k = NR + 1; for (i = 1; i <= NR; i++) if (t[i] >= g) { k = i; break } for (j = (k > 3 ? k - 3 : 1); j <= k + 1 && j <= NR; j++) print "    " l[j] }' "$memlog"
       fi
     fi
     echo "  largest processes now:"
