@@ -45,11 +45,9 @@ class _FakeSupportActor extends SupportActor {
     final tool = current!.tool;
     current = null;
     await controller.insertMessage(
-      SupportMessage.note(
-        SupportNote.of(tool, declined: true),
-        DateTime(2026, 9, 7, 11),
-      ).toFlyerMessage(me, notMe),
-    );
+        SupportMessage.note(SupportNote.of(tool, declined: true),
+                DateTime(2026, 9, 7, 11))
+            .toFlyerMessage(me, notMe));
     onChange();
   }
 
@@ -201,7 +199,8 @@ void main() {
         await tester.tap(find.widgetWithIcon(IconButton, Icons.send));
         await tester.pump();
         expect(actor.sent, ["first"]);
-        expect(find.text("first"), findsNothing, reason: "an accepted send clears the field");
+        expect(find.text("first"), findsNothing,
+            reason: "an accepted send clears the field");
 
         // A history longer than the screen, so the bubble's place matters.
         await actor.controller.insertAllMessages([
@@ -225,7 +224,8 @@ void main() {
         final bubble = tester.getRect(find.byType(SupportTypingBubble));
         final newest = tester.getRect(find.text("message 29"));
         expect(bubble.top, greaterThanOrEqualTo(newest.bottom));
-        expect(bubble.bottom, lessThanOrEqualTo(tester.getRect(find.byType(TextField)).top));
+        expect(bubble.bottom,
+            lessThanOrEqualTo(tester.getRect(find.byType(TextField)).top));
 
         await tester.enterText(find.byType(TextField), "second");
         await tester.pump();
@@ -255,7 +255,8 @@ void main() {
     });
   }
 
-  testWidgets("asks before sharing the log, and notes it once shared", (tester) async {
+  testWidgets("asks before sharing the log, and notes it once shared",
+      (tester) async {
     await withTrace((_) async {
       Core.register<StageStore>(StageStore());
       final actor = _FakeSupportActor();
@@ -295,11 +296,8 @@ void main() {
 
       // Uploaded: the card gives way to the note in the history.
       await actor.controller.insertMessage(
-        SupportMessage.note(
-          SupportNote.logShared,
-          DateTime(2026, 9, 7, 12),
-        ).toFlyerMessage(actor.me, actor.notMe),
-      );
+          SupportMessage.note(SupportNote.logShared, DateTime(2026, 9, 7, 12))
+              .toFlyerMessage(actor.me, actor.notMe));
       actor.setPending(false);
       actor.setAction(null);
       await tester.pump(const Duration(milliseconds: 500));
@@ -314,7 +312,8 @@ void main() {
     });
   });
 
-  testWidgets("asks before running the DNS check, and notes a cancel", (tester) async {
+  testWidgets("asks before running the DNS check, and notes a cancel",
+      (tester) async {
     await withTrace((_) async {
       Core.register<StageStore>(StageStore());
       final actor = _FakeSupportActor();
@@ -323,13 +322,13 @@ void main() {
       await tester.pumpWidget(_host(dark: false));
       await tester.pump();
 
-      actor.setAction(
-        const SupportAction(SupportClientTool.dnsCheck, "chk-1", subdomain: "k3x9q0b7m2ta"),
-      );
+      actor.setAction(const SupportAction(SupportClientTool.dnsCheck, "chk-1",
+          subdomain: "k3x9q0b7m2ta"));
       await tester.pump();
       expect(find.text("support network check title"), findsOneWidget);
       expect(find.text("support network check body"), findsOneWidget);
-      expect(find.widgetWithText(FilledButton, "universal action run check"), findsOneWidget);
+      expect(find.widgetWithText(FilledButton, "universal action run check"),
+          findsOneWidget);
 
       await tester.tap(find.text("universal action run check"));
       await tester.pump();

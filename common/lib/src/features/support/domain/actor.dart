@@ -92,7 +92,16 @@ class SupportActor with Logging, Actor {
   /// outside Settings, where Chat with us pushes the full chat instead.
   /// Does nothing while the chat is already on screen, so there is never a
   /// second copy of it.
+  ///
+  /// The modal sheet shows one sheet at a time and drops a request made while
+  /// another is up (such as a sheet shown at a cold start from the reply
+  /// notification), so the chat waits for that one to be dismissed.
   Future<void> openSheet(Marker m) async {
+    final current = _modal.present;
+    if (current == Modal.support) return;
+    if (current != null) {
+      await _modal.onChange.firstWhere((it) => it.now == null);
+    }
     if (_unread.isShowingChat) return;
     await _modal.change(m, Modal.support);
   }

@@ -744,6 +744,23 @@ void main() {
       });
     });
 
+    test("waits for another sheet to be dismissed first", () async {
+      await withTrace((m) async {
+        _registerDeps();
+        final modal = CurrentModalValue();
+        Core.register(modal);
+        await modal.change(m, Modal.pause);
+
+        final opening = SupportActor().openSheet(m);
+        await Future<void>.delayed(Duration.zero);
+        expect(modal.present, Modal.pause);
+
+        await modal.change(m, null);
+        await opening;
+        expect(modal.present, Modal.support);
+      });
+    });
+
     test("does nothing while the chat is already on screen", () async {
       await withTrace((m) async {
         _registerDeps();
