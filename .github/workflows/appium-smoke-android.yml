@@ -135,9 +135,10 @@ jobs:
       - name: "Run appium smoke (flavor: six)"
         uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d # v2.38.0
         env:
-          # Same dev account the iOS smoke restores via the support-chat command
-          # bus (the inactive one is read but unused by the Android subset).
-          BLOKADA_ACTIVE_ACCOUNT_ID: ${{ secrets.BLOKADA_ACTIVE_ACCOUNT_ID }}
+          # Its own dev account, not the iOS smoke's: both runs go at once and
+          # change the same account's settings (blocklists, exceptions). The
+          # inactive one is read but unused by the Android subset.
+          BLOKADA_ACTIVE_ACCOUNT_ID: ${{ secrets.BLOKADA_ANDROID_ACTIVE_ACCOUNT_ID }}
           BLOKADA_INACTIVE_ACCOUNT_ID: ${{ secrets.BLOKADA_INACTIVE_ACCOUNT_ID }}
           ANDROID_UDID: emulator-5554
         with:

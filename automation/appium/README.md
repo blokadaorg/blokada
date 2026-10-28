@@ -117,7 +117,9 @@ A subset of the smoke specs also runs on an Android emulator through
 UiAutomator2: Private DNS activation (`android-protection.spec.ts`), Home hub
 and Settings navigation, Privacy Pulse range, blocklist toggle and power pause.
 CI runs it in `.github/workflows/appium-smoke-android.yml`; the iPhone run stays
-the final check.
+the final check. CI gives it its own active account
+(`BLOKADA_ANDROID_ACTIVE_ACCOUNT_ID` secret) so it does not change the iOS
+run's account settings while both run.
 
 ```bash
 make build-android-six-debug        # once, or after app changes
