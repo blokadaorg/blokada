@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/features/api/domain/api.dart';
 import 'package:common/src/features/lock/domain/lock.dart';
+import 'package:common/src/features/modal/domain/modal.dart';
 import 'package:common/src/features/support/domain/support.dart';
 import 'package:common/src/platform/app/app.dart';
 import 'package:common/src/platform/app/channel.pg.dart';
@@ -728,6 +729,32 @@ void main() {
       }));
       expect(response.messages!.single.text, "a");
       expect(response.messages!.single.actions.single.id, "Qm9x");
+    });
+  });
+  group("openSheet", () {
+    test("opens the chat sheet", () async {
+      await withTrace((m) async {
+        _registerDeps();
+        final modal = CurrentModalValue();
+        Core.register(modal);
+
+        await SupportActor().openSheet(m);
+
+        expect(modal.present, Modal.support);
+      });
+    });
+
+    test("does nothing while the chat is already on screen", () async {
+      await withTrace((m) async {
+        _registerDeps();
+        when(Core.get<SupportUnreadActor>().isShowingChat).thenReturn(true);
+        final modal = CurrentModalValue();
+        Core.register(modal);
+
+        await SupportActor().openSheet(m);
+
+        expect(modal.present, isNull);
+      });
     });
   });
 }

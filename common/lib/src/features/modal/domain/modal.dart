@@ -15,6 +15,7 @@ enum Modal {
   pause,
   weeklyRefresh,
   attachDevice,
+  support,
 }
 
 class CurrentModalValue extends NullableAsyncValue<Modal> {

@@ -17,6 +17,7 @@ class NotificationActor with Logging, Actor {
   late final _payment = Core.get<PaymentActor>();
   late final _weeklyReport = Core.get<WeeklyReportActor>();
   late final _stats = Core.get<StatsStore>();
+  late final _support = Core.get<SupportActor>();
   Paths? _pendingNotificationPath;
   Object? _pendingNotificationArgs;
   Future<void> Function(Marker)? _pendingNotificationAction;
@@ -293,13 +294,19 @@ class NotificationActor with Logging, Actor {
         return;
       }
 
-      final isOnPrivacyPulse = Navigation.lastPath == Paths.privacyPulse;
       if (id == NotificationId.supportNewMessage) {
-        // await sleepAsync(const Duration(seconds: 1));
-        // await _stage.setRoute(Paths.settings.path, m);
-        // await sleepAsync(const Duration(seconds: 3));
-        // await _stage.setRoute(Paths.support.path, m);
-      } else if (id == NotificationId.activityLoggingReminder) {
+        // The reply opens as a sheet over whatever screen the app is on, so
+        // the user reads it without losing their place there.
+        await _queueNotificationAction(
+          m,
+          trigger: "notificationTapped:support",
+          action: (m) => _support.openSheet(m),
+        );
+        return;
+      }
+
+      final isOnPrivacyPulse = Navigation.lastPath == Paths.privacyPulse;
+      if (id == NotificationId.activityLoggingReminder) {
         await _queueNotificationNavigation(
           m,
           path: Paths.settingsRetention,

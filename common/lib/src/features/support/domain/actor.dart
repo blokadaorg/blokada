@@ -16,6 +16,9 @@ class SupportActor with Logging, Actor {
   late final _perm = Core.get<PlatformPermActor>();
   late String language = I18n.localeStr;
 
+  late final _modal = Core.get<CurrentModalValue>();
+  late final _modalWidget = Core.get<CurrentModalWidgetValue>();
+
   bool initialized = false;
   late int _ttl;
 
@@ -74,6 +77,24 @@ class SupportActor with Logging, Actor {
       return null;
     }
     return SupportAction(tool, e.id, subdomain: e.subdomain);
+  }
+
+  @override
+  onCreate(Marker m) async {
+    _modal.onChange.listen((it) {
+      if (it.now == Modal.support) {
+        _modalWidget.change(it.m, (context) => const SupportSheet());
+      }
+    });
+  }
+
+  /// Opens the chat as a sheet over the current screen, for entry points
+  /// outside Settings, where Chat with us pushes the full chat instead.
+  /// Does nothing while the chat is already on screen, so there is never a
+  /// second copy of it.
+  Future<void> openSheet(Marker m) async {
+    if (_unread.isShowingChat) return;
+    await _modal.change(m, Modal.support);
   }
 
   // Return true if session was just created

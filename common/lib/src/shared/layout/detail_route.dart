@@ -12,7 +12,6 @@ import 'package:common/src/features/stats/ui/domain_detail_section.dart';
 import 'package:common/src/features/stats/ui/stats_detail_section.dart';
 import 'package:common/src/features/stats/ui/stats_filter_chips.dart';
 import 'package:common/src/features/stats/ui/stats_section.dart';
-import 'package:common/src/features/support/domain/support.dart';
 import 'package:common/src/features/support/ui/support_section.dart';
 import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/navigation.dart';
@@ -87,7 +86,6 @@ class DetailRoute {
 /// detail pane.
 class DetailRoutes with Logging {
   late final _custom = Core.get<CustomlistActor>();
-  late final _support = Core.get<SupportActor>();
   late final _bypass = Core.get<BypassAddDialog>();
 
   late final Map<Paths, DetailRoute> _routes = Map.fromEntries(<DetailRoute>[
@@ -150,8 +148,8 @@ class DetailRoutes with Logging {
     DetailRoute(
       path: Paths.support,
       title: (_) => "support action chat".i18n,
+      // No End action: closing is enough, the session expires on its own.
       body: (context, args) => const SupportSection(),
-      trailing: (context, args) => _endSupportAction(context),
     ),
     DetailRoute(
       path: Paths.activity,
@@ -247,20 +245,5 @@ class DetailRoutes with Logging {
         ),
       ),
     );
-  }
-
-  Widget _endSupportAction(BuildContext context) {
-    return NavBarButton(
-        onTap: () {
-          // Pop only when chat is its own pushed route; rendered in a
-          // detail pane there is nothing to pop (it would dismiss the whole
-          // two-pane screen) — ending the session resets the chat in place.
-          if (ModalRoute.of(context)?.settings.name == Paths.support.path) {
-            Navigator.of(context).pop();
-          }
-          _support.clearSession(Markers.userTap);
-        },
-        child: Text("support action end".i18n,
-            style: const TextStyle(color: Colors.red, fontSize: 17)));
   }
 }

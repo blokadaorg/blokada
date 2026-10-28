@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:common/src/features/link/domain/link.dart';
 import 'package:common/src/features/notification/domain/notification.dart';
 import 'package:common/src/features/payment/domain/payment.dart';
+import 'package:common/src/features/support/domain/support.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/account/account.dart';
 import 'package:common/src/platform/account/api.dart';
@@ -424,6 +425,37 @@ void main() {
       });
     });
 
+    test("support reply tap opens the chat sheet once the app is foreground", () async {
+      await withTrace((m) async {
+        final stage = MockStageStore();
+        var route = StageRouteState.init();
+        when(stage.route).thenAnswer((_) => route);
+        Core.register<StageStore>(stage);
+        Core.register<AccountStore>(MockAccountStore());
+        Core.register<DeviceStore>(_MockDeviceStore());
+        Core.register<PaymentActor>(_FakePaymentActor());
+        Core.register(NotificationsValue());
+        Core.register<WeeklyReportActor>(_FakeWeeklyReportActor(_weeklyEvent()));
+        final support = _FakeSupportActor();
+        Core.register<SupportActor>(support);
+
+        final ops = MockNotificationChannel();
+        Core.register<NotificationChannel>(ops);
+
+        final store = NotificationActor();
+        Core.register<NotificationActor>(store);
+
+        await store.notificationTapped(m, NotificationId.supportNewMessage.name);
+        expect(support.sheetsOpened, 0);
+
+        route = StageRouteState.init().newFg();
+        await store.onStart(m);
+        await Future<void>.delayed(Duration.zero);
+
+        expect(support.sheetsOpened, 1);
+      });
+    });
+
     test("notification tap does not queue privacy pulse navigation when already on privacy pulse",
         () async {
       await withTrace((m) async {
@@ -725,6 +757,15 @@ class _FakeAccountRefreshStore extends Mock implements AccountRefreshStore {
 }
 
 class _MockDeviceStore extends Mock implements DeviceStore {}
+
+class _FakeSupportActor extends SupportActor {
+  var sheetsOpened = 0;
+
+  @override
+  Future<void> openSheet(Marker m) async {
+    sheetsOpened++;
+  }
+}
 
 class _FakePaymentActor extends PaymentActor {
   _FakePaymentActor() {
