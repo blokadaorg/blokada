@@ -79,8 +79,18 @@ jobs:
       - name: Build Flutter Android debug library
         run: make regen-android
 
+      # Renders with Skia: the emulator's host renderer segfaults on Impeller's
+      # OpenGL ES output (android/app/src/appiumSmoke/AndroidManifest.xml).
       - name: Assemble six debug APK
-        run: make -C android apk-six-debug
+        env:
+          ORG_GRADLE_PROJECT_appiumSmoke: "true"
+        run: |
+          make -C android apk-six-debug
+          # Stop here, not mid-smoke, if the Skia flag did not reach the APK.
+          aapt2="$(ls "$ANDROID_HOME"/build-tools/*/aapt2 | sort -V | tail -n 1)"
+          "$aapt2" dump xmltree --file AndroidManifest.xml android/app/build/outputs/apk/six/debug/app-six-debug.apk \
+            | grep -A2 'io.flutter.embedding.android.EnableImpeller' | grep -q '=false'
+          echo "The APK renders with Skia (EnableImpeller=false)."
 
       - name: Enable KVM
         run: |
