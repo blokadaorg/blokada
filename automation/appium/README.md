@@ -138,6 +138,12 @@ back and runs the failed spec files once more, after `android-protection`
 comes from the app or a test assertion is never retried. The JUnit files of the
 first attempt move to `output/junit/first-attempt/`.
 
+CI builds the smoke APK with `-PappiumSmoke`, which turns Impeller off so the
+app renders with Skia (`android/app/src/appiumSmoke/AndroidManifest.xml`). The
+emulator's host renderer segfaults on Impeller's OpenGL ES output, and Privacy
+Pulse took the whole emulator process down with it. Local builds keep Impeller;
+pass the same property to reproduce the CI build.
+
 Selectors and commands that differ per platform live in `wdio/src/support/platform.ts`.
 
 ## AI Explorer

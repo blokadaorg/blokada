@@ -9,8 +9,9 @@
 # emulator: the host adb server logs "connection terminated" and the run loses
 # the spec in flight. Usually the link is back in seconds; sometimes the
 # emulator process is gone for good. The report shows which, plus host memory
-# over the run and any kernel OOM kills, so a dead emulator process can be told
-# apart from a crash. It prints no device data: no logcat, no Appium log.
+# over the run, kernel OOM kills and crash signals, so a dead emulator process
+# can be told apart from a crash. It prints no device data: no logcat, no Appium
+# log.
 set -u
 
 serial="${ANDROID_UDID:-emulator-5554}"
@@ -33,8 +34,6 @@ case "${1:-}" in
   start)
     mkdir -p "$out"
     echo "Host memory at start (MB): $(mem_sample)"
-    echo "systemd-oomd: $(systemctl is-active systemd-oomd 2>/dev/null || true)"
-    free -m
     echo "  largest processes:"
     top_rss
     : >"$memlog"
@@ -89,49 +88,27 @@ case "${1:-}" in
     fi
     echo "  largest processes now:"
     top_rss
-    # Kernel OOM killer. Hosted runners have passwordless sudo.
-    # Only the trigger and victim lines: the oom-kill summary line carries cgroup
-    # paths.
-    oom="$(sudo -n dmesg -T 2>/dev/null | grep -E 'invoked oom-killer|Out of memory|Killed process' | sed -E 's/ (gfp_mask|order|oom_score_adj)=.*//' || true)"
     if ! sudo -n true 2>/dev/null; then
       echo "Kernel log: not readable without sudo."
-    elif [ -n "$oom" ]; then
-      echo "Kernel OOM killer fired:"
-      echo "$oom" | sed -E 's/^/  /'
     else
-      echo "Kernel log: no OOM kills."
+      # OOM trigger and victim lines only (the summary line carries cgroup
+      # paths), and faults such as the emulator RenderThread segfault.
+      kern="$(sudo -n dmesg -T | grep -E 'invoked oom-killer|Out of memory|Killed process|segfault|traps:|general protection' \
+        | sed -E 's/ (gfp_mask|order|oom_score_adj)=.*//' || true)"
+      if [ -n "$kern" ]; then
+        echo "Kernel log, OOM kills and faults:"
+        echo "$kern" | sed -E 's/^/  /'
+      else
+        echo "Kernel log: no OOM kills or faults."
+      fi
+      # systemd-coredump records the signal and stack of a crashed process.
+      # Print only those: the full record also names the host.
+      dumps="$(sudo -n coredumpctl info --no-pager 2>/dev/null | grep -E '^ +(Executable|Signal):|^ +#[0-9]+ ' | head -n 40 || true)"
+      if [ -n "$dumps" ]; then
+        echo "Core dumps:"
+        echo "$dumps" | sed -E 's/^ +/  /'
+      fi
     fi
-    # systemd-oomd kills a whole cgroup on swap use or memory pressure, with no
-    # kernel OOM line. Keep the reason, drop the cgroup path.
-    oomd="$(sudo -n journalctl -u systemd-oomd --no-pager -o cat 2>/dev/null | grep -E 'Killed|due to' | sed -E 's#Killed /[^ ]*#Killed a cgroup#' || true)"
-    if [ -n "$oomd" ]; then
-      echo "systemd-oomd killed:"
-      echo "$oomd" | sed -E 's/^/  /'
-    else
-      echo "systemd-oomd: no kills logged."
-    fi
-    # A fault in the emulator: the kernel's segfault/trap line, apport (Ubuntu's
-    # core_pattern handler) and the emulator's own crash database. A SIGKILL
-    # leaves none of these.
-    faults="$(sudo -n dmesg -T 2>/dev/null | grep -E 'segfault|traps:|general protection|qemu' || true)"
-    if [ -n "$faults" ]; then
-      echo "Kernel log, faults:"
-      echo "$faults" | sed -E 's/^/  /'
-    fi
-    # apport logs "called for pid N, signal S" then the executable.
-    apport="$(sudo -n cat /var/log/apport.log 2>/dev/null | grep -E 'called for pid|executable:' | sed -E 's/ \(command line .*//' || true)"
-    [ -n "$apport" ] && { echo "apport:"; echo "$apport" | sed -E 's/^/  /'; }
-    # systemd-coredump keeps the signal and a symbolized stack. Only those: the
-    # full record also names the host.
-    if sudo -n coredumpctl list --no-pager >/dev/null 2>&1; then
-      echo "Core dumps:"
-      sudo -n coredumpctl info --no-pager 2>/dev/null \
-        | grep -E '^ +(Executable|Signal):|^ +#[0-9]+ ' | head -n 40 | sed -E 's/^ +/  /'
-    else
-      echo "Core dumps: none."
-    fi
-    echo "Emulator crash database, files written during the run:"
-    find /tmp/android-runner -type f -newer "$memlog" 2>/dev/null | sed -E 's#^/tmp/android-runner/#  #' | head -n 10
     ;;
   *)
     echo "usage: $0 start|report" >&2
