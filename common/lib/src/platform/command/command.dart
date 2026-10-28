@@ -134,7 +134,9 @@ class CommandStore with Logging, Actor implements CommandEvents {
         // offer. Debug builds send it from the command line to set up a test
         // account on a fresh install (see the restore-account make targets).
         _ensureParam(p1);
-        await _accountRefresh.initialized.timeout(const Duration(seconds: 30));
+        // No deadline: startup can retry for longer than any fixed timeout,
+        // and a restore given up on would leave the startup account in place.
+        await _accountRefresh.initialized;
         await _account.restore(p1!, m);
         // On a fresh install the restore's result dialog replaces the intro
         // sheet before its Continue runs; mark the intro seen as Continue
