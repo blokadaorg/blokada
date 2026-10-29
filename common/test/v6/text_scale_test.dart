@@ -285,7 +285,11 @@ void main() {
               manufacturer: 'Samsung',
               successDelay: Duration.zero,
               copiedBeforeSettingsDelay: Duration.zero,
-              verifier: PrivateDnsSetupVerifier(channel: channel),
+              verifier: PrivateDnsSetupVerifier(
+                channel: channel,
+                check: FakeOwnerCheck(const ['cloud']),
+                probeDelay: Duration.zero,
+              ),
             ),
           );
           expect(find.byType(PrivateDnsSheetAndroid), findsOneWidget);
