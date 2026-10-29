@@ -885,5 +885,6 @@
     "private dns android help network": "Some networks block Private DNS. Try mobile data or another Wi-Fi.",
     "private dns android help samsung": "Update Samsung Device Services in the Galaxy Store, then try again.",
     "private dns android help support": "Still not working? Chat with us and we'll help.",
-    "private dns android copied hint": "Hostname copied. Paste it in Settings."
+    "private dns android copied hint": "Hostname copied. Paste it in Settings.",
+    "private dns android blokada hostname label": "Your Blokada hostname"
 }

@@ -83,7 +83,7 @@
     <string name="universal_status_restart_required">Değişikliklerin etkili olması için lütfen programı yeniden başlatın.</string>
     <string name="universal_status_redirect">Blokada uygulaması ile devam edin</string>
     <string name="universal_status_confirm">Devam etmek istediğinizden emin misiniz?</string>
-    <string name="universal_status_loading">Loading...</string>
+    <string name="universal_status_loading">Yükleniyor...</string>
     <string name="alert_error_header">Hay aksi!</string>
     <string name="alert_vpn_expired_header">BLOKADA+ süresi doldu</string>
     <string name="alert_download_link_body">Güvenlik nedeniyle, bir dosya indirmek için bu web sitesini tarayıcınızda açmamız gerekiyor. Ardından, lütfen indirme bağlantısına tekrar dokunun.</string>
@@ -528,8 +528,8 @@
     <string name="universal_action_back">Back</string>
     <string name="family_profile_error_used_as_default">Used as default on %1$s. Change that device\'s profile first.</string>
     <string name="family_profile_error_used_by_rule">Used by a rule on %1$s. Remove that rule first.</string>
-    <string name="family_profile_editor_title">Profile</string>
-    <string name="family_profile_editor_delete">Delete profile</string>
+    <string name="family_profile_editor_title">Profil</string>
+    <string name="family_profile_editor_delete">Profili sil</string>
     <string name="family_profile_editor_delete_confirm_title">Delete \"%1$s\"?</string>
     <string name="family_profile_editor_delete_confirm_message">Removes this profile from the account.</string>
     <string name="family_device_managed_by_six">Managed in Blokada 6. Family will not change DNS or VPN settings on this device.</string>
@@ -887,4 +887,5 @@
     <string name="private_dns_android_help_samsung">Update Samsung Device Services in the Galaxy Store, then try again.</string>
     <string name="private_dns_android_help_support">Still not working? Chat with us and we\'ll help.</string>
     <string name="private_dns_android_copied_hint">Hostname copied. Paste it in Settings.</string>
+    <string name="private_dns_android_blokada_hostname_label">Your Blokada hostname</string>
 </resources>

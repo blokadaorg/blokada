@@ -34,6 +34,11 @@ class DomainDetailSection extends StatefulWidget {
   final String range; // "24h" or "7d"
   final List<UiJournalEntry>? subdomainEntries; // Deprecated, will be removed
 
+  /// Device whose stats and activity are shown, so an activity entry from
+  /// another device opens with that device's numbers. Null means this device;
+  /// empty means an entry with no device name, which is never this device's.
+  final String? deviceName;
+
   const DomainDetailSection({
     super.key,
     required this.entry,
@@ -45,6 +50,7 @@ class DomainDetailSection extends StatefulWidget {
     bool? showRecentSection,
     this.range = "24h",
     this.subdomainEntries,
+    this.deviceName,
   })  : showToplistSection = showToplistSection ?? fetchToplist,
         showRecentSection = showRecentSection ?? fetchToplist;
 
@@ -62,6 +68,9 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
       _statsRequestsCount; // Stats-based count for current domain/action in selected range
   bool _statsRequestsLoading = false;
   int _statsRequestsFetchGeneration = 0;
+  // Bumped on each new selection, so a late subdomain or recent-activity
+  // response for the previous one is dropped.
+  int _selectionGeneration = 0;
   DateTime? _statsRequestsLastFetchAt;
   String? _statsRequestsLastKey;
   List<int> _statsTimelineValues = const [];
@@ -80,6 +89,12 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   List<UiJournalEntry> _recentAllowedEntries = [];
   bool _recentBlockedLoading = false;
   bool _recentAllowedLoading = false;
+
+  /// Name the stats and activity queries are keyed on. Falls back to this
+  /// device only when no device was given, so an unnamed entry is not
+  /// attributed to (and counted as) this device.
+  String get _deviceName =>
+      (widget.deviceName ?? _device.deviceAlias).trim();
 
   // Extract TLD domain for favicon (e.g., "ads.apple.com" -> "apple.com")
   String _getTldDomain(String domain) {
@@ -401,7 +416,8 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
     final entryChanged =
         widget.entry.domainName != oldWidget.entry.domainName ||
             widget.entry.action != oldWidget.entry.action ||
-            widget.entry.requests != oldWidget.entry.requests;
+            widget.entry.requests != oldWidget.entry.requests ||
+            widget.deviceName != oldWidget.deviceName;
     final navigationChanged = widget.level != oldWidget.level ||
         widget.domain != oldWidget.domain ||
         widget.range != oldWidget.range ||
@@ -422,6 +438,9 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   }
 
   void _resetForNewSelection() {
+    _selectionGeneration++;
+    // Also when the new selection starts no stats request of its own.
+    _statsRequestsFetchGeneration++;
     _hasScheduledFetch = false;
     _isLoading = widget.showToplistSection;
     _allSubdomains = [];
@@ -479,7 +498,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
     final needsStats = !widget.fetchToplist || widget.entry.requests == 0;
     if (!needsStats) return;
 
-    final deviceName = _device.deviceAlias.trim();
+    final deviceName = _deviceName;
     if (deviceName.isEmpty) return;
     final domain = widget.entry.domainName.trim();
     if (domain.isEmpty) return;
@@ -589,13 +608,14 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   }
 
   Future<void> _fetchSubdomains() async {
+    final generation = _selectionGeneration;
     await log(Markers.userTap).trace("fetchSubdomains", (m) async {
       setState(() {
         _isLoading = true;
       });
 
       try {
-        final deviceName = _device.deviceAlias;
+        final deviceName = _deviceName;
         final isBlocked = widget.entry.action == UiJournalAction.block;
 
         log(m).pair("level", widget.level);
@@ -724,7 +744,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
         log(m).pair("subdomain_count", subdomainsList.length);
         log(m).pair("parent_count", parentCount);
 
-        if (mounted) {
+        if (mounted && generation == _selectionGeneration) {
           setState(() {
             _allSubdomains = subdomainsList;
             _filteredSubdomains = subdomainsList;
@@ -734,7 +754,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
         }
       } catch (e) {
         log(m).e(msg: "Failed to fetch subdomains", err: e);
-        if (mounted) {
+        if (mounted && generation == _selectionGeneration) {
           setState(() {
             _allSubdomains = [];
             _filteredSubdomains = [];
@@ -758,10 +778,10 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   }
 
   Future<void> _fetchRecentActivity() async {
+    final generation = _selectionGeneration;
     await log(Markers.stats).trace("fetchRecentDomainActivity", (m) async {
       final wildcardDomain = _buildWildcardDomain(widget.domain);
-      final deviceName =
-          _device.deviceAlias.isNotEmpty ? _device.deviceAlias : null;
+      final deviceName = _deviceName.isNotEmpty ? _deviceName : null;
       final deviceTag = _device.deviceTag;
 
       if (wildcardDomain.isEmpty) {
@@ -832,7 +852,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             : Future.value(<UiJournalEntry>[]),
       ]);
 
-      if (!mounted) return;
+      if (!mounted || generation != _selectionGeneration) return;
 
       setState(() {
         if (widget.entry.action == UiJournalAction.block) {
@@ -1306,6 +1326,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             'domain':
                 subdomain.domainName, // Use subdomain as the domain context
             'range': widget.range,
+            'deviceName': widget.deviceName,
           });
         }
         // Level 3: Navigate to DomainDetailSection with level 4
@@ -1323,6 +1344,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             'domain': subdomain.domainName,
             'fetchToplist': false, // Don't fetch at level 4 (final level)
             'range': widget.range,
+            'deviceName': widget.deviceName,
           });
         }
         // Level 4+: Do nothing (shouldn't happen, but just in case)
@@ -1527,6 +1549,13 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
               label: "activity domain name".i18n,
               value: widget.entry.domainName,
             ),
+            if (!Core.act.isFamily && _deviceName.isNotEmpty) ...[
+              const SizedBox(height: 12),
+              _buildInfoRow(
+                label: "universal label device".i18n,
+                value: _deviceName,
+              ),
+            ],
             const SizedBox(height: 12),
             // Request count
             _buildInfoRow(

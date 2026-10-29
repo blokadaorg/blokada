@@ -8,6 +8,7 @@ import 'package:common/src/platform/perm/perm.dart';
 import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -55,8 +56,8 @@ Future<_Setup> _pump(
   Marker m, {
   required String manufacturer,
   PrivateDnsState? state,
-  List<Object?> probe = const ["cloud"],
   bool failClipboard = false,
+  Size? size,
 }) async {
   Core.act = ActScreenplay(ActScenario.test, Flavor.v6, PlatformType.android);
   final channel = FakeDnsChannel(state ?? dnsState(null));
@@ -77,6 +78,12 @@ Future<_Setup> _pump(
     return null;
   });
 
+  if (size != null) {
+    tester.view.physicalSize = size;
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+  }
+
   await tester.pumpWidget(
     MaterialApp(
       theme: ThemeData(extensions: const [_theme]),
@@ -84,11 +91,7 @@ Future<_Setup> _pump(
         manufacturer: manufacturer,
         successDelay: Duration.zero,
         copiedBeforeSettingsDelay: Duration.zero,
-        verifier: PrivateDnsSetupVerifier(
-          channel: channel,
-          check: FakeOwnerCheck(probe),
-          probeDelay: Duration.zero,
-        ),
+        verifier: PrivateDnsSetupVerifier(channel: channel),
       ),
     ),
   );
@@ -100,17 +103,114 @@ Finder _byId(String id) =>
     find.byWidgetPredicate((w) => w is Semantics && w.properties.identifier == id);
 
 void main() {
-  testWidgets("shows the hostname with a visible Copy button", (tester) async {
+  testWidgets("icon-only copy button copies the real hostname", (tester) async {
     await withTrace((m) async {
+      final handle = tester.ensureSemantics();
       final s = await _pump(tester, m, manufacturer: "Google");
 
-      expect(find.text(_hostname), findsOneWidget);
+      expect(find.text(privateDnsDisplayHostname(_hostname)), findsOneWidget);
       expect(_byId(AutomationIds.dnsCopyHostname), findsOneWidget);
-      expect(find.text("universal action copy".i18n), findsOneWidget);
+      expect(find.text("universal action copy".i18n), findsNothing);
+      // Merged, as a screen reader and Appium see it.
+      final copy = tester.getSemantics(_byId(AutomationIds.dnsCopyHostname)).getSemanticsData();
+      expect(copy.identifier, AutomationIds.dnsCopyHostname);
+      expect(copy.label, "universal action copy".i18n);
+      expect(copy.hasFlag(SemanticsFlag.isButton), isTrue);
 
-      await tester.tap(find.text("universal action copy".i18n));
+      await tester.tap(find.byIcon(Icons.copy));
       await tester.pumpAndSettle();
       expect(s.clipboard, [_hostname]);
+      expect(find.byIcon(Icons.check), findsOneWidget);
+      handle.dispose();
+    });
+  });
+
+  test("displayed hostname breaks only after dots", () {
+    const host = "samsung--SMG950F-a1b2c3d4e5.cloud.blokada.org";
+    final shown = privateDnsDisplayHostname(host);
+    // Real hyphens stay (U+2011 draws like a dot in monospace), and a
+    // zero-width space follows each dot.
+    expect(shown.contains("\u2011"), isFalse);
+    expect(shown.contains(" "), isFalse);
+    for (var i = 0; i < shown.length; i++) {
+      if (shown[i] == "\u200B") expect(shown[i - 1], ".");
+      if (shown[i] == ".") expect(shown[i + 1], "\u200B");
+    }
+    expect(shown.replaceAll("\u200B", ""), host);
+  });
+
+  testWidgets("narrow screen wraps the hostname only after a dot", (tester) async {
+    await withTrace((m) async {
+      await _pump(tester, m, manufacturer: "Google", size: const Size(300, 800));
+      final shown = privateDnsDisplayHostname(_hostname);
+      final paragraph = tester.renderObject<RenderParagraph>(find.text(shown));
+      // Lay the same text out again to read where its lines end.
+      final painter = TextPainter(
+        text: paragraph.text,
+        textDirection: TextDirection.ltr,
+        textScaler: paragraph.textScaler,
+      )..layout(maxWidth: paragraph.size.width);
+      addTearDown(painter.dispose);
+      final lines = painter.computeLineMetrics();
+      expect(lines.length, greaterThan(1));
+      // Every line but the last ends right after a dot's zero-width space.
+      for (final line in lines.take(lines.length - 1)) {
+        final pos = painter.getPositionForOffset(Offset(0, line.baseline));
+        final end = painter.getLineBoundary(pos).end;
+        expect(shown.substring(end - 2, end), ".\u200B");
+      }
+    });
+  });
+
+  testWidgets("a label too long for one line scales the hostname down", (tester) async {
+    const host = "Google--sdkgphone64arm64-2138cb7c30e.cloud.blokada.org";
+    await tester.pumpWidget(const MaterialApp(
+      home: Center(child: SizedBox(width: 240, child: PrivateDnsHostnameText(host))),
+    ));
+    final shown = privateDnsDisplayHostname(host);
+    final text = tester.widget<Text>(find.text(shown));
+    expect(text.style!.fontSize, lessThan(14));
+
+    final paragraph = tester.renderObject<RenderParagraph>(find.text(shown));
+    final painter = TextPainter(
+      text: paragraph.text,
+      textDirection: TextDirection.ltr,
+      textScaler: paragraph.textScaler,
+    )..layout(maxWidth: paragraph.size.width);
+    addTearDown(painter.dispose);
+    // No label is split: every line but the last ends right after a dot.
+    final lines = painter.computeLineMetrics();
+    for (final line in lines.take(lines.length - 1)) {
+      final pos = painter.getPositionForOffset(Offset(0, line.baseline));
+      final end = painter.getLineBoundary(pos).end;
+      expect(shown.substring(end - 2, end), ".\u200B");
+    }
+  });
+
+  testWidgets("a short window with large text scrolls to Open Settings", (tester) async {
+    await withTrace((m) async {
+      tester.platformDispatcher.textScaleFactorTestValue = 2;
+      addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+      final s = await _pump(tester, m, manufacturer: "Google", size: const Size(360, 420));
+      expect(tester.takeException(), isNull);
+
+      final open = find.text("dnsprofile action open settings".i18n);
+      await tester.scrollUntilVisible(open, 100, scrollable: find.byType(Scrollable).first);
+      await tester.tap(open);
+      await tester.pumpAndSettle();
+      expect(s.channel.openSettingsCalls, 1);
+    });
+  });
+
+  testWidgets("header stays on one line at a narrow width", (tester) async {
+    await withTrace((m) async {
+      await _pump(tester, m, manufacturer: "Google", size: const Size(300, 800));
+      final header = find.text("private dns android header".i18n);
+      final fitted = find.ancestor(of: header, matching: find.byType(FittedBox));
+      expect(fitted, findsOneWidget);
+      expect(tester.widget<FittedBox>(fitted).fit, BoxFit.scaleDown);
+      expect(tester.widget<Text>(header).maxLines, 1);
+      expect(tester.takeException(), isNull);
     });
   });
 
@@ -154,12 +254,10 @@ void main() {
       await tester.pumpAndSettle();
       expect(tester.takeException(), isNull);
 
-      // Not counted as an attempt, so a return to the app still shows setup.
       s.channel.state = dnsState("other.example.com");
       tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
       await tester.pumpAndSettle();
-      expect(_byId(AutomationIds.dnsSetupHelp), findsNothing);
-      expect(find.text(_hostname), findsOneWidget);
+      expect(find.text(privateDnsDisplayHostname(_hostname)), findsOneWidget);
     });
   });
 
@@ -167,7 +265,7 @@ void main() {
     await withTrace((m) async {
       final s = await _pump(tester, m, manufacturer: "Google");
 
-      await tester.tap(find.text("universal action copy".i18n));
+      await tester.tap(find.byIcon(Icons.copy));
       await tester.pumpAndSettle();
       await tester.tap(find.text("dnsprofile action open settings".i18n));
       await tester.pumpAndSettle();
@@ -201,49 +299,39 @@ void main() {
     });
   }
 
-  testWidgets("verified DNS shows success and closes the sheet", (tester) async {
+  testWidgets("matching hostname shows success and closes the sheet", (tester) async {
     await withTrace((m) async {
-      final s = await _pump(
-        tester,
-        m,
-        manufacturer: "Google",
-        state: dnsState(_hostname),
-        probe: ["cloud"],
-      );
+      final s = await _pump(tester, m, manufacturer: "Google", state: dnsState(_hostname));
       expect(s.modal.present, null);
     });
   });
 
-  testWidgets("returning with a matching but unrouted hostname shows help", (tester) async {
+  testWidgets("another device's Blokada hostname shows the setup step", (tester) async {
     await withTrace((m) async {
-      final s = await _pump(tester, m, manufacturer: "samsung", probe: [null]);
-      expect(_byId(AutomationIds.dnsSetupHelp), findsNothing);
-
-      s.channel.state = dnsState(_hostname);
-      await tester.tap(find.text("dnsprofile action open settings".i18n));
-      await tester.pumpAndSettle();
-      // FakeOwnerCheck answers null: DNS does not go through Blokada.
-      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
-      await tester.pumpAndSettle();
-
-      expect(_byId(AutomationIds.dnsSetupHelp), findsOneWidget);
-      expect(find.text("private dns android help samsung".i18n), findsOneWidget);
-      expect(find.text("support action chat".i18n), findsOneWidget);
+      final s = await _pump(
+        tester,
+        m,
+        manufacturer: "samsung",
+        state: dnsState("samsung-zzz999.cloud.blokada.org"),
+      );
+      expect(find.text("private dns android header".i18n), findsOneWidget);
+      expect(_byId(AutomationIds.dnsOpenSettings), findsOneWidget);
+      expect(_byId(AutomationIds.dnsSetupSuccess), findsNothing);
       expect(s.modal.present, Modal.onboardPrivateDns);
     });
   });
 
-  testWidgets("help leaves out the Samsung tip on other phones", (tester) async {
+  testWidgets("returning with this device's hostname closes the sheet", (tester) async {
     await withTrace((m) async {
-      await _pump(
-        tester,
-        m,
-        manufacturer: "Google",
-        state: dnsState(_hostname, broken: true),
-        probe: [null],
-      );
-      expect(_byId(AutomationIds.dnsSetupHelp), findsOneWidget);
-      expect(find.text("private dns android help samsung".i18n), findsNothing);
+      final s = await _pump(tester, m, manufacturer: "Google");
+      await tester.tap(find.text("dnsprofile action open settings".i18n));
+      await tester.pumpAndSettle();
+      expect(s.modal.present, Modal.onboardPrivateDns);
+
+      s.channel.state = dnsState(_hostname);
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+      await tester.pumpAndSettle();
+      expect(s.modal.present, null);
     });
   });
 }

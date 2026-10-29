@@ -31,12 +31,12 @@ Scope: iOS DNS onboarding, post-purchase flow, foreground relaunch verification.
 Non-rules: Freemium activation and generic startup should not trigger DNS onboarding.
 Verification: Compare paid first activation, paid restore, matching DNS foreground, and mismatched DNS foreground.
 
-### Rule: Android Private DNS is matched by tag and confirmed live
+### Rule: Android Private DNS is matched by tag and read live
 Applies to: v6, Family (Android)
-Intent: Recognise a hand-typed hostname, and only say "done" when DNS really goes through Blokada.
-Rule: On Android, any hostname of the form `<tag>.cloud.blokada.org` or `<anything>-<tag>.cloud.blokada.org` counts as this device's DNS (case, spaces and a trailing dot ignored). The native side reads Private DNS live from ConnectivityManager on every check, so returning from Settings is picked up on resume. The setup sheet stays open while the user is in Settings. On return, a matching hostname is followed by the `getDnsOwnerFlavor` probe: success closes the sheet, failure shows a help step (typing, network blocking Private DNS, Samsung Device Services on Samsung, support chat). On Android, `start.dart` does not auto-dismiss the sheet when `cloudPermEnabled` flips; the sheet closes itself.
+Intent: Recognise a hand-typed hostname, and pick up the change on return from Settings.
+Rule: On Android, any hostname of the form `<tag>.cloud.blokada.org` or `<anything>-<tag>.cloud.blokada.org` counts as this device's DNS (case, spaces and a trailing dot ignored). The native side reads Private DNS live from ConnectivityManager on every check, so returning from Settings is picked up on resume. The setup sheet stays open while the user is in Settings. On return, a matching hostname shows success and closes the sheet; anything else, including a Blokada hostname for another device tag, shows the setup steps. The sheet runs no live DNS probe and has no troubleshooting step. On Android, `start.dart` does not auto-dismiss the sheet when `cloudPermEnabled` flips; the sheet closes itself.
 Scope: `PrivateDnsCheck.isAndroidHostnameForTag`, `PrivateDnsSetupVerifier`, `PrivateDnsSheetAndroid`, `PermBinding.getPrivateDnsState`.
-Non-rules: iOS still needs an exact URL match including the alias. `cloudPermEnabled` follows the hostname match alone, not the probe.
+Non-rules: iOS still needs an exact URL match including the alias. `cloudPermEnabled` follows the hostname match alone.
 Verification: Set a hand-typed hostname for the tag in Settings, return to the app without a cold start, and check the sheet shows success.
 
 ### Rule: Power-on fallback depends on entitlement
