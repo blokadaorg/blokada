@@ -3,6 +3,7 @@ import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/stats/model.dart';
 import 'package:common/src/platform/stats/stats.dart';
 import 'package:common/src/shared/ui/motion.dart';
+import 'package:common/src/shared/ui/theme.dart';
 import 'package:flutter/material.dart';
 
 import 'package:common/src/shared/ui/minicard/header.dart';
@@ -41,20 +42,19 @@ class TotalCounterState extends State<TotalCounter> with Logging {
     });
   }
 
-  static const _style = TextStyle(fontSize: 34, fontWeight: FontWeight.w600);
-
   /// Counts up to the total, like the other Pulse numbers, keeping the
   /// short 12.3K form on the way. With Reduce Motion it shows the total.
   Widget _buildBig(BuildContext context) {
+    final style = context.theme.text.display;
     if (Motion.reduced(context)) {
-      return Text(StatsStoreBase.formatCounter(blocked), style: _style);
+      return Text(StatsStoreBase.formatCounter(blocked), style: style);
     }
     // Starts from zero once, then moves from the shown value to a new total.
     return TweenAnimationBuilder<double>(
       tween: Tween(begin: 0, end: blocked.toDouble()),
       duration: const Duration(seconds: 1),
       builder: (context, value, _) =>
-          Text(StatsStoreBase.formatCounter(value.round()), style: _style),
+          Text(StatsStoreBase.formatCounter(value.round()), style: style),
     );
   }
 

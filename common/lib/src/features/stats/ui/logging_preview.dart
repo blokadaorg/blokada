@@ -48,7 +48,7 @@ class LoggingOffer extends StatelessWidget {
           child: Text(
             "activity retention policy".i18n,
             textAlign: TextAlign.center,
-            style: context.theme.linkStyle(const TextStyle(fontSize: 14)),
+            style: context.theme.linkStyle(context.theme.text.callout),
           ),
         ),
       ),

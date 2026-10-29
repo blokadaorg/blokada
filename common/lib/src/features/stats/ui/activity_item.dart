@@ -77,14 +77,16 @@ class ActivityItemState extends State<ActivityItem> {
                           children: [
                             Text(
                               middleEllipsis(widget.entry.domainName, maxLength: 32),
-                              style: const TextStyle(fontSize: 16),
+                              style: context.theme.text.body,
                               // One line each, so the row stays the placeholder's height.
                               maxLines: 1,
                               overflow: TextOverflow.clip,
                             ),
                             Text(
                               subtitle,
-                              style: TextStyle(color: context.theme.textSecondary, fontSize: 12),
+                              style: context.theme.text.caption.copyWith(
+                                color: context.theme.textSecondary,
+                              ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),

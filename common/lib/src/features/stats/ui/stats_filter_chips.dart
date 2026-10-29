@@ -89,7 +89,7 @@ class StatsFilterChipsState extends State<StatsFilterChips> with Disposables {
             child: Text(
               chip.label,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontSize: 14, color: theme.textPrimary),
+              style: theme.text.callout.copyWith(color: theme.textPrimary),
             ),
           ),
           Semantics(
@@ -148,10 +148,7 @@ class StatsFilterActionState extends State<StatsFilterAction> with Disposables {
         child: Text(
           "universal action search".i18n,
           style: context.theme.linkStyle(
-            TextStyle(
-              fontSize: 17,
-              fontWeight: filtered ? FontWeight.w600 : null,
-            ),
+            context.theme.text.barAction.copyWith(fontWeight: filtered ? FontWeight.w600 : null),
             underline: false,
           ),
         ),

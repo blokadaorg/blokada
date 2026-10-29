@@ -4,6 +4,7 @@ import 'dart:ui' as ui;
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/stats/model.dart';
 import 'package:common/src/platform/stats/delta_store.dart';
+import 'package:common/src/shared/ui/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -31,18 +32,6 @@ class RadialChart extends StatelessWidget {
 
   late _ChartData allowedData;
   late _ChartData blockedData;
-
-  List<Color> colorsRed = <Color>[
-    const Color(0xffff7a6c),
-    const Color(0xffff3b30),
-    const Color(0xffde342a),
-  ];
-
-  List<Color> colorsGreen = <Color>[
-    const Color(0xff61d981),
-    const Color(0xff2fb653),
-    const Color(0xff17933a),
-  ];
 
   List<double> stops = <double>[
     0.0,
@@ -74,19 +63,20 @@ class RadialChart extends StatelessWidget {
       RadialRing.allowed,
       "stats label allowed".i18n,
       allowedVal,
-      const Color(0xff33c75a),
     );
 
     blockedData = _ChartData(
       RadialRing.blocked,
       "stats label blocked".i18n,
       blockedVal,
-      const Color(0xffff3b30),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.theme;
+    Color ringColor(RadialRing ring) =>
+        ring == RadialRing.allowed ? theme.allowed : theme.blocked;
     final ringSelection = selectedRing;
     final allowedOpacity =
         ringSelection == null || ringSelection == RadialRing.allowed ? 1.0 : 0.35;
@@ -139,7 +129,7 @@ class RadialChart extends StatelessWidget {
     }
 
     Shader ringShader(RadialRing ring, Rect rect) {
-      final colors = ring == RadialRing.allowed ? colorsGreen : colorsRed;
+      final colors = ring == RadialRing.allowed ? theme.allowedGradient : theme.blockedGradient;
       return ui.Gradient.radial(
         rect.center,
         rect.width / 2,
@@ -170,7 +160,7 @@ class RadialChart extends StatelessWidget {
             maximumValue: 100,
             xValueMapper: (_ChartData data, _) => data.x,
             yValueMapper: (_ChartData data, _) => data.y,
-            pointColorMapper: (_ChartData data, _) => data.color,
+            pointColorMapper: (_ChartData data, _) => ringColor(data.ring),
             pointShaderMapper: (dynamic data, _, Color color, Rect rect) =>
                 ringShader((data as _ChartData).ring, rect),
             cornerStyle: CornerStyle.bothFlat,
@@ -187,7 +177,7 @@ class RadialChart extends StatelessWidget {
             maximumValue: 100,
             xValueMapper: (_ChartData data, _) => data.x,
             yValueMapper: (_ChartData data, _) => data.y,
-            pointColorMapper: (_ChartData data, _) => data.color,
+            pointColorMapper: (_ChartData data, _) => ringColor(data.ring),
             pointShaderMapper: (dynamic data, _, Color color, Rect rect) =>
                 ringShader((data as _ChartData).ring, rect),
             cornerStyle: CornerStyle.bothFlat,
@@ -219,10 +209,9 @@ class RadialChart extends StatelessWidget {
 }
 
 class _ChartData {
-  _ChartData(this.ring, this.x, this.y, this.color);
+  _ChartData(this.ring, this.x, this.y);
 
   final RadialRing ring;
   final String x;
   final double y;
-  final Color color;
 }
