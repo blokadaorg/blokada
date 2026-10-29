@@ -865,6 +865,7 @@
     "blocklist brief cpbl standard": "Ads, tracking and malware, medium size",
     "blocklist brief danpollock standard": "Ad servers, a small list",
     "blocklist brief d3host standard": "A small list made to pass the d3ward ad block test",
+    "blocklist brief meta_safe_search safe search": "Forces safe results on Google, Bing and DuckDuckGo, turns on YouTube Restricted Mode, and blocks search engines that can't be made safe",
     "private dns android brief": "%s works through Private DNS. Copy your hostname, then paste it in Settings.",
     "private dns android header": "Turn on Private DNS",
     "private dns android hostname label": "Your hostname",

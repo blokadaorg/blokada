@@ -58,6 +58,7 @@ void main() {
         expect(subject.lists, ["a", "b"]);
         expect(subject.retention, "24h");
         expect(subject.cloudEnabled, false);
+        expect(subject.safeSearch, false);
       });
     });
 
@@ -85,6 +86,40 @@ void main() {
 
         await subject.setLists(["c", "d"], m);
         verify(api.putDevice(m, lists: ["c", "d"])).called(1);
+
+        await subject.setLists(["c", "d"], m, safeSearch: true);
+        verify(api.putDevice(m, lists: ["c", "d"], safeSearch: true))
+            .called(1);
+      });
+    });
+
+    test("willSkipSetListsWhenListsAndSafeSearchUnchanged", () async {
+      await withTrace((m) async {
+        Core.register<StageStore>(MockStageStore());
+        Core.register<AccountStore>(MockAccountStore());
+        Core.register<EnvActor>(_FakeEnvActor('Example iPhone'));
+        registerMemoryPauseOrigin();
+
+        final api = MockDeviceApi();
+        when(api.getDevice(any))
+            .thenAnswer((_) => Future.value(_fixtureJsonDevice));
+        Core.register<DeviceApi>(api);
+
+        final subject = DeviceStore();
+        mockAct(subject);
+        await subject.fetch(m, force: true);
+
+        expect(await subject.setLists(["b", "a"], m, safeSearch: false),
+            isFalse);
+        expect(await subject.setLists(["a", "b"], m), isFalse);
+        verifyNever(api.putDevice(any,
+            lists: anyNamed("lists"), safeSearch: anyNamed("safeSearch")));
+
+        // Only the flag changed: still one save with both.
+        expect(await subject.setLists(["a", "b"], m, safeSearch: true),
+            isTrue);
+        verify(api.putDevice(m, lists: ["a", "b"], safeSearch: true))
+            .called(1);
       });
     });
   });

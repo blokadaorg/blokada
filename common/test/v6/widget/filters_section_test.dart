@@ -263,5 +263,46 @@ void main() {
         expect(s.pick.changes, 0);
       });
     });
+
+    testWidgets("safe search is an extra in the adult group, off by default", (tester) async {
+      await withTrace((_) async {
+        final s = await _open(tester, [
+          FilterSelection("oisd", ["small"]),
+        ]);
+        final id = _extraId(filterSafeSearch, "safe_search");
+
+        expect(_switch(tester, filterSafeSearch, "safe_search").value, isFalse);
+        // Below the adult group header, with the adult lists.
+        final header = tester.getTopLeft(find.text("blocklists group adult".i18n)).dy;
+        expect(tester.getTopLeft(_id(id)).dy, greaterThan(header));
+        expect(
+          tester.getTopLeft(_id(id)).dy,
+          lessThan(tester.getTopLeft(find.text("blocklists group social".i18n)).dy),
+        );
+
+        await tester.tap(find.descendant(of: _id(id), matching: find.byType(BlokadaSwitch)));
+        await tester.pump();
+        expect(s.actor.extras, [(v6SafeSearch, true)]);
+      });
+    });
+
+    testWidgets("safe search on shows in the summary and never locks", (tester) async {
+      await withTrace((_) async {
+        await _open(tester, [
+          FilterSelection("adaway", ["standard"]),
+          FilterSelection(filterSafeSearch, [filterOptionSafeSearch]),
+        ]);
+
+        final safeSearch = _switch(tester, filterSafeSearch, "safe_search");
+        expect(safeSearch.value, isTrue);
+        expect(safeSearch.onChanged, isNotNull);
+        // AdAway is still the only list on, so it stays on.
+        expect(_switch(tester, "adaway", "standard").onChanged, isNull);
+        expect(
+          find.text("+ ${_name("adaway", "standard")}, ${_name(filterSafeSearch, filterOptionSafeSearch)}"),
+          findsOneWidget,
+        );
+      });
+    });
   });
 }

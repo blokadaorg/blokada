@@ -87,6 +87,29 @@ void main() {
       );
     });
 
+    test("safe search is an extra next to the adult lists", () {
+      expect(keys, contains(v6SafeSearch));
+      expect(v6MainBlocklists, isNot(contains(v6SafeSearch)));
+      expect(v6BlocklistGroup(v6SafeSearch), BlocklistGroup.adult);
+      expect(blocklistName(v6SafeSearch, filters), "Safe search");
+    });
+
+    test("safe search alone does not count as a blocklist on", () {
+      expect(
+        v6ListsOn([
+          FilterSelection(filterSafeSearch, [filterOptionSafeSearch]),
+        ]),
+        isEmpty,
+      );
+      expect(
+        v6ListsOn([
+          FilterSelection("adaway", ["standard"]),
+          FilterSelection(filterSafeSearch, [filterOptionSafeSearch]),
+        ]),
+        {const BlocklistKey("adaway", "standard")},
+      );
+    });
+
     test("tags round trip, and bad ones read as no pick", () {
       const key = BlocklistKey("stevenblack", "fake news");
       expect(BlocklistKey.fromTag(key.tag), key);

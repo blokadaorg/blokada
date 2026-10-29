@@ -41,6 +41,11 @@ const v6MainBlocklists = [
   BlocklistKey("hblock", "standard"),
 ];
 
+/// The Safe Search switch of the v6 screen. It is shown and saved like an
+/// extra, but it is mostly the device's `safe_search` flag, so it does not
+/// count as a blocklist being on (see [v6ListsOn]).
+const v6SafeSearch = BlocklistKey(filterSafeSearch, filterOptionSafeSearch);
+
 /// What an extra blocks. Extras are grouped by this, not by provider.
 enum BlocklistGroup {
   ads("blocklists group ads"),
@@ -77,6 +82,7 @@ final _v6Groups = <BlocklistKey, BlocklistGroup>{
   BlocklistKey("spam404", "standard"): BlocklistGroup.security,
   BlocklistKey("urlhaus", "standard"): BlocklistGroup.security,
   BlocklistKey("oisd", "nsfw"): BlocklistGroup.adult,
+  v6SafeSearch: BlocklistGroup.adult,
   BlocklistKey("stevenblack", "adult"): BlocklistGroup.adult,
   BlocklistKey("stevenblack", "social"): BlocklistGroup.social,
   BlocklistKey("blacklist", "facebook"): BlocklistGroup.social,
@@ -107,6 +113,11 @@ Set<BlocklistKey> selectedBlocklists(List<FilterSelection> selected) => {
   for (final selection in selected)
     for (final option in selection.options) BlocklistKey(selection.filterName, option),
 };
+
+/// The blocklists on in [selected], leaving out [v6SafeSearch]. v6 always
+/// keeps one of these on; Safe Search alone would block almost nothing.
+Set<BlocklistKey> v6ListsOn(List<FilterSelection> selected) =>
+    selectedBlocklists(selected)..remove(v6SafeSearch);
 
 /// The main list for [selected]: the saved [pick] while it is still on, else
 /// the first one on in [v6MainBlocklists] order. Null when no main list is

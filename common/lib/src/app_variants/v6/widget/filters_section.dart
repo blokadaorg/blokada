@@ -136,7 +136,8 @@ class V6FiltersSectionState extends State<V6FiltersSection> with Logging, Dispos
                 color: colors[key.filterName],
                 selected: on.contains(key),
                 // The last list on can't go off: there is no "no blocklists".
-                locked: main == null && on.length == 1 && on.contains(key),
+                // Safe Search doesn't count as one (see v6ListsOn).
+                locked: on.contains(key) && v6ListsOn(withBlocklist(selected, key, false)).isEmpty,
                 // Same ids as the old cards, which the smoke suite toggles.
                 automationId: _automationId("filter_option", key),
                 onChanged: (value) => _legacy.toggleExtraBlocklist(key, value, Markers.userTap),

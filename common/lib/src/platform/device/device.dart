@@ -90,6 +90,11 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
   @observable
   DeviceRetention? retention;
 
+  /// The device's `safe_search` flag, read back with the lists so the v6
+  /// blocklists screen shows Safe Search as the server has it.
+  @observable
+  bool? safeSearch;
+
   @observable
   DateTime lastRefresh = DateTime(0);
 
@@ -137,6 +142,7 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
       pausedForSeconds = device.pausedForSeconds;
       cloudEnabled = !device.paused;
       lists = device.lists;
+      safeSearch = device.safeSearch;
       retention = device.retention;
       deviceTag = device.deviceTag;
       _hydrateAliasFromEnvIfNeeded();
@@ -184,26 +190,31 @@ abstract class DeviceStoreBase with Store, Logging, Actor, Cooldown, Emitter {
     });
   }
 
-  /// Saves the blocklists to the v2 device. Returns true once the server took
-  /// them, so callers confirm a save that really happened, not a skip. A
-  /// failed refresh afterwards is only logged: the save itself went through.
+  /// Saves the blocklists to the v2 device, with the safe search flag when
+  /// [safeSearch] is set (null leaves it as it is). Returns true once the
+  /// server took them, so callers confirm a save that really happened, not a
+  /// skip. A failed refresh afterwards is only logged: the save itself went
+  /// through.
   @action
-  Future<bool> setLists(List<String> lists, Marker m) async {
+  Future<bool> setLists(List<String> lists, Marker m, {bool? safeSearch}) async {
     // Skip device updates in freemium mode to prevent refresh loops
     if (_account.isFreemium) {
       log(m).i("Skipping setLists in freemium mode");
       return false;
     }
 
-    if (_listsEqual(this.lists, lists)) {
+    if (_listsEqual(this.lists, lists) &&
+        (safeSearch == null || safeSearch == (this.safeSearch ?? false))) {
       log(m).i("setLists noop, skipping device refresh");
       return false;
     }
 
     return await log(m).trace("setLists", (m) async {
       log(m).pair("lists", lists);
-      await _api.putDevice(m, lists: lists);
+      log(m).pair("safeSearch", safeSearch);
+      await _api.putDevice(m, lists: lists, safeSearch: safeSearch);
       this.lists = lists;
+      if (safeSearch != null) this.safeSearch = safeSearch;
       try {
         await fetch(m, force: true);
       } catch (e, s) {
