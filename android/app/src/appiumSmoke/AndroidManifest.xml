@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Debug manifest for the Android Appium smoke on CI only (Gradle -PappiumSmoke,
+  see app/build.gradle). The emulator's host renderer (gfxstream) segfaults on
+  Impeller's OpenGL ES output: Privacy Pulse kills the emulator process
+  (SIGSEGV in its RenderThread) in about 4 of 5 runs that open it 15 times.
+  With Skia it does not. Builds without the property keep Impeller.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <meta-data
+            android:name="io.flutter.embedding.android.EnableImpeller"
+            android:value="false" />
+    </application>
+</manifest>

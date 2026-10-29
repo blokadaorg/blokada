@@ -62,12 +62,14 @@ class RecentActivityState extends State<RecentActivity>
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "privacy pulse recents header".i18n,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  color: context.theme.textPrimary,
+              Flexible(
+                child: Text(
+                  "privacy pulse recents header".i18n,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: context.theme.textPrimary,
+                  ),
                 ),
               ),
               MergeSemantics(

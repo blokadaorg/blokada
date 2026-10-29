@@ -47,7 +47,7 @@ LPAREN := (
 sim-udid = $(shell xcrun simctl list devices available 2>/dev/null | awk -v needle="    $(SIM_NAME) $(LPAREN)" 'index($$0, needle) == 1 {print; exit}' | sed -E 's/.*\(([-0-9A-Fa-f]+)\).*/\1/')
 
 .PHONY: sim-status sim-clean sim-gc \
-	run-six-mocked run-family-mocked \
+	run-six-mocked run-family-mocked restore-account-sim \
 	appium-install-six-mocked appium-install-family-mocked \
 	print-build-dir-scheme print-product-name-scheme \
 	_ensure-sim _build-mocked
@@ -163,3 +163,15 @@ run-six-mocked:               ; @$(call run-mocked-app,Mocked,launch)
 run-family-mocked:            ; @$(call run-mocked-app,FamilyMocked,launch)
 appium-install-six-mocked:    ; @$(call run-mocked-app,Mocked,install)
 appium-install-family-mocked: ; @$(call run-mocked-app,FamilyMocked,install)
+
+# Restore ACCOUNT_ID into the app already installed on this checkout's sim and
+# relaunch it, instead of typing it into Settings > Restore Account ID. Only
+# Debug builds (the Mocked schemes) read the launch argument.
+# Usage: ACCOUNT_ID=<id> make restore-account-sim
+restore-account-sim:
+	@set -e; \
+	if [ -z "$${ACCOUNT_ID:-}" ]; then echo "restore-account-sim: set ACCOUNT_ID" >&2; exit 1; fi; \
+	UDID="$(sim-udid)"; \
+	if [ -z "$$UDID" ]; then echo "restore-account-sim: no sim '$(SIM_NAME)'; run make run-six-mocked first" >&2; exit 1; fi; \
+	xcrun simctl boot "$$UDID" 2>/dev/null || true; \
+	xcrun simctl launch --terminate-running-process "$$UDID" net.blocka.app -restoreAccountId "$$ACCOUNT_ID"

@@ -97,13 +97,17 @@ class _TabState extends State<TabButtonsWidget> with Disposables, Logging {
     required String automationId,
     required String label,
   }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
-      child: Semantics(
-        identifier: automationId,
-        label: label,
-        button: true,
-        child: MiniCard(onTap: onTap, child: SizedBox(width: 114, child: child)),
+    // Wider with large text, up to an equal share of the row.
+    final width = MediaQuery.textScalerOf(context).scale(114);
+    return Flexible(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
+        child: Semantics(
+          identifier: automationId,
+          label: label,
+          button: true,
+          child: MiniCard(onTap: onTap, child: SizedBox(width: width, child: child)),
+        ),
       ),
     );
   }

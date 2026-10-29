@@ -156,6 +156,9 @@ with the Blokada support connector (`account_activate`, `account_expire`,
 need different state at the same time, and pass each sub-agent its ID; a
 sub-agent changes only the account it was given. These are production
 accounts: never use a customer account, and never commit an account ID.
+On a fresh debug install, restore it with
+`make restore-account-android ACCOUNT_ID=<id>` or
+`ACCOUNT_ID=<id> make -C ios restore-account-sim`, not through Settings.
 
 ## Testing & Linting
 

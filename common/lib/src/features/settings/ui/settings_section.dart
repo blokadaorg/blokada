@@ -122,17 +122,16 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
           // The rest of the screen
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: SizedBox(
-              width: 96,
-              height: 96,
+            // At least as tall as the logo, taller when large text wraps the
+            // status; the backgrounds fill whatever the row needs.
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(minHeight: 96),
               child: Stack(
                 children: [
-                  Container(
-                    color: context.theme.bgColorCard,
-                    width: double.infinity,
-                    height: double.infinity,
+                  Positioned.fill(
+                    child: Container(color: context.theme.bgColorCard),
                   ),
-                  Core.act.isFamily ? const FamilyBgWidget() : Container(),
+                  if (Core.act.isFamily) const Positioned.fill(child: FamilyBgWidget()),
                   Row(
                     children: [
                       Padding(

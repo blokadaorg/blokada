@@ -27,6 +27,7 @@ const phoneDpr = 2.625;
 final goldenSkip = Platform.isLinux ? null : 'Goldens are generated and compared on Linux only';
 
 bool _fontsLoaded = false;
+bool _iosStandInsLoaded = false;
 
 Directory _flutterRoot() {
   final env = Platform.environment['FLUTTER_ROOT'];
@@ -51,8 +52,8 @@ Directory _packageRoot(String name) {
 /// Tests render text with a placeholder font unless real fonts are registered.
 /// Roboto (the Android system font) and the Material icons ship with the Flutter SDK;
 /// Cupertino icons come from the cupertino_icons version pinned in pubspec.lock.
-Future<void> loadFonts() async {
-  if (_fontsLoaded) return;
+Future<void> loadFonts({bool iosStandIns = false}) async {
+  if (_fontsLoaded && (!iosStandIns || _iosStandInsLoaded)) return;
   final fonts = '${_flutterRoot().path}/bin/cache/artifacts/material_fonts';
 
   Future<void> load(String family, Iterable<String> paths) async {
@@ -69,19 +70,31 @@ Future<void> loadFonts() async {
       .where((p) => p.contains('/Roboto-') && p.endsWith('.ttf'))
       .toList()
     ..sort();
-  await load('Roboto', roboto);
-  await load('MaterialIcons', ['$fonts/MaterialIcons-Regular.otf']);
-  // Icon fonts from packages are registered under "packages/<name>/<family>".
-  await load('packages/cupertino_icons/CupertinoIcons',
-      ['${_packageRoot('cupertino_icons').path}/assets/CupertinoIcons.ttf']);
-  _fontsLoaded = true;
+  if (!_fontsLoaded) {
+    await load('Roboto', roboto);
+    await load('MaterialIcons', ['$fonts/MaterialIcons-Regular.otf']);
+    // Icon fonts from packages are registered under "packages/<name>/<family>".
+    await load('packages/cupertino_icons/CupertinoIcons',
+        ['${_packageRoot('cupertino_icons').path}/assets/CupertinoIcons.ttf']);
+    _fontsLoaded = true;
+  }
+  // San Francisco is not available off Apple platforms; Roboto stands in for the
+  // iOS system families, so iOS layouts get real text metrics instead of the
+  // test font's square glyphs. Only on request, so the Android goldens keep
+  // rendering exactly as before.
+  if (iosStandIns && !_iosStandInsLoaded) {
+    for (final family in ['CupertinoSystemText', 'CupertinoSystemDisplay', '.AppleSystemUIFont']) {
+      await load(family, roboto);
+    }
+    _iosStandInsLoaded = true;
+  }
 }
 
 /// Boots the app's real modules in test mode (no platform channels; HTTP served
 /// by [FakeHttpChannel]) so screens can be rendered with stores seeded by the test.
 Future<void> bootModules(WidgetTester tester, {PlatformType platform = PlatformType.android}) async {
   await tester.runAsync(() async {
-    await loadFonts();
+    await loadFonts(iosStandIns: platform == PlatformType.iOS);
     await I18nService.loadTranslations();
     await Core.di.reset();
 
@@ -102,46 +115,71 @@ Future<void> bootModules(WidgetTester tester, {PlatformType platform = PlatformT
   });
 }
 
-/// Renders the real v6 shell (navigator, top bar, sheets) at phone size in
-/// [brightness], opens [path] the way the app does, and compares the result
-/// with `goldens/<name>.png`.
-Future<void> expectScreen(WidgetTester tester, String name,
-    {Paths? path, Brightness brightness = Brightness.dark}) async {
-  debugDefaultTargetPlatformOverride = TargetPlatform.android;
-  tester.view.physicalSize = phoneSize;
-  tester.view.devicePixelRatio = phoneDpr;
+/// Renders the real v6 shell (navigator, top bar, sheets), or [content] in its
+/// place, on a [physicalSize] view in [brightness] at the system [textScale],
+/// opens [path] the way the app does, and waits until the screen reaches its
+/// end state.
+Future<void> pumpShell(WidgetTester tester,
+    {Paths? path,
+    Object? arguments,
+    Widget? content,
+    Brightness brightness = Brightness.dark,
+    TargetPlatform platform = TargetPlatform.android,
+    Size physicalSize = phoneSize,
+    double devicePixelRatio = phoneDpr,
+    double textScale = 1.0}) async {
+  debugDefaultTargetPlatformOverride = platform;
+  tester.view.physicalSize = physicalSize;
+  tester.view.devicePixelRatio = devicePixelRatio;
   tester.platformDispatcher.platformBrightnessTestValue = brightness;
+  tester.platformDispatcher.textScaleFactorTestValue = textScale;
   WidgetsApp.debugAllowBannerOverride = false;
   addTearDown(() {
     debugDefaultTargetPlatformOverride = null;
     tester.view.reset();
     tester.platformDispatcher.clearPlatformBrightnessTestValue();
+    tester.platformDispatcher.clearTextScaleFactorTestValue();
     WidgetsApp.debugAllowBannerOverride = true;
   });
 
-  final shell = V6MainScreen(ctrl: Core.get<TopBarController>(), nav: NavigationPopObserver());
+  final shell = content ??
+      V6MainScreen(ctrl: Core.get<TopBarController>(), nav: NavigationPopObserver());
   await tester.pumpWidget(BlokadaApp(content: shell, isFamily: false));
   await tester.pump();
   if (path != null) {
-    Navigation.open(path);
+    Navigation.open(path, arguments: arguments);
     // Fixed pumps rather than pumpAndSettle, to match the waits below for real async I/O.
     await tester.pump(const Duration(milliseconds: 600));
   }
+  await settleScreen(tester);
+}
 
-  // Images (Image.asset, the power button's icons) decode and fake HTTP responses
-  // resolve on real async I/O, which the fake test clock does not advance;
-  // alternate real waits with fake-time pumps until the screen reaches its end state.
+/// Images (Image.asset, the power button's icons) decode and fake HTTP responses
+/// resolve on real async I/O, which the fake test clock does not advance;
+/// alternate real waits with fake-time pumps until the screen reaches its end state.
+Future<void> settleScreen(WidgetTester tester) async {
   for (var i = 0; i < 3; i++) {
     await tester.runAsync(() => Future.delayed(const Duration(milliseconds: 300)));
     await tester.pump(const Duration(seconds: 2));
   }
+}
+
+/// Unmounts the app and lets pending timers (debounces, short sleeps) fire
+/// before the test ends.
+Future<void> unmountShell(WidgetTester tester) async {
+  await tester.pumpWidget(const SizedBox());
+  await tester.pump(const Duration(minutes: 10));
+}
+
+/// Renders [path] with [pumpShell] at phone size and compares the result
+/// with `goldens/<name>.png`.
+Future<void> expectScreen(WidgetTester tester, String name,
+    {Paths? path, Brightness brightness = Brightness.dark}) async {
+  await pumpShell(tester, path: path, brightness: brightness);
 
   // The platform override must be cleared before the golden comparison and the
   // binding's end-of-test invariant check; the teardown also covers early failures.
   debugDefaultTargetPlatformOverride = null;
   await expectLater(find.byType(MaterialApp), matchesGoldenFile('goldens/$name.png'));
-
-  // Unmount and let pending timers (debounces, short sleeps) fire before the test ends.
-  await tester.pumpWidget(const SizedBox());
-  await tester.pump(const Duration(minutes: 10));
+  await unmountShell(tester);
 }

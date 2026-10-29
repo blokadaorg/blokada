@@ -143,6 +143,11 @@ android {
         // Do not include translations in debug builds (does not clutter search during development)
         release.res.srcDirs += 'src/translations/res'
         beta.res.srcDirs += 'src/translations/res'
+
+        // The Android Appium smoke renders with Skia (see the manifest).
+        if (project.hasProperty('appiumSmoke')) {
+            debug.manifest.srcFile 'src/appiumSmoke/AndroidManifest.xml'
+        }
     }
     lint {
         abortOnError false
