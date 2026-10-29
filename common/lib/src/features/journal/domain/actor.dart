@@ -144,11 +144,18 @@ class JournalActor with Logging, Actor {
   /// has no device filter). The rows each fetch returns add their devices.
   /// If the request fails, the list keeps only the devices in the rows.
   Future<void> loadDevices(Marker m) async {
-    final gen = ++_devicesGen;
+    ++_devicesGen;
     _accountDevices = {};
     _seenDevices = {};
     _publishDevices();
+    await refreshDevices(m);
+  }
+
+  /// Reloads the account's devices for the screen already open. The devices
+  /// its rows listed stay, as do the rows themselves while it refreshes.
+  Future<void> refreshDevices(Marker m) async {
     if (Core.act.isFamily) return;
+    final gen = _devicesGen;
     await log(m).trace("loadDevices", (m) async {
       try {
         final names = await _api.fetchDevicesForV6(m);

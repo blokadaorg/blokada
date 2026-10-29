@@ -171,6 +171,33 @@ void main() {
       });
     });
 
+    test('a refresh keeps the devices in the rows', () async {
+      await withTrace((m) async {
+        register();
+        api.rows.add(_row("Row device"));
+        await journal.loadDevices(m);
+        await journal.fetch(m);
+
+        // A page still loading when the refresh starts adds its devices too.
+        final rowsGate = Completer<void>();
+        api.rows.add(_row("Next page device"));
+        api.rowsGate = rowsGate.future;
+        final more = journal.fetch(m);
+
+        final devicesGate = Completer<void>();
+        api.accountDevices = ["Account device"];
+        api.devicesGate = devicesGate.future;
+        final refresh = journal.refreshDevices(m);
+        expect(devices(), {"Row device"});
+
+        rowsGate.complete();
+        await more;
+        devicesGate.complete();
+        await refresh;
+        expect(devices(), {"Account device", "Next page device", "Row device"});
+      });
+    });
+
     test('a padded name in the rows is listed once', () async {
       await withTrace((m) async {
         register();

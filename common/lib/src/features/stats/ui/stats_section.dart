@@ -182,7 +182,7 @@ class StatsSectionState extends State<StatsSection> with Disposables {
     });
     _refreshing = true;
     // Also retries a device list that failed when the screen opened.
-    unawaited(_journal.loadDevices(Markers.stats));
+    unawaited(_journal.refreshDevices(Markers.stats));
     try {
       await rebuild(null);
     } finally {
