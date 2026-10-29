@@ -36,6 +36,10 @@ class PlatformFilterActor with Logging, Actor {
   // leaves the rollback to that newer save.
   int _saveCount = 0;
 
+  // What the newest save in flight is sending. Until it lands, a change back
+  // to what the device had is still a change to send.
+  ({Set<String>? lists, bool safeSearch})? _sending;
+
   PlatformFilterActor({Duration debounce = const Duration(seconds: 1)})
       : _debounce = Debounce(debounce);
 
@@ -49,7 +53,9 @@ class PlatformFilterActor with Logging, Actor {
   Future<void> onDeviceChanged(Marker m) async {
     return await log(m).trace("onDeviceChangedLegacy", (m) async {
       final lists = _device.lists;
-      if (lists != null) {
+      // A user change made while a save was in flight is not on the device
+      // yet; showing the device now would undo it.
+      if (lists != null && _unsaved == null) {
         await _acc.start(m); // TODO: remove this
         // Read user config from device v2 when it is ready
         // Set it and it will reload FilterController
@@ -245,8 +251,9 @@ class PlatformFilterActor with Logging, Actor {
     if (config == null) return;
     final lists = config.lists;
     final safeSearch = config.configs[FilterConfigKey.safeSearch] ?? false;
-    if (setEquals(lists, _device.lists?.toSet()) &&
-        safeSearch == (_device.safeSearch ?? false)) {
+    final saved = _sending ??
+        (lists: _device.lists?.toSet(), safeSearch: _device.safeSearch ?? false);
+    if (setEquals(lists, saved.lists) && safeSearch == saved.safeSearch) {
       // Back to what the device has, so an earlier toggle must not be sent.
       _debounce.cancel();
       _unsaved = null;
@@ -272,9 +279,12 @@ class PlatformFilterActor with Logging, Actor {
     final pickBefore = _unsavedPick;
     _unsaved = null;
     _unsavedPick = null;
+    _sending = (lists: lists.toSet(), safeSearch: safeSearch);
     try {
       await _device.setLists(lists, m, safeSearch: safeSearch);
+      if (save == _saveCount) _sending = null;
     } catch (e, s) {
+      if (save == _saveCount) _sending = null;
       log(m).e(msg: "Error saving blocklists", err: e, stack: s);
       // Only a user change is rolled back: rolling back the defaults would
       // apply and retry them in a loop.

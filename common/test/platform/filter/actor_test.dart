@@ -734,6 +734,24 @@ void main() {
       });
     });
 
+    test("undoneWhileSaveIsInFlightIsSaved", () async {
+      await withTrace((m) async {
+        final s = await _boot(m, wide: true);
+        final held = s.api.gate = Completer();
+
+        await s.actor.toggleExtraBlocklist(safeSearch, true, m);
+        await _settle(); // The first save is now waiting on the server.
+        await s.actor.toggleExtraBlocklist(safeSearch, false, m);
+        held.complete();
+        await _settle();
+
+        expect(s.api.safeSearchPuts, [true, false]);
+        expect(s.api.stored, [_small]);
+        expect(s.api.storedSafeSearch, isFalse);
+        expect(await s.extras(m), isEmpty);
+      });
+    });
+
     test("failedSaveShowsErrorAndRollsBack", () async {
       await withTrace((m) async {
         final s = await _boot(m, wide: true);
