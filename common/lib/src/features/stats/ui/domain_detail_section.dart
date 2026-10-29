@@ -913,11 +913,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             // Actions section header
             Text(
               "activity actions header".i18n,
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                color: context.theme.textPrimary,
-              ),
+              style: context.theme.text.title.copyWith(color: context.theme.textPrimary),
             ),
             const SizedBox(height: 8),
 
@@ -928,11 +924,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             // Information section header
             Text(
               "activity information header".i18n,
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                color: context.theme.textPrimary,
-              ),
+              style: context.theme.text.title.copyWith(color: context.theme.textPrimary),
             ),
             const SizedBox(height: 8),
 
@@ -947,11 +939,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
               padding: const EdgeInsets.only(bottom: 8.0),
               child: Text(
                 "privacy pulse toplists header".i18n,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  color: context.theme.textPrimary,
-                ),
+                style: context.theme.text.title.copyWith(color: context.theme.textPrimary),
               ),
             ),
 
@@ -1079,17 +1067,12 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
               controller: _searchController,
               decoration: InputDecoration(
                 hintText: "domain details action search subdomains".i18n,
-                hintStyle: TextStyle(
-                  color: context.theme.textSecondary.withOpacity(0.6),
-                  fontSize: 16,
-                ),
+                hintStyle: context.theme.text.body
+                    .copyWith(color: context.theme.textSecondary.withOpacity(0.6)),
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.zero,
               ),
-              style: TextStyle(
-                color: context.theme.textPrimary,
-                fontSize: 16,
-              ),
+              style: context.theme.text.body.copyWith(color: context.theme.textPrimary),
             ),
           ),
         ],
@@ -1129,11 +1112,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
         // "Your Rules" header
         Text(
           "domain details rules section header".i18n,
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-            color: context.theme.textPrimary,
-          ),
+          style: context.theme.text.title.copyWith(color: context.theme.textPrimary),
         ),
         const SizedBox(height: 8),
 
@@ -1179,21 +1158,16 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
                   children: [
                     Text(
                       "domain details edit rule action".i18n,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: context.theme.textPrimary,
-                      ),
+                      style: context.theme.text.body.semibold
+                          .copyWith(color: context.theme.textPrimary),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       "domain details edit rule brief"
                           .i18n
                           .withParams(middleEllipsis(displayDomain)),
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: context.theme.textSecondary,
-                      ),
+                      style: context.theme.text.callout
+                          .copyWith(color: context.theme.textSecondary),
                     ),
                   ],
                 ),
@@ -1235,19 +1209,14 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
                   children: [
                     Text(
                       "domain details add rule action".i18n,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: context.theme.textPrimary,
-                      ),
+                      style: context.theme.text.body.semibold
+                          .copyWith(color: context.theme.textPrimary),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       "domain details add rule brief".i18n,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: context.theme.textSecondary,
-                      ),
+                      style: context.theme.text.callout
+                          .copyWith(color: context.theme.textSecondary),
                     ),
                   ],
                 ),
@@ -1284,10 +1253,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
           child: Center(
             child: Text(
               "privacy pulse empty".i18n,
-              style: TextStyle(
-                color: context.theme.textSecondary,
-                fontSize: 16,
-              ),
+              style: context.theme.text.body.copyWith(color: context.theme.textSecondary),
             ),
           ),
         ),
@@ -1357,20 +1323,13 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
               child: DomainNameText(
                 domain: subdomain.domainName,
                 tldSuffix: widget.entry.domainName,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: context.theme.textPrimary,
-                ),
+                style: context.theme.text.body.copyWith(color: context.theme.textPrimary),
                 overflow: TextOverflow.ellipsis,
               ),
             ),
             Text(
               subdomain.requests.toString(),
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: context.theme.textSecondary,
-              ),
+              style: context.theme.text.body.semibold.copyWith(color: context.theme.textSecondary),
             ),
           ],
         ),
@@ -1389,11 +1348,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
       children: [
         Text(
           title,
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-            color: context.theme.textPrimary,
-          ),
+          style: context.theme.text.title.copyWith(color: context.theme.textPrimary),
         ),
         const SizedBox(height: 8),
         CommonCard(
@@ -1417,10 +1372,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
                   child: Center(
                     child: Text(
                       "privacy pulse empty".i18n,
-                      style: TextStyle(
-                        color: context.theme.textSecondary,
-                        fontSize: 16,
-                      ),
+                      style: context.theme.text.body.copyWith(color: context.theme.textSecondary),
                     ),
                   ),
                 );
@@ -1464,19 +1416,13 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
                   DomainNameText(
                     domain: entry.domainName,
                     tldSuffix: widget.entry.domainName,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: context.theme.textPrimary,
-                    ),
+                    style: context.theme.text.body.copyWith(color: context.theme.textPrimary),
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 4),
                   Text(
                     subtitle,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: context.theme.textSecondary,
-                    ),
+                    style: context.theme.text.caption.copyWith(color: context.theme.textSecondary),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -1514,10 +1460,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
               Expanded(
                 child: Text(
                   "activity action copy to clipboard".i18n,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: context.theme.textPrimary,
-                  ),
+                  style: context.theme.text.body.copyWith(color: context.theme.textPrimary),
                 ),
               ),
             ],
@@ -1536,8 +1479,8 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
     final timelineReady =
         _statsTimelineValues.isNotEmpty && _statsTimelineEnd != null;
     final timelineColor = widget.entry.action == UiJournalAction.block
-        ? const Color(0xffff3b30)
-        : const Color(0xff33c75a);
+        ? context.theme.blocked
+        : context.theme.allowed;
     return CommonCard(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -1566,10 +1509,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
               const SizedBox(height: 16),
               Text(
                 "stats requests subheader".i18n,
-                style: TextStyle(
-                  color: context.theme.textSecondary,
-                  fontSize: 12,
-                ),
+                style: context.theme.text.caption.copyWith(color: context.theme.textSecondary),
               ),
               const SizedBox(height: 8),
               if (_statsRequestsLoading && !timelineReady)
@@ -1607,18 +1547,12 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
       children: [
         Text(
           label,
-          style: TextStyle(
-            color: context.theme.textSecondary,
-            fontSize: 12,
-          ),
+          style: context.theme.text.caption.copyWith(color: context.theme.textSecondary),
         ),
         const SizedBox(height: 4),
         Text(
           value,
-          style: TextStyle(
-            color: context.theme.textPrimary,
-            fontSize: 16,
-          ),
+          style: context.theme.text.body.copyWith(color: context.theme.textPrimary),
         ),
       ],
     );

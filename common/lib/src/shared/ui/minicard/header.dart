@@ -31,11 +31,7 @@ class MiniCardHeader extends StatelessWidget {
               Expanded(
                 child: Text(
                   text,
-                  style: TextStyle(
-                    color: color,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: context.theme.text.body.semibold.copyWith(color: color),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),

@@ -55,10 +55,7 @@ class ExceptionItemState extends State<ExceptionItem> {
               Expanded(
                 child: Text(
                   middleEllipsis(displayEntry, maxLength: 32),
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: context.theme.textPrimary,
-                  ),
+                  style: context.theme.text.body.copyWith(color: context.theme.textPrimary),
                   overflow: TextOverflow.clip,
                 ),
               ),
@@ -103,7 +100,7 @@ class ExceptionItemState extends State<ExceptionItem> {
                     const SizedBox(height: 4),
                     Text(
                       "universal action delete".i18n,
-                      style: const TextStyle(color: Colors.white, fontSize: 12),
+                      style: context.theme.text.caption.copyWith(color: Colors.white),
                     ),
                   ],
                 ),

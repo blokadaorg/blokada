@@ -46,10 +46,7 @@ class CommonItemState extends State<CommonItem> {
           Expanded(
             child: Text(
               widget.text,
-              style: TextStyle(
-                color: context.theme.textPrimary,
-                fontSize: 14,
-              ),
+              style: context.theme.text.callout.copyWith(color: context.theme.textPrimary),
               overflow: TextOverflow.ellipsis,
               maxLines: 2,
             ),

@@ -421,6 +421,9 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
                       0
                     ],
                     colorShadow: theme.shadow,
+                    cloudRing: theme.cloudRing,
+                    plusRing: theme.plusRing,
+                    freemiumRing: theme.freemiumRing,
                     isFreemium: state.freemium,
                     sweepRings: !_reduceMotion,
                     pulse: animCtrlPulse.isAnimating && !_reduceMotion ? animPulse.value : null,
@@ -544,6 +547,9 @@ class PowerButtonPainter extends CustomPainter {
   final List<double> arcCounter;
   final double arcTimerEnd;
   final Color colorShadow;
+  final List<Color> cloudRing;
+  final List<Color> plusRing;
+  final List<Color> freemiumRing;
   final bool isFreemium;
 
   /// Rings draw round from the top as they come on; off, they fade (Reduce
@@ -559,12 +565,12 @@ class PowerButtonPainter extends CustomPainter {
 
   late Color colorCover1 = Colors.white.withOpacity(alphaCover);
   late Color colorCover2 = Colors.white.withOpacity(alphaCover);
-  late Color colorRingLibre1 = Color(0xFF007AFF).withOpacity(_libreOpacity);
-  late Color colorRingLibre2 = Color(0xFF5856D5).withOpacity(_libreOpacity);
-  late Color colorRingPlus1 = Color(0xFFFF9400).withOpacity(_plusOpacity);
-  late Color colorRingPlus2 = Color(0xFFEF6049).withOpacity(_plusOpacity);
-  late Color colorLibreFreemium1 = Color(0xFFACBDBA).withOpacity(_libreOpacity);
-  late Color colorLibreFreemium2 = Color(0xFF48A9A6).withOpacity(_libreOpacity);
+  late Color colorRingLibre1 = cloudRing[0].withOpacity(_libreOpacity);
+  late Color colorRingLibre2 = cloudRing[1].withOpacity(_libreOpacity);
+  late Color colorRingPlus1 = plusRing[0].withOpacity(_plusOpacity);
+  late Color colorRingPlus2 = plusRing[1].withOpacity(_plusOpacity);
+  late Color colorLibreFreemium1 = freemiumRing[0].withOpacity(_libreOpacity);
+  late Color colorLibreFreemium2 = freemiumRing[1].withOpacity(_libreOpacity);
   late Color colorText = Colors.white;
   late Color colorLoading = Colors.white.withOpacity(alphaLoading);
   late Color colorTimer = colorShadow;
@@ -580,6 +586,9 @@ class PowerButtonPainter extends CustomPainter {
     required this.arcCounter,
     required this.arcTimerEnd,
     required this.colorShadow,
+    required this.cloudRing,
+    required this.plusRing,
+    required this.freemiumRing,
     required this.isFreemium,
     this.sweepRings = true,
     this.pulse,

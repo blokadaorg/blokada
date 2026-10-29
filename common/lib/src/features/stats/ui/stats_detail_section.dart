@@ -68,7 +68,7 @@ class StatsDetailSectionState extends State<StatsDetailSection> with Logging {
                         offset: const Offset(0, -3),
                         child: Text(
                           (widget.entry.requests > 99) ? "99" : widget.entry.requests.toString(),
-                          style: const TextStyle(color: Colors.white, fontSize: 12),
+                          style: context.theme.text.caption.copyWith(color: Colors.white),
                         ),
                       ),
                     ],
@@ -86,7 +86,7 @@ class StatsDetailSectionState extends State<StatsDetailSection> with Logging {
                           (widget.entry.isBlocked()
                               ? "activity request blocked".i18n
                               : "activity request allowed".i18n),
-                          style: const TextStyle(color: Colors.white, fontSize: 14),
+                          style: context.theme.text.callout.copyWith(color: Colors.white),
                         ),
                       ],
                     ),
@@ -204,7 +204,7 @@ class StatsDetailSectionState extends State<StatsDetailSection> with Logging {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("family stats label blocklist".i18n,
-            style: TextStyle(color: context.theme.textSecondary, fontSize: 12)),
+            style: context.theme.text.caption.copyWith(color: context.theme.textSecondary)),
         Row(
           children: [
             // Icon(CupertinoIcons.eye_slash_fill,
@@ -234,7 +234,7 @@ class StatsDetailSectionState extends State<StatsDetailSection> with Logging {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("family stats label profile".i18n,
-            style: TextStyle(color: context.theme.textSecondary, fontSize: 12)),
+            style: context.theme.text.caption.copyWith(color: context.theme.textSecondary)),
         profile != null
             ? Row(
                 children: [

@@ -124,11 +124,8 @@ class TopBarState extends State<TopBar> {
                             // node). Setting it here too made VoiceOver
                             // announce the title twice / doubled the title.
                             child: Text(widget.title,
-                                style: TextStyle(
-                                  color: context.theme.textPrimary,
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w600,
-                                )),
+                                style: context.theme.text.barAction.semibold
+                                    .copyWith(color: context.theme.textPrimary)),
                           ),
                         ),
                       ),
@@ -221,9 +218,8 @@ class TopCommonBarState extends State<TopCommonBar> {
                             width: 88,
                             child: Text(ctrl.nav.elementAt(ctrl.nav.length - 2),
                                 style: context.theme.linkStyle(
-                                    const TextStyle(
+                                    context.theme.text.barAction.copyWith(
                                         overflow: TextOverflow.ellipsis,
-                                        fontSize: 17,
                                         fontWeight: FontWeight.w400),
                                     underline: false)),
                           ),
@@ -244,9 +240,8 @@ class TopCommonBarState extends State<TopCommonBar> {
                             width: 88,
                             child: Text(ctrl.nav.elementAt(ctrl.nav.length - 3),
                                 style: context.theme.linkStyle(
-                                    const TextStyle(
+                                    context.theme.text.barAction.copyWith(
                                         overflow: TextOverflow.ellipsis,
-                                        fontSize: 17,
                                         fontWeight: FontWeight.w400),
                                     underline: false)),
                           ),
