@@ -98,9 +98,15 @@ class BottomManagerSheetState extends State<BottomManagerSheet>
       // Sheet has been dismissed (by the user, by Navigator.pop, or by our
       // _onModalChanged listener). Clear the modal value so the next request
       // to show the same modal type is not deduped by the NullableAsyncValue
-      // equality check.
+      // equality check. A different modal requested while this one was
+      // closing was ignored by [rebuild], so show it now instead.
       if (mounted) {
-        await _modal.change(Markers.ui, null);
+        final pending = _modal.present;
+        if (pending == null || pending == modal) {
+          await _modal.change(Markers.ui, null);
+        } else {
+          rebuild(null);
+        }
       }
     }
   }
