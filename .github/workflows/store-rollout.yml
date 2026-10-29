@@ -169,10 +169,12 @@ jobs:
         with:
           fetch-depth: 1
 
-      # The system Ruby's gem dir is not writable, so bundle into the checkout.
+      # The runner's Ruby has no bundle command and a read-only gem dir, so
+      # install the lockfile's bundler and bundle into the checkout.
       - name: Install fastlane
         working-directory: ios
         run: |
+          sudo gem install bundler -v "$(awk '/^BUNDLED WITH/{getline; print $1}' Gemfile.lock)" --no-document
           bundle config set --local path vendor/bundle
           bundle install
 
