@@ -12,7 +12,11 @@ import 'package:flutter_chat_core/flutter_chat_core.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 
 class SupportSection extends StatefulWidget {
-  const SupportSection({Key? key}) : super(key: key);
+  /// False in the sheet, which has its own header instead of the top bar
+  /// that the pushed route and the detail pane draw over the content.
+  final bool underTopBar;
+
+  const SupportSection({super.key, this.underTopBar = true});
 
   @override
   State<StatefulWidget> createState() => SupportSectionState();
@@ -48,9 +52,14 @@ class SupportSectionState extends State<SupportSection> {
     sendDisabled: true,
   );
 
+  /// The section that listened before this one, such as the pushed route
+  /// under the reply sheet, which gets the actor's updates back on dispose.
+  late final Function _previousOnChange;
+
   @override
   void initState() {
     super.initState();
+    _previousOnChange = _actor.onChange;
     _actor.onChange = _refresh;
     _actor.loadOrInit(Markers.support);
     _refresh();
@@ -58,6 +67,7 @@ class SupportSectionState extends State<SupportSection> {
 
   @override
   void dispose() {
+    if (_actor.onChange == _refresh) _actor.onChange = _previousOnChange;
     _composerFocus.dispose();
     _composerText.dispose();
     super.dispose();
@@ -87,7 +97,10 @@ class SupportSectionState extends State<SupportSection> {
 
     return Padding(
       padding: EdgeInsets.only(
-          left: 0, right: 0, top: getTopPadding(context), bottom: 0),
+          left: 0,
+          right: 0,
+          top: widget.underTopBar ? getTopPadding(context) : 0,
+          bottom: 0),
       child: Chat(
         chatController: _actor.controller,
         currentUserId: _actor.me.id,

@@ -3,9 +3,11 @@ import 'dart:io';
 
 import 'package:common/src/features/api/domain/api.dart';
 import 'package:common/src/features/lock/domain/lock.dart';
+import 'package:common/src/features/modal/domain/modal.dart';
 import 'package:common/src/features/notification/domain/notification.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/features/support/ui/convert.dart';
+import 'package:common/src/features/support/ui/support_sheet.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/app/app.dart';
 import 'package:common/src/platform/app/channel.pg.dart';

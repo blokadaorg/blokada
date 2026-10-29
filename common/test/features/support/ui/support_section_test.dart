@@ -3,10 +3,13 @@ import 'package:common/src/features/support/domain/support.dart';
 import 'package:common/src/features/support/ui/convert.dart';
 import 'package:common/src/features/support/ui/support_action_card.dart';
 import 'package:common/src/features/support/ui/support_section.dart';
+import 'package:common/src/features/support/ui/support_sheet.dart';
+import 'package:common/src/shared/ui/nav_close_button.dart';
 import 'package:common/src/features/support/ui/support_typing_bubble.dart';
 import 'package:common/src/platform/stage/stage.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:flutter_chat_core/flutter_chat_core.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -109,10 +112,72 @@ Widget _host({required bool dark}) {
   );
 }
 
+/// Records what the sheet reports, without the persisted flag behind it.
+class _FakeSupportUnreadActor extends SupportUnreadActor {
+  final events = <String>[];
+
+  @override
+  void sheetOpened() => events.add("opened");
+
+  @override
+  void sheetClosed() => events.add("closed");
+}
+
 IconButton _sendButton(WidgetTester tester) =>
     tester.widget<IconButton>(find.widgetWithIcon(IconButton, Icons.send));
 
 void main() {
+  testWidgets("the sheet takes 60% of the screen, closes with × and reports "
+      "while it is open", (tester) async {
+    await withTrace((_) async {
+      Core.register<StageStore>(StageStore());
+      Core.register<SupportActor>(_FakeSupportActor());
+      final unread = _FakeSupportUnreadActor();
+      Core.register<SupportUnreadActor>(unread);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: ThemeData(extensions: const [_lightTheme]),
+          home: Builder(
+            builder: (context) => Scaffold(
+              body: TextButton(
+                // The same sheet the app shows, which unlike Material's
+                // brings no Material of its own.
+                onPressed: () => showCupertinoModalBottomSheet(
+                  context: context,
+                  builder: (_) => const SupportSheet(),
+                ),
+                child: const Text("open"),
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.tap(find.text("open"));
+      await tester.pumpAndSettle();
+
+      expect(unread.events, ["opened"]);
+      expect(find.byType(TextField), findsOneWidget);
+      final screen = tester.view.physicalSize.height / tester.view.devicePixelRatio;
+      expect(tester.getSize(find.byType(SupportSheet)).height, screen * 0.6);
+      expect(tester.takeException(), isNull);
+      // × is the only action, centred apart from the title: no way to end
+      // the chat.
+      final title = tester.getRect(find.text("support action chat".i18n));
+      final close = tester.getRect(find.byType(NavCloseButton));
+      expect(close.left, greaterThan(title.right));
+      expect(find.text("support action end".i18n), findsNothing);
+
+      await tester.tap(find.byType(NavCloseButton));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(SupportSheet), findsNothing);
+      expect(unread.events, ["opened", "closed"]);
+      // Lets the session start debounce run out.
+      await tester.pump(const Duration(seconds: 2));
+    });
+  });
+
   for (final dark in [false, true]) {
     final mode = dark ? "dark" : "light";
 
