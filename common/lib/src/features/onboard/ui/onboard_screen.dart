@@ -70,69 +70,77 @@ class OnboardingScreenState extends State<OnboardingScreen> with Logging {
     if (lenUntilBreak < 0) lenUntilBreak = header.length;
     final headerFontSize = (lenUntilBreak > 18) ? 24.0 : 32.0;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const SizedBox(height: 40),
-          const Spacer(),
-          BigIcon(icon: null, canShowLogo: true),
-          const Spacer(),
-          Text(header,
-              textAlign: TextAlign.center,
-              textScaler: TextScaler.noScaling,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: headerFontSize,
-                fontWeight: FontWeight.w700,
-              )),
-          const SizedBox(height: 24),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 36.0),
-            child: Text("onboard desc".i18n,
-                textAlign: TextAlign.left,
-                textScaler: TextScaler.noScaling,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  // fontWeight: FontWeight.w500,
-                )),
-          ),
-          const SizedBox(height: 32),
-          Row(
+    // Fills the screen, with the room left split evenly above and below the
+    // logo; scrolls instead when large text or a short screen needs more room.
+    // spaceBetween rather than Spacers, which can't flex in a scroll view.
+    return LayoutBuilder(
+      builder: (context, constraints) => SingleChildScrollView(
+        primary: false,
+        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minHeight: constraints.maxHeight),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 36.0, vertical: 8.0),
-                  child: Semantics(
-                    identifier: AutomationIds.onboardContinue,
-                    button: true,
-                    child: MiniCard(
-                      onTap: _close,
-                      color: context.theme.accent,
-                      child: SizedBox(
-                        height: 32,
-                        child: Center(
-                          child: Text(
-                            "universal action continue".i18n,
-                            style: TextStyle(
-                              color: context.theme.onAccent,
-                              fontWeight: FontWeight.w600,
+              const SizedBox(height: 40),
+              BigIcon(icon: null, canShowLogo: true),
+              Column(
+                children: [
+                  Text(header,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: headerFontSize,
+                        fontWeight: FontWeight.w700,
+                      )),
+                  const SizedBox(height: 24),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 36.0),
+                    child: Text("onboard desc".i18n,
+                        textAlign: TextAlign.left,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          // fontWeight: FontWeight.w500,
+                        )),
+                  ),
+                  const SizedBox(height: 32),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 36.0, vertical: 8.0),
+                          child: Semantics(
+                            identifier: AutomationIds.onboardContinue,
+                            button: true,
+                            child: MiniCard(
+                              onTap: _close,
+                              color: context.theme.accent,
+                              child: ConstrainedBox(
+                                constraints: const BoxConstraints(minHeight: 32),
+                                child: Center(
+                                  child: Text(
+                                    "universal action continue".i18n,
+                                    style: TextStyle(
+                                      color: context.theme.onAccent,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
-                ),
+                  const SizedBox(height: 60),
+                ],
               ),
             ],
           ),
-          const SizedBox(height: 60),
-        ],
+        ),
       ),
     );
   }

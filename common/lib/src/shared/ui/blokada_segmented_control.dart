@@ -23,7 +23,11 @@ class BlokadaSegmentedControl<T extends Object> extends StatelessWidget {
         if (v != groupValue) Haptics.selection();
         onValueChanged(v);
       },
-      children: children,
+      // Segments split the width evenly; a short label too wide for its share
+      // at large text sizes shrinks to fit instead of overflowing.
+      children: children.map(
+        (value, child) => MapEntry(value, FittedBox(fit: BoxFit.scaleDown, child: child)),
+      ),
     );
   }
 }

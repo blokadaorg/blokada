@@ -123,15 +123,8 @@ class BlokadaApp extends StatelessWidget {
           }),
       // Above the root navigator, so toasts show over sheets and dialogs.
       builder: (context, child) => ToastHost(child: child ?? const SizedBox()),
-      home: Builder(builder: (context) {
-        final mediaQueryData = MediaQuery.of(context);
-        final scale = mediaQueryData.textScaleFactor.clamp(0.8, 1.1);
-        return MediaQuery(
-          data: MediaQuery.of(context).copyWith(textScaleFactor: scale),
-          //child: I18n(child: content),
-          child: I18n(child: content),
-        );
-      }),
+      // Text follows the system text size unchanged; layouts adapt to it.
+      home: I18n(child: content),
     );
   }
 }
