@@ -31,12 +31,12 @@ class BlokadaApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const plusColor = Color(0xffFF9400);
-    const familyColor = Color(0xffe450ba);
+    const plusColor = BlokadaPalette.orange;
+    const familyColor = BlokadaPalette.magenta;
     // const familyColor = Color(0xFFe450cd);
     // const familyColor = Color(0xffff5889);
     final accentColor = Core.act.isFamily ? familyColor : plusColor;
-    final freemiumColor = Color(0xFF48A9A6);
+    const freemiumColor = BlokadaPalette.teal;
 
 
     return MaterialApp(
@@ -56,7 +56,7 @@ class BlokadaApp extends StatelessWidget {
             brightness: Brightness.light,
           ),
           primary: accentColor,
-          error: const Color(0xffFF3B30),
+          error: BlokadaPalette.red,
           background: Colors.white,
           // textTheme: const TextTheme(
           //   //bodySmall: TextStyle(fontSize: 12.0, fontWeight: FontWeight.normal),
@@ -76,7 +76,7 @@ class BlokadaApp extends StatelessWidget {
               bgColorHome3: Color(0xffBDBDBD),
               bgColorCard: Color(0xFFFFFFFF),
               panelBackground: const Color(0xffF5F7FA),
-              cloud: Color(0xFF007AFF),
+              cloud: BlokadaPalette.blue,
               accent: accentColor,
               freemium: freemiumColor,
               // shadow: const Color(0xffF5F7FA),
@@ -85,11 +85,11 @@ class BlokadaApp extends StatelessWidget {
               textPrimary: Colors.black,
               textSecondary: Colors.black54,
               divider: Colors.black26,
-              linkColor: Color(0xFF121212),
+              linkColor: BlokadaPalette.ink,
               linkUnderline: accentColor,
               // 4.5:1 on white cards and the light page background.
-              textBlocked: Color(0xFFD70015),
-              textAllowed: Color(0xFF147A50),
+              textBlocked: BlokadaPalette.redText,
+              textAllowed: BlokadaPalette.greenText,
             )
           }),
       darkTheme: FlexThemeData.dark(
@@ -99,7 +99,7 @@ class BlokadaApp extends StatelessWidget {
             brightness: Brightness.dark,
           ),
           primary: accentColor,
-          error: const Color(0xffFF3B30),
+          error: BlokadaPalette.red,
           background: Colors.black,
           darkIsTrueBlack: true,
           extensions: <ThemeExtension<dynamic>>{
@@ -113,7 +113,7 @@ class BlokadaApp extends StatelessWidget {
               panelBackground: const Color(0xff1c1c1e),
               accent: accentColor,
               freemium: freemiumColor,
-              cloud: Color(0xFF007AFF),
+              cloud: BlokadaPalette.blue,
               shadow: Color(0xFF424242),
               bgMiniCard: Color(0xFF1F1F1F),
               textPrimary: Colors.white,

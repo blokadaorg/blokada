@@ -254,8 +254,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging, 
           title: event.title,
           content: Text(
             event.body,
-            style: TextStyle(
-              fontSize: 14,
+            style: context.theme.text.callout.copyWith(
               color: context.theme.textSecondary,
               height: 1.3,
             ),
@@ -350,9 +349,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging, 
               selected: _toplistRange == ToplistRange.daily,
               child: Text(
                 "stats range 24h".i18n,
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
+                style: context.theme.text.callout.semibold.copyWith(
                   color: context.theme.textPrimary,
                 ),
               ),
@@ -367,9 +364,7 @@ class PrivacyPulseSectionState extends State<PrivacyPulseSection> with Logging, 
               selected: _toplistRange == ToplistRange.weekly,
               child: Text(
                 "stats range 7d".i18n,
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
+                style: context.theme.text.callout.semibold.copyWith(
                   color: context.theme.textPrimary,
                 ),
               ),

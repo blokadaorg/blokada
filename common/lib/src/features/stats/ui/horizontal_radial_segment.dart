@@ -189,20 +189,15 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
                               fit: BoxFit.scaleDown,
                               child: Text("stats label blocked".i18n,
                                   maxLines: 1,
-                                  style: TextStyle(
+                                  style: context.theme.text.caption.semibold.copyWith(
                                     color: context.theme.textBlocked,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
                                   )),
                             ),
                             Countup(
                               begin: lastBlocked,
                               end: blocked,
                               duration: countDuration,
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
-                              ),
+                              style: context.theme.text.title,
                               maxLines: 1,
                               overflow: TextOverflow.visible,
                             ),
@@ -223,20 +218,15 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
                               fit: BoxFit.scaleDown,
                               child: Text("stats label allowed".i18n,
                                   maxLines: 1,
-                                  style: TextStyle(
+                                  style: context.theme.text.caption.semibold.copyWith(
                                     color: context.theme.textAllowed,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
                                   )),
                             ),
                             Countup(
                               begin: lastAllowed,
                               end: allowed,
                               duration: countDuration,
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
-                              ),
+                              style: context.theme.text.title,
                               maxLines: 1,
                               overflow: TextOverflow.visible,
                             ),
@@ -302,7 +292,7 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
               MiniCardChart(
                   key: ValueKey(_drawCount),
                   stats: widget.stats,
-                  color: Color(0xff33c75a),
+                  color: context.theme.allowed,
                   animate: drawing,
                   height: 42,
                   seriesValues: widget.sparklineSeries?.values,

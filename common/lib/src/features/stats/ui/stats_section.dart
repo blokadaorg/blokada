@@ -261,10 +261,7 @@ class StatsSectionState extends State<StatsSection> with Disposables {
           children: [
             Text(
               "main tab activity".i18n,
-              style: const TextStyle(
-                fontSize: 34.0, // Mimic large iOS-style header
-                fontWeight: FontWeight.bold,
-              ),
+              style: context.theme.text.largeTitle,
             ),
             const StatsFilterAction(),
           ],
@@ -419,11 +416,7 @@ class _GroupHeader extends StatelessWidget {
         padding: EdgeInsets.only(left: 12, right: 12, top: first ? 4 : 16, bottom: 6),
         child: Text(
           label,
-          style: TextStyle(
-            color: context.theme.textSecondary,
-            fontSize: 13,
-            fontWeight: FontWeight.w600,
-          ),
+          style: context.theme.text.footnote.semibold.copyWith(color: context.theme.textSecondary),
         ),
       ),
     );

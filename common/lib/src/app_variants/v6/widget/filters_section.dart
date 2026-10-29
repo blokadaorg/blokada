@@ -59,7 +59,7 @@ class V6FiltersSectionState extends State<V6FiltersSection> with Logging, Dispos
     // yet. Taps then would save over lists the server has.
     final loading = on.isEmpty;
 
-    final colors = _providerColors(filters);
+    final colors = _providerColors(context, filters);
     // Older accounts may have several general lists on. They stay as saved,
     // and show in the summary, until the user picks a main list.
     final stacked = on.where(v6MainBlocklists.contains).length > 1;
@@ -93,11 +93,7 @@ class V6FiltersSectionState extends State<V6FiltersSection> with Logging, Dispos
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 4),
           child: Text(
             "blocklists main pick".i18n,
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: context.theme.accent,
-            ),
+            style: context.theme.text.callout.semibold.copyWith(color: context.theme.accent),
           ),
         ),
       const SizedBox(height: 4),
@@ -166,19 +162,12 @@ class V6FiltersSectionState extends State<V6FiltersSection> with Logging, Dispos
   }
 
   /// Keeps the colours the provider cards had, as a small dot per row.
-  Map<FilterName, Color> _providerColors(List<Filter> filters) {
+  Map<FilterName, Color> _providerColors(BuildContext context, List<Filter> filters) {
+    final markers = context.theme.markers;
     return {
-      for (final (i, filter) in filters.indexed) filter.filterName: _palette[i % _palette.length],
+      for (final (i, filter) in filters.indexed) filter.filterName: markers[i % markers.length],
     };
   }
-
-  static const _palette = [
-    Color(0xFFFFCD8C),
-    Color(0xFFB1CCF4),
-    Color(0xFFFFA0EC),
-    Color(0xFFB1F4C8),
-    Color(0xFFFDB39C),
-  ];
 
   String _automationId(String kind, BlocklistKey key) {
     final filterName = _sanitizeAutomationSegment(key.filterName);
@@ -213,13 +202,12 @@ class _Summary extends StatelessWidget {
             children: [
               Text(
                 "blocklists summary header".i18n,
-                style: TextStyle(fontSize: 14, color: context.theme.textSecondary),
+                style: context.theme.text.callout.copyWith(color: context.theme.textSecondary),
               ),
               const SizedBox(height: 4),
               Text(
                 loading ? " " : (main ?? "blocklists main none".i18n),
-                style: TextStyle(
-                  fontSize: 20,
+                style: context.theme.text.title.copyWith(
                   fontWeight: FontWeight.bold,
                   color: main == null ? context.theme.accent : null,
                 ),
@@ -228,7 +216,7 @@ class _Summary extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   "+ ${extras.join(", ")}",
-                  style: TextStyle(fontSize: 14, color: context.theme.textSecondary),
+                  style: context.theme.text.callout.copyWith(color: context.theme.textSecondary),
                 ),
               ],
             ],
@@ -268,10 +256,13 @@ class _RowText extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(name, style: const TextStyle(fontSize: 16)),
+        Text(name, style: context.theme.text.body),
         if (brief != null) ...[
           const SizedBox(height: 2),
-          Text(brief, style: TextStyle(fontSize: 13, color: context.theme.textSecondary)),
+          Text(
+            brief,
+            style: context.theme.text.footnote.copyWith(color: context.theme.textSecondary),
+          ),
         ],
       ],
     );

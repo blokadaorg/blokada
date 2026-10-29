@@ -135,21 +135,14 @@ class TopDomainsState extends State<TopDomains> {
                   Flexible(
                     child: Text(
                       "privacy pulse toplists header".i18n,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: context.theme.textPrimary,
-                      ),
+                      style: context.theme.text.title.copyWith(color: context.theme.textPrimary),
                     ),
                   ),
                   Text(
                     widget.range == ToplistRange.daily
                         ? "stats range 24h".i18n
                         : "stats range 7d".i18n,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: context.theme.textSecondary,
-                    ),
+                    style: context.theme.text.body.copyWith(color: context.theme.textSecondary),
                   ),
                 ],
               ),
@@ -186,10 +179,7 @@ class TopDomainsState extends State<TopDomains> {
                                 const SizedBox(width: 6),
                                 Text(
                                   "privacy pulse tab blocked".i18n,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                                  style: context.theme.text.body.semibold,
                                 ),
                               ],
                             ),
@@ -207,10 +197,7 @@ class TopDomainsState extends State<TopDomains> {
                                 const SizedBox(width: 6),
                                 Text(
                                   "privacy pulse tab allowed".i18n,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                                  style: context.theme.text.body.semibold,
                                 ),
                               ],
                             ),
@@ -346,10 +333,7 @@ class TopDomainsState extends State<TopDomains> {
                           maxLength:
                               delta != null && delta.type == ToplistDeltaType.newEntry ? 18 : 24,
                         ),
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: context.theme.textPrimary,
-                        ),
+                        style: context.theme.text.body.copyWith(color: context.theme.textPrimary),
                         overflow: TextOverflow.clip,
                       ),
                     ),
@@ -359,8 +343,7 @@ class TopDomainsState extends State<TopDomains> {
                         padding: const EdgeInsets.only(right: 8.0),
                         child: Text(
                           "stats label new".i18n.toUpperCase(),
-                          style: TextStyle(
-                            fontSize: 12,
+                          style: context.theme.text.caption.copyWith(
                             fontWeight: FontWeight.w700,
                             color: context.theme.cloud,
                           ),
@@ -372,9 +355,7 @@ class TopDomainsState extends State<TopDomains> {
               ),
               Text(
                 entry.value.toString(),
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
+                style: context.theme.text.body.semibold.copyWith(
                   color: context.theme.textSecondary,
                 ),
               ),
@@ -426,10 +407,7 @@ class TopDomainsState extends State<TopDomains> {
       child: Center(
         child: Text(
           widget.collecting ? "activity logging collecting".i18n : "privacy pulse empty".i18n,
-          style: TextStyle(
-            color: context.theme.textSecondary,
-            fontSize: 16,
-          ),
+          style: context.theme.text.body.copyWith(color: context.theme.textSecondary),
         ),
       ),
     );

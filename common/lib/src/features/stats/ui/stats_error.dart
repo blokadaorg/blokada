@@ -20,14 +20,14 @@ class StatsError extends StatelessWidget {
           children: [
             Text(
               "alert error header".i18n,
-              style: TextStyle(color: context.theme.textSecondary, fontSize: 16),
+              style: context.theme.text.body.copyWith(color: context.theme.textSecondary),
             ),
             const SizedBox(height: 4),
             CommonClickable(
               onTap: onRetry,
               child: Text(
                 "universal action try again".i18n,
-                style: context.theme.linkStyle(const TextStyle(fontSize: 16)),
+                style: context.theme.linkStyle(context.theme.text.body),
               ),
             ),
           ],

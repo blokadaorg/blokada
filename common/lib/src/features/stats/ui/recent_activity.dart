@@ -65,11 +65,7 @@ class RecentActivityState extends State<RecentActivity>
               Flexible(
                 child: Text(
                   "privacy pulse recents header".i18n,
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: context.theme.textPrimary,
-                  ),
+                  style: context.theme.text.title.copyWith(color: context.theme.textPrimary),
                 ),
               ),
               MergeSemantics(
@@ -82,7 +78,7 @@ class RecentActivityState extends State<RecentActivity>
                     },
                     child: Text(
                       "privacy pulse timespan show all".i18n,
-                      style: context.theme.linkStyle(const TextStyle(fontSize: 16)),
+                      style: context.theme.linkStyle(context.theme.text.body),
                     ),
                   ),
                 ),
@@ -122,10 +118,7 @@ class RecentActivityState extends State<RecentActivity>
                             const SizedBox(width: 6),
                             Text(
                               "privacy pulse tab blocked".i18n,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                              ),
+                              style: context.theme.text.body.semibold,
                             ),
                           ],
                         ),
@@ -143,10 +136,7 @@ class RecentActivityState extends State<RecentActivity>
                             const SizedBox(width: 6),
                             Text(
                               "privacy pulse tab allowed".i18n,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                              ),
+                              style: context.theme.text.body.semibold,
                             ),
                           ],
                         ),
@@ -219,18 +209,12 @@ class RecentActivityState extends State<RecentActivity>
                 children: [
                   Text(
                     middleEllipsis(entry.domainName, maxLength: 32),
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: context.theme.textPrimary,
-                    ),
+                    style: context.theme.text.body.copyWith(color: context.theme.textPrimary),
                     overflow: TextOverflow.clip,
                   ),
                   Text(
                     entry.timestampText,
-                    style: TextStyle(
-                      color: context.theme.textSecondary,
-                      fontSize: 12,
-                    ),
+                    style: context.theme.text.caption.copyWith(color: context.theme.textSecondary),
                   ),
                 ],
               ),
@@ -253,10 +237,7 @@ class RecentActivityState extends State<RecentActivity>
       child: Center(
         child: Text(
           widget.collecting ? "activity logging collecting".i18n : "privacy pulse empty".i18n,
-          style: TextStyle(
-            color: context.theme.textSecondary,
-            fontSize: 16,
-          ),
+          style: context.theme.text.body.copyWith(color: context.theme.textSecondary),
         ),
       ),
     );

@@ -114,7 +114,7 @@ class PrivacyPulseCharts extends StatelessWidget {
     }
     return Text(
       insight(counters: counters, range: range, delta: deltaReady ? counterDelta : null),
-      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: context.theme.textPrimary),
+      style: context.theme.text.body.semibold.copyWith(color: context.theme.textPrimary),
     );
   }
 }

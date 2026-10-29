@@ -235,11 +235,7 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
           padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
           child: Text(
             "private dns android copied hint".i18n,
-            style: TextStyle(
-              fontSize: 12,
-              color: context.theme.accent,
-              fontWeight: FontWeight.w600,
-            ),
+            style: context.theme.text.caption.semibold.copyWith(color: context.theme.accent),
           ),
         ),
       Padding(
@@ -318,7 +314,7 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
               children: [
                 Text(
                   "private dns android blokada hostname label".i18n,
-                  style: TextStyle(fontSize: 12, color: context.theme.textSecondary),
+                  style: context.theme.text.caption.copyWith(color: context.theme.textSecondary),
                 ),
                 const SizedBox(height: 2),
                 // Not selectable: a manual copy would carry the display-only
