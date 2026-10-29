@@ -16,13 +16,23 @@ import 'package:provider/provider.dart';
 /// past this system text scale. Everything below the bars scales fully.
 const topBarMaxTextScale = 1.3;
 
+/// Space between the iOS bar-button bubbles and the bar's bottom edge, so a
+/// bubble never meets the divider line. iOS 26 leaves a similar margin.
+const double _iosBubbleBottomGap = 6;
+
+/// How far [TopBar]'s trailing actions sit below its title's bottom padding.
+const double _trailingDrop = 10;
+
 class TopBar extends StatefulWidget {
   final String title;
   final double height;
   final bool animateBg;
   final Color bgColor;
   final Widget? trailing;
-  final double bottomPadding;
+
+  /// Space under the title. Defaults to leaving [_iosBubbleBottomGap] under
+  /// the trailing bubbles on iOS, and 12 elsewhere.
+  final double? bottomPadding;
 
   TopBar({
     super.key,
@@ -31,7 +41,7 @@ class TopBar extends StatefulWidget {
     this.animateBg = false,
     this.bgColor = Colors.transparent,
     this.trailing,
-    this.bottomPadding = 12,
+    this.bottomPadding,
   });
 
   @override
@@ -55,6 +65,8 @@ class TopBarState extends State<TopBar> {
       maxScaleFactor: topBarMaxTextScale, child: _buildBar(context));
 
   Widget _buildBar(BuildContext context) {
+    final bottomPadding = widget.bottomPadding ??
+        (useIosBarStyle(context) ? _iosBubbleBottomGap + _trailingDrop : 12);
     return Consumer<TopBarController>(builder: (context, ctrl, child) {
       if (transition == 1.0 && ctrl.show == 0.0) {
         // ignore edge case
@@ -100,7 +112,7 @@ class TopBarState extends State<TopBar> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(bottom: widget.bottomPadding),
+              padding: EdgeInsets.only(bottom: bottomPadding),
               child: GestureDetector(
                 onTap: () => _scrollToTop(context),
                 child: Row(
@@ -139,7 +151,7 @@ class TopBarState extends State<TopBar> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(bottom: widget.bottomPadding - 10),
+              padding: EdgeInsets.only(bottom: bottomPadding - _trailingDrop),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -276,7 +288,7 @@ class TopCommonBarState extends State<TopCommonBar> {
     return SizedBox(
       height: widget.height,
       child: Padding(
-        padding: const EdgeInsets.only(left: 8.0, bottom: 2.0),
+        padding: const EdgeInsets.only(left: 8.0, bottom: _iosBubbleBottomGap),
         child: Align(
           alignment: Alignment.bottomLeft,
           child: Opacity(
