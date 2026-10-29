@@ -787,6 +787,19 @@ void main() {
       });
     });
 
+    test("aloneStillGetsTheDefaultLists", () async {
+      await withTrace((m) async {
+        // None of the device's lists is in the catalog any more.
+        final s = await _boot(m,
+            stored: ["id-gone"], safeSearch: true, wide: true);
+
+        expect(await s.main(m), small);
+        expect(await s.extras(m), {safeSearch});
+        expect(s.api.stored.toSet(), {_small, _noSafeSearch});
+        expect(s.api.storedSafeSearch, isTrue);
+      });
+    });
+
     test("doesNotCountAsTheLastList", () async {
       await withTrace((m) async {
         final s = await _boot(m,

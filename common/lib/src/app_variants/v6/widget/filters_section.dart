@@ -54,6 +54,7 @@ class V6FiltersSectionState extends State<V6FiltersSection> with Logging, Dispos
     final filters = _knownFilters.get();
     final selected = _selectedFilters.present ?? [];
     final on = selectedBlocklists(selected);
+    final listsOn = v6ListsOn(selected);
     final main = v6MainBlocklist(selected, pick: BlocklistKey.fromTag(_mainPick.present));
     // v6 always has a list on, so an empty selection means it is not loaded
     // yet. Taps then would save over lists the server has.
@@ -137,7 +138,7 @@ class V6FiltersSectionState extends State<V6FiltersSection> with Logging, Dispos
                 selected: on.contains(key),
                 // The last list on can't go off: there is no "no blocklists".
                 // Safe Search doesn't count as one (see v6ListsOn).
-                locked: on.contains(key) && v6ListsOn(withBlocklist(selected, key, false)).isEmpty,
+                locked: on.contains(key) && listsOn.every((it) => it == key),
                 // Same ids as the old cards, which the smoke suite toggles.
                 automationId: _automationId("filter_option", key),
                 onChanged: (value) => _legacy.toggleExtraBlocklist(key, value, Markers.userTap),

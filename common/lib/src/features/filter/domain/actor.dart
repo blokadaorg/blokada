@@ -306,18 +306,28 @@ class FilterActor with Logging, Actor {
     await _defaults(m);
   }
 
+  /// Puts the default lists on when nothing is selected, so v6 never saves
+  /// an empty list. In v6 Safe Search alone counts as nothing selected: it
+  /// blocks almost nothing (see [v6ListsOn]), and it stays on with the
+  /// defaults.
   _defaults(Marker m) async {
     final selectedFilters = await _selectedFilters.now();
 
     // Do nothing if has selections
-    if (selectedFilters.any((it) => it.options.isNotEmpty)) return;
+    final hasSelection = Core.act.isFamily
+        ? selectedFilters.any((it) => it.options.isNotEmpty)
+        : v6ListsOn(selectedFilters).isNotEmpty;
+    if (hasSelection) return;
 
     // Or if already applied during this runtime
     if (_defaultsApplied) return;
 
     if (!Core.act.isFamily) {
       log(m).i("Applying defaults");
-      final defaults = _defaultFilters.get();
+      var defaults = _defaultFilters.get();
+      if (selectedBlocklists(selectedFilters).contains(v6SafeSearch)) {
+        defaults = withBlocklist(defaults, v6SafeSearch, true);
+      }
       await _selectedFilters.change(m, defaults);
     }
 
