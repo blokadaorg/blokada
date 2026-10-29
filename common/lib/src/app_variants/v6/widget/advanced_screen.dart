@@ -9,7 +9,7 @@ import 'package:common/src/shared/ui/with_top_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
-/// v6 blocklists tab. A single grouped list, so it keeps the normal content
+/// v6 blocklists tab. A single scrolling column, so it keeps the normal content
 /// width on every window. Owns the freemium gate overlay so it covers the
 /// whole body, not just the section.
 class AdvancedScreen extends StatefulWidget {

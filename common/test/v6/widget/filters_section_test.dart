@@ -6,6 +6,7 @@ import 'package:common/src/platform/filter/filter.dart';
 import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/ui/blokada_switch.dart';
 import 'package:common/src/shared/ui/theme.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -34,8 +35,17 @@ class _RecordingFilterActor extends PlatformFilterActor {
   final mains = <BlocklistKey>[];
   final extras = <(BlocklistKey, bool)>[];
 
+  /// When set, a main pick also lands here as the only list on, so a test
+  /// can see the screen follow the pick.
+  SelectedFilters? applyTo;
+
   @override
-  Future<void> selectMainBlocklist(BlocklistKey key, Marker m) async => mains.add(key);
+  Future<void> selectMainBlocklist(BlocklistKey key, Marker m) async {
+    mains.add(key);
+    await applyTo?.change(m, [
+      FilterSelection(key.filterName, [key.optionName]),
+    ]);
+  }
 
   @override
   Future<void> toggleExtraBlocklist(BlocklistKey key, bool on, Marker m) async =>
@@ -59,13 +69,20 @@ class _MemoryPick extends BlocklistMainPick {
 class _Screen {
   final _RecordingFilterActor actor;
   final _MemoryPick pick;
+  final SelectedFilters selection;
 
-  _Screen(this.actor, this.pick);
+  _Screen(this.actor, this.pick, this.selection);
 }
 
-Future<_Screen> _open(WidgetTester tester, List<FilterSelection> selected, {String? pick}) async {
+Future<_Screen> _open(
+  WidgetTester tester,
+  List<FilterSelection> selected, {
+  String? pick,
   // Tall enough that the lazy list builds every row.
-  tester.view.physicalSize = const Size(800, 5000);
+  Size size = const Size(800, 5000),
+  double textScale = 1,
+}) async {
+  tester.view.physicalSize = size;
   tester.view.devicePixelRatio = 1;
   addTearDown(tester.view.reset);
 
@@ -82,11 +99,15 @@ Future<_Screen> _open(WidgetTester tester, List<FilterSelection> selected, {Stri
   await tester.pumpWidget(
     MaterialApp(
       theme: ThemeData(extensions: const [_theme]),
+      builder: (context, child) => MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(textScale)),
+        child: child!,
+      ),
       home: const Scaffold(body: V6FiltersSection()),
     ),
   );
   await tester.pump();
-  return _Screen(actor, mainPick);
+  return _Screen(actor, mainPick, selection);
 }
 
 Finder _id(String id) =>
@@ -113,6 +134,26 @@ List<String> _haptics(WidgetTester tester) {
   addTearDown(() => messenger.setMockMethodCallHandler(SystemChannels.platform, null));
   return played;
 }
+
+/// The selected tile's ring is the tile's border in the text colour; other
+/// tiles have a border in their own fill colour.
+bool _hasRing(WidgetTester tester, String filter, String option) {
+  final box = tester.widget<AnimatedContainer>(
+    find
+        .descendant(of: _id(_mainId(filter, option)), matching: find.byType(AnimatedContainer))
+        .first, // The outer one; the press highlight has its own inside.
+  );
+  final decoration = box.decoration as BoxDecoration;
+  return (decoration.border as Border).top.color == _theme.textPrimary;
+}
+
+bool _hasCheck(String filter, String option) => find
+    .descendant(
+      of: _id(_mainId(filter, option)),
+      matching: find.byIcon(CupertinoIcons.checkmark_alt),
+    )
+    .evaluate()
+    .isNotEmpty;
 
 BlokadaSwitch _switch(WidgetTester tester, String filter, String option) =>
     tester.widget<BlokadaSwitch>(
@@ -263,5 +304,63 @@ void main() {
         expect(s.pick.changes, 0);
       });
     });
+
+    testWidgets("the main list's tile has the ring and the check", (tester) async {
+      await withTrace((_) async {
+        await _open(tester, [
+          FilterSelection("oisd", ["big"]),
+        ]);
+
+        expect(_hasRing(tester, "oisd", "big"), isTrue);
+        expect(_hasCheck("oisd", "big"), isTrue);
+        for (final key in v6MainBlocklists.where((it) => it != const BlocklistKey("oisd", "big"))) {
+          expect(_hasRing(tester, key.filterName, key.optionName), isFalse, reason: "$key");
+          expect(_hasCheck(key.filterName, key.optionName), isFalse, reason: "$key");
+        }
+      });
+    });
+
+    testWidgets("tapping a tile moves the ring and the check to it", (tester) async {
+      await withTrace((_) async {
+        final s = await _open(tester, [
+          FilterSelection("oisd", ["small"]),
+        ]);
+        s.actor.applyTo = s.selection;
+
+        await tester.tap(_id(_mainId("1hosts", "pro")));
+        await tester.pump(const Duration(milliseconds: 300));
+
+        expect(s.actor.mains, [const BlocklistKey("1hosts", "pro")]);
+        expect(_mainSelected(tester, "1hosts", "pro"), isTrue);
+        expect(_hasRing(tester, "1hosts", "pro"), isTrue);
+        expect(_hasCheck("1hosts", "pro"), isTrue);
+        expect(_mainSelected(tester, "oisd", "small"), isFalse);
+        expect(_hasRing(tester, "oisd", "small"), isFalse);
+        expect(_hasCheck("oisd", "small"), isFalse);
+      });
+    });
+
+    for (final scale in [1.0, 1.4, 2.0]) {
+      testWidgets("${scale}x text on a phone grows the tiles without overflow", (tester) async {
+        await withTrace((_) async {
+          await _open(
+            tester,
+            [
+              FilterSelection("oisd", ["small"]),
+            ],
+            size: const Size(360, 12000),
+            textScale: scale,
+          );
+
+          // Overflow is reported as a FlutterError during layout.
+          expect(tester.takeException(), isNull);
+          final tile = tester.getSize(_id(_mainId("stevenblack", "unified")));
+          expect(tile.height, greaterThanOrEqualTo(84));
+          // Two columns at normal size; large text gets the full width.
+          final wide = tile.width > 360 / 2;
+          expect(wide, scale >= 1.5);
+        });
+      });
+    }
   });
 }
