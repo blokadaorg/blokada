@@ -44,8 +44,13 @@ class SupportUnreadActor with Logging, Actor {
       log(m).i("Setting chat unread flag");
       await _unread.change(m, true);
       if (!isForeground) {
-        await _notification.showWithBody(
-            NotificationId.supportNewMessage, m, content);
+        // Without notification permission iOS refuses it; the reply itself
+        // already arrived, so this must not fail the send.
+        try {
+          await _notification.showWithBody(NotificationId.supportNewMessage, m, content);
+        } catch (e) {
+          log(m).w("Could not show the reply notification: $e");
+        }
       }
     }
   }
@@ -64,8 +69,7 @@ class SupportUnreadActor with Logging, Actor {
     _update(Markers.support, isSheetOpen: false);
   }
 
-  void _update(Marker m,
-      {bool? isForeground, bool? isOnSupportScreen, bool? isSheetOpen}) {
+  void _update(Marker m, {bool? isForeground, bool? isOnSupportScreen, bool? isSheetOpen}) {
     this.isForeground = isForeground ?? this.isForeground;
     this.isOnSupportScreen = isOnSupportScreen ?? this.isOnSupportScreen;
     this.isSheetOpen = isSheetOpen ?? this.isSheetOpen;
