@@ -1,0 +1,186 @@
+name: Store Rollout
+
+# Moves a release that promote.yml already put in the stores: raises, halts or
+# resumes the Play staged rollout, pauses or resumes the App Store phased
+# release, or releases an App Store version Apple has approved.
+#
+# Anything that reaches more users waits for a reviewer on the `store-live`
+# environment first. Halting and pausing never wait: a bad release has to stop
+# at once.
+on:
+  workflow_dispatch:
+    inputs:
+      flavor:
+        description: "App"
+        required: true
+        type: choice
+        options: [six, family]
+      platform:
+        description: "Store"
+        required: true
+        type: choice
+        options: [android, ios]
+      action:
+        description: "Android: raise, halt or resume the production staged rollout. iOS: pause or resume the phased release of the live version, or release the version Apple approved. halt and pause run at once; the rest wait for a maintainer's approval."
+        required: true
+        type: choice
+        options: [halt, pause, raise, resume, release]
+      fraction:
+        description: "Android raise only. Share of users to roll out to, above 0 and at most 1: 0.2 is 20%, 1 completes the rollout."
+        required: false
+        default: ""
+        type: string
+
+permissions:
+  contents: read
+
+# No concurrency group, unlike ci-release.yml and promote.yml. A halt must not
+# wait behind a release that takes most of an hour, and a pending run in a
+# shared group is cancelled by the next one queued. Each action is a single
+# edit committed within seconds, so a collision usually fails the longer
+# ci-release or promote run whose Play edit it invalidated; re-run that one.
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      gated: ${{ steps.c.outputs.gated }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+
+      # Refuses a combination that cannot work before anyone is asked to
+      # approve it.
+      - name: Check the inputs
+        id: c
+        env:
+          FLAVOR: ${{ inputs.flavor }}
+          PLATFORM: ${{ inputs.platform }}
+          ACTION: ${{ inputs.action }}
+          FRACTION: ${{ inputs.fraction }}
+        run: |
+          set -euo pipefail
+          case "$PLATFORM:$ACTION" in
+            android:raise | android:halt | android:resume | ios:pause | ios:resume | ios:release) ;;
+            *)
+              echo "::error title=Invalid input::'$ACTION' does not apply to $PLATFORM. Android: raise, halt, resume. iOS: pause, resume, release."
+              exit 1
+              ;;
+          esac
+          if [ "$ACTION" = "raise" ]; then
+            # The same parse play-rollout.rb applies after approval.
+            if ! error=$(ruby -r ./scripts/play_rollout.rb -e '
+                begin
+                  PlayRollout.parse_fraction(ENV["FRACTION"])
+                rescue PlayRollout::Refusal => e
+                  abort(e.message)
+                end' 2>&1); then
+              echo "::error title=Invalid input::${error//%/%25}"
+              exit 1
+            fi
+          elif [ -n "$FRACTION" ]; then
+            echo "::error title=Invalid input::fraction only applies to raise"
+            exit 1
+          fi
+          case "$ACTION" in
+            halt | pause) echo "gated=false" >> "$GITHUB_OUTPUT" ;;
+            *) echo "gated=true" >> "$GITHUB_OUTPUT" ;;
+          esac
+          {
+            echo "### Store rollout"
+            echo "- $FLAVOR on $PLATFORM: \`$ACTION\`${FRACTION:+ to \`$FRACTION\`}"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  # The approval. Holds no secrets: the store keys stay in `release`, and the
+  # job that uses them only starts once this one has been approved.
+  approve:
+    needs: check
+    if: ${{ needs.check.outputs.gated == 'true' }}
+    runs-on: ubuntu-latest
+    environment: store-live
+    timeout-minutes: 5
+    permissions: {}
+    steps:
+      - name: Approved
+        env:
+          ACTION: ${{ inputs.action }}
+        run: echo "A maintainer approved $ACTION"
+
+  android:
+    needs: [check, approve]
+    # approve is skipped for halt, and a skipped need skips this job unless
+    # the condition says otherwise.
+    if: >-
+      ${{
+        !cancelled() && inputs.platform == 'android' &&
+        needs.check.result == 'success' &&
+        (needs.approve.result == 'success' || needs.approve.result == 'skipped')
+      }}
+    runs-on: ubuntu-latest
+    environment: release
+    timeout-minutes: 15
+    env:
+      FLAVOR: ${{ inputs.flavor }}
+      ROLLOUT_ACTION: ${{ inputs.action }}
+      ROLLOUT_FRACTION: ${{ inputs.fraction }}
+      PLAY_ROLLOUT_FASTLANE_VERSION: "2.228.0"
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+
+      # The same release promote.yml pins. play-rollout.rb only uses supply's
+      # Play client, which that pin does not affect, but it keeps one known
+      # fastlane on the Play path. The script activates this version itself;
+      # a plain require would load the image's newer fastlane.
+      - name: Install fastlane
+        run: sudo gem install fastlane -v "$PLAY_ROLLOUT_FASTLANE_VERSION" --no-document
+
+      - name: Change the production rollout
+        env:
+          BLOKADA_GPLAY_KEY_BASE64: ${{ secrets.BLOKADA_GPLAY_KEY_BASE64 }}
+        run: make rollout-android FLAVOR="$FLAVOR" ROLLOUT_ACTION="$ROLLOUT_ACTION" ROLLOUT_FRACTION="$ROLLOUT_FRACTION"
+
+      - name: Clean Google Play key
+        if: always()
+        run: make gplay-key-clean
+
+  ios:
+    needs: [check, approve]
+    if: >-
+      ${{
+        !cancelled() && inputs.platform == 'ios' &&
+        needs.check.result == 'success' &&
+        (needs.approve.result == 'success' || needs.approve.result == 'skipped')
+      }}
+    # Only App Store Connect API calls, so no Mac: a pause should not wait in
+    # the macOS runner queue.
+    runs-on: ubuntu-latest
+    environment: release
+    timeout-minutes: 15
+    env:
+      LANG: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
+      FLAVOR: ${{ inputs.flavor }}
+      ROLLOUT_ACTION: ${{ inputs.action }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+
+      # The system Ruby's gem dir is not writable, so bundle into the checkout.
+      - name: Install fastlane
+        working-directory: ios
+        run: |
+          bundle config set --local path vendor/bundle
+          bundle install
+
+      - name: Change the App Store release
+        env:
+          BLOKADA_APPSTORE_KEY_BASE64: ${{ secrets.BLOKADA_APPSTORE_KEY_BASE64 }}
+        run: make rollout-ios FLAVOR="$FLAVOR" ROLLOUT_ACTION="$ROLLOUT_ACTION" FASTLANE="bundle exec fastlane"
+
+      - name: Clean App Store key
+        if: always()
+        run: make appstore-key-clean

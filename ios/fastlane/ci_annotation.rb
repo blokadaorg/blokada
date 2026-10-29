@@ -20,7 +20,17 @@ module CiAnnotation
     puts("::error title=#{escape(title)}::#{escape(message)}")
 
     summary = ENV["GITHUB_STEP_SUMMARY"]
-    File.open(summary, "a") { |f| f.puts("- **#{title}** — #{message}") } if summary
+    File.open(summary, "a") { |f| f.puts("- **#{title}** — #{message}") } unless summary.to_s.empty?
+
+    nil
+  end
+
+  # Prints a result line, and on CI also adds it to the step summary.
+  def self.summary(message)
+    puts(message)
+
+    summary = ENV["GITHUB_STEP_SUMMARY"]
+    File.open(summary, "a") { |f| f.puts("- #{message}") } if ENV["GITHUB_ACTIONS"] && !summary.to_s.empty?
 
     nil
   end
