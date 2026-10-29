@@ -128,6 +128,30 @@ void main() {
       });
     });
 
+    test("initializedCompletesOnlyAfterInit", () async {
+      await withTrace((m) async {
+        final account = MockAccountStore();
+        when(account.load(any)).thenThrow(Exception("No existing account"));
+        Core.register<AccountStore>(account);
+
+        Core.register<StageStore>(MockStageStore());
+        Core.register<Scheduler>(MockScheduler());
+        Core.register<NotificationActor>(MockNotificationActor());
+        Core.register<Persistence>(MockPersistence());
+
+        final subject = AccountRefreshStore();
+        var done = false;
+        subject.initialized.then((_) => done = true);
+
+        await Future<void>.delayed(Duration.zero);
+        expect(done, false);
+
+        await subject.init(m);
+        await Future<void>.delayed(Duration.zero);
+        expect(done, true);
+      });
+    });
+
     test("willClearStaleRefreshMetadataWhenCreatingNewAccount", () async {
       await withTrace((m) async {
         final account = _TestAccountStore();

@@ -94,6 +94,9 @@ enum ApiEndpoint {
     ApiParam.journalDeviceName,
     ApiParam.limit,
   ]),
+  // Device names with recent activity on the account, for the activity
+  // device filter: the activity rows only name the devices they contain.
+  getJournalDevicesV2("v2/activity/devices", params: [ApiParam.accountId]),
   getStatsV2("v2/stats", params: [
     ApiParam.accountId,
     ApiParam.statsSince,

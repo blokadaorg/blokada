@@ -91,3 +91,11 @@ and `ACCOUNT_ID` dart-defines, then the APK. Without `ACCOUNT_ID` it falls back 
 The app seeds that account and skips onboarding and the paywall; see `ios/SIMULATOR.md`
 for the shared mocked-path behavior. Set `ANDROID_HOME` if gradle cannot find the SDK.
 Run `make build-android-six-debug` afterwards to restore a normal debug AAR.
+
+## Restoring a test account in a debug build
+
+On a fresh debug install (mocked or not), `make restore-account-android ACCOUNT_ID=<id>`
+opens the app and restores that account, the same as Settings > Restore Account ID.
+`APP_FLAVOR=family` targets the Family app and `ANDROID_UDID` picks a device. On the
+iOS simulator, `ACCOUNT_ID=<id> make -C ios restore-account-sim` relaunches the app
+installed by `run-*-mocked` with the account restored. Release builds ignore both.
