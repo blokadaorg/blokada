@@ -78,9 +78,17 @@ class _PlusButtonState extends State<PlusButton>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).extension<BlokadaTheme>()!;
-    return SizedBox(
-        height: 48,
+    // 48 tall, which slightly squeezes a line of default-size text. Above the
+    // default text size the cards grow instead (each layer at least 48, via
+    // passthrough), so a wrapped location fits.
+    final grow = MediaQuery.textScalerOf(context).scale(1) > 1;
+    return ConstrainedBox(
+        constraints: grow
+            ? const BoxConstraints(minHeight: 48)
+            : const BoxConstraints.tightFor(height: 48),
         child: Stack(
+          fit: grow ? StackFit.passthrough : StackFit.loose,
+          alignment: Alignment.center,
           children: [
             // When switch is off
             AnimatedOpacity(
@@ -129,14 +137,17 @@ class _PlusButtonState extends State<PlusButton>
 
     final row = Row(
       children: [
-        activated
-            ? (Text("home plus button location"
-                .i18n
-                .fill([location]).replaceAll("*", "")))
-            : (Text("home plus button select location".i18n)),
+        // Wraps with large text, keeping the switch on the right.
         Expanded(
-          child: Align(
-            alignment: Alignment.centerRight,
+          child: activated
+              ? (Text("home plus button location"
+                  .i18n
+                  .fill([location]).replaceAll("*", "")))
+              : (Text("home plus button select location".i18n)),
+        ),
+        // The height the switch always had in the 48 tall card.
+        SizedBox(
+            height: 24,
             child: BlokadaSwitch(
               value: activated,
               activeColor: theme.accent,
@@ -159,7 +170,6 @@ class _PlusButtonState extends State<PlusButton>
                 });
               },
             ),
-          ),
         )
       ],
     );

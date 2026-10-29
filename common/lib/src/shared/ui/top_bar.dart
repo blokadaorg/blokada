@@ -11,6 +11,11 @@ import 'package:common/src/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+/// The bars keep a fixed height (content below is inset by it) and fit a
+/// title between the back label and the actions, so their text stops growing
+/// past this system text scale. Everything below the bars scales fully.
+const topBarMaxTextScale = 1.3;
+
 class TopBar extends StatefulWidget {
   final String title;
   final double height;
@@ -46,7 +51,10 @@ class TopBarState extends State<TopBar> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) => MediaQuery.withClampedTextScaling(
+      maxScaleFactor: topBarMaxTextScale, child: _buildBar(context));
+
+  Widget _buildBar(BuildContext context) {
     return Consumer<TopBarController>(builder: (context, ctrl, child) {
       if (transition == 1.0 && ctrl.show == 0.0) {
         // ignore edge case
@@ -162,7 +170,10 @@ class TopCommonBar extends StatefulWidget {
 
 class TopCommonBarState extends State<TopCommonBar> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) => MediaQuery.withClampedTextScaling(
+      maxScaleFactor: topBarMaxTextScale, child: _buildBar(context));
+
+  Widget _buildBar(BuildContext context) {
     return Consumer<TopBarController>(builder: (context, ctrl, child) {
       if (useIosBarStyle(context)) return _buildIos(context, ctrl);
       return SizedBox(
