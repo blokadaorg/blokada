@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:common/src/features/notification/domain/notification.dart';
@@ -116,6 +117,12 @@ abstract class AccountRefreshStoreBase with Store, Logging, Actor, Cooldown, Emi
   AccountExpiration expiration = AccountExpiration.init();
 
   bool _initSuccessful = false;
+  final _initDone = Completer<void>();
+
+  /// Completes once the first init has loaded or created the account. A
+  /// restore sent by native code at launch waits for it, or the account a
+  /// fresh install creates in init could overwrite the restored one.
+  Future<void> get initialized => _initDone.future;
 
   JsonAccRefreshMeta _metadata = JsonAccRefreshMeta();
   bool _metadataLoaded = false;
@@ -186,6 +193,7 @@ abstract class AccountRefreshStoreBase with Store, Logging, Actor, Cooldown, Emi
 
       lastRefresh = DateTime.now();
       _initSuccessful = true;
+      if (!_initDone.isCompleted) _initDone.complete();
     });
   }
 

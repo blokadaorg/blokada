@@ -35,6 +35,7 @@ import channel.command.CommandName
 import com.google.android.play.core.review.ReviewManagerFactory
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.blokada.BuildConfig
 import org.blokada.R
 import service.ContextService
 import service.NetworkMonitorPermissionService
@@ -78,6 +79,9 @@ class MainActivity : AppCompatActivity() {
 
         intent?.let {
             handleIntent(it)
+            // A recreated activity gets its launch intent again; the account
+            // was already restored the first time.
+            if (savedInstanceState == null) handleDebugRestore(it)
         }
 
         supportFragmentManager.beginTransaction()
@@ -193,6 +197,28 @@ class MainActivity : AppCompatActivity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         handleIntent(intent)
+        handleDebugRestore(intent)
+    }
+
+    /**
+     * Restores the account id passed as the restore_account_id extra, so a
+     * fresh debug install can be set up with a test account from the command
+     * line (`make restore-account-android`) instead of typing it into the
+     * Restore Account ID dialog. Debug build type only: this activity is
+     * exported, so in any shipped build any app could send the extra and swap
+     * the user's account. BuildConfig.DEBUG is not enough, since the beta build
+     * type handed to testers is debuggable too. A relaunch from Recents
+     * redelivers the original intent, which must not restore the account again.
+     */
+    private fun handleDebugRestore(intent: Intent) {
+        if (BuildConfig.BUILD_TYPE != "debug") return
+        if (intent.flags and Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY != 0) return
+        val accountId = intent.getStringExtra(EXTRA_RESTORE_ACCOUNT_ID)
+        if (accountId.isNullOrBlank()) return
+        Logger.w("MainActivity", "Restoring account id from the launch intent (debug build)")
+        lifecycleScope.launch {
+            commands.execute(CommandName.RESTORE, accountId)
+        }
     }
 
     private fun handleIntent(intent: Intent) {
@@ -257,6 +283,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         val ACTION = "action"
+        private const val EXTRA_RESTORE_ACCOUNT_ID = "restore_account_id"
         private const val SPLASH_FALLBACK_DELAY_MS: Long = 8_000
     }
 

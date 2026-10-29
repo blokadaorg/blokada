@@ -28,7 +28,9 @@ class CommandStore with Logging, Actor implements CommandEvents {
 
   void onRegister() {
     Core.register<CommandStore>(this);
-    if (Core.act.isProd) CommandEvents.setup(this);
+    // Mocked builds take native commands too, so a debug restore sent at
+    // launch reaches the simulator and emulator builds it exists for.
+    if (Core.act.isProd || Core.act.isMocked) CommandEvents.setup(this);
   }
 
   Future<void> acceptCommands(Marker m) async {
@@ -128,9 +130,18 @@ class CommandStore with Logging, Actor implements CommandEvents {
         _ensureParam(p1);
         return await _executeUrl(p1!, m);
       case CommandName.restore:
+        // Same restore as the Restore Account ID dialog, which both flavors
+        // offer. Debug builds send it from the command line to set up a test
+        // account on a fresh install (see the restore-account make targets).
         _ensureParam(p1);
-        if (Core.act.isFamily) throw Exception("Moving to Adapty");
+        // No deadline: startup can retry for longer than any fixed timeout,
+        // and a restore given up on would leave the startup account in place.
+        await _accountRefresh.initialized;
         await _account.restore(p1!, m);
+        // On a fresh install the restore's result dialog replaces the intro
+        // sheet before its Continue runs; mark the intro seen as Continue
+        // would, or it comes back on the next launch.
+        if (!Core.act.isFamily) await Core.get<OnboardActor>().markIntroSeen(m);
         return await _accountRefresh.syncAccount(_account.account, m);
       case CommandName.account:
         return _account.account?.id;
