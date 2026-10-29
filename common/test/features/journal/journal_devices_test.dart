@@ -152,7 +152,7 @@ void main() {
       });
     });
 
-    test('rows from an earlier screen do not add to a later one', () async {
+    test('rows from an earlier screen do not reach a later one', () async {
       await withTrace((m) async {
         register();
         await journal.loadDevices(m);
@@ -168,6 +168,7 @@ void main() {
         gate.complete();
         await first;
         expect(devices(), {"New name"});
+        expect(Core.get<JournalEntriesValue>().now, isEmpty);
       });
     });
 

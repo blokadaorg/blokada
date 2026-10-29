@@ -83,8 +83,9 @@ class JournalActor with Logging, Actor {
           );
         }
 
-        // If filter changed while waiting for response, drop outdated data
-        if (!identical(currentFilter, filter.now)) {
+        // Drop outdated data: the filter changed, or a newer screen opened
+        // ([loadDevices]), while waiting for the response.
+        if (!identical(currentFilter, filter.now) || devicesGen != _devicesGen) {
           return;
         }
 
@@ -105,12 +106,8 @@ class JournalActor with Logging, Actor {
 
         final processed = _processEntries(entries);
         final grouped = processed.entries;
-        // Rows from a screen opened before the last [loadDevices] are not
-        // this screen's devices.
-        if (devicesGen == _devicesGen) {
-          _seenDevices.addAll(processed.deviceNames);
-          _publishDevices();
-        }
+        _seenDevices.addAll(processed.deviceNames);
+        _publishDevices();
 
         // Update entries and pagination state
         if (append) {
