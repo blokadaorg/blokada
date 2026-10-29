@@ -134,7 +134,11 @@ class RadialChart extends StatelessWidget {
         rect.center,
         rect.width / 2,
         colors,
-        stops,
+        // The default three-colour ramps use the tuned stops; any other ramp
+        // spreads evenly, so the shader always gets one stop per colour.
+        colors.length == stops.length
+            ? stops
+            : [for (var i = 0; i < colors.length; i++) i / (colors.length - 1)],
         TileMode.clamp,
       );
     }
