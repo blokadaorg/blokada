@@ -92,6 +92,7 @@ final _v6Filters = [
   Filter("d3host", [
     Option("standard", FilterAction.list, ["d3host/standard"]),
   ]),
+  _safeSearchFilter,
 ];
 
 const filterAds = "meta_ads";
@@ -101,11 +102,16 @@ const filterOptionPrimary = "primary";
 const filterOptionSafeSearch = "safe search";
 const filterOptionPorn = "porn";
 
+/// Shared by both flavors so they enforce safe search the same way: the
+/// device or profile `safe_search` flag rewrites the search engines that
+/// support it, and the list blocks the ones that can't be made safe.
+final _safeSearchFilter = Filter(filterSafeSearch, [
+  Option(filterOptionSafeSearch, FilterAction.config, [FilterConfigKey.safeSearch.name],
+      action2: FilterAction.list, action2Params: ["safesearch/nosafesearch"]),
+]);
+
 final _family = [
-  Filter(filterSafeSearch, [
-    Option(filterOptionSafeSearch, FilterAction.config, [FilterConfigKey.safeSearch.name],
-        action2: FilterAction.list, action2Params: ["safesearch/nosafesearch"]),
-  ]),
+  _safeSearchFilter,
   Filter(filterAds, [
     Option(filterOptionPrimary, FilterAction.list, [
       "oisd/small",

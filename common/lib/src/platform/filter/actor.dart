@@ -36,6 +36,10 @@ class PlatformFilterActor with Logging, Actor {
   // leaves the rollback to that newer save.
   int _saveCount = 0;
 
+  // What the newest save in flight is sending. Until it lands, a change back
+  // to what the device had is still a change to send.
+  ({Set<String>? lists, bool safeSearch})? _sending;
+
   PlatformFilterActor({Duration debounce = const Duration(seconds: 1)})
       : _debounce = Debounce(debounce);
 
@@ -49,12 +53,14 @@ class PlatformFilterActor with Logging, Actor {
   Future<void> onDeviceChanged(Marker m) async {
     return await log(m).trace("onDeviceChangedLegacy", (m) async {
       final lists = _device.lists;
-      if (lists != null) {
+      // A user change made while a save was in flight is not on the device
+      // yet; showing the device now would undo it.
+      if (lists != null && _unsaved == null) {
         await _acc.start(m); // TODO: remove this
         // Read user config from device v2 when it is ready
         // Set it and it will reload FilterController
         // That one will update SelectedFilters
-        await _userConfig.change(m, UserFilterConfig(lists.toSet(), {}));
+        await _userConfig.change(m, _deviceConfig(lists));
       }
     });
   }
@@ -182,7 +188,8 @@ class PlatformFilterActor with Logging, Actor {
   /// Turns an extra on or off on the v6 screen. Refuses general lists, which
   /// only change through [selectMainBlocklist], and turning off the last list
   /// that is on: v6 has no "no blocklists" state, and an empty list would
-  /// make FilterActor quietly put the defaults back.
+  /// make FilterActor quietly put the defaults back. Safe Search is an extra
+  /// here but not a list that keeps the selection from being empty.
   Future<void> toggleExtraBlocklist(BlocklistKey key, bool on, Marker m) async {
     return await log(m).trace("toggleExtraBlocklist", (m) async {
       if (v6MainBlocklists.contains(key)) {
@@ -191,7 +198,7 @@ class PlatformFilterActor with Logging, Actor {
       }
       final was = await _selectedFilters.now();
       final selected = withBlocklist(was, key, on);
-      if (selectedBlocklists(selected).isEmpty) {
+      if (v6ListsOn(selected).isEmpty) {
         log(m).w("refusing to turn off the last blocklist: $key");
         return;
       }
@@ -237,10 +244,16 @@ class PlatformFilterActor with Logging, Actor {
     }
   }
 
+  /// Pushes the selection to the v2 device. The lists and the safe search
+  /// flag go together, so turning Safe Search on or off is one save and the
+  /// server never has one half of it.
   onUserConfigChanged(UserFilterConfig? config) {
     if (config == null) return;
     final lists = config.lists;
-    if (setEquals(lists, _device.lists?.toSet())) {
+    final safeSearch = config.configs[FilterConfigKey.safeSearch] ?? false;
+    final saved = _sending ??
+        (lists: _device.lists?.toSet(), safeSearch: _device.safeSearch ?? false);
+    if (setEquals(lists, saved.lists) && safeSearch == saved.safeSearch) {
       // Back to what the device has, so an earlier toggle must not be sent.
       _debounce.cancel();
       _unsaved = null;
@@ -252,22 +265,26 @@ class PlatformFilterActor with Logging, Actor {
     // Instead we assume FilterController will set the defaults shortly after.
 
     // UserConfigs got updated by FilterController, push to v2 api
-    _debounce.run(() => _save(lists.toList(), Markers.filter));
+    _debounce.run(() => _save(lists.toList(), safeSearch, Markers.filter));
   }
 
-  /// Pushes [lists] to the v2 device, the only place blocklists are saved.
+  /// Pushes [lists] and [safeSearch] to the v2 device, the only place v6
+  /// keeps them.
   /// A saved change needs no confirmation: the switches already show it. If
   /// a user change failed, an error toast shows and the switches go back to
   /// what is saved.
-  Future<void> _save(List<String> lists, Marker m) async {
+  Future<void> _save(List<String> lists, bool safeSearch, Marker m) async {
     final save = ++_saveCount;
     final before = _unsaved;
     final pickBefore = _unsavedPick;
     _unsaved = null;
     _unsavedPick = null;
+    _sending = (lists: lists.toSet(), safeSearch: safeSearch);
     try {
-      await _device.setLists(lists, m);
+      await _device.setLists(lists, m, safeSearch: safeSearch);
+      if (save == _saveCount) _sending = null;
     } catch (e, s) {
+      if (save == _saveCount) _sending = null;
       log(m).e(msg: "Error saving blocklists", err: e, stack: s);
       // Only a user change is rolled back: rolling back the defaults would
       // apply and retry them in a loop.
@@ -295,6 +312,13 @@ class PlatformFilterActor with Logging, Actor {
       await _selectedFilters.change(m, before);
       return;
     }
-    await _userConfig.change(m, UserFilterConfig(saved.toSet(), {}));
+    await _userConfig.change(m, _deviceConfig(saved));
   }
+
+  /// The config the device has. Only an enabled flag goes in, the same shape
+  /// FilterActor builds, so a device with Safe Search off does not read as a
+  /// change and get saved again.
+  UserFilterConfig _deviceConfig(List<String> lists) => UserFilterConfig(lists.toSet(), {
+        if (_device.safeSearch == true) FilterConfigKey.safeSearch: true,
+      });
 }

@@ -55,12 +55,14 @@ class JsonDevicePayload {
   late int? pausedForSeconds;
   late bool? safeSearch;
 
+  /// Safe search can go with the lists because the Safe Search filter sets
+  /// both, and one request keeps the server from having only one half.
   JsonDevicePayload.forLists({
     required this.lists,
+    this.safeSearch,
   })  : retention = null,
         paused = null,
-        pausedForSeconds = null,
-        safeSearch = null;
+        pausedForSeconds = null;
 
   JsonDevicePayload.forRetention({
     required this.retention,
@@ -135,7 +137,9 @@ class DeviceApi {
               paused: paused, pausedForSeconds: pausedForSeconds)
           .toJson();
     } else if (lists != null) {
-      payload = JsonDevicePayload.forLists(lists: lists).toJson();
+      payload =
+          JsonDevicePayload.forLists(lists: lists, safeSearch: safeSearch)
+              .toJson();
     } else if (retention != null) {
       payload = JsonDevicePayload.forRetention(retention: retention).toJson();
     } else if (safeSearch != null) {

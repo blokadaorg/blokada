@@ -26,16 +26,20 @@ const _small = "id-oisd-small";
 const _big = "id-oisd-big";
 const _nsfw = "id-oisd-nsfw";
 
-/// Stands in for the v2 device endpoint: PUT stores the lists, GET returns
-/// them. [fail] makes every PUT reject like a failed request, [failNext] only
-/// that many, [failGet] the GET, and [gate] holds the next PUT until completed.
+/// Stands in for the v2 device endpoint: PUT stores the lists and the safe
+/// search flag, GET returns them. [fail] makes every PUT reject like a failed
+/// request, [failNext] only that many, [failGet] the GET, and [gate] holds
+/// the next PUT until completed.
 class _FakeDeviceApi extends DeviceApi {
   bool fail = false;
   int failNext = 0;
   bool failGet = false;
   Completer<void>? gate;
   List<String> stored = [_small];
+  bool storedSafeSearch = false;
   final List<List<String>> puts = [];
+  // The safe_search sent with each PUT in [puts], null when left out.
+  final List<bool?> safeSearchPuts = [];
 
   @override
   Future<JsonDevice> getDevice(Marker m) async {
@@ -46,7 +50,7 @@ class _FakeDeviceApi extends DeviceApi {
         retention: "",
         paused: false,
         pausedForSeconds: 0,
-        safeSearch: false);
+        safeSearch: storedSafeSearch);
   }
 
   @override
@@ -57,6 +61,7 @@ class _FakeDeviceApi extends DeviceApi {
       String? retention,
       bool? safeSearch}) async {
     puts.add(lists!);
+    safeSearchPuts.add(safeSearch);
     // Decided when the PUT starts, so a later PUT can finish first.
     final failThis = failNext > 0;
     if (failThis) failNext--;
@@ -66,6 +71,7 @@ class _FakeDeviceApi extends DeviceApi {
     if (failThis) throw Exception("network down");
     if (fail) throw Exception("network down");
     stored = lists.toList();
+    if (safeSearch != null) storedSafeSearch = safeSearch;
   }
 }
 
@@ -73,6 +79,7 @@ class _FakeDeviceApi extends DeviceApi {
 const _unified = "id-stevenblack-unified";
 const _adult = "id-stevenblack-adult";
 const _adaway = "id-adaway-standard";
+const _noSafeSearch = "id-safesearch-nosafesearch";
 
 class _FakeListApi extends ListApi {
   /// Also lists Steven Black and AdAway, which the older tests rely on
@@ -90,6 +97,7 @@ class _FakeListApi extends ListApi {
           _list(_unified, "stevenblack", "unified"),
           _list(_adult, "stevenblack", "adult"),
           _list(_adaway, "adaway", "standard"),
+          _list(_noSafeSearch, "safesearch", "nosafesearch"),
         ],
       ];
 
@@ -156,7 +164,7 @@ class _Subject {
 /// Wires the real filter, device and legacy filter actors over fake
 /// endpoints, and waits until the device's lists show as selected.
 Future<_Subject> _boot(Marker m,
-    {List<String>? stored, bool wide = false}) async {
+    {List<String>? stored, bool safeSearch = false, bool wide = false}) async {
   Core.register<StageStore>(MockStageStore());
   Core.register<AccountStore>(MockAccountStore());
   Core.register<EnvActor>(_FakeEnvActor());
@@ -167,6 +175,7 @@ Future<_Subject> _boot(Marker m,
 
   final api = _FakeDeviceApi();
   if (stored != null) api.stored = stored;
+  api.storedSafeSearch = safeSearch;
   Core.register<DeviceApi>(api);
   final device = DeviceStore();
   Core.register<DeviceStore>(device);
@@ -630,6 +639,195 @@ void main() {
         expect(s.api.puts.where((it) => it.isEmpty), isEmpty);
         expect(await s.main(m), small);
         expect(await s.extras(m), isEmpty);
+      });
+    });
+  });
+
+  group("v6 safe search", () {
+    const small = BlocklistKey("oisd", "small");
+    const adaway = BlocklistKey("adaway", "standard");
+    const safeSearch = BlocklistKey(filterSafeSearch, filterOptionSafeSearch);
+
+    test("offByDefault", () async {
+      await withTrace((m) async {
+        final s = await _boot(m, stored: [], wide: true);
+
+        expect(await s.extras(m), isEmpty);
+        expect(s.api.puts, [
+          [_small]
+        ]);
+        expect(s.api.storedSafeSearch, isFalse);
+      });
+    });
+
+    test("turningOnSendsListAndFlagInOneSave", () async {
+      await withTrace((m) async {
+        final s = await _boot(m, wide: true);
+
+        await s.actor.toggleExtraBlocklist(safeSearch, true, m);
+        await _settle();
+
+        expect(s.api.puts.single.toSet(), {_small, _noSafeSearch});
+        expect(s.api.safeSearchPuts, [true]);
+        expect(s.api.storedSafeSearch, isTrue);
+        expect(await s.main(m), small);
+        expect(await s.extras(m), {safeSearch});
+        expect(s.toast.errors, isEmpty);
+      });
+    });
+
+    test("turningOffClearsListAndFlagInOneSave", () async {
+      await withTrace((m) async {
+        final s = await _boot(m,
+            stored: [_small, _noSafeSearch], safeSearch: true, wide: true);
+
+        await s.actor.toggleExtraBlocklist(safeSearch, false, m);
+        await _settle();
+
+        expect(s.api.puts, [
+          [_small]
+        ]);
+        expect(s.api.safeSearchPuts, [false]);
+        expect(s.api.storedSafeSearch, isFalse);
+        expect(await s.extras(m), isEmpty);
+      });
+    });
+
+    test("loadingItFromTheDeviceSavesNothing", () async {
+      await withTrace((m) async {
+        final s = await _boot(m,
+            stored: [_small, _noSafeSearch], safeSearch: true, wide: true);
+
+        expect(await s.main(m), small);
+        expect(await s.extras(m), {safeSearch});
+        expect(s.config.present?.configs,
+            {FilterConfigKey.safeSearch: true});
+        expect(s.api.puts, isEmpty);
+      });
+    });
+
+    test("listChangeKeepsIt", () async {
+      await withTrace((m) async {
+        final s = await _boot(m,
+            stored: [_small, _noSafeSearch], safeSearch: true, wide: true);
+
+        await s.actor.toggleExtraBlocklist(adaway, true, m);
+        await _settle();
+
+        expect(s.api.puts.single.toSet(), {_small, _noSafeSearch, _adaway});
+        expect(s.api.safeSearchPuts, [true]);
+        expect(await s.extras(m), {safeSearch, adaway});
+      });
+    });
+
+    test("toggleUndoneBeforeSaveSendsNothing", () async {
+      await withTrace((m) async {
+        final s = await _boot(m, wide: true);
+
+        await s.actor.toggleExtraBlocklist(safeSearch, true, m);
+        await _tapGap();
+        await s.actor.toggleExtraBlocklist(safeSearch, false, m);
+        await _settle();
+
+        expect(s.api.puts, isEmpty);
+        expect(await s.extras(m), isEmpty);
+      });
+    });
+
+    test("undoneWhileSaveIsInFlightIsSaved", () async {
+      await withTrace((m) async {
+        final s = await _boot(m, wide: true);
+        final held = s.api.gate = Completer();
+
+        await s.actor.toggleExtraBlocklist(safeSearch, true, m);
+        await _settle(); // The first save is now waiting on the server.
+        await s.actor.toggleExtraBlocklist(safeSearch, false, m);
+        held.complete();
+        await _settle();
+
+        expect(s.api.safeSearchPuts, [true, false]);
+        expect(s.api.stored, [_small]);
+        expect(s.api.storedSafeSearch, isFalse);
+        expect(await s.extras(m), isEmpty);
+      });
+    });
+
+    test("failedSaveShowsErrorAndRollsBack", () async {
+      await withTrace((m) async {
+        final s = await _boot(m, wide: true);
+        s.api.fail = true;
+
+        await s.actor.toggleExtraBlocklist(safeSearch, true, m);
+        expect(await s.extras(m), {safeSearch}); // Shown before the save.
+        await _settle();
+
+        expect(s.toast.errors, ["toast save failed".i18n]);
+        expect(await s.extras(m), isEmpty);
+        expect(s.config.present?.configs, isEmpty);
+      });
+    });
+
+    test("failedTurnOffShowsErrorAndPutsItBack", () async {
+      await withTrace((m) async {
+        final s = await _boot(m,
+            stored: [_small, _noSafeSearch], safeSearch: true, wide: true);
+        s.api.fail = true;
+
+        await s.actor.toggleExtraBlocklist(safeSearch, false, m);
+        await _settle();
+
+        expect(s.toast.errors, ["toast save failed".i18n]);
+        expect(await s.extras(m), {safeSearch});
+        expect(s.config.present?.configs,
+            {FilterConfigKey.safeSearch: true});
+      });
+    });
+
+    // The shared filter logic treats either half as the filter being on and
+    // completes the other, the same as in Family.
+    test("flagWithoutListIsCompleted", () async {
+      await withTrace((m) async {
+        final s = await _boot(m, stored: [_small], safeSearch: true, wide: true);
+
+        expect(await s.extras(m), {safeSearch});
+        expect(s.api.puts.single.toSet(), {_small, _noSafeSearch});
+        expect(s.api.safeSearchPuts, [true]);
+      });
+    });
+
+    test("listWithoutFlagIsCompleted", () async {
+      await withTrace((m) async {
+        final s = await _boot(m, stored: [_small, _noSafeSearch], wide: true);
+
+        expect(await s.extras(m), {safeSearch});
+        expect(s.api.puts.single.toSet(), {_small, _noSafeSearch});
+        expect(s.api.safeSearchPuts, [true]);
+      });
+    });
+
+    test("aloneStillGetsTheDefaultLists", () async {
+      await withTrace((m) async {
+        // None of the device's lists is in the catalog any more.
+        final s = await _boot(m,
+            stored: ["id-gone"], safeSearch: true, wide: true);
+
+        expect(await s.main(m), small);
+        expect(await s.extras(m), {safeSearch});
+        expect(s.api.stored.toSet(), {_small, _noSafeSearch});
+        expect(s.api.storedSafeSearch, isTrue);
+      });
+    });
+
+    test("doesNotCountAsTheLastList", () async {
+      await withTrace((m) async {
+        final s = await _boot(m,
+            stored: [_adaway, _noSafeSearch], safeSearch: true, wide: true);
+
+        await s.actor.toggleExtraBlocklist(adaway, false, m);
+        await _settle();
+
+        expect(s.api.puts, isEmpty);
+        expect(await s.extras(m), {adaway, safeSearch});
       });
     });
   });

@@ -117,5 +117,47 @@ void main() {
         verify(http.request(any, any, payload: anyNamed("payload"))).called(1);
       });
     });
+
+    test("willSendListsAndSafeSearchInOneRequest", () async {
+      await withTrace((m) async {
+        final account = MockAccountStore();
+        when(account.id).thenReturn("some-id");
+        Core.register<AccountStore>(account);
+
+        final http = MockApi();
+        Core.register<Api>(http);
+
+        final subject = DeviceApi();
+        await subject.putDevice(m, lists: ["a", "b"], safeSearch: true);
+
+        final payload = verify(http.request(ApiEndpoint.putDeviceV2, any,
+                payload: captureAnyNamed("payload")))
+            .captured
+            .single;
+        final json = jsonDecode(payload);
+        expect(json["lists"], ["a", "b"]);
+        expect(json["safe_search"], true);
+      });
+    });
+
+    test("willLeaveSafeSearchOutOfListsRequestByDefault", () async {
+      await withTrace((m) async {
+        final account = MockAccountStore();
+        when(account.id).thenReturn("some-id");
+        Core.register<AccountStore>(account);
+
+        final http = MockApi();
+        Core.register<Api>(http);
+
+        final subject = DeviceApi();
+        await subject.putDevice(m, lists: ["a"]);
+
+        final payload = verify(http.request(ApiEndpoint.putDeviceV2, any,
+                payload: captureAnyNamed("payload")))
+            .captured
+            .single;
+        expect(jsonDecode(payload)["safe_search"], isNull);
+      });
+    });
   });
 }
