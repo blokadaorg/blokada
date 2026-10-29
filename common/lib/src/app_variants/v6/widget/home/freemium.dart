@@ -72,8 +72,7 @@ class _FreemiumCounterState extends State<FreemiumCounter> with TickerProviderSt
               Center(
                 child: Text(
                   "universal action upgrade short".i18n,
-                  style: TextStyle(
-                      color: context.theme.onAccent, fontSize: 16, fontWeight: FontWeight.w600),
+                  style: context.theme.text.body.semibold.copyWith(color: context.theme.onAccent),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),

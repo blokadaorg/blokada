@@ -117,9 +117,8 @@ class _FreemiumScreenState extends State<FreemiumScreen>
       ),
       child: Text(
         text.toUpperCase(),
-        style: TextStyle(
+        style: context.theme.text.caption.copyWith(
           color: context.theme.accent,
-          fontSize: 12,
           fontWeight: FontWeight.w700,
           letterSpacing: 1,
         ),
@@ -185,10 +184,8 @@ class _FreemiumScreenState extends State<FreemiumScreen>
                           Flexible(
                             child: Text(
                               widget.actionLabel ?? "universal action upgrade short".i18n,
-                              style: TextStyle(
-                                  color: context.theme.onAccent,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600),
+                              style: context.theme.text.title
+                                  .copyWith(color: context.theme.onAccent),
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),

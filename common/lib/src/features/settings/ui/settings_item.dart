@@ -45,7 +45,7 @@ class SettingsItem extends StatelessWidget {
               Icon(icon, size: 22, color: context.theme.divider),
               const SizedBox(width: 10),
               // Wraps with large text, keeping the chevron on the right.
-              Expanded(child: Text(text, style: const TextStyle(fontSize: 14))),
+              Expanded(child: Text(text, style: context.theme.text.callout)),
               Icon(Icons.chevron_right, size: 24, color: context.theme.divider),
             ],
           ),

@@ -110,10 +110,7 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                   children: [
                     Text(
                       "main tab settings".i18n,
-                      style: const TextStyle(
-                        fontSize: 34.0, // Mimic large iOS-style header
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: context.theme.text.largeTitle,
                     ),
                     const SizedBox(height: 24.0),
                   ],
@@ -298,12 +295,12 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                       children: [
                         Text(
                           "settings weekly report title".i18n,
-                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                          style: context.theme.text.body.copyWith(fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 4),
                         Text(
                           "settings weekly report brief".i18n,
-                          style: const TextStyle(fontSize: 13),
+                          style: context.theme.text.footnote,
                         ),
                       ],
                     ),

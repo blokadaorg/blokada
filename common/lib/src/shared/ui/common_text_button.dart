@@ -10,6 +10,6 @@ class CommonTextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(text,
-        style: context.theme.linkStyle(const TextStyle(fontSize: 16)));
+        style: context.theme.linkStyle(context.theme.text.body));
   }
 }

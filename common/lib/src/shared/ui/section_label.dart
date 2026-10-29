@@ -13,10 +13,8 @@ class SectionLabel extends StatelessWidget {
       child: Align(
         alignment: Alignment.centerLeft,
         child: Text(text,
-            style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 14,
-                color: context.theme.textSecondary)),
+            style: context.theme.text.callout.copyWith(
+                fontWeight: FontWeight.w400, color: context.theme.textSecondary)),
       ),
     );
   }

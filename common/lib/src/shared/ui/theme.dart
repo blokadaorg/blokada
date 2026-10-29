@@ -23,6 +23,15 @@ abstract final class BlokadaPalette {
   /// Cloud and informational highlights.
   static const blue = Color(0xFF007AFF);
 
+  /// Ends the power button's Cloud ring gradient from [blue].
+  static const indigo = Color(0xFF5856D5);
+
+  /// Ends the power button's Plus ring gradient from [orange].
+  static const flame = Color(0xFFEF6049);
+
+  /// Starts the power button's freemium ring gradient into [teal].
+  static const sage = Color(0xFFACBDBA);
+
   /// Blocked requests and errors.
   static const red = Color(0xFFFF3B30);
   static const redLight = Color(0xFFFF7A6C);
@@ -145,6 +154,12 @@ class BlokadaTheme extends ThemeExtension<BlokadaTheme> {
   /// Colours that tell list items apart, cycled in order (blocklist providers).
   final List<Color> markers;
 
+  /// Left-to-right gradients of the home power button ring, per protection:
+  /// Cloud, Plus (VPN on) and freemium.
+  final List<Color> cloudRing;
+  final List<Color> plusRing;
+  final List<Color> freemiumRing;
+
   /// Named text styles; see [BlokadaTypeScale]. Not called `type`: that
   /// would override [ThemeExtension.type], the key `Theme.extension` finds
   /// this theme by.
@@ -189,6 +204,9 @@ class BlokadaTheme extends ThemeExtension<BlokadaTheme> {
       BlokadaPalette.mint,
       BlokadaPalette.coral,
     ],
+    this.cloudRing = const [BlokadaPalette.blue, BlokadaPalette.indigo],
+    this.plusRing = const [BlokadaPalette.orange, BlokadaPalette.flame],
+    this.freemiumRing = const [BlokadaPalette.sage, BlokadaPalette.teal],
     this.text = const BlokadaTypeScale(),
   });
 
@@ -222,6 +240,9 @@ class BlokadaTheme extends ThemeExtension<BlokadaTheme> {
     List<Color>? blockedGradient,
     List<Color>? allowedGradient,
     List<Color>? markers,
+    List<Color>? cloudRing,
+    List<Color>? plusRing,
+    List<Color>? freemiumRing,
     BlokadaTypeScale? text,
   }) => BlokadaTheme(
     bgColor: bgColor ?? this.bgColor,
@@ -248,6 +269,9 @@ class BlokadaTheme extends ThemeExtension<BlokadaTheme> {
     blockedGradient: blockedGradient ?? this.blockedGradient,
     allowedGradient: allowedGradient ?? this.allowedGradient,
     markers: markers ?? this.markers,
+    cloudRing: cloudRing ?? this.cloudRing,
+    plusRing: plusRing ?? this.plusRing,
+    freemiumRing: freemiumRing ?? this.freemiumRing,
     text: text ?? this.text,
   );
 
@@ -282,6 +306,9 @@ class BlokadaTheme extends ThemeExtension<BlokadaTheme> {
       blockedGradient: t < 0.5 ? blockedGradient : other.blockedGradient,
       allowedGradient: t < 0.5 ? allowedGradient : other.allowedGradient,
       markers: t < 0.5 ? markers : other.markers,
+      cloudRing: t < 0.5 ? cloudRing : other.cloudRing,
+      plusRing: t < 0.5 ? plusRing : other.plusRing,
+      freemiumRing: t < 0.5 ? freemiumRing : other.freemiumRing,
       text: t < 0.5 ? text : other.text,
     );
   }

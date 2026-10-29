@@ -157,14 +157,14 @@ class _HomeCounterState extends State<HomeCounter> with WidgetsBindingObserver, 
       big = LoadingPlaceholder(
         animate: _active,
         // As tall as one line of the number, so nothing shifts when it arrives.
-        child: const Stack(
+        child: Stack(
           alignment: Alignment.center,
           children: [
             Opacity(
               opacity: 0,
-              child: Text("0", style: TextStyle(fontSize: 34, fontWeight: FontWeight.w600)),
+              child: Text("0", style: theme.text.display),
             ),
-            PlaceholderBar(width: 96, height: 28, radius: 6),
+            const PlaceholderBar(width: 96, height: 28, radius: 6),
           ],
         ),
       );

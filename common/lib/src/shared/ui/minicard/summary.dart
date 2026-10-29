@@ -55,10 +55,8 @@ class MiniCardSummaryState extends State<MiniCardSummary> {
             alignment: Alignment.centerLeft,
             child: Text(
               widget.footer!,
-              style: TextStyle(
-                fontSize: 14,
+              style: context.theme.text.callout.semibold.copyWith(
                 color: context.theme.textSecondary,
-                fontWeight: FontWeight.w600,
               ),
             ),
           ),

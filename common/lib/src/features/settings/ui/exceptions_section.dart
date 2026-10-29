@@ -118,10 +118,7 @@ class ExceptionsSectionState extends State<ExceptionsSection>
                                   const SizedBox(width: 6),
                                   Text(
                                     "privacy pulse tab blocked".i18n,
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                                    style: context.theme.text.body.semibold,
                                   ),
                                 ],
                               ),
@@ -146,10 +143,7 @@ class ExceptionsSectionState extends State<ExceptionsSection>
                                   const SizedBox(width: 6),
                                   Text(
                                     "privacy pulse tab allowed".i18n,
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                                    style: context.theme.text.body.semibold,
                                   ),
                                 ],
                               ),
@@ -196,10 +190,7 @@ class ExceptionsSectionState extends State<ExceptionsSection>
       child: Center(
         child: Text(
           message,
-          style: TextStyle(
-            color: context.theme.textSecondary,
-            fontSize: 16,
-          ),
+          style: context.theme.text.body.copyWith(color: context.theme.textSecondary),
         ),
       ),
     );
