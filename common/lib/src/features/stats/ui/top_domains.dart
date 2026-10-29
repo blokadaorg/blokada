@@ -132,12 +132,14 @@ class TopDomainsState extends State<TopDomains> {
                 key: widget.headerKey,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "privacy pulse toplists header".i18n,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: context.theme.textPrimary,
+                  Flexible(
+                    child: Text(
+                      "privacy pulse toplists header".i18n,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: context.theme.textPrimary,
+                      ),
                     ),
                   ),
                   Text(

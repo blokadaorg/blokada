@@ -7,7 +7,6 @@ import 'package:common/src/core/core.dart';
 import 'package:common/src/app_variants/v6/widget/tab/tab_buttons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:relative_scale/relative_scale.dart';
 
 import 'actions.dart';
 import 'power_button.dart';
@@ -59,50 +58,62 @@ class V6HomeSectionState extends State<V6HomeSection> with Logging, Disposables 
         absorbing: false,
         child: Stack(
           children: [
-            RelativeBuilder(builder: (context, height, width, sy, sx) {
-              return Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 60, right: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+            // Fills the screen, with the room left split evenly above and
+            // below the power button; scrolls instead when large text or a
+            // short screen needs more room. spaceBetween rather than Spacers,
+            // which can't flex in a scroll view.
+            LayoutBuilder(builder: (context, constraints) {
+              return SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
                         children: [
-                          Semantics(
-                            identifier: AutomationIds.homeSettings,
-                            button: true,
-                            child: SmartHeaderButton(
-                                bgColor: Colors.transparent,
-                                unread: _unread.present ?? false,
-                                icon: CupertinoIcons.settings,
-                                onTap: () {
-                                  Navigation.open(Paths.settings);
-                                }),
+                          GestureDetector(
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 60, right: 16),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Semantics(
+                                    identifier: AutomationIds.homeSettings,
+                                    button: true,
+                                    child: SmartHeaderButton(
+                                        bgColor: Colors.transparent,
+                                        unread: _unread.present ?? false,
+                                        icon: CupertinoIcons.settings,
+                                        onTap: () {
+                                          Navigation.open(Paths.settings);
+                                        }),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            child: Image.asset(
+                              "assets/images/header.png",
+                              width: 200,
+                              height: 28,
+                              fit: BoxFit.scaleDown,
+                              color: Theme.of(context).textTheme.bodyLarge!.color,
+                            ),
                           ),
                         ],
                       ),
-                    ),
+                      PowerButton(),
+                      const Column(
+                        children: [
+                          HomeActions(),
+                          TabButtonsWidget(),
+                          SizedBox(height: 24),
+                        ],
+                      ),
+                    ],
                   ),
-                  GestureDetector(
-                    child: Image.asset(
-                      "assets/images/header.png",
-                      width: 200,
-                      height: 28,
-                      fit: BoxFit.scaleDown,
-                      color: Theme.of(context).textTheme.bodyLarge!.color,
-                    ),
-                  ),
-                  const Spacer(),
-                  const Spacer(),
-                  PowerButton(),
-                  const Spacer(),
-                  const Spacer(),
-                  const HomeActions(),
-                  const TabButtonsWidget(),
-                  const SizedBox(height: 24),
-                ],
+                ),
               );
             }),
           ],

@@ -81,14 +81,25 @@ class _FreemiumScreenState extends State<FreemiumScreen>
           Center(
             child: Container(
               constraints: const BoxConstraints(maxWidth: maxContentWidth),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Spacer(),
-                  _buildCtaDialog(context),
-                  const Spacer(),
-                ],
+              // Centered, and scrolls when large text makes the dialog taller
+              // than the screen. Only the dialog takes touches, as before; the
+              // space around it stays transparent to the screen below.
+              child: LayoutBuilder(
+                builder: (context, constraints) => SingleChildScrollView(
+                  // The screen below owns the primary scroll controller.
+                  primary: false,
+                  hitTestBehavior: HitTestBehavior.deferToChild,
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        _buildCtaDialog(context),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
@@ -161,8 +172,8 @@ class _FreemiumScreenState extends State<FreemiumScreen>
                       });
                     },
                     color: context.theme.accent,
-                    child: SizedBox(
-                      height: 32,
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(minHeight: 32),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
