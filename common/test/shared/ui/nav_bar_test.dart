@@ -10,7 +10,11 @@ import 'package:provider/provider.dart';
 
 import '../../tools.dart';
 
-Widget _wrapOn(TargetPlatform platform, Widget child) => MaterialApp(
+Widget _wrapOn(TargetPlatform platform, Widget child, {double textScale = 1.0}) => MaterialApp(
+      builder: (context, child) => MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(textScale)),
+        child: child!,
+      ),
       theme: ThemeData(
         platform: platform,
         extensions: const [
@@ -44,6 +48,10 @@ Widget _commonBar(TargetPlatform platform) {
     ChangeNotifierProvider.value(value: ctrl, child: const TopCommonBar()),
   );
 }
+
+/// Space between the bottom of [bubble] and the bottom of [bar].
+double _gapUnder(WidgetTester tester, Finder bubble, Finder bar) =>
+    tester.getRect(bar).bottom - tester.getRect(bubble).bottom;
 
 Decoration? _decorationAround(WidgetTester tester, Finder child) {
   final container = tester.widget<Container>(
@@ -82,6 +90,58 @@ void main() {
         semantics.dispose();
       });
     });
+  });
+
+  group('iOS bar bubbles', () {
+    TopBarController ctrl() => TopBarController()
+      ..nav = ['Home', 'Settings']
+      ..show = 1.0;
+
+    // 2.0 is past the bars' text clamp, so the largest bubbles they draw.
+    for (final scale in [1.0, 2.0]) {
+      testWidgets('back bubble keeps off the bottom edge at text scale $scale', (tester) async {
+        await withTrace((_) async {
+          await tester.pumpWidget(_wrapOn(
+            TargetPlatform.iOS,
+            textScale: scale,
+            ChangeNotifierProvider.value(
+              value: ctrl(),
+              child: const Align(alignment: Alignment.topCenter, child: TopCommonBar()),
+            ),
+          ));
+
+          expect(_gapUnder(tester, find.byType(NavBarBackButton), find.byType(TopCommonBar)),
+              greaterThanOrEqualTo(6));
+        });
+      });
+
+      testWidgets('trailing bubble keeps off the bottom edge and lines up with the title '
+          'at text scale $scale', (tester) async {
+        await withTrace((_) async {
+          await tester.pumpWidget(_wrapOn(
+            TargetPlatform.iOS,
+            textScale: scale,
+            ChangeNotifierProvider.value(
+              value: ctrl(),
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: TopBar(
+                  title: 'Settings',
+                  trailing: NavBarButton(onTap: () {}, child: const Text('Add')),
+                ),
+              ),
+            ),
+          ));
+
+          final bubble = find.byType(NavBarButton);
+          expect(_gapUnder(tester, bubble, find.byType(TopBar)), greaterThanOrEqualTo(6));
+          // The test font's line height differs from the system font's, so
+          // allow a few points either way.
+          expect(tester.getCenter(bubble).dy,
+              moreOrLessEquals(tester.getCenter(find.text('Settings')).dy, epsilon: 4));
+        });
+      });
+    }
   });
 
   group('BackTitleNavBar', () {
