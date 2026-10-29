@@ -62,8 +62,20 @@ describe("Smoke: Android protection via Private DNS", () => {
     setSensitiveScreen(false);
     console.warn(`Private DNS change picked up by the app on ${pickedUpBy}.`);
 
-    // The app asks for a rating right after the first activation.
-    await dismissRatePromptIfPresent(8000);
-    expect(await getProtectionState()).to.equal("active");
+    // The app asks for a rating right after the first activation, and the
+    // prompt can land late and cover the power button. Keep dismissing it until
+    // home reads active.
+    let state: string | undefined;
+    await driver
+      .waitUntil(
+        async () => {
+          await dismissRatePromptIfPresent(2000);
+          state = await getProtectionState();
+          return state === "active";
+        },
+        { timeout: 30000, interval: 1500 }
+      )
+      .catch(() => undefined);
+    expect(state).to.equal("active");
   });
 });
