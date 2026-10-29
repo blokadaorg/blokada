@@ -6,11 +6,15 @@
 
 import process from "node:process";
 import { createWriteStream } from "node:fs";
-import { mkdir } from "node:fs/promises";
+import { mkdir, rename } from "node:fs/promises";
 import { spawn, spawnSync } from "node:child_process";
 
 import { isAppiumServerReady, waitForAppiumServer } from "./lib/appium-runtime.mjs";
+import { readSpecResults, specsToRetry } from "./lib/instrumentation-retry.mjs";
 import { getAppiumServerConfig, getProjectPaths } from "./lib/paths.mjs";
+
+// Turns protection on; the other Android specs expect it on.
+const ANDROID_SETUP_SPEC = "./src/specs/smoke/android-protection.spec.ts";
 
 const UIAUTOMATOR2_DRIVER_VERSION = "8.7.0";
 
@@ -83,19 +87,80 @@ async function startAppium(env) {
   };
 }
 
-async function main() {
-  const stopAppium = await startAppium(process.env);
+let current;
+process.on("SIGINT", () => current?.kill("SIGINT"));
+process.on("SIGTERM", () => current?.kill("SIGTERM"));
+
+async function runWdio(attempt, specs = []) {
   const child = spawn(
     process.execPath,
-    ["./node_modules/.bin/wdio", "run", "wdio.android.conf.ts"],
-    { stdio: "inherit", env: process.env }
+    ["./node_modules/.bin/wdio", "run", "wdio.android.conf.ts", ...specs.flatMap((s) => ["--spec", s])],
+    { stdio: "inherit", env: { ...process.env, WDIO_ATTEMPT: String(attempt) } }
   );
-  process.on("SIGINT", () => child.kill("SIGINT"));
-  process.on("SIGTERM", () => child.kill("SIGTERM"));
-  const exitCode = await new Promise((resolve) => {
+  current = child;
+  return new Promise((resolve) => {
     child.once("error", () => resolve(1));
     child.once("exit", (code, signal) => resolve(signal ? 1 : (code ?? 1)));
   });
+}
+
+// The emulator's adb link sometimes drops for a few seconds, which kills the
+// UiAutomator2 instrumentation mid-spec. Run the spec files that lost it once
+// more; never retry a run whose first failure came from the app.
+function retryPlan(junitDir) {
+  let results;
+  try {
+    results = readSpecResults(junitDir, "results-1-");
+  } catch (error) {
+    console.error(`No JUnit results to check for a retry: ${String(error)}`);
+    return [];
+  }
+  const failed = results.filter((r) => r.failures.length > 0);
+  const retry = specsToRetry(results, ANDROID_SETUP_SPEC);
+  if (failed.length > 0 && retry.length === 0) {
+    console.error(
+      `Not retrying: the first failed spec (${failed[0].spec}) failed in the app or the test, ` +
+        "not by losing the UiAutomator2 instrumentation."
+    );
+  }
+  return retry;
+}
+
+// After a drop adb usually sees the emulator again within seconds. If the
+// emulator process died instead, a retry can't help.
+function deviceBack(serial, timeoutMs = 60000) {
+  const result = spawnSync(
+    "adb",
+    ["-s", serial, "wait-for-device", "shell", "getprop", "sys.boot_completed"],
+    { encoding: "utf8", timeout: timeoutMs }
+  );
+  return result.status === 0 && result.stdout.trim() === "1";
+}
+
+async function main() {
+  const stopAppium = await startAppium(process.env);
+  let exitCode = await runWdio(1);
+  if (exitCode !== 0) {
+    const junitDir = `${getProjectPaths(process.env).outputDir}/junit`;
+    const retry = retryPlan(junitDir);
+    if (retry.length > 0 && !deviceBack(process.env.ANDROID_UDID)) {
+      console.error("UiAutomator2 lost its instrumentation and the emulator did not come back on adb; not retrying.");
+    } else if (retry.length > 0) {
+      const message =
+        `UiAutomator2 lost its instrumentation (the emulator dropped off adb); ` +
+        `running ${retry.length} spec file(s) once more: ${retry.join(", ")}`;
+      console.error(process.env.GITHUB_ACTIONS ? `::warning title=Android smoke retry::${message}` : message);
+      // Only the retried files' first attempt leaves the summary; the rest stand.
+      const retried = new Set(retry);
+      await mkdir(`${junitDir}/first-attempt`, { recursive: true });
+      for (const result of readSpecResults(junitDir, "results-1-")) {
+        if (retried.has(result.spec)) {
+          await rename(`${junitDir}/${result.file}`, `${junitDir}/first-attempt/${result.file}`);
+        }
+      }
+      exitCode = await runWdio(2, retry);
+    }
+  }
   await stopAppium();
   process.exit(Number(exitCode));
 }
