@@ -92,7 +92,7 @@ class V6FiltersSectionState extends State<V6FiltersSection> with Logging, Dispos
         ),
       ),
       const SizedBox(height: 24),
-      SectionLabel(text: "blocklists main header".i18n),
+      SectionLabel(text: "blocklists main header pick one".i18n),
       if (main == null && !loading)
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 4),
@@ -130,8 +130,12 @@ class V6FiltersSectionState extends State<V6FiltersSection> with Logging, Dispos
               ),
         ],
       ),
+      if (groups.isNotEmpty) ...[
+        const SizedBox(height: 24),
+        SectionLabel(text: "blocklists extras header".i18n),
+      ],
       for (final (i, group) in groups.indexed) ...[
-        const SizedBox(height: 16),
+        SizedBox(height: i == 0 ? 8 : 16),
         _GroupCard(
           title: group.titleKey.i18n,
           tint: _groupTints[i % _groupTints.length],
@@ -205,6 +209,13 @@ const _groupTints = [_orange, _blue, _pink, _coral, _green];
 
 /// Text on a tint: near-black on the light tints, white on the dark ones.
 Color _onTint(BuildContext context) => context.theme.textPrimary;
+
+/// The "on" track of a switch in an extras card. The brand orange nearly
+/// vanishes on the light cards' rows (1.5 to 1.8:1), so light mode uses the
+/// text colour (over 14:1 on every card). On the dark cards the orange is
+/// 5.6:1 or more.
+Color _switchOn(BuildContext context) =>
+    context.theme.isDarkTheme() ? context.theme.accent : context.theme.textPrimary;
 
 /// Main list tiles, two per row. Rows are built by hand, not with a
 /// [GridView], so a tile grows with its text instead of being clipped to a
@@ -495,7 +506,7 @@ class _ExtraRow extends StatelessWidget {
               label: name,
               toggled: selected,
               child: BlokadaSwitch(
-                activeColor: context.theme.accent,
+                activeColor: _switchOn(context),
                 value: selected,
                 onChanged: locked ? null : onChanged,
               ),

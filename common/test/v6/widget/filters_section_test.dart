@@ -180,6 +180,8 @@ void main() {
         expect(_id(AutomationIds.blocklistsSummary), findsOneWidget);
         expect(_id(AutomationIds.blocklistsExceptions), findsOneWidget);
         expect(find.text("blocklists group adult".i18n), findsOneWidget);
+        expect(find.text("blocklists main header pick one".i18n), findsOneWidget);
+        expect(find.text("blocklists extras header".i18n), findsOneWidget);
 
         // Opening the screen saves nothing.
         expect(s.actor.mains, isEmpty);

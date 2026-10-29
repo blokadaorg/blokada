@@ -835,6 +835,8 @@
     "blocklists main none": "No main list",
     "blocklists main header": "Main blocklist",
     "blocklists main pick": "Pick a main list",
+    "blocklists main header pick one": "Main blocklist · pick one",
+    "blocklists extras header": "Extras · optional",
     "blocklists group general": "More general lists",
     "blocklists group ads": "Ads and trackers",
     "blocklists group security": "Malware and phishing",
