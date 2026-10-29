@@ -19,18 +19,27 @@ class StatsDeviceFilter extends StatefulWidget {
   StatsDeviceFilterState createState() => StatsDeviceFilterState();
 }
 
-class StatsDeviceFilterState extends State<StatsDeviceFilter> {
+class StatsDeviceFilterState extends State<StatsDeviceFilter> with Disposables {
   final TextEditingController _ctrl = TextEditingController(text: "");
   late final _devices = Core.get<JournalDevicesValue>();
 
   @override
   void initState() {
     super.initState();
+    // The device list may still be loading when the picker opens.
+    disposeLater(_devices.onChange.listen(rebuild));
     _ctrl.text = widget.filter.draft.searchQuery;
     _ctrl.addListener(() {
       widget.filter.draft =
           widget.filter.draft.updateOnly(searchQuery: _ctrl.text.toLowerCase());
     });
+  }
+
+  @override
+  void dispose() {
+    disposeAll();
+    _ctrl.dispose();
+    super.dispose();
   }
 
   @override
@@ -53,8 +62,9 @@ class StatsDeviceFilterState extends State<StatsDeviceFilter> {
                     ? context.theme.divider.withOpacity(0.20)
                     : null,
                 tapBgColor: context.theme.divider.withOpacity(0.1),
-                padding: const EdgeInsets.only(left: 12),
+                padding: const EdgeInsets.only(left: 12, right: 12),
                 trailing: const SizedBox(height: 48),
+                nameAfterLeading: true,
               ),
             ),
           ] +
@@ -79,8 +89,9 @@ class StatsDeviceFilterState extends State<StatsDeviceFilter> {
               ? context.theme.divider.withOpacity(0.20)
               : null,
           tapBgColor: context.theme.divider.withOpacity(0.1),
-          padding: const EdgeInsets.only(left: 12),
+          padding: const EdgeInsets.only(left: 12, right: 12),
           trailing: const SizedBox(height: 48),
+          nameAfterLeading: true,
         ),
       );
     }).toList();
@@ -97,7 +108,13 @@ void showStatsFilterDeviceDialog(BuildContext context,
       mainAxisSize: MainAxisSize.min,
       children: [
         const SizedBox(height: 16),
-        StatsDeviceFilter(filter: ctrl),
+        // Every device on the account is listed, so the list scrolls past
+        // half the screen instead of overflowing the dialog.
+        ConstrainedBox(
+          constraints: BoxConstraints(
+              maxHeight: MediaQuery.sizeOf(context).height * 0.5),
+          child: SingleChildScrollView(child: StatsDeviceFilter(filter: ctrl)),
+        ),
       ],
     ),
     actions: (context) => [

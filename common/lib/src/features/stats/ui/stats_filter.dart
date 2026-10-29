@@ -197,6 +197,8 @@ class StatsFilterState extends State<StatsFilter> {
   }
 }
 
+/// The search sheet's entry into the device picker, showing the device
+/// filtered by. It matches the picker's rows so a long name reads the same.
 Widget _buildDeviceSelector(BuildContext context, JournalFilter filter,
     {required VoidCallback onTap}) {
   if (filter.deviceName.isEmpty) {
@@ -207,8 +209,9 @@ Widget _buildDeviceSelector(BuildContext context, JournalFilter filter,
       name: "activity device filter show all".i18n,
       borderColor: null,
       tapBgColor: context.theme.divider.withOpacity(0.1),
-      padding: const EdgeInsets.only(left: 12),
+      padding: const EdgeInsets.only(left: 12, right: 12),
       trailing: const SizedBox(height: 48),
+      nameAfterLeading: true,
     );
   } else {
     return ProfileButton(
@@ -217,8 +220,9 @@ Widget _buildDeviceSelector(BuildContext context, JournalFilter filter,
       name: filter.deviceName,
       borderColor: null,
       tapBgColor: context.theme.divider.withOpacity(0.1),
-      padding: const EdgeInsets.only(left: 12),
+      padding: const EdgeInsets.only(left: 12, right: 12),
       trailing: const SizedBox(height: 48),
+      nameAfterLeading: true,
     );
   }
 }

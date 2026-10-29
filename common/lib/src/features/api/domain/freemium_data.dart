@@ -5,6 +5,7 @@ class FreemiumDataProvider {
   /// look the same.
   static const sampleBlockedCompanies = ['Example Analytics', 'Ad Platform Inc', 'Site Analytics'];
   static const sampleAllowedCompanies = ['Cloudflare', 'Google', 'GitHub'];
+  static const sampleJournalDevices = ['iPhone', 'iPad', 'Android Phone'];
   static const sampleJournalDomains = [
     'tracker.example.com',
     'ads.platform.com',
@@ -24,6 +25,7 @@ class FreemiumDataProvider {
     return const [
       ApiEndpoint.getStatsV2,
       ApiEndpoint.getJournalV2,
+      ApiEndpoint.getJournalDevicesV2,
       ApiEndpoint.getLists,
       ApiEndpoint.getDeviceV2,
     ].contains(endpoint);
@@ -35,6 +37,8 @@ class FreemiumDataProvider {
         return _getStatsData();
       case ApiEndpoint.getJournalV2:
         return _getJournalData();
+      case ApiEndpoint.getJournalDevicesV2:
+        return _getJournalDevicesData();
       case ApiEndpoint.getLists:
         return _getListsData();
       case ApiEndpoint.getDeviceV2:
@@ -122,6 +126,15 @@ class FreemiumDataProvider {
     return jsonEncode(activity);
   }
 
+  String _getJournalDevicesData() {
+    final lastSeen = DateTime.now().toUtc().toIso8601String();
+    return jsonEncode({
+      'devices': [
+        for (final name in sampleJournalDevices) {'device_name': name, 'last_seen': lastSeen},
+      ],
+    });
+  }
+
   String _getListsData() {
     final lists = <String, dynamic>{
       'lists': [
@@ -187,7 +200,7 @@ class FreemiumDataProvider {
     final activity = <Map<String, dynamic>>[];
     const domains = sampleJournalDomains;
 
-    final devices = ['iPhone', 'iPad', 'Android Phone'];
+    const devices = sampleJournalDevices;
     final lists = ['ads', 'trackers', 'malware', 'allowed'];
 
     for (int i = 0; i < count; i++) {
