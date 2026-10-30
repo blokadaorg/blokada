@@ -82,7 +82,7 @@ class ExceptionItemState extends State<ExceptionItem> {
             onPressed: (c) {
               widget.onRemove(entry);
             },
-            backgroundColor: Colors.red.withOpacity(0.95),
+            backgroundColor: BlokadaPalette.red.withOpacity(0.95),
             foregroundColor: Colors.white,
             // CustomSlidableAction (vs SlidableAction) so the delete control can
             // carry a stable automation id; the icon+label child mirrors the

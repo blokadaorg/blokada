@@ -70,24 +70,22 @@ class SafariSettingGuideWidget extends StatelessWidget {
                         : CrossAxisAlignment.start,
                     children: [
                       Text(title,
-                          style: const TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.w500),
+                          style: context.theme.text.callout.copyWith(fontWeight: FontWeight.w500),
                           textAlign: (centerTitle)
                               ? TextAlign.center
                               : TextAlign.start),
                       (subtitle != null)
                           ? Text(subtitle!,
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  color: context.theme.textSecondary))
+                              style: context.theme.text.caption
+                                  .copyWith(color: context.theme.textSecondary))
                           : Container(),
                     ],
                   ),
                 ),
                 (edgeText != null)
                     ? Text(edgeText!,
-                        style: TextStyle(
-                            fontSize: 14, color: context.theme.textSecondary))
+                        style: context.theme.text.callout
+                            .copyWith(color: context.theme.textSecondary))
                     : Container(),
                 const SizedBox(width: 4),
                 widgetRight ?? Container(),

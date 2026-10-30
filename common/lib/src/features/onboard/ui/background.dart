@@ -1,4 +1,5 @@
 import 'package:common/src/core/core.dart';
+import 'package:common/src/shared/ui/theme.dart';
 import 'package:flutter/material.dart';
 
 class ColorfulBackground extends StatelessWidget {
@@ -62,7 +63,7 @@ class _SixPainter extends CustomPainter {
       end: Alignment.bottomRight,
       colors: [
         Color(0xffEE5F48),
-        Color(0xffFF9400).withOpacity(0.8),
+        BlokadaPalette.orange.withOpacity(0.8),
       ],
     );
 
@@ -70,8 +71,8 @@ class _SixPainter extends CustomPainter {
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
       colors: [
-        const Color(0xffFF9400).withOpacity(0.0),
-        const Color(0xffFF9400),
+        BlokadaPalette.orange.withOpacity(0.0),
+        BlokadaPalette.orange,
       ],
     );
 

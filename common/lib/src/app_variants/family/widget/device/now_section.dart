@@ -21,10 +21,6 @@ import 'package:flutter/material.dart';
 /// expiry server-side; the app reflects the choice optimistically.
 enum OverrideKind { block, pause }
 
-/// Green used for the affirmative "filtering on" cue, matching the schedule
-/// section's active marker so the device screen reads consistently.
-const _filterGreen = Color(0xFF34C759);
-
 /// "Right now" readout on the Device detail screen.
 ///
 /// A single tappable row (from [resolveEffectiveState]) that always answers
@@ -151,7 +147,7 @@ class _NowSectionState extends State<NowSection> {
               overrideActive
                   ? 'family device now footer override'.i18n
                   : 'family device now footer'.i18n,
-              style: TextStyle(color: context.theme.textSecondary, fontSize: 13)),
+              style: context.theme.text.footnote.copyWith(color: context.theme.textSecondary)),
         ),
       ],
     );
@@ -169,7 +165,7 @@ class _NowSectionState extends State<NowSection> {
     final String statusLabel;
     switch (state.outcome) {
       case EffectiveOutcome.filter:
-        dotColor = _filterGreen;
+        dotColor = BlokadaPalette.green;
         statusLabel = 'family device now status filter'
             .i18n
             .withParams(profile?.displayAlias.i18n ?? 'family stats label profile unknown'.i18n);
@@ -179,7 +175,7 @@ class _NowSectionState extends State<NowSection> {
         statusLabel = 'family device now status allow'.i18n;
         break;
       case EffectiveOutcome.blocked:
-        dotColor = Colors.red;
+        dotColor = context.theme.blocked;
         statusLabel = 'family device now status blocked'.i18n;
         break;
     }
@@ -232,7 +228,7 @@ class _NowSectionState extends State<NowSection> {
             width: 4,
             height: 36,
             decoration: BoxDecoration(
-              color: overrideActive ? Colors.red : Colors.transparent,
+              color: overrideActive ? BlokadaPalette.red : Colors.transparent,
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -249,18 +245,16 @@ class _NowSectionState extends State<NowSection> {
               children: [
                 Text(
                   statusLabel,
-                  style: TextStyle(
+                  style: context.theme.text.body.semibold.copyWith(
                     color: state.outcome == EffectiveOutcome.filter && profile != null
                         ? getProfileColorFor(profile.template, profile.displayAlias)
                         : context.theme.textPrimary,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
                   ),
                 ),
                 const SizedBox(height: 2),
                 Text(
                   untilCaption == null ? sourceLabel : '$sourceLabel · $untilCaption',
-                  style: TextStyle(color: context.theme.textSecondary, fontSize: 13),
+                  style: context.theme.text.footnote.copyWith(color: context.theme.textSecondary),
                 ),
               ],
             ),

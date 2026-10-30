@@ -6,7 +6,6 @@ import 'package:common/src/shared/ui/common_clickable.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 class ActivityItem extends StatefulWidget {
   /// Status shield size; small so the log reads as a list, not an alarm.
@@ -101,7 +100,7 @@ class ActivityItemState extends State<ActivityItem> {
                         blocked
                             ? CupertinoIcons.xmark_shield_fill
                             : CupertinoIcons.checkmark_shield_fill,
-                        color: blocked ? Colors.red : Colors.green,
+                        color: blocked ? context.theme.blocked : context.theme.allowed,
                         size: ActivityItem.iconSize,
                       ),
                       const SizedBox(width: 8),
