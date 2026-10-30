@@ -142,7 +142,8 @@ class _LockScreenState extends State<LockScreen>
     });
   }
 
-  // Fits four lines of the 28px status, the longest translations wrap that far.
+  // Fits four lines of the 28px status at default text size, the longest
+  // translations wrap that far.
   static const double _headerHeight = 140;
 
   String _getHeaderString() {
@@ -263,14 +264,14 @@ class _LockScreenState extends State<LockScreen>
                       ),
                     ),
                   ),
-                  secondChild: SizedBox(
-                    height: _headerHeight,
-                    child: Center(
-                      child: Text(_getHeaderString(),
-                          textAlign: TextAlign.center,
-                          style: context.theme.text.hero.copyWith(
-                              color: Colors.white, fontWeight: FontWeight.normal)),
-                    ),
+                  // Grows past the minimum when large text needs more lines.
+                  secondChild: Container(
+                    constraints: const BoxConstraints(minHeight: _headerHeight),
+                    alignment: Alignment.center,
+                    child: Text(_getHeaderString(),
+                        textAlign: TextAlign.center,
+                        style: context.theme.text.hero
+                            .copyWith(color: Colors.white, fontWeight: FontWeight.normal)),
                   ),
                   crossFadeState: _showHeaderIcon
                       ? CrossFadeState.showFirst
