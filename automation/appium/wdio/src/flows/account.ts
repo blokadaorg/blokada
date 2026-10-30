@@ -79,12 +79,28 @@ async function launchWithRestore(accountId: string): Promise<void> {
   await waitForAppForeground(APP_BUNDLE_ID);
 }
 
+// Android shows restore results in a native AlertDialog, whose window hides
+// the Flutter tree (Settings included) from UiAutomator2. Only error dialogs
+// carry a neutral "share log" button (button3), so the success one is the
+// dialog without it.
+const androidDialogButton = (n: number) =>
+  `android=new UiSelector().resourceId("android:id/button${n}")`;
+
+async function activeRestoreFinished(): Promise<boolean> {
+  if (await elementExists(settingsScreenSelector())) return true;
+  if (!isAndroid()) return false;
+  return (
+    (await elementExists(androidDialogButton(1))) &&
+    !(await elementExists(androidDialogButton(3)))
+  );
+}
+
 /**
  * Switch the active account by id through the restore launch argument, then
  * relaunch to a clean Home. The relaunch carries no argument, so the restore
  * runs once. `expectActive` marks an account that is active: its restore
- * reroutes to Settings, and a restore that never does fails here instead of
- * being recorded as done.
+ * reroutes to Settings, and a restore that never finishes fails here instead
+ * of being recorded as done.
  */
 export async function restoreAccount(accountId: string, expectActive = false): Promise<void> {
   await launchWithRestore(accountId);
@@ -92,21 +108,18 @@ export async function restoreAccount(accountId: string, expectActive = false): P
   // Wait for the restore to complete before relaunching, so a slow network
   // restore is not killed mid-persist.
   if (expectActive) {
-    // An active restore reroutes to Settings only after the account API call
-    // and persist. It still shows the result dialog, marks the intro seen (or
-    // the intro returns on the next launch of a fresh install) and syncs the
-    // account after that, so give those a moment too.
+    // An active restore reroutes to Settings and shows its result dialog only
+    // after the account API call and persist. It still marks the intro seen
+    // (or the intro returns on the next launch of a fresh install) and syncs
+    // the account after that, so give those a moment too.
     const rerouted = await driver
-      .waitUntil(async () => await elementExists(settingsScreenSelector()), {
-        timeout: 30000,
-        interval: 400
-      })
+      .waitUntil(activeRestoreFinished, { timeout: 30000, interval: 400 })
       .then(() => true)
       .catch(() => false);
     if (!rerouted) {
       // Name no id: CI uploads the output of a public repo.
       throw new Error(
-        "Restoring the active account did not reroute to Settings: the restore failed, " +
+        "Restoring the active account showed neither Settings nor its result: the restore failed, " +
           "or the installed build does not read the restore launch argument."
       );
     }
