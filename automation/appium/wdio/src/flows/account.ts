@@ -79,41 +79,39 @@ async function launchWithRestore(accountId: string): Promise<void> {
   await waitForAppForeground(APP_BUNDLE_ID);
 }
 
-// The restore shows its result in a native dialog (Android AlertDialog, iOS
-// alert). The dialog is modal for accessibility, so it hides the Flutter tree,
-// Settings included, from Appium. Success and error dialogs differ only in
-// localized text, so close whichever shows: an active restore has already
-// rerouted to Settings underneath, a failed one has not.
-const androidDialogClose = () => 'android=new UiSelector().resourceId("android:id/button1")';
+// The restore ends with a native result dialog (Android AlertDialog, iOS
+// alert). It is modal for accessibility, so it hides the Flutter tree from
+// Appium, and it is the dependable completion signal. On Android only the
+// error dialogs carry a neutral "share log" button (button3). On iOS success
+// and error alerts differ only in localized text, so any app alert counts and
+// a failed restore surfaces in the specs that follow.
+const androidDialogButton = (n: number) =>
+  `android=new UiSelector().resourceId("android:id/button${n}")`;
 
-async function closeResultDialog(): Promise<void> {
-  if (isAndroid()) {
-    if (await elementExists(androidDialogClose())) {
-      await tap(await $(androidDialogClose()));
-    }
-    return;
-  }
+async function iosAppAlertOpen(): Promise<boolean> {
   try {
-    // Throws when no app alert is open. The cancel-style button WebDriverAgent
-    // dismisses with is "Close"; the other one would share the log.
+    // Throws when no app alert is open; system prompts are not app alerts.
     await driver.getAlertText();
-    await driver.dismissAlert();
+    return true;
   } catch {
-    // No alert.
+    return false;
   }
 }
 
 async function activeRestoreFinished(): Promise<boolean> {
   if (await elementExists(settingsScreenSelector())) return true;
-  await closeResultDialog();
-  return false;
+  if (!isAndroid()) return await iosAppAlertOpen();
+  return (
+    (await elementExists(androidDialogButton(1))) &&
+    !(await elementExists(androidDialogButton(3)))
+  );
 }
 
 /**
  * Switch the active account by id through the restore launch argument, then
  * relaunch to a clean Home. The relaunch carries no argument, so the restore
  * runs once. `expectActive` marks an account that is active: its restore
- * reroutes to Settings, and a restore that never finishes fails here instead
+ * shows its result, and a restore that never finishes fails here instead
  * of being recorded as done.
  */
 export async function restoreAccount(accountId: string, expectActive = false): Promise<void> {
@@ -122,15 +120,15 @@ export async function restoreAccount(accountId: string, expectActive = false): P
   // Wait for the restore to complete before relaunching, so a slow network
   // restore is not killed mid-persist.
   if (expectActive) {
-    // An active restore reroutes to Settings and shows its result dialog only
-    // after the account API call and persist. It still marks the intro seen
-    // (or the intro returns on the next launch of a fresh install) and syncs
-    // the account after that, so give those a moment too.
-    const rerouted = await driver
+    // An active restore shows its result only after the account API call and
+    // persist. It still marks the intro seen (or the intro returns on the next
+    // launch of a fresh install) and syncs the account after that, so give
+    // those a moment too.
+    const finished = await driver
       .waitUntil(activeRestoreFinished, { timeout: 30000, interval: 400 })
       .then(() => true)
       .catch(() => false);
-    if (!rerouted) {
+    if (!finished) {
       // Name no id: CI uploads the output of a public repo.
       throw new Error(
         "Restoring the active account showed neither Settings nor its result: the restore failed, " +
