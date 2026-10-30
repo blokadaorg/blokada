@@ -66,6 +66,8 @@
     "universal action add": "Add",
     "support action chat": "Chat with us",
     "support action end": "End",
+    "support action ask": "Ask support",
+    "support action continue": "Continue with support",
     "support placeholder": "Ask about anything you want to know!",
     "support error generic": "Sorry did not understand, can you repeat?",
     "support name bot": "Blocka Bot",

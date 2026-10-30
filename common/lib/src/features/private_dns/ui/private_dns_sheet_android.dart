@@ -1,6 +1,8 @@
 import 'package:common/src/features/env/domain/env.dart';
 import 'package:common/src/features/modal/domain/modal.dart';
 import 'package:common/src/features/private_dns/domain/private_dns_setup.dart';
+import 'package:common/src/features/support/domain/support.dart';
+import 'package:common/src/features/support/ui/ask_support_link.dart';
 import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/ui/minicard/minicard.dart';
 import 'package:common/src/shared/ui/theme.dart';
@@ -249,7 +251,13 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
         _openSettings,
         AutomationIds.dnsOpenSettings,
       ),
-      const SizedBox(height: 16),
+      Center(
+        child: AskSupportLink(
+          event: SupportEvent.dnsSetupHelp,
+          close: (m) => _modal.change(m, null),
+        ),
+      ),
+      const SizedBox(height: 8),
     ];
   }
 
