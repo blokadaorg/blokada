@@ -3,6 +3,7 @@ import 'package:common/src/core/core.dart';
 import 'package:common/src/features/modal/domain/modal.dart';
 import 'package:common/src/features/private_dns/domain/private_dns_setup.dart';
 import 'package:common/src/features/private_dns/ui/private_dns_sheet_android.dart';
+import 'package:common/src/features/support/domain/support.dart';
 import 'package:common/src/platform/perm/channel.pg.dart';
 import 'package:common/src/platform/perm/perm.dart';
 import 'package:common/src/shared/automation/ids.dart';
@@ -43,12 +44,24 @@ const _theme = BlokadaTheme(
   divider: Colors.black26,
 );
 
+/// Records the Ask support link's request, with no backend.
+class _FakeSupportActor extends SupportActor {
+  final asked = <SupportEvent>[];
+
+  @override
+  Future<bool> isSessionOpen(Marker m) async => false;
+
+  @override
+  Future<void> askSupport(Marker m, SupportEvent event) async => asked.add(event);
+}
+
 class _Setup {
   final FakeDnsChannel channel;
   final CurrentModalValue modal;
   final List<String?> clipboard;
+  final _FakeSupportActor support;
 
-  _Setup(this.channel, this.modal, this.clipboard);
+  _Setup(this.channel, this.modal, this.clipboard, this.support);
 }
 
 Future<_Setup> _pump(
@@ -63,6 +76,8 @@ Future<_Setup> _pump(
   final channel = FakeDnsChannel(state ?? dnsState(null));
   Core.register<PermChannel>(channel);
   Core.register<PrivateDnsStringProvider>(_FakeProvider());
+  final support = _FakeSupportActor();
+  Core.register<SupportActor>(support);
   final modal = CurrentModalValue();
   Core.register(modal);
   await modal.change(m, Modal.onboardPrivateDns);
@@ -96,7 +111,7 @@ Future<_Setup> _pump(
     ),
   );
   await tester.pumpAndSettle();
-  return _Setup(channel, modal, clipboard);
+  return _Setup(channel, modal, clipboard, support);
 }
 
 Finder _byId(String id) =>
@@ -137,6 +152,18 @@ void main() {
       if (shown[i] == ".") expect(shown[i + 1], "\u200B");
     }
     expect(shown.replaceAll("\u200B", ""), host);
+  });
+
+  testWidgets("Ask support closes the sheet and asks with the DNS setup event", (tester) async {
+    await withTrace((m) async {
+      final s = await _pump(tester, m, manufacturer: "Google");
+
+      await tester.tap(find.text("support action ask".i18n));
+      await tester.pumpAndSettle();
+
+      expect(s.modal.present, isNull);
+      expect(s.support.asked, [SupportEvent.dnsSetupHelp]);
+    });
   });
 
   testWidgets("narrow screen wraps the hostname only after a dot", (tester) async {

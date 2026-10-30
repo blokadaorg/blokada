@@ -6,6 +6,7 @@ class SupportActor with Logging, Actor {
   late final _api = Core.get<SupportApi>();
   late final _command = Core.get<CommandStore>();
   late final _currentSession = Core.get<CurrentSession>();
+  late final _sessionExpiry = Core.get<SupportSessionExpiry>();
   late final _chatHistory = Core.get<ChatHistory>();
   late final _unread = Core.get<SupportUnreadActor>();
   late final _scheduler = Core.get<Scheduler>();
@@ -104,6 +105,37 @@ class SupportActor with Logging, Actor {
     }
     if (_unread.isShowingChat) return;
     await _modal.change(m, Modal.support);
+  }
+
+  /// Opens the chat sheet from a help link on a screen where people get
+  /// stuck. A chat that is still open goes on as it is, so the same problem
+  /// never gets a second chat. Otherwise a new one starts with [event], which
+  /// tells the agent where the user asked for help; the user sees the usual
+  /// welcome.
+  Future<void> askSupport(Marker m, SupportEvent event) async {
+    final open = await isSessionOpen(m);
+    // Started before the sheet, whose own load would open the chat with
+    // FIRST_OPEN. Not awaited: the welcome shows in the sheet once it is in.
+    unawaited(_logFailure(
+      m,
+      open ? loadOrInit(m, event: event) : startSession(m, event: event),
+    ));
+    await openSheet(m);
+  }
+
+  Future<void> _logFailure(Marker m, Future<void> work) async {
+    try {
+      await work;
+    } catch (e, s) {
+      log(m).e(msg: "Error opening support session", err: e, stack: s);
+    }
+  }
+
+  /// Whether a chat is open, also after a cold start.
+  Future<bool> isSessionOpen(Marker m) async {
+    final id = await _currentSession.fetch(m);
+    final expires = DateTime.tryParse(await _sessionExpiry.fetch(m) ?? "");
+    return id != null && expires != null && expires.isAfter(DateTime.now());
   }
 
   // Return true if session was just created
@@ -211,12 +243,13 @@ class SupportActor with Logging, Actor {
     final session = await _api.createSession(m, language, event: event);
     await _currentSession.change(m, session.sessionId);
     _ttl = session.ttl;
-    await _updateSessionExpiry();
+    await _updateSessionExpiry(m);
     await _handleResponse(m, session.history);
   }
 
   clearSession(Marker m) async {
     await _currentSession.change(m, null);
+    await _sessionExpiry.change(m, null);
     await _chatHistory.change(m, null);
     messages = [];
     _action = null;
@@ -284,7 +317,7 @@ class SupportActor with Logging, Actor {
       await sleepAsync(const Duration(milliseconds: 500));
       await _addErrorMessage(m);
     }
-    await _updateSessionExpiry();
+    await _updateSessionExpiry(m);
   }
 
   sendEvent(SupportEvent event, Marker m, {bool retrying = false}) async {
@@ -312,7 +345,7 @@ class SupportActor with Logging, Actor {
     } catch (e, s) {
       log(m).e(msg: "Error sending chat event", err: e, stack: s);
     }
-    await _updateSessionExpiry();
+    await _updateSessionExpiry(m);
   }
 
   /// Runs the tool of the card the user approved.
@@ -417,7 +450,7 @@ class SupportActor with Logging, Actor {
       // The button may have changed without a reply to redraw it.
       onChange();
     }
-    await _updateSessionExpiry();
+    await _updateSessionExpiry(m);
   }
 
   /// Turns down the agent's open request, leaving a note in the history.
@@ -511,11 +544,13 @@ class SupportActor with Logging, Actor {
     });
   }
 
-  _updateSessionExpiry() async {
+  _updateSessionExpiry(Marker m) async {
+    final expires = DateTime.now().add(Duration(seconds: _ttl));
+    await _sessionExpiry.change(m, expires.toIso8601String());
     await _scheduler.addOrUpdate(Job(
       _keyExpireSession,
       Markers.support,
-      before: DateTime.now().add(Duration(seconds: _ttl)),
+      before: expires,
       callback: (m) async {
         clearSession(m);
         return false; // No reschedule

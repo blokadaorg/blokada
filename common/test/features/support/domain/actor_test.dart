@@ -73,6 +73,7 @@ MockSupportApi _registerDeps() {
   Core.register<Persistence>(persistence);
 
   Core.register(CurrentSession());
+  Core.register(SupportSessionExpiry());
   Core.register(ChatHistory());
   // withTrace registers a no-op one; these tests control what it reads.
   Core.di.unregister<LoggerChannel>(instanceName: "default");
@@ -731,6 +732,79 @@ void main() {
       expect(response.messages!.single.actions.single.id, "Qm9x");
     });
   });
+  group("askSupport", () {
+    test("with no open chat, starts one with the event and opens the sheet",
+        () async {
+      await withTrace((m) async {
+        final api = _registerDeps();
+        final modal = CurrentModalValue();
+        Core.register(modal);
+        when(api.createSession(any, any, event: anyNamed("event")))
+            .thenAnswer((_) async => _session("session-1"));
+
+        final subject = SupportActor();
+        await subject.askSupport(m, SupportEvent.dnsSetupHelp);
+        await Future<void>.delayed(Duration.zero);
+
+        verify(api.createSession(any, any, event: SupportEvent.dnsSetupHelp))
+            .called(1);
+        expect(modal.present, Modal.support);
+        expect(await subject.isSessionOpen(m), isTrue);
+      });
+    });
+
+    test("continues an open chat instead of starting another", () async {
+      await withTrace((m) async {
+        final api = _registerDeps();
+        Core.register(CurrentModalValue());
+        when(api.createSession(any, any, event: anyNamed("event")))
+            .thenAnswer((_) async => _session("session-1"));
+
+        final subject = SupportActor();
+        await subject.startSession(m);
+        await subject.askSupport(m, SupportEvent.restoreHelp);
+        await Future<void>.delayed(Duration.zero);
+
+        verify(api.createSession(any, any, event: anyNamed("event")))
+            .called(1);
+        verifyNever(
+            api.createSession(any, any, event: SupportEvent.restoreHelp));
+      });
+    });
+
+    test("a cleared chat is no longer open", () async {
+      await withTrace((m) async {
+        final api = _registerDeps();
+        when(api.createSession(any, any, event: anyNamed("event")))
+            .thenAnswer((_) async => _session("session-1"));
+
+        final subject = SupportActor();
+        await subject.startSession(m);
+        await subject.clearSession(m);
+
+        expect(await subject.isSessionOpen(m), isFalse);
+      });
+    });
+
+    test("a chat stored before a restart is open until it expires", () async {
+      for (final (expires, open) in [
+        (DateTime.now().add(const Duration(minutes: 5)), true),
+        (DateTime.now().subtract(const Duration(minutes: 5)), false),
+      ]) {
+        await withTrace((m) async {
+          _registerDeps();
+          final persistence = Core.get<Persistence>() as MockPersistence;
+          when(persistence.load(any, "support_session_id"))
+              .thenAnswer((_) async => "session-1");
+          when(persistence.load(any, "support_session_expires"))
+              .thenAnswer((_) async => expires.toIso8601String());
+
+          expect(await SupportActor().isSessionOpen(m), open);
+        });
+      }
+    });
+  });
+
   group("openSheet", () {
     test("opens the chat sheet", () async {
       await withTrace((m) async {

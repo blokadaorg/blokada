@@ -97,6 +97,10 @@ class AutomationIds {
   static const dnsCopyHostname = 'automation.dns_copy_hostname';
   static const dnsSetupSuccess = 'automation.dns_setup_success';
 
+  /// The Ask support link under the main button of the DNS setup sheet and
+  /// in the Restore account ID dialog.
+  static const askSupport = 'automation.ask_support';
+
   static const onboardIntroSheet = 'automation.onboard_intro_sheet';
   static const onboardContinue = 'automation.onboard_continue';
 

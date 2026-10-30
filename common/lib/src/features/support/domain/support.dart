@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -29,6 +30,12 @@ class CurrentSession extends StringPersistedValue {
   CurrentSession() : super("support_session_id");
 }
 
+/// When the stored session expires, kept next to its id because the expiry
+/// timer of the scheduler does not survive a cold start.
+class SupportSessionExpiry extends StringPersistedValue {
+  SupportSessionExpiry() : super("support_session_expires");
+}
+
 class ChatHistory extends JsonPersistedValue<SupportMessages> {
   ChatHistory() : super("support_chat_history");
 
@@ -48,6 +55,7 @@ class SupportModule with Module {
   @override
   onCreateModule() async {
     await register(CurrentSession());
+    await register(SupportSessionExpiry());
     await register(ChatHistory());
     await register(SupportUnread());
     await register(SupportApi());
