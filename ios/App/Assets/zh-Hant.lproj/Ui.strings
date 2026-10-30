@@ -1205,6 +1205,8 @@
 "blocklist brief cpbl standard" = "Ads, tracking and malware, medium size";
 "blocklist brief danpollock standard" = "Ad servers, a small list";
 "blocklist brief d3host standard" = "A small list made to pass the d3ward ad block test";
+// Under "Safe search" in the adult content group. YouTube Restricted Mode is the name YouTube uses for it: use the name YouTube shows in your language.
+"blocklist brief meta_safe_search safe search" = "Safe results on major search engines and YouTube, blocks the rest";
 
 // Android Private DNS setup sheet. Step texts name screens and options in the
 // phone's Settings app: use the wording the phone shows in your language.

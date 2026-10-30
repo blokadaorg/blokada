@@ -865,6 +865,7 @@
     "blocklist brief cpbl standard": "Pubblicità, tracking e malware, lista di medie dimension",
     "blocklist brief danpollock standard": "Pubblicità, una lista più piccola",
     "blocklist brief d3host standard": "Una breve lista per superare il test d3ward di blocco pubblicità",
+    "blocklist brief meta_safe_search safe search": "Safe results on major search engines and YouTube, blocks the rest",
     "private dns android brief": "%s funziona attraverso il DNS Privato. Copia il tuo hostname, poi incollano nelle Impostazioni.",
     "private dns android header": "Attiva DNS Privato",
     "private dns android hostname label": "Il tuo hostname",

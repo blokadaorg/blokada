@@ -866,6 +866,7 @@
     <string name="blocklist_brief_cpbl_standard">Pubblicità, tracking e malware, lista di medie dimension</string>
     <string name="blocklist_brief_danpollock_standard">Pubblicità, una lista più piccola</string>
     <string name="blocklist_brief_dthreehost_standard">Una breve lista per superare il test d3ward di blocco pubblicità</string>
+    <string name="blocklist_brief_metasafesearch_safe_search">Safe results on major search engines and YouTube, blocks the rest</string>
     <string name="private_dns_android_brief">%1$s funziona attraverso il DNS Privato. Copia il tuo hostname, poi incollano nelle Impostazioni.</string>
     <string name="private_dns_android_header">Attiva DNS Privato</string>
     <string name="private_dns_android_hostname_label">Il tuo hostname</string>
