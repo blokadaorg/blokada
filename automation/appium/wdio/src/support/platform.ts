@@ -46,14 +46,6 @@ export function byIdPrefix(prefix: string): string {
   return `android=new UiSelector().resourceIdMatches("${pattern}")`;
 }
 
-/** Selector for the single text input on a screen (e.g. the support chat composer). */
-export function textInputSelector(): string {
-  if (!isAndroid()) {
-    return "-ios predicate string: type == 'XCUIElementTypeTextField' OR type == 'XCUIElementTypeTextView'";
-  }
-  return 'android=new UiSelector().className("android.widget.EditText")';
-}
-
 /** Drop selectors that only parse on the other platform. */
 export function forPlatform(selectors: string[]): string[] {
   if (!isAndroid()) {
@@ -87,12 +79,6 @@ export async function semanticValueOf(
 export async function switchStateOf(element: WebdriverIO.Element): Promise<string | undefined> {
   const value = await element.getAttribute(isAndroid() ? "checked" : "value");
   return typeof value === "string" ? value : undefined;
-}
-
-/** Text typed into an input. */
-export async function inputTextOf(element: WebdriverIO.Element): Promise<string> {
-  const value = await element.getAttribute(isAndroid() ? "text" : "value");
-  return typeof value === "string" ? value : "";
 }
 
 /**

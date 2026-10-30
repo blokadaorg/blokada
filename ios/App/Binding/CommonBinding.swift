@@ -466,12 +466,6 @@ class CommonBinding: CommonOps {
         UIApplication.shared.applicationIconBadgeNumber = 0
     }
 
-    // -- Config
-    func doConfigChanged(skipBypassList: Bool, completion: @escaping (Result<Void, any Error>) -> Void) {
-        // Not relevant to iOS as of yet
-        completion(.success(()))
-    }
-
     // -- Share
     func doShareText(text: String, completion: @escaping (Result<Void, Error>) -> Void) {
         shareText.send(text)

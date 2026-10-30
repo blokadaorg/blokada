@@ -79,21 +79,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.handleBackgroundPing(task: task as! BGAppRefreshTask)
         }
 
-#if DEBUG
+#if DEBUG || RESTORE_LAUNCH_ARG
         restoreAccountFromLaunchArguments()
 #endif
 
         return true
     }
 
-#if DEBUG
+#if DEBUG || RESTORE_LAUNCH_ARG
     /// Restores the account id passed as `-restoreAccountId <id>` (for example
     /// `xcrun simctl launch <udid> <bundle> -restoreAccountId <id>`, wrapped by
-    /// `make -C ios restore-account-sim`), so a fresh simulator install can be
-    /// set up with a test account without typing it into the Restore Account ID
-    /// dialog. Debug builds only, so nothing outside a developer's own launch
-    /// can swap the account of a shipped app. The command is queued until
-    /// Flutter accepts commands.
+    /// `make -C ios restore-account-sim`, or the Appium smoke suite), so a fresh
+    /// install can be set up with a test account without typing it into the
+    /// Restore Account ID dialog. Debug builds and the Dev and FamilyDev
+    /// targets only (RESTORE_LAUNCH_ARG, set on their Release configurations,
+    /// which the device runs use); the Prod targets that ship never read it.
+    /// The command is queued until Flutter accepts commands.
     private func restoreAccountFromLaunchArguments() {
         let args = ProcessInfo.processInfo.arguments
         guard let index = args.firstIndex(of: "-restoreAccountId"), index + 1 < args.count else { return }
