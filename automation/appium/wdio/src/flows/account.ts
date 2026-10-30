@@ -112,9 +112,17 @@ export async function restoreAccount(accountId: string, expectActive = false): P
     }
     await driver.pause(3000);
   } else {
-    // An inactive restore has no navigation and no dependable UI signal, so
-    // settle for a fixed time covering the startup and the network round trip.
-    await driver.pause(12000);
+    // An inactive restore has no navigation and only a localized result
+    // dialog to show for it. The restore command runs once Flutter is up, so
+    // wait for Home to render (best effort: the intro can cover it on a fresh
+    // install), then settle for the account round trip.
+    await driver
+      .waitUntil(async () => await elementExists(homeSettingsSelector()), {
+        timeout: 30000,
+        interval: 400
+      })
+      .catch(() => undefined);
+    await driver.pause(8000);
   }
 
   await terminateApp(APP_BUNDLE_ID);
