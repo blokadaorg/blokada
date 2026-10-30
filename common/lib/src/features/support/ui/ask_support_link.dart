@@ -31,16 +31,22 @@ class AskSupportLinkState extends State<AskSupportLink> with Logging {
   @override
   void initState() {
     super.initState();
-    _support.isSessionOpen(Markers.ui).then((open) {
+    _support.isSessionOpen(Markers.ui).catchError((e, s) {
+      log(Markers.ui).e(msg: "Error reading support session", err: e, stack: s);
+      return false;
+    }).then((open) {
       if (mounted) setState(() => _sessionOpen = open);
     });
   }
 
   void _tap() {
+    // Read before closing, which takes this link off screen.
     final support = _support;
+    final event = widget.event;
+    final close = widget.close;
     log(Markers.userTap).trace("askSupport", (m) async {
-      await widget.close(m);
-      await support.askSupport(m, widget.event);
+      await close(m);
+      await support.askSupport(m, event);
     });
   }
 
