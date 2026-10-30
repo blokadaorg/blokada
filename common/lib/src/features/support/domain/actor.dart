@@ -134,8 +134,13 @@ class SupportActor with Logging, Actor {
   /// Whether a chat is open, also after a cold start.
   Future<bool> isSessionOpen(Marker m) async {
     final id = await _currentSession.fetch(m);
-    final expires = DateTime.tryParse(await _sessionExpiry.fetch(m) ?? "");
-    return id != null && expires != null && expires.isAfter(DateTime.now());
+    if (id == null) return false;
+    final stored = await _sessionExpiry.fetch(m);
+    // Stored by an app version that kept no expiry: [loadOrInit] asks the
+    // server, and starts a new chat with the event if this one is gone.
+    if (stored == null) return true;
+    final expires = DateTime.tryParse(stored);
+    return expires != null && expires.isAfter(DateTime.now());
   }
 
   // Return true if session was just created
@@ -150,6 +155,7 @@ class SupportActor with Logging, Actor {
         final session = await _api.getSession(m, _currentSession.present!);
         _ttl = session.ttl;
         if (_ttl < 0) throw Exception("Session expired");
+        await _updateSessionExpiry(m);
         await _loadChatHistory(m, session.history);
         return false;
       } catch (e, s) {

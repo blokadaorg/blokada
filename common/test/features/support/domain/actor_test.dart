@@ -803,6 +803,19 @@ void main() {
         });
       }
     });
+
+    test("a chat stored with no expiry, by an older app, counts as open", () async {
+      await withTrace((m) async {
+        _registerDeps();
+        final persistence = Core.get<Persistence>() as MockPersistence;
+        when(persistence.load(any, "support_session_id"))
+            .thenAnswer((_) async => "session-1");
+        when(persistence.load(any, "support_session_expires"))
+            .thenAnswer((_) async => null);
+
+        expect(await SupportActor().isSessionOpen(m), isTrue);
+      });
+    });
   });
 
   group("openSheet", () {
