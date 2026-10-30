@@ -77,8 +77,14 @@ class BlokadaTypeScale {
   /// Hero numbers, such as the all-time total.
   final TextStyle display;
 
+  /// Big numbers and onboarding headlines, a step below [display].
+  final TextStyle hero;
+
   /// Section headers and the numbers on stat cards.
   final TextStyle title;
+
+  /// Section headers a step below [title], and lead-in text under a hero.
+  final TextStyle headline;
 
   /// Actions in a top bar.
   final TextStyle barAction;
@@ -98,7 +104,9 @@ class BlokadaTypeScale {
   const BlokadaTypeScale({
     this.largeTitle = const TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
     this.display = const TextStyle(fontSize: 34, fontWeight: FontWeight.w600),
+    this.hero = const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
     this.title = const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+    this.headline = const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
     this.barAction = const TextStyle(fontSize: 17),
     this.body = const TextStyle(fontSize: 16),
     this.callout = const TextStyle(fontSize: 14),
