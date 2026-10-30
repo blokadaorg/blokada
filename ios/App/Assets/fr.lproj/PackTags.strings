@@ -40,7 +40,7 @@
 "security" = "sécurité";
 // Family tags below
 // One of the tags used for searching blocklists
-"malware" = "malware";
+"malware" = "logiciel malveillant";
 // One of the tags used for searching blocklists
 "spam" = "spam";
 // One of the tags used for searching blocklists

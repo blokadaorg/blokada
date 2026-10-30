@@ -865,6 +865,7 @@
     "blocklist brief cpbl standard": "Реклами, проследяване и зловреден софтуер, среден размер",
     "blocklist brief danpollock standard": "Рекламни сървъри, малък списък",
     "blocklist brief d3host standard": "Малък списък, създаден да премине теста за блокиране на реклами на d3ward",
+    "blocklist brief meta_safe_search safe search": "Safe results on major search engines and YouTube, blocks the rest",
     "private dns android brief": "%1$s works through Private DNS. Copy your hostname, then paste it in Settings.",
     "private dns android header": "Turn on Private DNS",
     "private dns android hostname label": "Your hostname",

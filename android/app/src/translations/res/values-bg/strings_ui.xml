@@ -866,6 +866,7 @@
     <string name="blocklist_brief_cpbl_standard">Реклами, проследяване и зловреден софтуер, среден размер</string>
     <string name="blocklist_brief_danpollock_standard">Рекламни сървъри, малък списък</string>
     <string name="blocklist_brief_dthreehost_standard">Малък списък, създаден да премине теста за блокиране на реклами на d3ward</string>
+    <string name="blocklist_brief_metasafesearch_safe_search">Safe results on major search engines and YouTube, blocks the rest</string>
     <string name="private_dns_android_brief">%1$s works through Private DNS. Copy your hostname, then paste it in Settings.</string>
     <string name="private_dns_android_header">Turn on Private DNS</string>
     <string name="private_dns_android_hostname_label">Your hostname</string>
