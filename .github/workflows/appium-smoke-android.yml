@@ -45,6 +45,7 @@ jobs:
        github.event.workflow_run.head_repository.full_name == github.repository)
     permissions:
       actions: read
+      statuses: write
     outputs:
       run: ${{ steps.read.outputs.run }}
     steps:
@@ -59,7 +60,8 @@ jobs:
           set -euo pipefail
           run=true
           if [ "$EVENT" = workflow_run ]; then
-            if gh run download "$CI_RUN_ID" -R "$REPO" -n ci-changes -D ci-changes; then
+            if gh run download "$CI_RUN_ID" -R "$REPO" -n ci-changes -D ci-changes &&
+              [ -f ci-changes/changes ]; then
               cat ci-changes/changes
               if grep -qx app=false ci-changes/changes && grep -qx appium=false ci-changes/changes; then
                 run=false
@@ -70,16 +72,10 @@ jobs:
           fi
           echo "run=$run" >> "$GITHUB_OUTPUT"
 
-  skipped:
-    name: Report skipped smoke
-    # Still posts the "Appium smoke (Android)" status, so a branch rule requiring
-    # it passes.
-    needs: changes
-    if: needs.changes.outputs.run == 'false' && github.event_name == 'workflow_run'
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
       - name: Report smoke status as skipped
+        # Still posts the "Appium smoke (Android)" status, so a branch rule
+        # requiring it passes.
+        if: steps.read.outputs.run == 'false'
         env:
           GH_TOKEN: ${{ github.token }}
           SHA: ${{ github.event.workflow_run.head_sha }}

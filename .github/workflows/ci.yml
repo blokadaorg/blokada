@@ -48,9 +48,9 @@ jobs:
           HEAD_REF: ${{ github.head_ref }}
         run: |
           set -euo pipefail
-          # Check everything for an action bump, since the jobs are what run
-          # the bumped actions and Dependabot auto-merge relies on them, and
-          # past the 3000 files the files API lists.
+          # Check everything on a manual run, past the 3000 files the files
+          # API lists, and on an action bump: the jobs are what run the bumped
+          # actions, and Dependabot auto-merge relies on them.
           if [ "$EVENT" != pull_request ] || [ "${CHANGED_FILES:-0}" -ge 3000 ] ||
             [[ "$HEAD_REF" == dependabot/github_actions/* ]]; then
             files=ALL
@@ -63,16 +63,25 @@ jobs:
           matches() {
             [ "$files" = ALL ] || grep -qE "$1" <<<"$files"
           }
-          {
-            matches '^(common|android|ios|deps|\.github/actions)/|^(Makefile|\.gitmodules)$' \
-              && echo app=true || echo app=false
-            matches '^deps/translate(/|$)|^common/assets/translations/' \
-              && echo translations=true || echo translations=false
-            matches '^scripts/|^Makefile$|^\.github/workflows/(ci-release|promote|store-rollout)\.yml$' \
-              && echo release_scripts=true || echo release_scripts=false
-            matches '^automation/appium/' \
-              && echo appium=true || echo appium=false
-          } | tee -a "$GITHUB_OUTPUT" > changes
+          # This file defines the jobs below, so an edit to it runs all of
+          # them. The artifact keeps the paths alone: the smoke does not run
+          # this file.
+          self=false
+          matches '^\.github/workflows/ci\.yml$' && self=true
+          area() {
+            local hit=false
+            matches "$2" && hit=true
+            echo "$1=$hit" >> changes
+            [ "$self" = true ] && hit=true
+            echo "$1=$hit" >> "$GITHUB_OUTPUT"
+          }
+          area app '^(common|android|ios|deps|\.github/actions)/|^(Makefile|\.gitmodules)$'
+          area translations '^deps/translate(/|$)|^common/assets/translations/'
+          # The script tests load the release state and rollout code in ios/fastlane.
+          area release_scripts '^scripts/|^ios/fastlane/|^Makefile$|^\.github/workflows/(ci-release|promote|store-rollout)\.yml$'
+          # The specs import automation/shared and read .appiumrc.yaml.
+          area appium '^automation/(appium|shared)/|^\.appiumrc\.yaml$'
+          cat changes
 
       - name: Upload the result for the smoke workflows
         uses: actions/upload-artifact@v7
