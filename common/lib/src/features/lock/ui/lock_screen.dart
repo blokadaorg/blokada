@@ -264,14 +264,22 @@ class _LockScreenState extends State<LockScreen>
                       ),
                     ),
                   ),
-                  // Grows past the minimum when large text needs more lines.
-                  secondChild: Container(
-                    constraints: const BoxConstraints(minHeight: _headerHeight),
-                    alignment: Alignment.center,
-                    child: Text(_getHeaderString(),
-                        textAlign: TextAlign.center,
-                        style: context.theme.text.hero
-                            .copyWith(color: Colors.white, fontWeight: FontWeight.normal)),
+                  // Fixed height keeps the keypad in place; very large text or a
+                  // long translation shrinks to fit instead of clipping.
+                  secondChild: SizedBox(
+                    height: _headerHeight,
+                    child: LayoutBuilder(
+                      builder: (context, constraints) => FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: SizedBox(
+                          width: constraints.maxWidth,
+                          child: Text(_getHeaderString(),
+                              textAlign: TextAlign.center,
+                              style: context.theme.text.hero.copyWith(
+                                  color: Colors.white, fontWeight: FontWeight.normal)),
+                        ),
+                      ),
+                    ),
                   ),
                   crossFadeState: _showHeaderIcon
                       ? CrossFadeState.showFirst
