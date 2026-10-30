@@ -82,42 +82,39 @@ async function launchWithRestore(accountId: string): Promise<void> {
 /**
  * Switch the active account by id through the restore launch argument, then
  * relaunch to a clean Home. The relaunch carries no argument, so the restore
- * runs once, and it is deterministic regardless of the restore branch (active
- * restore reroutes to Settings; inactive stays put behind a result dialog).
- * `expectActive` marks an account that should reroute, so a missing reroute
- * is reported instead of passing silently.
+ * runs once. `expectActive` marks an account that is active: its restore
+ * reroutes to Settings, and a restore that never does fails here instead of
+ * being recorded as done.
  */
 export async function restoreAccount(accountId: string, expectActive = false): Promise<void> {
   await launchWithRestore(accountId);
 
   // Wait for the restore to complete before relaunching, so a slow network
-  // restore is not killed mid-persist. An active restore reroutes to the
-  // Settings screen only after the account API call + persist, which is a
-  // reliable completion signal. An inactive restore has no navigation and no
-  // dependable UI signal, so fall back to a fixed settle covering the startup
-  // and the network round trip.
-  const rerouted = await driver
-    .waitUntil(async () => await elementExists(settingsScreenSelector()), {
-      timeout: 15000,
-      interval: 400
-    })
-    .then(() => true)
-    .catch(() => false);
-  if (rerouted) {
-    // The reroute comes before the restore command is done: it still shows the
-    // result dialog, marks the intro seen (or the intro returns on the next
-    // launch of a fresh install) and syncs the account. Let that finish.
-    await driver.pause(3000);
-  } else {
-    if (expectActive) {
-      // A build that does not read the launch argument (a Prod or release
-      // build) never restores, which otherwise only shows up specs later.
-      console.warn(
-        "restoreAccount: no Settings reroute after an active restore; the installed " +
-          "build may not read the restore launch argument."
+  // restore is not killed mid-persist.
+  if (expectActive) {
+    // An active restore reroutes to Settings only after the account API call
+    // and persist. It still shows the result dialog, marks the intro seen (or
+    // the intro returns on the next launch of a fresh install) and syncs the
+    // account after that, so give those a moment too.
+    const rerouted = await driver
+      .waitUntil(async () => await elementExists(settingsScreenSelector()), {
+        timeout: 30000,
+        interval: 400
+      })
+      .then(() => true)
+      .catch(() => false);
+    if (!rerouted) {
+      // Name no id: CI uploads the output of a public repo.
+      throw new Error(
+        "Restoring the active account did not reroute to Settings: the restore failed, " +
+          "or the installed build does not read the restore launch argument."
       );
     }
-    await driver.pause(4000);
+    await driver.pause(3000);
+  } else {
+    // An inactive restore has no navigation and no dependable UI signal, so
+    // settle for a fixed time covering the startup and the network round trip.
+    await driver.pause(12000);
   }
 
   await terminateApp(APP_BUNDLE_ID);
