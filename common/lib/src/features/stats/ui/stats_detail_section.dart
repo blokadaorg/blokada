@@ -55,7 +55,9 @@ class StatsDetailSectionState extends State<StatsDetailSection> with Logging {
         children: [
           SizedBox(height: getTopPadding(context)),
           CommonCard(
-            bgColor: widget.entry.isBlocked() ? context.theme.blocked : context.theme.allowed,
+            // Deeper than the chart fills so the white text stays readable.
+            bgColor:
+                widget.entry.isBlocked() ? BlokadaPalette.redStrong : BlokadaPalette.greenStrong,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
               child: Row(

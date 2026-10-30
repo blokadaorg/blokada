@@ -40,6 +40,9 @@ abstract final class BlokadaPalette {
   /// [red] darkened to reach 4.5:1 as text on light backgrounds.
   static const redText = Color(0xFFD70015);
 
+  /// [red] deep enough for white text on it at 4.5:1, for solid status cards.
+  static const redStrong = Color(0xFFD70015);
+
   /// Allowed requests.
   static const green = Color(0xFF33C75A);
   static const greenLight = Color(0xFF61D981);
@@ -48,6 +51,9 @@ abstract final class BlokadaPalette {
 
   /// [green] darkened to reach 4.5:1 as text on light backgrounds.
   static const greenText = Color(0xFF147A50);
+
+  /// [green] deep enough for white text on it at 4.5:1, for solid status cards.
+  static const greenStrong = Color(0xFF1A7F37);
 
   /// Near-black for text on the accent and for links on light backgrounds.
   static const ink = Color(0xFF121212);
