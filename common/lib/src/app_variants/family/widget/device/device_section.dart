@@ -146,6 +146,7 @@ class DeviceSectionState extends State<DeviceSection> with Logging, Disposables 
                       text: "activity section header".i18n,
                       icon: CupertinoIcons.chart_bar,
                       color: BlokadaPalette.green,
+                      textColor: context.theme.textAllowed,
                       chevronIcon: Icons.chevron_right,
                     ),
                     const SizedBox(height: 4),
@@ -359,7 +360,7 @@ class DeviceSectionState extends State<DeviceSection> with Logging, Disposables 
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   child: Text("family device action delete".i18n,
                       style: context.theme.text.body.copyWith(
-                          color: BlokadaPalette.red, fontWeight: FontWeight.w500)),
+                          color: context.theme.textBlocked, fontWeight: FontWeight.w500)),
                 ),
               ),
         const SizedBox(height: 48),

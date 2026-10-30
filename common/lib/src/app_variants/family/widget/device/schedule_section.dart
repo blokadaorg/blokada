@@ -274,7 +274,7 @@ class _ScheduleSectionState extends State<ScheduleSection> {
                           .i18n
                           .withParams(formatMinuteOfDay(activeUntilMinute)),
                       style: context.theme.text.caption
-                          .copyWith(color: BlokadaPalette.green, fontWeight: FontWeight.w700),
+                          .copyWith(color: context.theme.textAllowed, fontWeight: FontWeight.w700),
                     ),
                   ),
               ],

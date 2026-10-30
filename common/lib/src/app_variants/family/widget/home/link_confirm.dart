@@ -38,7 +38,7 @@ Future<void> showLinkConfirmDialog(
           onConfirm();
         },
         child: Text("family link confirm action".i18n,
-            style: const TextStyle(color: BlokadaPalette.red)),
+            style: TextStyle(color: context.theme.textBlocked)),
       ),
     ],
   );

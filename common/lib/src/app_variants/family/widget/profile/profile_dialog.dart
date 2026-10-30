@@ -218,7 +218,7 @@ class ProfileDialogState extends State<ProfileDialog> with Disposables {
     if (error == null) return [];
     return [
       const SizedBox(height: 16),
-      Text(error!, style: const TextStyle(color: BlokadaPalette.red)),
+      Text(error!, style: TextStyle(color: context.theme.textBlocked)),
     ];
   }
 }

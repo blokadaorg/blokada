@@ -315,14 +315,14 @@ class _RuleEditorSheetState extends State<RuleEditorSheet> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       const Icon(CupertinoIcons.delete,
-                          color: CupertinoColors.destructiveRed, size: 18),
+                          color: BlokadaPalette.red, size: 18),
                       const SizedBox(width: 8),
                       Flexible(
                         child: Text(
                           'family profile editor delete'.i18n,
                           overflow: TextOverflow.ellipsis,
                           style: context.theme.text.body
-                              .copyWith(color: CupertinoColors.destructiveRed),
+                              .copyWith(color: context.theme.textBlocked),
                         ),
                       ),
                     ],
@@ -367,7 +367,7 @@ class _RuleEditorSheetState extends State<RuleEditorSheet> {
                 child: Text(
                   'family profile editor delete'.i18n,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(color: BlokadaPalette.red),
+                  style: TextStyle(color: context.theme.textBlocked),
                 ),
               ),
             ],
@@ -478,7 +478,7 @@ class _RuleEditorSheetState extends State<RuleEditorSheet> {
                 padding:
                     const EdgeInsets.fromLTRB(24, 12, 24, 12),
                 child: Text(_error!,
-                    style: const TextStyle(color: BlokadaPalette.red)),
+                    style: TextStyle(color: context.theme.textBlocked)),
               ),
             if (widget.onDelete != null) _buildDeleteFooter(context),
             const SizedBox(height: 32),
@@ -1086,7 +1086,7 @@ class _RuleEditorSheetState extends State<RuleEditorSheet> {
           padding: const EdgeInsets.symmetric(vertical: 12),
           child: Text('family schedule rule editor delete'.i18n,
               style: context.theme.text.body.copyWith(
-                  color: BlokadaPalette.red, fontWeight: FontWeight.w500)),
+                  color: context.theme.textBlocked, fontWeight: FontWeight.w500)),
         ),
       ),
     );

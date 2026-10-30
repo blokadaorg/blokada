@@ -208,7 +208,7 @@ class QrScanSheetMacosState extends State<QrScanSheetMacos> with Logging {
                               Text(
                                 _errorMessage!,
                                 style: context.theme.text.caption
-                                    .copyWith(color: BlokadaPalette.red),
+                                    .copyWith(color: context.theme.textBlocked),
                               ),
                             ],
                           ],

@@ -205,7 +205,7 @@ class _ProfileEditorPageState extends State<ProfileEditorPage> {
             ),
           ),
           child: Text('universal action delete'.i18n,
-              style: const TextStyle(color: BlokadaPalette.red)),
+              style: TextStyle(color: context.theme.textBlocked)),
         ),
       ],
     );
