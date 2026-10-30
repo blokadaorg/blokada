@@ -79,20 +79,34 @@ async function launchWithRestore(accountId: string): Promise<void> {
   await waitForAppForeground(APP_BUNDLE_ID);
 }
 
-// Android shows restore results in a native AlertDialog, whose window hides
-// the Flutter tree (Settings included) from UiAutomator2. Only error dialogs
-// carry a neutral "share log" button (button3), so the success one is the
-// dialog without it.
-const androidDialogButton = (n: number) =>
-  `android=new UiSelector().resourceId("android:id/button${n}")`;
+// The restore shows its result in a native dialog (Android AlertDialog, iOS
+// alert). The dialog is modal for accessibility, so it hides the Flutter tree,
+// Settings included, from Appium. Success and error dialogs differ only in
+// localized text, so close whichever shows: an active restore has already
+// rerouted to Settings underneath, a failed one has not.
+const androidDialogClose = () => 'android=new UiSelector().resourceId("android:id/button1")';
+
+async function closeResultDialog(): Promise<void> {
+  if (isAndroid()) {
+    if (await elementExists(androidDialogClose())) {
+      await tap(await $(androidDialogClose()));
+    }
+    return;
+  }
+  try {
+    // Throws when no app alert is open. The cancel-style button WebDriverAgent
+    // dismisses with is "Close"; the other one would share the log.
+    await driver.getAlertText();
+    await driver.dismissAlert();
+  } catch {
+    // No alert.
+  }
+}
 
 async function activeRestoreFinished(): Promise<boolean> {
   if (await elementExists(settingsScreenSelector())) return true;
-  if (!isAndroid()) return false;
-  return (
-    (await elementExists(androidDialogButton(1))) &&
-    !(await elementExists(androidDialogButton(3)))
-  );
+  await closeResultDialog();
+  return false;
 }
 
 /**
