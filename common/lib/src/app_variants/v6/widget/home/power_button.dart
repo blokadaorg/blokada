@@ -12,7 +12,6 @@ import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/account/account.dart';
 import 'package:common/src/platform/app/app.dart';
 import 'package:common/src/platform/app/start/start.dart';
-import 'package:common/src/platform/stats/stats.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart' as mobx;
 import 'package:relative_scale/relative_scale.dart';
@@ -31,7 +30,6 @@ class PowerButton extends StatefulWidget {
 class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin, Logging {
   late final _app = Core.get<AppStore>();
   late final _appStart = Core.get<AppStartStore>();
-  late final _stats = Core.get<StatsStore>();
   late final _account = Core.get<AccountStore>();
   late final _power = Core.get<PowerActor>();
 
@@ -42,7 +40,6 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
   late AnimationController animCtrlArcAlpha;
   late AnimationController animCtrlArcStart;
   late AnimationController animCtrlArcCounter;
-  late AnimationController animCtrlArc2Counter;
   late AnimationController animCtrlArcTimerCounter;
   late AnimationController animCtrlPulse;
 
@@ -53,7 +50,6 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
   late Animation<double> animArcAlpha;
   late Animation<double> animArcLoading;
   late Animation<double> animArcCounter;
-  late Animation<double> animArc2Counter;
   late Animation<double> animArcTimerCounter;
   late Animation<double> animPulse;
 
@@ -76,13 +72,8 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
   bool _ringMoved = false;
   int _ringQuarter = 0;
 
-  // The stats rings take over from the spinner only once it has faded out
-  // with protection on; switching off or reconnecting hides them again.
-  bool _statsRingsShown = false;
-
   var loadingCounter = 0.5;
   var counter = 0.3;
-  var newCounter = 0.5;
 
   Timer? timerRefresh;
 
@@ -139,7 +130,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
       });
 
     animCtrlArcCounter = AnimationController(vsync: this, duration: Duration(milliseconds: 1500));
-    animArcCounter = Tween<double>(begin: counter, end: newCounter).animate(animCtrlArcCounter)
+    animArcCounter = Tween<double>(begin: counter, end: loadingCounter).animate(animCtrlArcCounter)
       ..addListener(() {
         _setState();
       });
@@ -148,14 +139,10 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
     animArcAlpha = Tween<double>(begin: 0.0, end: 1.0).animate(animCtrlArcAlpha)
       ..addListener(() {
         _setState();
-      });
-
-    animCtrlArc2Counter = AnimationController(vsync: this, duration: Duration(milliseconds: 1500));
-    animCtrlArc2Counter.reverseDuration = Duration(milliseconds: 500);
-    animArc2Counter = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: animCtrlArc2Counter, curve: Curves.easeOutQuad))
-      ..addListener(() {
-        _setState();
+      })
+      ..addStatusListener((status) {
+        // The spinner arc has faded out: stop it going round unseen.
+        if (status == AnimationStatus.dismissed) animCtrlArcStart.stop();
       });
 
     // Use 5 min as this is our default pause time
@@ -174,32 +161,13 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
     animLoading = Tween<double>(begin: 0, end: 1).animate(animCtrlLoading)
       ..addListener(() {
         _setState();
-      })
-      ..addStatusListener((status) {
-        // The spinner has faded out: the stats rings count up in its place.
-        if (status == AnimationStatus.dismissed && _app.status.isActive()) {
-          _showStatsRings();
-        }
       });
 
     _reactions.add(mobx.autorun((_) {
-      final s = _app.status;
-      if (!s.isActive()) {
-        _statsRingsShown = false;
-      } else if (animLoading.isDismissed) {
-        // No spinner to wait for (protection was already on at start).
-        _showStatsRings();
-      }
+      // Read here so the reaction tracks it.
+      _app.status;
       _scheduleUpdateAnimations();
       _scheduleTimerRefresh();
-    }));
-
-    _reactions.add(mobx.autorun((_) {
-      // Read here so the reaction tracks them.
-      _app.status;
-      _stats.hasStats;
-      _stats.stats;
-      _updateStatsRings();
     }));
 
     _confirmedSub = _power.onProtectionConfirmed.listen((_) => _onProtectionConfirmed());
@@ -249,27 +217,6 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
     }
   }
 
-  void _showStatsRings() {
-    if (_statsRingsShown) return;
-    _statsRingsShown = true;
-    // Untracked: the status reaction calling this must not also react to stats.
-    mobx.untracked(_updateStatsRings);
-  }
-
-  void _updateStatsRings() {
-    final stats = _stats.stats;
-    if (!_statsRingsShown || !_app.status.isActive() || !_stats.hasStats) return;
-
-    // Max is 2.0 so that it can display ring overlap
-    newCounter = math.min(2.0, stats.dayAllowedRatio / 100);
-
-    // Park the loading arc at the top so the stats arcs replace it
-    animCtrlArcStart.animateTo(0.999);
-
-    _animateStatusRingTo(newCounter);
-    animCtrlArc2Counter.forward();
-  }
-
   _scheduleUpdateAnimations() {
     timer ??= Timer(const Duration(milliseconds: 200), () {
       _updateAnimations();
@@ -299,14 +246,9 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
       animCtrlLoading.forward();
       animCtrlArcStart.repeat();
       animCtrlArcAlpha.forward();
-      animCtrlArc2Counter.reverse();
     } else {
       animCtrlLoading.reverse();
-      if (state.inactive) {
-        animCtrlArcAlpha.reverse();
-      } else {
-        animCtrlArcAlpha.forward();
-      }
+      animCtrlArcAlpha.reverse();
     }
 
     if (state.active) {
@@ -379,7 +321,6 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
     final state = _state;
-    final stats = _stats.stats;
     final theme = Theme.of(context).extension<BlokadaTheme>()!;
     final pauseSecondsLeft = state.pauseSecondsLeft;
     _reduceMotion = Motion.reduced(context);
@@ -400,7 +341,6 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
                 animArcLoading,
                 animArcCounter,
                 animArcAlpha,
-                animArc2Counter,
                 animArcTimerCounter,
                 animPulse,
               ]),
@@ -415,11 +355,6 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
                     arcStart: animArcLoading.value,
                     arcEnd: animArcCounter.value,
                     arcTimerEnd: animArcTimerCounter.value,
-                    arcCounter: [
-                      animArc2Counter.value * math.min(2.0, (stats.dayBlockedRatio / 100)),
-                      0,
-                      0
-                    ],
                     colorShadow: theme.shadow,
                     cloudRing: theme.cloudRing,
                     plusRing: theme.plusRing,
@@ -520,8 +455,6 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
     animCtrlArcStart.dispose();
     animCtrlArcCounter.stop();
     animCtrlArcCounter.dispose();
-    animCtrlArc2Counter.stop();
-    animCtrlArc2Counter.dispose();
     animCtrlArcTimerCounter.stop();
     animCtrlArcTimerCounter.dispose();
     animCtrlPulse.stop();
@@ -544,7 +477,6 @@ class PowerButtonPainter extends CustomPainter {
   final arcStart;
   final double arcEnd;
   final arcAlpha;
-  final List<double> arcCounter;
   final double arcTimerEnd;
   final Color colorShadow;
   final List<Color> cloudRing;
@@ -583,7 +515,6 @@ class PowerButtonPainter extends CustomPainter {
     required this.arcStart,
     required this.arcEnd,
     required this.arcAlpha,
-    required this.arcCounter,
     required this.arcTimerEnd,
     required this.colorShadow,
     required this.cloudRing,
@@ -625,11 +556,6 @@ class PowerButtonPainter extends CustomPainter {
 
     Paint loadingArcPaint = Paint()
       ..color = Colors.white.withOpacity(math.min(arcAlpha, 0.40))
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = ringWidth * 0.5;
-
-    Paint loadingArc2Paint = Paint()
-      ..color = Colors.white.withOpacity(math.min(arcAlpha, 0.30))
       ..style = PaintingStyle.stroke
       ..strokeWidth = ringWidth * 0.5;
 
@@ -731,7 +657,7 @@ class PowerButtonPainter extends CustomPainter {
         0.05 // gap length in radians
         );
 
-    // loading arc and blocked counter
+    // loading arc
     canvas.drawArc(
         Rect.fromLTWH(-ringWidth * 1, -ringWidth * 1, size.width + ringWidth * 2,
             size.height + ringWidth * 2),
@@ -739,33 +665,6 @@ class PowerButtonPainter extends CustomPainter {
         math.min(arcEnd, 1.0) * math.pi * 2,
         false,
         loadingArcPaint);
-
-    // counter arc total
-    canvas.drawArc(
-        Rect.fromLTWH(-ringWidth * 2, -ringWidth * 2, size.width + ringWidth * 4,
-            size.height + ringWidth * 4),
-        0 - math.pi / 2,
-        math.min(arcCounter[0], 1.0) * math.pi * 2,
-        false,
-        loadingArcPaint);
-
-    // blocked counter - the overlap
-    canvas.drawArc(
-        Rect.fromLTWH(-ringWidth * 1, -ringWidth * 1, size.width + ringWidth * 2,
-            size.height + ringWidth * 2),
-        0 - math.pi / 2,
-        math.max(0, arcEnd - 1.0) * math.pi * 2,
-        false,
-        loadingArc2Paint);
-
-    // counter arc total - the overlap
-    canvas.drawArc(
-        Rect.fromLTWH(-ringWidth * 2, -ringWidth * 2, size.width + ringWidth * 4,
-            size.height + ringWidth * 4),
-        0 - math.pi / 2,
-        math.max(0, arcCounter[0] - 1.0) * math.pi * 2,
-        false,
-        loadingArc2Paint);
   }
 
   /// A status ring: drawn round from the top by [progress], or a full circle
