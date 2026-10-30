@@ -145,6 +145,34 @@ void main() {
     await _unmount(tester);
   });
 
+  testWidgets('the spinner fades out once protection is up, leaving only the ring',
+      (tester) async {
+    await _pump(tester, status: AppStatus.reconfiguring);
+    await tester.pump(const Duration(seconds: 1));
+    expect(_painter(tester).arcAlpha, greaterThan(0.0), reason: 'the spinner shows while working');
+
+    seedAppStatus(AppStatus.activatedCloud);
+    await tester.pump(const Duration(milliseconds: 250));
+    await tester.pump(const Duration(seconds: 3));
+    expect(_painter(tester).arcAlpha, 0.0);
+    expect(_painter(tester).alphaLoading, 0.0);
+    expect(_painter(tester).alphaLibre, 1.0);
+
+    final parked = _painter(tester).arcStart;
+    await tester.pump(const Duration(seconds: 1));
+    expect(_painter(tester).arcStart, parked, reason: 'the faded spinner stops going round');
+
+    await _unmount(tester);
+  });
+
+  testWidgets('no arc around the ring when Home opens with protection on', (tester) async {
+    await _pump(tester, status: AppStatus.activatedCloud);
+    await tester.pump(const Duration(seconds: 3));
+    expect(_painter(tester).arcAlpha, 0.0);
+
+    await _unmount(tester);
+  });
+
   testWidgets('iOS Reduce Motion, a separate flag, also makes the ring fade', (tester) async {
     tester.platformDispatcher.accessibilityFeaturesTestValue =
         const FakeAccessibilityFeatures(reduceMotion: true);
