@@ -166,7 +166,7 @@ class QrScanSheetMacosState extends State<QrScanSheetMacos> with Logging {
                                 borderRadius: BorderRadius.circular(8),
                                 border: Border.all(
                                   color: _errorMessage != null
-                                      ? Colors.red.withOpacity(0.5)
+                                      ? BlokadaPalette.red.withOpacity(0.5)
                                       : context.theme.divider.withOpacity(0.2),
                                 ),
                               ),
@@ -187,10 +187,8 @@ class QrScanSheetMacosState extends State<QrScanSheetMacos> with Logging {
                                           vertical: 14,
                                         ),
                                       ),
-                                      style: TextStyle(
-                                        color: context.theme.textPrimary,
-                                        fontSize: 14,
-                                      ),
+                                      style: context.theme.text.callout
+                                          .copyWith(color: context.theme.textPrimary),
                                       onSubmitted: _handleLink,
                                     ),
                                   ),
@@ -209,10 +207,8 @@ class QrScanSheetMacosState extends State<QrScanSheetMacos> with Logging {
                               const SizedBox(height: 8),
                               Text(
                                 _errorMessage!,
-                                style: TextStyle(
-                                  color: Colors.red,
-                                  fontSize: 12,
-                                ),
+                                style: context.theme.text.caption
+                                    .copyWith(color: BlokadaPalette.red),
                               ),
                             ],
                           ],
@@ -239,10 +235,8 @@ class QrScanSheetMacosState extends State<QrScanSheetMacos> with Logging {
                               child: Text(
                                 "Make sure AirDrop is enabled on this Mac to receive links directly."
                                     .i18n,
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  color: context.theme.textSecondary,
-                                ),
+                                style: context.theme.text.footnote
+                                    .copyWith(color: context.theme.textSecondary),
                               ),
                             ),
                           ],

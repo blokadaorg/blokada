@@ -249,10 +249,7 @@ class HomeBlokadaSixDevicePointer extends StatelessWidget {
           const SizedBox(height: 12),
           Text(
             "family device managed by six".i18n,
-            style: TextStyle(
-              color: context.theme.textSecondary,
-              fontSize: 14,
-            ),
+            style: context.theme.text.callout.copyWith(color: context.theme.textSecondary),
           ),
         ],
       ),

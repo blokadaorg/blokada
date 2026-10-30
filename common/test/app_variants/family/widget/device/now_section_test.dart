@@ -242,7 +242,7 @@ void main() {
       )));
       await tester.pump();
       var bar = tester.widget<Container>(find.byKey(const Key('now_status_bar')));
-      expect((bar.decoration as BoxDecoration).color, Colors.red);
+      expect((bar.decoration as BoxDecoration).color, BlokadaPalette.red);
       await _disposeNow(tester);
 
       await tester.pumpWidget(_wrap(NowSection(

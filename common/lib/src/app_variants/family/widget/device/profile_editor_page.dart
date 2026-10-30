@@ -205,7 +205,7 @@ class _ProfileEditorPageState extends State<ProfileEditorPage> {
             ),
           ),
           child: Text('universal action delete'.i18n,
-              style: const TextStyle(color: Colors.red)),
+              style: const TextStyle(color: BlokadaPalette.red)),
         ),
       ],
     );
@@ -255,10 +255,8 @@ class _ProfileEditorPageState extends State<ProfileEditorPage> {
               Flexible(
                 child: Text(current.displayAlias.i18n,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        color: context.theme.textPrimary,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w600)),
+                    style: context.theme.text.barAction.semibold
+                        .copyWith(color: context.theme.textPrimary)),
               ),
             ],
           ),
@@ -329,10 +327,8 @@ class _ProfileEditorPageState extends State<ProfileEditorPage> {
                                 child: Text(
                                     'family schedule rule editor profile new blocklists done'
                                         .i18n,
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600)),
+                                    style: context.theme.text.body.semibold
+                                        .copyWith(color: Colors.white)),
                               ),
                             ),
                           ),
@@ -346,11 +342,11 @@ class _ProfileEditorPageState extends State<ProfileEditorPage> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 14),
                             decoration: BoxDecoration(
-                              color: Colors.red.withOpacity(0.10),
+                              color: BlokadaPalette.red.withOpacity(0.10),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: const Icon(CupertinoIcons.delete,
-                                size: 20, color: Colors.red),
+                                size: 20, color: BlokadaPalette.red),
                           ),
                         ),
                       ],

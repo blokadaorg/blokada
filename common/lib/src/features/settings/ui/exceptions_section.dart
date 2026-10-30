@@ -110,9 +110,9 @@ class ExceptionsSectionState extends State<ExceptionsSection>
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  const Icon(
+                                  Icon(
                                     CupertinoIcons.xmark_shield_fill,
-                                    color: Colors.red,
+                                    color: context.theme.blocked,
                                     size: 18,
                                   ),
                                   const SizedBox(width: 6),
@@ -135,9 +135,9 @@ class ExceptionsSectionState extends State<ExceptionsSection>
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  const Icon(
+                                  Icon(
                                     CupertinoIcons.checkmark_shield_fill,
-                                    color: Colors.green,
+                                    color: context.theme.allowed,
                                     size: 18,
                                   ),
                                   const SizedBox(width: 6),

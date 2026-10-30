@@ -17,7 +17,6 @@ import 'package:common/src/platform/stats/model.dart';
 import 'package:common/src/platform/stats/delta_store.dart';
 import 'package:common/src/features/notification/domain/notification.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 export 'package:common/src/features/stats/domain/controller.dart' show ToplistRange;
 
@@ -173,7 +172,7 @@ class TopDomainsState extends State<TopDomains> {
                               children: [
                                 Icon(
                                   CupertinoIcons.xmark_shield_fill,
-                                  color: Colors.red,
+                                  color: context.theme.blocked,
                                   size: 18,
                                 ),
                                 const SizedBox(width: 6),
@@ -191,7 +190,7 @@ class TopDomainsState extends State<TopDomains> {
                               children: [
                                 Icon(
                                   CupertinoIcons.checkmark_shield_fill,
-                                  color: Colors.green,
+                                  color: context.theme.allowed,
                                   size: 18,
                                 ),
                                 const SizedBox(width: 6),

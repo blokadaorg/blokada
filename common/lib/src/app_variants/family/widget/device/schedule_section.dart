@@ -15,7 +15,6 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 
 /// Green used for the "active now" cue. Matches the system green the rest of
 /// the iOS UI uses for live/affirmative state.
-const _activeGreen = Color(0xFF34C759);
 
 /// A standalone Schedule section sitting between the Settings card and the
 /// Internet section on Device detail.
@@ -213,9 +212,9 @@ class _ScheduleSectionState extends State<ScheduleSection> {
         alignment: Alignment.center,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: Colors.red.withOpacity(0.16),
+          color: context.theme.blocked.withOpacity(0.16),
         ),
-        child: const Icon(CupertinoIcons.nosign, size: 14, color: Colors.red),
+        child: Icon(CupertinoIcons.nosign, size: 14, color: context.theme.blocked),
       );
     } else if (profile == null) {
       leadingGlyph = Container(
@@ -241,7 +240,7 @@ class _ScheduleSectionState extends State<ScheduleSection> {
             width: 4,
             height: 36,
             decoration: BoxDecoration(
-              color: isActive ? _activeGreen : Colors.transparent,
+              color: isActive ? BlokadaPalette.green : Colors.transparent,
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -257,13 +256,12 @@ class _ScheduleSectionState extends State<ScheduleSection> {
                   TextSpan(children: [
                     TextSpan(
                         text: profileName,
-                        style: TextStyle(
-                            color: profileColor ?? context.theme.textPrimary,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600)),
+                        style: context.theme.text.callout.semibold.copyWith(
+                            color: profileColor ?? context.theme.textPrimary)),
                     TextSpan(
                         text: '  ${daysSummary(rule.weekdays)} · ${windowsSummary(rule.windows)}',
-                        style: TextStyle(color: context.theme.textSecondary, fontSize: 13)),
+                        style: context.theme.text.footnote
+                            .copyWith(color: context.theme.textSecondary)),
                   ]),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -275,8 +273,8 @@ class _ScheduleSectionState extends State<ScheduleSection> {
                       'family schedule active now'
                           .i18n
                           .withParams(formatMinuteOfDay(activeUntilMinute)),
-                      style: const TextStyle(
-                          color: _activeGreen, fontSize: 11, fontWeight: FontWeight.w700),
+                      style: context.theme.text.caption
+                          .copyWith(color: BlokadaPalette.green, fontWeight: FontWeight.w700),
                     ),
                   ),
               ],
@@ -301,7 +299,7 @@ class _ScheduleSectionState extends State<ScheduleSection> {
               children: [
                 SlidableAction(
                   onPressed: (_) => widget.onDeleteRule!(index),
-                  backgroundColor: Colors.red.withOpacity(0.80),
+                  backgroundColor: BlokadaPalette.red.withOpacity(0.80),
                   foregroundColor: Colors.white,
                   icon: CupertinoIcons.delete,
                   borderRadius: const BorderRadius.all(Radius.circular(8)),

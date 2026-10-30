@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:common/src/features/lock/domain/lock.dart';
 import 'package:common/src/shared/navigation.dart';
+import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/features/lock/ui/circles.dart';
 import 'package:common/src/features/lock/ui/keypad.dart';
 import 'package:common/src/features/modal/ui/blur_background.dart';
@@ -264,11 +265,8 @@ class _LockScreenState extends State<LockScreen>
                     child: Center(
                       child: Text(_getHeaderString(),
                           textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
-                            // fontWeight: FontWeight.w500,
-                          )),
+                          style: context.theme.text.hero.copyWith(
+                              color: Colors.white, fontWeight: FontWeight.normal)),
                     ),
                   ),
                   crossFadeState: _showHeaderIcon
@@ -337,10 +335,8 @@ class _LockScreenState extends State<LockScreen>
                       borderRadius: 12,
                       elevation: 0,
                       text: "lock action slide unlock".i18n,
-                      textStyle: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                      ),
+                      textStyle: context.theme.text.headline.copyWith(
+                          color: Colors.white, fontWeight: FontWeight.normal),
                       sliderButtonIcon: const Icon(CupertinoIcons.chevron_right,
                           color: Colors.white),
                       submittedIcon: const Icon(CupertinoIcons.chevron_right,
@@ -365,10 +361,9 @@ class _LockScreenState extends State<LockScreen>
                                         horizontal: 64),
                                     child: Text(
                                       "universal action clear".i18n,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                      ),
+                                      style: context.theme.text.headline.copyWith(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.normal),
                                     ),
                                   ),
                                 ),
@@ -384,10 +379,9 @@ class _LockScreenState extends State<LockScreen>
                                           //     ? "universal action delete".i18n
                                           //     : "universal action cancel".i18n,
                                           "universal action delete".i18n,
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 18,
-                                          ),
+                                          style: context.theme.text.headline.copyWith(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.normal),
                                         ),
                                       ),
                                     )

@@ -5,6 +5,7 @@ import 'package:common/src/features/filter/ui/filter.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/app_variants/family/module/profile/profile.dart';
 import 'package:common/src/app_variants/family/widget/profile/profile_avatar.dart';
+import 'package:common/src/shared/ui/theme.dart';
 import 'package:flutter/material.dart';
 
 class FamilyFiltersSection extends StatefulWidget {
@@ -107,8 +108,7 @@ class FamilyFiltersSectionState extends State<FamilyFiltersSection>
               "family profile template name"
                   .i18n
                   .withParams(profile.displayAlias.i18n),
-              style:
-                  const TextStyle(fontSize: 28, fontWeight: FontWeight.w700)),
+              style: context.theme.text.hero),
         ],
       ),
       const SizedBox(height: 16),
@@ -134,18 +134,18 @@ class FamilyFiltersSectionState extends State<FamilyFiltersSection>
     const Color(0xFFA9CCFE),
     null,
     const Color(0xFFF4B1C6),
-    const Color(0xFFFDB39C),
+    BlokadaPalette.coral,
   ];
 
   final List<Color?> _cardColorsV6 = [
-    const Color(0xFFFFCD8C),
+    BlokadaPalette.apricot,
     null,
-    const Color(0xFFB1CCF4),
-    const Color(0xFFFFA0EC),
+    BlokadaPalette.sky,
+    BlokadaPalette.pink,
     null,
-    const Color(0xFFB1F4C8),
+    BlokadaPalette.mint,
     null,
-    const Color(0xFFFDB39C),
+    BlokadaPalette.coral,
   ];
 
   Widget _buildFilter(

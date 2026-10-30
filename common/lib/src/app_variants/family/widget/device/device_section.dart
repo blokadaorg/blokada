@@ -95,7 +95,7 @@ class DeviceSectionState extends State<DeviceSection> with Logging, Disposables 
         width: 4,
         height: 20,
         decoration: BoxDecoration(
-          color: active ? const Color(0xFF34C759) : Colors.transparent,
+          color: active ? BlokadaPalette.green : Colors.transparent,
           borderRadius: BorderRadius.circular(2),
         ),
       );
@@ -145,7 +145,7 @@ class DeviceSectionState extends State<DeviceSection> with Logging, Disposables 
                     MiniCardHeader(
                       text: "activity section header".i18n,
                       icon: CupertinoIcons.chart_bar,
-                      color: const Color(0xff33c75a),
+                      color: BlokadaPalette.green,
                       chevronIcon: Icons.chevron_right,
                     ),
                     const SizedBox(height: 4),
@@ -338,9 +338,8 @@ class DeviceSectionState extends State<DeviceSection> with Logging, Disposables 
                   },
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   child: Text("family device action link".i18n,
-                      style: TextStyle(
+                      style: context.theme.text.body.copyWith(
                           color: context.theme.textSecondary,
-                          fontSize: 16,
                           fontWeight: FontWeight.w500)),
                 ),
               ),
@@ -359,8 +358,8 @@ class DeviceSectionState extends State<DeviceSection> with Logging, Disposables 
                   },
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   child: Text("family device action delete".i18n,
-                      style: const TextStyle(
-                          color: Colors.red, fontSize: 16, fontWeight: FontWeight.w500)),
+                      style: context.theme.text.body.copyWith(
+                          color: BlokadaPalette.red, fontWeight: FontWeight.w500)),
                 ),
               ),
         const SizedBox(height: 48),

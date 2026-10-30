@@ -1,5 +1,6 @@
 import 'package:common/src/core/core.dart';
 import 'package:common/src/shared/ui/dialog.dart';
+import 'package:common/src/shared/ui/theme.dart';
 import 'package:flutter/material.dart';
 
 /// Confirmation shown before an incoming link re-homes an already set up
@@ -37,7 +38,7 @@ Future<void> showLinkConfirmDialog(
           onConfirm();
         },
         child: Text("family link confirm action".i18n,
-            style: const TextStyle(color: Colors.red)),
+            style: const TextStyle(color: BlokadaPalette.red)),
       ),
     ],
   );

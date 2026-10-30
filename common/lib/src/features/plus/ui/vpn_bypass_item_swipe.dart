@@ -1,6 +1,7 @@
 import 'package:common/src/core/core.dart';
 import 'package:common/src/features/plus/domain/bypass/bypass.dart';
 import 'package:common/src/features/plus/ui/vpn_bypass_item.dart';
+import 'package:common/src/shared/ui/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -43,7 +44,7 @@ class AppBypassItemSwipe extends StatelessWidget {
         children: [
           SlidableAction(
             onPressed: (c) => onRemove(),
-            backgroundColor: Colors.red.withOpacity(0.95),
+            backgroundColor: BlokadaPalette.red.withOpacity(0.95),
             foregroundColor: Colors.white,
             icon: CupertinoIcons.delete,
             label: "universal action delete".i18n,

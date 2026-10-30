@@ -66,7 +66,7 @@ class TotalCounterState extends State<TotalCounter> with Logging {
         header: MiniCardHeader(
           text: "stats header all time".i18n,
           icon: Icons.timelapse,
-          color: Colors.red,
+          color: context.theme.blocked,
           chevronIcon: Icons.ios_share_outlined,
         ),
         // bigText: _formatCounter(blocked),

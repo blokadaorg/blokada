@@ -114,7 +114,7 @@ class ProfileDialogState extends State<ProfileDialog> with Disposables {
               ),
               const SizedBox(height: 4),
               Text("family profile action add".i18n,
-                  style: const TextStyle(fontSize: 12)),
+                  style: context.theme.text.caption),
             ]);
   }
 
@@ -203,7 +203,7 @@ class ProfileDialogState extends State<ProfileDialog> with Disposables {
                 setError("family profile error".i18n);
               }
             },
-            backgroundColor: Colors.red.withOpacity(0.80),
+            backgroundColor: BlokadaPalette.red.withOpacity(0.80),
             foregroundColor: Colors.white,
             icon: CupertinoIcons.delete,
             borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -218,7 +218,7 @@ class ProfileDialogState extends State<ProfileDialog> with Disposables {
     if (error == null) return [];
     return [
       const SizedBox(height: 16),
-      Text(error!, style: const TextStyle(color: Colors.red)),
+      Text(error!, style: const TextStyle(color: BlokadaPalette.red)),
     ];
   }
 }
