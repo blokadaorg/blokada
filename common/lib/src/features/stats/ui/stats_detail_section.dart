@@ -105,6 +105,9 @@ class StatsDetailSectionState extends State<StatsDetailSection> with Logging {
                     text: "family stats label reason".i18n,
                     icon: CupertinoIcons.shield,
                     color: widget.entry.isBlocked() ? context.theme.blocked : context.theme.allowed,
+                    textColor: widget.entry.isBlocked()
+                        ? context.theme.textBlocked
+                        : context.theme.textAllowed,
                   ),
                   const SizedBox(height: 24),
                   Row(
