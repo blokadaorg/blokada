@@ -39,7 +39,6 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
   late AnimationController animCtrlCover;
   late AnimationController animCtrlArcAlpha;
   late AnimationController animCtrlArcStart;
-  late AnimationController animCtrlArcCounter;
   late AnimationController animCtrlArcTimerCounter;
   late AnimationController animCtrlPulse;
 
@@ -49,7 +48,6 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
   late Animation<double> animCover;
   late Animation<double> animArcAlpha;
   late Animation<double> animArcLoading;
-  late Animation<double> animArcCounter;
   late Animation<double> animArcTimerCounter;
   late Animation<double> animPulse;
 
@@ -71,9 +69,6 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
   // A tap from a ring already at zero sees `dismissed` before it moves.
   bool _ringMoved = false;
   int _ringQuarter = 0;
-
-  var loadingCounter = 0.5;
-  var counter = 0.3;
 
   Timer? timerRefresh;
 
@@ -125,12 +120,6 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
     animCtrlArcStart = AnimationController(vsync: this, duration: Duration(milliseconds: 2000));
     animArcLoading = Tween<double>(begin: 0, end: 1)
         .animate(CurvedAnimation(parent: animCtrlArcStart, curve: Curves.ease))
-      ..addListener(() {
-        _setState();
-      });
-
-    animCtrlArcCounter = AnimationController(vsync: this, duration: Duration(milliseconds: 1500));
-    animArcCounter = Tween<double>(begin: counter, end: loadingCounter).animate(animCtrlArcCounter)
       ..addListener(() {
         _setState();
       });
@@ -238,11 +227,12 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
     }
   }
 
-  _updateAnimations() {
+  /// Drives every controller towards what [_state] shows now. Called after
+  /// the status debounce and straight after a tap, so it must be safe to run
+  /// repeatedly for the same state.
+  void _updateAnimations() {
     final state = _state;
     if (state.working) {
-      _animateStatusRingTo(loadingCounter);
-
       animCtrlLoading.forward();
       animCtrlArcStart.repeat();
       animCtrlArcAlpha.forward();
@@ -278,22 +268,6 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
       animCtrlArcTimerCounter.stop();
       animCtrlArcTimerCounter.value = 1.0;
     }
-  }
-
-  _animateStatusRingTo(double value) {
-    if (value == counter) {
-      // Assume we are already animating to this value, ignore
-      return;
-    }
-
-    animArcCounter = Tween<double>(begin: animArcCounter.value, end: value)
-        .animate(CurvedAnimation(parent: animCtrlArcCounter, curve: Curves.easeOutQuad))
-      ..addListener(() {
-        _setState();
-      });
-    counter = value;
-    animCtrlArcCounter.reset();
-    animCtrlArcCounter.forward();
   }
 
   void _onTap(PowerTap tap) {
@@ -339,7 +313,6 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
                 animPlus,
                 animCover,
                 animArcLoading,
-                animArcCounter,
                 animArcAlpha,
                 animArcTimerCounter,
                 animPulse,
@@ -353,7 +326,6 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
                     alphaPlus: animPlus.value,
                     arcAlpha: animArcAlpha.value,
                     arcStart: animArcLoading.value,
-                    arcEnd: animArcCounter.value,
                     arcTimerEnd: animArcTimerCounter.value,
                     colorShadow: theme.shadow,
                     cloudRing: theme.cloudRing,
@@ -453,8 +425,6 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
     animCtrlArcAlpha.dispose();
     animCtrlArcStart.stop();
     animCtrlArcStart.dispose();
-    animCtrlArcCounter.stop();
-    animCtrlArcCounter.dispose();
     animCtrlArcTimerCounter.stop();
     animCtrlArcTimerCounter.dispose();
     animCtrlPulse.stop();
@@ -470,12 +440,14 @@ class PowerButtonPainter extends CustomPainter {
   final iconWidth = 30.0;
   final blurRadius = 5.0;
 
+  /// The spinner arc covers half the ring as it goes round.
+  final spinnerSweep = 0.5;
+
   final alphaLibre;
   final alphaLoading;
   final alphaCover;
   final alphaPlus;
   final arcStart;
-  final double arcEnd;
   final arcAlpha;
   final double arcTimerEnd;
   final Color colorShadow;
@@ -513,7 +485,6 @@ class PowerButtonPainter extends CustomPainter {
     required this.alphaLibre,
     required this.alphaLoading,
     required this.arcStart,
-    required this.arcEnd,
     required this.arcAlpha,
     required this.arcTimerEnd,
     required this.colorShadow,
@@ -662,7 +633,7 @@ class PowerButtonPainter extends CustomPainter {
         Rect.fromLTWH(-ringWidth * 1, -ringWidth * 1, size.width + ringWidth * 2,
             size.height + ringWidth * 2),
         arcStart * math.pi * 2 - math.pi / 2,
-        math.min(arcEnd, 1.0) * math.pi * 2,
+        spinnerSweep * math.pi * 2,
         false,
         loadingArcPaint);
   }

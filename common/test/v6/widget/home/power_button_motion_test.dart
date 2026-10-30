@@ -158,6 +158,10 @@ void main() {
     expect(_painter(tester).alphaLoading, 0.0);
     expect(_painter(tester).alphaLibre, 1.0);
 
+    final parked = _painter(tester).arcStart;
+    await tester.pump(const Duration(seconds: 1));
+    expect(_painter(tester).arcStart, parked, reason: 'the faded spinner stops going round');
+
     await _unmount(tester);
   });
 
