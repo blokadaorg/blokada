@@ -4,7 +4,6 @@ const _keyExpireSession = "supportExpireSession";
 
 class SupportActor with Logging, Actor {
   late final _api = Core.get<SupportApi>();
-  late final _command = Core.get<CommandStore>();
   late final _currentSession = Core.get<CurrentSession>();
   late final _chatHistory = Core.get<ChatHistory>();
   late final _unread = Core.get<SupportUnreadActor>();
@@ -224,17 +223,16 @@ class SupportActor with Logging, Actor {
     onChange();
   }
 
-  /// Sends a user message (or a local `cc ` command) and posts the reply.
+  /// Sends a user message and posts the reply.
   ///
   /// Owns the [replyPending] lifecycle around [_sendMessage], so that every
   /// way out, including a rethrow, clears the flag in one place.
   sendMessage(String? message, Marker m, {bool retrying = false}) async {
-    final command = message?.startsWith("cc ") ?? false;
     // Set before the first await: a send that first has to open a session
     // waits on that round trip too, and must already block a second send.
-    if (message != null && !command) _setReplyPending(true);
+    if (message != null) _setReplyPending(true);
     try {
-      await _sendMessage(message, m, command: command, retrying: retrying);
+      await _sendMessage(message, m, retrying: retrying);
     } finally {
       // Covers the paths that rethrow without posting an error message.
       _setReplyPending(false);
@@ -245,13 +243,8 @@ class SupportActor with Logging, Actor {
   /// from outside. A 4xx retry calls back into [sendMessage], which keeps the
   /// flag set for the retry and clears it once the retry is done.
   Future<void> _sendMessage(String? message, Marker m,
-      {required bool command, required bool retrying}) async {
+      {required bool retrying}) async {
     await loadOrInit(m);
-    if (command) {
-      await _addMyMessage(m, message!);
-      await _handleCommand(message.substring(3), m);
-      return;
-    }
 
     try {
       if (_currentSession.present == null) {
@@ -487,28 +480,14 @@ class SupportActor with Logging, Actor {
     await _unread.newMessage(m, message.text);
   }
 
-  _addErrorMessage(Marker m, {String? error}) async {
+  _addErrorMessage(Marker m) async {
     final message = SupportMessage(
-      error ?? "Sorry did not understand, can you repeat?", // TODO: localize
+      "Sorry did not understand, can you repeat?", // TODO: localize
       DateTime.now(),
       isMe: false,
     );
     // An error message stands in for the reply, so it ends the wait too.
     await _addMessage(m, message, endsPendingReply: true);
-  }
-
-  _handleCommand(String message, Marker m) async {
-    await log(m).trace("supportCommand", (m) async {
-      try {
-        await _command.onCommandString(message, m);
-        final msg = SupportMessage("OK", DateTime.now(), isMe: false);
-        await _addMessage(m, msg);
-      } catch (e) {
-        await sleepAsync(const Duration(milliseconds: 500));
-        await _addErrorMessage(m, error: e.toString());
-        rethrow;
-      }
-    });
   }
 
   _updateSessionExpiry() async {

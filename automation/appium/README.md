@@ -333,8 +333,8 @@ If the session drops unexpectedly, first suspect device auto-lock or lost foregr
   first, then ALL active-account scenarios** (the list has `--- inactive ---` /
   `--- active ---` markers). The suite ends with the device active (the last spec
   leaves it active). Put a new spec in its account group — don't interleave.
-- **Why the grouping matters (cost):** an account restore is expensive (app
-  relaunch + support-chat command + network round trip, ~1 min). `ensureAccount*`
+- **Why the grouping matters (cost):** an account restore is expensive (two app
+  launches + network round trip). `ensureAccount*`
   restores **only when the device isn't already on that account this run** — it
   tracks the last-restored account in `output/.account-state` (reset once per run
   by the `onPrepare` hook, so the first spec always restores and the device's
@@ -342,13 +342,16 @@ If the session drops unexpectedly, first suspect device auto-lock or lost foregr
   restored just **once per group** (at the boundary), not once per spec. Interleaving
   still passes but forces an extra restore at every switch, so keep groups intact.
 - Control account state with `flows/account.ts`: `ensureAccountActive()` /
-  `ensureAccountInactive()` restore a dedicated account via the support-chat
-  command bus (`cc restore <id>`), reading the ids from the
-  `BLOKADA_ACTIVE_ACCOUNT_ID` / `BLOKADA_INACTIVE_ACCOUNT_ID` env (GitHub
-  secrets in CI). `sendChatCommand(...)` can fire any `cc`-prefixed command.
-  These ids are typed into the support chat (and echoed as a bubble), so they
-  can appear in failure page-source / screenshot artifacts — use dedicated
-  throwaway dev accounts, never a real customer account.
+  `ensureAccountInactive()` restore a dedicated account by cold-starting the
+  app with the debug restore launch argument (the `restore_account_id` extra on
+  Android, `-restoreAccountId` on iOS; see `make restore-account-android` and
+  `make -C ios restore-account-sim`), then relaunching without it. They read
+  the ids from the `BLOKADA_ACTIVE_ACCOUNT_ID` / `BLOKADA_INACTIVE_ACCOUNT_ID`
+  env (GitHub secrets in CI). Only Android debug builds and the iOS Dev and
+  FamilyDev schemes (Debug or Release) read the argument, which is what
+  `make appium-test` and `make appium-test-android` install. The ids pass
+  through Appium commands and so can appear in Appium server logs — use
+  dedicated throwaway dev accounts, never a real customer account.
 - Golden screenshots: `support/golden.ts` `compareToGolden(name, opts)`. Goldens
   live in `src/specs/smoke/__golden__/` and are device-resolution specific.
   Generate/refresh a baseline with `UPDATE_GOLDEN=1 make appium-test` on the

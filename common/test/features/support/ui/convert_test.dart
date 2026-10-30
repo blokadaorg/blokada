@@ -9,7 +9,7 @@ void main() {
 
   test("messages sent in the same millisecond get distinct chat ids", () {
     final when = DateTime(2026, 1, 1, 12);
-    final mine = SupportMessage("cc info", when, isMe: true);
+    final mine = SupportMessage("hi", when, isMe: true);
     final reply = SupportMessage("OK", when, isMe: false);
 
     expect(mine.toFlyerMessage(me, notMe).id, isNot(reply.toFlyerMessage(me, notMe).id));

@@ -75,7 +75,8 @@ jobs:
           cache-dependency-path: automation/appium/wdio/package-lock.json
 
       # Same build as the CI "Android assemble" job (non-mocked six debug), so
-      # the specs restore the test account through the support chat as on iOS.
+      # the specs restore the test account through the debug-only
+      # restore_account_id launch extra, as iOS does with -restoreAccountId.
       - name: Build Flutter Android debug library
         run: make regen-android
 

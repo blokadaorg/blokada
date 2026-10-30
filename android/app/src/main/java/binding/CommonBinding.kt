@@ -167,15 +167,6 @@ object CommonBinding : CommonOps {
         callback(Result.success(Unit))
     }
 
-    // Config
-
-    var skipBypassList = false
-
-    override fun doConfigChanged(skipBypassList: Boolean, callback: (Result<Unit>) -> Unit) {
-        this.skipBypassList = skipBypassList
-        callback(Result.success(Unit))
-    }
-
     override fun doShareText(text: String, callback: (Result<Unit>) -> Unit) {
         scope.launch {
             try {

@@ -166,7 +166,7 @@ appium-install-family-mocked: ; @$(call run-mocked-app,FamilyMocked,install)
 
 # Restore ACCOUNT_ID into the app already installed on this checkout's sim and
 # relaunch it, instead of typing it into Settings > Restore Account ID. Only
-# Debug builds (the Mocked schemes) read the launch argument.
+# Debug builds and the Dev/FamilyDev targets read the launch argument.
 # Usage: ACCOUNT_ID=<id> make restore-account-sim
 restore-account-sim:
 	@set -e; \
