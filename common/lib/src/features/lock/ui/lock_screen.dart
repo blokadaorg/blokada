@@ -142,6 +142,9 @@ class _LockScreenState extends State<LockScreen>
     });
   }
 
+  // Fits four lines of the 28px status, the longest translations wrap that far.
+  static const double _headerHeight = 140;
+
   String _getHeaderString() {
     if (_wrongAttempts >= 3) {
       return "lock status too many attempts".i18n;
@@ -249,7 +252,7 @@ class _LockScreenState extends State<LockScreen>
                 padding: const EdgeInsets.symmetric(horizontal: 40),
                 child: AnimatedCrossFade(
                   firstChild: SizedBox(
-                    height: 112,
+                    height: _headerHeight,
                     child: Center(
                       child: Icon(
                         _isLocked.now
@@ -261,7 +264,7 @@ class _LockScreenState extends State<LockScreen>
                     ),
                   ),
                   secondChild: SizedBox(
-                    height: 112,
+                    height: _headerHeight,
                     child: Center(
                       child: Text(_getHeaderString(),
                           textAlign: TextAlign.center,

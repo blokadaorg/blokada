@@ -193,7 +193,7 @@ void showConfirmDialog(BuildContext context, String name, {required Function() o
           ),
         ),
         child: Text("universal action delete".i18n,
-            style: const TextStyle(color: BlokadaPalette.red)),
+            style: TextStyle(color: context.theme.textBlocked)),
       ),
     ],
   );
