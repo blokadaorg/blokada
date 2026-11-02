@@ -166,6 +166,10 @@ jobs:
       FLAVOR: ${{ matrix.flavor }}
       BLOKADA_VERSION_NAME: ${{ needs.allocate.outputs.version_name }}
       BLOKADA_VERSION_CODE: ${{ needs.allocate.outputs.build_number }}
+      # build_app's `xcodebuild -showBuildSettings` intermittently outlasts
+      # fastlane's 3s base timeout here (3/6/12/24s, then the build dies).
+      # The timeout doubles per retry, so the default 3 retries stay.
+      FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 120
     steps:
       - uses: actions/checkout@v7
         with:
