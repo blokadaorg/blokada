@@ -29,7 +29,7 @@ void main() {
         final persistence = _registerDeps();
         final subject = LockActor();
 
-        for (final pin in ["12", "12345", "12a4", ""]) {
+        for (final pin in ["12", "12345", "12a4", "-123", ""]) {
           await expectLater(subject.lock(m, pin), throwsA(isA<InvalidPinException>()));
           await expectLater(subject.setLock(m, pin), throwsA(isA<InvalidPinException>()));
         }

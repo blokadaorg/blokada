@@ -88,8 +88,6 @@ class StageBinding: StageOps {
             error.send(L10n.errorUnknown)
         } else if (modal == .faultLocked) {
             error.send(L10n.errorLocked)
-        } else if (modal == .faultLockInvalid) {
-            //error.send(L10n.errorLockInvalid)
         } else if (modal == .faultLinkAlready) {
             error.send(L10n.familyFaultLinkAlready)
         } else if (modal == .accountInitFailed) {

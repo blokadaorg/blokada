@@ -1,7 +1,6 @@
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/stage/channel.pg.dart';
 import 'package:common/src/platform/stage/stage.dart';
-import 'package:string_validator/string_validator.dart';
 
 part 'actor.dart';
 
@@ -19,8 +18,11 @@ class ExistingPin extends StringPersistedValue {
 
 /// Whether [pin] has the shape the lock screen and Settings accept: exactly
 /// four digits. Shared so the screen that takes the input can explain a bad
-/// PIN before handing it to [LockActor], which rejects it as well.
-bool isValidPin(String pin) => pin.length == 4 && isNumeric(pin);
+/// PIN before handing it to [LockActor], which rejects it as well. Not
+/// `isNumeric`, which also accepts a leading minus such as "-123".
+bool isValidPin(String pin) => _pinFormat.hasMatch(pin);
+
+final _pinFormat = RegExp(r'^[0-9]{4}$');
 
 /// Thrown by [LockActor] for a PIN that fails [isValidPin]. The caller that
 /// took the input shows the error in Flutter: neither native platform renders

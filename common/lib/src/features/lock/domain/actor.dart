@@ -29,6 +29,9 @@ class LockActor with Logging, Actor {
     });
   }
 
+  /// Stores [pin] and locks the app right away, for Settings and auto-lock.
+  /// A bad PIN throws [InvalidPinException] and raises no stage modal, so the
+  /// caller that took the input has to explain it.
   lock(Marker m, String pin) async {
     return await log(m).trace("lock", (m) async {
       if (isLocked.now) {
@@ -67,7 +70,8 @@ class LockActor with Logging, Actor {
     });
   }
 
-  // Sets lock, but does not lock immediately
+  /// Stores [pin] without locking, for the lock screen setting a first PIN.
+  /// A bad PIN throws [InvalidPinException], as in [lock].
   setLock(Marker m, String pin) async {
     return await log(m).trace("setLock", (m) async {
       if (isLocked.now) {
