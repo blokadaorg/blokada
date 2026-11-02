@@ -97,6 +97,9 @@ private const val WEEKLY_REPORT_REFRESH_BODY = "Your weekly report is updated."
             }
         }
         blockedReason()?.let { reason ->
+            // An alarm queued earlier would keep its old time and payload and
+            // could still fire once notifications are back on, so drop it too.
+            cancelAlarm(notificationId)
             return Result.failure(Exception("not scheduling $notificationId: $reason"))
         }
         val ctx = context.requireAppContext()
@@ -123,6 +126,13 @@ private const val WEEKLY_REPORT_REFRESH_BODY = "Your weekly report is updated."
     }
 
     fun cancel(notificationId: String) {
+        cancelAlarm(notificationId)
+        notificationIntId(notificationId)?.let(notificationManager::cancel)
+    }
+
+    // Cancels only the pending alarm, leaving an already delivered
+    // notification in place. Same PendingIntent identity as show().
+    private fun cancelAlarm(notificationId: String) {
         val ctx = context.requireAppContext()
         val intent = Intent(ctx, NotificationAlarmReceiver::class.java)
         intent.putExtra("id", notificationId)
@@ -134,8 +144,6 @@ private const val WEEKLY_REPORT_REFRESH_BODY = "Your weekly report is updated."
         )
         alarmManager.cancel(pendingIntent)
         pendingIntent.cancel()
-
-        notificationIntId(notificationId)?.let(notificationManager::cancel)
     }
 
     fun show(notification: NotificationPrototype) {
