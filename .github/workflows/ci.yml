@@ -17,6 +17,79 @@ concurrency:
 # builds on the self-hosted Mac, where it could leave something behind. That
 # Mac only runs the Appium jobs, which need its phone.
 jobs:
+  changes:
+    name: Changed paths
+    # Sorts the PR's changed files into the areas the jobs below check, so a
+    # docs or workflow PR does not wait on app builds. A skipped job counts as
+    # passed. A manual run checks everything. The Appium smoke workflows read
+    # the same result from the ci-changes artifact.
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.pull_request.head.repo.full_name == github.repository
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      app: ${{ steps.classify.outputs.app }}
+      translations: ${{ steps.classify.outputs.translations }}
+      release_scripts: ${{ steps.classify.outputs.release_scripts }}
+      appium: ${{ steps.classify.outputs.appium }}
+    steps:
+      - name: Classify changed paths
+        id: classify
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT: ${{ github.event_name }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          CHANGED_FILES: ${{ github.event.pull_request.changed_files }}
+          HEAD_REF: ${{ github.head_ref }}
+        run: |
+          set -euo pipefail
+          # Check everything on a manual run, past the 3000 files the files
+          # API lists, and on an action bump: the jobs are what run the bumped
+          # actions, and Dependabot auto-merge relies on them.
+          if [ "$EVENT" != pull_request ] || [ "${CHANGED_FILES:-0}" -ge 3000 ] ||
+            [[ "$HEAD_REF" == dependabot/github_actions/* ]]; then
+            files=ALL
+          else
+            # A rename counts for both its old and its new path.
+            files="$(gh api --paginate "repos/$REPO/pulls/$PR/files?per_page=100" \
+              --jq '.[] | .filename, (.previous_filename // empty)')"
+          fi
+          printf '%s\n' "$files"
+          matches() {
+            [ "$files" = ALL ] || grep -qE "$1" <<<"$files"
+          }
+          # This file defines the jobs below, so an edit to it runs all of
+          # them. The artifact keeps the paths alone: the smoke does not run
+          # this file.
+          self=false
+          matches '^\.github/workflows/ci\.yml$' && self=true
+          area() {
+            local hit=false
+            matches "$2" && hit=true
+            echo "$1=$hit" >> changes
+            [ "$self" = true ] && hit=true
+            echo "$1=$hit" >> "$GITHUB_OUTPUT"
+          }
+          area app '^(common|android|ios|deps|\.github/actions)/|^(Makefile|\.gitmodules)$'
+          area translations '^deps/translate(/|$)|^common/assets/translations/'
+          # The script tests load the release state and rollout code in ios/fastlane.
+          area release_scripts '^scripts/|^ios/fastlane/|^Makefile$|^\.github/workflows/(ci-release|promote|store-rollout)\.yml$'
+          # The specs import automation/shared and read .appiumrc.yaml.
+          area appium '^automation/(appium|shared)/|^\.appiumrc\.yaml$'
+          cat changes
+
+      - name: Upload the result for the smoke workflows
+        uses: actions/upload-artifact@v7
+        with:
+          name: ci-changes
+          path: changes
+          retention-days: 7
+
   translations_drift:
     name: en.json drift
     # Source-bypass guard: the committed English JSON under
@@ -26,9 +99,8 @@ jobs:
     # (this is the bypass that shipped the June family strings as English).
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    if: >-
-      github.event_name == 'workflow_dispatch' ||
-      github.event.pull_request.head.repo.full_name == github.repository
+    needs: changes
+    if: needs.changes.outputs.translations == 'true'
     env:
       # convert.py writes raw UTF-8 via the locale's preferred encoding; pin a
       # UTF-8 locale so non-ASCII source strings round-trip byte-for-byte.
@@ -68,9 +140,8 @@ jobs:
     # bash + git + python3 + ruby only -- all preinstalled on ubuntu-latest.
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    if: >-
-      github.event_name == 'workflow_dispatch' ||
-      github.event.pull_request.head.repo.full_name == github.repository
+    needs: changes
+    if: needs.changes.outputs.release_scripts == 'true'
     steps:
       - uses: actions/checkout@v7
         with:
@@ -91,9 +162,9 @@ jobs:
     timeout-minutes: 45
     # Skip for the automated translations-sync PRs: a translation-only diff
     # can't affect the binary, so don't spend a build on them.
+    needs: changes
     if: >-
-      (github.event_name == 'workflow_dispatch' ||
-       github.event.pull_request.head.repo.full_name == github.repository) &&
+      needs.changes.outputs.app == 'true' &&
       !startsWith(github.head_ref, 'automation/translations-sync/')
     env:
       LANG: en_US.UTF-8
@@ -124,9 +195,9 @@ jobs:
     # minutes either way, and gating would delay every green PR.
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    needs: changes
     if: >-
-      (github.event_name == 'workflow_dispatch' ||
-       github.event.pull_request.head.repo.full_name == github.repository) &&
+      needs.changes.outputs.app == 'true' &&
       !startsWith(github.head_ref, 'automation/translations-sync/')
     env:
       LANG: en_US.UTF-8
@@ -162,9 +233,9 @@ jobs:
     timeout-minutes: 120
     # Skip for the automated translations-sync PRs: a translation-only diff
     # can't affect the binary, so don't spend a build on them.
+    needs: changes
     if: >-
-      (github.event_name == 'workflow_dispatch' ||
-       github.event.pull_request.head.repo.full_name == github.repository) &&
+      needs.changes.outputs.app == 'true' &&
       !startsWith(github.head_ref, 'automation/translations-sync/')
     env:
       LANG: en_US.UTF-8
@@ -199,9 +270,9 @@ jobs:
     timeout-minutes: 120
     # Skip for the automated translations-sync PRs: a translation-only diff
     # can't affect the binary, so don't spend a build on them.
+    needs: changes
     if: >-
-      (github.event_name == 'workflow_dispatch' ||
-       github.event.pull_request.head.repo.full_name == github.repository) &&
+      needs.changes.outputs.app == 'true' &&
       !startsWith(github.head_ref, 'automation/translations-sync/')
     env:
       LANG: en_US.UTF-8
