@@ -96,7 +96,8 @@ private const val WEEKLY_REPORT_REFRESH_BODY = "Your weekly report is updated."
                 return Result.failure(Exception("invalid account rescue payload"))
             }
         }
-        blockedReason()?.let { reason ->
+        // Every notification the alarm receiver builds posts to BLOCKA.
+        blockedReason(NotificationChannels.BLOCKA)?.let { reason ->
             // An alarm queued earlier would keep its old time and payload and
             // could still fire once notifications are back on, so drop it too.
             cancelAlarm(notificationId)
