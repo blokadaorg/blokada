@@ -16,6 +16,7 @@ Future<void> changePin(
   String pin, {
   required VoidCallback onAccepted,
 }) async {
+  if (!context.mounted) return;
   if (!isValidPin(pin)) {
     showErrorDialog(context, "error lock invalid".i18n);
     return;
