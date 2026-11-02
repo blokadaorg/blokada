@@ -156,6 +156,8 @@ object StageBinding : StageOps {
             StageModal.PAYMENTUNAVAILABLE -> R.string.error_payment_not_available
             StageModal.PAYMENTTEMPUNAVAILABLE -> R.string.error_payment_failed
             StageModal.PAYMENTFAILED -> R.string.error_payment_failed_alternative
+            StageModal.FAULTLOCKED -> R.string.error_locked
+            StageModal.FAULTLINKALREADY -> R.string.family_fault_link_already
             else -> null
         }
 
@@ -164,8 +166,10 @@ object StageBinding : StageOps {
             else -> null
         }
 
+        // Sharing the log is refused while locked, so offering it on the
+        // locked fault would only bring this same alert back.
         val action: Pair<String, () -> Unit>? = when (modal) {
-            StageModal.ACCOUNTRESTOREIDOK -> null
+            StageModal.ACCOUNTRESTOREIDOK, StageModal.FAULTLOCKED -> null
             else -> {
                 context.requireContext().getString(R.string.universal_action_show_log) to {
                     scope.launch {

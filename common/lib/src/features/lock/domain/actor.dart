@@ -35,10 +35,7 @@ class LockActor with Logging, Actor {
         return;
       }
 
-      if (pin.length != 4 || !isNumeric(pin)) {
-        await _stage.showModal(StageModal.faultLockInvalid, m);
-        throw Exception("Invalid pin format: $pin");
-      }
+      if (!isValidPin(pin)) throw InvalidPinException();
 
       await _existingPin.change(m, pin);
       isLocked.now = true;
@@ -77,10 +74,7 @@ class LockActor with Logging, Actor {
         return;
       }
 
-      if (pin.length != 4 || !isNumeric(pin)) {
-        await _stage.showModal(StageModal.faultLockInvalid, m);
-        throw Exception("Invalid pin format: $pin");
-      }
+      if (!isValidPin(pin)) throw InvalidPinException();
 
       await _existingPin.change(m, pin);
       _hasPin.now = true;

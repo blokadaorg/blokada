@@ -26,7 +26,6 @@ class StageBinding: StageOps {
 
     let enteredForegroundHot = CurrentValueSubject<Bool?, Never>(nil)
     let currentModal = CurrentValueSubject<StageModal?, Never>(nil)
-    let showPauseMenu = CurrentValueSubject<Bool, Never>(false)
     let errorHeader = CurrentValueSubject<String?, Never>(nil)
     let error = CurrentValueSubject<Error?, Never>(nil)
 
@@ -72,14 +71,6 @@ class StageBinding: StageOps {
         commands.execute(.modalDismissed)
     }
 
-    func showPauseMenu(_ show: Bool) {
-        if (show) {
-            commands.execute(.modalShow, "pause")
-        } else {
-            commands.execute(.modalDismissed)
-        }
-    }
-
     init() {
         StageOpsSetup.setUp(binaryMessenger: flutter.getMessenger(), api: self)
     }
@@ -89,11 +80,6 @@ class StageBinding: StageOps {
     ]
 
     func doShowModal(modal: StageModal, completion: @escaping (Result<Void, Error>) -> Void) {
-//    if (modal == .pause) {
-//        currentModal.send(nil)
-//        showPauseMenu.send(true)
-//    } else
-
         errorHeader.send(nil)
 
         if supportedSheets.contains(modal) {
@@ -141,7 +127,6 @@ class StageBinding: StageOps {
     func doDismissModal(completion: @escaping (Result<Void, Error>) -> Void) {
         if currentModal.value != nil {
             currentModal.send(nil)
-            //showPauseMenu.send(false)
             completion(.success(()))
             commands.execute(.modalDismissed)
         } else if error.value != nil {
@@ -153,7 +138,6 @@ class StageBinding: StageOps {
             completion(.success(()))
             commands.execute(.modalDismissed)
         } else {
-            //showPauseMenu.send(false)
             completion(.success(()))
             commands.execute(.modalDismissed)
         }

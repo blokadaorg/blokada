@@ -17,6 +17,20 @@ class ExistingPin extends StringPersistedValue {
   ExistingPin() : super("lock:pin");
 }
 
+/// Whether [pin] has the shape the lock screen and Settings accept: exactly
+/// four digits. Shared so the screen that takes the input can explain a bad
+/// PIN before handing it to [LockActor], which rejects it as well.
+bool isValidPin(String pin) => pin.length == 4 && isNumeric(pin);
+
+/// Thrown by [LockActor] for a PIN that fails [isValidPin]. The caller that
+/// took the input shows the error in Flutter: neither native platform renders
+/// an alert for it, and raising one through the stage would leave the modal
+/// slot taken until the next tab change.
+class InvalidPinException implements Exception {
+  @override
+  String toString() => "InvalidPinException: a PIN must be exactly 4 digits";
+}
+
 class LockModule with Module {
   @override
   onCreateModule() async {
