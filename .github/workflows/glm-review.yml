@@ -30,7 +30,7 @@ jobs:
       group: glm-review-${{ github.event.issue.number }}
       cancel-in-progress: false
     steps:
-      - uses: the-pr-agent/pr-agent@981344be2755e303df501e18e3f60b848a188a80 # v0.48.0
+      - uses: the-pr-agent/pr-agent@efdde4afe14aa401a3889012c7f3e9ef3081a430 # v0.49.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI__KEY: ${{ secrets.ZAI_API_KEY }}
