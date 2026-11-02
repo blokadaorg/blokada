@@ -1,6 +1,11 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:common/src/core/core.dart';
 import 'package:common/src/features/notification/domain/notification.dart';
 import 'package:common/src/platform/stats/api.dart' as platform_stats;
 import 'package:flutter_test/flutter_test.dart';
+import 'package:i18n_extension/i18n_extension.dart';
 
 void main() {
   group('splitWeeklyTotalsFromStats', () {
@@ -143,6 +148,28 @@ void main() {
         deltaPercent: 5.0,
       );
       expect(event.isPostable, isFalse);
+    });
+  });
+
+  // Kept last: it loads the shipped English table into the global i18n state.
+  group('notification title', () {
+    setUpAll(() {
+      final source = File('assets/translations/ui/en.json').readAsStringSync();
+      I18nService.translations += {
+        'en': Map<String, String>.from(jsonDecode(source)),
+      };
+      // The test locale (en-US) resolves through the "en" fallback, which
+      // would otherwise log a miss per lookup.
+      Translations.missingTranslationCallback = (
+              {required key,
+              required locale,
+              required translations,
+              required supportedLocales}) =>
+          false;
+    });
+
+    test('names the Privacy Pulse screen the notification opens', () {
+      expect(WeeklyReportContentPayload.fromEvent(null).title, 'Privacy Pulse');
     });
   });
 }

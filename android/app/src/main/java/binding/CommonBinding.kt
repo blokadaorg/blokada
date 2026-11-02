@@ -72,8 +72,9 @@ object CommonBinding : CommonOps {
         body: String?,
         callback: (Result<Unit>) -> Unit
     ) {
-        notification.show(notificationId, atWhen.toBlockaDate(), body)
-        callback(Result.success(Unit))
+        // A failure surfaces in Dart as a PlatformException, which the calling
+        // trace writes to the share log.
+        callback(notification.show(notificationId, atWhen.toBlockaDate(), body))
     }
 
     override fun doDismissDeliveredAll(callback: (Result<Unit>) -> Unit) {

@@ -71,16 +71,20 @@ private const val WEEKLY_REPORT_REFRESH_BODY = "Your weekly report is updated."
         useChannels = true
     }
 
-    fun show(notificationId: String, atWhen: Date, body: String? = null, scheduleBackground: Boolean = true) {
+    /**
+     * Schedules [notificationId] for [atWhen]. A failure means nothing was
+     * scheduled; the caller reports it back to Dart so it lands in the share
+     * log instead of the notification vanishing without a trace.
+     */
+    fun show(notificationId: String, atWhen: Date, body: String? = null, scheduleBackground: Boolean = true): Result<Unit> {
         if (EnvironmentService.getFlavor() == "family" && notificationId == NOTIF_WEEKLY_REPORT) {
             Log.d("NotificationService", "Skipping weekly report scheduling on family flavor")
-            return
+            return Result.success(Unit)
         }
         if (notificationId == NOTIF_WEEKLY_REPORT) {
             val payload = WeeklyReportPayload.fromJson(body)
             if (payload == null || payload.title.isNullOrEmpty() || payload.body.isNullOrEmpty()) {
-                Log.e("NotificationService", "Skipping weekly report scheduling due to invalid payload")
-                return
+                return Result.failure(Exception("invalid weekly report payload"))
             }
         }
         // The rescue copy is composed in Dart, so a malformed body would only
@@ -89,9 +93,11 @@ private const val WEEKLY_REPORT_REFRESH_BODY = "Your weekly report is updated."
         if (notificationId == NOTIF_ACCOUNT_RESCUE) {
             val payload = AccountRescuePayload.fromJson(body)
             if (payload == null || payload.title.isNullOrEmpty() || payload.body.isNullOrEmpty()) {
-                Log.e("NotificationService", "Skipping account rescue scheduling due to invalid payload")
-                return
+                return Result.failure(Exception("invalid account rescue payload"))
             }
+        }
+        blockedReason()?.let { reason ->
+            return Result.failure(Exception("not scheduling $notificationId: $reason"))
         }
         val ctx = context.requireAppContext()
         val intent = Intent(ctx, NotificationAlarmReceiver::class.java)
@@ -109,6 +115,7 @@ private const val WEEKLY_REPORT_REFRESH_BODY = "Your weekly report is updated."
 
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
         Log.d("NotificationService", "Scheduled $notificationId at ${calendar.time}")
+        return Result.success(Unit)
     }
 
     fun dismissAll() {
@@ -164,6 +171,25 @@ private const val WEEKLY_REPORT_REFRESH_BODY = "Your weekly report is updated."
         return notificationManager.areNotificationsEnabled()
     }
 
+    /**
+     * Why the system would drop a notification posted now, or null if it would
+     * be shown. NotificationManager.notify() discards a notification silently
+     * when the app or its channel is turned off, so callers check this first
+     * and log the reason instead.
+     */
+    fun blockedReason(channel: NotificationChannels? = null): String? {
+        if (!notificationManager.areNotificationsEnabled()) {
+            return "notifications are disabled for the app"
+        }
+        if (channel != null) {
+            val systemChannel = notificationManager.getNotificationChannel(channel.name)
+            if (systemChannel?.importance == NotificationManager.IMPORTANCE_NONE) {
+                return "notification channel ${channel.name} is disabled"
+            }
+        }
+        return null
+    }
+
 }
 
 class NotificationAlarmReceiver : BroadcastReceiver() {
@@ -200,7 +226,16 @@ class NotificationAlarmReceiver : BroadcastReceiver() {
             else -> null
         }
 
-        if (n != null) notification.show(n)
+        if (n == null) return
+        // The alarm can fire hours after scheduling, and the user may have
+        // turned notifications off since. Only logcat here: routing through
+        // the share log would boot a Flutter engine from a bare broadcast.
+        val blocked = notification.blockedReason(n.channel)
+        if (blocked != null) {
+            Log.w("NotificationService", "Dropping ${intent.getStringExtra("id")}: $blocked")
+            return
+        }
+        notification.show(n)
     }
 }
 

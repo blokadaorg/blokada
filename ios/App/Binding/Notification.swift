@@ -29,6 +29,20 @@ let NOTIF_ACTIVITY_LOGGING_REMINDER = "activityLoggingReminder"
 let NOTIF_ACCOUNT_RESCUE = "accountRescue"
 let WEEKLY_REPORT_BACKGROUND_LEAD_MS = 60 * 60 * 1000
 
+// Whether the system will deliver a locally scheduled notification. Provisional
+// (quiet delivery to Notification Center) and ephemeral (App Clip) grants post
+// too; only an explicit denial or no answer yet means it would be dropped.
+func canPostNotifications(_ status: UNAuthorizationStatus) -> Bool {
+    switch status {
+    case .authorized, .provisional, .ephemeral:
+        return true
+    case .denied, .notDetermined:
+        return false
+    @unknown default:
+        return false
+    }
+}
+
 let WEEKLY_REPORT_CATEGORY = "WEEKLY_REPORT_CATEGORY"
 // Action identifiers MUST stay in sync with the Android side and with the
 // Dart `notificationTapped` parser in `actor.dart` — the delegate sends

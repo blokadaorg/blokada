@@ -443,9 +443,9 @@ class CommonBinding: CommonOps {
         print("Now is: \(Date().description(with: .current))")
         return Future<Ignored, Error> { promise in
             self.center.getNotificationSettings { settings in
-                guard settings.authorizationStatus == .authorized else {
+                guard canPostNotifications(settings.authorizationStatus) else {
                     print("Unauthorized for notifications")
-                    return promise(.failure("unauthorized for notifications"))
+                    return promise(.failure("unauthorized for notifications: \(settings.authorizationStatus.rawValue)"))
                 }
 
                 self.center.add(request) { error in
