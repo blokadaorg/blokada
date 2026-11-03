@@ -26,6 +26,7 @@ import 'package:flutter/material.dart';
 import 'package:common/src/shared/ui/vendor/input_code_field/input_code_field.dart';
 
 import 'package:common/src/features/lock/domain/lock.dart';
+import 'package:common/src/features/lock/ui/change_pin.dart';
 import 'package:common/src/features/notification/domain/notification.dart';
 import 'package:common/src/features/plan/ui/plan_rows.dart';
 
@@ -261,8 +262,8 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                                     inputValue: "",
                                     onConfirm: (String value) {
                                       log(Markers.userTap).trace("tappedChangePin", (m) async {
-                                        Navigator.of(context).pop();
-                                        await _lock.lock(m, value);
+                                        await changePin(context, m, value,
+                                            onAccepted: () => Navigator.of(context).pop());
                                       });
                                     },
                                     onRemove: () {

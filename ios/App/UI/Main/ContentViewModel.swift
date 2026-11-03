@@ -42,17 +42,10 @@ class ContentViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
     @Published var activeSheet: StageModal? = nil
-    @Published var showPauseMenu = false {
-        didSet {
-            self.stage.showPauseMenu(showPauseMenu)
-        }
-    }
-
     @Published var shareContent: ShareContent? = nil
 
     init() {
         onSheetChanged()
-        onShowPauseMenuChanged()
         onShareLog()
         onShareUrl()
         onShareText()
@@ -67,15 +60,6 @@ class ContentViewModel: ObservableObject {
         .receive(on: RunLoop.main)
         .sink(onValue: { it in
             self.activeSheet = it
-        })
-        .store(in: &cancellables)
-    }
-
-    private func onShowPauseMenuChanged() {
-        stage.showPauseMenu
-        .receive(on: RunLoop.main)
-        .sink(onValue: { it in
-            self.showPauseMenu = it
         })
         .store(in: &cancellables)
     }
