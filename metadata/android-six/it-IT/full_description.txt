@@ -1,0 +1,38 @@
+🛡️ Blokada — Ad blocker open source, DNS cifrato e VPN WireGuard®
+
+Blocca pubblicità, tracker e malware in app, browser e giochi — non solo dentro un'estensione del browser. Blokada è un ad blocker open source con VPN per la privacy, sviluppato in modo trasparente per mantenere Internet veloce, privato e senza distrazioni — senza consumare la batteria.
+
+✨ Cosa rende Blokada diverso
+
+• Filtraggio nel cloud — la pubblicità viene bloccata prima di raggiungere il tuo dispositivo, senza impatto su batteria o dati.
+• VPN WireGuard® integrata — moderna, veloce, no-log. Cifra tutto il tuo traffico con un tocco.
+• DNS cifrato — DNS-over-TLS mantiene le tue richieste private dalla rete a cui sei connesso.
+• Un solo abbonamento per tutti i tuoi dispositivi — Android, iOS, Windows, macOS, Linux. Passa liberamente da uno all'altro.
+• Protezione a livello di sistema — blocco a livello DNS in app, browser e giochi.
+
+🚀 Cosa ottieni
+
+• Caricamento delle pagine più veloce e minor consumo di dati
+• Maggiore durata della batteria su mobile
+• Protezione solida contro siti malevoli e phishing
+• Attività nell'app — vedi cosa viene bloccato, consenti ciò che vuoi
+• Liste di filtri personalizzabili, comprese quelle gestite dalla community
+• Protezione su Wi-Fi pubblici grazie alla VPN integrata
+
+⚙️ Come funziona
+
+Blokada Cloud blocca pubblicità e tracker a livello DNS — veloce, leggero e affidabile. Passa a Blokada Plus per la VPN WireGuard® no-log, che cifra tutto il tuo traffico attraverso la nostra rete globale.
+
+🎯 Pensato per
+
+• Chi vuole un Internet più veloce e più tranquillo
+• Utenti attenti alla privacy che vogliono vedere chi li traccia
+• Viaggiatori e lavoratori da remoto su Wi-Fi pubblici
+• Appassionati di open source che diffidano degli ad blocker poco trasparenti
+
+Riprenditi il controllo della tua esperienza online. Blocca la pubblicità, cifra il tuo traffico e proteggi la tua privacy — il tutto con un'unica app.
+
+----
+
+Termini d'uso: https://go.blokada.org/terms
+Informativa sulla privacy: https://go.blokada.org/privacy

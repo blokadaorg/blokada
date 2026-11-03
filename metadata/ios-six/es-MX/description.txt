@@ -1,33 +1,36 @@
-Esta es la aplicación oficial en la App Store del proyecto de código abierto Blokada.
+🛡️ Blokada — Bloqueador de anuncios open source, DNS cifrado y VPN WireGuard®
 
-Blokada para iOS utiliza DNS (Sistema de Nombres de Dominio) para ofrecerte una experiencia sin anuncios, permitiéndote ver solo el contenido que deseas.
+Bloquea anuncios, rastreadores y malware en apps, navegadores y juegos — no solo dentro de tu navegador. Blokada es una app de privacidad open source, desarrollada de forma abierta para mantener Internet rápido, privado y sin ruido — sin agotar tu batería.
 
-Usa Blokada Cloud para bloquear anuncios y rastreadores mientras mantienes tu tráfico DNS confidencial.
+✨ Por qué Blokada es diferente
 
-Actualiza a Blokada Plus para cifrar todo tu tráfico con nuestra red global de VPN. Mejora tu privacidad y protege tu conexión contra ataques cibernéticos y hackers.
+• Filtrado en la nube — los anuncios se bloquean antes de llegar a tu dispositivo, sin gasto extra de batería ni de datos.
+• VPN WireGuard® integrada — moderna, rápida, sin registros. Cifra todo tu tráfico con un toque.
+• DNS cifrado — DNS-over-HTTPS mantiene tus consultas privadas frente a tu red.
+• Una sola suscripción para todos tus dispositivos — Android, iOS, Windows, macOS, Linux. Cámbiate libremente entre ellos.
+• Protección en todo el sistema — bloqueo a nivel DNS en apps, navegadores y juegos.
 
-----
+🚀 Qué obtienes
 
-Características principales:
+• Páginas que cargan más rápido y menor consumo de datos
+• Mayor duración de batería en el móvil
+• Sólida protección contra sitios maliciosos y phishing
+• Actividad en la app — mira lo que se bloquea, permite lo que quieras
+• Listas de filtros personalizables, incluidas las mantenidas por la comunidad
+• Protección en Wi-Fi públicas gracias a la VPN integrada
 
-- Compatible con el bloqueo de anuncios en cualquier navegador web y otras aplicaciones instaladas.
-- Bloquea sitios que distribuyen contenido malicioso, virus y páginas fraudulentas.
-- Intercepción basada en DNS para todos los navegadores y aplicaciones modernas.
-- VPN rápida y confiable que protege tu privacidad y cifra tus datos.
+⚙️ Cómo funciona
 
-¡El bloqueador de anuncios más compatible del mercado!
+Blokada Cloud bloquea anuncios y rastreadores a nivel DNS — rápido, ligero y confiable. Mejora a Blokada Plus para obtener la VPN WireGuard® sin registros, que cifra todo tu tráfico a través de nuestra red global.
 
-• Bloquea anuncios
-• Ahorra tu plan de datos
-• Navega MÁS RÁPIDO al cargar menos datos
-• Aumenta la duración de tu batería
+🎯 Diseñado para
 
-¿Qué se puede bloquear?
-• Bloqueo de anuncios molestos: Google AdWords, Google Invite Media, DoubleClick Bid Manager, Liftoff, Bing Ads, Amazon, etc.
-• Bloqueo de sitios web para adultos
-• Bloqueo de sitios de apuestas
-• Bloqueo de rastreadores de redes sociales: Google Analytics, Facebook Connect, DoubleClick, Google Publisher Tags, Google AdSense, Twitter Button, Yandex.Metrix, Comscore
-• Bloqueo de sitios web maliciosos: descargas de virus, contenido peligroso, sitios fraudulentos y aplicaciones manipuladas
+• Personas que quieren un Internet más rápido y tranquilo
+• Usuarios conscientes de su privacidad que quieren ver quién los rastrea
+• Viajeros y trabajadores remotos en Wi-Fi públicas
+• Entusiastas del open source que no confían en bloqueadores opacos
+
+Retoma el control de tu Internet. Bloquea anuncios, cifra tu tráfico y protege tu privacidad — todo con una sola app.
 
 ----
 

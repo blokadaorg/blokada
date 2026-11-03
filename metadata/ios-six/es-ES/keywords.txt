@@ -1,0 +1,1 @@
+bloqueador,anuncios,dnscloak,wireguard,privacidad,rastreador,escudo,rapido,filtro,seguro,vpn,dns
