@@ -161,7 +161,6 @@ protocol CommonOps {
   func doLinksChanged(links: [OpsLink], completion: @escaping (Result<Void, Error>) -> Void)
   func doShow(notificationId: String, atWhen: String, body: String?, completion: @escaping (Result<Void, Error>) -> Void)
   func doDismissDeliveredAll(completion: @escaping (Result<Void, Error>) -> Void)
-  func doConfigChanged(skipBypassList: Bool, completion: @escaping (Result<Void, Error>) -> Void)
   func doShareText(text: String, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
@@ -307,23 +306,6 @@ class CommonOpsSetup {
       }
     } else {
       doDismissDeliveredAllChannel.setMessageHandler(nil)
-    }
-    let doConfigChangedChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.common.CommonOps.doConfigChanged", binaryMessenger: binaryMessenger, codec: codec)
-    if let api = api {
-      doConfigChangedChannel.setMessageHandler { message, reply in
-        let args = message as! [Any?]
-        let skipBypassListArg = args[0] as! Bool
-        api.doConfigChanged(skipBypassList: skipBypassListArg) { result in
-          switch result {
-            case .success:
-              reply(wrapResult(nil))
-            case .failure(let error):
-              reply(wrapError(error))
-          }
-        }
-      }
-    } else {
-      doConfigChangedChannel.setMessageHandler(nil)
     }
     let doShareTextChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.common.CommonOps.doShareText", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {

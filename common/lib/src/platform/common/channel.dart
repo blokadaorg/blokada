@@ -63,9 +63,6 @@ class PlatformCommonChannel extends CommonChannel {
       _ops.doShow(notificationId, atWhen, body);
 
   @override
-  Future<void> doConfigChanged(bool skipBypassList) => _ops.doConfigChanged(skipBypassList);
-
-  @override
   Future<void> doShareText(String text) => _ops.doShareText(text);
 }
 
@@ -119,9 +116,6 @@ class NoOpCommonChannel extends CommonChannel {
 
   @override
   Future<void> doShow(String notificationId, String atWhen, String? body) => Future.value();
-
-  @override
-  Future<void> doConfigChanged(bool skipBypassList) => Future.value();
 
   @override
   Future<void> doShareText(String text) => Future.value();

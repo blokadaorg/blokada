@@ -23,10 +23,10 @@ const rawConfig = {
   // Active}, which restores the account only when the device isn't already on it
   // this run (tracked in output/.account-state, reset per run by onPrepare). So
   // grouping means the account is restored just ONCE per group — at the boundary,
-  // not per spec — which is the bulk of the suite's time (each restore is an app
-  // relaunch + support-chat command + network round trip). The suite ends active
-  // (power-pause last), mirroring the real user journey (inactive -> paywall ->
-  // activate).
+  // not per spec — which is the bulk of the suite's time (each restore is two app
+  // launches, the first with the restore launch argument, plus a network round
+  // trip). The suite ends active (power-pause last), mirroring the real user
+  // journey (inactive -> paywall -> activate).
   //
   // ADD A NEW SPEC INTO ITS ACCOUNT GROUP: inactive specs above the boundary,
   // active specs below it. Interleaving still passes (each ensureAccount* fixes

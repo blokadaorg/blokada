@@ -11,7 +11,6 @@ import 'package:common/src/features/support/ui/support_sheet.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/app/app.dart';
 import 'package:common/src/platform/app/channel.pg.dart';
-import 'package:common/src/platform/command/command.dart';
 import 'package:common/src/platform/perm/perm.dart';
 import 'package:common/src/platform/stage/channel.pg.dart';
 import 'package:common/src/platform/stage/stage.dart';

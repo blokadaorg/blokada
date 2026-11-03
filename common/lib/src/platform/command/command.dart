@@ -57,7 +57,6 @@ class CommandStore with Logging, Actor implements CommandEvents {
     "NEWPLUS",
     "VPNSTATUS",
     commandLogLevel.toUpperCase(),
-    commandSkipBypass.toUpperCase(),
     cmdPaymentHandleSuccess.toUpperCase(),
     cmdPaymentHandleFailure.toUpperCase(),
     cmdPaymentHandleScreenClosed.toUpperCase(),

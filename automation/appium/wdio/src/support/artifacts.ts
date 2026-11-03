@@ -6,9 +6,10 @@ import { ensureDirectory } from "./files.js";
 
 const outputDir = resolve(process.cwd(), "..", "output");
 
-// Set while the screen may show an account id (the support chat during a
-// restore). Android skips screenshots and page source then, since CI uploads
-// them from a public repo. iOS keeps its existing capture behaviour.
+// Set while the screen may show sensitive data (the Private DNS hostname,
+// which carries the device tag). Android skips screenshots and page source
+// then, since CI uploads them from a public repo. iOS keeps its existing
+// capture behaviour.
 let sensitiveScreen = false;
 
 export function setSensitiveScreen(value: boolean): void {

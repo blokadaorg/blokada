@@ -3867,6 +3867,7 @@
 					"$(PROJECT_DIR)/BlockaEngine",
 				);
 				MARKETING_VERSION = dev;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D RESTORE_LAUNCH_ARG";
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore net.blocka.app";
@@ -3949,7 +3950,7 @@
 					"$(PROJECT_DIR)",
 				);
 				MARKETING_VERSION = dev;
-				"OTHER_SWIFT_FLAGS[arch=*]" = "-D FAMILY";
+				"OTHER_SWIFT_FLAGS[arch=*]" = "-D FAMILY -D RESTORE_LAUNCH_ARG";
 				PRODUCT_BUNDLE_IDENTIFIER = net.blocka.app.family;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore net.blocka.app.family";

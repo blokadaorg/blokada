@@ -278,17 +278,28 @@ void main() {
       });
     });
 
-    test("is not set for local commands", () async {
-      await withTrace((m) async {
-        final api = _registerDeps();
-        when(api.createSession(any, any, event: anyNamed("event")))
-            .thenAnswer((_) async => _session("session-1"));
-        final subject = SupportActor();
-        final sending = subject.sendMessage("cc info", m);
-        expect(subject.replyPending, false);
-        await sending;
+    for (final text in ["cc info", "Cc restore abcdefghijkl"]) {
+      test("goes to the support bot for '$text', which runs no command",
+          () async {
+        await withTrace((m) async {
+          final api = _registerDeps();
+          when(api.createSession(any, any, event: anyNamed("event")))
+              .thenAnswer((_) async => _session("session-1"));
+          when(api.sendMessage(any, any, any))
+              .thenAnswer((_) async => _reply("Hello there"));
+
+          final subject = SupportActor();
+          final sending = subject.sendMessage(text, m);
+          expect(subject.replyPending, true);
+          await sending;
+
+          verify(api.sendMessage(any, any, text)).called(1);
+          final command = Core.get<CommandStore>() as MockCommandStore;
+          verifyNever(command.onCommandString(any, any));
+          expect(subject.messages.last.text, "Hello there");
+        });
       });
-    });
+    }
 
     test("is cleared when the request fails and the error message shows",
         () async {

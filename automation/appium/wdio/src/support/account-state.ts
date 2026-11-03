@@ -4,9 +4,9 @@ import { resolve } from "node:path";
 import { ensureDirectory } from "./files.js";
 
 // Records which account the device was last restored to DURING THE CURRENT RUN,
-// so per-spec ensureAccount{Active,Inactive} can skip the expensive restore (app
-// relaunch + support-chat command + network round trip) when the device is
-// already in the needed state. Reset once per run by the wdio onPrepare hook (see
+// so per-spec ensureAccount{Active,Inactive} can skip the expensive restore (two
+// app launches + network round trip) when the device is already in the needed
+// state. Reset once per run by the wdio onPrepare hook (see
 // wdio.conf.ts), so a fresh run never trusts a prior run's state — the first spec
 // of a run always restores, later same-account specs skip. Lives under output/
 // (git-ignored). Shared by the launcher (onPrepare reset) and the workers

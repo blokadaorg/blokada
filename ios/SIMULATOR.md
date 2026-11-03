@@ -30,9 +30,9 @@ yet, so a reused simulator keeps whatever account was last persisted, including
 an inactive throwaway the app may create after refreshing an inactive account.
 To switch to a different `ACCOUNT_ID`, start from a clean simulator
 (`make sim-clean`) or restore it into the installed app with
-`ACCOUNT_ID=yyy make restore-account-sim`, which relaunches the app with a
-debug-only `-restoreAccountId` launch argument (the same restore as the app's
-settings).
+`ACCOUNT_ID=yyy make restore-account-sim`, which relaunches the app with the
+`-restoreAccountId` launch argument (the same restore as the app's settings),
+read only by Debug builds and the Dev and FamilyDev targets.
 
 The Mocked / FamilyMocked schemes build the same `lib/main.dart` entrypoint as
 the shipping app; mocked behavior is switched on by the `MOCKED=true` and
