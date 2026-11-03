@@ -1,30 +1,38 @@
-Ta aplikacja zapewnia bezpieczne i kontrolowane środowisko online dla całej rodziny. Oprócz blokowania reklam, z którego Blokada jest znana, nasza nowa apka umożliwia rodzicom stworzenie cyfrowej przestrzeni, w której dzieci mogą bezpiecznie i pewnie eksplorować internet.
+🛡️ Blokada Family — Kontrola rodzicielska na wielu urządzeniach, zbudowana na sprawdzonej platformie Blokada
 
+Chroń swoje dzieci w sieci bez zmuszania całej rodziny do jednej platformy. Blokada Family daje Ci kontrolę rodzicielską obejmującą wiele urządzeń — zbudowaną na tych samych otwartoźródłowych fundamentach blokowania reklam i ochrony prywatności, na których działa Blokada.
 
----
+✨ Dlaczego Blokada Family
 
-Główne funkcje:
+• Jedna aplikacja rodzica, wiele urządzeń dziecka — zarządzaj telefonami i tabletami dzieci z jednego miejsca, niezależnie od platformy.
+• Blokada aplikacji i treści — blokuj aplikacje, strony i całe kategorie jednym dotknięciem.
+• Statystyki aktywności na żywo — zobacz, co jest blokowane na każdym urządzeniu, i reaguj na bieżąco.
+• SafeSearch zawsze aktywny — wyszukiwarki zwracają wyłącznie wyniki dostosowane do wieku i przefiltrowane.
+• Konfigurowalne reguły dla każdego urządzenia — precyzyjnie dostosuj, co jest dozwolone dla każdego dziecka.
+• Wbudowane blokowanie reklam i trackerów — każde chronione urządzenie dostaje w prezencie pełne doświadczenie Blokada.
 
-- Kontrola rodzicielska: Dostosuj dostęp do Internetu swoich dzieci, skutecznie blokując nieodpowiednie i szkodliwe strony internetowe oraz aplikacje.
-- Bezpieczne przeglądanie: Oprócz oferowania funkcji blokowania reklam, główny nacisk kładziemy na bezpieczne przeglądanie Internetu, aby dzieci nie były narażone na nieodpowiednie treści.
-- Ochrona przed złośliwym oprogramowaniem: Aktywnie blokuje strony zawierające złośliwe oprogramowanie, wirusy i scam.
-- Technologia oparta na DNS: Oferuje kompleksową ochronę kompatybilną ze wszystkimi nowoczesnymi przeglądarkami i aplikacjami.
-- Zwiększona wydajność: Zmniejsza zużycie danych i wydłuża czas pracy baterii, ładując mniej niepotrzebnych danych.
+🛡️ Przed czym chroni
 
-Więcej niż tylko blokowanie reklam:
+• Nieodpowiednie lub szkodliwe strony i aplikacje
+• Kategorie treści dla dorosłych, hazardowych i przemocy
+• Trackery i reklamy z sieci społecznościowych
+• Strony złośliwe i phishingowe
+• Niefiltrowane, rozpraszające wyniki wyszukiwania
 
-- Kompleksowe filtrowanie: Filtruje treści dla dorosłych, strony hazardowe i agresywne sieci reklamowe, aby zapewnić przyjazne dla dzieci środowisko internetowe.
-- SafeSearch: Wymusza na wyszukiwarkach filtrowanie treści kontrowersyjnych, zapewniając bezpieczniejsze wyszukiwanie dla dzieci.
-- Monitorowanie aktywności: Umożliwia rodzicom monitorowanie odwiedzanych przez ich dzieci stron internetowych, zapewniając wgląd w zachowania online i bezpieczny dostęp do Internetu.
-- Konfiguracja: Daje rodzicom elastyczność w dostosowywaniu co jest blokowane a co dozwolone, zgodnie z do potrzebami rodziny.
-- Blokowanie mediów społecznościowych i trackerów: Chroni przed trackerami z różnych sieci reklamowych, ukrywając cyfrowy ślad Twojej rodziny.
-- Filtrowanie stron internetowych: Zapewnia zaawansowaną ochronę przed zagrożeniami internetowymi, blokując dostęp do złośliwych stron internetowych.
+🚀 Łatwa konfiguracja
 
----
+1. Zainstaluj Blokada Family na urządzeniu rodzica.
+2. Dodaj urządzenie każdego dziecka.
+3. Wybierz reguły — kategorie, aplikacje i filtry wyszukiwania dla każdego dziecka.
+4. Obserwuj statystyki na żywo i dostosowuj je w miarę jak rodzina się zmienia.
 
-Tworzenie bezpieczniejszego Internetu dla Twojej rodziny
+🌍 Stworzone dla nowoczesnych rodzin
 
-Z Blokada Family możesz zapewnić swoim dzieciom bezpieczny i chroniony dostęp do Internetu, czyniąc go przestrzenią sprzyjającą nauce i zabawie.
+Zaprojektowane dla rodzin z różnymi urządzeniami i zmieniającymi się potrzebami. Jedna aplikacja, każde dziecko, pełna kontrola — niezależnie od tego, czy mają iPhone'a, czy Androida.
+
+Daj swojej rodzinie spokojniejszy i bezpieczniejszy internet — bez rezygnowania z elastyczności.
+
+----
 
 Warunki użytkowania: https://go.blokada.org/terms_family
 Polityka prywatności: https://go.blokada.org/privacy_family

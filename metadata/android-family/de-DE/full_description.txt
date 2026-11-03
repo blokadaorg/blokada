@@ -1,56 +1,38 @@
-Blokada Family – Multiplattform-Elternkontrolle für ein sichereres Familien-Internet-Erlebnis 🛡️👨‍👩‍👧‍👦
+🛡️ Blokada Family — Geräteübergreifende Kindersicherung, aufgebaut auf Blokadas bewährter Plattform
 
-Übernehmen Sie die Kontrolle über das digitale Leben Ihrer Familie mit Blokada Family, der ultimativen Elternkontroll-App, die entwickelt wurde, um Ihre Kinder auf allen Geräten zu schützen. Mit unserer umfassenden Suite von Tools, einschließlich Family-Link-Funktionen, können Sie Apps blockieren und unangemessene Inhalte filtern, um ein sicheres und gesundes Online-Umfeld für Ihre ganze Familie zu gewährleisten.
+Schützen Sie Ihre Kinder online, ohne dass alle in Ihrer Familie auf derselben Plattform sein müssen. Blokada Family bietet Ihnen geräteübergreifende Kindersicherung – aufgebaut auf demselben Open-Source-Fundament für Werbeblocker und Privatsphäre, das auch Blokada antreibt.
 
-**Hauptfunktionen:**
+✨ Warum Blokada Family
 
-**Multiplattform-Unterstützung** 📱💻
+• Eine Eltern-App, viele Kindergeräte – verwalten Sie die Smartphones und Tablets Ihrer Kinder von einem Ort aus, plattformunabhängig.
+• App- und Inhalts-Blocker – blockieren Sie Apps, Webseiten und ganze Kategorien per Antippen.
+• Live-Aktivitätsstatistiken – sehen Sie, was auf jedem Gerät blockiert wird, und passen Sie die Regeln laufend an.
+• SafeSearch immer aktiv – Suchmaschinen liefern nur altersgerechte, gefilterte Ergebnisse.
+• Anpassbare Regeln pro Gerät – feinjustieren Sie für jedes Kind, was erlaubt ist.
+• Eingebauter Werbe- und Tracker-Schutz – jedes geschützte Gerät bekommt zusätzlich das volle Blokada-Erlebnis.
 
-- 🔗 Verwalten und überwachen Sie nahtlos die Geräte Ihrer Familie – Smartphones, Tablets – mithilfe unserer Family-Link-Funktionen.
-- 🛡️ Plattformübergreifende Kompatibilität sorgt für konsistente Elternkontrollen und Familiensicherheit im Internet auf allen Geräten mit Leichtigkeit.
+🛡️ Wovor es schützt
 
-**App-Blocker & Inhaltsfilter** 🚫👾
+• Unangemessene oder schädliche Webseiten und Apps
+• Inhaltskategorien wie Erwachsene, Glücksspiel und Gewalt
+• Tracker und Werbung aus sozialen Netzwerken
+• Schädliche und Phishing-Seiten
+• Ungefilterte, ablenkende Suchergebnisse
 
-- 🔐 Blockieren Sie Apps und Websites, die Ihr Kind ablenken oder unangemessen sind.
-- 🛑 Nutzen Sie unseren fortschrittlichen Filter, um unerwünschte Inhalte zu blockieren, einschließlich Plattformen wie YouTube.
+🚀 Einfach einzurichten
 
-**Elternkontrolle & Überwachung** 🕵️‍♂️👀
+1. Installieren Sie Blokada Family auf dem Gerät der Eltern.
+2. Fügen Sie das Gerät jedes Kindes hinzu.
+3. Wählen Sie die Regeln – Kategorien, Apps und Suchfilter pro Kind.
+4. Verfolgen Sie die Live-Statistiken und passen Sie an, wenn Ihre Familie wächst.
 
-- 📊 Erhalten Sie vollständigen Zugriff auf die Gerätenutzung Ihres Kindes und überwachen Sie ihre Online-Aktivitäten – alles an einem Ort.
-- ⚠️ Erhalten Sie Echtzeit-Statistiken, wenn versucht wird, auf blockierte Inhalte zuzugreifen, dank der Family-Link-Funktion, die Sie informiert hält.
+🌍 Für moderne Familien gemacht
 
-**Sicherer Internetzugang** 🛡️🌍
+Entwickelt für Familien mit gemischten Geräten und sich verändernden Bedürfnissen. Eine App, jedes Kind, volle Kontrolle – egal ob iPhone oder Android.
 
-- 🚨 Sorgen Sie für Familiensicherheit im Internet mit robuster Filterung von schädlichem oder explizitem Material.
-- 🛑 Schützen Sie Ihre Kinder vor Online-Bedrohungen und bieten Sie ein sicheres Surferlebnis mit erweiterten Family-Link-Kontrollen.
+Schenken Sie Ihrer Familie ein ruhigeres, sichereres Internet mit geräteübergreifender Kindersicherung – ohne auf Flexibilität zu verzichten.
 
-**Einfache Verwaltung** ✨📲
+----
 
-- 🧑‍💻 Die benutzerfreundliche Oberfläche macht es einfach, alle Geräte Ihrer Familie von einem Ort aus zu verwalten.
-
-**Warum Blokada Family wählen?**
-
-**Umfassende Elternkontrollen** 🎯🔧
-
-- 🛡️ Passen Sie Ihre Elternkontrollen an die einzigartigen Bedürfnisse Ihrer Familie an, indem Sie Blokadas Family-Link nutzen.
-
-**Seelenfrieden** 😌💭
-
-- 🧘‍♀️ Seien Sie beruhigt, dass Ihre Kinder online geschützt sind, mit voller Kontrolle über ihre digitalen Interaktionen.
-- 💡 Ermöglichen Sie Ihren Kindern, gesunde digitale Gewohnheiten in einer sicheren Umgebung zu entwickeln.
-
-**Multiplattform-Komfort** 💻📱🖥️
-
-- 🔗 Verwalten Sie alle Geräte Ihrer Familie, unabhängig von der Plattform, mit einer leistungsstarken App, die Family-Link integriert.
-- 🛡️ Konsistenter Schutz und Kontrolle auf allen Geräten, um Sicherheit zu gewährleisten.
-
-**Schließen Sie sich Tausenden von Familien an, die Blokada Family vertrauen** 👨‍👩‍👧‍👦🌟
-
-- 🛡️ Schaffen Sie noch heute eine sicherere digitale Umgebung für Ihre Familie. Mit Blokada Family haben Sie die Kontrolle.
-
-**Laden Sie jetzt Blokada Family herunter und starten Sie Ihre kostenlose Testversion** 📥🎉
-
-- 🚫 Erleben Sie den Unterschied, den eine leistungsstarke, plattformübergreifende Elternkontroll-App machen kann. Blockieren, filtern und verwalten Sie mit Leichtigkeit.
-
-**Nutzungsbedingungen:** https://go.blokada.org/terms_family  
-**Datenschutzrichtlinie:** https://go.blokada.org/privacy_family
+Nutzungsbedingungen: https://go.blokada.org/terms_family
+Datenschutzrichtlinie: https://go.blokada.org/privacy_family

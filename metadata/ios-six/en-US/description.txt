@@ -1,36 +1,38 @@
-This is the official app on App Store from the Blokada open source project.
+🛡️ Blokada — Open-Source Ad Blocker, Encrypted DNS & WireGuard® VPN
 
-Blokada for iOS uses DNS (Domain Name System) to enable you to have an ad free experience to see only the content you want.
+Block ads, trackers, and malware in apps, browsers, and games — not just inside your browser. Blokada is an open-source privacy app, built in the open to keep the internet fast, private, and free of clutter — without draining your battery.
 
-Use Blokada Cloud to block ads and trackers, while keeping your DNS traffic confidential.
+✨ Why Blokada is different
 
-Upgrade to Blokada Plus for encrypting all traffic with our global VPN network. Improve your privacy and secure your Internet against cyber attacks and hackers.
+• Cloud-based filtering — ads are blocked before they reach your device, so there is no battery or data overhead.
+• Built-in WireGuard® VPN — modern, fast, no-log. Encrypt all your traffic with one tap.
+• Encrypted DNS — DNS-over-HTTPS keeps your browsing queries private from your network.
+• One subscription, every device — Android, iOS, Windows, macOS, Linux. Move freely between them.
+• Systemwide protection — DNS-level blocking across apps, browsers, and games.
 
-----
+🚀 What you get
 
-Top features:
+• Faster page loads and lower data usage
+• Longer battery life on mobile
+• Strong protection against malicious sites and phishing
+• In-app activity — see what is being blocked, allow what you want
+• Customizable filter lists, including community-maintained sets
+• Public Wi-Fi protection through the built-in VPN
 
-- Supports ad-blocking for every web browser and other app installed.
-- Blocks sites that distribute malicious content, viruses and fraudulent websites.
-- DNS based interception for all modern browsers and apps.
-- Fast and reliable VPN that protects your privacy and encrypts your data.
+⚙️ How it works
 
-The most compatible ad blocker on the market!
+Blokada Cloud blocks ads and trackers at the DNS level — fast, light, and reliable. Upgrade to Blokada Plus for the no-log WireGuard® VPN, encrypting your full traffic across our global network.
 
-• Blocks ads
-• Saves your data plan
-• Browse FASTER by loading less data
-• Increase your battery life
+🎯 Built for
 
-What can be blocked?
-• Block annoying ads: Google AdWords, Google Invite Media, DoubleClick Bid Manager, Liftoff, Bing Ads, Amazon, etc
-• Block adult websites
-• Block gambling websites
-• Block social media trackers: Google Analytics, Facebook Connect, DoubleClick, Google Publisher Tags, Google AdSense, Twitter Button, Yandex.Metrix, Comscore
-• Block malicious websites: Virus downloads, malicious content, fraudulent websites and manipulated apps
+• People who want a faster, calmer internet
+• Privacy-minded users who want to see what is tracking them
+• Travelers and remote workers on public Wi-Fi
+• Open-source enthusiasts who do not trust opaque ad blockers
+
+Take back control of your internet. Block ads, encrypt your traffic, and protect your privacy — all with one app.
 
 ----
 
 Terms of Use: https://go.blokada.org/terms
 Privacy Policy: https://go.blokada.org/privacy
-

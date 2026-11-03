@@ -1,0 +1,38 @@
+🛡️ Blokada — Bloker reklam open source, szyfrowany DNS i VPN WireGuard®
+
+Blokuj reklamy, trackery i złośliwe oprogramowanie w aplikacjach, przeglądarkach i grach — nie tylko w rozszerzeniu przeglądarki. Blokada to bloker reklam open source z VPN-em do ochrony prywatności, rozwijany publicznie, aby Internet pozostał szybki, prywatny i wolny od rozpraszaczy — bez zużywania baterii.
+
+✨ Co wyróżnia Blokadę
+
+• Filtrowanie w chmurze — reklamy są blokowane, zanim dotrą do Twojego urządzenia, bez obciążania baterii ani danych.
+• Wbudowany VPN WireGuard® — nowoczesny, szybki, bez logów. Szyfruj cały ruch jednym dotknięciem.
+• Szyfrowany DNS — DNS-over-TLS ukrywa Twoje zapytania przed siecią, z której korzystasz.
+• Jedna subskrypcja na wszystkie urządzenia — Android, iOS, Windows, macOS, Linux. Przełączaj się między nimi swobodnie.
+• Ochrona systemowa — blokowanie na poziomie DNS w aplikacjach, przeglądarkach i grach.
+
+🚀 Co zyskujesz
+
+• Szybsze wczytywanie stron i mniejsze zużycie transferu
+• Dłuższy czas pracy baterii na urządzeniach mobilnych
+• Solidną ochronę przed złośliwymi stronami i phishingiem
+• Aktywność w aplikacji — zobacz, co jest blokowane, i zezwól na to, co wybierzesz
+• Konfigurowalne listy filtrów, w tym utrzymywane przez społeczność
+• Ochronę w publicznych sieciach Wi-Fi dzięki wbudowanemu VPN
+
+⚙️ Jak to działa
+
+Blokada Cloud blokuje reklamy i trackery na poziomie DNS — szybko, lekko i niezawodnie. Przejdź na Blokada Plus, aby uzyskać VPN WireGuard® bez logów, który szyfruje cały Twój ruch przez naszą globalną sieć.
+
+🎯 Stworzone dla
+
+• Osób, które chcą szybszego i spokojniejszego Internetu
+• Użytkowników dbających o prywatność, którzy chcą widzieć, kto ich śledzi
+• Podróżnych i pracowników zdalnych korzystających z publicznych sieci Wi-Fi
+• Entuzjastów open source, którzy nie ufają nieprzejrzystym blokerom reklam
+
+Odzyskaj kontrolę nad swoim Internetem. Blokuj reklamy, szyfruj swój ruch i chroń swoją prywatność — wszystko w jednej aplikacji.
+
+----
+
+Warunki użytkowania: https://go.blokada.org/terms
+Polityka prywatności: https://go.blokada.org/privacy

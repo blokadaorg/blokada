@@ -1,29 +1,38 @@
-Questa app fornisce un ambiente di navigazione sicuro e controllato per tutta la famiglia. Oltre a offrire il blocco degli annunci per cui Blokada è famosa, consente ai genitori di creare uno spazio digitale in cui i bambini possono esplorare Internet in modo sicuro e protetto.
+🛡️ Blokada Family — Controllo parentale multi-dispositivo, costruito sulla piattaforma affidabile di Blokada
 
----
+Proteggi i tuoi figli online senza costringere tutta la famiglia a stare sulla stessa piattaforma. Blokada Family ti offre controllo parentale multi-dispositivo, costruito sulle stesse fondamenta open source di blocco della pubblicità e tutela della privacy che alimentano Blokada.
 
-Caratteristiche principali:
+✨ Perché Blokada Family
 
-- Controllo genitori: Personalizza l'accesso online dei tuoi figli, bloccando efficacemente siti web e app inappropriati e dannosi.
-- Navigazione sicura: Pur continuando a fornire una funzione di blocco degli annunci, l'attenzione principale è sulla navigazione sicura, assicurando che i bambini siano esposti solo a contenuti appropriati.
-- Protezione da malware: Blocca attivamente i siti noti per contenuti dannosi, virus e attività fraudolente.
-- Intercettazione basata su DNS: Offre una protezione completa su tutti i browser e le app moderni.
-- Efficienza migliorata: Riduce il consumo di dati e migliora la durata della batteria caricando meno dati.
+• Un'app per i genitori, tanti dispositivi dei figli — gestisci telefoni e tablet dei tuoi figli da un unico posto, indipendentemente dalla piattaforma.
+• Blocco di app e contenuti — blocca app, siti e intere categorie con un tocco.
+• Statistiche di attività in tempo reale — scopri cosa viene bloccato su ciascun dispositivo e regola di conseguenza.
+• SafeSearch attivo — i motori di ricerca restituiscono solo risultati filtrati e adatti all'età.
+• Regole personalizzabili per dispositivo — affina cosa è consentito per ciascun bambino.
+• Blocco di pubblicità e tracker integrato — ogni dispositivo protetto riceve in più la piena esperienza Blokada.
 
-Oltre il semplice blocco degli annunci:
+🛡️ Da cosa protegge
 
-- Filtro completo dei contenuti: Filtra i contenuti per adulti, i siti di gioco d'azzardo e le reti pubblicitarie aggressive per mantenere un'esperienza di navigazione adatta ai bambini.
-- Applicazione SafeSearch: Garantisce che i motori di ricerca filtrino i contenuti espliciti, offrendo un'esperienza di ricerca più sicura per i bambini.
-- Monitoraggio delle attività: Consente ai genitori di monitorare i siti web visitati, offrendo informazioni sul comportamento online e garantendo un'esperienza di navigazione sicura.
-- Controlli personalizzabili: Offre ai genitori la flessibilità di personalizzare ciò che è bloccato o consentito, adattando l'esperienza di navigazione alle esigenze della tua famiglia.
-- Blocco dei social media e dei tracker: Protegge dai tracker di varie reti, proteggendo l'impronta digitale della tua famiglia.
-- Filtro robusto dei siti web: Protezione avanzata contro le minacce digitali bloccando l'accesso ai siti web dannosi.
+• Siti e app inappropriati o dannosi
+• Categorie di contenuti per adulti, gioco d'azzardo e violenza
+• Tracker e pubblicità dei social network
+• Siti dannosi e di phishing
+• Risultati di ricerca non filtrati e distraenti
 
----
+🚀 Facile da configurare
 
-Creare un Internet più sicuro per la tua famiglia
+1. Installa Blokada Family sul dispositivo del genitore.
+2. Aggiungi il dispositivo di ciascun figlio.
+3. Scegli le regole — categorie, app e filtri di ricerca per ciascun figlio.
+4. Osserva le statistiche dal vivo e regola man mano che la tua famiglia cresce.
 
-Con Blokada Family, garantisci ai tuoi figli un'esperienza online sicura e protetta, rendendo Internet un luogo favorevole per l'apprendimento e il divertimento.
+🌍 Pensato per le famiglie moderne
+
+Progettato per famiglie con dispositivi misti ed esigenze che cambiano. Un'app, ogni figlio, controllo totale — che usino iPhone o Android.
+
+Regala alla tua famiglia un Internet più tranquillo e sicuro — senza rinunciare alla flessibilità.
+
+----
 
 Termini di utilizzo: https://go.blokada.org/terms_family
 Informativa sulla privacy: https://go.blokada.org/privacy_family
