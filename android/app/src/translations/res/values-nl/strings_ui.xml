@@ -723,7 +723,7 @@
     <string name="privacy_pulse_tab_blocked">Geblokkeerd</string>
     <string name="privacy_pulse_tab_allowed">Toegestaan</string>
     <string name="privacy_pulse_empty">Nog niets weer te geven</string>
-    <string name="notification_weekly_report_title">Privacy Shield Rapport</string>
+    <string name="notification_weekly_report_pulse_title">Privacypuls</string>
     <string name="notification_weekly_report_body">Open Blokada om je wekelijkse rapport te bekijken.</string>
     <string name="notification_weekly_report_refreshed_title">Je wekelijkse rapport is klaar</string>
     <string name="notification_weekly_report_refreshed_body">Open Blokada om de nieuwste details te bekijken.</string>

@@ -723,7 +723,7 @@
     <string name="privacy_pulse_tab_blocked">Bloccate</string>
     <string name="privacy_pulse_tab_allowed">Consentite</string>
     <string name="privacy_pulse_empty">Niente da mostrare per ora</string>
-    <string name="notification_weekly_report_title">Resoconto Privacy</string>
+    <string name="notification_weekly_report_pulse_title">Pulse della privacy</string>
     <string name="notification_weekly_report_body">Apri Blokada per controllare il tuo resoconto settimanale.</string>
     <string name="notification_weekly_report_refreshed_title">Il tuo resoconto settimanale è pronto</string>
     <string name="notification_weekly_report_refreshed_body">Apri Blokada per controllare i dettagli recenti.</string>

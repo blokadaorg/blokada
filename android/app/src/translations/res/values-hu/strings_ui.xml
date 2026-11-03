@@ -723,7 +723,7 @@
     <string name="privacy_pulse_tab_blocked">Blokkolva</string>
     <string name="privacy_pulse_tab_allowed">Engedélyezve</string>
     <string name="privacy_pulse_empty">Nincs még megjeleníthető adat</string>
-    <string name="notification_weekly_report_title">Adatvédelmi Pajzs Jelentés</string>
+    <string name="notification_weekly_report_pulse_title">Adatvédelmi pulzus</string>
     <string name="notification_weekly_report_body">Nyisd meg a Blokadát a heti jelentésed megtekintéséhez.</string>
     <string name="notification_weekly_report_refreshed_title">A heti jelentésed elkészült</string>
     <string name="notification_weekly_report_refreshed_body">Nyisd meg a Blokadát a legfrissebb részletek megtekintéséhez.</string>

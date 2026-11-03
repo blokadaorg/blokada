@@ -723,7 +723,7 @@
     <string name="privacy_pulse_tab_blocked">ブロック済み</string>
     <string name="privacy_pulse_tab_allowed">許可済み</string>
     <string name="privacy_pulse_empty">まだ表示するものがありません</string>
-    <string name="notification_weekly_report_title">プライバシーシールドレポート</string>
+    <string name="notification_weekly_report_pulse_title">プライバシーパルス</string>
     <string name="notification_weekly_report_body">Blokadaを開いて週次レポートを確認しましょう。</string>
     <string name="notification_weekly_report_refreshed_title">週次レポートの準備ができました</string>
     <string name="notification_weekly_report_refreshed_body">Blokadaを開いて最新の詳細を確認しましょう。</string>

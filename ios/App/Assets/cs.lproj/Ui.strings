@@ -995,7 +995,8 @@
 "privacy pulse empty" = "Zatím není co zobrazit";
 
 
-"notification weekly report title" = "Přehled ochrany soukromí";
+// Title of the weekly report notification. "Privacy Pulse" is the name of the in-app screen it opens; use the same name as "privacy pulse section header" (the full name, not just "Pulse").
+"notification weekly report pulse title" = "Pulz soukromí";
 "notification weekly report body" = "Otevřete aplikaci Blokada a podívejte se na svůj týdenní přehled.";
 "notification weekly report refreshed title" = "Váš týdenní přehled je připraven";
 "notification weekly report refreshed body" = "Otevřete aplikaci Blokada a podívejte se na nejnovější podrobnosti.";

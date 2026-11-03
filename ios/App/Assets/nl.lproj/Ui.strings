@@ -995,7 +995,8 @@
 "privacy pulse empty" = "Nog niets weer te geven";
 
 
-"notification weekly report title" = "Privacy Shield Rapport";
+// Title of the weekly report notification. "Privacy Pulse" is the name of the in-app screen it opens; use the same name as "privacy pulse section header" (the full name, not just "Pulse").
+"notification weekly report pulse title" = "Privacypuls";
 "notification weekly report body" = "Open Blokada om je wekelijkse rapport te bekijken.";
 "notification weekly report refreshed title" = "Je wekelijkse rapport is klaar";
 "notification weekly report refreshed body" = "Open Blokada om de nieuwste details te bekijken.";

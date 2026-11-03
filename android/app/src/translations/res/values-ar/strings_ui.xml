@@ -723,7 +723,7 @@
     <string name="privacy_pulse_tab_blocked">محجوب</string>
     <string name="privacy_pulse_tab_allowed">مسموح</string>
     <string name="privacy_pulse_empty">لا يوجد شيء للعرض حتى الآن</string>
-    <string name="notification_weekly_report_title">تقرير درع الخصوصية</string>
+    <string name="notification_weekly_report_pulse_title">نبض الخصوصية</string>
     <string name="notification_weekly_report_body">افتح Blokada لعرض تقريرك الأسبوعي.</string>
     <string name="notification_weekly_report_refreshed_title">تقريرك الأسبوعي جاهز</string>
     <string name="notification_weekly_report_refreshed_body">افتح Blokada للاطلاع على أحدث التفاصيل.</string>

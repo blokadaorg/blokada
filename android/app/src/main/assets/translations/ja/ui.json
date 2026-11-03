@@ -722,7 +722,7 @@
     "privacy pulse tab blocked": "ブロック済み",
     "privacy pulse tab allowed": "許可済み",
     "privacy pulse empty": "まだ表示するものがありません",
-    "notification weekly report title": "プライバシーシールドレポート",
+    "notification weekly report pulse title": "プライバシーパルス",
     "notification weekly report body": "Blokadaを開いて週次レポートを確認しましょう。",
     "notification weekly report refreshed title": "週次レポートの準備ができました",
     "notification weekly report refreshed body": "Blokadaを開いて最新の詳細を確認しましょう。",
