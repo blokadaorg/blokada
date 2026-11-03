@@ -723,7 +723,7 @@
     <string name="privacy_pulse_tab_blocked">Blockerad</string>
     <string name="privacy_pulse_tab_allowed">Tillåten</string>
     <string name="privacy_pulse_empty">Inget att visa ännu</string>
-    <string name="notification_weekly_report_title">Privacy Shield-rapport</string>
+    <string name="notification_weekly_report_pulse_title">Privacy Pulse</string>
     <string name="notification_weekly_report_body">Öppna Blokada för att se din veckorapport.</string>
     <string name="notification_weekly_report_refreshed_title">Din veckorapport är klar</string>
     <string name="notification_weekly_report_refreshed_body">Öppna Blokada för att visa de senaste detaljerna.</string>

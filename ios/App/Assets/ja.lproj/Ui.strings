@@ -996,7 +996,8 @@
 "privacy pulse empty" = "まだ表示するものがありません";
 
 
-"notification weekly report title" = "プライバシーシールドレポート";
+// Title of the weekly report notification. "Privacy Pulse" is the name of the in-app screen it opens; use the same name as "privacy pulse section header" (the full name, not just "Pulse").
+"notification weekly report pulse title" = "プライバシーパルス";
 "notification weekly report body" = "Blokadaを開いて週次レポートを確認しましょう。";
 "notification weekly report refreshed title" = "週次レポートの準備ができました";
 "notification weekly report refreshed body" = "Blokadaを開いて最新の詳細を確認しましょう。";

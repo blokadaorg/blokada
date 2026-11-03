@@ -723,7 +723,7 @@
     <string name="privacy_pulse_tab_blocked">Estetty</string>
     <string name="privacy_pulse_tab_allowed">Sallittu</string>
     <string name="privacy_pulse_empty">Ei vielä näytettävää</string>
-    <string name="notification_weekly_report_title">Yksityisyyssuojan raportti</string>
+    <string name="notification_weekly_report_pulse_title">Tietosuojapulssi</string>
     <string name="notification_weekly_report_body">Avaa Blokada ja katso viikkoraporttisi.</string>
     <string name="notification_weekly_report_refreshed_title">Viikkoraporttisi on valmis</string>
     <string name="notification_weekly_report_refreshed_body">Avaa Blokada ja katso uusimmat tiedot.</string>

@@ -723,7 +723,7 @@
     <string name="privacy_pulse_tab_blocked">Diblokir</string>
     <string name="privacy_pulse_tab_allowed">Diizinkan</string>
     <string name="privacy_pulse_empty">Belum ada yang bisa ditampilkan</string>
-    <string name="notification_weekly_report_title">Laporan Privasi Shield</string>
+    <string name="notification_weekly_report_pulse_title">Privacy Pulse</string>
     <string name="notification_weekly_report_body">Buka Blokada untuk melihat laporan mingguan Anda.</string>
     <string name="notification_weekly_report_refreshed_title">Laporan mingguan Anda sudah siap</string>
     <string name="notification_weekly_report_refreshed_body">Buka Blokada untuk melihat detail terbaru.</string>

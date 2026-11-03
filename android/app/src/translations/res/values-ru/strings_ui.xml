@@ -723,7 +723,7 @@
     <string name="privacy_pulse_tab_blocked">Заблокировано</string>
     <string name="privacy_pulse_tab_allowed">Разрешено</string>
     <string name="privacy_pulse_empty">Пока нечего показать</string>
-    <string name="notification_weekly_report_title">Отчет о защите персональных данных</string>
+    <string name="notification_weekly_report_pulse_title">Privacy Pulse</string>
     <string name="notification_weekly_report_body">Откройте Blokada для просмотра еженедельного отчета.</string>
     <string name="notification_weekly_report_refreshed_title">Ваш еженедельный отчет готов</string>
     <string name="notification_weekly_report_refreshed_body">Откройте Blokada, чтобы узнать последние детали.</string>
