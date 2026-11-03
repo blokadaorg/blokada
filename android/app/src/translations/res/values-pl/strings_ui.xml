@@ -723,7 +723,7 @@
     <string name="privacy_pulse_tab_blocked">Zablokowane</string>
     <string name="privacy_pulse_tab_allowed">Zezwolone</string>
     <string name="privacy_pulse_empty">Nie ma jeszcze nic do pokazania</string>
-    <string name="notification_weekly_report_title">Raport Tarczy Prywatności</string>
+    <string name="notification_weekly_report_pulse_title">Puls prywatności</string>
     <string name="notification_weekly_report_body">Otwórz Blokadę, aby zobaczyć swój cotygodniowy raport.</string>
     <string name="notification_weekly_report_refreshed_title">Twój cotygodniowy raport jest gotowy</string>
     <string name="notification_weekly_report_refreshed_body">Otwórz Blokadę, aby zobaczyć najnowsze szczegóły.</string>

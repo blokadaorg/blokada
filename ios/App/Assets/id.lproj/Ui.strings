@@ -995,7 +995,8 @@
 "privacy pulse empty" = "Belum ada yang bisa ditampilkan";
 
 
-"notification weekly report title" = "Laporan Privasi Shield";
+// Title of the weekly report notification. "Privacy Pulse" is the name of the in-app screen it opens; use the same name as "privacy pulse section header" (the full name, not just "Pulse").
+"notification weekly report pulse title" = "Privacy Pulse";
 "notification weekly report body" = "Buka Blokada untuk melihat laporan mingguan Anda.";
 "notification weekly report refreshed title" = "Laporan mingguan Anda sudah siap";
 "notification weekly report refreshed body" = "Buka Blokada untuk melihat detail terbaru.";

@@ -995,7 +995,8 @@
 "privacy pulse empty" = "Ei vielä näytettävää";
 
 
-"notification weekly report title" = "Yksityisyyssuojan raportti";
+// Title of the weekly report notification. "Privacy Pulse" is the name of the in-app screen it opens; use the same name as "privacy pulse section header" (the full name, not just "Pulse").
+"notification weekly report pulse title" = "Tietosuojapulssi";
 "notification weekly report body" = "Avaa Blokada ja katso viikkoraporttisi.";
 "notification weekly report refreshed title" = "Viikkoraporttisi on valmis";
 "notification weekly report refreshed body" = "Avaa Blokada ja katso uusimmat tiedot.";

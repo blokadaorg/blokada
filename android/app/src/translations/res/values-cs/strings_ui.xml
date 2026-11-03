@@ -723,7 +723,7 @@
     <string name="privacy_pulse_tab_blocked">Zablokováno</string>
     <string name="privacy_pulse_tab_allowed">Povoleno</string>
     <string name="privacy_pulse_empty">Zatím není co zobrazit</string>
-    <string name="notification_weekly_report_title">Přehled ochrany soukromí</string>
+    <string name="notification_weekly_report_pulse_title">Pulz soukromí</string>
     <string name="notification_weekly_report_body">Otevřete aplikaci Blokada a podívejte se na svůj týdenní přehled.</string>
     <string name="notification_weekly_report_refreshed_title">Váš týdenní přehled je připraven</string>
     <string name="notification_weekly_report_refreshed_body">Otevřete aplikaci Blokada a podívejte se na nejnovější podrobnosti.</string>

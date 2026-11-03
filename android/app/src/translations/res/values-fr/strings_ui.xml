@@ -723,7 +723,7 @@
     <string name="privacy_pulse_tab_blocked">Bloqué</string>
     <string name="privacy_pulse_tab_allowed">Autorisé</string>
     <string name="privacy_pulse_empty">Rien à afficher pour le moment</string>
-    <string name="notification_weekly_report_title">Rapport sur le bouclier de protection des données</string>
+    <string name="notification_weekly_report_pulse_title">Pulse de confidentialité</string>
     <string name="notification_weekly_report_body">Ouvrez Blokada pour consulter votre rapport hebdomadaire.</string>
     <string name="notification_weekly_report_refreshed_title">Votre rapport hebdomadaire est prêt</string>
     <string name="notification_weekly_report_refreshed_body">Ouvrez Blokada pour consulter les dernières informations.</string>

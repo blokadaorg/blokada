@@ -723,7 +723,7 @@
     <string name="privacy_pulse_tab_blocked">Blockiert</string>
     <string name="privacy_pulse_tab_allowed">Erlaubt</string>
     <string name="privacy_pulse_empty">Noch keine Daten vorhanden</string>
-    <string name="notification_weekly_report_title">Privacy Shield Bericht</string>
+    <string name="notification_weekly_report_pulse_title">Privacy Pulse</string>
     <string name="notification_weekly_report_body">Öffne Blokada, um deinen Wochenbericht zu sehen.</string>
     <string name="notification_weekly_report_refreshed_title">Dein Wochenbericht ist bereit</string>
     <string name="notification_weekly_report_refreshed_body">Öffne Blokada, um die neuesten Details zu sehen.</string>

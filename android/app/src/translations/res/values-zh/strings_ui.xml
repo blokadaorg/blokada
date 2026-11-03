@@ -723,7 +723,7 @@
     <string name="privacy_pulse_tab_blocked">已封鎖</string>
     <string name="privacy_pulse_tab_allowed">已允許</string>
     <string name="privacy_pulse_empty">尚無可顯示內容</string>
-    <string name="notification_weekly_report_title">隱私護盾報告​</string>
+    <string name="notification_weekly_report_pulse_title">隱私脈動</string>
     <string name="notification_weekly_report_body">開啟 Blokada 以查看您的每週報告。</string>
     <string name="notification_weekly_report_refreshed_title">您的每週報告已準備完成​</string>
     <string name="notification_weekly_report_refreshed_body">開啟 Blokada 以檢視最新詳細資訊。</string>
