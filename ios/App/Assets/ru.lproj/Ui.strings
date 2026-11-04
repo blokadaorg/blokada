@@ -88,6 +88,10 @@
 "support action chat" = "Спросите в чате";
 // Action to end chat. Keep it super short
 "support action end" = "Конец";
+// Small link under the main button of the DNS setup sheet and in the Restore account ID dialog, opens the support chat. Keep it short
+"support action ask" = "Ask support";
+// Replaces "Ask support" in the same small link while a support chat is still open, and reopens that chat. Keep it short
+"support action continue" = "Continue with support";
 "support placeholder" = "Спросите о том, что вы хотите знать!";
 "support error generic" = "Извините, не понятно, не могли бы вы повторить?";
 // Its ok to leave it as it is
@@ -889,7 +893,7 @@
 
 // A section to configure apps that should bypass (skip) VPN
 "bypass section header" = "Обход VPN";
-"bypass info" = "Некоторые приложения могут не работать должным образом с VPN. Вы можете добавить их в список обхода, чтобы их трафик отправлялся вне VPN-туннеля, что может помочь с подключением, но снижает уровень конфиденциальности. Приложение также включает в себя несколько встроенных записей обхода для обеспечения совместимости. Примечание: если на вашем устройстве включена настройка 'Блокировать подключения без VPN', приложения, включенные в список обхода, не будут иметь доступа к интернету.";
+"bypass info" = "Some apps may not work properly with the VPN. You can add them to the bypass list to send their traffic outside the VPN tunnel, which may help with connectivity but reduces privacy. Note: if your device has the 'Block connections without VPN' setting enabled, bypassed apps will not have internet access.";
 "bypass none" = "Нет добавленных приложений. Используйте кнопку Добавить вверху, чтобы внести новые приложения в этот список.";
 "bypass action add" = "Добавить приложение";
 "bypass dialog add brief" = "Начните вводить для поиска приложений.";

@@ -67,6 +67,8 @@
     <string name="universal_action_add">Añadir</string>
     <string name="support_action_chat">Chatea con nosotros</string>
     <string name="support_action_end">Fin</string>
+    <string name="support_action_ask">Contactar con soporte</string>
+    <string name="support_action_continue">Continuar el chat con soporte</string>
     <string name="support_placeholder">Pregunte por cualquier cosa que desee saber!</string>
     <string name="support_error_generic">Lo sentimos, no entendían, ¿puede repetir?</string>
     <string name="support_name_bot">Blocka Bot</string>
@@ -657,7 +659,7 @@
     <string name="onboard_safari_cta">Abrir YouTube en Safari</string>
     <string name="onboard_safari_skip">Omitir por ahora</string>
     <string name="bypass_section_header">Omitir VPN</string>
-    <string name="bypass_info">Algunas aplicaciones pueden no funcionar correctamente con la VPN. Puede añadirlos a la lista de bypass para enviar su tráfico fuera del túnel VPN, lo que puede ayudar con la conectividad pero reduce la privacidad. La aplicación también incluye algunas entradas de bypass para compatibilidad. Nota: si su dispositivo tiene habilitada la opción \'Bloquear conexiones sin VPN\', las aplicaciones que se omiten no tendrán acceso a Internet.</string>
+    <string name="bypass_info">Algunas aplicaciones pueden no funcionar correctamente con la VPN. Puede añadirlas a la lista de bypass para enviar su tráfico fuera del túnel VPN, lo que puede ayudar con la conectividad, pero reduce la privacidad. Nota: si su dispositivo tiene habilitada la opción \'Bloquear conexiones sin VPN\', las aplicaciones que se omiten no tendrán acceso a Internet.</string>
     <string name="bypass_none">Ninguna aplicación añadida. Utilice el botón Añadir en la parte superior para añadir nuevas aplicaciones a esta lista.</string>
     <string name="bypass_action_add">Añadir app</string>
     <string name="bypass_dialog_add_brief">Empezar a escribir para buscar aplicaciones.</string>

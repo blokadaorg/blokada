@@ -88,6 +88,10 @@
 "support action chat" = "チャットで問い合わせ";
 // Action to end chat. Keep it super short
 "support action end" = "終了";
+// Small link under the main button of the DNS setup sheet and in the Restore account ID dialog, opens the support chat. Keep it short
+"support action ask" = "サポートに相談";
+// Replaces "Ask support" in the same small link while a support chat is still open, and reopens that chat. Keep it short
+"support action continue" = "サポートとのチャットを再開";
 "support placeholder" = "知りたいことを何でも質問してください！";
 "support error generic" = "申し訳ありません、理解できませんでした。もう一度お願いします。";
 // Its ok to leave it as it is
@@ -890,7 +894,7 @@
 
 // A section to configure apps that should bypass (skip) VPN
 "bypass section header" = "VPNバイパス";
-"bypass info" = "一部のアプリはVPNとの動作が正しくない場合があります。これらはバイパスリストに追加して、トラフィックをVPNトンネルの外に送信することができます。これにより接続性が向上する可能性がありますが、プライバシーは低下します。アプリには互換性のために組み込みのバイパス項目も含まれています。注記: お使いのデバイスで「VPNなしの接続をブロック」設定が有効な場合、バイパスしたアプリはインターネットに接続できません。";
+"bypass info" = "一部のアプリはVPNを使用すると正常に動作しない場合があります。これらのアプリをバイパスリストに追加すると、通信がVPNを経由しなくなります。接続の問題が解消される可能性がありますが、プライバシー保護は弱まります。注意：端末で「VPNを使用しない接続をブロック」が有効になっている場合、バイパスしたアプリはインターネットに接続できません。";
 "bypass none" = "追加されたアプリはありません。リストに新しいアプリを追加するには、上部の「追加」ボタンを使用してください。";
 "bypass action add" = "アプリを追加";
 "bypass dialog add brief" = "入力を開始してアプリを検索してください。";

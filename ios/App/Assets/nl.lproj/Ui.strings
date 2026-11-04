@@ -88,6 +88,10 @@
 "support action chat" = "Chat met ons";
 // Action to end chat. Keep it super short
 "support action end" = "Beëindigen";
+// Small link under the main button of the DNS setup sheet and in the Restore account ID dialog, opens the support chat. Keep it short
+"support action ask" = "Chatten met support";
+// Replaces "Ask support" in the same small link while a support chat is still open, and reopens that chat. Keep it short
+"support action continue" = "Verder chatten met support";
 "support placeholder" = "Vraag ons alles wat je wilt weten!";
 "support error generic" = "Sorry, ik heb dat niet begrepen. Kun je het herhalen?";
 // Its ok to leave it as it is
@@ -889,7 +893,7 @@
 
 // A section to configure apps that should bypass (skip) VPN
 "bypass section header" = "VPN-bypass";
-"bypass info" = "Sommige apps werken mogelijk niet goed met de VPN. Je kunt ze toevoegen aan de bypass-lijst zodat hun verkeer buiten de VPN-tunnel gaat, wat kan helpen met de verbinding maar de privacy vermindert. De app bevat ook enkele ingebouwde bypass-inschrijvingen voor compatibiliteit. Let op: als je apparaat de optie 'Verbindingen zonder VPN blokkeren' heeft ingeschakeld, hebben omzeilde apps geen internettoegang.";
+"bypass info" = "Sommige apps werken mogelijk niet goed met de VPN. Je kunt ze toevoegen aan de lijst met uitzonderingen, zodat hun verkeer niet via de VPN-tunnel loopt. Dit kan verbindingsproblemen oplossen, maar vermindert je privacy. Let op: als de instelling 'Verbindingen zonder VPN blokkeren' op je apparaat is ingeschakeld, hebben deze apps geen internettoegang.";
 "bypass none" = "Geen apps toegevoegd. Gebruik de knop Toevoegen bovenaan om nieuwe apps aan deze lijst toe te voegen.";
 "bypass action add" = "App toevoegen";
 "bypass dialog add brief" = "Begin met typen om apps te zoeken.";

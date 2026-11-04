@@ -88,6 +88,10 @@
 "support action chat" = "Chatujte s námi";
 // Action to end chat. Keep it super short
 "support action end" = "Ukončit";
+// Small link under the main button of the DNS setup sheet and in the Restore account ID dialog, opens the support chat. Keep it short
+"support action ask" = "Požádat o podporu";
+// Replaces "Ask support" in the same small link while a support chat is still open, and reopens that chat. Keep it short
+"support action continue" = "Pokračovat v chatu";
 "support placeholder" = "Zeptejte se na cokoliv, co chcete vědět!";
 "support error generic" = "Omlouvám se, ale nerozumím, můžete to zopakovat?";
 // Its ok to leave it as it is
@@ -889,7 +893,7 @@
 
 // A section to configure apps that should bypass (skip) VPN
 "bypass section header" = "Vynechání VPN";
-"bypass info" = "Některé aplikace nemusí s VPN fungovat správně. Můžete je přidat do seznamu výjimek, aby jejich provoz byl odesílán mimo VPN, což může pomoci s připojením, ale snižuje soukromí. Aplikace také obsahuje několik vestavěných výjimek pro kompatibilitu. Poznámka: Pokud je ve vašem zařízení povoleno nastavení „Blokovat připojení bez VPN“, aplikace s výjimkou nebudou mít přístup k internetu.";
+"bypass info" = "Některé aplikace nemusí s VPN fungovat správně. Můžete je přidat do seznamu výjimek, aby jejich provoz byl odesílán mimo VPN, což může pomoci s připojením, ale snižuje soukromí. Poznámka: Pokud je ve vašem zařízení povoleno nastavení „Blokovat připojení bez VPN“, aplikace s výjimkou nebudou mít přístup k internetu.";
 "bypass none" = "Žádné aplikace nebyly přidány. Použijte tlačítko Přidat v horní části pro přidání nových aplikací do tohoto seznamu.";
 "bypass action add" = "Přidat aplikaci";
 "bypass dialog add brief" = "Začněte psát pro hledání aplikací.";

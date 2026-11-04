@@ -67,6 +67,8 @@
     <string name="universal_action_add">Ajouter</string>
     <string name="support_action_chat">Discutez avec nous</string>
     <string name="support_action_end">Fin</string>
+    <string name="support_action_ask">Demandez de l\'aide</string>
+    <string name="support_action_continue">Reprenez la discussion</string>
     <string name="support_placeholder">Demandez nous n\'importe quoi !</string>
     <string name="support_error_generic">Désolé, ce n\'est pas clair, pouvez-vous répéter ?</string>
     <string name="support_name_bot">Blocka Bot</string>
@@ -657,7 +659,7 @@
     <string name="onboard_safari_cta">Ouvrir YouTube dans Safari</string>
     <string name="onboard_safari_skip">Passer pour l\'instant</string>
     <string name="bypass_section_header">Contournement VPN</string>
-    <string name="bypass_info">Certaines applications peuvent ne pas fonctionner correctement avec le VPN. Vous pouvez les ajouter à la liste de contournement pour diriger leur trafic hors du tunnel VPN, ce qui peut améliorer la connectivité, mais nuit à la confidentialité. L\'application intègre également quelques entrées de contournement pour plus de compatibilité. Remarque : si le paramètre « Bloquer les connexions sans VPN » est activé sur votre appareil, les applications contournées n\'auront pas accès à Internet.</string>
+    <string name="bypass_info">Certaines applications peuvent ne pas fonctionner correctement avec le VPN. Vous pouvez les ajouter à la liste de contournement pour diriger leur trafic hors du tunnel VPN, ce qui peut améliorer la connectivité, mais nuit à la confidentialité. Remarque : si le paramètre « Bloquer les connexions sans VPN » est activé sur votre appareil, les applications contournées n\'auront pas accès à Internet.</string>
     <string name="bypass_none">Aucune application ajoutée. Utilisez le bouton « Ajouter » en haut pour ajouter de nouvelles applications à cette liste.</string>
     <string name="bypass_action_add">Ajouter une application</string>
     <string name="bypass_dialog_add_brief">Commencez à taper pour rechercher des applications.</string>

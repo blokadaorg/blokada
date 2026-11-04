@@ -67,6 +67,8 @@
     <string name="universal_action_add">Ekle</string>
     <string name="support_action_chat">Bizimle sohbet edin</string>
     <string name="support_action_end">Son</string>
+    <string name="support_action_ask">Destek isteyin</string>
+    <string name="support_action_continue">Destek sohbetine devam edin</string>
     <string name="support_placeholder">Bilmek istediğiniz her şeyi sorun!</string>
     <string name="support_error_generic">Üzgünüm anlamadım, tekrar edebilir misiniz?</string>
     <string name="support_name_bot">Blocka Bot</string>
@@ -657,7 +659,7 @@
     <string name="onboard_safari_cta">Safari\'de YouTube\'u aç</string>
     <string name="onboard_safari_skip">Şimdilik atla</string>
     <string name="bypass_section_header">VPN Baypas</string>
-    <string name="bypass_info">Bazı uygulamalar VPN ile düzgün çalışmayabilir. Bunları baypas listesine ekleyerek trafiğini VPN tüneli dışına gönderebilirsiniz. Bu, bağlantıya yardımcı olabilir ancak gizliliği azaltır. Uygulama ayrıca uyumluluk için birkaç yerleşik baypas girişi içerir. Not: Cihazınızda “VPN olmadan bağlantıları engelle” ayarı etkinse, baypas edilen uygulamalar internet erişimine sahip olmayacaktır.</string>
+    <string name="bypass_info">Bazı uygulamalar VPN ile düzgün çalışmayabilir. Bunları baypas listesine ekleyerek trafiklerini VPN tüneli dışına yönlendirebilirsiniz. Bu, bağlantı sorunlarını gidermeye yardımcı olabilir ancak gizliliği azaltır. Not: Cihazınızda “VPN olmadan bağlantıları engelle” ayarı etkinse, baypas edilen uygulamaların internet erişimi olmayacaktır.</string>
     <string name="bypass_none">Eklenen uygulama yok. Bu listeye yeni uygulamalar eklemek için üstteki Ekle düğmesini kullanın.</string>
     <string name="bypass_action_add">Uygulama Ekle</string>
     <string name="bypass_dialog_add_brief">Uygulamaları aramak için yazmaya başlayın.</string>
