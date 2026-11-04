@@ -88,6 +88,10 @@
 "support action chat" = "與我們聊天";
 // Action to end chat. Keep it super short
 "support action end" = "結束";
+// Small link under the main button of the DNS setup sheet and in the Restore account ID dialog, opens the support chat. Keep it short
+"support action ask" = "尋求支援";
+// Replaces "Ask support" in the same small link while a support chat is still open, and reopens that chat. Keep it short
+"support action continue" = "繼續與支援團隊對話";
 "support placeholder" = "歡迎自由提問任何想知道的事！";
 "support error generic" = "抱歉，未能理解，您能重複一次嗎？";
 // Its ok to leave it as it is
@@ -890,7 +894,7 @@
 
 // A section to configure apps that should bypass (skip) VPN
 "bypass section header" = "VPN 例外繞過";
-"bypass info" = "某些應用程式在 VPN 下可能無法正常運作。您可以將它們加入繞過清單，使其流量不經 VPN 隧道傳輸，有助於連接但會減少隱私防護。應用程式也包含少數內建繞過項以確保相容性。注意：若您的裝置啟用了「封鎖沒有 VPN 的連線」，被繞過的應用程式將無法上網。";
+"bypass info" = "部分應用程式在使用 VPN 時可能無法正常運作。你可以將這些應用程式加入略過清單，讓它們的網路流量不經過 VPN 通道。這可能有助於解決連線問題，但會降低隱私保護。請注意：如果你的裝置已啟用「阻擋未使用 VPN 的連線」設定，略過 VPN 的應用程式將無法存取網際網路。";
 "bypass none" = "尚未新增應用程式。請點擊上方「新增」按鈕新增應用程式至此清單。";
 "bypass action add" = "新增應用程式";
 "bypass dialog add brief" = "開始輸入以搜尋應用程式。";

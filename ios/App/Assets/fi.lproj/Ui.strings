@@ -88,6 +88,10 @@
 "support action chat" = "Chattaa kanssamme";
 // Action to end chat. Keep it super short
 "support action end" = "Lopeta";
+// Small link under the main button of the DNS setup sheet and in the Restore account ID dialog, opens the support chat. Keep it short
+"support action ask" = "Kysy tuelta";
+// Replaces "Ask support" in the same small link while a support chat is still open, and reopens that chat. Keep it short
+"support action continue" = "Jatka tukikeskustelua";
 "support placeholder" = "Kysy mistä tahansa mitä haluat tietää!";
 "support error generic" = "Valitettavasti en ymmärtänyt, voitko toistaa?";
 // Its ok to leave it as it is
@@ -889,7 +893,7 @@
 
 // A section to configure apps that should bypass (skip) VPN
 "bypass section header" = "VPN-ohitus";
-"bypass info" = "Kaikki sovellukset eivät välttämättä toimi oikein VPN:n kanssa. Voit lisätä ne ohituslistalle, jolloin niiden liikenne ohjataan VPN-tunnelin ulkopuolelle. Tämä voi auttaa yhteysongelmiin mutta heikentää yksityisyyttä. Sovellus sisältää myös joitain sisäänrakennettuja ohituksia yhteensopivuuden vuoksi. Huom: Jos laitteessasi on 'Estä yhteydet ilman VPN:ää' -asetus päällä, ohitetuilla sovelluksilla ei ole internet-yhteyttä.";
+"bypass info" = "Jotkin sovellukset eivät välttämättä toimi kunnolla VPN-yhteyden kanssa. Voit lisätä ne ohituslistalle, jolloin niiden verkkoliikenne kulkee VPN-tunnelin ulkopuolella. Tämä voi auttaa yhteysongelmissa, mutta heikentää yksityisyyttä. Huomautus: jos laitteessasi on käytössä asetus ”Estä yhteydet ilman VPN-yhteyttä”, ohituslistalla olevat sovellukset eivät pääse internetiin.";
 "bypass none" = "Sovelluksia ei lisätty. Lisää uusia sovelluksia tähän listaan ylhäällä olevasta Lisää-painikkeesta.";
 "bypass action add" = "Lisää sovellus";
 "bypass dialog add brief" = "Aloita kirjoittamalla sovelluksen nimi hakua varten.";

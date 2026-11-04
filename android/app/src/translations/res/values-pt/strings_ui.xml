@@ -67,6 +67,8 @@
     <string name="universal_action_add">Adicionar</string>
     <string name="support_action_chat">Fale conosco</string>
     <string name="support_action_end">Finalizar</string>
+    <string name="support_action_ask">Falar com o suporte</string>
+    <string name="support_action_continue">Continuar com o suporte</string>
     <string name="support_placeholder">Pergunte sobre qualquer coisa que queira saber!</string>
     <string name="support_error_generic">Desculpe, não entendi. Pode repetir?</string>
     <string name="support_name_bot">Blocka Bot</string>
@@ -657,7 +659,7 @@
     <string name="onboard_safari_cta">Abrir o YouTube no Safari</string>
     <string name="onboard_safari_skip">Pular por enquanto</string>
     <string name="bypass_section_header">Ignorar VPN</string>
-    <string name="bypass_info">Alguns aplicativos podem não funcionar corretamente com a VPN. Você pode adicioná-los à lista de ignorados para enviar seu tráfego fora do túnel da VPN, o que pode ajudar na conectividade, mas reduz a privacidade. O app também inclui algumas entradas de ignorados já integradas para compatibilidade. Nota: se o seu dispositivo possui a opção \'Bloquear conexões sem VPN\' ativada, os apps ignorados não terão acesso à internet.</string>
+    <string name="bypass_info">Alguns aplicativos podem não funcionar corretamente com a VPN. Você pode adicioná-los à lista de exceções para que o tráfego deles não passe pelo túnel da VPN. Isso pode ajudar a resolver problemas de conexão, mas reduz a privacidade. Observação: se a opção \'Bloquear conexões sem VPN\' estiver ativada no seu dispositivo, os aplicativos na lista de exceções não terão acesso à internet.</string>
     <string name="bypass_none">Nenhum aplicativo adicionado. Use o botão Adicionar no topo para incluir novos aplicativos nesta lista.</string>
     <string name="bypass_action_add">Adicionar app</string>
     <string name="bypass_dialog_add_brief">Comece a digitar para pesquisar apps.</string>

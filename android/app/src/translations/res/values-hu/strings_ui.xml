@@ -67,6 +67,8 @@
     <string name="universal_action_add">Hozzáadás</string>
     <string name="support_action_chat">Beszélj velünk!</string>
     <string name="support_action_end">Vége</string>
+    <string name="support_action_ask">Segítség kérése</string>
+    <string name="support_action_continue">Beszélgetés folytatása</string>
     <string name="support_placeholder">Kérdezz bármit, amit tudni szeretnél!</string>
     <string name="support_error_generic">Sajnálom, nem értem. Meg tudod ismételni?</string>
     <string name="support_name_bot">Blocka Bot</string>
@@ -657,7 +659,7 @@
     <string name="onboard_safari_cta">Nyisd meg a YouTube-ot Safariban</string>
     <string name="onboard_safari_skip">Kihagyás most</string>
     <string name="bypass_section_header">VPN-kikerülés</string>
-    <string name="bypass_info">Előfordulhat, hogy egyes alkalmazások nem működnek megfelelően VPN-nel. Felveheted őket a kikerülési listára, hogy forgalmuk a VPN-alagúton kívülre kerüljön, ami javíthat a kapcsolaton, de csökkenti az adatvédelmet. Az app néhány beépített kikerülési bejegyzést is tartalmaz a kompatibilitás érdekében. Megjegyzés: ha eszközödön be van kapcsolva a \"Kapcsolatok blokkolása VPN nélkül\" beállítás, a kikerült alkalmazások nem férnek hozzá az internethez.</string>
+    <string name="bypass_info">Előfordulhat, hogy egyes alkalmazások nem működnek megfelelően a VPN-nel. Hozzáadhatja őket a VPN-t megkerülő alkalmazások listájához, így az adatforgalmuk nem a VPN-alagúton keresztül halad. Ez segíthet a kapcsolódási problémákon, de csökkenti az adatvédelmet. Megjegyzés: ha az eszközön be van kapcsolva a „Kapcsolatok blokkolása VPN nélkül” beállítás, a VPN-t megkerülő alkalmazások nem férnek hozzá az internethez.</string>
     <string name="bypass_none">Nincs hozzáadott alkalmazás. Új alkalmazás hozzáadásához használd a felső Hozzáadás gombot.</string>
     <string name="bypass_action_add">Alkalmazás hozzáadása</string>
     <string name="bypass_dialog_add_brief">Kezdj el gépelni az alkalmazások kereséséhez.</string>

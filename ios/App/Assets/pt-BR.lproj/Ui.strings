@@ -88,6 +88,10 @@
 "support action chat" = "Converse conosco";
 // Action to end chat. Keep it super short
 "support action end" = "Encerrar";
+// Small link under the main button of the DNS setup sheet and in the Restore account ID dialog, opens the support chat. Keep it short
+"support action ask" = "Falar com o suporte";
+// Replaces "Ask support" in the same small link while a support chat is still open, and reopens that chat. Keep it short
+"support action continue" = "Continuar com o suporte";
 "support placeholder" = "Pergunte sobre tudo que quiser saber!";
 "support error generic" = "Desculpe, não entendi. Pode repetir?";
 // Its ok to leave it as it is
@@ -889,7 +893,7 @@
 
 // A section to configure apps that should bypass (skip) VPN
 "bypass section header" = "Ignorar VPN";
-"bypass info" = "Alguns apps podem não funcionar corretamente com a VPN. Você pode adicioná-los à lista de exceções para que o tráfego deles seja enviado fora do túnel VPN, o que pode ajudar na conectividade, mas reduz a privacidade. O app também inclui algumas exceções pré-definidas para compatibilidade. Observação: se o seu dispositivo tiver a configuração \"Bloquear conexões sem VPN\" ativada, os apps ignorados não terão acesso à internet.";
+"bypass info" = "Alguns aplicativos podem não funcionar corretamente com a VPN. Você pode adicioná-los à lista de exceções para que o tráfego deles não passe pelo túnel VPN. Isso pode resolver problemas de conexão, mas reduz sua privacidade. Observação: se a opção \"Bloquear conexões sem VPN\" estiver ativada no seu dispositivo, os aplicativos adicionados à lista de exceções não terão acesso à internet.";
 "bypass none" = "Nenhum app adicionado. Use o botão Adicionar no topo para incluir novos apps nesta lista.";
 "bypass action add" = "Adicionar app";
 "bypass dialog add brief" = "Comece a digitar para buscar apps.";

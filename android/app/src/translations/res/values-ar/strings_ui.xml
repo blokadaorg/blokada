@@ -67,6 +67,8 @@
     <string name="universal_action_add">إضافة</string>
     <string name="support_action_chat">تحدّث معنا</string>
     <string name="support_action_end">إنهاء</string>
+    <string name="support_action_ask">اطلب الدعم</string>
+    <string name="support_action_continue">تابع المحادثة مع الدعم</string>
     <string name="support_placeholder">اسأل عن أي شيء ترغب في معرفته!</string>
     <string name="support_error_generic">عذراً، لم أفهم. هل يمكنك التكرار؟</string>
     <string name="support_name_bot">Blocka Bot</string>
@@ -657,7 +659,7 @@
     <string name="onboard_safari_cta">افتح YouTube في Safari</string>
     <string name="onboard_safari_skip">تخطي الآن</string>
     <string name="bypass_section_header">تجاوز VPN</string>
-    <string name="bypass_info">قد لا تعمل بعض التطبيقات بشكل صحيح مع الـ VPN. يمكنك إضافتها إلى قائمة التجاوز لإرسال حركة بياناتها خارج نفق الـ VPN، مما قد يساعد في الاتصال ولكنه يقلل الخصوصية. يحتوي التطبيق أيضًا على بعض قواعد التجاوز المدمجة للتوافق. ملاحظة: إذا كان خيار \"حظر الاتصالات بدون VPN\" مفعلًا على جهازك، فلن تتمكن التطبيقات المتجاوزة من الوصول إلى الإنترنت.</string>
+    <string name="bypass_info">قد لا تعمل بعض التطبيقات بشكل صحيح مع الـVPN. يمكنك إضافتها إلى قائمة التجاوز لإرسال بياناتها خارج نفق الـVPN، مما قد يساعد في تحسين الاتصال ولكنه يقلل من الخصوصية. ملاحظة: إذا كان إعداد \"حظر الاتصالات بدون VPN\" مفعّلًا على جهازك، فلن تتمكن التطبيقات المتجاوزة من الوصول إلى الإنترنت.</string>
     <string name="bypass_none">لا توجد تطبيقات مضافة. استخدم زر الإضافة بالأعلى لإضافة تطبيقات جديدة لهذه القائمة.</string>
     <string name="bypass_action_add">إضافة تطبيق</string>
     <string name="bypass_dialog_add_brief">ابدأ الكتابة للبحث عن التطبيقات.</string>

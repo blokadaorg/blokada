@@ -67,6 +67,8 @@
     <string name="universal_action_add">Lisää</string>
     <string name="support_action_chat">Chattaa kanssamme</string>
     <string name="support_action_end">Lopeta</string>
+    <string name="support_action_ask">Kysy tuelta</string>
+    <string name="support_action_continue">Jatka tukikeskustelua</string>
     <string name="support_placeholder">Kysy mistä tahansa mitä haluat tietää!</string>
     <string name="support_error_generic">Valitettavasti en ymmärtänyt, voitko toistaa?</string>
     <string name="support_name_bot">Blocka Bot</string>
@@ -657,7 +659,7 @@
     <string name="onboard_safari_cta">Avaa YouTube Safarissa</string>
     <string name="onboard_safari_skip">Ohita toistaiseksi</string>
     <string name="bypass_section_header">VPN-ohitus</string>
-    <string name="bypass_info">Kaikki sovellukset eivät välttämättä toimi oikein VPN:n kanssa. Voit lisätä ne ohituslistalle, jolloin niiden liikenne ohjataan VPN-tunnelin ulkopuolelle. Tämä voi auttaa yhteysongelmiin mutta heikentää yksityisyyttä. Sovellus sisältää myös joitain sisäänrakennettuja ohituksia yhteensopivuuden vuoksi. Huom: Jos laitteessasi on \'Estä yhteydet ilman VPN:ää\' -asetus päällä, ohitetuilla sovelluksilla ei ole internet-yhteyttä.</string>
+    <string name="bypass_info">Jotkin sovellukset eivät välttämättä toimi kunnolla VPN-yhteyden kanssa. Voit lisätä ne ohituslistalle, jolloin niiden verkkoliikenne kulkee VPN-tunnelin ulkopuolella. Tämä voi auttaa yhteysongelmissa, mutta heikentää yksityisyyttä. Huomautus: jos laitteessasi on käytössä asetus ”Estä yhteydet ilman VPN-yhteyttä”, ohituslistalla olevat sovellukset eivät pääse internetiin.</string>
     <string name="bypass_none">Sovelluksia ei lisätty. Lisää uusia sovelluksia tähän listaan ylhäällä olevasta Lisää-painikkeesta.</string>
     <string name="bypass_action_add">Lisää sovellus</string>
     <string name="bypass_dialog_add_brief">Aloita kirjoittamalla sovelluksen nimi hakua varten.</string>

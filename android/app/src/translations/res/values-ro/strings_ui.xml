@@ -67,6 +67,8 @@
     <string name="universal_action_add">Adaugă</string>
     <string name="support_action_chat">Chat cu noi</string>
     <string name="support_action_end">Încheie</string>
+    <string name="support_action_ask">Contactează asistența</string>
+    <string name="support_action_continue">Continuă discuția cu asistența</string>
     <string name="support_placeholder">Întreabă orice vrei să știi!</string>
     <string name="support_error_generic">Ne pare rău, nu am înțeles, poți repeta?</string>
     <string name="support_name_bot">Blocka Bot</string>
@@ -657,7 +659,7 @@
     <string name="onboard_safari_cta">Deschide YouTube în Safari</string>
     <string name="onboard_safari_skip">Omite pentru moment</string>
     <string name="bypass_section_header">Ocolire VPN</string>
-    <string name="bypass_info">Unele aplicații pot să nu funcționeze corect cu VPN-ul. Le poți adăuga în lista de ocolire pentru ca traficul lor să fie trimis în afara tunelului VPN, ceea ce poate îmbunătăți conectivitatea dar reduce confidențialitatea. Aplicația include și câteva intrări de ocolire predefinite pentru compatibilitate. Notă: dacă pe dispozitiv ai activată opțiunea „Blochează conexiunile fără VPN”, aplicațiile ocolite nu vor avea acces la internet.</string>
+    <string name="bypass_info">Este posibil ca unele aplicații să nu funcționeze corect cu VPN-ul. Le poți adăuga în lista de excepții pentru a le direcționa traficul în afara tunelului VPN. Acest lucru poate îmbunătăți conectivitatea, dar reduce confidențialitatea. Notă: dacă setarea „Blochează conexiunile fără VPN” este activată pe dispozitivul tău, aplicațiile din lista de excepții nu vor avea acces la internet.</string>
     <string name="bypass_none">Nicio aplicație adăugată. Folosește butonul Adaugă din partea de sus pentru a adăuga aplicații în această listă.</string>
     <string name="bypass_action_add">Adaugă aplicație</string>
     <string name="bypass_dialog_add_brief">Începe să tastezi pentru a căuta aplicații.</string>

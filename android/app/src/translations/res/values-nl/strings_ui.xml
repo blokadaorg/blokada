@@ -67,6 +67,8 @@
     <string name="universal_action_add">Toevoegen</string>
     <string name="support_action_chat">Chat met ons</string>
     <string name="support_action_end">Beëindigen</string>
+    <string name="support_action_ask">Chatten met support</string>
+    <string name="support_action_continue">Verder chatten met support</string>
     <string name="support_placeholder">Vraag ons alles wat je wilt weten!</string>
     <string name="support_error_generic">Sorry, ik heb dat niet begrepen. Kun je het herhalen?</string>
     <string name="support_name_bot">Blocka Bot</string>
@@ -657,7 +659,7 @@
     <string name="onboard_safari_cta">Open YouTube in Safari</string>
     <string name="onboard_safari_skip">Voor nu overslaan</string>
     <string name="bypass_section_header">VPN-bypass</string>
-    <string name="bypass_info">Sommige apps werken mogelijk niet goed met de VPN. Je kunt ze toevoegen aan de bypass-lijst zodat hun verkeer buiten de VPN-tunnel gaat, wat kan helpen met de verbinding maar de privacy vermindert. De app bevat ook enkele ingebouwde bypass-inschrijvingen voor compatibiliteit. Let op: als je apparaat de optie \'Verbindingen zonder VPN blokkeren\' heeft ingeschakeld, hebben omzeilde apps geen internettoegang.</string>
+    <string name="bypass_info">Sommige apps werken mogelijk niet goed met de VPN. Je kunt ze toevoegen aan de lijst met uitzonderingen, zodat hun verkeer niet via de VPN-tunnel loopt. Dit kan verbindingsproblemen oplossen, maar vermindert je privacy. Let op: als de instelling \'Verbindingen zonder VPN blokkeren\' op je apparaat is ingeschakeld, hebben deze apps geen internettoegang.</string>
     <string name="bypass_none">Geen apps toegevoegd. Gebruik de knop Toevoegen bovenaan om nieuwe apps aan deze lijst toe te voegen.</string>
     <string name="bypass_action_add">App toevoegen</string>
     <string name="bypass_dialog_add_brief">Begin met typen om apps te zoeken.</string>

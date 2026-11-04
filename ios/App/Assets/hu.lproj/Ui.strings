@@ -88,6 +88,10 @@
 "support action chat" = "Beszélj velünk!";
 // Action to end chat. Keep it super short
 "support action end" = "Vége";
+// Small link under the main button of the DNS setup sheet and in the Restore account ID dialog, opens the support chat. Keep it short
+"support action ask" = "Segítség kérése";
+// Replaces "Ask support" in the same small link while a support chat is still open, and reopens that chat. Keep it short
+"support action continue" = "Beszélgetés folytatása";
 "support placeholder" = "Kérdezz bármit, amit tudni szeretnél!";
 "support error generic" = "Sajnálom, nem értem. Meg tudod ismételni?";
 // Its ok to leave it as it is
@@ -889,7 +893,7 @@
 
 // A section to configure apps that should bypass (skip) VPN
 "bypass section header" = "VPN-kikerülés";
-"bypass info" = "Előfordulhat, hogy egyes alkalmazások nem működnek megfelelően VPN-nel. Felveheted őket a kikerülési listára, hogy forgalmuk a VPN-alagúton kívülre kerüljön, ami javíthat a kapcsolaton, de csökkenti az adatvédelmet. Az app néhány beépített kikerülési bejegyzést is tartalmaz a kompatibilitás érdekében. Megjegyzés: ha eszközödön be van kapcsolva a \"Kapcsolatok blokkolása VPN nélkül\" beállítás, a kikerült alkalmazások nem férnek hozzá az internethez.";
+"bypass info" = "Előfordulhat, hogy egyes alkalmazások nem működnek megfelelően a VPN-nel. Hozzáadhatja őket a VPN-t megkerülő alkalmazások listájához, így az adatforgalmuk nem a VPN-alagúton keresztül halad. Ez segíthet a kapcsolódási problémákon, de csökkenti az adatvédelmet. Megjegyzés: ha az eszközön be van kapcsolva a „Kapcsolatok blokkolása VPN nélkül” beállítás, a VPN-t megkerülő alkalmazások nem férnek hozzá az internethez.";
 "bypass none" = "Nincs hozzáadott alkalmazás. Új alkalmazás hozzáadásához használd a felső Hozzáadás gombot.";
 "bypass action add" = "Alkalmazás hozzáadása";
 "bypass dialog add brief" = "Kezdj el gépelni az alkalmazások kereséséhez.";

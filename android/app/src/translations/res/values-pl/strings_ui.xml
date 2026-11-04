@@ -67,6 +67,8 @@
     <string name="universal_action_add">Dodaj</string>
     <string name="support_action_chat">Czatuj z nami</string>
     <string name="support_action_end">Zakończ</string>
+    <string name="support_action_ask">Poproś o pomoc techniczną</string>
+    <string name="support_action_continue">Kontynuuj rozmowę</string>
     <string name="support_placeholder">Zapytaj o wszystko, co chcesz wiedzieć!</string>
     <string name="support_error_generic">Przepraszam nie zrozumiałem, czy możesz powtórzyć?</string>
     <string name="support_name_bot">Blocka Bot</string>
@@ -657,7 +659,7 @@
     <string name="onboard_safari_cta">Otwórz YouTube w Safari</string>
     <string name="onboard_safari_skip">Pomiń na razie</string>
     <string name="bypass_section_header">Wyklucz z VPN</string>
-    <string name="bypass_info">Niektóre aplikacje mogą nie działać poprawnie z VPN. Możesz dodać je do listy obejścia, aby wysyłać ich ruch poza tunelem VPN, co może pomóc w połączeniu, ale zmniejsza prywatność. Aplikacja zawiera również kilka wbudowanych wpisów bypassu dla kompatybilności. Uwaga: jeśli urządzenie ma włączone ustawienie \'Blokuj połączenia bez VPN\', ominięcie aplikacji nie będzie miało dostępu do Internetu.</string>
+    <string name="bypass_info">Niektóre aplikacje mogą nie działać poprawnie z VPN. Możesz dodać je do listy obejścia, aby kierować ich ruch poza tunel VPN. Może to pomóc w razie problemów z połączeniem, ale ogranicza ochronę prywatności. Uwaga: jeśli na urządzeniu jest włączone ustawienie „Blokuj połączenia bez VPN”, aplikacje dodane do listy obejścia nie będą miały dostępu do internetu.</string>
     <string name="bypass_none">Nie dodano aplikacji. Użyj przycisku Dodaj na górze aby dodać nowe aplikacje do tej listy.</string>
     <string name="bypass_action_add">Dodaj aplikację</string>
     <string name="bypass_dialog_add_brief">Zacznij pisać aby wyszukać aplikacje.</string>
