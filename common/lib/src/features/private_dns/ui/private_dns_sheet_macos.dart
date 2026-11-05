@@ -1,3 +1,5 @@
+import 'package:common/src/features/support/domain/support.dart';
+import 'package:common/src/features/support/ui/ask_support_link.dart';
 import 'package:common/src/shared/ui/minicard/minicard.dart';
 import 'package:common/src/features/private_dns/ui/private_dns_setting_guide.dart';
 import 'package:common/src/shared/ui/theme.dart';
@@ -127,7 +129,11 @@ class PrivateDnsSheetMacosState extends State<PrivateDnsSheetMacos> {
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
+              AskSupportLink(
+                event: SupportEvent.dnsSetupHelp,
+                close: (m) async => Navigator.of(context).pop(),
+              ),
+              const SizedBox(height: 8),
             ],
           ),
         ),
