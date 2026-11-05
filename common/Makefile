@@ -87,9 +87,13 @@ runner:
 lib:
 	$(FLUTTER) build aar --no-profile --no-debug --no-pub
 
-# Build the Android library (debug)
+# Build the Android library (debug). AAR_PLATFORMS (command line or
+# <repo>/.env.local) limits the ABIs, e.g. android-arm64 for an Apple Silicon emulator.
 lib-debug:
-	$(FLUTTER) build aar --no-profile --no-release --verbose --no-pub
+	@__platforms="$${AAR_PLATFORMS:-}"; \
+	[ -f ../.env.local ] && . ../.env.local; \
+	P="$${__platforms:-$${AAR_PLATFORMS:-}}"; \
+	$(FLUTTER) build aar --no-profile --no-release --verbose --no-pub $${P:+--target-platform $$P}
 
 # Debug AAR with MOCKED/FLAVOR/ACCOUNT_ID baked in; see BUILDING.md.
 # Reads the ID from ACCOUNT_ID or <repo>/.env.local (SIX_/FAMILY_DEV_ACCOUNT_ID).
@@ -97,7 +101,9 @@ lib-debug-mocked:
 	@set -e; \
 	FLAVOR_NAME=$${MOCKED_FLAVOR:-six}; \
 	__cli="$${ACCOUNT_ID:-}"; \
+	__platforms="$${AAR_PLATFORMS:-}"; \
 	[ -f ../.env.local ] && . ../.env.local; \
+	P="$${__platforms:-$${AAR_PLATFORMS:-}}"; \
 	if [ -n "$$__cli" ]; then ID="$$__cli"; \
 	elif [ "$$FLAVOR_NAME" = "family" ]; then ID="$${FAMILY_DEV_ACCOUNT_ID:-$${ACCOUNT_ID:-}}"; \
 	else ID="$${SIX_DEV_ACCOUNT_ID:-$${ACCOUNT_ID:-}}"; fi; \
@@ -105,7 +111,7 @@ lib-debug-mocked:
 	mkdir -p .dart_tool; \
 	trap 'rm -f .dart_tool/dart-defines-mocked.env' EXIT; \
 	printf 'MOCKED=true\nFLAVOR=%s\nACCOUNT_ID=%s\n' "$$FLAVOR_NAME" "$$ID" > .dart_tool/dart-defines-mocked.env; \
-	$(FLUTTER) build aar --no-profile --no-release --no-pub --dart-define-from-file=.dart_tool/dart-defines-mocked.env
+	$(FLUTTER) build aar --no-profile --no-release --no-pub --dart-define-from-file=.dart_tool/dart-defines-mocked.env $${P:+--target-platform $$P}
 
 # Build the iOS library (debug) - only for special cases
 other-lib-ios-debug:
