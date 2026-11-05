@@ -532,7 +532,7 @@ void _showPinDialog(
         ),
         child: Text(
           "family settings lock remove".i18n,
-          style: const TextStyle(color: Colors.red),
+          style: TextStyle(color: context.theme.textBlocked),
         ),
       ),
     ],

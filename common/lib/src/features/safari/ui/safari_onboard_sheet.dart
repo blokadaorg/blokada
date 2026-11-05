@@ -183,19 +183,16 @@ class _SafariOnboardSecondaryButton extends StatelessWidget {
             children: [
               Text(
                 "freemium sheet safari setup later".i18n,
-                style: TextStyle(
+                style: context.theme.text.callout.semibold.copyWith(
                   color: context.theme.accent,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
                   height: 1.0,
                 ),
               ),
               const SizedBox(height: 2),
               Text(
                 "freemium sheet safari setup later desc".i18n,
-                style: TextStyle(
+                style: context.theme.text.caption.copyWith(
                   color: context.theme.textSecondary,
-                  fontSize: 10,
                   height: 1.0,
                 ),
               ),

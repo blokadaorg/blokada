@@ -92,11 +92,7 @@ class ProfileButtonState extends State<ProfileButton> {
 
   Widget _buildName(TextAlign align) => Text(
         widget.name,
-        style: TextStyle(
-          color: context.theme.textPrimary,
-          fontSize: 16,
-          fontWeight: FontWeight.w600,
-        ),
+        style: context.theme.text.body.semibold.copyWith(color: context.theme.textPrimary),
         overflow: TextOverflow.ellipsis,
         maxLines: 1,
         textAlign: align,

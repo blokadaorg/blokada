@@ -61,11 +61,7 @@ class SmartOnboardState extends State<SmartOnboard>
             SizedBox(height: PlatformInfo().isSmallAndroid(context) ? 45 : 90),
             Text(
               texts.first!,
-              style: const TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+              style: context.theme.text.hero.copyWith(color: Colors.white),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
@@ -76,9 +72,9 @@ class SmartOnboardState extends State<SmartOnboard>
                   height: 80,
                   child: Text(
                     texts[1]!,
-                    style: TextStyle(
-                      fontSize: 18,
+                    style: context.theme.text.headline.copyWith(
                       color: Colors.white.withOpacity(0.8),
+                      fontWeight: FontWeight.normal,
                     ),
                     textAlign: TextAlign.start,
                     maxLines: 3,

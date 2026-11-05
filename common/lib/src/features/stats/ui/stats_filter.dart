@@ -99,11 +99,11 @@ class StatsFilterState extends State<StatsFilter> {
             },
             icon: CupertinoIcons.shield,
             iconColor: widget.filter.draft.showOnly == JournalFilterType.blocked
-                ? Colors.red
+                ? context.theme.blocked
                 : context.theme.divider,
             name: "activity filter show blocked".i18n,
             borderColor: widget.filter.draft.showOnly == JournalFilterType.blocked
-                ? Colors.red.withOpacity(0.30)
+                ? context.theme.blocked.withOpacity(0.30)
                 : null,
             tapBgColor: context.theme.divider.withOpacity(0.1),
             padding: const EdgeInsets.only(left: 12),
@@ -119,11 +119,11 @@ class StatsFilterState extends State<StatsFilter> {
           },
           icon: CupertinoIcons.shield,
           iconColor: widget.filter.draft.showOnly == JournalFilterType.passed
-              ? Colors.green
+              ? context.theme.allowed
               : context.theme.divider,
           name: "activity filter show allowed".i18n,
           borderColor: widget.filter.draft.showOnly == JournalFilterType.passed
-              ? Colors.green.withOpacity(0.30)
+              ? context.theme.allowed.withOpacity(0.30)
               : null,
           tapBgColor: context.theme.divider.withOpacity(0.1),
           padding: const EdgeInsets.only(left: 12),

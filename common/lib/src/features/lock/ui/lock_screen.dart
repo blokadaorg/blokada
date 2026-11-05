@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:common/src/features/lock/domain/lock.dart';
 import 'package:common/src/shared/navigation.dart';
+import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/features/lock/ui/circles.dart';
 import 'package:common/src/features/lock/ui/keypad.dart';
 import 'package:common/src/features/modal/ui/blur_background.dart';
@@ -141,6 +142,10 @@ class _LockScreenState extends State<LockScreen>
     });
   }
 
+  // Fits four lines of the 28px status at default text size, the longest
+  // translations wrap that far.
+  static const double _headerHeight = 140;
+
   String _getHeaderString() {
     if (_wrongAttempts >= 3) {
       return "lock status too many attempts".i18n;
@@ -248,7 +253,7 @@ class _LockScreenState extends State<LockScreen>
                 padding: const EdgeInsets.symmetric(horizontal: 40),
                 child: AnimatedCrossFade(
                   firstChild: SizedBox(
-                    height: 112,
+                    height: _headerHeight,
                     child: Center(
                       child: Icon(
                         _isLocked.now
@@ -259,16 +264,21 @@ class _LockScreenState extends State<LockScreen>
                       ),
                     ),
                   ),
+                  // Fixed height keeps the keypad in place; very large text or a
+                  // long translation shrinks to fit instead of clipping.
                   secondChild: SizedBox(
-                    height: 112,
-                    child: Center(
-                      child: Text(_getHeaderString(),
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
-                            // fontWeight: FontWeight.w500,
-                          )),
+                    height: _headerHeight,
+                    child: LayoutBuilder(
+                      builder: (context, constraints) => FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: SizedBox(
+                          width: constraints.maxWidth,
+                          child: Text(_getHeaderString(),
+                              textAlign: TextAlign.center,
+                              style: context.theme.text.hero.copyWith(
+                                  color: Colors.white, fontWeight: FontWeight.normal)),
+                        ),
+                      ),
                     ),
                   ),
                   crossFadeState: _showHeaderIcon
@@ -337,10 +347,8 @@ class _LockScreenState extends State<LockScreen>
                       borderRadius: 12,
                       elevation: 0,
                       text: "lock action slide unlock".i18n,
-                      textStyle: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                      ),
+                      textStyle: context.theme.text.headline.copyWith(
+                          color: Colors.white, fontWeight: FontWeight.normal),
                       sliderButtonIcon: const Icon(CupertinoIcons.chevron_right,
                           color: Colors.white),
                       submittedIcon: const Icon(CupertinoIcons.chevron_right,
@@ -365,10 +373,9 @@ class _LockScreenState extends State<LockScreen>
                                         horizontal: 64),
                                     child: Text(
                                       "universal action clear".i18n,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                      ),
+                                      style: context.theme.text.headline.copyWith(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.normal),
                                     ),
                                   ),
                                 ),
@@ -384,10 +391,9 @@ class _LockScreenState extends State<LockScreen>
                                           //     ? "universal action delete".i18n
                                           //     : "universal action cancel".i18n,
                                           "universal action delete".i18n,
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 18,
-                                          ),
+                                          style: context.theme.text.headline.copyWith(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.normal),
                                         ),
                                       ),
                                     )

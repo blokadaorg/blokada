@@ -7,7 +7,9 @@ void main() {
   final roles = {
     'largeTitle': scale.largeTitle,
     'display': scale.display,
+    'hero': scale.hero,
     'title': scale.title,
+    'headline': scale.headline,
     'barAction': scale.barAction,
     'body': scale.body,
     'callout': scale.callout,
@@ -19,7 +21,9 @@ void main() {
     expect(roles.map((name, style) => MapEntry(name, style.fontSize)), {
       'largeTitle': 34,
       'display': 34,
+      'hero': 28,
       'title': 20,
+      'headline': 18,
       'barAction': 17,
       'body': 16,
       'callout': 14,
@@ -32,7 +36,9 @@ void main() {
     expect(roles.map((name, style) => MapEntry(name, style.fontWeight)), {
       'largeTitle': FontWeight.bold,
       'display': FontWeight.w600,
+      'hero': FontWeight.bold,
       'title': FontWeight.w600,
+      'headline': FontWeight.w600,
       'barAction': null,
       'body': null,
       'callout': null,
