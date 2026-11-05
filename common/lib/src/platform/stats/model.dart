@@ -99,8 +99,9 @@ class UiToplistEntry {
 List<UiToplistEntry> mergeToplistEntriesByDomain(Iterable<UiToplistEntry> entries) {
   final merged = <String, UiToplistEntry>{};
   for (final e in entries) {
-    final existing = merged[e.domain];
-    merged[e.domain] = existing == null
+    final key = e.domain.toLowerCase();
+    final existing = merged[key];
+    merged[key] = existing == null
         ? e
         : UiToplistEntry(
             existing.company ?? e.company,

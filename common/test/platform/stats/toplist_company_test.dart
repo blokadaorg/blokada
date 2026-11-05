@@ -127,6 +127,15 @@ void main() {
     });
   });
 
+  test('mergeToplistEntriesByDomain merges case variants of one domain', () {
+    final merged = mergeToplistEntriesByDomain([
+      UiToplistEntry(null, 'Example.COM', false, 2),
+      UiToplistEntry(null, 'example.com', false, 3),
+    ]);
+
+    expect(merged.single.value, 5);
+  });
+
   group('computeToplistDeltas', () {
     test('matches by domain when the server starts sending company names', () {
       // Previous window from before the server joined companies.
