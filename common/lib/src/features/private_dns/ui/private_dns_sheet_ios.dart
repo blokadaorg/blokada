@@ -1,5 +1,4 @@
 import 'package:common/src/shared/automation/ids.dart';
-import 'package:common/src/features/modal/domain/modal.dart';
 import 'package:common/src/features/support/domain/support.dart';
 import 'package:common/src/features/support/ui/ask_support_link.dart';
 import 'package:common/src/shared/ui/minicard/minicard.dart';
@@ -19,7 +18,6 @@ class PrivateDnsSheetIos extends StatefulWidget {
 
 class PrivateDnsSheetIosState extends State<PrivateDnsSheetIos> {
   late final _channel = Core.get<PermChannel>();
-  late final _modal = Core.get<CurrentModalValue>();
   late final _appName = Core.act.isFamily ? "Blokada Family" : "Blokada 6";
 
   // Note: auto-dismiss when DNS becomes correct is owned by the generic
@@ -155,7 +153,7 @@ class PrivateDnsSheetIosState extends State<PrivateDnsSheetIos> {
                 ),
                 AskSupportLink(
                   event: SupportEvent.dnsSetupHelp,
-                  close: (m) => _modal.change(m, null),
+                  close: (m) async => Navigator.of(context).pop(),
                 ),
                 const SizedBox(height: 8),
               ],

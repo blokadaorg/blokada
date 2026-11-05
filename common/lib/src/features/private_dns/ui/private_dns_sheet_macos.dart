@@ -1,4 +1,3 @@
-import 'package:common/src/features/modal/domain/modal.dart';
 import 'package:common/src/features/support/domain/support.dart';
 import 'package:common/src/features/support/ui/ask_support_link.dart';
 import 'package:common/src/shared/ui/minicard/minicard.dart';
@@ -18,7 +17,6 @@ class PrivateDnsSheetMacos extends StatefulWidget {
 
 class PrivateDnsSheetMacosState extends State<PrivateDnsSheetMacos> {
   late final _channel = Core.get<PermChannel>();
-  late final _modal = Core.get<CurrentModalValue>();
   late final _appName = Core.act.isFamily ? "Blokada Family" : "Blokada 6";
 
   @override
@@ -133,7 +131,7 @@ class PrivateDnsSheetMacosState extends State<PrivateDnsSheetMacos> {
               ),
               AskSupportLink(
                 event: SupportEvent.dnsSetupHelp,
-                close: (m) => _modal.change(m, null),
+                close: (m) async => Navigator.of(context).pop(),
               ),
               const SizedBox(height: 8),
             ],
