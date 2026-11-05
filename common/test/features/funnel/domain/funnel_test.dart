@@ -8,6 +8,7 @@ import 'package:common/src/features/funnel/domain/funnel.dart';
 import 'package:common/src/features/modal/domain/modal.dart';
 import 'package:common/src/platform/app/app.dart';
 import 'package:common/src/platform/app/channel.pg.dart';
+import 'package:common/src/platform/stage/stage.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../tools.dart';
@@ -58,6 +59,7 @@ Future<_RecordingTransport> _setUp({
   Core.register<EnvActor>(env);
   Core.register<CurrentModalValue>(CurrentModalValue());
   Core.register<FunnelSentValue>(FunnelSentValue());
+  Core.register<StageStore>(StageStore());
   final transport = _RecordingTransport();
   Core.register<FunnelTransport>(transport);
   return transport;
@@ -199,6 +201,56 @@ void main() {
         await Future<void>.delayed(Duration.zero);
 
         expect(transport.events, ["onboarding_dns", "onboarding_safari"]);
+      });
+    });
+  });
+
+  group('FunnelActor app foreground', () {
+    Future<(_RecordingTransport, StageStore)> start(Marker m) async {
+      // Family: no AppStore needed.
+      final transport = await _setUp(flavor: Flavor.family);
+      await FunnelActor(enabled: true).onStart(m);
+      return (transport, Core.get<StageStore>());
+    }
+
+    test('fires on a cold start into the UI and on each resume', () async {
+      await withTrace((m) async {
+        final (transport, stage) = await start(m);
+
+        await stage.setForeground(m);
+        await stage.setBackground(m);
+        await stage.setForeground(m);
+        await Future<void>.delayed(Duration.zero);
+
+        expect(transport.events, ["app_foreground", "app_foreground"]);
+      });
+    });
+
+    test('does not fire while the app only runs in the background', () async {
+      await withTrace((m) async {
+        // A background engine start (FCM, the VPN service) never calls
+        // setForeground; a background call alone must not count.
+        final (transport, stage) = await start(m);
+
+        await stage.setBackground(m);
+        await Future<void>.delayed(Duration.zero);
+
+        expect(transport.events, isEmpty);
+      });
+    });
+
+    test('fires once per transition', () async {
+      await withTrace((m) async {
+        final (transport, stage) = await start(m);
+
+        // Native lifecycle and the startup both call setForeground on a cold
+        // start, then navigation emits more route changes.
+        await Future.wait([stage.setForeground(m), stage.setForeground(m)]);
+        await stage.setForeground(m);
+        await stage.setRoute("activity", m);
+        await Future<void>.delayed(Duration.zero);
+
+        expect(transport.events, ["app_foreground"]);
       });
     });
   });

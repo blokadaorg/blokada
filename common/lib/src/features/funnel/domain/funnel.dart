@@ -7,6 +7,7 @@ import 'package:common/src/features/api/domain/api.dart';
 import 'package:common/src/features/env/domain/env.dart';
 import 'package:common/src/features/modal/domain/modal.dart';
 import 'package:common/src/platform/app/app.dart';
+import 'package:common/src/platform/stage/stage.dart';
 
 /// Anonymous funnel signals. Each one only adds one to a daily total on the
 /// api, and carries exactly the step, the flavor, the platform and the app
@@ -22,7 +23,12 @@ enum FunnelEvent {
   // Only after this install showed a first-run screen, so installs that were
   // set up before the update don't all count on their next start.
   setupComplete("setup_complete", once: true, needsArmed: true),
-  // Every open counts.
+  // Every occurrence counts.
+  //
+  // The UI came to the foreground: a cold start into the UI or a return from
+  // background. Background engine starts (FCM, the VPN service, timers) never
+  // reach the stage foreground, so they don't count.
+  appForeground("app_foreground"),
   pulseOpenedHome("pulse_opened_home"),
   pulseOpenedPush("pulse_opened_push");
 
@@ -87,6 +93,7 @@ class FunnelActor with Logging, Actor {
   late final _env = Core.get<EnvActor>();
   late final _modal = Core.get<CurrentModalValue>();
   late final _app = Core.get<AppStore>();
+  late final _stage = Core.get<StageStore>();
 
   /// Store builds only; dev and debug builds would skew the totals.
   final bool enabled;
@@ -105,10 +112,21 @@ class FunnelActor with Logging, Actor {
       }
     });
 
+    _stage.addOnValue(routeChanged, _onRoute);
+
     // Family reports setup complete from its phase, which knows linked
     // devices; Blokada 6 is set up once protection is on.
     if (!Core.act.isFamily) {
       _app.addOn(appStatusChanged, _onAppStatus);
+    }
+  }
+
+  // Only the background to foreground transition: tab, route and modal changes
+  // emit routeChanged too, and the stage emits it once per transition even
+  // when both the native lifecycle and the startup call setForeground.
+  Future<void> _onRoute(StageRouteState route, Marker m) async {
+    if (route.isBecameForeground()) {
+      unawaited(send(m, FunnelEvent.appForeground));
     }
   }
 
