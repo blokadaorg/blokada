@@ -217,50 +217,6 @@ class TopCommonBarState extends State<TopCommonBar> {
                       ),
                     )
                   : Container(),
-              ctrl.nav.length > 1
-                  ? Transform.translate(
-                      offset: Offset(28 + (1.0 - ctrl.show) * 100, 0),
-                      child: Opacity(
-                        opacity: xpow(ctrl.show, 8),
-                        child: GestureDetector(
-                          onTap: () {
-                            ctrl.goBackFromPlatform();
-                          },
-                          child: SizedBox(
-                            width: 88,
-                            child: Text(ctrl.nav.elementAt(ctrl.nav.length - 2),
-                                style: context.theme.linkStyle(
-                                    context.theme.text.barAction.copyWith(
-                                        overflow: TextOverflow.ellipsis,
-                                        fontWeight: FontWeight.w400),
-                                    underline: false)),
-                          ),
-                        ),
-                      ),
-                    )
-                  : Container(),
-              ctrl.nav.length > 2
-                  ? Transform.translate(
-                      offset: Offset(-72 + (1.0 - ctrl.show) * 100, 0),
-                      child: Opacity(
-                        opacity: xpow(1.0 - ctrl.show, 8),
-                        child: GestureDetector(
-                          onTap: () {
-                            ctrl.goBackFromPlatform();
-                          },
-                          child: SizedBox(
-                            width: 88,
-                            child: Text(ctrl.nav.elementAt(ctrl.nav.length - 3),
-                                style: context.theme.linkStyle(
-                                    context.theme.text.barAction.copyWith(
-                                        overflow: TextOverflow.ellipsis,
-                                        fontWeight: FontWeight.w400),
-                                    underline: false)),
-                          ),
-                        ),
-                      ),
-                    )
-                  : Container(),
             ],
           ),
         ),

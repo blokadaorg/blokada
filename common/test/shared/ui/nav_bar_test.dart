@@ -77,12 +77,12 @@ void main() {
       });
     });
 
-    testWidgets('Android shows its arrow and keeps the previous title label', (tester) async {
+    testWidgets('Android shows the arrow alone, without the previous title', (tester) async {
       await withTrace((_) async {
         final semantics = tester.ensureSemantics();
         await tester.pumpWidget(_commonBar(TargetPlatform.android));
 
-        expect(find.text('Home'), findsOneWidget);
+        expect(find.text('Home'), findsNothing);
         expect(find.byIcon(Icons.arrow_back), findsOneWidget);
         expect(find.byIcon(Icons.arrow_back_ios), findsNothing);
         expect(tester.getSemantics(find.bySemanticsIdentifier(AutomationIds.navBack)),
@@ -175,12 +175,13 @@ void main() {
       });
     });
 
-    testWidgets('Android shows its arrow and keeps the back label', (tester) async {
+    testWidgets('Android shows the arrow alone and reads the back label', (tester) async {
       await withTrace((_) async {
         var tapped = false;
         await tester.pumpWidget(bar(TargetPlatform.android, () => tapped = true));
 
-        expect(find.text('Kid phone'), findsOneWidget);
+        expect(find.text('Kid phone'), findsNothing);
+        expect(find.bySemanticsLabel('Kid phone'), findsOneWidget);
         expect(find.byIcon(Icons.arrow_back), findsOneWidget);
         expect(find.byIcon(CupertinoIcons.chevron_back), findsNothing);
         await tester.tap(find.byKey(const Key('back')));
