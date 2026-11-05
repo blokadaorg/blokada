@@ -159,6 +159,25 @@ void main() {
       });
     });
 
+    test('funnelSignal sends through the registered actor', () async {
+      await withTrace((m) async {
+        final transport = await _setUp();
+        Core.register<FunnelActor>(FunnelActor(enabled: true));
+        funnelSignal(m, FunnelEvent.pulseOpenedHome);
+        await Future<void>.delayed(Duration.zero);
+        expect(transport.events, ["pulse_opened_home"]);
+      });
+    });
+
+    test('funnelSignal is a no-op without the actor', () async {
+      await withTrace((m) async {
+        final transport = await _setUp();
+        funnelSignal(m, FunnelEvent.pulseOpenedHome);
+        await Future<void>.delayed(Duration.zero);
+        expect(transport.events, isEmpty);
+      });
+    });
+
     test('debug and test builds are disabled by default', () async {
       await withTrace((m) async {
         await _setUp();

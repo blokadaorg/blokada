@@ -69,7 +69,8 @@ class DirectFunnelTransport implements FunnelTransport {
       req.contentLength = bytes.length;
       req.add(bytes);
       final res = await req.close().timeout(const Duration(seconds: 15));
-      await res.drain<void>();
+      // Bounded too: a stalled body would otherwise hold the client open.
+      await res.drain<void>().timeout(const Duration(seconds: 15));
       if (res.statusCode != 200) {
         throw HttpCodeException(res.statusCode, "funnel: ${res.statusCode}");
       }
@@ -163,7 +164,7 @@ class FunnelActor with Logging, Actor {
 /// Sends a funnel signal without waiting for it. A no-op where the funnel is
 /// not registered (tests, previews), so a signal can never break a feature.
 void funnelSignal(Marker m, FunnelEvent event) {
-  if (!Core.di.isRegistered<FunnelActor>()) return;
+  if (!Core.di.isRegistered<FunnelActor>(instanceName: "default")) return;
   unawaited(Core.get<FunnelActor>().send(m, event));
 }
 
