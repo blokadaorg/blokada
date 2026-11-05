@@ -73,6 +73,43 @@ CounterDelta computeCounterDelta({
   );
 }
 
+/// Rank movement of [current] against [previous], matched by domain (never by
+/// company name, which may change as the server learns owners). Without a
+/// previous list every entry is new.
+@visibleForTesting
+List<ToplistDelta> computeToplistDeltas({
+  required List<UiToplistEntry> current,
+  required List<UiToplistEntry>? previous,
+  required bool blocked,
+}) {
+  final previousRanks = <String, int>{};
+  if (previous != null) {
+    for (var i = 0; i < previous.length; i++) {
+      previousRanks[previous[i].domain.toLowerCase()] = i + 1;
+    }
+  }
+
+  final deltas = <ToplistDelta>[];
+  for (var i = 0; i < current.length; i++) {
+    final entry = current[i];
+    final newRank = i + 1;
+    final prevRank = previousRanks[entry.domain.toLowerCase()];
+    final type = prevRank == null
+        ? ToplistDeltaType.newEntry
+        : (prevRank > newRank
+            ? ToplistDeltaType.up
+            : (prevRank < newRank ? ToplistDeltaType.down : ToplistDeltaType.same));
+    deltas.add(ToplistDelta(
+      name: entry.domain,
+      blocked: blocked,
+      newRank: newRank,
+      previousRank: prevRank,
+      type: type,
+    ));
+  }
+  return deltas;
+}
+
 class StatsDeltaStore with Logging, Actor {
   static const Duration defaultTtl = Duration(seconds: 10);
 
@@ -207,54 +244,10 @@ class StatsDeltaStore with Logging, Actor {
     final pair = _snapshots[_DeltaKey(deviceName: deviceName, range: range)];
     if (pair == null || pair.current == null || !pair.hasComparison) return [];
 
-    // If no previous snapshot, treat all current entries as new
-    if (pair.previous == null) {
-      final currentList = blocked ? pair.current!.blocked : pair.current!.allowed;
-      final deltas = <ToplistDelta>[];
-      for (var i = 0; i < currentList.length; i++) {
-        final entry = currentList[i];
-        final name = (entry.company ?? entry.tld ?? "").toLowerCase();
-        deltas.add(ToplistDelta(
-          name: name,
-          blocked: blocked,
-          newRank: i + 1,
-          previousRank: null,
-          type: ToplistDeltaType.newEntry,
-        ));
-      }
-      return deltas;
-    }
-
     final currentList = blocked ? pair.current!.blocked : pair.current!.allowed;
-    final previousList = blocked ? pair.previous!.blocked : pair.previous!.allowed;
-
-    final previousRanks = <String, int>{};
-    for (var i = 0; i < previousList.length; i++) {
-      final name = (previousList[i].company ?? previousList[i].tld ?? "").toLowerCase();
-      previousRanks[name] = i + 1;
-    }
-
-    final deltas = <ToplistDelta>[];
-    for (var i = 0; i < currentList.length; i++) {
-      final entry = currentList[i];
-      final name = (entry.company ?? entry.tld ?? "").toLowerCase();
-      final newRank = i + 1;
-      final prevRank = previousRanks[name];
-      final type = prevRank == null
-          ? ToplistDeltaType.newEntry
-          : (prevRank > newRank
-              ? ToplistDeltaType.up
-              : (prevRank < newRank ? ToplistDeltaType.down : ToplistDeltaType.same));
-      deltas.add(ToplistDelta(
-        name: entry.company ?? entry.tld ?? "",
-        blocked: blocked,
-        newRank: newRank,
-        previousRank: prevRank,
-        type: type,
-      ));
-    }
-
-    return deltas;
+    final previous = pair.previous;
+    final previousList = previous == null ? null : (blocked ? previous.blocked : previous.allowed);
+    return computeToplistDeltas(current: currentList, previous: previousList, blocked: blocked);
   }
 
   CounterDelta counterDeltaFor(String deviceName, String range) {
@@ -274,16 +267,7 @@ class StatsDeltaStore with Logging, Actor {
     entries.addAll(_convertToplist(allowed, blocked: false));
     entries.addAll(_convertToplist(fallthrough, blocked: false));
 
-    final combined = <String, int>{};
-    for (final e in entries) {
-      final key = e.company ?? e.tld ?? "";
-      combined[key] = (combined[key] ?? 0) + e.value;
-    }
-    final merged = combined.entries
-        .map((e) => UiToplistEntry(e.key, e.key, false, e.value))
-        .toList()
-      ..sort((a, b) => b.value.compareTo(a.value));
-    return merged;
+    return mergeToplistEntriesByDomain(entries);
   }
 
   List<UiToplistEntry> _convertToplist(api.JsonToplistV2Response response, {bool? blocked}) {
@@ -292,7 +276,7 @@ class StatsDeltaStore with Logging, Actor {
       final isAllowed = bucket.action == "fallthrough" || bucket.action == "allowed";
       final isBlocked = blocked ?? !isAllowed;
       for (var entry in bucket.entries) {
-        result.add(UiToplistEntry(entry.name, entry.name, isBlocked, entry.count));
+        result.add(UiToplistEntry.fromV2(entry, blocked: isBlocked));
       }
     }
     result.sort((a, b) => b.value.compareTo(a.value));
