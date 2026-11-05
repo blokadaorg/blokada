@@ -226,6 +226,22 @@ void main() {
       });
     });
 
+    test('counts a foreground reached before the actor started', () async {
+      await withTrace((m) async {
+        // The native lifecycle can call setForeground before modules start.
+        final transport = await _setUp(flavor: Flavor.family);
+        final stage = Core.get<StageStore>();
+        await stage.setForeground(m);
+
+        await FunnelActor(enabled: true).onStart(m);
+        // The startup's own setForeground is a no-op on a foreground stage.
+        await stage.setForeground(m);
+        await Future<void>.delayed(Duration.zero);
+
+        expect(transport.events, ["app_foreground"]);
+      });
+    });
+
     test('does not fire while the app only runs in the background', () async {
       await withTrace((m) async {
         // A background engine start (FCM, the VPN service) never calls

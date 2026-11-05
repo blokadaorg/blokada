@@ -113,6 +113,12 @@ class FunnelActor with Logging, Actor {
     });
 
     _stage.addOnValue(routeChanged, _onRoute);
+    // Modules start after the app accepts commands, so the native lifecycle
+    // may already have brought the stage to the foreground. That transition
+    // emitted before this listener existed; count it here instead.
+    if (_stage.route.isForeground()) {
+      unawaited(send(m, FunnelEvent.appForeground));
+    }
 
     // Family reports setup complete from its phase, which knows linked
     // devices; Blokada 6 is set up once protection is on.
