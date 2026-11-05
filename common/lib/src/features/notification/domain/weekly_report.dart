@@ -3,7 +3,9 @@ part of 'notification.dart';
 const Duration weeklyReportInterval = Duration(minutes: 10);
 const Duration weeklyReportBackgroundLead = Duration(minutes: 2);
 
-const weeklyReportTitleKey = 'notification weekly report title';
+// Named after the Privacy Pulse screen the notification opens, so the push and
+// the screen read as one feature.
+const weeklyReportTitleKey = 'notification weekly report pulse title';
 const weeklyReportBodyKey = 'notification weekly report body';
 const weeklyReportRefreshedTitleKey = 'notification weekly report refreshed title';
 const weeklyReportRefreshedBodyKey = 'notification weekly report refreshed body';

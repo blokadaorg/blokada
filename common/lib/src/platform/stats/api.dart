@@ -210,16 +210,24 @@ class JsonToplistBucket {
 }
 
 class JsonToplistEntry {
+  /// The domain (eTLD+1 at level 1). Always the key for navigation and deltas.
   late String name;
   late int count;
   bool? isRoot;
   String? deviceName;
+
+  /// Optional owner of the domain, joined by the server on level-1 entries.
+  /// Display only: never use it as a key.
+  JsonToplistCompany? company;
+  String? category;
 
   JsonToplistEntry({
     required this.name,
     required this.count,
     this.isRoot,
     this.deviceName,
+    this.company,
+    this.category,
   });
 
   JsonToplistEntry.fromJson(Map<String, dynamic> json) {
@@ -227,6 +235,10 @@ class JsonToplistEntry {
     count = json['count'];
     isRoot = json.containsKey('is_root') ? json['is_root'] : null;
     deviceName = json.containsKey('device_name') ? json['device_name'] : null;
+    final companyJson = json['company'];
+    company = companyJson is Map<String, dynamic> ? JsonToplistCompany.fromJson(companyJson) : null;
+    final categoryJson = json['category'];
+    category = categoryJson is String ? categoryJson : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -235,6 +247,31 @@ class JsonToplistEntry {
     data['count'] = count;
     if (isRoot != null) data['is_root'] = isRoot;
     if (deviceName != null) data['device_name'] = deviceName;
+    if (company != null) data['company'] = company!.toJson();
+    if (category != null) data['category'] = category;
+    return data;
+  }
+}
+
+class JsonToplistCompany {
+  String? id;
+  String? name;
+  String? logoDomain;
+
+  JsonToplistCompany({this.id, this.name, this.logoDomain});
+
+  // Tolerant: every field is optional and a wrongly typed one reads as null.
+  JsonToplistCompany.fromJson(Map<String, dynamic> json) {
+    id = json['id'] is String ? json['id'] : null;
+    name = json['name'] is String ? json['name'] : null;
+    logoDomain = json['logo_domain'] is String ? json['logo_domain'] : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (id != null) data['id'] = id;
+    if (name != null) data['name'] = name;
+    if (logoDomain != null) data['logo_domain'] = logoDomain;
     return data;
   }
 }
@@ -245,12 +282,7 @@ class JsonWindow {
   late String end;
   String? date;
 
-  JsonWindow({
-    required this.label,
-    required this.start,
-    required this.end,
-    this.date,
-  });
+  JsonWindow({required this.label, required this.start, required this.end, this.date});
 
   JsonWindow.fromJson(Map<String, dynamic> json) {
     label = json['label'];
@@ -288,33 +320,50 @@ class StatsApi {
   late final _marshal = StatsMarshal();
 
   Future<JsonStatsEndpoint> getStats(
-      String since, String downsample, String deviceName, Marker m,
-      {String? domain}) async {
+    String since,
+    String downsample,
+    String deviceName,
+    Marker m, {
+    String? domain,
+  }) async {
     return _fetchStats(since, downsample, deviceName, m, domain: domain);
   }
 
   Future<JsonStatsEndpoint> getStatsForDevice(
-      String since, String downsample, String deviceName, Marker m,
-      {String? domain}) async {
+    String since,
+    String downsample,
+    String deviceName,
+    Marker m, {
+    String? domain,
+  }) async {
     return _fetchStats(since, downsample, deviceName, m, domain: domain);
   }
 
   Future<JsonStatsEndpoint> _fetchStats(
-      String since, String downsample, String deviceName, Marker m,
-      {String? domain}) async {
+    String since,
+    String downsample,
+    String deviceName,
+    Marker m, {
+    String? domain,
+  }) async {
     if (deviceName.trim().isEmpty) {
       throw ArgumentError("deviceName is required for stats requests");
     }
     final encoded = Uri.encodeComponent(deviceName);
-    final encodedDomain =
-        (domain != null && domain.trim().isNotEmpty) ? Uri.encodeComponent(domain) : "";
+    final encodedDomain = (domain != null && domain.trim().isNotEmpty)
+        ? Uri.encodeComponent(domain)
+        : "";
 
-    final result = await _api.get(ApiEndpoint.getStatsV2, m, params: {
-      ApiParam.statsSince: since,
-      ApiParam.statsDownsample: downsample,
-      ApiParam.statsDeviceName: encoded,
-      ApiParam.statsDomain: encodedDomain,
-    });
+    final result = await _api.get(
+      ApiEndpoint.getStatsV2,
+      m,
+      params: {
+        ApiParam.statsSince: since,
+        ApiParam.statsDownsample: downsample,
+        ApiParam.statsDeviceName: encoded,
+        ApiParam.statsDomain: encodedDomain,
+      },
+    );
 
     return _marshal.toStatsEndpoint(result);
   }
@@ -348,5 +397,4 @@ class StatsApi {
     final result = await _api.get(ApiEndpoint.getToplistV2, m, params: params);
     return _marshal.toToplistV2Response(result);
   }
-
 }
