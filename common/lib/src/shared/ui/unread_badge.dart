@@ -1,3 +1,4 @@
+import 'package:common/src/shared/ui/theme.dart';
 import 'package:flutter/material.dart';
 
 class UnreadBadge extends StatelessWidget {
@@ -9,7 +10,7 @@ class UnreadBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.red,
+        color: BlokadaPalette.red,
         borderRadius: BorderRadius.circular(32),
       ),
       child: SizedBox(

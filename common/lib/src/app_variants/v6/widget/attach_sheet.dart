@@ -104,8 +104,8 @@ class AttachSheetState extends State<AttachSheet> with Logging {
                                 "attach sheet brief".i18n,
                                 softWrap: true,
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: context.theme.textSecondary, fontSize: 14),
+                                style: context.theme.text.callout
+                                    .copyWith(color: context.theme.textSecondary),
                               ),
                             ),
                           ],

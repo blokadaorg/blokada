@@ -1,7 +1,11 @@
 part of 'support.dart';
 
+/// Opens a session with the welcome. The help events also tell the agent
+/// where the user asked for help, see [SupportActor.askSupport].
 enum SupportEvent {
-  firstOpen("FIRST_OPEN");
+  firstOpen("FIRST_OPEN"),
+  dnsSetupHelp("DNS_SETUP_HELP"),
+  restoreHelp("RESTORE_HELP");
 
   final String constant;
 

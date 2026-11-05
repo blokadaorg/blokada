@@ -5,6 +5,7 @@ import 'package:common/src/features/link/domain/link.dart';
 import 'package:common/src/features/modal/domain/modal.dart';
 import 'package:common/src/features/rate/domain/rate.dart';
 import 'package:common/src/features/support/domain/support.dart';
+import 'package:common/src/features/support/ui/ask_support_link.dart';
 import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/common_card.dart';
@@ -427,7 +428,11 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
     showInputDialog(context,
         title: "account action logout new".i18n,
         desc: "family account restore desc".i18n,
-        inputValue: "", onConfirm: (String value) {
+        inputValue: "",
+        below: (context) => AskSupportLink(
+              event: SupportEvent.restoreHelp,
+              close: (m) async => Navigator.of(context).pop(),
+            ), onConfirm: (String value) {
       log(Markers.userTap).trace("tappedRestore", (m) async {
         await _account.restore(value, m);
       });
@@ -532,7 +537,7 @@ void _showPinDialog(
         ),
         child: Text(
           "family settings lock remove".i18n,
-          style: const TextStyle(color: Colors.red),
+          style: TextStyle(color: context.theme.textBlocked),
         ),
       ),
     ],

@@ -1,4 +1,6 @@
 import 'package:common/src/features/funnel/domain/funnel.dart';
+import 'package:common/src/features/support/domain/support.dart';
+import 'package:common/src/features/support/ui/ask_support_link.dart';
 import 'package:common/src/shared/ui/minicard/minicard.dart';
 import 'package:common/src/features/private_dns/ui/private_dns_setting_guide.dart';
 import 'package:common/src/shared/ui/theme.dart';
@@ -45,17 +47,15 @@ class PrivateDnsSheetMacosState extends State<PrivateDnsSheetMacos> {
                       const SizedBox(height: 24),
                       Text(
                         "family perms header".i18n,
-                        style: Theme.of(context)
-                            .textTheme
-                            .displaySmall!
-                            .copyWith(fontWeight: FontWeight.w700),
+                        style: Theme.of(
+                          context,
+                        ).textTheme.displaySmall!.copyWith(fontWeight: FontWeight.w700),
                       ),
                       const SizedBox(height: 16),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 32.0),
                         child: Text(
-                          "Install %s profile in Settings by navigating as shown below."
-                              .i18n
+                          "Install %s profile in Settings by navigating as shown below.".i18n
                               .withParams(_appName),
                           softWrap: true,
                           textAlign: TextAlign.start,
@@ -68,30 +68,17 @@ class PrivateDnsSheetMacosState extends State<PrivateDnsSheetMacos> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              "1.",
-                              style: TextStyle(color: context.theme.textSecondary),
-                            ),
-                            PrivateDnsSettingGuideWidget(
-                              title: "Profile Downloaded".i18n,
-                            ),
+                            Text("1.", style: TextStyle(color: context.theme.textSecondary)),
+                            PrivateDnsSettingGuideWidget(title: "Profile Downloaded".i18n),
                             const SizedBox(height: 16),
-                            Text(
-                              "2.",
-                              style: TextStyle(color: context.theme.textSecondary),
-                            ),
+                            Text("2.", style: TextStyle(color: context.theme.textSecondary)),
                             PrivateDnsSettingGuideWidget(
                               title: "Blokada Private DNS".i18n,
                               icon: CupertinoIcons.settings,
                             ),
                             const SizedBox(height: 16),
-                            Text(
-                              "3.",
-                              style: TextStyle(color: context.theme.textSecondary),
-                            ),
-                            PrivateDnsSettingGuideWidget(
-                              title: "Install...".i18n,
-                            ),
+                            Text("3.", style: TextStyle(color: context.theme.textSecondary)),
+                            PrivateDnsSettingGuideWidget(title: "Install...".i18n),
                           ],
                         ),
                       ),
@@ -129,7 +116,11 @@ class PrivateDnsSheetMacosState extends State<PrivateDnsSheetMacos> {
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
+              AskSupportLink(
+                event: SupportEvent.dnsSetupHelp,
+                close: (m) async => Navigator.of(context).pop(),
+              ),
+              const SizedBox(height: 8),
             ],
           ),
         ),

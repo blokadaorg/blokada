@@ -92,6 +92,10 @@ The app seeds that account and skips onboarding and the paywall; see `ios/SIMULA
 for the shared mocked-path behavior. Set `ANDROID_HOME` if gradle cannot find the SDK.
 Run `make build-android-six-debug` afterwards to restore a normal debug AAR.
 
+Debug AARs build arm, arm64 and x64 by default. Set `AAR_PLATFORMS` on the command
+line or in `.env.local` to build only the target device's ABI: `android-arm64` for
+phones and Apple Silicon emulators, `android-x64` for an emulator on an Intel machine.
+
 ## Restoring a test account in a debug build
 
 On a fresh debug install (mocked or not), `make restore-account-android ACCOUNT_ID=<id>`

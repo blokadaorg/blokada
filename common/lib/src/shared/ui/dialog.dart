@@ -192,7 +192,8 @@ void showConfirmDialog(BuildContext context, String name, {required Function() o
             borderRadius: BorderRadius.circular(0.0),
           ),
         ),
-        child: Text("universal action delete".i18n, style: const TextStyle(color: Colors.red)),
+        child: Text("universal action delete".i18n,
+            style: TextStyle(color: context.theme.textBlocked)),
       ),
     ],
   );
@@ -412,6 +413,7 @@ void showInputDialog(
   required String desc,
   required String inputValue,
   required Function(String) onConfirm,
+  WidgetBuilder? below,
 }) {
   final TextEditingController _ctrl = TextEditingController(text: inputValue);
 
@@ -445,6 +447,10 @@ void showInputDialog(
               ),
             ),
           ),
+          if (below != null) ...[
+            const SizedBox(height: 8),
+            below(context),
+          ],
         ],
       ),
     ),

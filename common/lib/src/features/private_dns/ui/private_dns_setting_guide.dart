@@ -73,21 +73,19 @@ class PrivateDnsSettingGuideWidget extends StatelessWidget {
                       : CrossAxisAlignment.start,
                   children: [
                     Text(title,
-                        style: const TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.w500)),
+                        style: context.theme.text.callout.copyWith(fontWeight: FontWeight.w500)),
                     (subtitle != null)
                         ? Text(subtitle!,
-                            style: TextStyle(
-                                fontSize: 12,
-                                color: context.theme.textSecondary))
+                            style: context.theme.text.caption
+                                .copyWith(color: context.theme.textSecondary))
                         : Container(),
                   ],
                 ),
                 const Spacer(),
                 (edgeText != null)
                     ? Text(edgeText!,
-                        style: TextStyle(
-                            fontSize: 14, color: context.theme.textSecondary))
+                        style: context.theme.text.callout
+                            .copyWith(color: context.theme.textSecondary))
                     : Container(),
                 const SizedBox(width: 4),
                 (chevron && !android)

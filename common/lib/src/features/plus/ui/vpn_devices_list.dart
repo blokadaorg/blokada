@@ -124,7 +124,7 @@ class VpnDevicesListState extends State<VpnDevicesList> with Disposables {
         children: [
           SlidableAction(
             onPressed: (c) => deleteLease(context, publicKey),
-            backgroundColor: Colors.red.withOpacity(0.95),
+            backgroundColor: BlokadaPalette.red.withOpacity(0.95),
             foregroundColor: Colors.white,
             icon: CupertinoIcons.delete,
             label: "universal action delete".i18n,

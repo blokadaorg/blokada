@@ -13,7 +13,6 @@ import 'package:common/src/core/core.dart';
 import 'package:common/src/features/stats/domain/controller.dart';
 import 'package:common/src/features/stats/ui/stats_error.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 /// Privacy Pulse's latest blocked and allowed requests. Draws the recent
 /// section of [StatsController]; it fetches nothing itself.
@@ -110,9 +109,9 @@ class RecentActivityState extends State<RecentActivity>
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(
+                            Icon(
                               CupertinoIcons.xmark_shield_fill,
-                              color: Colors.red,
+                              color: context.theme.blocked,
                               size: 18,
                             ),
                             const SizedBox(width: 6),
@@ -128,9 +127,9 @@ class RecentActivityState extends State<RecentActivity>
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(
+                            Icon(
                               CupertinoIcons.checkmark_shield_fill,
-                              color: Colors.green,
+                              color: context.theme.allowed,
                               size: 18,
                             ),
                             const SizedBox(width: 6),

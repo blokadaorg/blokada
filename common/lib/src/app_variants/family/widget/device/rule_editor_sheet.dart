@@ -315,15 +315,14 @@ class _RuleEditorSheetState extends State<RuleEditorSheet> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       const Icon(CupertinoIcons.delete,
-                          color: CupertinoColors.destructiveRed, size: 18),
+                          color: BlokadaPalette.red, size: 18),
                       const SizedBox(width: 8),
                       Flexible(
                         child: Text(
                           'family profile editor delete'.i18n,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                              color: CupertinoColors.destructiveRed,
-                              fontSize: 15),
+                          style: context.theme.text.body
+                              .copyWith(color: context.theme.textBlocked),
                         ),
                       ),
                     ],
@@ -362,13 +361,13 @@ class _RuleEditorSheetState extends State<RuleEditorSheet> {
             mainAxisSize: MainAxisSize.min,
             children: [
               const Icon(Icons.delete_outline,
-                  color: Colors.red, size: 20),
+                  color: BlokadaPalette.red, size: 20),
               const SizedBox(width: 12),
               Flexible(
                 child: Text(
                   'family profile editor delete'.i18n,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(color: Colors.red),
+                  style: TextStyle(color: context.theme.textBlocked),
                 ),
               ),
             ],
@@ -430,10 +429,8 @@ class _RuleEditorSheetState extends State<RuleEditorSheet> {
         previousPageTitle: widget.deviceName,
         backKey: const Key('rule_editor_back'),
         title: Text(title,
-            style: TextStyle(
-                color: context.theme.textPrimary,
-                fontSize: 17,
-                fontWeight: FontWeight.w600)),
+            style: context.theme.text.barAction.semibold
+                .copyWith(color: context.theme.textPrimary)),
         trailing: NavBarButton(
           key: const Key('rule_editor_save'),
           // Pass null when the gate is closed so the press highlight
@@ -449,12 +446,10 @@ class _RuleEditorSheetState extends State<RuleEditorSheet> {
               maxLines: 1,
               softWrap: false,
               overflow: TextOverflow.visible,
-              style: TextStyle(
+              style: context.theme.text.barAction.semibold.copyWith(
                   color: saveDisabled
                       ? context.theme.divider
-                      : context.theme.accent,
-                  fontSize: 17,
-                  fontWeight: FontWeight.w600)),
+                      : context.theme.accent)),
         ),
       ),
       body: Builder(builder: (ctx) {
@@ -483,7 +478,7 @@ class _RuleEditorSheetState extends State<RuleEditorSheet> {
                 padding:
                     const EdgeInsets.fromLTRB(24, 12, 24, 12),
                 child: Text(_error!,
-                    style: const TextStyle(color: Colors.red)),
+                    style: TextStyle(color: context.theme.textBlocked)),
               ),
             if (widget.onDelete != null) _buildDeleteFooter(context),
             const SizedBox(height: 32),
@@ -567,7 +562,7 @@ class _RuleEditorSheetState extends State<RuleEditorSheet> {
             key: const Key('rule_target_block'),
             value: 'block',
             icon: CupertinoIcons.nosign,
-            iconColor: Colors.red,
+            iconColor: context.theme.blocked,
             title: 'family schedule rule editor target block'.i18n,
             brief: 'family schedule rule editor target block brief'.i18n,
           ),
@@ -608,14 +603,13 @@ class _RuleEditorSheetState extends State<RuleEditorSheet> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(title,
-                    style: TextStyle(
+                    style: context.theme.text.body.copyWith(
                         color: context.theme.textPrimary,
-                        fontSize: 15,
                         fontWeight: FontWeight.w500)),
                 const SizedBox(height: 2),
                 Text(brief,
-                    style: TextStyle(
-                        color: context.theme.textSecondary, fontSize: 13)),
+                    style: context.theme.text.footnote
+                        .copyWith(color: context.theme.textSecondary)),
               ],
             ),
           ),
@@ -815,8 +809,8 @@ class _RuleEditorSheetState extends State<RuleEditorSheet> {
                 'family schedule rule editor profile edit'
                     .i18n
                     .withParams(selected.displayAlias),
-                style: TextStyle(
-                    color: context.theme.accent, fontSize: 13)),
+                style: context.theme.text.footnote
+                    .copyWith(color: context.theme.accent)),
           ],
         ),
       ),
@@ -909,8 +903,7 @@ class _RuleEditorSheetState extends State<RuleEditorSheet> {
                         maxLines: 1,
                         overflow: TextOverflow.clip,
                         softWrap: false,
-                        style: TextStyle(
-                          fontSize: 13,
+                        style: context.theme.text.footnote.copyWith(
                           fontWeight: FontWeight.w500,
                           color: selected
                               ? Colors.white
@@ -1032,7 +1025,7 @@ class _RuleEditorSheetState extends State<RuleEditorSheet> {
                 IconButton(
                   key: Key('times_delete_$index'),
                   icon: const Icon(CupertinoIcons.minus_circle,
-                      color: Colors.red, size: 20),
+                      color: BlokadaPalette.red, size: 20),
                   onPressed: () {
                     setState(() {
                       _windows = [..._windows]..removeAt(index);
@@ -1046,8 +1039,8 @@ class _RuleEditorSheetState extends State<RuleEditorSheet> {
               padding: const EdgeInsets.only(left: 4, top: 2),
               child: Text(
                   'family schedule rule editor times wrap'.i18n,
-                  style: TextStyle(
-                      color: context.theme.textSecondary, fontSize: 12)),
+                  style: context.theme.text.caption
+                      .copyWith(color: context.theme.textSecondary)),
             ),
         ],
       ),
@@ -1069,7 +1062,7 @@ class _RuleEditorSheetState extends State<RuleEditorSheet> {
         }
       },
       child: Text(formatMinuteOfDay(minute),
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+          style: context.theme.text.body.semibold),
     );
   }
 
@@ -1092,10 +1085,8 @@ class _RuleEditorSheetState extends State<RuleEditorSheet> {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 12),
           child: Text('family schedule rule editor delete'.i18n,
-              style: const TextStyle(
-                  color: Colors.red,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500)),
+              style: context.theme.text.body.copyWith(
+                  color: context.theme.textBlocked, fontWeight: FontWeight.w500)),
         ),
       ),
     );

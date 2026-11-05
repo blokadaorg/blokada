@@ -59,7 +59,7 @@ class SettingsItem extends StatelessWidget {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        color: Colors.red,
+                        color: BlokadaPalette.red,
                         borderRadius: BorderRadius.circular(32),
                       ),
                       child: const SizedBox(

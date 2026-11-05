@@ -84,14 +84,14 @@ class _RateScreenState extends State<RateScreen> with Logging {
         const SizedBox(height: 30),
         Text(
           "main rate us header".i18n,
-          style: const TextStyle(
-              fontSize: 36, fontWeight: FontWeight.w900, color: Colors.white),
+          style: context.theme.text.hero
+              .copyWith(fontWeight: FontWeight.w900, color: Colors.white),
         ),
         const SizedBox(height: 30),
         Text(
           "main rate us description".i18n,
           textAlign: TextAlign.start,
-          style: const TextStyle(fontSize: 16, color: Colors.white),
+          style: context.theme.text.body.copyWith(color: Colors.white),
         ),
         const SizedBox(height: 20),
         Row(
@@ -116,7 +116,7 @@ class _RateScreenState extends State<RateScreen> with Logging {
                 child: Text(
                   "main rate us on app store".i18n,
                   textAlign: TextAlign.start,
-                  style: const TextStyle(fontSize: 16, color: Colors.white),
+                  style: context.theme.text.body.copyWith(color: Colors.white),
                 ),
               ),
               const SizedBox(height: 20),
@@ -158,10 +158,8 @@ class _RateScreenState extends State<RateScreen> with Logging {
                         const EdgeInsets.symmetric(horizontal: 40, vertical: 64),
                     child: Text(
                       "universal action cancel".i18n,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                      ),
+                      style: context.theme.text.headline.copyWith(
+                          color: Colors.white, fontWeight: FontWeight.normal),
                     ),
                   ),
                 ),

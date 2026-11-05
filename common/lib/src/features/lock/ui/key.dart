@@ -1,4 +1,5 @@
 import 'package:common/src/features/lock/ui/keypad.dart';
+import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/shared/ui/touch.dart';
 import 'package:flutter/material.dart';
 
@@ -38,19 +39,12 @@ class LockScreenKeyState extends State<LockScreenKey> {
           children: <Widget>[
             Text(
               widget.digit,
-              style: const TextStyle(
-                fontSize: 32.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+              style: context.theme.text.hero.copyWith(color: Colors.white),
             ),
             if (widget.letters.isNotEmpty)
               Text(
                 widget.letters,
-                style: const TextStyle(
-                  fontSize: 10.0,
-                  color: Colors.white,
-                ),
+                style: context.theme.text.caption.copyWith(color: Colors.white),
               ),
           ],
         ),

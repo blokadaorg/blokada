@@ -48,6 +48,7 @@ export const AutomationIds = {
   powerActionCancel: "automation.power_action_cancel",
   dnsOnboardingSheet: "automation.dns_onboard_sheet",
   dnsOpenSettings: "automation.dns_open_settings",
+  askSupport: "automation.ask_support",
   dnsCopyHostname: "automation.dns_copy_hostname",
   dnsSetupSuccess: "automation.dns_setup_success",
   onboardIntroSheet: "automation.onboard_intro_sheet",
