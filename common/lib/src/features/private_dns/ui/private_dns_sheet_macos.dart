@@ -1,3 +1,4 @@
+import 'package:common/src/features/funnel/domain/funnel.dart';
 import 'package:common/src/shared/ui/minicard/minicard.dart';
 import 'package:common/src/features/private_dns/ui/private_dns_setting_guide.dart';
 import 'package:common/src/shared/ui/theme.dart';
@@ -107,6 +108,7 @@ class PrivateDnsSheetMacosState extends State<PrivateDnsSheetMacos> {
                       child: MiniCard(
                         onTap: () async {
                           Navigator.of(context).pop();
+                          funnelSignal(Markers.userTap, FunnelEvent.setupStarted);
                           _channel.doOpenPermSettings();
                         },
                         color: context.theme.accent,

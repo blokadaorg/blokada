@@ -1,3 +1,4 @@
+import 'package:common/src/features/funnel/domain/funnel.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:async';

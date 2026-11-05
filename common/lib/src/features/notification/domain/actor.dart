@@ -317,6 +317,7 @@ class NotificationActor with Logging, Actor {
           'toplistRange': ToplistRange.weekly,
         };
         if (!isOnPrivacyPulse) {
+          funnelSignal(m, FunnelEvent.pulseOpenedPush);
           await _queueNotificationNavigation(
             m,
             path: Paths.privacyPulse,

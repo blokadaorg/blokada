@@ -1,5 +1,4 @@
 import 'package:common/src/features/modal/domain/modal.dart';
-import 'package:common/src/features/payment/domain/payment.dart';
 import 'package:common/src/shared/ui/minicard/minicard.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
@@ -29,7 +28,6 @@ class SmartOnboardState extends State<SmartOnboard>
     with TickerProviderStateMixin, Logging {
   late final _stage = Core.get<StageStore>();
   late final _family = Core.get<FamilyActor>();
-  late final _payment = Core.get<PaymentActor>();
   late final _modal = Core.get<CurrentModalValue>();
   late final _permChannel = Core.get<PermChannel>();
 
@@ -185,7 +183,6 @@ class SmartOnboardState extends State<SmartOnboard>
         await _family.activateCta(false, m);
       });
     } else if (p.requiresPerms()) {
-      _payment.reportOnboarding(OnboardingStep.permsPrompted);
       _modal.change(Markers.userTap, Modal.onboardPrivateDns);
     } else if (p.isLocked2()) {
       log(Markers.userTap).trace("handleCtaTap", (m) async {
