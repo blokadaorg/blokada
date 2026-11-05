@@ -961,8 +961,6 @@ internal enum L10n {
   internal static let notificationWeeklyReportRefreshedBody = L10n.tr("Ui", "notification weekly report refreshed body", fallback: "Open Blokada to view the latest details.")
   /// Your weekly report is ready
   internal static let notificationWeeklyReportRefreshedTitle = L10n.tr("Ui", "notification weekly report refreshed title", fallback: "Your weekly report is ready")
-  /// Privacy Shield Report
-  internal static let notificationWeeklyReportTitle = L10n.tr("Ui", "notification weekly report title", fallback: "Privacy Shield Report")
   /// %s moved to #%s (was #%s). Tap to see more.
   internal static func notificationWeeklyReportToplistMoveBody(_ p1: UnsafePointer<CChar>, _ p2: UnsafePointer<CChar>, _ p3: UnsafePointer<CChar>) -> String {
     return L10n.tr("Ui", "notification weekly report toplist move body", p1, p2, p3, fallback: "%s moved to #%s (was #%s). Tap to see more.")
