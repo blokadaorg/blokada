@@ -47,7 +47,7 @@ parser = OptionParser.new do |opts|
   opts.on("--json-key KEY", "Play service account JSON") { |v| options[:json_key] = v }
   opts.on("--package-name PKG", "Play package name") { |v| options[:package_name] = v }
   opts.on("--action ACTION", "raise, halt or resume") { |v| options[:action] = v }
-  opts.on("--fraction F", "raise only: share of users, above 0 and at most 1") { |v| options[:fraction] = v }
+  opts.on("--fraction F", "raise only: share of users, 0.2 or 20% (above 0, at most 1 or 100%)") { |v| options[:fraction] = v }
 end
 
 begin

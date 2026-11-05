@@ -56,13 +56,21 @@ module PlayRollout
     staged.first
   end
 
+  # A bare number is a fraction ("1" already means complete the rollout), so
+  # a percentage needs its "%": "20%" is 0.2, a bare "20" is refused.
+  PERCENT = /\A(\d+(?:\.\d*)?|\.\d+)\s*%\z/
+
   def self.parse_fraction(text)
-    value = Float(text.to_s.strip)
+    input = text.to_s.strip
+    # Exact decimal division, so "1.1%" is the same float as "0.011" and a
+    # repeated raise stays a no-op.
+    value = (m = PERCENT.match(input)) ? (Rational(m[1]) / 100).to_f : Float(input)
     raise ArgumentError unless value.positive? && value <= 1
 
     value
   rescue ArgumentError, TypeError
-    raise Refusal, "fraction must be a number above 0 and at most 1 (0.2 is 20% of users), got '#{text}'"
+    raise Refusal, "fraction must be above 0 and at most 1, as a share or a percentage " \
+                   "(use 0.2 or 20% for 20% of users), got '#{text}'"
   end
 
   # Returns false when the rollout is already at that fraction.
