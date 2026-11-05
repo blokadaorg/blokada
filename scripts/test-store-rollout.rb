@@ -69,7 +69,7 @@ check("raise refuses a halted rollout") do
 end
 
 { "20%" => 0.2, " 20 % " => 0.2, "100%" => 1.0, "0.5%" => 0.005, "1.1%" => 0.011, "0.2" => 0.2,
-  "1" => 1.0 }.each do |text, want|
+  "1" => 1.0, "1.0" => 1.0, "1e0" => 1.0, "100.0%" => 1.0 }.each do |text, want|
   check("fraction #{text.inspect} parses as #{want}") do
     PlayRollout.parse_fraction(text) == want
   end
@@ -84,7 +84,7 @@ check("raise to 100% completes the rollout") do
   release.status == "completed" && release.user_fraction.nil?
 end
 
-["", "abc", "0", "-0.1", "1.5", "20", "0%", "100.1%", "100.0000000000000001%", "-5%", "%", "abc%", "1/2%", "20%%", "0x10%", nil].each do |bad|
+["", "abc", "0", "-0.1", "1.5", "20", "0%", "100.1%", "100.0000000000000001%", "99.9999999999999999%", "0.99999999999999999", "-5%", "%", "abc%", "1/2%", "20%%", "0x10%", nil].each do |bad|
   check("raise refuses fraction #{bad.inspect}") do
     refused?([live, staged(0.01)], action: "raise", fraction: bad)
   end

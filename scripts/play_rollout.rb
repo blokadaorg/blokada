@@ -72,8 +72,12 @@ module PlayRollout
       value = exact.to_f
     else
       value = Float(input)
+      exact = Rational(input) if value == 1
     end
     raise ArgumentError unless value.positive? && value <= 1
+    # 1 completes the rollout, so a share just under it that rounds up to 1.0
+    # is refused rather than taken as complete.
+    raise ArgumentError if value == 1 && exact != 1
 
     value
   rescue ArgumentError, TypeError
