@@ -406,12 +406,7 @@ abstract class StatsStoreBase with Store, Logging, Actor {
     for (var bucket in response.toplist) {
       final isAllowed = bucket.action == "fallthrough" || bucket.action == "allowed";
       for (var entry in bucket.entries) {
-        result.add(UiToplistEntry(
-          entry.name,      // Use name as company
-          entry.name,      // Use name as tld
-          !isAllowed,      // blocked flag
-          entry.count,     // request count
-        ));
+        result.add(UiToplistEntry.fromV2(entry, blocked: !isAllowed));
       }
     }
     return result;
@@ -419,41 +414,16 @@ abstract class StatsStoreBase with Store, Logging, Actor {
 
   List<UiToplistEntry> _mergeAllowedToplists(
       api.JsonToplistV2Response? allowed, api.JsonToplistV2Response? fallthrough) {
-    // Collect all entries from both responses
-    final entries = <String, int>{};
-
-    // Process allowed entries
-    if (allowed != null) {
-      for (var bucket in allowed.toplist) {
+    final entries = <UiToplistEntry>[];
+    for (final response in [allowed, fallthrough]) {
+      if (response == null) continue;
+      for (var bucket in response.toplist) {
         for (var entry in bucket.entries) {
-          entries[entry.name] = (entries[entry.name] ?? 0) + entry.count;
+          entries.add(UiToplistEntry.fromV2(entry, blocked: false));
         }
       }
     }
-
-    // Process fallthrough entries and merge with allowed
-    if (fallthrough != null) {
-      for (var bucket in fallthrough.toplist) {
-        for (var entry in bucket.entries) {
-          entries[entry.name] = (entries[entry.name] ?? 0) + entry.count;
-        }
-      }
-    }
-
-    // Convert to UiToplistEntry and sort by count descending
-    final result = entries.entries
-        .map((e) => UiToplistEntry(
-              e.key,    // Use name as company
-              e.key,    // Use name as tld
-              false,    // Not blocked (these are allowed)
-              e.value,  // Merged count
-            ))
-        .toList();
-
-    // Sort by count descending
-    result.sort((a, b) => b.value.compareTo(a.value));
-
-    return result;
+    return mergeToplistEntriesByDomain(entries);
   }
 }
 

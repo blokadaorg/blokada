@@ -93,8 +93,7 @@ class TopDomainsState extends State<TopDomains> {
             isWeeklyMode &&
             !isLoading &&
             highlightBlocked == (_selectedTab == ToplistTab.blocked);
-        String _normalized(UiToplistEntry e) =>
-            (e.company ?? e.tld ?? '').toLowerCase();
+        String _normalized(UiToplistEntry e) => e.domain.toLowerCase();
         // Highlight the row whose domain detail is open in the pane — only
         // for selections that originated from a toplist row (Map arguments);
         // a recent-activity selection must not light up a same-named domain
@@ -260,7 +259,9 @@ class TopDomainsState extends State<TopDomains> {
       ToplistDelta? delta,
       bool isHighlighted = false,
       bool isSelected = false}) {
-    final domainName = entry.company ?? entry.tld ?? "Unknown";
+    // Navigation keys on the domain; the label may be the company name.
+    final domainName = entry.domain.isEmpty ? "Unknown" : entry.domain;
+    final label = entry.displayName.isEmpty ? "Unknown" : entry.displayName;
 
     // Selection tint wraps the clickable so it covers the full row
     // (including the tap padding), square, in the shared accent-derived
@@ -328,7 +329,7 @@ class TopDomainsState extends State<TopDomains> {
                     Expanded(
                       child: Text(
                         middleEllipsis(
-                          domainName,
+                          label,
                           maxLength:
                               delta != null && delta.type == ToplistDeltaType.newEntry ? 18 : 24,
                         ),

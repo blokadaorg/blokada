@@ -1,3 +1,5 @@
+import 'package:common/src/platform/stats/api.dart' show JsonToplistEntry;
+
 /// Stats as the screens draw them: one device's counters, the hourly
 /// histogram of the last 24 hours, and its toplist. Shared by Blokada 6
 /// (StatsStore) and Family (StatsActor), so it lives outside both.
@@ -62,10 +64,51 @@ class UiStats {
 }
 
 class UiToplistEntry {
+  /// Display name of the domain's owner, when known. Never a key.
   final String? company;
+
+  /// The domain this entry counts. Key for navigation, deltas and favicons.
   final String? tld;
   final bool blocked;
   final int value;
 
   UiToplistEntry(this.company, this.tld, this.blocked, this.value);
+
+  /// Builds an entry from a v2 toplist entry: keyed by the domain, labelled
+  /// with the server-provided company name when there is one.
+  factory UiToplistEntry.fromV2(JsonToplistEntry entry, {required bool blocked}) {
+    final companyName = entry.company?.name?.trim();
+    return UiToplistEntry(
+      companyName == null || companyName.isEmpty ? null : companyName,
+      entry.name,
+      blocked,
+      entry.count,
+    );
+  }
+
+  /// Key for navigation, delta matching and favicons. Falls back to [company]
+  /// only for entries without a domain (sample data).
+  String get domain => tld ?? company ?? "";
+
+  /// Label shown for the row.
+  String get displayName => company ?? tld ?? "";
+}
+
+/// Sums entries of the same domain (e.g. allowed + fallthrough), sorted by
+/// count descending. Keeps the first known company name per domain.
+List<UiToplistEntry> mergeToplistEntriesByDomain(Iterable<UiToplistEntry> entries) {
+  final merged = <String, UiToplistEntry>{};
+  for (final e in entries) {
+    final key = e.domain.toLowerCase();
+    final existing = merged[key];
+    merged[key] = existing == null
+        ? e
+        : UiToplistEntry(
+            existing.company ?? e.company,
+            existing.tld ?? e.tld,
+            e.blocked,
+            existing.value + e.value,
+          );
+  }
+  return merged.values.toList()..sort((a, b) => b.value.compareTo(a.value));
 }

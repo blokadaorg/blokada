@@ -245,12 +245,7 @@ List<UiToplistEntry> _convertToplistV2(platform_stats.JsonToplistV2Response resp
   for (var bucket in response.toplist) {
     final isAllowed = bucket.action == "fallthrough" || bucket.action == "allowed";
     for (var entry in bucket.entries) {
-      result.add(UiToplistEntry(
-        entry.name,      // Use name as company
-        entry.name,      // Use name as tld
-        !isAllowed,      // blocked flag
-        entry.count,     // request count
-      ));
+      result.add(UiToplistEntry.fromV2(entry, blocked: !isAllowed));
     }
   }
   return result;
