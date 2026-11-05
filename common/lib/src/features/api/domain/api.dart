@@ -8,6 +8,7 @@ import 'package:common/src/platform/app/app.dart';
 import 'package:common/src/platform/device/device.dart';
 import 'package:common/src/platform/perm/perm.dart';
 import 'package:common/src/platform/stage/stage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
 
