@@ -211,7 +211,14 @@ class TopCommonBarState extends State<TopCommonBar> {
                             onTap: () {
                               ctrl.goBackFromPlatform();
                             },
-                            child: Icon(Icons.arrow_back, color: context.theme.link),
+                            // A 48 dp tap target; the arrow stays where it was drawn.
+                            child: SizedBox.square(
+                              dimension: 48,
+                              child: Align(
+                                alignment: Alignment.bottomLeft,
+                                child: Icon(Icons.arrow_back, color: context.theme.link),
+                              ),
+                            ),
                           ),
                         ),
                       ),
