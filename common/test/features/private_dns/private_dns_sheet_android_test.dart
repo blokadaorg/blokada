@@ -71,6 +71,7 @@ Future<_Setup> _pump(
   PrivateDnsState? state,
   bool failClipboard = false,
   Size? size,
+  NavigatorObserver? observer,
 }) async {
   Core.act = ActScreenplay(ActScenario.test, Flavor.v6, PlatformType.android);
   final channel = FakeDnsChannel(state ?? dnsState(null));
@@ -102,6 +103,7 @@ Future<_Setup> _pump(
   await tester.pumpWidget(
     MaterialApp(
       theme: ThemeData(extensions: const [_theme]),
+      navigatorObservers: [if (observer != null) observer],
       home: PrivateDnsSheetAndroid(
         manufacturer: manufacturer,
         successDelay: Duration.zero,
@@ -112,6 +114,13 @@ Future<_Setup> _pump(
   );
   await tester.pumpAndSettle();
   return _Setup(channel, modal, clipboard, support);
+}
+
+class _PopObserver extends NavigatorObserver {
+  int count = 0;
+
+  @override
+  void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) => count++;
 }
 
 Finder _byId(String id) =>
@@ -156,12 +165,14 @@ void main() {
 
   testWidgets("Ask support closes the sheet and asks with the DNS setup event", (tester) async {
     await withTrace((m) async {
-      final s = await _pump(tester, m, manufacturer: "Google");
+      final popped = _PopObserver();
+      final s = await _pump(tester, m, manufacturer: "Google", observer: popped);
 
       await tester.tap(find.text("support action ask".i18n));
-      await tester.pumpAndSettle();
+      await tester.pump();
 
-      expect(s.modal.present, isNull);
+      // The sheet pops its own route; BottomManagerSheet then shows the chat.
+      expect(popped.count, 1);
       expect(s.support.asked, [SupportEvent.dnsSetupHelp]);
     });
   });

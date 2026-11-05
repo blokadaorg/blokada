@@ -254,7 +254,7 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
       Center(
         child: AskSupportLink(
           event: SupportEvent.dnsSetupHelp,
-          close: (m) => _modal.change(m, null),
+          close: (m) async => Navigator.of(context).pop(),
         ),
       ),
       const SizedBox(height: 8),
