@@ -26,7 +26,7 @@ on:
         type: choice
         options: [halt, pause, raise, resume, release]
       fraction:
-        description: "Android raise only. Share of users to roll out to, above 0 and at most 1: 0.2 is 20%, 1 completes the rollout."
+        description: "Android raise only. Share of users to roll out to, as a fraction above 0 and at most 1 or a percentage with %: 0.2 or 20% is 20% of users, 1 or 100% completes the rollout. A bare 20 is refused."
         required: false
         default: ""
         type: string
