@@ -84,7 +84,7 @@ check("raise to 100% completes the rollout") do
   release.status == "completed" && release.user_fraction.nil?
 end
 
-["", "abc", "0", "-0.1", "1.5", "20", "0%", "100.1%", "-5%", "%", "abc%", "1/2%", "20%%", "0x10%", nil].each do |bad|
+["", "abc", "0", "-0.1", "1.5", "20", "0%", "100.1%", "100.0000000000000001%", "-5%", "%", "abc%", "1/2%", "20%%", "0x10%", nil].each do |bad|
   check("raise refuses fraction #{bad.inspect}") do
     refused?([live, staged(0.01)], action: "raise", fraction: bad)
   end

@@ -62,9 +62,17 @@ module PlayRollout
 
   def self.parse_fraction(text)
     input = text.to_s.strip
-    # Exact decimal division, so "1.1%" is the same float as "0.011" and a
-    # repeated raise stays a no-op.
-    value = (m = PERCENT.match(input)) ? (Rational(m[1]) / 100).to_f : Float(input)
+    if (m = PERCENT.match(input))
+      # Bounds checked on the exact value, so "100.0000000000000001%" is
+      # refused rather than rounded to 1. Exact division also makes "1.1%"
+      # the same float as "0.011", so a repeated raise stays a no-op.
+      exact = Rational(m[1]) / 100
+      raise ArgumentError unless exact.positive? && exact <= 1
+
+      value = exact.to_f
+    else
+      value = Float(input)
+    end
     raise ArgumentError unless value.positive? && value <= 1
 
     value
