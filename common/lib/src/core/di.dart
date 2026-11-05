@@ -11,6 +11,12 @@ class Core {
     return di<T>(instanceName: tag ?? "default");
   }
 
+  /// Use this instead of `di.isRegistered`: [register] always names the
+  /// instance, so an unnamed `di.isRegistered<T>()` never finds it.
+  static bool isRegistered<T extends Object>({String? tag}) {
+    return di.isRegistered<T>(instanceName: tag ?? "default");
+  }
+
   static late Act act;
   static late CoreConfig config;
 }

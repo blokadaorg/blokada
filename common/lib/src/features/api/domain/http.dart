@@ -168,9 +168,6 @@ class Http with Logging {
     final uri = Uri.tryParse(url);
     final expectedTag = _device.deviceTag;
     final route = _stage.route.route;
-    final vpnStatus = Core.di.isRegistered<CurrentVpnStatusValue>()
-        ? Core.get<CurrentVpnStatusValue>().now.name
-        : "(unavailable)";
     log(m).log(
       msg: "[NetDiag] $event",
       lvl: lvl,
@@ -183,7 +180,7 @@ class Http with Logging {
         "routePayload": route.payload,
         "appStatus": _app.status.name,
         "appStatusStrategy": _app.conditions.toString(),
-        "vpnStatus": vpnStatus,
+        "vpnStatus": vpnStatusForDiag(),
         "deviceTag": expectedTag,
         "deviceAlias": _device.deviceAlias,
         "privateDnsEnabledFor": _dnsEnabledFor.present,
@@ -194,4 +191,11 @@ class Http with Logging {
       sensitive: false,
     );
   }
+
+  /// VPN status for the NetDiag log line; "(unavailable)" in flavors without
+  /// the VPN module.
+  @visibleForTesting
+  String vpnStatusForDiag() => Core.isRegistered<CurrentVpnStatusValue>()
+      ? Core.get<CurrentVpnStatusValue>().now.name
+      : "(unavailable)";
 }
