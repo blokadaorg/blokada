@@ -12,6 +12,7 @@ import 'package:common/src/features/list/domain/list.dart';
 import 'package:common/src/features/lock/domain/lock.dart';
 import 'package:common/src/features/modal/domain/modal.dart';
 import 'package:common/src/features/notification/domain/notification.dart';
+import 'package:common/src/features/funnel/domain/funnel.dart';
 import 'package:common/src/features/onboard/domain/onboard.dart';
 import 'package:common/src/features/payment/domain/payment.dart';
 import 'package:common/src/features/plan/domain/plan.dart';
@@ -139,6 +140,7 @@ class Modules with Logging {
     AppStore().onRegister();
     AppStartStore().onRegister();
     PrivateDnsCheck().onRegister();
+    await _registerModule(FunnelModule());
     await _registerModule(CommonPermModule());
     await _registerModule(PlatformPermModule());
 

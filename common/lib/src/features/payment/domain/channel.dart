@@ -3,7 +3,6 @@ part of 'payment.dart';
 mixin PaymentChannel {
   Future<void> init(Marker m, String apiKey, AccountId? accountId, bool verboseLogs);
   Future<void> identify(AccountId accountId);
-  Future<void> logOnboardingStep(String name, OnboardingStep step);
   Future<void> preload(Marker m, Placement placement);
   Future<void> showPaymentScreen(Marker m, Placement placement, {bool forceReload = false});
   Future<void> closePaymentScreen(bool isError);
