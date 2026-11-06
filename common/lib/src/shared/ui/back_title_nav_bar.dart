@@ -100,23 +100,14 @@ class BackTitleNavBar extends StatelessWidget
                       : CommonClickable(
                           key: backKey,
                           onTap: onBack,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 10),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(Icons.arrow_back,
-                                  color: context.theme.link, size: 22),
-                              const SizedBox(width: 6),
-                              Flexible(
-                                child: Text(backText,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                    style: context.theme.linkStyle(
-                                        context.theme.text.barAction,
-                                        underline: false)),
-                              ),
-                            ],
+                          // 48 x 48 around the 22 dp arrow, keeping its position.
+                          padding: const EdgeInsets.fromLTRB(8, 13, 18, 13),
+                          // Material shows the arrow alone; the previous
+                          // title is only read out by screen readers.
+                          child: Semantics(
+                            label: backText,
+                            child: Icon(Icons.arrow_back,
+                                color: context.theme.link, size: 22),
                           ),
                         ),
                 );
