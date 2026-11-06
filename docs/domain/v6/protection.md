@@ -31,6 +31,14 @@ Scope: iOS DNS onboarding, post-purchase flow, foreground relaunch verification.
 Non-rules: Freemium activation and generic startup should not trigger DNS onboarding.
 Verification: Compare paid first activation, paid restore, matching DNS foreground, and mismatched DNS foreground.
 
+### Rule: The guided activation cohort replaces the bare DNS wizard after purchase
+Applies to: v6
+Intent: Turn the first minutes of a trial into a visible result, measured as a cohort experiment (#457).
+Rule: Accounts whose `activation_flow` attribute is `guided` get, after a non-restore purchase: a goals sheet (each goal turns one extra blocklist on or off, never the main list), the activity logging question (default off; either answer replaces the activity logging reminder, closing without an answer keeps it), the regular DNS sheet if DNS is missing, and, once DNS works within 30 minutes of the purchase and the app is in front, a minute of first blocks: counter only with logging off, counter plus blocked requests with logging on. Any other value, or none, is the control cohort and keeps the rule above unchanged.
+Scope: Post-purchase flow, activity logging reminder, Advanced blocklists.
+Non-rules: The flow does not persist across an app restart; later foreground DNS checks are the regular ones.
+Verification: Purchase on a guided and a control account; answer, skip, and swipe away the logging question.
+
 ### Rule: Android Private DNS is matched by tag and read live
 Applies to: v6, Family (Android)
 Intent: Recognise a hand-typed hostname, and pick up the change on return from Settings.

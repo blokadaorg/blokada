@@ -523,6 +523,47 @@ void main() {
       });
     });
 
+    test("guided activation cohort leaves the reminder to the activation flow", () async {
+      await withTrace((m) async {
+        final stage = MockStageStore();
+        when(stage.route).thenReturn(StageRouteState.init());
+        final payment = _FakePaymentActor();
+        final device = _FakeDeviceStore()..retentionValue = "";
+        final account = MockAccountStore();
+        when(account.account).thenReturn(AccountState(
+          "mockedmocked",
+          JsonAccount(
+            id: "mockedmocked",
+            activeUntil: null,
+            active: true,
+            type: "cloud",
+            attributes: {"activation_flow": "guided"},
+          ),
+        ));
+
+        Core.register<StageStore>(stage);
+        Core.register<AccountStore>(account);
+        Core.register<DeviceStore>(device);
+        Core.register<PaymentActor>(payment);
+        Core.register(NotificationsValue());
+        Core.register<WeeklyReportActor>(_FakeWeeklyReportActor(_weeklyEvent()));
+
+        final ops = MockNotificationChannel();
+        Core.register<NotificationChannel>(ops);
+
+        final store = NotificationActor();
+        Core.register<NotificationActor>(store);
+
+        await store.onStart(m);
+        await payment.emitValue(paymentSuccessful, false, m);
+        verifyNever(ops.doShow(NotificationId.activityLoggingReminder.name, any, any));
+
+        // The flow asks for it when the logging question went unanswered.
+        await store.scheduleActivityLoggingReminder(m);
+        verify(ops.doShow(NotificationId.activityLoggingReminder.name, any, any)).called(1);
+      });
+    });
+
     test("restore payment does not schedule activity logging reminder", () async {
       await withTrace((m) async {
         final stage = MockStageStore();

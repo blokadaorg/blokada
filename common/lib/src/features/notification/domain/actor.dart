@@ -577,8 +577,17 @@ class NotificationActor with Logging, Actor {
 
   Future<void> _onPaymentSuccessful(bool restore, Marker m) async {
     if (restore || Core.act.isFamily) return;
+    // The guided activation flow (#457) asks about logging right after the
+    // purchase and schedules this reminder itself, only for users who left
+    // the question unanswered.
+    if (_account.account?.jsonAccount.getActivationFlow() == ActivationFlow.guided) return;
+    await scheduleActivityLoggingReminder(m);
+  }
 
-    await log(m).trace("activityLoggingReminder:onPaymentSuccessful", (m) async {
+  /// Reminds the user to turn on activity logging, which Privacy Pulse and the
+  /// weekly report need (#259), unless it is already on.
+  Future<void> scheduleActivityLoggingReminder(Marker m) async {
+    await log(m).trace("activityLoggingReminder:schedule", (m) async {
       await _device.fetch(m, force: true);
       if (_device.retention?.isEnabled() ?? false) {
         await dismiss(m, id: NotificationId.activityLoggingReminder);
