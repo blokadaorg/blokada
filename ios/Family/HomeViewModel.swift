@@ -42,7 +42,8 @@ class HomeViewModel: ObservableObject {
 
     @Published var showError: Bool = false {
         didSet {
-            // Errors raised in the app itself, not by an alert of the stage, keep Logs.
+            // Errors the app raises itself, such as a failed pause, set no stage
+            // alert, so a closed alert must not leave its Ask support behind.
             if !showError { askSupportAlert = nil }
         }
     }

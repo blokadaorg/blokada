@@ -175,11 +175,12 @@ class CommandStore with Logging, Actor implements CommandEvents {
         return await _permission.askNotificationPermissions(m);
       case CommandName.askSupport:
         // The Ask support button of a native error alert, which names its
-        // modal. Normalized here, since Android sends it in upper case.
+        // modal. Normalized here, since Android sends it in upper case; a name
+        // this build does not know still opens the chat, without the alert.
         _ensureParam(p1);
-        return await Core.get<SupportActor>().askSupport(
-            m, SupportEvent.errorHelp,
-            alert: _modalFromString(p1!).name);
+        final alert = _lowercaseModals[p1!.toLowerCase()]?.name;
+        return await Core.get<SupportActor>()
+            .askSupport(m, SupportEvent.errorHelp, alert: alert);
       case CommandName.schedulerPing:
         await _scheduler.pingFromBackground(m);
         return;

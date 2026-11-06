@@ -103,6 +103,20 @@ void main() {
       });
     }
 
+    test('askSupport command with an unknown alert still opens the chat', () async {
+      await withTrace((m) async {
+        final support = _MockSupportActor();
+        when(() => support.askSupport(any(), SupportEvent.errorHelp,
+            alert: any(named: "alert"))).thenAnswer((_) async {});
+        Core.register<SupportActor>(support);
+
+        await CommandStore().onCommandWithParam("ASKSUPPORT", "SOMETHINGNEW", m);
+
+        verify(() => support.askSupport(any(), SupportEvent.errorHelp, alert: null))
+            .called(1);
+      });
+    });
+
     // A restore sent at launch on a fresh install must not race the account
     // the app creates while it starts, or that account can replace it.
     test('restore command waits until the account is initialized', () async {
