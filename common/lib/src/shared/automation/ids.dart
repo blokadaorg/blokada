@@ -104,6 +104,19 @@ class AutomationIds {
   static const onboardIntroSheet = 'automation.onboard_intro_sheet';
   static const onboardContinue = 'automation.onboard_continue';
 
+  // Guided post-purchase activation (#457).
+  static const activationIntroSheet = 'automation.activation_intro_sheet';
+  static const activationGoalAppAds = 'automation.activation_goal_app_ads';
+  static const activationGoalTrackers = 'automation.activation_goal_trackers';
+  static const activationGoalScams = 'automation.activation_goal_scams';
+  static const activationGoalAdult = 'automation.activation_goal_adult';
+  static const activationGoalsContinue = 'automation.activation_goals_continue';
+  static const activationLoggingEnable = 'automation.activation_logging_enable';
+  static const activationLoggingSkip = 'automation.activation_logging_skip';
+  static const activationFirstBlocksSheet = 'automation.activation_first_blocks_sheet';
+  static const activationFirstBlocksCounter = 'automation.activation_first_blocks_counter';
+  static const activationFirstBlocksDone = 'automation.activation_first_blocks_done';
+
   static const rateModal = 'automation.rate_modal';
   static const rateDismiss = 'automation.rate_dismiss';
 }

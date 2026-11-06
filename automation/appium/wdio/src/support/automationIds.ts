@@ -53,6 +53,17 @@ export const AutomationIds = {
   dnsSetupSuccess: "automation.dns_setup_success",
   onboardIntroSheet: "automation.onboard_intro_sheet",
   onboardContinue: "automation.onboard_continue",
+  activationIntroSheet: "automation.activation_intro_sheet",
+  activationGoalAppAds: "automation.activation_goal_app_ads",
+  activationGoalTrackers: "automation.activation_goal_trackers",
+  activationGoalScams: "automation.activation_goal_scams",
+  activationGoalAdult: "automation.activation_goal_adult",
+  activationGoalsContinue: "automation.activation_goals_continue",
+  activationLoggingEnable: "automation.activation_logging_enable",
+  activationLoggingSkip: "automation.activation_logging_skip",
+  activationFirstBlocksSheet: "automation.activation_first_blocks_sheet",
+  activationFirstBlocksCounter: "automation.activation_first_blocks_counter",
+  activationFirstBlocksDone: "automation.activation_first_blocks_done",
   rateModal: "automation.rate_modal",
   rateDismiss: "automation.rate_dismiss"
 } as const;

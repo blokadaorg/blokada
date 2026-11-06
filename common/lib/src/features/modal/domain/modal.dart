@@ -16,6 +16,10 @@ enum Modal {
   weeklyRefresh,
   attachDevice,
   support,
+  // Guided post-purchase activation (#457): goals and the logging question,
+  // then, after the DNS sheet, the first blocks.
+  activationIntro,
+  activationFirstBlocks,
 }
 
 class CurrentModalValue extends NullableAsyncValue<Modal> {

@@ -142,6 +142,37 @@ void main() {
     });
   });
 
+  group("activationFlow", () {
+    JsonAccount withFlow(Object? value) => JsonAccount.fromJson({
+          "id": "mockedmocked",
+          "active": true,
+          "type": "cloud",
+          "attributes": {"activation_flow": value},
+        });
+
+    test("defaultsToControlWithoutAttributes", () async {
+      await withTrace((m) async {
+        final subject = JsonAccount.fromJson(jsonDecode(fixtureJsonAccountLibre));
+        expect(subject.getActivationFlow(), ActivationFlow.control);
+      });
+    });
+
+    test("parsesGuided", () async {
+      await withTrace((m) async {
+        expect(withFlow("guided").getActivationFlow(), ActivationFlow.guided);
+        expect(withFlow("control").getActivationFlow(), ActivationFlow.control);
+      });
+    });
+
+    test("fallsBackToControlForUnknownOrNonStringValues", () async {
+      await withTrace((m) async {
+        expect(withFlow("treatment").getActivationFlow(), ActivationFlow.control);
+        expect(withFlow(1).getActivationFlow(), ActivationFlow.control);
+        expect(withFlow(null).getActivationFlow(), ActivationFlow.control);
+      });
+    });
+  });
+
   group("errors", () {
     test("willThrowOnInvalidJson", () async {
       await withTrace((m) async {

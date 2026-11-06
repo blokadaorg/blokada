@@ -19,10 +19,32 @@ enum EssentialsOnboardingOrder {
   }
 }
 
+/// The post-purchase activation cohort (#457). The API assigns it to new v6
+/// accounts and the app passes every account attribute on to Adapty, so trial
+/// outcomes can be split by cohort there; Adapty itself cannot split a flow
+/// that is not a paywall. Anything else, including no value, is [control], so
+/// accounts outside the experiment keep today's flow.
+enum ActivationFlow {
+  control("control"),
+  guided("guided");
+
+  final String apiValue;
+
+  const ActivationFlow(this.apiValue);
+
+  static ActivationFlow fromApiValue(String? value) {
+    return ActivationFlow.values.firstWhere(
+      (flow) => flow.apiValue == value,
+      orElse: () => ActivationFlow.control,
+    );
+  }
+}
+
 class JsonAccount {
   static const String _attrFreemium = 'freemium';
   static const String _attrFreemiumYoutubeUntil = 'freemium_youtube_until';
   static const String _attrEssentialsOnboardingOrder = 'essentials_onboarding_order';
+  static const String _attrActivationFlow = 'activation_flow';
 
   late String id;
   String? activeUntil;
@@ -63,6 +85,13 @@ class JsonAccount {
     if (attributes == null) return EssentialsOnboardingOrder.afterPaywall;
     final value = attributes![_attrEssentialsOnboardingOrder];
     return EssentialsOnboardingOrder.fromApiValue(value is String ? value : null);
+  }
+
+  /// The post-purchase activation cohort, [ActivationFlow.control] unless the
+  /// API put this account in the guided one.
+  ActivationFlow getActivationFlow() {
+    final value = attributes?[_attrActivationFlow];
+    return ActivationFlow.fromApiValue(value is String ? value : null);
   }
 
   DateTime getActiveUntil() {
