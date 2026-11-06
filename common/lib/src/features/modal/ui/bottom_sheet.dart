@@ -151,7 +151,6 @@ Future<void> _showSheet(
     // The activity is edge-to-edge, so Android needs the nav bar inset here.
     builder: (c) => Padding(
         padding: EdgeInsets.only(
-          top: Platform.isAndroid ? 24 : 0,
           bottom: Platform.isAndroid ? MediaQuery.of(c).viewPadding.bottom : 0,
         ),
         child: builder(c)),
