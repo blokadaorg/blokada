@@ -109,15 +109,18 @@ class SupportActor with Logging, Actor {
   /// Opens the chat sheet from a help link on a screen where people get
   /// stuck. A chat that is still open goes on as it is, so the same problem
   /// never gets a second chat. Otherwise a new one starts with [event], which
-  /// tells the agent where the user asked for help; the user sees the usual
+  /// tells the agent where the user asked for help, with [alert] naming the
+  /// error alert for [SupportEvent.errorHelp]; the user sees the usual
   /// welcome.
-  Future<void> askSupport(Marker m, SupportEvent event) async {
+  Future<void> askSupport(Marker m, SupportEvent event, {String? alert}) async {
     final open = await isSessionOpen(m);
     // Started before the sheet, whose own load would open the chat with
     // FIRST_OPEN. Not awaited: the welcome shows in the sheet once it is in.
     unawaited(_logFailure(
       m,
-      open ? loadOrInit(m, event: event) : startSession(m, event: event),
+      open
+          ? loadOrInit(m, event: event, alert: alert)
+          : startSession(m, event: event, alert: alert),
     ));
     await openSheet(m);
   }
@@ -143,7 +146,7 @@ class SupportActor with Logging, Actor {
   }
 
   // Return true if session was just created
-  Future<bool> loadOrInit(Marker m, {SupportEvent? event}) async {
+  Future<bool> loadOrInit(Marker m, {SupportEvent? event, String? alert}) async {
     if (initialized) return false;
     initialized = true;
 
@@ -159,11 +162,11 @@ class SupportActor with Logging, Actor {
         return false;
       } catch (e, s) {
         log(m).e(msg: "Error loading session", err: e, stack: s);
-        await startSession(m, event: event);
+        await startSession(m, event: event, alert: alert);
         return true;
       }
     } else {
-      await startSession(m, event: event);
+      await startSession(m, event: event, alert: alert);
       return true;
     }
   }
@@ -229,23 +232,24 @@ class SupportActor with Logging, Actor {
   /// support screen does exactly that — it re-arms a debounced
   /// [maybeStartSession] on every rebuild — which showed up as the opening
   /// greeting arriving twice on an install with no stored session.
-  Future<void> startSession(Marker m, {SupportEvent? event}) {
+  Future<void> startSession(Marker m, {SupportEvent? event, String? alert}) {
     final pending = _startingSession;
     if (pending != null) return pending;
 
-    final starting = _startSession(m, event: event);
+    final starting = _startSession(m, event: event, alert: alert);
     _startingSession = starting;
     return starting.whenComplete(() {
       if (identical(_startingSession, starting)) _startingSession = null;
     });
   }
 
-  Future<void> _startSession(Marker m, {SupportEvent? event}) async {
+  Future<void> _startSession(Marker m, {SupportEvent? event, String? alert}) async {
     // The new session replaces any stored one, so there is nothing to load.
     // loadOrInit would start a session itself and wait on this one forever.
     initialized = true;
     await clearSession(m);
-    final session = await _api.createSession(m, language, event: event);
+    final session =
+        await _api.createSession(m, language, event: event, alert: alert);
     await _currentSession.change(m, session.sessionId);
     _ttl = session.ttl;
     await _updateSessionExpiry(m);

@@ -6,6 +6,7 @@ import 'package:common/src/platform/account/account.dart';
 import 'package:common/src/platform/account/refresh/refresh.dart';
 import 'package:common/src/platform/command/channel.pg.dart';
 import 'package:common/src/platform/command/command.dart';
+import 'package:common/src/features/support/domain/support.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -18,6 +19,8 @@ class _MockAccountStore extends Mock implements AccountStore {}
 class _MockAccountRefreshStore extends Mock implements AccountRefreshStore {}
 
 class _MockOnboardActor extends Mock implements OnboardActor {}
+
+class _MockSupportActor extends Mock implements SupportActor {}
 
 void main() {
   group('CommandStore', () {
@@ -77,6 +80,25 @@ void main() {
 
           verify(() => account.restore("abcdefghijkl", any())).called(1);
           if (onboard != null) verify(() => onboard.markIntroSeen(any())).called(1);
+        });
+      });
+    }
+
+    // The Ask support button of a native error alert. Android sends the
+    // modal name in upper case, iOS in camel case; the server knows the latter.
+    for (final sent in ["PAYMENTFAILED", "paymentFailed"]) {
+      test('askSupport command opens an error chat for $sent', () async {
+        await withTrace((m) async {
+          final support = _MockSupportActor();
+          when(() => support.askSupport(any(), SupportEvent.errorHelp,
+                  alert: any(named: "alert")))
+              .thenAnswer((_) async {});
+          Core.register<SupportActor>(support);
+
+          await CommandStore().onCommandWithParam("ASKSUPPORT", sent, m);
+
+          verify(() => support.askSupport(any(), SupportEvent.errorHelp,
+              alert: "paymentFailed")).called(1);
         });
       });
     }
