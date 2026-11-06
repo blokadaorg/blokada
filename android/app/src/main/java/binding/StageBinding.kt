@@ -143,6 +143,16 @@ object StageBinding : StageOps {
         callback(Result.success(Unit))
     }
 
+    // The alerts whose text asks to contact us, see showDialog.
+    private val askSupportModals = setOf(
+        StageModal.FAULT,
+        StageModal.ACCOUNTINITFAILED,
+        StageModal.ACCOUNTRESTOREFAILED,
+        StageModal.ACCOUNTRESTOREIDFAILED,
+        StageModal.PAYMENTTEMPUNAVAILABLE,
+        StageModal.PAYMENTFAILED,
+    )
+
     private fun showDialog(modal: StageModal): Boolean {
         val name = when (modal) {
             StageModal.FAULT, StageModal.ACCOUNTINITFAILED -> R.string.error_unknown
@@ -167,9 +177,17 @@ object StageBinding : StageOps {
         }
 
         // Sharing the log is refused while locked, so offering it on the
-        // locked fault would only bring this same alert back.
+        // locked fault would only bring this same alert back. Alerts that ask
+        // to contact us open the support chat instead, naming the alert.
         val action: Pair<String, () -> Unit>? = when (modal) {
             StageModal.ACCOUNTRESTOREIDOK, StageModal.FAULTLOCKED -> null
+            in askSupportModals -> {
+                context.requireContext().getString(R.string.support_action_ask) to {
+                    scope.launch {
+                        command.execute(CommandName.ASKSUPPORT, modal.name)
+                    }
+                }
+            }
             else -> {
                 context.requireContext().getString(R.string.universal_action_show_log) to {
                     scope.launch {

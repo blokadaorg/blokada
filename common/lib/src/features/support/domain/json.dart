@@ -5,6 +5,9 @@ class JsonSupportPayloadCreateSession {
   late SupportEvent? event;
   late String language;
 
+  /// The error alert an [SupportEvent.errorHelp] chat was opened from.
+  late String? alert;
+
   /// What the app can do when the agent asks. The server only sends actions
   /// of these types, so an app that cannot handle one never gets it.
   late List<SupportClientTool> clientTools;
@@ -13,6 +16,7 @@ class JsonSupportPayloadCreateSession {
     this.message,
     this.event,
     required this.language,
+    this.alert,
     this.clientTools = const [],
   });
 
@@ -22,6 +26,7 @@ class JsonSupportPayloadCreateSession {
       'user_agent': ApiParam.userAgent.placeholder,
       'message': message,
       'event': event?.constant,
+      if (alert != null) 'alert': alert,
       'language': language,
       'client_tools': clientTools.map((e) => e.constant).toList(),
     };

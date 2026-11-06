@@ -451,8 +451,8 @@ internal enum L10n {
   internal static let errorCreatingAccount = L10n.tr("Ui", "error creating account", fallback: "Could not create a new account. Please try again later.")
   /// Your device is offline
   internal static let errorDeviceOffline = L10n.tr("Ui", "error device offline", fallback: "Your device is offline")
-  /// This action could not be completed. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.
-  internal static let errorFetchingData = L10n.tr("Ui", "error fetching data", fallback: "This action could not be completed. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.")
+  /// This action could not be completed. Make sure you are online, and try again later. If the problem persists, please contact us.
+  internal static let errorFetchingData = L10n.tr("Ui", "error fetching data", fallback: "This action could not be completed. Make sure you are online, and try again later. If the problem persists, please contact us.")
   /// Could not fetch locations.
   internal static let errorLocationFailedFetching = L10n.tr("Ui", "error location failed fetching", fallback: "Could not fetch locations.")
   /// A valid PIN must be exactly 4 digits. Please try again.
@@ -465,18 +465,18 @@ internal enum L10n {
   internal static let errorPackInstall = L10n.tr("Ui", "error pack install", fallback: "Could not install (or uninstall) this feature. Please try again later.")
   /// The payment has been canceled. You have not been charged.
   internal static let errorPaymentCanceled = L10n.tr("Ui", "error payment canceled", fallback: "The payment has been canceled. You have not been charged.")
-  /// Payments are unavailable at this moment. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.
-  internal static let errorPaymentFailed = L10n.tr("Ui", "error payment failed", fallback: "Payments are unavailable at this moment. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.")
-  /// Could not complete your payment. Please make sure your data is correct, and try again. If the problem persists, please contact us by tapping the help icon at the top.
-  internal static let errorPaymentFailedAlternative = L10n.tr("Ui", "error payment failed alternative", fallback: "Could not complete your payment. Please make sure your data is correct, and try again. If the problem persists, please contact us by tapping the help icon at the top.")
-  /// Your previous payment was restored, but the subscription has already expired. If you believe this is a mistake, please contact us by tapping the help icon at the top.
-  internal static let errorPaymentInactiveAfterRestore = L10n.tr("Ui", "error payment inactive after restore", fallback: "Your previous payment was restored, but the subscription has already expired. If you believe this is a mistake, please contact us by tapping the help icon at the top.")
+  /// Payments are unavailable at this moment. Make sure you are online, and try again later. If the problem persists, please contact us.
+  internal static let errorPaymentFailed = L10n.tr("Ui", "error payment failed", fallback: "Payments are unavailable at this moment. Make sure you are online, and try again later. If the problem persists, please contact us.")
+  /// Could not complete your payment. Please make sure your data is correct, and try again. If the problem persists, please contact us.
+  internal static let errorPaymentFailedAlternative = L10n.tr("Ui", "error payment failed alternative", fallback: "Could not complete your payment. Please make sure your data is correct, and try again. If the problem persists, please contact us.")
+  /// Your previous payment was restored, but the subscription has already expired. If you believe this is a mistake, please contact us.
+  internal static let errorPaymentInactiveAfterRestore = L10n.tr("Ui", "error payment inactive after restore", fallback: "Your previous payment was restored, but the subscription has already expired. If you believe this is a mistake, please contact us.")
   /// Payments are unavailable for this device. Either this device is not updated, or we do not handle purchases in your country yet.
   internal static let errorPaymentNotAvailable = L10n.tr("Ui", "error payment not available", fallback: "Payments are unavailable for this device. Either this device is not updated, or we do not handle purchases in your country yet.")
   /// Could not establish the VPN. Please restart your device, or remove Blokada VPN profile in system settings, and try again.
   internal static let errorTunnel = L10n.tr("Ui", "error tunnel", fallback: "Could not establish the VPN. Please restart your device, or remove Blokada VPN profile in system settings, and try again.")
-  /// A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.
-  internal static let errorUnknown = L10n.tr("Ui", "error unknown", fallback: "A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us by tapping the help icon at the top.")
+  /// A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us.
+  internal static let errorUnknown = L10n.tr("Ui", "error unknown", fallback: "A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us.")
   /// Could not establish the VPN. Please restart your device, or remove Blokada VPN profile in system settings, and try again.
   internal static let errorVpn = L10n.tr("Ui", "error vpn", fallback: "Could not establish the VPN. Please restart your device, or remove Blokada VPN profile in system settings, and try again.")
   /// The VPN is disabled. Please update your subscription to continue using BLOKADA+
@@ -1280,6 +1280,8 @@ internal enum L10n {
   internal static let statsTopAllowedHeader = L10n.tr("Ui", "stats top allowed header", fallback: "Top allowed requests")
   /// Top blocked requests
   internal static let statsTopBlockedHeader = L10n.tr("Ui", "stats top blocked header", fallback: "Top blocked requests")
+  /// Ask support
+  internal static let supportActionAsk = L10n.tr("Ui", "support action ask", fallback: "Ask support")
   /// Chat with us
   internal static let supportActionChat = L10n.tr("Ui", "support action chat", fallback: "Chat with us")
   /// End
