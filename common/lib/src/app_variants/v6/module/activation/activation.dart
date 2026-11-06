@@ -126,8 +126,9 @@ class V6ActivationActor with Actor, Logging {
       _startedAt = now();
       _dnsPending = false;
       await _modal.change(m, Modal.activationIntro);
+      // Not awaited: the purchase event waits for this method, and the
+      // reminder fetches the device first. [answerLogging] awaits it.
       _reminder = _scheduleReminder(m);
-      await _reminder;
     });
   }
 
