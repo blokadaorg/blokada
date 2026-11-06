@@ -31,6 +31,12 @@ class FilterActor with Logging, Actor {
     }
   }
 
+  /// Makes the next lookup fetch the catalog again. A freemium account is
+  /// served a sample catalog that lacks most lists, and nothing refetches it
+  /// when the account turns paid, so a caller about to save lists right after
+  /// a purchase calls this first.
+  void invalidateLists() => _needsReload = true;
+
   Map<ListHashId, ListTag> getListsToTags() => _listsToTags;
 
   reload(Marker m) async {

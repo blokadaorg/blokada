@@ -112,11 +112,14 @@ class ActivationPrimaryButton extends StatelessWidget {
             child: MiniCard(
               onTap: onTap,
               color: context.theme.accent,
-              child: SizedBox(
-                height: 32,
+              // A minimum, not a fixed height, so large text grows the button
+              // instead of clipping the label.
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(minHeight: 32),
                 child: Center(
                   child: Text(
                     label,
+                    textAlign: TextAlign.center,
                     style: TextStyle(color: context.theme.onAccent, fontWeight: FontWeight.w600),
                   ),
                 ),

@@ -32,6 +32,8 @@ class ActivationIntroSheetState extends State<ActivationIntroSheet> {
   bool _busy = false;
 
   void _toggle(ActivationGoal goal) {
+    // The picks are being saved; a change now would show but not save.
+    if (_busy) return;
     unawaited(Haptics.selection());
     setState(() {
       if (!_goals.remove(goal)) _goals.add(goal);

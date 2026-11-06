@@ -23,6 +23,7 @@ import '../../../../tools.dart';
   MockSpec<StageStore>(),
   MockSpec<DeviceStore>(),
   MockSpec<PlatformFilterActor>(),
+  MockSpec<FilterActor>(),
   MockSpec<StatsController>(),
   MockSpec<StatsStore>(),
   MockSpec<JournalActor>(),
@@ -36,6 +37,7 @@ class _Deps {
   final stage = MockStageStore();
   final device = MockDeviceStore();
   final filters = MockPlatformFilterActor();
+  final catalog = MockFilterActor();
   final statsController = MockStatsController();
   final stats = MockStatsStore();
   final journal = MockJournalActor();
@@ -72,6 +74,7 @@ class _Deps {
     Core.register<StageStore>(stage);
     Core.register<DeviceStore>(device);
     Core.register<PlatformFilterActor>(filters);
+    Core.register<FilterActor>(catalog);
     Core.register<StatsController>(statsController);
     Core.register<StatsStore>(stats);
     Core.register<JournalActor>(journal);
@@ -179,21 +182,33 @@ void main() {
         ).called(1);
         verifyNever(deps.filters.toggleExtraBlocklist(ActivationGoal.scams.blocklist, any, any));
         verifyNever(deps.filters.selectMainBlocklist(any, any));
+        // The freemium sample catalog may still be loaded right after a purchase.
+        verify(deps.catalog.invalidateLists()).called(1);
       });
     });
   });
 
   group("logging", () {
-    test("closing the intro without an answer keeps the reminder", () async {
+    test("the reminder is scheduled when the flow starts", () async {
       await withTrace((m) async {
         final deps = _Deps();
         final actor = await deps.actor(m);
 
         await actor.begin(m);
         expect(deps.modal.present, Modal.activationIntro);
+        verify(deps.notification.scheduleActivityLoggingReminder(any)).called(1);
+      });
+    });
+
+    test("closing the intro without an answer keeps the reminder", () async {
+      await withTrace((m) async {
+        final deps = _Deps();
+        final actor = await deps.actor(m);
+
+        await actor.begin(m);
         await _closeSheet(deps, m);
 
-        verify(deps.notification.scheduleActivityLoggingReminder(any)).called(1);
+        verifyNever(deps.notification.dismiss(any, id: NotificationId.activityLoggingReminder));
       });
     });
 
@@ -207,7 +222,6 @@ void main() {
         await _closeSheet(deps, m);
 
         verifyNever(deps.statsController.enableLogging(any));
-        verifyNever(deps.notification.scheduleActivityLoggingReminder(any));
         verify(
           deps.notification.dismiss(any, id: NotificationId.activityLoggingReminder),
         ).called(1);
@@ -224,7 +238,9 @@ void main() {
         await _closeSheet(deps, m);
 
         verify(deps.statsController.enableLogging(any)).called(1);
-        verifyNever(deps.notification.scheduleActivityLoggingReminder(any));
+        verify(
+          deps.notification.dismiss(any, id: NotificationId.activityLoggingReminder),
+        ).called(1);
       });
     });
 
@@ -238,7 +254,22 @@ void main() {
         await expectLater(actor.answerLogging(true, m), throwsException);
         await _closeSheet(deps, m);
 
-        verify(deps.notification.scheduleActivityLoggingReminder(any)).called(1);
+        verifyNever(deps.notification.dismiss(any, id: NotificationId.activityLoggingReminder));
+      });
+    });
+
+    test("a failed reminder does not stop the flow", () async {
+      await withTrace((m) async {
+        final deps = _Deps(dnsOn: false);
+        when(
+          deps.notification.scheduleActivityLoggingReminder(any),
+        ).thenThrow(Exception("channel"));
+        final actor = await deps.actor(m);
+
+        await actor.begin(m);
+        await _closeSheet(deps, m);
+
+        expect(deps.modal.present, Modal.onboardPrivateDns);
       });
     });
 
@@ -268,6 +299,27 @@ void main() {
 
         expect(deps.modal.present, Modal.onboardPrivateDns);
         expect(actor.step, ActivationStep.setup);
+      });
+    });
+
+    test("the DNS sheet waits for a sheet queued behind the intro", () async {
+      await withTrace((m) async {
+        final deps = _Deps(dnsOn: false);
+        final actor = await deps.actor(m);
+
+        await actor.begin(m);
+        // Another sheet was requested while the intro was up.
+        await deps.modal.change(m, Modal.weeklyRefresh);
+        await _settle();
+        expect(actor.step, ActivationStep.setup);
+        expect(deps.modal.present, Modal.weeklyRefresh);
+
+        await _closeSheet(deps, m);
+        expect(deps.modal.present, Modal.onboardPrivateDns);
+
+        // Dismissing the DNS sheet does not bring it back.
+        await _closeSheet(deps, m);
+        expect(deps.modal.present, isNull);
       });
     });
 

@@ -66,6 +66,7 @@ class V6ActivationActor with Actor, Logging {
   late final _stage = Core.get<StageStore>();
   late final _device = Core.get<DeviceStore>();
   late final _filters = Core.get<PlatformFilterActor>();
+  late final _catalog = Core.get<FilterActor>();
   late final _selectedFilters = Core.get<SelectedFilters>();
   late final _statsController = Core.get<StatsController>();
   late final _stats = Core.get<StatsStore>();
@@ -79,7 +80,13 @@ class V6ActivationActor with Actor, Logging {
   ActivationStep get step => _step;
 
   DateTime? _startedAt;
-  bool _loggingAnswered = false;
+
+  /// The DNS sheet still has to be shown once nothing else is on screen.
+  bool _dnsPending = false;
+
+  /// The reminder scheduled at [begin]; an answer waits for it before
+  /// cancelling it, so the two cannot cross.
+  Future<void> _reminder = Future.value();
 
   @override
   onCreate(Marker m) async {
@@ -108,13 +115,29 @@ class V6ActivationActor with Actor, Logging {
 
   /// Starts the flow with the goals and logging sheet. It queues behind the
   /// paywall, which may still be closing when the purchase completes.
+  ///
+  /// The activity logging reminder (#259) is scheduled here, as for the
+  /// control cohort, and an answer to the logging question cancels it. That
+  /// keeps the reminder for users who swipe the sheet away or whose app is
+  /// killed before they answer, since this flow lives in memory only.
   Future<void> begin(Marker m) async {
     return await log(m).trace("activation:begin", (m) async {
       _step = ActivationStep.intro;
       _startedAt = now();
-      _loggingAnswered = false;
+      _dnsPending = false;
       await _modal.change(m, Modal.activationIntro);
+      _reminder = _scheduleReminder(m);
+      await _reminder;
     });
+  }
+
+  Future<void> _scheduleReminder(Marker m) async {
+    try {
+      await _notification.scheduleActivityLoggingReminder(m);
+    } catch (e, s) {
+      // The reminder is a nudge; the flow goes on without it.
+      log(m).e(msg: "activation: scheduling the logging reminder failed", err: e, stack: s);
+    }
   }
 
   /// The goals as they are on the device now, so a returning user sees the
@@ -133,6 +156,9 @@ class V6ActivationActor with Actor, Logging {
   Future<void> applyGoals(Set<ActivationGoal> picked, Marker m) async {
     return await log(m).trace("activation:applyGoals", (m) async {
       log(m).pair("goals", picked.map((it) => it.name).join(","));
+      // Right after an upgrade from freemium the catalog may still be the
+      // freemium sample, which lacks some of these lists.
+      _catalog.invalidateLists();
       final on = selectedBlocklists(await _selectedFilters.now());
       for (final change in goalChanges(picked, on).entries) {
         await _filters.toggleExtraBlocklist(change.key, change.value, m);
@@ -151,7 +177,7 @@ class V6ActivationActor with Actor, Logging {
     return await log(m).trace("activation:answerLogging", (m) async {
       log(m).pair("enable", enable);
       if (enable) await _statsController.enableLogging(m);
-      _loggingAnswered = true;
+      await _reminder;
       await _notification.dismiss(m, id: NotificationId.activityLoggingReminder);
     });
   }
@@ -171,6 +197,8 @@ class V6ActivationActor with Actor, Logging {
   }
 
   Future<void> _onModalChanged(Modal? old, Modal? now, Marker m) async {
+    // Shown by someone else, like the startup DNS check: no need to repeat.
+    if (now == Modal.onboardPrivateDns) _dnsPending = false;
     if (_step == ActivationStep.intro &&
         old == Modal.activationIntro &&
         now != Modal.activationIntro) {
@@ -180,6 +208,7 @@ class V6ActivationActor with Actor, Logging {
         now != Modal.activationFirstBlocks) {
       _step = ActivationStep.none;
     }
+    await _maybeShowDns(m);
     await _maybeShowFirstBlocks(m);
   }
 
@@ -188,14 +217,22 @@ class V6ActivationActor with Actor, Logging {
   Future<void> _onIntroClosed(Marker m) async {
     await log(m).trace("activation:introClosed", (m) async {
       _step = ActivationStep.setup;
-      if (!_loggingAnswered) {
-        // Closed without an answer: keep the regular reminder.
-        await _notification.scheduleActivityLoggingReminder(m);
-      }
-      if (!_perm.isPrivateDnsEnabled && _modal.present == null) {
-        await _modal.change(m, Modal.onboardPrivateDns);
-      }
+      _dnsPending = !_perm.isPrivateDnsEnabled;
     });
+  }
+
+  /// Shows the DNS sheet once nothing else is on screen: another sheet may
+  /// have been queued behind the intro, and it goes first. Shown once, so
+  /// dismissing it does not bring it back.
+  Future<void> _maybeShowDns(Marker m) async {
+    if (_step != ActivationStep.setup || !_dnsPending) return;
+    if (_perm.isPrivateDnsEnabled) {
+      _dnsPending = false;
+      return;
+    }
+    if (_modal.present != null) return;
+    _dnsPending = false;
+    await _modal.change(m, Modal.onboardPrivateDns);
   }
 
   Future<void> _onRouteChanged(StageRouteState route, Marker m) async {

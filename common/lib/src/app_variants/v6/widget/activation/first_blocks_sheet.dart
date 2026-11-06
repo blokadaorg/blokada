@@ -201,7 +201,7 @@ class _Feed extends StatelessWidget {
         child: Column(
           children: [
             for (var i = 0; i < entries.length; i++) ...[
-              ActivityItem(key: ValueKey(entries[i].domainName), entry: entries[i]),
+              ActivityItem(entry: entries[i]),
               if (i < entries.length - 1) const CommonDivider(indent: 60),
             ],
           ],
