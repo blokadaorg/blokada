@@ -230,8 +230,8 @@ def main() -> int:
     try:
         with open(opts.review) as handle:
             review = json.load(handle)
-        if not isinstance(review, dict):
-            raise ValueError("not a JSON object")
+        if not isinstance(review, dict) or not isinstance(review.get("items"), list):
+            raise ValueError("not an object with an items list")
     except (OSError, ValueError) as error:
         reviewed = False
         # No usable review output: every PR is reported unclear, the verdict is hold.
