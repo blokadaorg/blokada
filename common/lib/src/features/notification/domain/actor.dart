@@ -7,7 +7,7 @@ part of 'notification.dart';
 /// we can do stuff in foreground (like refresh account).
 
 class NotificationActor with Logging, Actor {
-  static const _activityLoggingReminderDelay = Duration(minutes: 1);
+  static const _activityLoggingReminderDelay = Duration(days: 7);
 
   // TODO: fix those dependencies
   late final _stage = Core.get<StageStore>();
