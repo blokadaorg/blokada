@@ -457,6 +457,30 @@ settings before relying on this workflow or on `public_release: true`.
 Self-review stays allowed, so a maintainer can approve a run they dispatched;
 an automation that dispatches these workflows never approves one.
 
+### Workflow D — `device-review.yml`
+
+Reviews a release candidate on the CI iPhone before it is promoted; the
+release routine dispatches it on release day with `build: N`. It refuses
+anything but an annotated `build/N` tag on `main`'s history, runs the iOS smoke
+suite, then an agent reviews every PR merged since the previous release
+against its tracker issue, both flavors, following the Device review section
+of the `app-rollout` skill in `blokadaorg/workflows`.
+
+The agent has no write token and no network tool. It drives the phone only
+through `automation/appium/wdio/scripts/review-session.mjs`, which applies the
+AI explorer's guardrails (no purchase, account or external-flow actions), and
+returns structured output. The `publish` job validates that output (scope,
+verdict, screenshot names, text caps), then with a blokada-ci App token scoped
+to `issue-tracker` comments each glitch on its issue, puts the screenshots on
+the image-only `release-review` branch, and writes the report into the release
+milestone. `Verdict: ship` only when the smoke passed and every PR passed. It
+holds no store keys and never promotes.
+
+The phone is exclusive because the one `ios-physical` runner takes one job at a
+time, as with `appium-smoke.yml`. The third-party keyboard and a free-form
+support chat stay the operator's spot-checks: the CI phone keeps the stock
+keyboard the smoke types with.
+
 ### Why Android writes the track instead of promoting
 
 The obvious mechanism — `--track internal --track_promote_to alpha` — only
