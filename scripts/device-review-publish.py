@@ -116,7 +116,7 @@ def report(version: str, build: int, date: str, run_url: str, smoke: str, items:
 
 
 def shot_path(version: str, run_id: str, pr: int, name: str) -> str:
-    """Unique per run, so a rerun never writes over an existing file (which needs its sha)."""
+    """run_id is <run id>-<attempt>: unique per attempt, so a rerun never writes an existing file (which needs its sha)."""
     return f"{version}/{run_id}/pr-{pr}-{name.removeprefix('review-')}"
 
 
@@ -176,17 +176,22 @@ REVIEW_START = re.compile(r"^Device review of build \d+")
 
 
 def merge_description(old: str, version: str, report_text: str) -> str:
-    """The report replaces the header, the pick line and an earlier review; other lines stay below it."""
-    kept, in_review = [], False
-    for line in (old or "").splitlines():
+    """The report replaces the header, the pick line and an earlier review; other lines stay below it.
+
+    An earlier review runs from its "Device review of build" line to its
+    "Verdict:" line. Without that end line only the start line goes, so no
+    note is ever dropped.
+    """
+    lines = (old or "").splitlines()
+    drop: set[int] = set()
+    for start, line in enumerate(lines):
         if REVIEW_START.match(line):
-            in_review = True
-        if in_review:
-            in_review = not line.startswith("Verdict:")
-            continue
-        if line.startswith(f"App release {version}") or line.startswith("Picked "):
-            continue
-        kept.append(line)
+            end = next((k for k in range(start, len(lines)) if lines[k].startswith("Verdict:")), start)
+            drop.update(range(start, end + 1))
+    kept = [
+        line for k, line in enumerate(lines)
+        if k not in drop and not line.startswith(f"App release {version}") and not line.startswith("Picked ")
+    ]
     notes = "\n".join(kept).strip()
     return report_text + (f"\n\n{notes}" if notes else "")
 
@@ -231,8 +236,8 @@ def main() -> int:
     if opts.dry_run:
         return 0
 
-    if not re.fullmatch(r"\d+", opts.run_id):
-        raise RuntimeError(f"run id {opts.run_id} is not a number")
+    if not re.fullmatch(r"\d+-\d+", opts.run_id):
+        raise RuntimeError(f"run id {opts.run_id} is not <run id>-<attempt>")
     uploaded: dict[str, str] = {}
     for item in items:
         if item["result"] != "glitch" or not item["issues"]:

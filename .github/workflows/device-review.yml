@@ -354,7 +354,7 @@ jobs:
           VERSION: ${{ needs.resolve.outputs.version }}
           SMOKE: ${{ needs.review.outputs.smoke || 'not run' }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          RUN_ID: ${{ github.run_id }}
+          RUN_ID: ${{ github.run_id }}-${{ github.run_attempt }}
         run: |
           set -euo pipefail
           ./scripts/device-review-publish.py \

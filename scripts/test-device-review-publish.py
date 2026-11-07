@@ -75,7 +75,7 @@ class VerdictTest(unittest.TestCase):
         self.assertEqual(lines[-1], "Verdict: hold")
 
     def test_shot_path(self):
-        self.assertEqual(publish.shot_path("26.11.1232", "42", 1451, "review-strip-1.jpg"), "26.11.1232/42/pr-1451-strip-1.jpg")
+        self.assertEqual(publish.shot_path("26.11.1232", "42-2", 1451, "review-strip-1.jpg"), "26.11.1232/42-2/pr-1451-strip-1.jpg")
 
     def test_result_without_flavor_is_unclear(self):
         items = publish.build_items(SCOPE, {"items": [{"pr": 1430, "result": "pass", "summary": "chat"}]}, set())
@@ -87,6 +87,11 @@ class VerdictTest(unittest.TestCase):
         merged = publish.merge_description(old, "26.11.1232", "App release 26.11.1232 (build 1232)\nVerdict: ship")
         self.assertEqual(merged, "App release 26.11.1232 (build 1232)\nVerdict: ship\n\nNote: hold for #1430 copy")
         self.assertEqual(publish.merge_description("", "26.11.1232", "R"), "R")
+
+    def test_milestone_keeps_notes_after_a_review_without_verdict(self):
+        old = "Device review of build 1232, cut short\npass    #1 x\nNote: keep me"
+        merged = publish.merge_description(old, "26.11.1232", "R")
+        self.assertEqual(merged, "R\n\npass    #1 x\nNote: keep me")
 
 
 if __name__ == "__main__":
