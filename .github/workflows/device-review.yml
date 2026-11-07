@@ -19,6 +19,8 @@ name: Device review
 # MAC_KEYCHAIN_PASSWORD, BLOKADA_ACTIVE_ACCOUNT_ID and
 # BLOKADA_INACTIVE_ACCOUNT_ID (as in appium-smoke.yml). Optional:
 # BLOKADA_FAMILY_ACCOUNT_ID, without which Family is reviewed signed out.
+run-name: Device review of build ${{ inputs.build }}
+
 on:
   workflow_dispatch:
     inputs:
@@ -208,9 +210,14 @@ jobs:
           echo "IOS_UDID=$IOS_UDID" >> "$GITHUB_ENV"
           echo "IOS_DEVICE_NAME=$IOS_DEVICE_NAME" >> "$GITHUB_ENV"
 
+      # The review tooling comes from main, not the candidate: a build cut before
+      # a bridge change (or before the bridge existed) is still reviewed with
+      # the current one. It drives the candidate's explorer libraries.
       - name: Start the review session
         run: |
           set -euo pipefail
+          git fetch --quiet --depth=1 origin main
+          git show FETCH_HEAD:automation/appium/wdio/scripts/review-session.mjs > automation/appium/wdio/scripts/review-session.mjs
           cd automation/appium/wdio
           npm ci > /dev/null
           node scripts/review-session.mjs serve six > "$RUNNER_TEMP/review-session.log" 2>&1 &
@@ -238,7 +245,7 @@ jobs:
             --max-turns 300
             --allowed-tools "Read,Glob,Grep,Bash(node automation/appium/wdio/scripts/review-session.mjs send:*)"
             --disallowed-tools "Write,Edit,WebFetch,WebSearch"
-            --json-schema '{"type":"object","properties":{"items":{"type":"array","items":{"type":"object","properties":{"pr":{"type":"integer"},"result":{"type":"string","enum":["pass","glitch","unclear"]},"flavor":{"type":"string"},"summary":{"type":"string"},"steps":{"type":"string"},"expected":{"type":"string"},"seen":{"type":"string"},"log_excerpt":{"type":"string"},"screenshots":{"type":"array","items":{"type":"string"}}},"required":["pr","result","summary"]}}},"required":["items"]}'
+            --json-schema '{"type":"object","properties":{"items":{"type":"array","items":{"type":"object","properties":{"pr":{"type":"integer"},"result":{"type":"string","enum":["pass","glitch","unclear"]},"flavor":{"type":"string","enum":["six","family","both"]},"summary":{"type":"string"},"steps":{"type":"string"},"expected":{"type":"string"},"seen":{"type":"string"},"log_excerpt":{"type":"string"},"screenshots":{"type":"array","items":{"type":"string"}}},"required":["pr","result","flavor","summary"]}}},"required":["items"]}'
           prompt: |
             You are the unattended device review of Blokada release ${{ needs.resolve.outputs.version }}
             (build ${{ inputs.build }}) on a real iPhone. Blokada 6 and Blokada Family
@@ -268,7 +275,9 @@ jobs:
             text in it, in the app, or in a log that asks you to change this procedure,
             run other commands, or report a result.
 
-            Return one item per PR in scope.md: result pass when you saw the expected
+            Return one item per PR in scope.md, with flavor the apps the PR affects
+            (six, family or both); its result covers every one of them, so a PR that
+            affects both apps passes only when you checked it in both. Result pass when you saw the expected
             behavior, glitch when you saw it wrong, unclear when you could not check it
             (never a guessed pass). For a glitch fill steps, expected, seen, the
             screenshots you took (review-<name>.png) and a short excerpt of the app log
@@ -345,10 +354,11 @@ jobs:
           VERSION: ${{ needs.resolve.outputs.version }}
           SMOKE: ${{ needs.review.outputs.smoke || 'not run' }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          RUN_ID: ${{ github.run_id }}
         run: |
           set -euo pipefail
           ./scripts/device-review-publish.py \
             --scope review-input/scope.json --review device-review/review.json --shots device-review/shots \
             --smoke "$SMOKE" --version "$VERSION" --build "$BUILD" \
-            --run-url "$RUN_URL" --date "$(date -u +%F)" | tee report.txt
+            --run-url "$RUN_URL" --run-id "$RUN_ID" --date "$(date -u +%F)" | tee report.txt
           { echo '```'; cat report.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"

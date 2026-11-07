@@ -39,6 +39,7 @@ BRANCH = "release-review"
 # Store listing copy and CI-only changes have nothing to drive on a device.
 REVIEWED_KINDS = {"app", "deps", "strings"}
 RESULTS = {"pass", "glitch", "unclear"}
+FLAVORS = {"six", "family", "both"}
 SHOT_NAME = re.compile(r"^review-[A-Za-z0-9-]{1,70}\.jpg$")
 CAPS = {"summary": 120, "steps": 1500, "expected": 600, "seen": 600, "log_excerpt": 3000}
 
@@ -76,6 +77,9 @@ def build_items(scope: dict[str, Any], review: dict[str, Any], shots: set[str]) 
             continue
         found = by_pr.get(pr["pr"], {})
         result = found.get("result") if found.get("result") in RESULTS else "unclear"
+        # A result must say which apps it covers; one that does not is not a check.
+        if found.get("flavor") not in FLAVORS:
+            result = "unclear"
         summary = one_line(found.get("summary") or ("not reviewed" if not found else ""), CAPS["summary"])
         items.append({
             "pr": pr["pr"],
@@ -111,8 +115,9 @@ def report(version: str, build: int, date: str, run_url: str, smoke: str, items:
     return "\n".join(lines)
 
 
-def shot_path(version: str, pr: int, name: str) -> str:
-    return f"{version}/pr-{pr}-{name.removeprefix('review-')}"
+def shot_path(version: str, run_id: str, pr: int, name: str) -> str:
+    """Unique per run, so a rerun never writes over an existing file (which needs its sha)."""
+    return f"{version}/{run_id}/pr-{pr}-{name.removeprefix('review-')}"
 
 
 def comment(version: str, build: int, run_url: str, item: dict[str, Any], links: list[str]) -> str:
@@ -167,19 +172,39 @@ def upload(path: str, data: bytes) -> str:
     return f"https://github.com/{TRACKER}/blob/{BRANCH}/{path}?raw=true"
 
 
-def write_milestone(version: str, description: str) -> None:
+REVIEW_START = re.compile(r"^Device review of build \d+")
+
+
+def merge_description(old: str, version: str, report_text: str) -> str:
+    """The report replaces the header, the pick line and an earlier review; other lines stay below it."""
+    kept, in_review = [], False
+    for line in (old or "").splitlines():
+        if REVIEW_START.match(line):
+            in_review = True
+        if in_review:
+            in_review = not line.startswith("Verdict:")
+            continue
+        if line.startswith(f"App release {version}") or line.startswith("Picked "):
+            continue
+        kept.append(line)
+    notes = "\n".join(kept).strip()
+    return report_text + (f"\n\n{notes}" if notes else "")
+
+
+def write_milestone(version: str, report_text: str) -> None:
     # One page: the tracker has a handful of milestones, release ones included.
     milestones = gh([f"repos/{TRACKER}/milestones?state=all&per_page=100&sort=due_on&direction=desc"])
     match = next((m for m in milestones or [] if m["title"] == version), None)
     if match:
+        description = merge_description(match.get("description") or "", version, report_text)
         gh(["-X", "PATCH", f"repos/{TRACKER}/milestones/{match['number']}"], {"description": description})
     else:
-        gh([f"repos/{TRACKER}/milestones"], {"title": version, "description": description})
+        gh([f"repos/{TRACKER}/milestones"], {"title": version, "description": report_text})
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    for name in ("scope", "review", "shots", "smoke", "version", "run-url", "date"):
+    for name in ("scope", "review", "shots", "smoke", "version", "run-url", "run-id", "date"):
         parser.add_argument(f"--{name}", required=True)
     parser.add_argument("--build", type=int, required=True)
     parser.add_argument("--dry-run", action="store_true")
@@ -206,13 +231,19 @@ def main() -> int:
     if opts.dry_run:
         return 0
 
+    if not re.fullmatch(r"\d+", opts.run_id):
+        raise RuntimeError(f"run id {opts.run_id} is not a number")
+    uploaded: dict[str, str] = {}
     for item in items:
         if item["result"] != "glitch" or not item["issues"]:
             continue
         links = []
         for name in item["screenshots"]:
-            with open(os.path.join(opts.shots, name), "rb") as handle:
-                links.append(upload(shot_path(opts.version, item["pr"], name), handle.read()))
+            path = shot_path(opts.version, opts.run_id, item["pr"], name)
+            if path not in uploaded:
+                with open(os.path.join(opts.shots, name), "rb") as handle:
+                    uploaded[path] = upload(path, handle.read())
+            links.append(uploaded[path])
         body = comment(opts.version, opts.build, opts.run_url, item, links)
         for issue in item["issues"]:
             gh([f"repos/{TRACKER}/issues/{issue}/comments"], {"body": body})

@@ -35,6 +35,11 @@ test("review gate allows system alerts but not risky buttons", () => {
     args: { action: "accept", buttonLabel: "Allow" }
   });
   assert.match(gateReviewCommand("ui.alert", { action: "tap" }, SIX).error, /accept/);
+  assert.match(gateReviewCommand("ui.alert", { action: "accept" }, SIX).error, /buttonLabel/);
+  assert.deepEqual(gateReviewCommand("ui.alert", { action: "getButtons" }, SIX), {
+    command: "ui.alert",
+    args: { action: "getButtons" }
+  });
   assert.match(gateReviewCommand("ui.alert", { action: "accept", buttonLabel: "Delete" }, SIX).error, /risky/);
 });
 

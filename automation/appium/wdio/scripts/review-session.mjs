@@ -69,6 +69,10 @@ export function gateReviewCommand(command, args, bundleId) {
         return { error: "ui.alert action must be accept, dismiss or getButtons." };
       }
       const label = typeof a.buttonLabel === "string" ? a.buttonLabel.slice(0, 40) : "";
+      // Without a label WebDriverAgent picks the button itself, unchecked.
+      if (action !== "getButtons" && !label) {
+        return { error: "ui.alert accept and dismiss need args.buttonLabel; list them with getButtons." };
+      }
       const check = evaluateExplorerAction(
         { command: "ui.back", args: {}, reason: label },
         { sessionBundleId: bundleId }
@@ -76,7 +80,7 @@ export function gateReviewCommand(command, args, bundleId) {
       if (!check.allowed) {
         return { error: check.reason };
       }
-      return { command, args: label ? { action, buttonLabel: label } : { action } };
+      return { command, args: action === "getButtons" ? { action } : { action, buttonLabel: label } };
     }
     case "ui.screenshot": {
       const check = evaluateExplorerAction({ command, args: a }, { sessionBundleId: bundleId });

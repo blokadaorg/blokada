@@ -26,7 +26,7 @@ SCOPE = {
 class BuildItemsTest(unittest.TestCase):
     def test_every_reviewed_pr_gets_a_line_and_unreported_ones_are_unclear(self):
         review = {"items": [
-            {"pr": 1430, "result": "pass", "summary": "chat opens"},
+            {"pr": 1430, "result": "pass", "summary": "chat opens", "flavor": "six"},
             {"pr": 9999, "result": "pass", "summary": "outside the scope"},
         ]}
         items = publish.build_items(SCOPE, review, set())
@@ -42,6 +42,7 @@ class BuildItemsTest(unittest.TestCase):
     def test_unknown_result_is_unclear_and_screenshots_must_exist(self):
         review = {"items": [{"pr": 1430, "result": "ship it", "summary": "x",
                              "screenshots": ["review-a.png", "../../etc/passwd", "review-b.jpg"]}]}
+        review["items"][0]["flavor"] = "six"
         item = publish.build_items(SCOPE, review, {"review-a.jpg"})[0]
         self.assertEqual(item["result"], "unclear")
         self.assertEqual(item["screenshots"], ["review-a.jpg"])
@@ -66,7 +67,7 @@ class VerdictTest(unittest.TestCase):
         self.assertEqual(publish.verdict([], "success"), "ship")
 
     def test_report_shape(self):
-        items = publish.build_items(SCOPE, {"items": [{"pr": 1430, "result": "pass", "summary": "chat"}]}, set())
+        items = publish.build_items(SCOPE, {"items": [{"pr": 1430, "result": "pass", "summary": "chat", "flavor": "both"}]}, set())
         text = publish.report("26.11.1232", 1232, "2026-11-10", "https://run", "success", items)
         lines = text.splitlines()
         self.assertEqual(lines[0], "App release 26.11.1232 (build 1232)")
@@ -74,7 +75,18 @@ class VerdictTest(unittest.TestCase):
         self.assertEqual(lines[-1], "Verdict: hold")
 
     def test_shot_path(self):
-        self.assertEqual(publish.shot_path("26.11.1232", 1451, "review-strip-1.jpg"), "26.11.1232/pr-1451-strip-1.jpg")
+        self.assertEqual(publish.shot_path("26.11.1232", "42", 1451, "review-strip-1.jpg"), "26.11.1232/42/pr-1451-strip-1.jpg")
+
+    def test_result_without_flavor_is_unclear(self):
+        items = publish.build_items(SCOPE, {"items": [{"pr": 1430, "result": "pass", "summary": "chat"}]}, set())
+        self.assertEqual(items[0]["result"], "unclear")
+
+    def test_milestone_keeps_operator_notes(self):
+        old = ("App release 26.11.1232 (build 1232)\nPicked 2026-11-10, device review pending\n"
+               "Device review of build 1232, old\npass    #1 x\nVerdict: hold\n\nNote: hold for #1430 copy")
+        merged = publish.merge_description(old, "26.11.1232", "App release 26.11.1232 (build 1232)\nVerdict: ship")
+        self.assertEqual(merged, "App release 26.11.1232 (build 1232)\nVerdict: ship\n\nNote: hold for #1430 copy")
+        self.assertEqual(publish.merge_description("", "26.11.1232", "R"), "R")
 
 
 if __name__ == "__main__":
