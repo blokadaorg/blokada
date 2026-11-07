@@ -97,11 +97,14 @@ def build_items(scope: dict[str, Any], review: dict[str, Any], shots: set[str]) 
     return items
 
 
-def verdict(items: list[dict[str, Any]], smoke: str) -> str:
-    return "ship" if smoke == "success" and all(i["result"] == "pass" for i in items) else "hold"
+def verdict(items: list[dict[str, Any]], smoke: str, reviewed: bool = True) -> str:
+    """ship only with a usable review, a green smoke and every PR passing."""
+    ok = reviewed and smoke == "success" and all(i["result"] == "pass" for i in items)
+    return "ship" if ok else "hold"
 
 
-def report(version: str, build: int, date: str, run_url: str, smoke: str, items: list[dict[str, Any]]) -> str:
+def report(version: str, build: int, date: str, run_url: str, smoke: str, items: list[dict[str, Any]],
+           reviewed: bool = True) -> str:
     lines = [
         f"App release {version} (build {build})",
         f"Device review of build {build}, {date}, automated on the CI phone: {run_url}",
@@ -111,7 +114,9 @@ def report(version: str, build: int, date: str, run_url: str, smoke: str, items:
         issues = ", ".join(f"#{n}" for n in i["issues"])
         lines.append(f"{i['result']:<7} #{i['pr']} {i['summary']}" + (f" ({issues})" if issues else ""))
     lines.append("Operator spot-checks: third-party keyboard, free-form support chat")
-    lines.append(f"Verdict: {verdict(items, smoke)}")
+    if not reviewed:
+        lines.append("Review output missing or unreadable: see the run")
+    lines.append(f"Verdict: {verdict(items, smoke, reviewed)}")
     return "\n".join(lines)
 
 
@@ -221,17 +226,21 @@ def main() -> int:
         scope = json.load(handle)
     if scope.get("build") != opts.build:
         raise RuntimeError(f"scope is for build {scope.get('build')}, not {opts.build}")
+    reviewed = True
     try:
         with open(opts.review) as handle:
             review = json.load(handle)
-    except (OSError, json.JSONDecodeError) as error:
+        if not isinstance(review, dict):
+            raise ValueError("not a JSON object")
+    except (OSError, ValueError) as error:
+        reviewed = False
         # No usable review output: every PR is reported unclear, the verdict is hold.
         print(f"::warning::no review output ({error}); every PR is unclear", file=sys.stderr)
         review = {}
     shots = {n for n in os.listdir(opts.shots) if SHOT_NAME.match(n)} if os.path.isdir(opts.shots) else set()
 
     items = build_items(scope, review, shots)
-    text = report(opts.version, opts.build, opts.date, opts.run_url, opts.smoke, items)
+    text = report(opts.version, opts.build, opts.date, opts.run_url, opts.smoke, items, reviewed)
     print(text)
     if opts.dry_run:
         return 0

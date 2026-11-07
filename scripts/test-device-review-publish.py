@@ -65,6 +65,7 @@ class VerdictTest(unittest.TestCase):
         self.assertEqual(publish.verdict(self.items("pass", "unclear"), "success"), "hold")
         self.assertEqual(publish.verdict(self.items("pass"), "failure"), "hold")
         self.assertEqual(publish.verdict([], "success"), "ship")
+        self.assertEqual(publish.verdict([], "success", reviewed=False), "hold")
 
     def test_report_shape(self):
         items = publish.build_items(SCOPE, {"items": [{"pr": 1430, "result": "pass", "summary": "chat", "flavor": "both"}]}, set())
@@ -87,6 +88,10 @@ class VerdictTest(unittest.TestCase):
         merged = publish.merge_description(old, "26.11.1232", "App release 26.11.1232 (build 1232)\nVerdict: ship")
         self.assertEqual(merged, "App release 26.11.1232 (build 1232)\nVerdict: ship\n\nNote: hold for #1430 copy")
         self.assertEqual(publish.merge_description("", "26.11.1232", "R"), "R")
+
+    def test_milestone_drops_a_whole_review_across_blank_lines(self):
+        old = "Device review of build 1232, old\npass    #1 x\n\nunclear #2 y\nVerdict: hold\nNote: keep me"
+        self.assertEqual(publish.merge_description(old, "26.11.1232", "R"), "R\n\nNote: keep me")
 
     def test_milestone_keeps_notes_after_a_review_without_verdict(self):
         old = "Device review of build 1232, cut short\npass    #1 x\nNote: keep me"
