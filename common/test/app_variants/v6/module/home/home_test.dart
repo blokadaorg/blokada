@@ -9,9 +9,10 @@ StoreSubscription _trial({
   Duration length = const Duration(days: 7),
   String? offer = 'free_trial',
   String? owner = 'acc',
+  String store = 'app_store',
 }) => StoreSubscription(
   accessLevelId: 'premium',
-  store: 'app_store',
+  store: store,
   willRenew: true,
   expiresAt: start.add(length),
   customerUserId: owner,
@@ -46,73 +47,74 @@ void main() {
     final start = DateTime(2026, 11, 3, 21, 30);
 
     test("countsCalendarDaysFromTheStart", () {
-      final subs = [_trial(start: start)];
+      final trial = resolveTrialProgress([_trial(start: start)], accountId: 'acc')!;
+      expect(trial.length, 7);
+      expect(trial.startedAt, start);
       // Same evening: day 1. Just after midnight: day 2, not at 21:30.
-      expect(resolveTrialProgress(subs, accountId: 'acc', now: DateTime(2026, 11, 3, 23))!.day, 1);
-      expect(
-        resolveTrialProgress(subs, accountId: 'acc', now: DateTime(2026, 11, 4, 0, 5))!.day,
-        2,
-      );
-      final day3 = resolveTrialProgress(subs, accountId: 'acc', now: DateTime(2026, 11, 5, 12))!;
-      expect(day3.day, 3);
-      expect(day3.length, 7);
-      expect(day3.startedAt, start);
+      expect(trial.dayOn(DateTime(2026, 11, 3, 23)), 1);
+      expect(trial.dayOn(DateTime(2026, 11, 4, 0, 5)), 2);
+      expect(trial.dayOn(DateTime(2026, 11, 5, 12)), 3);
     });
 
     test("clampsToTheTrialLength", () {
-      final subs = [_trial(start: start)];
-      expect(resolveTrialProgress(subs, accountId: 'acc', now: DateTime(2026, 11, 12))!.day, 7);
+      final trial = resolveTrialProgress([_trial(start: start)], accountId: 'acc')!;
+      expect(trial.dayOn(DateTime(2026, 11, 12)), 7);
+      expect(trial.dayOn(DateTime(2026, 11, 1)), 1);
     });
 
     test("ignoresLevelsThatAreNotAnIntroFreeTrial", () {
-      final now = DateTime(2026, 11, 5);
+      expect(resolveTrialProgress([_trial(start: start, offer: null)], accountId: 'acc'), isNull);
       expect(
-        resolveTrialProgress(
-          [_trial(start: start, offer: null)],
-          accountId: 'acc',
-          now: now,
-        ),
+        resolveTrialProgress([_trial(start: start, offer: 'pay_up_front')], accountId: 'acc'),
+        isNull,
+      );
+      expect(resolveTrialProgress([], accountId: 'acc'), isNull);
+    });
+
+    test("ignoresWebLevels", () {
+      expect(
+        resolveTrialProgress([_trial(start: start, store: 'stripe')], accountId: 'acc'),
         isNull,
       );
       expect(
-        resolveTrialProgress(
-          [_trial(start: start, offer: 'pay_up_front')],
-          accountId: 'acc',
-          now: now,
-        ),
-        isNull,
+        resolveTrialProgress([_trial(start: start, store: 'play_store')], accountId: 'acc'),
+        isNotNull,
       );
-      expect(resolveTrialProgress([], accountId: 'acc', now: now), isNull);
     });
 
     test("ignoresAnotherAccountsLevels", () {
-      final subs = [_trial(start: start, owner: 'other')];
-      expect(resolveTrialProgress(subs, accountId: 'acc', now: DateTime(2026, 11, 5)), isNull);
-      final unowned = [_trial(start: start, owner: null)];
       expect(
-        resolveTrialProgress(unowned, accountId: 'acc', now: DateTime(2026, 11, 5)),
+        resolveTrialProgress([_trial(start: start, owner: 'other')], accountId: 'acc'),
+        isNull,
+      );
+      expect(
+        resolveTrialProgress([_trial(start: start, owner: null)], accountId: 'acc'),
         isNotNull,
       );
     });
 
     test("ignoresImplausibleLengths", () {
-      final now = DateTime(2026, 11, 5);
       expect(
-        resolveTrialProgress(
-          [_trial(start: start, length: const Duration(days: 365))],
-          accountId: 'acc',
-          now: now,
-        ),
+        resolveTrialProgress([
+          _trial(start: start, length: const Duration(days: 365)),
+        ], accountId: 'acc'),
         isNull,
       );
       expect(
-        resolveTrialProgress(
-          [_trial(start: start, length: const Duration(hours: 2))],
-          accountId: 'acc',
-          now: now,
-        ),
+        resolveTrialProgress([
+          _trial(start: start, length: const Duration(hours: 2)),
+        ], accountId: 'acc'),
         isNull,
       );
+    });
+  });
+
+  group("trialBlockedSoFar", () {
+    test("isAtLeastTheLast24Hours", () {
+      final day = _stats(List.filled(24, 2)); // 48 in 24 h
+      expect(trialBlockedSoFar(0, day), 48);
+      expect(trialBlockedSoFar(500, day), 500);
+      expect(trialBlockedSoFar(7, null), 7);
     });
   });
 
@@ -169,11 +171,10 @@ void main() {
       expect(result.pick, same(previous));
     });
 
-    test("keepsTodaysPickWhileItsDataIsMissing", () {
+    test("showsNoHeadlineWhileTodaysKindHasNoData", () {
+      // The counter fills in rather than another kind for a moment.
       const previous = HomeHeadlinePick('2026-11-05', HomeHeadlineKind.topBlocked);
-      final result = pickHomeHeadline([busiest], previous: previous, today: '2026-11-05')!;
-      expect(result.headline.kind, HomeHeadlineKind.busiestHour);
-      expect(result.pick, same(previous));
+      expect(pickHomeHeadline([busiest], previous: previous, today: '2026-11-05'), isNull);
     });
 
     test("newDayAvoidsYesterdaysKind", () {

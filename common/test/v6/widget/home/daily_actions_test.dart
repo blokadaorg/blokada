@@ -32,10 +32,15 @@ class _FakeDailyHome extends DailyHomeActor {
   Future<void> refreshLastBlock(Marker m) async {}
 
   @override
+  Future<void> refreshTrialBlocked(Marker m) async {}
+
+  @override
   Future<void> refreshExpired(Marker m) async => expiredLoads++;
 }
 
 class _MockPayment extends Mock implements PaymentActor {}
+
+class _MockPaymentChannel extends Mock implements PaymentChannel {}
 
 void _replace<T extends Object>(T instance) {
   Core.di.allowReassignment = true;
@@ -162,7 +167,10 @@ void main() {
       final actor = await _boot(tester);
       seedStats();
       seedAppStatus(AppStatus.activatedCloud);
-      actor.trial.now = TrialProgress(day: 3, length: 7, startedAt: DateTime(2026, 11, 3));
+      actor.trial.now = TrialProgress(
+        length: 7,
+        startedAt: DateTime.now().subtract(const Duration(days: 2)),
+      );
       actor.trialBlocked.now = 640;
 
       await _show(tester);
@@ -215,6 +223,41 @@ void main() {
         expect(tester.widget<Opacity>(fade).opacity, 0.0);
       }
       await _unmount(tester);
+    });
+  });
+
+  group('DailyHomeActor trial', () {
+    testWidgets('reads the store trial and drops it once the account is not active', (
+      tester,
+    ) async {
+      await bootModules(tester);
+      await seedCloudAccount(tester);
+      final channel = _MockPaymentChannel();
+      final start = DateTime.now().subtract(const Duration(days: 1));
+      when(() => channel.fetchActiveSubscriptions(any())).thenAnswer(
+        (_) async => [
+          StoreSubscription(
+            accessLevelId: 'premium',
+            store: 'app_store',
+            willRenew: true,
+            expiresAt: start.add(const Duration(days: 7)),
+            customerUserId: 'testaccount01',
+            activatedAt: start,
+            introOfferType: 'free_trial',
+          ),
+        ],
+      );
+      _replace<PaymentChannel>(channel);
+      final actor = Core.get<DailyHomeActor>();
+
+      await tester.runAsync(() => actor.refreshTrial(Markers.testing));
+      expect(actor.trial.now?.dayOn(DateTime.now()), 2);
+      expect(actor.trial.now?.length, 7);
+
+      _seedAccount(_account(active: false, paymentSource: 'adapty'));
+      await tester.runAsync(() => actor.refreshTrial(Markers.testing));
+      expect(actor.trial.now, isNull);
+      expect(actor.trialBlocked.now, isNull);
     });
   });
 

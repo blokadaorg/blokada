@@ -214,9 +214,14 @@ abstract class AccountStoreBase with Store, Logging, Actor, Emitter {
   @action
   Future<void> expireOffline(Marker m) async {
     return await log(m).trace("expireOffline", (m) async {
+      // The known end date stays when it has passed: Home says when
+      // protection ended, and the refresh may run days after that.
+      final now = DateTime.now();
+      final knownEnd = account!.jsonAccount.getActiveUntil();
       final jsonAccount = JsonAccount(
         id: account!.id,
-        activeUntil: DateTime.now().toIso8601String(),
+        activeUntil: (knownEnd.year > 2000 && knownEnd.isBefore(now) ? knownEnd : now)
+            .toIso8601String(),
         active: false,
         type: AccountType.libre.name,
         // Keep what the API told us about the account: dropping the

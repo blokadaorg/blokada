@@ -59,7 +59,12 @@ HomeHeadline? busiestHourHeadline(UiStats stats, DateTime now) {
     if (histogram[i] > histogram[best]) best = i;
   }
   if (histogram[best] <= 0) return null;
-  final currentHour = DateTime(now.year, now.month, now.day, now.hour);
+  // The histogram's buckets are whole epoch hours (see computeStatsBaselines),
+  // which is not local :00 in half-hour time zones.
+  const hourMs = 3600 * 1000;
+  final currentHour = DateTime.fromMillisecondsSinceEpoch(
+    now.millisecondsSinceEpoch ~/ hourMs * hourMs,
+  );
   final hourStart = currentHour.subtract(Duration(hours: histogram.length - 1 - best));
   return HomeHeadline(
     kind: HomeHeadlineKind.busiestHour,
@@ -109,7 +114,7 @@ String homeHeadlineDay(DateTime now) {
 /// Picks today's headline from [candidates]. Today's earlier pick stays for
 /// the rest of the day. On a new day the best candidate wins,
 /// skipping yesterday's kind when there is another, so Home shows something
-/// new each day. Returns null when there are no candidates; the card then
+/// new each day. Returns null when there is nothing to show; the card then
 /// falls back to the 24 hour counter.
 ({HomeHeadline headline, HomeHeadlinePick pick})? pickHomeHeadline(
   List<HomeHeadline> candidates, {
@@ -120,10 +125,10 @@ String homeHeadlineDay(DateTime now) {
   final sorted = [...candidates]..sort((a, b) => b.score.compareTo(a.score));
 
   if (previous != null && previous.day == today) {
+    // Its data may be missing only for now (a failed fetch): show no headline
+    // meanwhile, so the 24 hour counter fills in, rather than another kind.
     final same = sorted.where((it) => it.kind == previous.kind).firstOrNull;
-    // Its data may be missing only for now (a failed fetch): show the best
-    // other one meanwhile but keep today's pick, so it comes back.
-    return (headline: same ?? sorted.first, pick: previous);
+    return same == null ? null : (headline: same, pick: previous);
   }
 
   final avoid = previous != null && previous.day != today ? previous.kind : null;

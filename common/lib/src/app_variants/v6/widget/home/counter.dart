@@ -79,12 +79,12 @@ class _HomeStatsRefreshState extends State<HomeStatsRefresh> with WidgetsBinding
     final refresh = _shouldRefresh;
     if (refresh == _refreshing) return;
     _refreshing = refresh;
-    _stats.setHomeRefresh(refresh);
+    _stats.setHomeRefresh(refresh, owner: this);
   }
 
   @override
   void dispose() {
-    if (_refreshing) _stats.setHomeRefresh(false);
+    if (_refreshing) _stats.setHomeRefresh(false, owner: this);
     _tickerMode?.removeListener(_syncRefresh);
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();

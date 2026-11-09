@@ -108,9 +108,12 @@ class _ActiveCardsState extends State<_ActiveCards> with Logging, Disposables {
   /// and the last block follow them.
   void _onStats(_) {
     rebuild(null);
-    if (!widget.visible) return;
+    // Privacy Pulse refreshes the same stats while it covers Home: no Home
+    // requests then.
+    if (!widget.visible || !mounted || !TickerMode.getNotifier(context).value) return;
     unawaited(_actor.refreshHeadline(Markers.stats));
     unawaited(_actor.refreshLastBlock(Markers.stats));
+    unawaited(_actor.refreshTrialBlocked(Markers.stats));
   }
 
   @override
@@ -164,9 +167,12 @@ class _ActiveCardsState extends State<_ActiveCards> with Logging, Disposables {
 
   Widget _trialLine(BuildContext context, TrialProgress trial) {
     final theme = context.theme;
-    final day = "home trial day".i18n.withParams(trial.day, trial.length);
+    final dayNumber = trial.dayOn(DateTime.now());
+    final day = "home trial day".i18n.withParams(dayNumber, trial.length);
     final blocked = _actor.trialBlocked.now;
-    final text = blocked == null
+    // Daily buckets can lag the hourly stats; "0 blocked so far" next to a
+    // headline about blocks reads as broken, so a zero shows the day only.
+    final text = blocked == null || blocked == 0
         ? day
         : "$day · ${"home trial blocked so far".i18n.withParams(StatsStoreBase.formatCounter(blocked))}";
     return Column(
@@ -178,7 +184,7 @@ class _ActiveCardsState extends State<_ActiveCards> with Logging, Disposables {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(2),
             child: LinearProgressIndicator(
-              value: trial.day / trial.length,
+              value: dayNumber / trial.length,
               minHeight: 4,
               color: theme.accent,
               backgroundColor: theme.divider,

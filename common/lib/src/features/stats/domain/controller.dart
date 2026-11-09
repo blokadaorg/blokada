@@ -166,10 +166,19 @@ class StatsController with Logging, Actor {
     _device.addOn(deviceChanged, _onDeviceChanged);
   }
 
+  /// Home's widgets that want the stats refreshing; the timer runs while any
+  /// does. When Home swaps layouts (#460) the old widget lets go only after
+  /// the new one has taken over, so a single flag would stop the timer.
+  final _homeRefreshOwners = <Object>{};
+
+  static const _defaultHomeRefreshOwner = Object();
+
   /// Home's counter calls this when it should (or should no longer) refresh:
-  /// protection on, app in the foreground and Home not covered.
-  void setHomeRefresh(bool enabled) {
+  /// protection on, app in the foreground and Home not covered. Each [owner]
+  /// is counted once; the timer stops when the last one lets go.
+  void setHomeRefresh(bool enabled, {Object owner = _defaultHomeRefreshOwner}) {
     if (enabled) {
+      _homeRefreshOwners.add(owner);
       if (_homeTimer != null) return;
       _lastAlias = _device.deviceAlias;
       unawaited(_loadStats(Markers.stats, force: false));
@@ -177,6 +186,8 @@ class StatsController with Logging, Actor {
         unawaited(_loadStats(Markers.stats, force: true));
       });
     } else {
+      _homeRefreshOwners.remove(owner);
+      if (_homeRefreshOwners.isNotEmpty) return;
       _homeTimer?.cancel();
       _homeTimer = null;
     }

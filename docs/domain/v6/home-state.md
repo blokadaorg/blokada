@@ -77,13 +77,13 @@ Applies to: v6
 Intent: A cohort split (#460) must measure the new Home, not unrelated differences between the arms.
 Rule: The `home_variant` account attribute picks the Home: `daily` gets the daily Home, anything else (including no value) today's. Once an account is seen as `daily` in a session it stays daily, so a refresh without attributes cannot flip the layout. The daily Home changes only two states: protection on for an active account (status line, trial line during a store free trial, today's headline in place of the 24h counter, Plus bar) and a paid account that expired (end date, all-time blocked count, one resubscribe action on the `winback` placement). Accounts that never paid, freemium accounts and protection off render today's Home unchanged.
 Scope: `HomeVariant`, `DailyHomeActor`, `DailyHomeActions`.
-Non-rules: The trial line counts only an introductory `free_trial` from the store's access levels; web trials and promotional free periods show no line. The power button keeps opening the primary paywall in both arms; only the expired card opens `winback`.
+Non-rules: The trial line counts only an introductory `free_trial` on an App Store or Google Play access level; web trials and promotional free periods show no line. An offline expiry keeps the account's attributes, payment source and past end date. The power button keeps opening the primary paywall in both arms; only the expired card opens `winback`.
 Verification: Check `common/test/v6/widget/home/daily_actions_test.dart` and `common/test/app_variants/v6/module/home/home_test.dart`.
 
 ### Rule: The headline stays fixed for the day
 Applies to: v6
 Intent: Home shows something new each day without the headline changing every time the stats refresh.
-Rule: Today's headline kind is picked once per local day and persisted (`home:headline_pick`); its numbers may update, the kind may not. A new day prefers a kind other than yesterday's. Candidates: the most blocked domain in 24 h (activity logging on), the busiest hour of the last 24, and the best Privacy Pulse weekly event (two weeks of data needed). With no candidate the 24h counter takes the slot.
+Rule: Today's headline kind is picked once per local day and persisted (`home:headline_pick`); its numbers may update, the kind may not. A new day prefers a kind other than yesterday's. Candidates: the most blocked domain in 24 h (activity logging on), the busiest hour of the last 24, and the best Privacy Pulse weekly event (two weeks of data needed). With no candidate, or while today's kind has no data (a failed fetch), the 24h counter takes the slot.
 Scope: `pickHomeHeadline`, Home headline card.
 Non-rules: The Home pick never changes the weekly notification's event or its pending pick.
 Verification: Check `pickHomeHeadline` tests.
