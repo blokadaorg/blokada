@@ -215,11 +215,14 @@ class DailyHomeActor with Logging, Actor {
 
       if (generation != _generation) return;
       final previous = await _pick.fetch(m);
+      if (generation != _generation) return;
       final result = pickHomeHeadline(candidates, previous: previous, today: today);
       if (result != null &&
           (previous?.day != result.pick.day || previous?.kind != result.pick.kind)) {
         await _pick.change(m, result.pick);
       }
+      // The account may have switched while the pick was read or saved.
+      if (generation != _generation) return;
       headline.now = result?.headline;
       log(m).pair("homeHeadline", result?.headline.kind.name ?? "none");
     } catch (e, s) {
