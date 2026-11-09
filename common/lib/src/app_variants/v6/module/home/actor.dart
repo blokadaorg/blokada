@@ -96,7 +96,7 @@ class DailyHomeActor with Logging, Actor {
   @override
   Future<void> onStart(Marker m) async {
     _account.addOn(accountChanged, _onAccountChanged);
-    _account.addOn(accountIdChanged, _onAccountIdChanged);
+    _account.addOn(accountIdChanged, onAccountIdChanged);
   }
 
   /// A trial that converts or lapses changes the account: re-read it. Only
@@ -108,8 +108,11 @@ class DailyHomeActor with Logging, Actor {
 
   /// Another account (a restore): nothing loaded for the previous one may
   /// stay on screen, including a headline naming its domains.
-  Future<void> _onAccountIdChanged(Marker m) async {
+  @visibleForTesting
+  Future<void> onAccountIdChanged(Marker m) async {
     _generation++;
+    // A trial read still running for the previous account must not land.
+    _trialRead++;
     _weeklyDay = null;
     _weeklyEvent = null;
     trial.now = null;

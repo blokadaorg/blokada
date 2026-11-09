@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:common/src/app_variants/v6/module/home/home.dart';
 import 'package:common/src/app_variants/v6/widget/home/actions.dart';
 import 'package:common/src/app_variants/v6/widget/home/counter.dart';
@@ -258,6 +259,38 @@ void main() {
       await tester.runAsync(() => actor.refreshTrial(Markers.testing));
       expect(actor.trial.now, isNull);
       expect(actor.trialBlocked.now, isNull);
+    });
+
+    testWidgets('a trial read still running when the account switches is dropped', (
+      tester,
+    ) async {
+      await bootModules(tester);
+      await seedCloudAccount(tester);
+      final channel = _MockPaymentChannel();
+      final start = DateTime.now().subtract(const Duration(days: 1));
+      _replace<PaymentChannel>(channel);
+      final actor = Core.get<DailyHomeActor>();
+
+      await tester.runAsync(() async {
+        // Created in the real zone, so its completion reaches the actor here.
+        final pending = Completer<List<StoreSubscription>>();
+        when(() => channel.fetchActiveSubscriptions(any())).thenAnswer((_) => pending.future);
+        final read = actor.refreshTrial(Markers.testing);
+        await actor.onAccountIdChanged(Markers.testing);
+        pending.complete([
+          StoreSubscription(
+            accessLevelId: 'premium',
+            store: 'app_store',
+            willRenew: true,
+            expiresAt: start.add(const Duration(days: 7)),
+            customerUserId: 'testaccount01',
+            activatedAt: start,
+            introOfferType: 'free_trial',
+          ),
+        ]);
+        await read;
+      });
+      expect(actor.trial.now, isNull);
     });
   });
 

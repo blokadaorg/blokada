@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/features/journal/domain/journal.dart';
 import 'package:common/src/features/notification/domain/notification.dart';
