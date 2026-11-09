@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:common/src/core/core.dart';
+import 'package:common/src/features/api/domain/api.dart';
 import 'package:common/src/platform/stats/model.dart';
 import 'package:common/src/platform/device/device.dart';
 import 'package:common/src/platform/stats/toplist_store.dart';
@@ -17,6 +18,7 @@ abstract class StatsStoreBase with Store, Logging, Actor {
   late final _api = Core.get<api.StatsApi>();
   late final _device = Core.get<DeviceStore>();
   late final _toplists = Core.get<ToplistStore>();
+  late final _accountId = Core.get<AccountId>();
 
   static const Duration _cacheTtl = Duration(seconds: 10);
   api.JsonStatsEndpoint? _lastDayEndpoint;
@@ -25,6 +27,10 @@ abstract class StatsStoreBase with Store, Logging, Actor {
   DateTime? _lastDayFetch;
   DateTime? _lastWeekFetch;
   DateTime? _lastRolling2wFetch;
+
+  /// Account and device the cached two weeks belong to, so a switch never
+  /// reads the previous account's numbers.
+  String? _lastRolling2wKey;
 
   StatsStoreBase() {}
 
@@ -244,13 +250,20 @@ abstract class StatsStoreBase with Store, Logging, Actor {
     String deviceName, {
     bool force = false,
   }) async {
-    if (!force && _shouldUseCache(_lastRolling2wFetch) && _lastRolling2wEndpoint != null) {
-      return _lastRolling2wEndpoint!;
+    final key = "${_accountId.present}/$deviceName";
+    final cached = _lastRolling2wEndpoint;
+    if (!force &&
+        cached != null &&
+        key == _lastRolling2wKey &&
+        _shouldUseCache(_lastRolling2wFetch)) {
+      return cached;
     }
 
-    _lastRolling2wEndpoint = await _api.getStats("2w", "24h", deviceName, m);
+    final endpoint = await _api.getStats("2w", "24h", deviceName, m);
+    _lastRolling2wEndpoint = endpoint;
+    _lastRolling2wKey = key;
     _lastRolling2wFetch = DateTime.now();
-    return _lastRolling2wEndpoint!;
+    return endpoint;
   }
 
   /// Loads the 24h or 7d toplists into [stats]. Throws on failure and leaves

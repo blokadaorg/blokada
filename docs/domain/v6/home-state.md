@@ -77,7 +77,7 @@ Applies to: v6
 Intent: A cohort split (#460) must measure the new Home, not unrelated differences between the arms.
 Rule: The `home_variant` account attribute picks the Home: `daily` gets the daily Home, anything else (including no value) today's. Once an account is seen as `daily` in a session it stays daily, so a refresh without attributes cannot flip the layout. The daily Home changes only two states: protection on for an active account (status line, trial line during a store free trial, today's headline in place of the 24h counter, Plus bar) and a paid account that expired (end date, all-time blocked count, one resubscribe action on the `winback` placement). Accounts that never paid, freemium accounts and protection off render today's Home unchanged.
 Scope: `HomeVariant`, `DailyHomeActor`, `DailyHomeActions`.
-Non-rules: The trial line counts only an introductory `free_trial` on an App Store or Google Play access level; web trials and promotional free periods show no line. An offline expiry keeps the account's attributes, payment source and past end date. The power button keeps opening the primary paywall in both arms; only the expired card opens `winback`.
+Non-rules: The trial line counts only an introductory `free_trial` on an App Store or Google Play access level; web trials and promotional free periods show no line. The trial's blocked count is the daily buckets since the trial started, floored at the hourly last 24 h; it is an approximation and does not reconcile the two bucket sizes. An offline expiry keeps the account's attributes, payment source and past end date. The power button keeps opening the primary paywall in both arms; only the expired card opens `winback`.
 Verification: Check `common/test/v6/widget/home/daily_actions_test.dart` and `common/test/app_variants/v6/module/home/home_test.dart`.
 
 ### Rule: The headline stays fixed for the day
@@ -87,3 +87,11 @@ Rule: Today's headline kind is picked once per local day and persisted (`home:he
 Scope: `pickHomeHeadline`, Home headline card.
 Non-rules: The Home pick never changes the weekly notification's event or its pending pick.
 Verification: Check `pickHomeHeadline` tests.
+
+### Rule: The daily Home shows only the current account's data under the current logging setting
+Applies to: v6
+Intent: A slow load must never show the previous account's data, or domains after activity logging was turned off.
+Rule: Every daily Home load runs in a scope that changes when the account id changes or activity logging is turned on or off; a result from an older scope is dropped, on success and on failure alike. When calls of one loader overlap (trial, trial blocked count, last block), only the latest call's result is shown. A headline that names domains (most blocked domain, a toplist weekly event) is shown only if logging is still on when it is published; turning logging off hides it and the last block time at once. After an account switch the trial is read again for the new account (daily cohort only).
+Scope: `DailyHomeActor`.
+Non-rules: After logging is turned off mid-day, a day whose pick was a toplist event shows the 24h counter for the rest of the day rather than another kind. A failed toplist read counts as no toplist event; only failed totals leave the day's weekly event uncached.
+Verification: Check the 'DailyHomeActor late results' tests in `common/test/v6/widget/home/daily_actions_test.dart`.

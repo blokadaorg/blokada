@@ -80,14 +80,24 @@ class DailyHomeActor with Logging, Actor {
   String? _weeklyDay;
   WeeklyReportEvent? _weeklyEvent;
 
-  bool _headlineLoading = false;
-
-  /// Bumped when the account switches; loads started for the previous
-  /// account then drop their results instead of showing them.
+  /// The scope every load runs in. Bumped when the account switches or
+  /// activity logging is turned on or off; a load started in an older scope
+  /// drops its result (see [_publish]) instead of showing the previous
+  /// account's data, or domains the user just stopped logging.
   int _generation = 0;
 
-  /// Bumped per trial read, so an older read finishing late cannot win.
+  /// Activity logging as last seen on a device refresh; null until the first.
+  bool? _seenLogging;
+
+  /// Per-loader request counters: when calls of one loader overlap, only the
+  /// latest one publishes.
   int _trialRead = 0;
+  int _trialBlockedRead = 0;
+  int _lastBlockRead = 0;
+
+  /// The scope the running headline load belongs to, or null when none runs.
+  /// A refresh for a newer scope still runs; the older one drops its result.
+  int? _headlineLoadingFor;
 
   /// Trials longer than the two weeks of daily stats get no count, which
   /// would leave out their first days.
@@ -97,7 +107,24 @@ class DailyHomeActor with Logging, Actor {
   Future<void> onStart(Marker m) async {
     _account.addOn(accountChanged, _onAccountChanged);
     _account.addOn(accountIdChanged, onAccountIdChanged);
+    _device.addOn(deviceChanged, onDeviceChanged);
   }
+
+  bool get _logging => _device.retention == "24h";
+
+  /// The single gate for every load's result, on success and failure alike:
+  /// [write] runs only while [generation] is the current scope and, for
+  /// loaders whose calls overlap, this call is still the [latest].
+  bool _publish(int generation, void Function() write, {bool latest = true}) {
+    if (generation != _generation || !latest) return false;
+    write();
+    return true;
+  }
+
+  /// A headline that names domains, which only activity logging may show.
+  static bool _namesDomains(HomeHeadline headline) =>
+      headline.kind == HomeHeadlineKind.topBlocked ||
+      headline.weekly?.type == WeeklyReportEventType.toplistChange;
 
   /// A trial that converts or lapses changes the account: re-read it. Only
   /// the daily cohort shows a trial, so nobody else pays for the store read.
@@ -107,12 +134,11 @@ class DailyHomeActor with Logging, Actor {
   }
 
   /// Another account (a restore): nothing loaded for the previous one may
-  /// stay on screen, including a headline naming its domains.
+  /// stay on screen, including a headline naming its domains. The trial read
+  /// on [accountChanged] ran before this reset, so it is read again.
   @visibleForTesting
   Future<void> onAccountIdChanged(Marker m) async {
     _generation++;
-    // A trial read still running for the previous account must not land.
-    _trialRead++;
     _weeklyDay = null;
     _weeklyEvent = null;
     trial.now = null;
@@ -120,6 +146,30 @@ class DailyHomeActor with Logging, Actor {
     headline.now = null;
     lastBlockAt.now = null;
     expiredBlocked.now = null;
+    await _onAccountChanged(m);
+  }
+
+  /// Activity logging turned on or off: loads still running were started
+  /// under the old setting. Turning it off also hides what it allowed. The
+  /// headline and last block load again with the next stats refresh.
+  @visibleForTesting
+  Future<void> onDeviceChanged(Marker m) async {
+    final logging = _logging;
+    final seen = _seenLogging;
+    _seenLogging = logging;
+    // The first refresh only tells the setting, it does not change it.
+    if (seen == null || seen == logging) return;
+    _generation++;
+    _weeklyDay = null;
+    _weeklyEvent = null;
+    if (!logging) {
+      final shown = headline.now;
+      if (shown != null && _namesDomains(shown)) headline.now = null;
+      lastBlockAt.now = null;
+    }
+    // The bump also dropped any trial read in flight, which logging does not
+    // affect.
+    await _onAccountChanged(m);
   }
 
   /// The Home variant for [account]. Mocked builds may force it with the
@@ -145,10 +195,11 @@ class DailyHomeActor with Logging, Actor {
   /// Re-reads the store's access levels for the trial line. Any failure only
   /// hides the line.
   Future<void> refreshTrial(Marker m) async {
+    final generation = _generation;
     final read = ++_trialRead;
     if (!_account.type.isActive()) {
-      trial.now = null;
-      trialBlocked.now = null;
+      _publish(generation, () => trial.now = null);
+      await refreshTrialBlocked(m);
       return;
     }
     TrialProgress? progress;
@@ -159,39 +210,40 @@ class DailyHomeActor with Logging, Actor {
       log(m).e(msg: "homeDaily: failed reading trial", err: e, stack: s);
       progress = null;
     }
-    if (read != _trialRead) return;
-    trial.now = progress;
+    if (!_publish(generation, () => trial.now = progress, latest: read == _trialRead)) return;
     await refreshTrialBlocked(m);
   }
 
   /// Re-sums what was blocked since the trial started; Home calls it with
   /// each stats refresh. The two week stats are cached, so this is cheap.
   Future<void> refreshTrialBlocked(Marker m) async {
+    final generation = _generation;
+    final read = ++_trialBlockedRead;
     final progress = trial.now;
     if (progress == null || progress.length > _maxCountedTrialDays) {
-      trialBlocked.now = null;
+      _publish(generation, () => trialBlocked.now = null);
       return;
     }
-    final read = _trialRead;
+    int? blocked;
     try {
       final since = await _statsStore.blockedSince(m, progress.startedAt);
-      if (read != _trialRead) return;
       // The daily buckets fill in with a lag, so today's blocks may be in the
       // hourly stats only: never show less than the last 24 hours.
-      trialBlocked.now = since == null ? null : trialBlockedSoFar(since, _stats.stats.now.data);
+      blocked = since == null ? null : trialBlockedSoFar(since, _stats.stats.now.data);
     } catch (e, s) {
       log(m).e(msg: "homeDaily: failed reading trial blocks", err: e, stack: s);
-      if (read == _trialRead) trialBlocked.now = null;
+      blocked = null;
     }
+    _publish(generation, () => trialBlocked.now = blocked, latest: read == _trialBlockedRead);
   }
 
   /// Rebuilds the headline candidates and applies today's pick. Cheap after
   /// the first call of the day: the toplist is cached and the weekly event is
   /// computed once a day.
   Future<void> refreshHeadline(Marker m) async {
-    if (_headlineLoading) return;
-    _headlineLoading = true;
     final generation = _generation;
+    if (_headlineLoadingFor == generation) return;
+    _headlineLoadingFor = generation;
     try {
       final now = DateTime.now();
       final today = homeHeadlineDay(now);
@@ -207,35 +259,34 @@ class DailyHomeActor with Logging, Actor {
       if (top != null) candidates.add(top);
 
       final weekly = await _weekly(m, today);
-      // A toplist event names domains, which only activity logging may show.
-      final logging = _device.retention == "24h";
-      if (weekly != null && (logging || weekly.type != WeeklyReportEventType.toplistChange)) {
-        candidates.add(weeklyHeadline(weekly));
-      }
+      if (weekly != null) candidates.add(weeklyHeadline(weekly));
 
       if (generation != _generation) return;
       final previous = await _pick.fetch(m);
       if (generation != _generation) return;
+      // Logging may have been turned off while the candidates loaded.
+      if (!_logging) candidates.removeWhere(_namesDomains);
       final result = pickHomeHeadline(candidates, previous: previous, today: today);
       if (result != null &&
           (previous?.day != result.pick.day || previous?.kind != result.pick.kind)) {
         await _pick.change(m, result.pick);
       }
-      // The account may have switched while the pick was read or saved.
-      if (generation != _generation) return;
-      headline.now = result?.headline;
-      log(m).pair("homeHeadline", result?.headline.kind.name ?? "none");
+      final shown = result?.headline;
+      final published = _publish(generation, () {
+        headline.now = shown != null && _namesDomains(shown) && !_logging ? null : shown;
+      });
+      if (published) log(m).pair("homeHeadline", headline.now?.kind.name ?? "none");
     } catch (e, s) {
       log(m).e(msg: "homeDaily: failed building headline", err: e, stack: s);
     } finally {
-      _headlineLoading = false;
+      if (_headlineLoadingFor == generation) _headlineLoadingFor = null;
     }
   }
 
   /// The most blocked domain in the last 24 hours. Toplists exist only with
   /// activity logging on.
   Future<HomeHeadline?> _topBlocked(Marker m) async {
-    if (_device.retention != "24h") return null;
+    if (!_logging) return null;
     final deviceName = _device.deviceAlias;
     if (deviceName.isEmpty) return null;
     try {
@@ -257,7 +308,8 @@ class DailyHomeActor with Logging, Actor {
   }
 
   /// Today's best Privacy Pulse weekly event, generated once a day. It does
-  /// not touch the weekly notification's own pick.
+  /// not touch the weekly notification's own pick. The caller drops a
+  /// toplist event while logging is off.
   Future<WeeklyReportEvent?> _weekly(Marker m, String today) async {
     if (_weeklyDay == today) return _weeklyEvent;
     WeeklyReportEvent? best;
@@ -273,24 +325,26 @@ class DailyHomeActor with Logging, Actor {
         log(m).e(msg: "homeDaily: weekly source ${source.name} failed", err: e, stack: s);
       }
     }
-    if (generation != _generation) return null;
     // Totals that failed to load (offline, no device name yet) are not "no
     // event today": leave the day uncached so the next refresh tries again.
-    if (await context.totals(m) != null) {
+    final loaded = await context.totals(m) != null;
+    final cached = _publish(generation, () {
+      if (!loaded) return;
       _weeklyDay = today;
       _weeklyEvent = best;
-    }
-    return best;
+    });
+    return cached ? best : null;
   }
 
   /// When the last request was blocked, from the journal. Without activity
   /// logging there is no journal, and the status line shows today's count.
   Future<void> refreshLastBlock(Marker m) async {
-    if (_device.retention != "24h") {
-      lastBlockAt.now = null;
+    final generation = _generation;
+    final read = ++_lastBlockRead;
+    if (!_logging) {
+      _publish(generation, () => lastBlockAt.now = null);
       return;
     }
-    final generation = _generation;
     try {
       final entries = await _journal.fetchPreview(
         m,
@@ -298,8 +352,9 @@ class DailyHomeActor with Logging, Actor {
         deviceName: _device.deviceAlias,
         limit: 1,
       );
-      if (generation != _generation) return;
-      lastBlockAt.now = entries.firstOrNull?.timestamp;
+      _publish(generation, () {
+        lastBlockAt.now = _logging ? entries.firstOrNull?.timestamp : null;
+      }, latest: read == _lastBlockRead);
     } catch (e, s) {
       log(m).e(msg: "homeDaily: failed reading last block", err: e, stack: s);
     }
@@ -309,13 +364,14 @@ class DailyHomeActor with Logging, Actor {
   /// refresh timer only runs while protection is on, so it has to ask.
   Future<void> refreshExpired(Marker m) async {
     final generation = _generation;
+    int? total;
     try {
       await _statsStore.fetchDay(m);
-      if (generation != _generation) return;
-      expiredBlocked.now = _statsStore.hasStats ? _statsStore.stats.totalBlocked : null;
+      total = _statsStore.hasStats ? _statsStore.stats.totalBlocked : null;
     } catch (e, s) {
       log(m).e(msg: "homeDaily: failed reading expired total", err: e, stack: s);
-      expiredBlocked.now = null;
+      total = null;
     }
+    _publish(generation, () => expiredBlocked.now = total);
   }
 }

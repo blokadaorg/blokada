@@ -8,6 +8,10 @@ import 'package:common/src/features/payment/domain/payment.dart';
 import 'package:common/src/platform/account/account.dart';
 import 'package:common/src/platform/account/api.dart';
 import 'package:common/src/platform/app/channel.pg.dart';
+import 'package:common/src/platform/device/device.dart';
+import 'package:common/src/platform/stats/api.dart';
+import 'package:common/src/platform/stats/stats.dart';
+import 'package:common/src/platform/stats/toplist_store.dart';
 import 'package:common/src/shared/ui/anim/reveal.dart';
 import 'package:common/src/shared/ui/app.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +42,53 @@ class _FakeDailyHome extends DailyHomeActor {
   @override
   Future<void> refreshExpired(Marker m) async => expiredLoads++;
 }
+
+/// Noon [days] calendar days ago, local time: subtracting 24 h steps would
+/// land on another calendar day across a daylight saving change.
+DateTime _daysAgo(int days) {
+  final today = DateTime.now();
+  return DateTime(today.year, today.month, today.day - days, 12);
+}
+
+/// Home's top blocked domain reads answered by [answer], counted. Other
+/// toplists (the weekly event's) are empty.
+class _Toplists extends ToplistStore {
+  int calls = 0;
+  late Future<JsonToplistV2Response> Function(int call) answer;
+
+  @override
+  Future<JsonToplistV2Response> fetch({
+    required Marker m,
+    String? deviceTag,
+    String? deviceName,
+    int level = 1,
+    String? action,
+    String? domain,
+    int limit = 10,
+    String range = "24h",
+    String? end,
+    String? date,
+    Duration ttl = ToplistStore.defaultTtl,
+    bool force = false,
+  }) async {
+    if (limit != 1 || action != 'blocked') return _toplist(null);
+    return answer(calls++);
+  }
+}
+
+JsonToplistV2Response _toplist(String? domain) => JsonToplistV2Response(
+  toplist: [
+    JsonToplistBucket(
+      action: 'blocked',
+      entries: [if (domain != null) JsonToplistEntry(name: domain, count: 30)],
+    ),
+  ],
+  window: JsonWindow(label: '24h', start: '', end: ''),
+  level: '1',
+  limit: 1,
+);
+
+class _MockStatsStore extends Mock implements StatsStore {}
 
 class _MockPayment extends Mock implements PaymentActor {}
 
@@ -105,6 +156,7 @@ void main() {
   setUpAll(() {
     registerFallbackValue(Markers.testing);
     registerFallbackValue(Placement.primary);
+    registerFallbackValue(DateTime(2026));
   });
 
   group('DailyHomeActions', () {
@@ -168,10 +220,7 @@ void main() {
       final actor = await _boot(tester);
       seedStats();
       seedAppStatus(AppStatus.activatedCloud);
-      actor.trial.now = TrialProgress(
-        length: 7,
-        startedAt: DateTime.now().subtract(const Duration(days: 2)),
-      );
+      actor.trial.now = TrialProgress(length: 7, startedAt: _daysAgo(2));
       actor.trialBlocked.now = 640;
 
       await _show(tester);
@@ -234,14 +283,14 @@ void main() {
       await bootModules(tester);
       await seedCloudAccount(tester);
       final channel = _MockPaymentChannel();
-      final start = DateTime.now().subtract(const Duration(days: 1));
+      final start = _daysAgo(1);
       when(() => channel.fetchActiveSubscriptions(any())).thenAnswer(
         (_) async => [
           StoreSubscription(
             accessLevelId: 'premium',
             store: 'app_store',
             willRenew: true,
-            expiresAt: start.add(const Duration(days: 7)),
+            expiresAt: _daysAgo(1 - 7),
             customerUserId: 'testaccount01',
             activatedAt: start,
             introOfferType: 'free_trial',
@@ -261,13 +310,11 @@ void main() {
       expect(actor.trialBlocked.now, isNull);
     });
 
-    testWidgets('a trial read still running when the account switches is dropped', (
-      tester,
-    ) async {
+    testWidgets('a trial read still running when the account switches is dropped', (tester) async {
       await bootModules(tester);
       await seedCloudAccount(tester);
       final channel = _MockPaymentChannel();
-      final start = DateTime.now().subtract(const Duration(days: 1));
+      final start = _daysAgo(1);
       _replace<PaymentChannel>(channel);
       final actor = Core.get<DailyHomeActor>();
 
@@ -282,7 +329,7 @@ void main() {
             accessLevelId: 'premium',
             store: 'app_store',
             willRenew: true,
-            expiresAt: start.add(const Duration(days: 7)),
+            expiresAt: _daysAgo(1 - 7),
             customerUserId: 'testaccount01',
             activatedAt: start,
             introOfferType: 'free_trial',
@@ -291,6 +338,134 @@ void main() {
         await read;
       });
       expect(actor.trial.now, isNull);
+    });
+  });
+
+  group('DailyHomeActor late results', () {
+    Future<_MockStatsStore> bootStats(WidgetTester tester) async {
+      await bootModules(tester);
+      await seedCloudAccount(tester);
+      final stats = _MockStatsStore();
+      when(() => stats.hasStats).thenReturn(false);
+      _replace<StatsStore>(stats);
+      return stats;
+    }
+
+    for (final older in ['finishes', 'fails']) {
+      testWidgets('an older trial blocks read that $older last does not win', (tester) async {
+        final stats = await bootStats(tester);
+        final actor = Core.get<DailyHomeActor>();
+        actor.trial.now = TrialProgress(length: 7, startedAt: _daysAgo(1));
+
+        await tester.runAsync(() async {
+          final first = Completer<int?>();
+          final second = Completer<int?>();
+          final answers = [first, second];
+          when(
+            () => stats.blockedSince(any(), any()),
+          ).thenAnswer((_) => answers.removeAt(0).future);
+          final olderRead = actor.refreshTrialBlocked(Markers.testing);
+          final newerRead = actor.refreshTrialBlocked(Markers.testing);
+          second.complete(50);
+          await newerRead;
+          if (older == 'fails') {
+            first.completeError(Exception('offline'));
+          } else {
+            first.complete(10);
+          }
+          await olderRead;
+        });
+        expect(actor.trialBlocked.now, 50);
+      });
+    }
+
+    testWidgets('a headline load for the previous account neither lands nor blocks the new one', (
+      tester,
+    ) async {
+      await bootModules(tester);
+      await seedCloudAccount(tester);
+      seedDevice();
+      final toplists = _Toplists();
+      _replace<ToplistStore>(toplists);
+      final actor = Core.get<DailyHomeActor>();
+
+      await tester.runAsync(() async {
+        final old = Completer<JsonToplistV2Response>();
+        toplists.answer = (call) => call == 0 ? old.future : Future.value(_toplist('new.example'));
+        final oldLoad = actor.refreshHeadline(Markers.testing);
+        await actor.onAccountIdChanged(Markers.testing);
+        await actor.refreshHeadline(Markers.testing);
+        expect(actor.headline.now?.domain, 'new.example');
+        old.complete(_toplist('old.example'));
+        await oldLoad;
+      });
+      expect(toplists.calls, 2);
+      expect(actor.headline.now?.domain, 'new.example');
+    });
+
+    testWidgets('a domain headline still loading when logging is turned off is not shown', (
+      tester,
+    ) async {
+      await bootModules(tester);
+      await seedCloudAccount(tester);
+      seedDevice();
+      final toplists = _Toplists();
+      _replace<ToplistStore>(toplists);
+      final actor = Core.get<DailyHomeActor>();
+
+      await tester.runAsync(() async {
+        final pending = Completer<JsonToplistV2Response>();
+        toplists.answer = (_) => pending.future;
+        final load = actor.refreshHeadline(Markers.testing);
+        // The setting alone, before any device refresh tells the actor.
+        runInAction(() => Core.get<DeviceStore>().retention = '1h');
+        pending.complete(_toplist('ads.example'));
+        await load;
+      });
+      // Another kind (a weekly totals event) may take the slot; no domain may.
+      expect(actor.headline.now?.domain, isNull);
+    });
+
+    testWidgets('turning logging off hides what it allowed', (tester) async {
+      await bootModules(tester);
+      await seedCloudAccount(tester);
+      seedDevice();
+      final actor = Core.get<DailyHomeActor>();
+      await tester.runAsync(() => actor.onDeviceChanged(Markers.testing));
+      actor.headline.now = topBlockedHeadline('ads.example', 12);
+      actor.lastBlockAt.now = DateTime.now();
+
+      runInAction(() => Core.get<DeviceStore>().retention = '1h');
+      await tester.runAsync(() => actor.onDeviceChanged(Markers.testing));
+
+      expect(actor.headline.now, isNull);
+      expect(actor.lastBlockAt.now, isNull);
+    });
+
+    testWidgets('an account switch reads the new account\'s trial again', (tester) async {
+      await bootModules(tester);
+      await seedCloudAccount(tester);
+      _seedAccount(_account(active: true, attributes: {'home_variant': 'daily'}));
+      final channel = _MockPaymentChannel();
+      final start = _daysAgo(1);
+      when(() => channel.fetchActiveSubscriptions(any())).thenAnswer(
+        (_) async => [
+          StoreSubscription(
+            accessLevelId: 'premium',
+            store: 'app_store',
+            willRenew: true,
+            expiresAt: _daysAgo(1 - 7),
+            customerUserId: 'testaccount01',
+            activatedAt: start,
+            introOfferType: 'free_trial',
+          ),
+        ],
+      );
+      _replace<PaymentChannel>(channel);
+      final actor = Core.get<DailyHomeActor>();
+
+      await tester.runAsync(() => actor.onAccountIdChanged(Markers.testing));
+      expect(actor.trial.now?.startedAt, start);
     });
   });
 
