@@ -76,6 +76,11 @@ Overrides: `SIM_BASE="iPhone 15"`, `NAME=custom`, `SIM_TEMPLATE="warm sim"`.
 `SIM_BASE` defaults to `iPhone 17` (what a current Xcode installs); if that
 model isn't installed, pass one from `xcrun simctl list devices available`.
 
+Daily Home experiment (#460), without changing the dev account:
+`MOCK_HOME_VARIANT=daily` (or `control`) forces the Home cohort, and
+`MOCK_TRIAL_DAY=3` fakes a 7 day store trial on its third day. Both are baked
+into the Flutter build like `ACCOUNT_ID`, so rebuild to change them.
+
 ## When to use what
 
 | Goal | Path |

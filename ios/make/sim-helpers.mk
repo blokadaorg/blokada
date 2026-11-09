@@ -142,7 +142,7 @@ define run-mocked-app
 	COMMON_DIR="$(abspath $(CURDIR)/..)/common"; \
 	DEFINES_FILE="$$COMMON_DIR/.dart_tool/dart-defines-mocked.env"; \
 	mkdir -p "$$COMMON_DIR/.dart_tool"; \
-	printf 'MOCKED=true\nFLAVOR=%s\nACCOUNT_ID=%s\n' "$$FLAVOR" "$${ACCOUNT_ID:-}" > "$$DEFINES_FILE"; \
+	printf 'MOCKED=true\nFLAVOR=%s\nACCOUNT_ID=%s\nMOCK_HOME_VARIANT=%s\nMOCK_TRIAL_DAY=%s\n' "$$FLAVOR" "$${ACCOUNT_ID:-}" "$${MOCK_HOME_VARIANT:-}" "$${MOCK_TRIAL_DAY:-0}" > "$$DEFINES_FILE"; \
 	trap 'rm -f "$$DEFINES_FILE"' EXIT; \
 	rm -f $(FLUTTER_STAMP); \
 	( cd "$$COMMON_DIR" && fvm flutter build swift-package --platform ios --output=build/ios-spm --build-mode debug --no-codesign --dart-define-from-file=.dart_tool/dart-defines-mocked.env ); \

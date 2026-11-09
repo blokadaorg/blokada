@@ -176,6 +176,18 @@ abstract class StatsStoreBase with Store, Logging, Actor {
     return buildAllowedDailySeriesFromRollingStats(rolling, days: days);
   }
 
+  /// Requests blocked on this device since [since], summed from the daily
+  /// buckets of the last two weeks. Home's trial progress (#460) shows it as
+  /// "blocked so far": the all-time total would also count the weeks an
+  /// account may have spent on freemium before its trial. Null when the
+  /// device has no name yet.
+  Future<int?> blockedSince(Marker m, DateTime since, {bool force = false}) async {
+    final deviceName = _deviceNameOrNull(m);
+    if (deviceName == null) return null;
+    final rolling = await _fetchRolling2w(m, deviceName, force: force);
+    return sumBlockedSince(rolling, since);
+  }
+
   StatsCounters _buildCounters(api.JsonStatsEndpoint? endpoint) {
     if (endpoint == null) return StatsCounters.empty();
     int allowed = 0;
@@ -796,4 +808,23 @@ PeriodCounters buildHourlyPeriodCountersFromRollingStats(
     previous: previous,
     hasComparison: hasComparison,
   );
+}
+
+/// Sums the blocked daily buckets of [endpoint] that end after [since], so
+/// the day [since] falls in counts whole: buckets are a day long and the
+/// endpoint has no finer resolution for older days.
+@visibleForTesting
+int sumBlockedSince(api.JsonStatsEndpoint endpoint, DateTime since) {
+  var sum = 0;
+  for (final metric in endpoint.stats.metrics) {
+    final action = metric.tags.action;
+    if (action == "allowed" || action == "fallthrough") continue;
+    for (final d in metric.dps) {
+      // Timestamps come in seconds or milliseconds depending on the backend.
+      final ms = d.timestamp > 10000000000 ? d.timestamp : d.timestamp * 1000;
+      final end = DateTime.fromMillisecondsSinceEpoch(ms, isUtc: true).add(const Duration(days: 1));
+      if (end.isAfter(since)) sum += d.value.round();
+    }
+  }
+  return sum;
 }

@@ -889,5 +889,18 @@
     "private dns android help samsung": "Update Samsung Device Services in the Galaxy Store, then try again.",
     "private dns android help support": "Still not working? Chat with us and we'll help.",
     "private dns android copied hint": "Hostname copied. Paste it in Settings.",
-    "private dns android blokada hostname label": "Your Blokada hostname"
+    "private dns android blokada hostname label": "Your Blokada hostname",
+    "home status protected": "Protected",
+    "home status protected last block": "Protected · last block %s",
+    "home status protected blocked": "Protected · %s blocked in 24 h",
+    "home trial day": "Day %s of %s",
+    "home trial blocked so far": "%s blocked so far",
+    "home headline top blocked title": "Most blocked today",
+    "home headline top blocked body": "%s tried to reach your device and was blocked %s times in the last 24 hours.",
+    "home headline busiest hour title": "Busiest hour",
+    "home headline busiest hour body": "Blokada blocked %s requests between %s and %s.",
+    "home expired header": "Protection ended on %s",
+    "home expired header nodate": "Your protection has ended",
+    "home expired blocked": "Blokada blocked %s for you.",
+    "home expired action": "Resubscribe"
 }

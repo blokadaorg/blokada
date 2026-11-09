@@ -167,6 +167,31 @@ void main() {
       });
     });
 
+    test("expireOfflineKeepsAttributesAndPaymentSource", () async {
+      await withTrace((m) async {
+        final persistence = MockPersistence();
+        when(persistence.loadJson(any, any, isBackup: true)).thenAnswer((_) => Future.value({
+              ...jsonDecode(fixtureJsonAccount) as Map<String, dynamic>,
+              "attributes": {"home_variant": "daily"},
+            }));
+        Core.register<Persistence>(persistence, tag: Persistence.secure);
+        Core.register<AccountApi>(MockAccountApi());
+
+        final subject = AccountStore();
+        mockAct(subject);
+        await subject.load(m);
+
+        await subject.expireOffline(m);
+
+        final json = subject.account!.jsonAccount;
+        expect(json.active, false);
+        // An offline expiry must not move the account out of its cohort or
+        // make a paid account look never paid for.
+        expect(json.getHomeVariant(), HomeVariant.daily);
+        expect(json.hasBeenActiveBefore(), true);
+      });
+    });
+
     test("proposeWillUpdateAccountAndWriteToPersistence", () async {
       await withTrace((m) async {
         final persistence = MockPersistence();

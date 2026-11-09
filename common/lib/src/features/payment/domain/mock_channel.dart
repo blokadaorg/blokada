@@ -35,8 +35,26 @@ class MockPaymentChannel with Logging, PaymentChannel {
   Future<void> setCustomAttributes(Marker m, Map<String, dynamic> attributes) async {}
 
   // No store on the simulator: Settings falls back to the account's end date.
+  // MOCK_TRIAL_DAY=N fakes a 7 day store trial on its day N, so Home's trial
+  // line (#460) can be shown on the simulator.
   @override
-  Future<List<StoreSubscription>> fetchActiveSubscriptions(Marker m) async => [];
+  Future<List<StoreSubscription>> fetchActiveSubscriptions(Marker m) async {
+    const trialDay = int.fromEnvironment('MOCK_TRIAL_DAY');
+    if (trialDay <= 0) return [];
+    final today = DateTime.now();
+    final start = DateTime(today.year, today.month, today.day - (trialDay - 1), 9);
+    return [
+      StoreSubscription(
+        accessLevelId: 'premium',
+        store: 'app_store',
+        willRenew: true,
+        expiresAt: start.add(const Duration(days: 7)),
+        customerUserId: null,
+        activatedAt: start,
+        introOfferType: 'free_trial',
+      ),
+    ];
+  }
 
   @override
   Future<String?> restorePurchases(Marker m) async => null;

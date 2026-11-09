@@ -19,10 +19,32 @@ enum EssentialsOnboardingOrder {
   }
 }
 
+/// The Home layout cohort (#460). The API assigns it to new v6 accounts and
+/// the app passes every account attribute on to Adapty, so trial outcomes can
+/// be split by cohort there. [daily] gets the Home that shows something new
+/// each day; anything else, including no value, is [control] so accounts
+/// outside the experiment keep today's Home.
+enum HomeVariant {
+  control("control"),
+  daily("daily");
+
+  final String apiValue;
+
+  const HomeVariant(this.apiValue);
+
+  static HomeVariant fromApiValue(String? value) {
+    return HomeVariant.values.firstWhere(
+      (variant) => variant.apiValue == value,
+      orElse: () => HomeVariant.control,
+    );
+  }
+}
+
 class JsonAccount {
   static const String _attrFreemium = 'freemium';
   static const String _attrFreemiumYoutubeUntil = 'freemium_youtube_until';
   static const String _attrEssentialsOnboardingOrder = 'essentials_onboarding_order';
+  static const String _attrHomeVariant = 'home_variant';
 
   late String id;
   String? activeUntil;
@@ -63,6 +85,12 @@ class JsonAccount {
     if (attributes == null) return EssentialsOnboardingOrder.afterPaywall;
     final value = attributes![_attrEssentialsOnboardingOrder];
     return EssentialsOnboardingOrder.fromApiValue(value is String ? value : null);
+  }
+
+  /// The Home cohort; [HomeVariant.control] when the API sent none.
+  HomeVariant getHomeVariant() {
+    final value = attributes?[_attrHomeVariant];
+    return HomeVariant.fromApiValue(value is String ? value : null);
   }
 
   DateTime getActiveUntil() {

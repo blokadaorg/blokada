@@ -219,7 +219,11 @@ abstract class AccountStoreBase with Store, Logging, Actor, Emitter {
         activeUntil: DateTime.now().toIso8601String(),
         active: false,
         type: AccountType.libre.name,
-      );
+        // Keep what the API told us about the account: dropping the
+        // attributes would move it out of its experiment cohorts, and
+        // dropping the payment source would make it look never paid for.
+        attributes: account!.jsonAccount.attributes,
+      )..paymentSource = account!.jsonAccount.paymentSource;
 
       await _persistence.saveJson(m, keyAccount, jsonAccount.toJson(), isBackup: true);
       await _changeAccount(account!.update(jsonAccount), m);

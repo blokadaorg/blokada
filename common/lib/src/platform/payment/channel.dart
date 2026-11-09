@@ -39,6 +39,8 @@ class PlatformPaymentChannel with PaymentChannel {
               willRenew: it.willRenew,
               expiresAt: it.expiresAt == null ? null : DateTime.tryParse(it.expiresAt!),
               customerUserId: it.customerUserId,
+              activatedAt: it.activatedAt == null ? null : DateTime.tryParse(it.activatedAt!),
+              introOfferType: it.introOfferType,
             ))
         .toList();
   }
