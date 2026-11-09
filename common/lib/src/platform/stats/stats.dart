@@ -250,7 +250,10 @@ abstract class StatsStoreBase with Store, Logging, Actor {
     String deviceName, {
     bool force = false,
   }) async {
-    final key = "${_accountId.present}/$deviceName";
+    // Read once: the request names the account the cache key does, even if
+    // the account switches while the request runs.
+    final accountId = _accountId.present;
+    final key = "$accountId/$deviceName";
     final cached = _lastRolling2wEndpoint;
     if (!force &&
         cached != null &&
@@ -259,7 +262,7 @@ abstract class StatsStoreBase with Store, Logging, Actor {
       return cached;
     }
 
-    final endpoint = await _api.getStats("2w", "24h", deviceName, m);
+    final endpoint = await _api.getStats("2w", "24h", deviceName, m, accountId: accountId);
     _lastRolling2wEndpoint = endpoint;
     _lastRolling2wKey = key;
     _lastRolling2wFetch = DateTime.now();

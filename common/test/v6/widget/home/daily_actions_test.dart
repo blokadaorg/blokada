@@ -10,6 +10,7 @@ import 'package:common/src/platform/account/api.dart';
 import 'package:common/src/platform/app/channel.pg.dart';
 import 'package:common/src/platform/device/device.dart';
 import 'package:common/src/platform/stats/api.dart';
+import 'package:common/src/platform/stats/model.dart';
 import 'package:common/src/platform/stats/stats.dart';
 import 'package:common/src/platform/stats/toplist_store.dart';
 import 'package:common/src/shared/ui/anim/reveal.dart';
@@ -378,6 +379,29 @@ void main() {
         expect(actor.trialBlocked.now, 50);
       });
     }
+
+    testWidgets('an older expired total read that fails last does not erase the newer total', (
+      tester,
+    ) async {
+      final stats = await bootStats(tester);
+      final actor = Core.get<DailyHomeActor>();
+
+      await tester.runAsync(() async {
+        final first = Completer<UiStats>();
+        final second = Completer<UiStats>();
+        final answers = [first, second];
+        when(() => stats.fetchDay(any())).thenAnswer((_) => answers.removeAt(0).future);
+        final olderRead = actor.refreshExpired(Markers.testing);
+        final newerRead = actor.refreshExpired(Markers.testing);
+        when(() => stats.hasStats).thenReturn(true);
+        when(() => stats.stats).thenReturn(UiStats.empty(totalBlocked: 12300));
+        second.complete(UiStats.empty(totalBlocked: 12300));
+        await newerRead;
+        first.completeError(Exception('offline'));
+        await olderRead;
+      });
+      expect(actor.expiredBlocked.now, 12300);
+    });
 
     testWidgets('a headline load for the previous account neither lands nor blocks the new one', (
       tester,

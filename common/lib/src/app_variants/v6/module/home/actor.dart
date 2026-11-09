@@ -94,6 +94,7 @@ class DailyHomeActor with Logging, Actor {
   int _trialRead = 0;
   int _trialBlockedRead = 0;
   int _lastBlockRead = 0;
+  int _expiredRead = 0;
 
   /// The scope the running headline load belongs to, or null when none runs.
   /// A refresh for a newer scope still runs; the older one drops its result.
@@ -364,6 +365,7 @@ class DailyHomeActor with Logging, Actor {
   /// refresh timer only runs while protection is on, so it has to ask.
   Future<void> refreshExpired(Marker m) async {
     final generation = _generation;
+    final read = ++_expiredRead;
     int? total;
     try {
       await _statsStore.fetchDay(m);
@@ -372,6 +374,6 @@ class DailyHomeActor with Logging, Actor {
       log(m).e(msg: "homeDaily: failed reading expired total", err: e, stack: s);
       total = null;
     }
-    _publish(generation, () => expiredBlocked.now = total);
+    _publish(generation, () => expiredBlocked.now = total, latest: read == _expiredRead);
   }
 }

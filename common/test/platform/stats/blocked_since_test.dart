@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:common/src/core/core.dart';
 import 'package:common/src/features/api/domain/api.dart';
 import 'package:common/src/platform/device/device.dart';
@@ -11,6 +14,20 @@ import '../../tools.dart';
 class _MockStatsApi extends Mock implements StatsApi {}
 
 class _MockDeviceStore extends Mock implements DeviceStore {}
+
+/// Answers stats requests with [response], recording their params.
+class _PendingApi extends Api {
+  _PendingApi(this.response);
+
+  final Future<String> response;
+  final List<QueryParams> params = [];
+
+  @override
+  Future<JsonString> get(ApiEndpoint endpoint, Marker m, {QueryParams? params}) {
+    this.params.add(params ?? {});
+    return response;
+  }
+}
 
 JsonStatsEndpoint _endpoint(Map<String, Map<int, double>> byAction) {
   return JsonStatsEndpoint(
@@ -54,7 +71,7 @@ void main() {
           }),
         ];
         when(
-          () => statsApi.getStats("2w", "24h", 'Pixel', any()),
+          () => statsApi.getStats("2w", "24h", 'Pixel', any(), accountId: any(named: 'accountId')),
         ).thenAnswer((_) async => answers.removeAt(0));
         final store = StatsStore();
         final since = DateTime.utc(2026, 11, 1);
@@ -64,6 +81,31 @@ void main() {
         await accountId.change(m, 'second');
         // Within the cache's lifetime, but another account.
         expect(await store.blockedSince(m, since), 99);
+      });
+    });
+
+    test("asksForTheAccountItCachesUnder", () async {
+      await withTrace((m) async {
+        final pending = Completer<String>();
+        final api = _PendingApi(pending.future);
+        final device = _MockDeviceStore();
+        final accountId = AccountId();
+        Core.register<Api>(api);
+        Core.register<StatsApi>(StatsApi());
+        Core.register<DeviceStore>(device);
+        Core.register<AccountId>(accountId);
+        when(() => device.deviceAlias).thenReturn('Pixel');
+        final store = StatsStore();
+
+        await accountId.change(m, 'first');
+        final read = store.blockedSince(m, DateTime.utc(2026, 11, 1));
+        // A switch while the request runs must not send it for 'second'
+        // while the result is cached as 'first'.
+        await accountId.change(m, 'second');
+        pending.complete(jsonEncode(_endpoint({}).toJson()));
+        await read;
+
+        expect(api.params.single[ApiParam.accountId], 'first');
       });
     });
   });
