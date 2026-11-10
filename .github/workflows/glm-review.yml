@@ -42,6 +42,14 @@ jobs:
           # while keeping a review under about $0.20.
           config.custom_model_max_tokens: "1000000"
           config.max_model_tokens: "128000"
+          # GLM reasons before it answers and often takes over PR-Agent's
+          # default 120s on a large diff, failing every retry.
+          config.ai_timeout: "600"
+          # At its default effort GLM 5.3 can reason past 30k tokens and 10 min
+          # before writing a review; "low" reviews a 50 KB diff in about 80s.
+          # PR-Agent only sends reasoning_effort to models it lists.
+          config.reasoning_effort: "low"
+          config.additional_reasoning_effort_models: '["glm-5.3"]'
           # Post each finding as a line comment, so it gets a thread to resolve.
           pr_reviewer.inline_key_issues: "true"
           pr_reviewer.num_max_findings: "5"
