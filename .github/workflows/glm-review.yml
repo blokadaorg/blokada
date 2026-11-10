@@ -45,10 +45,10 @@ jobs:
           # GLM reasons before it answers and often takes over PR-Agent's
           # default 120s on a large diff, failing every retry.
           config.ai_timeout: "600"
-          # At its default effort GLM 5.3 can reason past 30k tokens and 10 min
-          # before writing a review; "low" reviews a 50 KB diff in about 80s.
+          # Unset, GLM 5.3 thinks like "max": past 30k tokens and 10 min on a
+          # 50 KB diff without writing a review. "high" takes about 3 min.
           # PR-Agent only sends reasoning_effort to models it lists.
-          config.reasoning_effort: "low"
+          config.reasoning_effort: "high"
           config.additional_reasoning_effort_models: '["glm-5.3"]'
           # Post each finding as a line comment, so it gets a thread to resolve.
           pr_reviewer.inline_key_issues: "true"
