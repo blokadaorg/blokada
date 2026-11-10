@@ -1157,6 +1157,24 @@
 "activity logging action enable" = "Turn on activity logging";
 // Shown instead of an empty list right after activity logging was turned on, until the first requests show up
 "activity logging collecting" = "Collecting your first results";
+// Guided setup after purchase (#457), first sheet: what the user wants Blokada to block. Each answer turns on one blocklist.
+"activation goals header" = "Vad vill du slippa?";
+"activation goals brief" = "Välj vad Blokada ska blockera åt dig. Du kan ändra detta när som helst under Avancerat.";
+"activation goal app ads" = "Annonser i appar och spel";
+"activation goal trackers" = "Spårare";
+"activation goal scams" = "Bluffsajter";
+"activation goal adult" = "Vuxet innehåll";
+// Guided setup after purchase: declines turning on activity logging for now
+"activation logging skip" = "Inte nu";
+// Guided setup after purchase, last sheet: the first blocked requests right after DNS setup, live for about a minute
+"activation first blocks header" = "Blokada fungerar";
+"activation first blocks brief" = "Använd telefonen som vanligt. Det som Blokada blockerar visas här.";
+// Shown instead of the brief above when activity logging is off, so only the counter is shown
+"activation first blocks brief counter" = "Använd telefonen som vanligt. Räknaren ökar varje gång Blokada blockerar något.";
+// Label under the number of requests blocked so far
+"activation first blocks counter label" = "Blockerade hittills";
+// Shown while the list of blocked requests is still empty
+"activation first blocks waiting" = "Väntar på den första blockeringen…";
 
 // Top line of Privacy Pulse. First %s is how many requests were blocked (e.g. "36" or "12.3K"), second %s is the range ("24 h" or "7 d"). One form for a count of 1, the other for all other counts.
 "privacy pulse insight blocked one" = "%s blocked in %s";

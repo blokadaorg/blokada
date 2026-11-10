@@ -1157,6 +1157,24 @@
 "activity logging action enable" = "Turn on activity logging";
 // Shown instead of an empty list right after activity logging was turned on, until the first requests show up
 "activity logging collecting" = "Collecting your first results";
+// Guided setup after purchase (#457), first sheet: what the user wants Blokada to block. Each answer turns on one blocklist.
+"activation goals header" = "Čeho se chcete zbavit?";
+"activation goals brief" = "Vyberte, co má Blokada blokovat. Nastavení můžete kdykoli změnit v sekci Pokročilé.";
+"activation goal app ads" = "Reklamy v aplikacích a hrách";
+"activation goal trackers" = "Sledovací prvky";
+"activation goal scams" = "Podvodné weby";
+"activation goal adult" = "Obsah pro dospělé";
+// Guided setup after purchase: declines turning on activity logging for now
+"activation logging skip" = "Teď ne";
+// Guided setup after purchase, last sheet: the first blocked requests right after DNS setup, live for about a minute
+"activation first blocks header" = "Blokada funguje";
+"activation first blocks brief" = "Používejte telefon jako obvykle. Tady uvidíte, co Blokada zablokovala.";
+// Shown instead of the brief above when activity logging is off, so only the counter is shown
+"activation first blocks brief counter" = "Používejte telefon jako obvykle. Pokaždé, když Blokada něco zablokuje, číslo na počítadle se zvýší.";
+// Label under the number of requests blocked so far
+"activation first blocks counter label" = "Zatím zablokováno";
+// Shown while the list of blocked requests is still empty
+"activation first blocks waiting" = "Čekáme na první zablokovaný požadavek…";
 
 // Top line of Privacy Pulse. First %s is how many requests were blocked (e.g. "36" or "12.3K"), second %s is the range ("24 h" or "7 d"). One form for a count of 1, the other for all other counts.
 "privacy pulse insight blocked one" = "%s blocked in %s";
