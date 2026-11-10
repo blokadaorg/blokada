@@ -1159,6 +1159,24 @@
 "activity logging action enable" = "Turn on activity logging";
 // Shown instead of an empty list right after activity logging was turned on, until the first requests show up
 "activity logging collecting" = "Collecting your first results";
+// Guided setup after purchase (#457), first sheet: what the user wants Blokada to block. Each answer turns on one blocklist.
+"activation goals header" = "您想阻擋哪些內容？";
+"activation goals brief" = "選擇要讓 Blokada 為您阻擋的內容。您隨時可以在「進階」中變更。";
+"activation goal app ads" = "應用程式和遊戲中的廣告";
+"activation goal trackers" = "追蹤器";
+"activation goal scams" = "詐騙網站";
+"activation goal adult" = "成人內容";
+// Guided setup after purchase: declines turning on activity logging for now
+"activation logging skip" = "暫時不要";
+// Guided setup after purchase, last sheet: the first blocked requests right after DNS setup, live for about a minute
+"activation first blocks header" = "Blokada 正在運作";
+"activation first blocks brief" = "照常使用手機。Blokada 阻擋的項目會顯示在這裡。";
+// Shown instead of the brief above when activity logging is off, so only the counter is shown
+"activation first blocks brief counter" = "照常使用手機。每當 Blokada 阻擋項目時，計數就會增加。";
+// Label under the number of requests blocked so far
+"activation first blocks counter label" = "目前已阻擋";
+// Shown while the list of blocked requests is still empty
+"activation first blocks waiting" = "等待首次阻擋……";
 
 // Top line of Privacy Pulse. First %s is how many requests were blocked (e.g. "36" or "12.3K"), second %s is the range ("24 h" or "7 d"). One form for a count of 1, the other for all other counts.
 "privacy pulse insight blocked one" = "%s blocked in %s";
