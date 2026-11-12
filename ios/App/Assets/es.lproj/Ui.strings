@@ -16,7 +16,7 @@
 "error account inactive after restore" = "Esta no parece ser una cuenta activa válida. Si cree que se trata de un error, póngase en contacto con nosotros.";
 "error account invalid" = "Este ID de cuenta parece inválido.";
 "error creating account" = "No se ha podido crear la cuenta. Inténtalo de nuevo más tarde.";
-"error fetching data" = "No se ha podido completar esta acción. Asegúrate de tener conexión e inténtalo de nuevo más tarde. Si el problema persiste, contacta con nosotros tocando el icono de ayuda en la parte superior.";
+"error fetching data" = "No se ha podido completar esta acción. Asegúrese de tener conexión e inténtelo de nuevo más tarde. Si el problema persiste, póngase en contacto con nosotros.";
 "error tunnel" = "No ha podido establecer el VPN. Reinicia tu dispositivo o elimine el perfil VPN de Blokada en la configuración del sistema, e inténtalo de nuevo.";
 "error vpn" = "No ha podido establecer el VPN. Reinicia tu dispositivo o elimine el perfil VPN de Blokada en la configuración del sistema, e inténtalo de nuevo.";
 "error vpn perms" = "No se han concedido permisos para crear un perfil VPN.";
@@ -24,15 +24,15 @@
 "error vpn no current lease new" = "Blokada Plus está desactivado en este dispositivo. Por favor, seleccione una ubicación para reactivarla.";
 "error vpn too many leases" = "Has alcanzado el límite de dispositivos. Por favor, elimina uno de tus dispositivos e inténtalo de nuevo.";
 "error vpn expired" = "El VPN está desactivado. Por favor, actualiza tu suscripción para seguir usando BLOKADA+";
-"error payment inactive after restore" = "Tu pago anterior se ha restaurado, pero la suscripción ya ha caducado. Si crees que esto es un error, ponte en contacto con nosotros tocando el icono de ayuda en la parte superior.";
+"error payment inactive after restore" = "Su pago anterior se ha restaurado, pero la suscripción ya ha caducado. Si cree que se trata de un error, póngase en contacto con nosotros.";
 "error restore not found" = "No pudimos encontrar una suscripción activa de Blokada para restaurar. Si su suscripción ha caducado, puede comprar una nueva. Si cree que esto es un error, por favor contáctenos.";
-"error payment failed" = "Pagos no disponibles actualmente. Asegúrate de tener conexión e inténtalo de nuevo más tarde. Si el problema persiste, contacta con nosotros tocando el icono de ayuda en la parte superior.";
-"error payment failed alternative" = "No se pudo completar el pago. Por favor, asegúrate de que tus datos son correctos e inténtalo de nuevo. Si el problema persiste, por favor ponte en contacto con nosotros tocando el icono de ayuda en la parte superior.";
+"error payment failed" = "Los pagos no están disponibles en este momento. Asegúrese de tener conexión e inténtelo de nuevo más tarde. Si el problema persiste, póngase en contacto con nosotros.";
+"error payment failed alternative" = "No se ha podido completar su pago. Asegúrese de que sus datos sean correctos e inténtelo de nuevo. Si el problema persiste, póngase en contacto con nosotros.";
 "error payment not available" = "Los pagos no están disponibles para este dispositivo. O este dispositivo no está actualizado, o aún no gestionamos las compras en su país.";
 "error payment canceled" = "El pago se ha cancelado. No se ha cobrado nada.";
 "error pack install" = "No se ha podido instalar (o desinstalar) esta característica. Inténtalo de nuevo más tarde.";
 "error location failed fetching" = "No se ha encontrado tu ubicación.";
-"error unknown" = "Ha ocurrido un problema. Comprueba tu conexión a internet e inténtalo nuevamente más tarde. Si el problema persiste, contáctanos presionando el icono de ayuda de la parte superior.";
+"error unknown" = "Ha ocurrido un problema. Asegúrese de tener conexión e inténtelo de nuevo más tarde. Si el problema persiste, póngase en contacto con nosotros.";
 "error multiple apps" = "Hay más de una aplicación Blokada en tu dispositivo. Esto puede causar problemas de conectividad. ¿Quieres solucionarlo ahora?";
 "error locked" = "Esta acción no está disponible cuando la aplicación está en un estado bloqueado. Por favor, desbloquea la aplicación para continuar.";
 "error lock invalid" = "Un PIN válido debe tener exactamente 4 dígitos. Por favor, inténtalo de nuevo.";
@@ -88,7 +88,7 @@
 "support action chat" = "Chatea con nosotros";
 // Action to end chat. Keep it super short
 "support action end" = "Fin";
-// Small link under the main button of the DNS setup sheet and in the Restore account ID dialog, opens the support chat. Keep it short
+// Small link under the main button of the DNS setup sheet and in the Restore account ID dialog, and a button on some error alerts. Opens the support chat. Keep it short
 "support action ask" = "Contactar con soporte";
 // Replaces "Ask support" in the same small link while a support chat is still open, and reopens that chat. Keep it short
 "support action continue" = "Continuar el chat con soporte";
@@ -1263,3 +1263,30 @@
 "private dns android copied hint" = "Hostname copied. Paste it in Settings.";
 // Label above the Private DNS hostname on the Android setup sheet
 "private dns android blokada hostname label" = "Your Blokada hostname";
+
+// Daily Home (#460): the line under the power button while protection is on. Shown until the numbers load.
+"home status protected" = "Protegido";
+// Same line once loaded, with activity logging on. %s is how long ago the last request was blocked, e.g. "2 minutes ago"
+"home status protected last block" = "Protegido · último bloqueo: %s";
+// Same line with activity logging off. %s is how many requests were blocked in the last 24 hours, e.g. "36" or "12.3K"
+"home status protected blocked" = "Protegido · %s solicitudes bloqueadas en 24 h";
+// Home during the free trial. First %s is the day of the trial, second %s its length in days, e.g. "Day 3 of 7"
+"home trial day" = "Día %s de %s";
+// Added after the line above. %s is how many requests were blocked since the trial started, e.g. "1,240" or "12.3K"
+"home trial blocked so far" = "%s solicitudes bloqueadas hasta ahora";
+// Home card: the domain blocked most often in the last 24 hours
+"home headline top blocked title" = "Dominio más bloqueado hoy";
+// First %s is a domain (e.g. "doubleclick.net"), second %s how many times it was blocked
+"home headline top blocked body" = "%s intentó acceder a su dispositivo y fue bloqueado %s veces en las últimas 24 horas.";
+// Home card: the hour of the last 24 with the most blocked requests
+"home headline busiest hour title" = "Hora de mayor actividad";
+// First %s is the number blocked, second and third %s the start and end of the hour, e.g. "9:00 PM" and "10:00 PM"
+"home headline busiest hour body" = "Blokada bloqueó %s solicitudes entre las %s y las %s.";
+// Home after a subscription ended. %s is the date it ended, e.g. "3 Nov"
+"home expired header" = "La protección terminó el %s";
+// Used instead of the line above when the end date is unknown
+"home expired header nodate" = "Su protección ha terminado";
+// Under the line above. %s is how many requests Blokada blocked on this device, e.g. "12.3K"
+"home expired blocked" = "Blokada bloqueó %s solicitudes para protegerle.";
+// Button that opens the subscription offer again
+"home expired action" = "Volver a suscribirse";

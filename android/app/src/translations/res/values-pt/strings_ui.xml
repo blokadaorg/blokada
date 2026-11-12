@@ -6,7 +6,7 @@
     <string name="error_account_inactive_after_restore">Esta não parece ser uma conta ativa válida. Se considerar que se trata de um erro, contacte-nos.</string>
     <string name="error_account_invalid">O ID da conta parece ser inválido.</string>
     <string name="error_creating_account">Não foi possível criar uma nova conta. Por favor, tente novamente mais tarde.</string>
-    <string name="error_fetching_data">Esta ação não pôde ser concluída. Verifique se você está online e tente novamente mais tarde. Se o problema persistir, entre em contato conosco tocando no ícone de ajuda na parte superior.</string>
+    <string name="error_fetching_data">Não foi possível concluir esta ação. Verifique se você está conectado à internet e tente novamente mais tarde. Se o problema persistir, entre em contato conosco.</string>
     <string name="error_tunnel">Não foi possível estabelecer a VPN. Por favor, reinicie seu dispositivo ou remova o perfil de VPN do Blokada nas configurações do sistema e tente novamente.</string>
     <string name="error_vpn">Não foi possível estabelecer a VPN. Por favor, reinicie seu dispositivo ou remova o perfil de VPN do Blokada nas configurações do sistema e tente novamente.</string>
     <string name="error_vpn_perms">Nenhuma permissão concedida para criar um perfil de VPN.</string>
@@ -14,15 +14,15 @@
     <string name="error_vpn_no_current_lease_new">O Blokada Plus está desativado neste dispositivo. Por favor, selecione um local para reativá-lo.</string>
     <string name="error_vpn_too_many_leases">Você atingiu o seu limite de dispositivos. Por favor, remova um dos seus dispositivos e tente novamente.</string>
     <string name="error_vpn_expired">A VPN está desativada. Atualize sua assinatura para continuar a utilizar o BLOKADA+</string>
-    <string name="error_payment_inactive_after_restore">Seu pagamento anterior foi restaurado, mas a assinatura já expirou. Se você acredita que isso é um erro, entre em contato conosco tocando no ícone de ajuda na parte superior.</string>
+    <string name="error_payment_inactive_after_restore">Seu pagamento anterior foi restaurado, mas a assinatura já expirou. Se você acredita que isso é um erro, entre em contato conosco.</string>
     <string name="error_restore_not_found">Não encontramos uma assinatura ativa do Blokada para restaurar. Se a sua assinatura expirou, você pode comprar uma nova. Se você acredita que isso é um engano, por favor entre em contato conosco.</string>
-    <string name="error_payment_failed">Os pagamentos não estão disponíveis neste momento. Certifique-se de estar online e tente novamente mais tarde. Se o problema persistir, entre em contato conosco tocando no ícone de ajuda na parte superior.</string>
-    <string name="error_payment_failed_alternative">Não foi possível concluir o seu pagamento. Por favor, certifique-se de que seus dados estão corretos e tente novamente. Se o problema persistir, entre em contato conosco tocando no ícone de ajuda na parte superior.</string>
+    <string name="error_payment_failed">Os pagamentos estão indisponíveis no momento. Verifique se você está conectado à internet e tente novamente mais tarde. Se o problema persistir, entre em contato conosco.</string>
+    <string name="error_payment_failed_alternative">Não foi possível concluir seu pagamento. Verifique se seus dados estão corretos e tente novamente. Se o problema persistir, entre em contato conosco.</string>
     <string name="error_payment_not_available">Pagamentos não estão disponíveis para este dispositivo. Ou este dispositivo não está atualizado, ou ainda não lidamos com as compras no seu país.</string>
     <string name="error_payment_canceled">O pagamento foi cancelado. Você não foi cobrado.</string>
     <string name="error_pack_install">Não foi possível instalar (ou desinstalar) esse recurso. Por favor, tente novamente mais tarde.</string>
     <string name="error_location_failed_fetching">Não foi possível buscar as localizações.</string>
-    <string name="error_unknown">Ocorreu um problema. Verifique se você está online e tente novamente mais tarde. Se o problema persistir, entre em contato conosco tocando no ícone de ajuda na parte superior.</string>
+    <string name="error_unknown">Ocorreu um problema. Verifique se você está conectado à internet e tente novamente mais tarde. Se o problema persistir, entre em contato conosco.</string>
     <string name="error_multiple_apps">Há mais de um aplicativo do Blokada no seu dispositivo. Isso pode causar problemas de conectividade. Você deseja corrigi-lo agora?</string>
     <string name="error_locked">Esta ação não está disponível quando o aplicativo está em um estado bloqueado. Por favor, desbloqueie o aplicativo para prosseguir.</string>
     <string name="error_lock_invalid">Um PIN válido deve ter exatamente 4 dígitos. Por favor, tente novamente.</string>
@@ -903,4 +903,17 @@
     <string name="private_dns_android_help_support">Still not working? Chat with us and we\'ll help.</string>
     <string name="private_dns_android_copied_hint">Hostname copied. Paste it in Settings.</string>
     <string name="private_dns_android_blokada_hostname_label">Your Blokada hostname</string>
+    <string name="home_status_protected">Protegido</string>
+    <string name="home_status_protected_last_block">Protegido · último bloqueio: %s</string>
+    <string name="home_status_protected_blocked">Protegido · %s pedidos bloqueados nas últimas 24 h</string>
+    <string name="home_trial_day">Dia %s de %s</string>
+    <string name="home_trial_blocked_so_far">%s pedidos bloqueados até agora</string>
+    <string name="home_headline_top_blocked_title">O mais bloqueado hoje</string>
+    <string name="home_headline_top_blocked_body">%s tentou aceder ao seu dispositivo e foi bloqueado %s vezes nas últimas 24 horas.</string>
+    <string name="home_headline_busiest_hour_title">Hora com mais bloqueios</string>
+    <string name="home_headline_busiest_hour_body">O Blokada bloqueou %s pedidos entre as %s e as %s.</string>
+    <string name="home_expired_header">A sua proteção terminou em %s</string>
+    <string name="home_expired_header_nodate">A sua proteção terminou</string>
+    <string name="home_expired_blocked">O Blokada bloqueou %s pedidos para si.</string>
+    <string name="home_expired_action">Subscrever novamente</string>
 </resources>

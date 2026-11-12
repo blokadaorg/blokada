@@ -6,7 +6,7 @@
     <string name="error_account_inactive_after_restore">有効なアクティブアカウントではないようです。誤りと思われる場合はお問い合わせください。</string>
     <string name="error_account_invalid">アカウント ID を確認してください</string>
     <string name="error_creating_account">新しいアカウントを作成できませんでした。後でもう一度お試しください。</string>
-    <string name="error_fetching_data">操作を完了できませんでした。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。</string>
+    <string name="error_fetching_data">操作を完了できませんでした。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ご連絡ください。</string>
     <string name="error_tunnel">VPN 接続を確立できませんでした。端末を再起動するか、システム設定で Blokada の VPN プロファイルを削除して再度お試しください。</string>
     <string name="error_vpn">VPN 接続を確立できませんでした。端末を再起動するか、システム設定で Blokada の VPN プロファイルを削除して再度お試しください。</string>
     <string name="error_vpn_perms">VPN プロファイルを作成する権限がありません。</string>
@@ -14,15 +14,15 @@
     <string name="error_vpn_no_current_lease_new">Blokada Plus が無効になりました。接続先を選択して有効にしてください。</string>
     <string name="error_vpn_too_many_leases">端末数の上限に達しました。いずれかの端末を削除して、もう一度やり直してください。</string>
     <string name="error_vpn_expired">VPN は無効です。BLOKADA+ を引き続き使用するには、サブスクリプションを更新してください。</string>
-    <string name="error_payment_inactive_after_restore">以前のお支払いは復元されましたが、サブスクリプションの有効期限が終了しています。これが間違いであると思われる場合は、ヘルプからご連絡ください。</string>
+    <string name="error_payment_inactive_after_restore">以前のお支払いは復元されましたが、サブスクリプションの有効期限が終了しています。これが間違いであると思われる場合は、ご連絡ください。</string>
     <string name="error_restore_not_found">有効なBlokadaサブスクリプションが見つかりませんでした。サブスクリプションの有効期限が切れている場合は、新たに購入できます。問題がある場合はご連絡ください。</string>
-    <string name="error_payment_failed">現在、お支払いいただくことができません。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。</string>
-    <string name="error_payment_failed_alternative">お支払いを完了できませんでした。入力内容を確認の上、もう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。</string>
+    <string name="error_payment_failed">現在、お支払いいただくことができません。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ご連絡ください。</string>
+    <string name="error_payment_failed_alternative">お支払いを完了できませんでした。入力内容を確認の上、もう一度お試しください。問題が解決しない場合は、ご連絡ください。</string>
     <string name="error_payment_not_available">この端末ではお支払いはご利用いただけません。端末が最新ではないか、お住まいの国からのお支払いに対応していません。</string>
     <string name="error_payment_canceled">お支払いがキャンセルされました。入金されていません。</string>
     <string name="error_pack_install">この機能をインストール (またはアンインストール) できませんでした。後でもう一度お試しください。</string>
     <string name="error_location_failed_fetching">接続先を取得できませんでした。</string>
-    <string name="error_unknown">問題が発生しました。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。</string>
+    <string name="error_unknown">問題が発生しました。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ご連絡ください。</string>
     <string name="error_multiple_apps">端末に Blokada の複数のバージョンがインストールされているようです。接続の問題が発生する可能性があります。修正しますか？</string>
     <string name="error_locked">アプリのロック中はできない操作です。続行するにはアプリのロックを解除してください。</string>
     <string name="error_lock_invalid">4 桁以外の PIN は無効です。もう一度やり直してください。</string>
@@ -903,4 +903,17 @@
     <string name="private_dns_android_help_support">Still not working? Chat with us and we\'ll help.</string>
     <string name="private_dns_android_copied_hint">Hostname copied. Paste it in Settings.</string>
     <string name="private_dns_android_blokada_hostname_label">Your Blokada hostname</string>
+    <string name="home_status_protected">保護中</string>
+    <string name="home_status_protected_last_block">保護中 · 最後のブロック: %s</string>
+    <string name="home_status_protected_blocked">保護中 · 過去24時間に%s件をブロック</string>
+    <string name="home_trial_day">%s 日目、全 %s 日間</string>
+    <string name="home_trial_blocked_so_far">これまでに%s件をブロック</string>
+    <string name="home_headline_top_blocked_title">今日最も多くブロックされたドメイン</string>
+    <string name="home_headline_top_blocked_body">%sがお使いのデバイスに接続しようとし、過去24時間に%s回ブロックされました。</string>
+    <string name="home_headline_busiest_hour_title">ブロックが最も多かった時間帯</string>
+    <string name="home_headline_busiest_hour_body">Blokadaは%s件のリクエストを%sから%sまでの間にブロックしました。</string>
+    <string name="home_expired_header">保護は%sに終了しました</string>
+    <string name="home_expired_header_nodate">保護は終了しました</string>
+    <string name="home_expired_blocked">Blokadaは%s件のリクエストをブロックしました。</string>
+    <string name="home_expired_action">サブスクリプションに再登録</string>
 </resources>

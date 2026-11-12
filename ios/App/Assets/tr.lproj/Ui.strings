@@ -16,7 +16,7 @@
 "error account inactive after restore" = "Bu geçerli bir aktif hesap gibi görünmüyor. Bunun bir hata olduğunu düşünüyorsanız, lütfen bizimle iletişime geçin.";
 "error account invalid" = "Bu hesap kimliği geçersiz görünüyor.";
 "error creating account" = "Yeni bir hesap oluşturulamadı. Lütfen daha sonra tekrar deneyin.";
-"error fetching data" = "Bu işlem tamamlanamadı. Çevrimiçi olduğunuzdan emin olun ve daha sonra tekrar deneyin. Sorun devam ederse, üstteki yardım simgesine dokunarak lütfen bize ulaşın.";
+"error fetching data" = "Bu işlem tamamlanamadı. Çevrimiçi olduğunuzdan emin olun ve daha sonra tekrar deneyin. Sorun devam ederse, lütfen bize ulaşın.";
 "error tunnel" = "VPN kurulamadı. Lütfen cihazınızı yeniden başlatın veya sistem ayarlarında BLOKADA VPN profilini kaldırın ve tekrar deneyin.";
 "error vpn" = "VPN kurulamadı. Lütfen cihazınızı yeniden başlatın veya sistem ayarlarında BLOKADA VPN profilini kaldırın ve tekrar deneyin.";
 "error vpn perms" = "VPN profili oluşturmak için izin verilmedi.";
@@ -24,15 +24,15 @@
 "error vpn no current lease new" = "Blokada Plus bu cihazda artık devre dışı. Yeniden etkinleştirmek için lütfen bir konum seçin.";
 "error vpn too many leases" = "Cihazlarınızın sınırına ulaştınız. Lütfen cihazlarınızdan birini kaldırın ve tekrar deneyin.";
 "error vpn expired" = "VPN devre dışı bırakıldı. BLOKADA+ aboneliğini kullanmaya devam etmek için aboneliğinizi güncelleyin";
-"error payment inactive after restore" = "Önceki ödemeniz geri yüklendi, ancak aboneliğin süresi doldu. Bunun bir hata olduğunu düşünüyorsanız, lütfen üstteki yardım simgesine dokunarak bizimle iletişime geçin.";
+"error payment inactive after restore" = "Önceki ödemeniz geri yüklendi, ancak aboneliğin süresi doldu. Bunun bir hata olduğunu düşünüyorsanız, lütfen bizimle iletişime geçin.";
 "error restore not found" = "Aktif bir Blokada aboneliğini geri yükleyemedik. Aboneliğinizin süresi dolduysa, yeni bir abonelik satın alabilirsiniz. Bunun bir hata olduğunu düşünüyorsanız, lütfen bizimle iletişime geçin.";
-"error payment failed" = "Ödemeler şu anda mevcut değil. Çevrimiçi olduğunuzdan emin olun ve daha sonra tekrar deneyin. Sorun devam ederse, lütfen üstteki yardım simgesine dokunarak bizimle iletişime geçin.";
-"error payment failed alternative" = "Ödemeniz tamamlanamadı. Lütfen verilerinizin doğru olduğundan emin olun ve tekrar deneyin. Sorun devam ederse, lütfen üstteki yardım simgesine dokunarak bizimle iletişime geçin.";
+"error payment failed" = "Ödemeler şu anda mevcut değil. Çevrimiçi olduğunuzdan emin olun ve daha sonra tekrar deneyin. Sorun devam ederse, lütfen bizimle iletişime geçin.";
+"error payment failed alternative" = "Ödemeniz tamamlanamadı. Lütfen verilerinizin doğru olduğundan emin olun ve tekrar deneyin. Sorun devam ederse, lütfen bizimle iletişime geçin.";
 "error payment not available" = "Bu cihaz için ödeme yapılamıyor. Ya bu cihaz güncellenmedi ya da henüz ülkenizde satın alma işlemlerini gerçekleştirmiyoruz.";
 "error payment canceled" = "Ödeme iptal edildi. Sizden ücret alınmadı.";
 "error pack install" = "Bu özellik yüklenemedi (veya kaldırılamadı). Lütfen daha sonra tekrar deneyin.";
 "error location failed fetching" = "Yerler getiremedi.";
-"error unknown" = "Bir sorun oluştu. Çevrimiçi olduğunuzdan emin olun ve daha sonra tekrar deneyin. Sorun devam ederse, lütfen üstteki yardım simgesine dokunarak bizimle iletişime geçin.";
+"error unknown" = "Bir sorun oluştu. Çevrimiçi olduğunuzdan emin olun ve daha sonra tekrar deneyin. Sorun devam ederse, lütfen bizimle iletişime geçin.";
 "error multiple apps" = "Cihazınızda birden fazla Blokada uygulaması var. Bu durum bağlantı sorunlarına neden olabilir. Şimdi düzeltmek ister misiniz?";
 "error locked" = "Uygulama kilitli durumdayken bu eylem kullanılamaz. Devam etmek için lütfen uygulamanın kilidini açın.";
 "error lock invalid" = "Geçerli bir PIN tam olarak 4 basamaklı olmalıdır. Lütfen tekrar deneyin.";
@@ -88,7 +88,7 @@
 "support action chat" = "Bizimle sohbet edin";
 // Action to end chat. Keep it super short
 "support action end" = "Son";
-// Small link under the main button of the DNS setup sheet and in the Restore account ID dialog, opens the support chat. Keep it short
+// Small link under the main button of the DNS setup sheet and in the Restore account ID dialog, and a button on some error alerts. Opens the support chat. Keep it short
 "support action ask" = "Destek isteyin";
 // Replaces "Ask support" in the same small link while a support chat is still open, and reopens that chat. Keep it short
 "support action continue" = "Destek sohbetine devam edin";
@@ -1263,3 +1263,30 @@
 "private dns android copied hint" = "Hostname copied. Paste it in Settings.";
 // Label above the Private DNS hostname on the Android setup sheet
 "private dns android blokada hostname label" = "Your Blokada hostname";
+
+// Daily Home (#460): the line under the power button while protection is on. Shown until the numbers load.
+"home status protected" = "Korunuyor";
+// Same line once loaded, with activity logging on. %s is how long ago the last request was blocked, e.g. "2 minutes ago"
+"home status protected last block" = "Korunuyor · son engelleme: %s";
+// Same line with activity logging off. %s is how many requests were blocked in the last 24 hours, e.g. "36" or "12.3K"
+"home status protected blocked" = "Korunuyor · son 24 saatte %s engellendi";
+// Home during the free trial. First %s is the day of the trial, second %s its length in days, e.g. "Day 3 of 7"
+"home trial day" = "Denemenin %s. günü, toplam %s gün";
+// Added after the line above. %s is how many requests were blocked since the trial started, e.g. "1,240" or "12.3K"
+"home trial blocked so far" = "Şimdiye kadar %s engellendi";
+// Home card: the domain blocked most often in the last 24 hours
+"home headline top blocked title" = "Bugün en çok engellenen";
+// First %s is a domain (e.g. "doubleclick.net"), second %s how many times it was blocked
+"home headline top blocked body" = "%s son 24 saatte cihazınıza erişmeye çalıştı ve %s kez engellendi.";
+// Home card: the hour of the last 24 with the most blocked requests
+"home headline busiest hour title" = "En yoğun saat";
+// First %s is the number blocked, second and third %s the start and end of the hour, e.g. "9:00 PM" and "10:00 PM"
+"home headline busiest hour body" = "Blokada, %s isteği %s ile %s arasında engelledi.";
+// Home after a subscription ended. %s is the date it ended, e.g. "3 Nov"
+"home expired header" = "Korumanız %s tarihinde sona erdi";
+// Used instead of the line above when the end date is unknown
+"home expired header nodate" = "Korumanız sona erdi";
+// Under the line above. %s is how many requests Blokada blocked on this device, e.g. "12.3K"
+"home expired blocked" = "Blokada sizin için %s isteği engelledi.";
+// Button that opens the subscription offer again
+"home expired action" = "Yeniden abone ol";

@@ -6,7 +6,7 @@
     <string name="error_account_inactive_after_restore">Bu geçerli bir aktif hesap gibi görünmüyor. Bunun bir hata olduğunu düşünüyorsanız, lütfen bizimle iletişime geçin.</string>
     <string name="error_account_invalid">Bu hesap kimliği geçersiz görünüyor.</string>
     <string name="error_creating_account">Yeni bir hesap oluşturulamadı. Lütfen daha sonra tekrar deneyin.</string>
-    <string name="error_fetching_data">Bu işlem tamamlanamadı. Çevrimiçi olduğunuzdan emin olun ve daha sonra tekrar deneyin. Sorun devam ederse, üstteki yardım simgesine dokunarak lütfen bize ulaşın.</string>
+    <string name="error_fetching_data">Bu işlem tamamlanamadı. Çevrimiçi olduğunuzdan emin olun ve daha sonra tekrar deneyin. Sorun devam ederse, lütfen bize ulaşın.</string>
     <string name="error_tunnel">VPN kurulamadı. Lütfen cihazınızı yeniden başlatın veya sistem ayarlarında BLOKADA VPN profilini kaldırın ve tekrar deneyin.</string>
     <string name="error_vpn">VPN kurulamadı. Lütfen cihazınızı yeniden başlatın veya sistem ayarlarında BLOKADA VPN profilini kaldırın ve tekrar deneyin.</string>
     <string name="error_vpn_perms">VPN profili oluşturmak için izin verilmedi.</string>
@@ -14,15 +14,15 @@
     <string name="error_vpn_no_current_lease_new">Blokada Plus bu cihazda artık devre dışı. Yeniden etkinleştirmek için lütfen bir konum seçin.</string>
     <string name="error_vpn_too_many_leases">Cihazlarınızın sınırına ulaştınız. Lütfen cihazlarınızdan birini kaldırın ve tekrar deneyin.</string>
     <string name="error_vpn_expired">VPN devre dışı bırakıldı. BLOKADA+ aboneliğini kullanmaya devam etmek için aboneliğinizi güncelleyin</string>
-    <string name="error_payment_inactive_after_restore">Önceki ödemeniz geri yüklendi, ancak aboneliğin süresi doldu. Bunun bir hata olduğunu düşünüyorsanız, lütfen üstteki yardım simgesine dokunarak bizimle iletişime geçin.</string>
+    <string name="error_payment_inactive_after_restore">Önceki ödemeniz geri yüklendi, ancak aboneliğin süresi doldu. Bunun bir hata olduğunu düşünüyorsanız, lütfen bizimle iletişime geçin.</string>
     <string name="error_restore_not_found">Aktif bir Blokada aboneliğini geri yükleyemedik. Aboneliğinizin süresi dolduysa, yeni bir abonelik satın alabilirsiniz. Bunun bir hata olduğunu düşünüyorsanız, lütfen bizimle iletişime geçin.</string>
-    <string name="error_payment_failed">Ödemeler şu anda mevcut değil. Çevrimiçi olduğunuzdan emin olun ve daha sonra tekrar deneyin. Sorun devam ederse, lütfen üstteki yardım simgesine dokunarak bizimle iletişime geçin.</string>
-    <string name="error_payment_failed_alternative">Ödemeniz tamamlanamadı. Lütfen verilerinizin doğru olduğundan emin olun ve tekrar deneyin. Sorun devam ederse, lütfen üstteki yardım simgesine dokunarak bizimle iletişime geçin.</string>
+    <string name="error_payment_failed">Ödemeler şu anda mevcut değil. Çevrimiçi olduğunuzdan emin olun ve daha sonra tekrar deneyin. Sorun devam ederse, lütfen bizimle iletişime geçin.</string>
+    <string name="error_payment_failed_alternative">Ödemeniz tamamlanamadı. Lütfen verilerinizin doğru olduğundan emin olun ve tekrar deneyin. Sorun devam ederse, lütfen bizimle iletişime geçin.</string>
     <string name="error_payment_not_available">Bu cihaz için ödeme yapılamıyor. Ya bu cihaz güncellenmedi ya da henüz ülkenizde satın alma işlemlerini gerçekleştirmiyoruz.</string>
     <string name="error_payment_canceled">Ödeme iptal edildi. Sizden ücret alınmadı.</string>
     <string name="error_pack_install">Bu özellik yüklenemedi (veya kaldırılamadı). Lütfen daha sonra tekrar deneyin.</string>
     <string name="error_location_failed_fetching">Yerler getiremedi.</string>
-    <string name="error_unknown">Bir sorun oluştu. Çevrimiçi olduğunuzdan emin olun ve daha sonra tekrar deneyin. Sorun devam ederse, lütfen üstteki yardım simgesine dokunarak bizimle iletişime geçin.</string>
+    <string name="error_unknown">Bir sorun oluştu. Çevrimiçi olduğunuzdan emin olun ve daha sonra tekrar deneyin. Sorun devam ederse, lütfen bizimle iletişime geçin.</string>
     <string name="error_multiple_apps">Cihazınızda birden fazla Blokada uygulaması var. Bu durum bağlantı sorunlarına neden olabilir. Şimdi düzeltmek ister misiniz?</string>
     <string name="error_locked">Uygulama kilitli durumdayken bu eylem kullanılamaz. Devam etmek için lütfen uygulamanın kilidini açın.</string>
     <string name="error_lock_invalid">Geçerli bir PIN tam olarak 4 basamaklı olmalıdır. Lütfen tekrar deneyin.</string>
@@ -903,4 +903,17 @@
     <string name="private_dns_android_help_support">Still not working? Chat with us and we\'ll help.</string>
     <string name="private_dns_android_copied_hint">Hostname copied. Paste it in Settings.</string>
     <string name="private_dns_android_blokada_hostname_label">Your Blokada hostname</string>
+    <string name="home_status_protected">Korunuyor</string>
+    <string name="home_status_protected_last_block">Korunuyor · son engelleme: %s</string>
+    <string name="home_status_protected_blocked">Korunuyor · son 24 saatte %s engellendi</string>
+    <string name="home_trial_day">Denemenin %s. günü, toplam %s gün</string>
+    <string name="home_trial_blocked_so_far">Şimdiye kadar %s engellendi</string>
+    <string name="home_headline_top_blocked_title">Bugün en çok engellenen</string>
+    <string name="home_headline_top_blocked_body">%s son 24 saatte cihazınıza erişmeye çalıştı ve %s kez engellendi.</string>
+    <string name="home_headline_busiest_hour_title">En yoğun saat</string>
+    <string name="home_headline_busiest_hour_body">Blokada, %s isteği %s ile %s arasında engelledi.</string>
+    <string name="home_expired_header">Korumanız %s tarihinde sona erdi</string>
+    <string name="home_expired_header_nodate">Korumanız sona erdi</string>
+    <string name="home_expired_blocked">Blokada sizin için %s isteği engelledi.</string>
+    <string name="home_expired_action">Yeniden abone ol</string>
 </resources>

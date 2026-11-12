@@ -6,7 +6,7 @@
     <string name="error_account_inactive_after_restore">Tampaknya ini bukan akun aktif yang valid. Jika Anda yakin ini adalah kesalahan, silakan hubungi kami.</string>
     <string name="error_account_invalid">ID akun ini sepertinya tidak valid.</string>
     <string name="error_creating_account">Tidak bisa membuat akun baru. Silakan coba beberapa saat lagi.</string>
-    <string name="error_fetching_data">Pendaftaran akun tidak bisa dilanjutkan. Harap pastikan perangkat Anda terhubung dengan internet, dan coba kembali. Jika masalah berlanjut, silakan hubungi kami dengan cara mengetuk ikon Bantuan di atas.</string>
+    <string name="error_fetching_data">Tindakan ini tidak dapat diselesaikan. Pastikan perangkat Anda terhubung ke internet, lalu coba lagi nanti. Jika masalah berlanjut, silakan hubungi kami.</string>
     <string name="error_tunnel">Tidak dapat terhubung dengan VPN. Silakan me-restart perangkat Anda, atau hapus profil Blokada VPN di pengaturan sistem, dan coba kembali.</string>
     <string name="error_vpn">Tidak dapat terhubung dengan VPN. Silakan me-restart perangkat Anda, atau hapus profil Blokada VPN di pengaturan sistem, dan coba kembali.</string>
     <string name="error_vpn_perms">Izin tidak diberikan untuk membuat profil VPN.</string>
@@ -14,15 +14,15 @@
     <string name="error_vpn_no_current_lease_new">Blokada Plus telah dinonaktifkan di perangkat ini. Silakan memilih lokasi untuk kembali mengaktifkan Blokada Plus.</string>
     <string name="error_vpn_too_many_leases">Jumlah perangkat yang bisa menggunakan VPN telah terlampaui. Silakan hapus salah satu perangkat Anda dan coba kembali.</string>
     <string name="error_vpn_expired">VPN dinonaktifkan. Silakan perbarui langganan Anda agar BLOKADA+ dapat digunakan kembali</string>
-    <string name="error_payment_inactive_after_restore">Pembayaran Anda sebelumnya telah dipulihkan, namun langganan Anda telah kedaluwarsa. Jika menurut Anda telah terjadi kesalahan, silakan hubungi kami dengan mengetuk ikon Bantuan di atas.</string>
+    <string name="error_payment_inactive_after_restore">Pembayaran Anda sebelumnya telah dipulihkan, tetapi langganan Anda telah kedaluwarsa. Jika menurut Anda telah terjadi kesalahan, silakan hubungi kami.</string>
     <string name="error_restore_not_found">Kami tidak dapat menemukan langganan Blokada aktif untuk dipulihkan. Jika langganan Anda telah berakhir, Anda dapat membeli yang baru. Jika Anda yakin ini adalah kesalahan, silakan hubungi kami.</string>
-    <string name="error_payment_failed">Pembayaran tidak bisa dilakukan pada saat ini. Harap pastikan perangkat Anda terkoneksi dengan internet, dan coba kembali. Jika masalah ini berlanjut, silakan hubungi kami dengan cara mengetuk ikon Bantuan di atas.</string>
-    <string name="error_payment_failed_alternative">Tidak dapat menyelesaikan pembayaran Anda. Harap pastikan data Anda benar, dan coba lagi. Jika masalah terus berlanjut, harap hubungi kami dengan mengetuk ikon bantuan di bagian atas.</string>
+    <string name="error_payment_failed">Pembayaran tidak dapat dilakukan saat ini. Pastikan perangkat Anda terhubung ke internet, lalu coba lagi nanti. Jika masalah berlanjut, silakan hubungi kami.</string>
+    <string name="error_payment_failed_alternative">Pembayaran Anda tidak dapat diselesaikan. Pastikan data Anda benar, lalu coba lagi. Jika masalah berlanjut, silakan hubungi kami.</string>
     <string name="error_payment_not_available">Pembayaran tidak bisa dilakukan di perangkat ini. Hal ini bisa disebabkan karena perangkat Anda tidak menggunakan software versi terbaru, atau kami belum bisa menangani transaksi di negara tempat Anda tinggal.</string>
     <string name="error_payment_canceled">Pembayaran telah dibatalkan. Tidak ada biaya yang dibebankan kepada Anda.</string>
     <string name="error_pack_install">Tidak bisa menginstal (atau uninstall) fitur ini. Silakan coba kembali beberapa saat lagi.</string>
     <string name="error_location_failed_fetching">Tidak bisa mendapatkan data lokasi.</string>
-    <string name="error_unknown">Ada masalah. Pastikan perangkat Anda tersambung ke internet dan coba kembali. Jika masalah berlanjut silakan hubungi kami lewat ikon Bantuan di atas.</string>
+    <string name="error_unknown">Terjadi masalah. Pastikan perangkat Anda terhubung ke internet, lalu coba lagi nanti. Jika masalah berlanjut, silakan hubungi kami.</string>
     <string name="error_multiple_apps">Ada lebih dari satu aplikasi Blokada di perangkat Anda. Hal ini bisa menyebabkan masalah koneksi. Apakah Anda ingin mengaturnya sekarang?</string>
     <string name="error_locked">Tindakan ini tidak bisa digunakan saat aplikasi terkunci. Silakan buka kunci aplikasi untuk melanjutkan.</string>
     <string name="error_lock_invalid">PIN yang valid harus terdiri dari 4 angka. Silakan coba lagi.</string>
@@ -903,4 +903,17 @@
     <string name="private_dns_android_help_support">Still not working? Chat with us and we\'ll help.</string>
     <string name="private_dns_android_copied_hint">Hostname copied. Paste it in Settings.</string>
     <string name="private_dns_android_blokada_hostname_label">Your Blokada hostname</string>
+    <string name="home_status_protected">Terlindungi</string>
+    <string name="home_status_protected_last_block">Terlindungi · pemblokiran terakhir %s</string>
+    <string name="home_status_protected_blocked">Terlindungi · %s diblokir dalam 24 jam</string>
+    <string name="home_trial_day">Hari ke-%s dari %s</string>
+    <string name="home_trial_blocked_so_far">%s diblokir sejauh ini</string>
+    <string name="home_headline_top_blocked_title">Paling sering diblokir hari ini</string>
+    <string name="home_headline_top_blocked_body">%s mencoba mengakses perangkat Anda dan diblokir %s kali dalam 24 jam terakhir.</string>
+    <string name="home_headline_busiest_hour_title">Jam tersibuk</string>
+    <string name="home_headline_busiest_hour_body">Blokada memblokir %s permintaan antara pukul %s dan %s.</string>
+    <string name="home_expired_header">Perlindungan berakhir pada %s</string>
+    <string name="home_expired_header_nodate">Perlindungan Anda telah berakhir</string>
+    <string name="home_expired_blocked">Blokada memblokir %s permintaan untuk Anda.</string>
+    <string name="home_expired_action">Berlangganan kembali</string>
 </resources>

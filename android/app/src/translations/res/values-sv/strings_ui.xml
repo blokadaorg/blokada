@@ -6,7 +6,7 @@
     <string name="error_account_inactive_after_restore">Detta verkar inte vara ett giltigt aktivt konto. Om du tror att detta är ett misstag, vänligen kontakta oss.</string>
     <string name="error_account_invalid">Detta konto-ID verkar ogiltigt.</string>
     <string name="error_creating_account">Kunde inte skapa ett nytt konto. Försök igen senare.</string>
-    <string name="error_fetching_data">Denna åtgärd kunde inte slutföras. Se till att du är uppkopplad och försök igen senare. Om problemet kvarstår, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.</string>
+    <string name="error_fetching_data">Denna åtgärd kunde inte slutföras. Se till att du är uppkopplad och försök igen senare. Om problemet kvarstår, vänligen kontakta oss.</string>
     <string name="error_tunnel">Kunde inte upprätta ett VPN. Starta om enheten eller ta bort VPN-profilen Blokada i systeminställningar och försök igen.</string>
     <string name="error_vpn">Kunde inte upprätta ett VPN. Starta om enheten eller ta bort VPN-profilen Blokada i systeminställningar och försök igen.</string>
     <string name="error_vpn_perms">Inga behörigheter beviljade för att skapa en VPN-profil.</string>
@@ -14,15 +14,15 @@
     <string name="error_vpn_no_current_lease_new">Blokada Plus är nu inaktiverat på den här enhet. Välj en plats för att återaktivera.</string>
     <string name="error_vpn_too_many_leases">Du har nått din enhetsgräns. Vänligen ta bort en av dina enheter och försök igen.</string>
     <string name="error_vpn_expired">VPN är inaktiverat. Vänligen uppdatera din prenumeration för att fortsätta använda BLOKADA+</string>
-    <string name="error_payment_inactive_after_restore">Din tidigare betalning återställdes, men prenumerationen har redan löpt ut. Om du tror att detta är ett misstag, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.</string>
+    <string name="error_payment_inactive_after_restore">Din tidigare betalning återställdes, men prenumerationen har redan löpt ut. Om du tror att detta är ett misstag, vänligen kontakta oss.</string>
     <string name="error_restore_not_found">Vi kunde inte hitta någon aktiv Blokada-prenumeration att återställa. Om din prenumeration har löpt ut kan du köpa en ny. Om du tror att detta är ett misstag, vänligen kontakta oss.</string>
-    <string name="error_payment_failed">Betalningar är inte tillgängliga just nu. Kolla så att du är uppkopplad och försök igen senare. Om problemet kvarstår, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.</string>
-    <string name="error_payment_failed_alternative">Det gick inte att slutföra din betalning. Kontrollera att dina detaljer är korrekta och försök igen. Om problemet kvarstår, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.</string>
+    <string name="error_payment_failed">Betalningar är inte tillgängliga just nu. Kolla så att du är uppkopplad och försök igen senare. Om problemet kvarstår, vänligen kontakta oss.</string>
+    <string name="error_payment_failed_alternative">Det gick inte att slutföra din betalning. Kontrollera att dina uppgifter är korrekta och försök igen. Om problemet kvarstår, vänligen kontakta oss.</string>
     <string name="error_payment_not_available">Betalningar är inte tillgängliga för den här enheten. Antingen är inte enheten uppdaterad eller så hanterar vi inte inköp i ditt land ännu.</string>
     <string name="error_payment_canceled">Betalningen har avbrutits. Du har inte debiterats.</string>
     <string name="error_pack_install">Kunde inte installera (eller avinstallera) den här funktionen. Försök igen senare.</string>
     <string name="error_location_failed_fetching">Kunde inte hämta platser.</string>
-    <string name="error_unknown">Ett problem uppstod. Se till att du är uppkopplad och försök igen senare. Om problemet kvarstår, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.</string>
+    <string name="error_unknown">Ett problem uppstod. Se till att du är uppkopplad och försök igen senare. Om problemet kvarstår, vänligen kontakta oss.</string>
     <string name="error_multiple_apps">Det finns mer än en Blokada-app på din enhet. Detta kan orsaka anslutningsproblem. Vill du åtgärda det nu?</string>
     <string name="error_locked">Denna åtgärd är inte tillgänglig när appen är i ett låst tillstånd. Lås upp appen för att fortsätta.</string>
     <string name="error_lock_invalid">En giltig PIN-kod måste vara exakt 4 siffror. Försök igen.</string>
@@ -903,4 +903,17 @@
     <string name="private_dns_android_help_support">Still not working? Chat with us and we\'ll help.</string>
     <string name="private_dns_android_copied_hint">Hostname copied. Paste it in Settings.</string>
     <string name="private_dns_android_blokada_hostname_label">Your Blokada hostname</string>
+    <string name="home_status_protected">Skyddad</string>
+    <string name="home_status_protected_last_block">Skyddad · senaste blockering: %s</string>
+    <string name="home_status_protected_blocked">Skyddad · %s blockerade de senaste 24 timmarna</string>
+    <string name="home_trial_day">Dag %s av %s</string>
+    <string name="home_trial_blocked_so_far">%s blockerade hittills</string>
+    <string name="home_headline_top_blocked_title">Mest blockerade domänen idag</string>
+    <string name="home_headline_top_blocked_body">%s försökte nå din enhet och blockerades %s gånger under de senaste 24 timmarna.</string>
+    <string name="home_headline_busiest_hour_title">Timmen med flest blockeringar</string>
+    <string name="home_headline_busiest_hour_body">Blokada blockerade %s förfrågningar mellan %s och %s.</string>
+    <string name="home_expired_header">Skyddet upphörde den %s</string>
+    <string name="home_expired_header_nodate">Ditt skydd har upphört</string>
+    <string name="home_expired_blocked">Blokada blockerade %s förfrågningar åt dig.</string>
+    <string name="home_expired_action">Prenumerera på nytt</string>
 </resources>
