@@ -114,6 +114,9 @@ class SafariActor with Actor, Logging {
   }
 
   Future<bool> _needsOptionalOnboard(Marker m) async {
+    // UI test launches skip this one-time sheet (see automation/flags.dart).
+    if (automationSkipsOptionalPrompts) return false;
+
     final ping = await _ping.fetch(m);
     final userSkipped = await _onboardSafari.now();
 

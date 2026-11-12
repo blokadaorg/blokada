@@ -1,6 +1,8 @@
 import { existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 
+import { activateApp } from "../flows/app.js";
+
 // Pre-flight for every iOS spec: make sure the phone's screen is on, past the
 // lock screen, and showing the app before any spec code runs.
 //
@@ -93,7 +95,7 @@ async function ensureAppVisible(): Promise<void> {
     try {
       await step.run();
       await driver.pause(800);
-      await driver.activateApp(bundleId);
+      await activateApp(bundleId);
       await driver.pause(1500);
     } catch (error) {
       console.warn(`Pre-flight: "${step.name}" failed: ${String(error)}`);

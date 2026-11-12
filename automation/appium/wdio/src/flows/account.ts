@@ -2,6 +2,7 @@ import { execFileSync } from "node:child_process";
 
 import { $, driver } from "@wdio/globals";
 
+import { APP_AUTOMATION_ENV } from "../../scripts/lib/automation-env.mjs";
 import { ANDROID_LAUNCH_ACTIVITY } from "../../scripts/lib/capabilities.mjs";
 import { AutomationIds } from "../support/automationIds.js";
 import { readCurrentAccount, writeCurrentAccount } from "../support/account-state.js";
@@ -103,7 +104,8 @@ async function launchWithRestore(accountId: string): Promise<void> {
   } else {
     await driver.execute("mobile: launchApp", {
       bundleId: APP_BUNDLE_ID,
-      arguments: ["-restoreAccountId", accountId]
+      arguments: ["-restoreAccountId", accountId],
+      environment: { ...APP_AUTOMATION_ENV }
     });
   }
   await waitForAppForeground(APP_BUNDLE_ID);

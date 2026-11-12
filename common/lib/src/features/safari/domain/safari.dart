@@ -14,6 +14,7 @@ import 'package:common/src/platform/app/app.dart';
 import 'package:common/src/platform/app/channel.pg.dart';
 import 'package:common/src/platform/perm/perm.dart';
 import 'package:common/src/platform/stage/stage.dart';
+import 'package:common/src/shared/automation/flags.dart';
 import 'package:common/src/util/mobx.dart';
 
 part 'actor.dart';

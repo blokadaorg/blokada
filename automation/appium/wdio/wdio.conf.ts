@@ -3,6 +3,7 @@ import { resolve } from "node:path";
 
 import type { Options } from "@wdio/types";
 
+import { exportDevicectlChildEnv } from "./scripts/lib/automation-env.mjs";
 import { buildCapabilities } from "./scripts/lib/capabilities.mjs";
 import { getAppiumServerConfig } from "./scripts/lib/paths.mjs";
 import { resetAccountState } from "./src/support/account-state.js";
@@ -12,6 +13,10 @@ import { clearPreflightFailure } from "./src/support/preflight.js";
 const logLevel =
   (process.env.WDIO_LOG_LEVEL as Options.WebDriverLogTypes | undefined) ?? "info";
 const server = getAppiumServerConfig(process.env);
+
+// Every `devicectl ... launch` from this launcher and its workers (they inherit
+// process.env) passes the automation env to the app; see automation-env.mjs.
+exportDevicectlChildEnv();
 
 // JUnit output dir (one file per spec, distinct by worker cid) consumed by
 // scripts/junit-summary.mjs for the CI run summary and uploaded as an artifact.

@@ -1,5 +1,6 @@
 import { driver } from "@wdio/globals";
 
+import { APP_AUTOMATION_ENV } from "../../scripts/lib/automation-env.mjs";
 import { forceKillIosApp } from "../support/devicectl.js";
 import { isAndroid } from "../support/platform.js";
 
@@ -70,7 +71,7 @@ export async function launchApp(bundleId: string): Promise<void> {
   if (isAndroid()) {
     await driver.execute("mobile: activateApp", appArgs(bundleId));
   } else {
-    await driver.execute("mobile: launchApp", { bundleId });
+    await driver.execute("mobile: launchApp", { bundleId, environment: { ...APP_AUTOMATION_ENV } });
   }
   await waitForAppForeground(bundleId);
 }
@@ -82,7 +83,13 @@ export async function activateApp(bundleId: string): Promise<void> {
     return;
   }
   try {
-    await driver.activateApp(bundleId);
+    if (!(await isAppRunning(bundleId))) {
+      // A cold start must carry the automation env (activate would launch
+      // the app without it); see scripts/lib/automation-env.mjs.
+      await driver.execute("mobile: launchApp", { bundleId, environment: { ...APP_AUTOMATION_ENV } });
+    } else {
+      await driver.activateApp(bundleId);
+    }
   } catch (error) {
     console.warn(`activateApp fell back to launch for ${bundleId}: ${String(error)}`);
     await driver.execute("mobile: activateApp", { bundleId });
