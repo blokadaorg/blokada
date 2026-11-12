@@ -1,6 +1,6 @@
 import { getAppiumServerConfig, getProjectPaths } from "./paths.mjs";
 import { isSimulatorMode, resolvePrimaryBundleId } from "./app-targets.mjs";
-import { APP_AUTOMATION_ENV } from "./automation-env.mjs";
+import { APP_AUTOMATION_ARGS } from "./automation-env.mjs";
 
 export function buildCapabilities(env = process.env) {
   const paths = getProjectPaths(env);
@@ -15,7 +15,7 @@ export function buildCapabilities(env = process.env) {
     "appium:deviceName": env.IOS_DEVICE_NAME ?? "iPhone connected via USB",
     "appium:noReset": true,
     // See automation-env.mjs: skip one-time prompts that hide the app's tree.
-    "appium:processArguments": { args: [], env: { ...APP_AUTOMATION_ENV } },
+    "appium:processArguments": { args: [...APP_AUTOMATION_ARGS], env: {} },
     "appium:newCommandTimeout": 240,
     // Blokada is a Flutter app: its surface renders/animates continuously,
     // so XCUITest's default "wait for the app to be idle (no animations)"

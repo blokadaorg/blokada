@@ -76,9 +76,6 @@ class RateActor with Logging, Actor {
   }
 
   Future<bool> checkRateConditions(Marker m) async {
-    // UI test launches never get the automatic prompt (see automation/flags.dart).
-    if (automationSkipsOptionalPrompts) return false;
-
     final meta = await _rateMetadata.now();
 
     // Not on first ever app start

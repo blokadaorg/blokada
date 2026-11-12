@@ -6,7 +6,6 @@ import 'package:common/src/platform/app/app.dart';
 import 'package:common/src/platform/stage/channel.pg.dart';
 import 'package:common/src/platform/stage/stage.dart';
 import 'package:common/src/platform/stats/stats.dart';
-import 'package:common/src/shared/automation/flags.dart';
 import 'package:dartx/dartx.dart';
 
 part 'actor.dart';

@@ -129,7 +129,7 @@ appium-test:
 	export IOS_AUTO_SELECT_FIRST=1; \
 	$(MAKE) -C ../../../ios "$$APPIUM_APP_INSTALL_TARGET" IOS_UDID="$$IOS_UDID" IOS_DEVICE_NAME="$$IOS_DEVICE_NAME"; \
 	echo "appium-test: waking device $$IOS_UDID ($$APP_BUNDLE_ID) before smoke" >&2; \
-	if DEVICECTL_CHILD_BLOKADA_AUTOMATION_SKIP_PROMPTS=1 xcrun devicectl device process launch --terminate-existing --device "$$IOS_UDID" "$$APP_BUNDLE_ID" >/dev/null 2>&1; then \
+	if xcrun devicectl device process launch --terminate-existing --device "$$IOS_UDID" "$$APP_BUNDLE_ID" -- -onboarding:safari 1 -rate:metadata:2025 '"{\"lastSeenRateScreen\":\"2025-01-01T00:00:00.000\"}"' >/dev/null 2>&1; then \
 		echo "appium-test: device wake OK" >&2; \
 	else \
 		echo "appium-test: device wake FAILED (continuing; WDA will activate)" >&2; \
