@@ -6,7 +6,7 @@
     <string name="error_account_inactive_after_restore">Acesta nu pare să fie un cont activ valabil. Dacă crezi că este o greșeală, contactează-ne.</string>
     <string name="error_account_invalid">ID-ul acestui cont pare nevalid.</string>
     <string name="error_creating_account">Nu s-a putut crea un cont nou. Vă rugăm să încercați din nou mai târziu.</string>
-    <string name="error_fetching_data">Această acțiune nu a putut fi finalizată. Asigurați-vă că sunteți online și încearcați din nou mai târziu. Dacă problema persistă, vă rugăm să ne contactați prin apăsarea pictogramei de ajutor din partea de sus.</string>
+    <string name="error_fetching_data">Această acțiune nu a putut fi finalizată. Asigurați-vă că sunteți online și încercați din nou mai târziu. Dacă problema persistă, vă rugăm să ne contactați.</string>
     <string name="error_tunnel">VPN-ul nu a putut fi stabilit. Vă rugăm să reporniți dispozitivul sau să ștergeți profilul Blokada VPN din setările de sistem și să încercați din nou.</string>
     <string name="error_vpn">VPN-ul nu a putut fi stabilit. Vă rugăm să reporniți dispozitivul sau să ștergeți profilul Blokada VPN din setările de sistem și să încercați din nou.</string>
     <string name="error_vpn_perms">Nicio permisiune acordată pentru a crea un profil VPN.</string>
@@ -14,15 +14,15 @@
     <string name="error_vpn_no_current_lease_new">Blokada Plus este acum dezactivat pe acest dispozitiv. Vă rugăm să selectați o locație pentru reactivare.</string>
     <string name="error_vpn_too_many_leases">Ați atins limita maximă de dispozitive. Vă rugăm să eliminați unul dintre dispozitivele dvs. și să încercați din nou.</string>
     <string name="error_vpn_expired">VPN-ul este dezactivat. Vă rugăm să vă actualizezi abonamentul pentru a continua să folosiți BLOKADA+</string>
-    <string name="error_payment_inactive_after_restore">Plata dvs. anterioară a fost restituită, dar abonamentul a expirat deja. Dacă credeți că este o greșeală, vă rugăm să ne contactați atingând pictograma de ajutor din partea de sus.</string>
+    <string name="error_payment_inactive_after_restore">Plata dvs. anterioară a fost restabilită, dar abonamentul a expirat deja. Dacă credeți că este o greșeală, vă rugăm să ne contactați.</string>
     <string name="error_restore_not_found">Nu am putut găsi un abonament Blokada activ de restaurat. Dacă abonamentul dvs. a expirat, puteți cumpăra unul nou. Dacă considerați că este o greșeală, vă rugăm să ne contactați.</string>
-    <string name="error_payment_failed">Plățile nu sunt disponibile în acest moment. Asigurați-vă că sunteți online și încearcați din nou mai târziu. Dacă problema persistă, vă rugăm să ne contactați prin apăsarea pictogramei de ajutor din partea de sus.</string>
-    <string name="error_payment_failed_alternative">Plata dvs. nu a putut fi finalizată. Asigurați-vă că datele dvs. sunt corecte și încercați din nou. Dacă problema persistă vă rugăm să ne contactați prin apăsarea pictogramei de ajutor din partea de sus.</string>
+    <string name="error_payment_failed">Plățile nu sunt disponibile în acest moment. Asigurați-vă că sunteți online și încercați din nou mai târziu. Dacă problema persistă, vă rugăm să ne contactați.</string>
+    <string name="error_payment_failed_alternative">Plata dvs. nu a putut fi finalizată. Asigurați-vă că datele dvs. sunt corecte și încercați din nou. Dacă problema persistă, vă rugăm să ne contactați.</string>
     <string name="error_payment_not_available">Plățile nu sunt disponibile pentru acest dispozitiv. Fie acest dispozitiv nu este actualizat, fie nu ne ocupăm încă de achizițiile din țara ta.</string>
     <string name="error_payment_canceled">Plata a fost anulată. Nu ați fost taxat.</string>
     <string name="error_pack_install">Nu s-a putut instala (sau dezinstala) această caracteristică. Vă rugăm să încercaţi din nou mai târziu.</string>
     <string name="error_location_failed_fetching">Nu s-au putut prelua locațiile.</string>
-    <string name="error_unknown">A apărut o problemă. Asigură-te că ești online și încearcă din nou mai târziu. Dacă problema persistă, te rugăm să ne contactezi prin apăsarea pictogramei de ajutor din partea de sus.</string>
+    <string name="error_unknown">A apărut o problemă. Asigurați-vă că sunteți online și încercați din nou mai târziu. Dacă problema persistă, vă rugăm să ne contactați.</string>
     <string name="error_multiple_apps">Există mai mult de o aplicație Blokada pe dispozitivul dvs. Acest lucru poate cauza probleme de conectivitate. Doriți să o reparați acum?</string>
     <string name="error_locked">Această acțiune nu este disponibilă atunci când aplicația se află într-o stare blocată. Vă rugăm să deblocați aplicația pentru a continua.</string>
     <string name="error_lock_invalid">Un PIN valid trebuie să fie exact 4 cifre. Vă rugăm să încercaţi din nou.</string>
@@ -903,4 +903,17 @@
     <string name="private_dns_android_help_support">Still not working? Chat with us and we\'ll help.</string>
     <string name="private_dns_android_copied_hint">Hostname copied. Paste it in Settings.</string>
     <string name="private_dns_android_blokada_hostname_label">Your Blokada hostname</string>
+    <string name="home_status_protected">Protejat</string>
+    <string name="home_status_protected_last_block">Protejat · ultima blocare: %s</string>
+    <string name="home_status_protected_blocked">Protejat · %s blocate în 24 h</string>
+    <string name="home_trial_day">Ziua %s din %s</string>
+    <string name="home_trial_blocked_so_far">%s blocate până acum</string>
+    <string name="home_headline_top_blocked_title">Cel mai des blocat astăzi</string>
+    <string name="home_headline_top_blocked_body">%s a încercat să îți acceseze dispozitivul și a fost blocat de %s ori în ultimele 24 de ore.</string>
+    <string name="home_headline_busiest_hour_title">Ora cu cele mai multe blocări</string>
+    <string name="home_headline_busiest_hour_body">Blokada a blocat %s solicitări între %s și %s.</string>
+    <string name="home_expired_header">Protecția ta s-a încheiat pe %s</string>
+    <string name="home_expired_header_nodate">Protecția ta s-a încheiat</string>
+    <string name="home_expired_blocked">Blokada a blocat %s solicitări pentru tine.</string>
+    <string name="home_expired_action">Reabonează-te</string>
 </resources>

@@ -16,7 +16,7 @@
 "error account inactive after restore" = "Detta verkar inte vara ett giltigt aktivt konto. Om du tror att detta är ett misstag, vänligen kontakta oss.";
 "error account invalid" = "Detta konto-ID verkar ogiltigt.";
 "error creating account" = "Kunde inte skapa ett nytt konto. Försök igen senare.";
-"error fetching data" = "Denna åtgärd kunde inte slutföras. Se till att du är uppkopplad och försök igen senare. Om problemet kvarstår, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.";
+"error fetching data" = "Denna åtgärd kunde inte slutföras. Se till att du är uppkopplad och försök igen senare. Om problemet kvarstår, vänligen kontakta oss.";
 "error tunnel" = "Kunde inte upprätta ett VPN. Starta om enheten eller ta bort VPN-profilen Blokada i systeminställningar och försök igen.";
 "error vpn" = "Kunde inte upprätta ett VPN. Starta om enheten eller ta bort VPN-profilen Blokada i systeminställningar och försök igen.";
 "error vpn perms" = "Inga behörigheter beviljade för att skapa en VPN-profil.";
@@ -24,15 +24,15 @@
 "error vpn no current lease new" = "Blokada Plus är nu inaktiverat på den här enhet. Välj en plats för att återaktivera.";
 "error vpn too many leases" = "Du har nått din enhetsgräns. Vänligen ta bort en av dina enheter och försök igen.";
 "error vpn expired" = "VPN är inaktiverat. Vänligen uppdatera din prenumeration för att fortsätta använda BLOKADA+";
-"error payment inactive after restore" = "Din tidigare betalning återställdes, men prenumerationen har redan löpt ut. Om du tror att detta är ett misstag, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.";
+"error payment inactive after restore" = "Din tidigare betalning återställdes, men prenumerationen har redan löpt ut. Om du tror att detta är ett misstag, vänligen kontakta oss.";
 "error restore not found" = "Vi kunde inte hitta någon aktiv Blokada-prenumeration att återställa. Om din prenumeration har löpt ut kan du köpa en ny. Om du tror att detta är ett misstag, vänligen kontakta oss.";
-"error payment failed" = "Betalningar är inte tillgängliga just nu. Kolla så att du är uppkopplad och försök igen senare. Om problemet kvarstår, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.";
-"error payment failed alternative" = "Det gick inte att slutföra din betalning. Kontrollera att dina detaljer är korrekta och försök igen. Om problemet kvarstår, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.";
+"error payment failed" = "Betalningar är inte tillgängliga just nu. Kolla så att du är uppkopplad och försök igen senare. Om problemet kvarstår, vänligen kontakta oss.";
+"error payment failed alternative" = "Det gick inte att slutföra din betalning. Kontrollera att dina uppgifter är korrekta och försök igen. Om problemet kvarstår, vänligen kontakta oss.";
 "error payment not available" = "Betalningar är inte tillgängliga för den här enheten. Antingen är inte enheten uppdaterad eller så hanterar vi inte inköp i ditt land ännu.";
 "error payment canceled" = "Betalningen har avbrutits. Du har inte debiterats.";
 "error pack install" = "Kunde inte installera (eller avinstallera) den här funktionen. Försök igen senare.";
 "error location failed fetching" = "Kunde inte hämta platser.";
-"error unknown" = "Ett problem uppstod. Se till att du är uppkopplad och försök igen senare. Om problemet kvarstår, vänligen kontakta oss genom att trycka på hjälp-ikonen högst upp.";
+"error unknown" = "Ett problem uppstod. Se till att du är uppkopplad och försök igen senare. Om problemet kvarstår, vänligen kontakta oss.";
 "error multiple apps" = "Det finns mer än en Blokada-app på din enhet. Detta kan orsaka anslutningsproblem. Vill du åtgärda det nu?";
 "error locked" = "Denna åtgärd är inte tillgänglig när appen är i ett låst tillstånd. Lås upp appen för att fortsätta.";
 "error lock invalid" = "En giltig PIN-kod måste vara exakt 4 siffror. Försök igen.";
@@ -88,7 +88,7 @@
 "support action chat" = "Chatta med oss";
 // Action to end chat. Keep it super short
 "support action end" = "Slut";
-// Small link under the main button of the DNS setup sheet and in the Restore account ID dialog, opens the support chat. Keep it short
+// Small link under the main button of the DNS setup sheet and in the Restore account ID dialog, and a button on some error alerts. Opens the support chat. Keep it short
 "support action ask" = "Fråga supporten";
 // Replaces "Ask support" in the same small link while a support chat is still open, and reopens that chat. Keep it short
 "support action continue" = "Fortsätt chatta med supporten";
@@ -1263,3 +1263,30 @@
 "private dns android copied hint" = "Hostname copied. Paste it in Settings.";
 // Label above the Private DNS hostname on the Android setup sheet
 "private dns android blokada hostname label" = "Your Blokada hostname";
+
+// Daily Home (#460): the line under the power button while protection is on. Shown until the numbers load.
+"home status protected" = "Skyddad";
+// Same line once loaded, with activity logging on. %s is how long ago the last request was blocked, e.g. "2 minutes ago"
+"home status protected last block" = "Skyddad · senaste blockering: %s";
+// Same line with activity logging off. %s is how many requests were blocked in the last 24 hours, e.g. "36" or "12.3K"
+"home status protected blocked" = "Skyddad · %s blockerade de senaste 24 timmarna";
+// Home during the free trial. First %s is the day of the trial, second %s its length in days, e.g. "Day 3 of 7"
+"home trial day" = "Dag %s av %s";
+// Added after the line above. %s is how many requests were blocked since the trial started, e.g. "1,240" or "12.3K"
+"home trial blocked so far" = "%s blockerade hittills";
+// Home card: the domain blocked most often in the last 24 hours
+"home headline top blocked title" = "Mest blockerade domänen idag";
+// First %s is a domain (e.g. "doubleclick.net"), second %s how many times it was blocked
+"home headline top blocked body" = "%s försökte nå din enhet och blockerades %s gånger under de senaste 24 timmarna.";
+// Home card: the hour of the last 24 with the most blocked requests
+"home headline busiest hour title" = "Timmen med flest blockeringar";
+// First %s is the number blocked, second and third %s the start and end of the hour, e.g. "9:00 PM" and "10:00 PM"
+"home headline busiest hour body" = "Blokada blockerade %s förfrågningar mellan %s och %s.";
+// Home after a subscription ended. %s is the date it ended, e.g. "3 Nov"
+"home expired header" = "Skyddet upphörde den %s";
+// Used instead of the line above when the end date is unknown
+"home expired header nodate" = "Ditt skydd har upphört";
+// Under the line above. %s is how many requests Blokada blocked on this device, e.g. "12.3K"
+"home expired blocked" = "Blokada blockerade %s förfrågningar åt dig.";
+// Button that opens the subscription offer again
+"home expired action" = "Prenumerera på nytt";

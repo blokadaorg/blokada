@@ -16,7 +16,7 @@
 "error account inactive after restore" = "Изглежда, че това не е валиден активен акаунт. Ако смятате, че това е грешка, моля свържете се с нас.";
 "error account invalid" = "ID на този профил изглежда е невалиден.";
 "error creating account" = "Новият профил не можа да бъде създаден. Моля, опитайте отново по-късно.";
-"error fetching data" = "Действието не можа да приключи. Уверете се, че сте онлайн и опитайте отново по-късно. Ако проблемът продължава, моля свържете се с нас като докоснете иконата за помощ в горната част.";
+"error fetching data" = "This action could not be completed. Make sure you are online, and try again later. If the problem persists, please contact us.";
 "error tunnel" = "VPN не можа да бъде създаден. Моля, рестартирайте устройството, или премахнете профила на Blokada VPN от системните настройки и опитайте отново.";
 "error vpn" = "VPN не можа да бъде създаден. Моля, рестартирайте устройството, или премахнете профила на Blokada VPN от системните настройки и опитайте отново.";
 "error vpn perms" = "Няма предоставено разрешение за създаване на VPN профил.";
@@ -24,15 +24,15 @@
 "error vpn no current lease new" = "Blokada Plus е деактивирана на това устройство. Моля, изберете местоположение, за да я активирате отново.";
 "error vpn too many leases" = "Лимитът на устройствата е достигнат. Моля, премахнете едно от вашите устройства и опитайте отново.";
 "error vpn expired" = "VPN е деактивиран. Моля, актуализирайте абонамента си, за да продължите да използвате BLOKADA+";
-"error payment inactive after restore" = "Плащането ви беше възстановено и абонаментът вече е прекратен. Ако смятате, че това е грешка, моля свържете се с нас, като докоснете иконата за помощ в горната част.";
+"error payment inactive after restore" = "Your previous payment was restored, but the subscription has already expired. If you believe this is a mistake, please contact us.";
 "error restore not found" = "Не успяхме да намерим активен абонамент за Blokada, който да бъде възстановен. Ако вашият абонамент е изтекъл, можете да закупите нов. Ако смятате, че това е грешка, моля свържете се с нас.";
-"error payment failed" = "В момента няма налично плащане. Уверете се, че сте онлайн и опитайте отново по-късно. Ако този проблем продължава, моля свържете се с нас, като докоснете иконата за помощ в горната част.";
-"error payment failed alternative" = "Не можахме да завършим плащането Ви. Моля уверете се, че вашите данни са верни и опитайте отново. Ако този проблем продължава, моля свържете се с нас, като докоснете иконата за помощ в горната част.";
+"error payment failed" = "Payments are unavailable at this moment. Make sure you are online, and try again later. If the problem persists, please contact us.";
+"error payment failed alternative" = "Could not complete your payment. Please make sure your data is correct, and try again. If the problem persists, please contact us.";
 "error payment not available" = "Плащанията не са налични за това устройство. Или това устройство не е актуализирано, или все още не обработваме покупки от вашата страна.";
 "error payment canceled" = "Плащането е анулирано. Не сте таксувани.";
 "error pack install" = "Функцията не можа да се инсталира (или деинсталира). Моля, опитайте отново по-късно.";
 "error location failed fetching" = "Местоположенията не можаха да бъдат извлечени.";
-"error unknown" = "Възникна проблем. Уверете се, че сте онлайн и опитайте отново по-късно. Ако проблемът продължава, моля свържете се с нас, като докоснете иконата за помощ в горната част.";
+"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us.";
 "error multiple apps" = "На вашето устройство има повече от едно приложение на Blokada. Възможно е това да причини проблеми със свързването. Искате ли сега да отстраните проблема?";
 "error locked" = "Това действие не е активно, когато приложението е в заключено състояние. Моля, отключете приложението, за да продължите.";
 "error lock invalid" = "Валидният ПИН код трябва да съдържа точно 4 цифри. Моля, опитайте отново.";
@@ -88,7 +88,7 @@
 "support action chat" = "Чат с нас";
 // Action to end chat. Keep it super short
 "support action end" = "Край";
-// Small link under the main button of the DNS setup sheet and in the Restore account ID dialog, opens the support chat. Keep it short
+// Small link under the main button of the DNS setup sheet and in the Restore account ID dialog, and a button on some error alerts. Opens the support chat. Keep it short
 "support action ask" = "Поискайте поддръжка";
 // Replaces "Ask support" in the same small link while a support chat is still open, and reopens that chat. Keep it short
 "support action continue" = "Продължете чата с поддръжката";
@@ -1263,3 +1263,30 @@
 "private dns android copied hint" = "Името на хоста е копирано. Поставете го в Настройки.";
 // Label above the Private DNS hostname on the Android setup sheet
 "private dns android blokada hostname label" = "Името на хоста ви в Blokada";
+
+// Daily Home (#460): the line under the power button while protection is on. Shown until the numbers load.
+"home status protected" = "Защитено";
+// Same line once loaded, with activity logging on. %s is how long ago the last request was blocked, e.g. "2 minutes ago"
+"home status protected last block" = "Защитено · последно блокиране %s";
+// Same line with activity logging off. %s is how many requests were blocked in the last 24 hours, e.g. "36" or "12.3K"
+"home status protected blocked" = "Защитено · блокирани заявки за 24 ч.: %s";
+// Home during the free trial. First %s is the day of the trial, second %s its length in days, e.g. "Day 3 of 7"
+"home trial day" = "Ден %s от %s";
+// Added after the line above. %s is how many requests were blocked since the trial started, e.g. "1,240" or "12.3K"
+"home trial blocked so far" = "%s блокирани досега";
+// Home card: the domain blocked most often in the last 24 hours
+"home headline top blocked title" = "Най-често блокиран днес";
+// First %s is a domain (e.g. "doubleclick.net"), second %s how many times it was blocked
+"home headline top blocked body" = "%s се опита да се свърже с устройството ви и беше блокиран %s пъти през последните 24 часа.";
+// Home card: the hour of the last 24 with the most blocked requests
+"home headline busiest hour title" = "Часът с най-много блокирани заявки";
+// First %s is the number blocked, second and third %s the start and end of the hour, e.g. "9:00 PM" and "10:00 PM"
+"home headline busiest hour body" = "Blokada блокира %s заявки между %s и %s.";
+// Home after a subscription ended. %s is the date it ended, e.g. "3 Nov"
+"home expired header" = "Защитата приключи на %s";
+// Used instead of the line above when the end date is unknown
+"home expired header nodate" = "Вашата защита е изтекла";
+// Under the line above. %s is how many requests Blokada blocked on this device, e.g. "12.3K"
+"home expired blocked" = "Blokada блокира %s заявки вместо вас.";
+// Button that opens the subscription offer again
+"home expired action" = "Абонирайте се отново";

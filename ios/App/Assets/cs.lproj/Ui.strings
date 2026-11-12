@@ -16,7 +16,7 @@
 "error account inactive after restore" = "Zdá se, že se nejedná o platný aktivní účet. Pokud se domníváte, že se jedná o chybu, kontaktujte nás prosím.";
 "error account invalid" = "Toto ID účtu se zdá být neplatné.";
 "error creating account" = "Nelze vytvořit nový účet. Opakujte akci později.";
-"error fetching data" = "Tuto akci nelze dokončit. Ujistěte se, že jste online, a zkuste to znovu později. Pokud problém přetrvává, prosím kontaktujte nás klepnutím na ikonu nápovědy v horní části.";
+"error fetching data" = "Tuto akci nelze dokončit. Ujistěte se, že jste online, a zkuste to znovu později. Pokud problém přetrvává, kontaktujte nás prosím.";
 "error tunnel" = "Nelze vytvořit VPN. Restartujte zařízení nebo odstraňte profil Blokada VPN v systémovém nastavení a zkuste to znovu.";
 "error vpn" = "Nelze vytvořit VPN. Restartujte zařízení nebo odstraňte profil Blokada VPN v systémovém nastavení a zkuste to znovu.";
 "error vpn perms" = "K vytvoření profilu VPN nebyla udělena žádná oprávnění.";
@@ -24,15 +24,15 @@
 "error vpn no current lease new" = "Aplikace Blokada Plus je nyní v tomto zařízení zakázána. Pro její opětovnou aktivaci vyberte umístění.";
 "error vpn too many leases" = "Dosáhli jste limitu zařízení. Prosím odeberte jedno z vašich zařízení a zkuste to znovu.";
 "error vpn expired" = "VPN je zakázána. Aktualizujte vaše předplatné a pokračujte v používání služby BLOKADA+";
-"error payment inactive after restore" = "Vaše předchozí platba byla obnovena, ale předplatné již vypršelo. Pokud se domníváte, že se jedná o chybu, kontaktujte nás kliknutím na ikonu nápovědy v horní části.";
+"error payment inactive after restore" = "Vaše předchozí platba byla obnovena, ale předplatné již vypršelo. Pokud se domníváte, že se jedná o chybu, kontaktujte nás prosím.";
 "error restore not found" = "Nepodařilo se najít aktivní předplatné Blokada k obnovení. Pokud vaše předplatné již vypršelo, můžete si koupit nové. Pokud si myslíte, že je to chyba, kontaktujte nás.";
-"error payment failed" = "Platby nejsou momentálně k dispozici. Ujistěte se, že jste online, a zkuste to znovu později. Pokud problém přetrvává, prosím kontaktujte nás klepnutím na ikonu nápovědy v horní části.";
-"error payment failed alternative" = "Nelze dokončit Vaši platbu. Ujistěte se, že jsou vaše údaje správné, a zkuste to znovu. Pokud problém přetrvává, prosím, kontaktujte nás klepnutím na ikonu nápovědy v horní části.";
+"error payment failed" = "Platby nejsou momentálně k dispozici. Ujistěte se, že jste online, a zkuste to znovu později. Pokud problém přetrvává, kontaktujte nás prosím.";
+"error payment failed alternative" = "Vaši platbu nelze dokončit. Ujistěte se, že jsou vaše údaje správné, a zkuste to znovu. Pokud problém přetrvává, kontaktujte nás prosím.";
 "error payment not available" = "Platby pro toto zařízení nejsou k dispozici. Buď toto zařízení není aktualizováno, nebo nákupy ve vaší zemi zatím nezpracováváme.";
 "error payment canceled" = "Platba byla zrušena. Nebyli vám účtovány žádné poplatky.";
 "error pack install" = "Tuto funkci nelze nainstalovat (nebo odinstalovat). Opakujte akci později.";
 "error location failed fetching" = "Nelze načíst umístění.";
-"error unknown" = "Vyskytl se problém. Ujistěte se, že jste online, a zkuste to později. Pokud problém přetrvává, kontaktujte nás prosím klepnutím na ikonu nápovědy v horní části.";
+"error unknown" = "Vyskytl se problém. Ujistěte se, že jste online, a zkuste to znovu později. Pokud problém přetrvává, kontaktujte nás prosím.";
 "error multiple apps" = "Na vašem zařízení je více než jedna aplikace Blokada. To může způsobit problémy s připojením. Chcete to nyní opravit?";
 "error locked" = "Tato akce není k dispozici, pokud je aplikace v uzamčeném stavu. Chcete-li pokračovat, aplikaci odemkněte.";
 "error lock invalid" = "Platný PIN musí mít přesně 4 číslice. Zkuste to prosím znovu.";
@@ -88,7 +88,7 @@
 "support action chat" = "Chatujte s námi";
 // Action to end chat. Keep it super short
 "support action end" = "Ukončit";
-// Small link under the main button of the DNS setup sheet and in the Restore account ID dialog, opens the support chat. Keep it short
+// Small link under the main button of the DNS setup sheet and in the Restore account ID dialog, and a button on some error alerts. Opens the support chat. Keep it short
 "support action ask" = "Požádat o podporu";
 // Replaces "Ask support" in the same small link while a support chat is still open, and reopens that chat. Keep it short
 "support action continue" = "Pokračovat v chatu";
@@ -1263,3 +1263,30 @@
 "private dns android copied hint" = "Hostname copied. Paste it in Settings.";
 // Label above the Private DNS hostname on the Android setup sheet
 "private dns android blokada hostname label" = "Your Blokada hostname";
+
+// Daily Home (#460): the line under the power button while protection is on. Shown until the numbers load.
+"home status protected" = "Chráněno";
+// Same line once loaded, with activity logging on. %s is how long ago the last request was blocked, e.g. "2 minutes ago"
+"home status protected last block" = "Chráněno · naposledy blokováno %s";
+// Same line with activity logging off. %s is how many requests were blocked in the last 24 hours, e.g. "36" or "12.3K"
+"home status protected blocked" = "Chráněno · za 24 h zablokováno %s";
+// Home during the free trial. First %s is the day of the trial, second %s its length in days, e.g. "Day 3 of 7"
+"home trial day" = "Den %s z %s";
+// Added after the line above. %s is how many requests were blocked since the trial started, e.g. "1,240" or "12.3K"
+"home trial blocked so far" = "Zatím zablokováno %s";
+// Home card: the domain blocked most often in the last 24 hours
+"home headline top blocked title" = "Dnes nejčastěji blokovaná doména";
+// First %s is a domain (e.g. "doubleclick.net"), second %s how many times it was blocked
+"home headline top blocked body" = "Doména %s se v posledních 24 hodinách pokusila připojit k vašemu zařízení a byla zablokována celkem %s×.";
+// Home card: the hour of the last 24 with the most blocked requests
+"home headline busiest hour title" = "Hodina s nejvíce zablokovanými požadavky";
+// First %s is the number blocked, second and third %s the start and end of the hour, e.g. "9:00 PM" and "10:00 PM"
+"home headline busiest hour body" = "Blokada zablokovala %s požadavků mezi %s a %s.";
+// Home after a subscription ended. %s is the date it ended, e.g. "3 Nov"
+"home expired header" = "Ochrana skončila dne %s";
+// Used instead of the line above when the end date is unknown
+"home expired header nodate" = "Vaše ochrana skončila";
+// Under the line above. %s is how many requests Blokada blocked on this device, e.g. "12.3K"
+"home expired blocked" = "Blokada pro vás zablokovala %s požadavků.";
+// Button that opens the subscription offer again
+"home expired action" = "Obnovit předplatné";
