@@ -2,7 +2,7 @@ import { $, driver } from "@wdio/globals";
 
 import { AutomationIds } from "../support/automationIds.js";
 import { byId, isAndroid, semanticValueOf, tap } from "../support/platform.js";
-import { dismissRatePromptIfPresent } from "./modals.js";
+import { dismissRatePromptIfPresent, dismissSafariOnboardIfPresent } from "./modals.js";
 
 const powerToggleSelector = () => byId(AutomationIds.powerToggle);
 
@@ -27,7 +27,16 @@ export async function waitForPowerButton(timeout = 20000): Promise<void> {
   try {
     await semanticElement.waitForExist({ timeout });
   } catch (error) {
-    await dismissRatePromptIfPresent(2000);
+    // One-time sheets (Rate us, Safari video-ads onboarding) can cover Home,
+    // and can appear one after the other, so dismiss and re-check a few times.
+    for (let round = 0; round < 3; round += 1) {
+      await dismissRatePromptIfPresent(2000);
+      await dismissSafariOnboardIfPresent();
+      if (await semanticElement.isExisting()) {
+        return;
+      }
+      await driver.pause(1000);
+    }
     await semanticElement.waitForExist({ timeout: 5000 });
   }
 }
