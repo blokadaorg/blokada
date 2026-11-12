@@ -519,7 +519,7 @@ void main() {
         )).captured;
         final scheduledAt = DateTime.parse(captured.single as String).toLocal();
         final delay = scheduledAt.difference(DateTime.now());
-        expect(delay.inSeconds, inInclusiveRange(30, 120));
+        expect(delay.inMinutes, inInclusiveRange(3 * 24 * 60 - 2, 3 * 24 * 60));
       });
     });
 

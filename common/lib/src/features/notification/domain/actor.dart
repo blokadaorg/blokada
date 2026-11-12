@@ -7,7 +7,9 @@ part of 'notification.dart';
 /// we can do stuff in foreground (like refresh account).
 
 class NotificationActor with Logging, Actor {
-  static const _activityLoggingReminderDelay = Duration(minutes: 1);
+  // Scheduled on payment success, which also fires at trial start: 3 days
+  // lands inside the 7-day trial, clear of the expiry push and first charge.
+  static const _activityLoggingReminderDelay = Duration(days: 3);
 
   // TODO: fix those dependencies
   late final _stage = Core.get<StageStore>();
