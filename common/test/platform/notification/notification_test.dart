@@ -1,3 +1,4 @@
+import 'package:common/src/features/funnel/domain/funnel.dart';
 import 'dart:convert';
 
 import 'package:common/src/features/link/domain/link.dart';
@@ -36,6 +37,15 @@ class _CatchAllPaneHost implements DetailPaneHandle {
 
   @override
   void show(Paths path, Object? arguments) {}
+}
+
+class _RecordingFunnel extends FunnelActor {
+  _RecordingFunnel() : super(enabled: true);
+
+  final events = <FunnelEvent>[];
+
+  @override
+  Future<void> send(Marker m, FunnelEvent event) async => events.add(event);
 }
 
 void main() {
@@ -353,6 +363,63 @@ void main() {
         await store.onRouteChanged(StageRouteState.init().newFg(), m);
 
         expect(Navigation.lastPath, Paths.privacyPulse);
+      });
+    });
+
+    test("weekly report tap replaced before it opens counts no pulse open", () async {
+      await withTrace((m) async {
+        final stage = MockStageStore();
+        when(stage.route).thenReturn(StageRouteState.init());
+        Core.register<StageStore>(stage);
+        Core.register<AccountStore>(MockAccountStore());
+        Core.register<PaymentActor>(_FakePaymentActor());
+        Core.register(NotificationsValue());
+        Core.register<WeeklyReportActor>(_FakeWeeklyReportActor(_weeklyEvent()));
+        Core.register<NotificationChannel>(MockNotificationChannel());
+        final funnel = _RecordingFunnel();
+        Core.register<FunnelActor>(funnel);
+
+        final store = NotificationActor();
+        Core.register<NotificationActor>(store);
+        Navigation.lastPath = null;
+
+        // A later tap replaces the queued Privacy Pulse before it opens.
+        await store.notificationTapped(m, NotificationId.weeklyReport.name);
+        await store.notificationTapped(m, NotificationId.activityLoggingReminder.name);
+        expect(funnel.events, isEmpty);
+        await store.onRouteChanged(StageRouteState.init().newFg(), m);
+        expect(Navigation.lastPath, Paths.settingsRetention);
+        expect(funnel.events, isEmpty);
+      });
+    });
+
+    test("weekly report tap counts a pulse open when it opens", () async {
+      await withTrace((m) async {
+        final stage = MockStageStore();
+        when(stage.route).thenReturn(StageRouteState.init());
+        Core.register<StageStore>(stage);
+        Core.register<AccountStore>(MockAccountStore());
+        Core.register<PaymentActor>(_FakePaymentActor());
+        Core.register(NotificationsValue());
+        Core.register<WeeklyReportActor>(_FakeWeeklyReportActor(_weeklyEvent()));
+        Core.register<NotificationChannel>(MockNotificationChannel());
+        final funnel = _RecordingFunnel();
+        Core.register<FunnelActor>(funnel);
+
+        final store = NotificationActor();
+        Core.register<NotificationActor>(store);
+        Navigation.lastPath = null;
+
+        // Lets Navigation.open succeed without a navigator.
+        final hosts = DetailPaneHosts();
+        hosts.register(_CatchAllPaneHost());
+        Core.register<DetailPaneHosts>(hosts);
+
+        await store.notificationTapped(m, NotificationId.weeklyReport.name);
+        expect(funnel.events, isEmpty);
+        await store.onRouteChanged(StageRouteState.init().newFg(), m);
+        expect(Navigation.lastPath, Paths.privacyPulse);
+        expect(funnel.events, [FunnelEvent.pulseOpenedPush]);
       });
     });
 

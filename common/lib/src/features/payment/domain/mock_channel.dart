@@ -18,9 +18,6 @@ class MockPaymentChannel with Logging, PaymentChannel {
   Future<void> identify(AccountId accountId) async {}
 
   @override
-  Future<void> logOnboardingStep(String name, OnboardingStep step) async {}
-
-  @override
   Future<void> preload(Marker m, Placement placement) async {}
 
   @override
