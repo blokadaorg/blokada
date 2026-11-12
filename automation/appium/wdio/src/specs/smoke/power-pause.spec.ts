@@ -35,6 +35,10 @@ const dnsSheetSelector = () => byId(AutomationIds.dnsOnboardingSheet);
 async function activateUntilOn(timeout = 30000): Promise<void> {
   await driver.waitUntil(
     async () => {
+      // If protection turned on between the state check and the tap, that tap
+      // opened the pause sheet, which hides the power toggle from the next
+      // state read. Cancel it (no state change) and re-check.
+      await cancelActionSheetIfPresent();
       if ((await getProtectionState()) === "active") {
         return true;
       }

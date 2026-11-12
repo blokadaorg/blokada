@@ -137,5 +137,7 @@ export async function cancelActionSheetIfPresent(): Promise<void> {
   const action = await $(cancelActionSelector());
   if (await action.isExisting()) {
     await tap(action);
+    // Let the sheet animate away so the power toggle is readable again.
+    await driver.pause(800);
   }
 }
