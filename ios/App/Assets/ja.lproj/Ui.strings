@@ -16,7 +16,7 @@
 "error account inactive after restore" = "有効なアクティブアカウントではないようです。誤りと思われる場合はお問い合わせください。";
 "error account invalid" = "アカウント ID を確認してください";
 "error creating account" = "新しいアカウントを作成できませんでした。後でもう一度お試しください。";
-"error fetching data" = "操作を完了できませんでした。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。";
+"error fetching data" = "操作を完了できませんでした。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ご連絡ください。";
 "error tunnel" = "VPN 接続を確立できませんでした。端末を再起動するか、システム設定で Blokada の VPN プロファイルを削除して再度お試しください。";
 "error vpn" = "VPN 接続を確立できませんでした。端末を再起動するか、システム設定で Blokada の VPN プロファイルを削除して再度お試しください。";
 "error vpn perms" = "VPN プロファイルを作成する権限がありません。";
@@ -24,15 +24,15 @@
 "error vpn no current lease new" = "Blokada Plus が無効になりました。接続先を選択して有効にしてください。";
 "error vpn too many leases" = "端末数の上限に達しました。いずれかの端末を削除して、もう一度やり直してください。";
 "error vpn expired" = "VPN は無効です。BLOKADA+ を引き続き使用するには、サブスクリプションを更新してください。";
-"error payment inactive after restore" = "以前のお支払いは復元されましたが、サブスクリプションの有効期限が終了しています。これが間違いであると思われる場合は、ヘルプからご連絡ください。";
+"error payment inactive after restore" = "以前のお支払いは復元されましたが、サブスクリプションの有効期限が終了しています。これが間違いであると思われる場合は、ご連絡ください。";
 "error restore not found" = "有効なBlokadaサブスクリプションが見つかりませんでした。サブスクリプションの有効期限が切れている場合は、新たに購入できます。問題がある場合はご連絡ください。";
-"error payment failed" = "現在、お支払いいただくことができません。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。";
-"error payment failed alternative" = "お支払いを完了できませんでした。入力内容を確認の上、もう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。";
+"error payment failed" = "現在、お支払いいただくことができません。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ご連絡ください。";
+"error payment failed alternative" = "お支払いを完了できませんでした。入力内容を確認の上、もう一度お試しください。問題が解決しない場合は、ご連絡ください。";
 "error payment not available" = "この端末ではお支払いはご利用いただけません。端末が最新ではないか、お住まいの国からのお支払いに対応していません。";
 "error payment canceled" = "お支払いがキャンセルされました。入金されていません。";
 "error pack install" = "この機能をインストール (またはアンインストール) できませんでした。後でもう一度お試しください。";
 "error location failed fetching" = "接続先を取得できませんでした。";
-"error unknown" = "問題が発生しました。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ヘルプからご連絡ください。";
+"error unknown" = "問題が発生しました。インターネット接続を確認の上、時間を置いてもう一度お試しください。問題が解決しない場合は、ご連絡ください。";
 "error multiple apps" = "端末に Blokada の複数のバージョンがインストールされているようです。接続の問題が発生する可能性があります。修正しますか？";
 "error locked" = "アプリのロック中はできない操作です。続行するにはアプリのロックを解除してください。";
 "error lock invalid" = "4 桁以外の PIN は無効です。もう一度やり直してください。";
@@ -88,7 +88,7 @@
 "support action chat" = "チャットで問い合わせ";
 // Action to end chat. Keep it super short
 "support action end" = "終了";
-// Small link under the main button of the DNS setup sheet and in the Restore account ID dialog, opens the support chat. Keep it short
+// Small link under the main button of the DNS setup sheet and in the Restore account ID dialog, and a button on some error alerts. Opens the support chat. Keep it short
 "support action ask" = "サポートに相談";
 // Replaces "Ask support" in the same small link while a support chat is still open, and reopens that chat. Keep it short
 "support action continue" = "サポートとのチャットを再開";
@@ -1264,3 +1264,30 @@
 "private dns android copied hint" = "Hostname copied. Paste it in Settings.";
 // Label above the Private DNS hostname on the Android setup sheet
 "private dns android blokada hostname label" = "Your Blokada hostname";
+
+// Daily Home (#460): the line under the power button while protection is on. Shown until the numbers load.
+"home status protected" = "保護中";
+// Same line once loaded, with activity logging on. %s is how long ago the last request was blocked, e.g. "2 minutes ago"
+"home status protected last block" = "保護中 · 最後のブロック: %s";
+// Same line with activity logging off. %s is how many requests were blocked in the last 24 hours, e.g. "36" or "12.3K"
+"home status protected blocked" = "保護中 · 過去24時間に%s件をブロック";
+// Home during the free trial. First %s is the day of the trial, second %s its length in days, e.g. "Day 3 of 7"
+"home trial day" = "%s 日目、全 %s 日間";
+// Added after the line above. %s is how many requests were blocked since the trial started, e.g. "1,240" or "12.3K"
+"home trial blocked so far" = "これまでに%s件をブロック";
+// Home card: the domain blocked most often in the last 24 hours
+"home headline top blocked title" = "今日最も多くブロックされたドメイン";
+// First %s is a domain (e.g. "doubleclick.net"), second %s how many times it was blocked
+"home headline top blocked body" = "%sがお使いのデバイスに接続しようとし、過去24時間に%s回ブロックされました。";
+// Home card: the hour of the last 24 with the most blocked requests
+"home headline busiest hour title" = "ブロックが最も多かった時間帯";
+// First %s is the number blocked, second and third %s the start and end of the hour, e.g. "9:00 PM" and "10:00 PM"
+"home headline busiest hour body" = "Blokadaは%s件のリクエストを%sから%sまでの間にブロックしました。";
+// Home after a subscription ended. %s is the date it ended, e.g. "3 Nov"
+"home expired header" = "保護は%sに終了しました";
+// Used instead of the line above when the end date is unknown
+"home expired header nodate" = "保護は終了しました";
+// Under the line above. %s is how many requests Blokada blocked on this device, e.g. "12.3K"
+"home expired blocked" = "Blokadaは%s件のリクエストをブロックしました。";
+// Button that opens the subscription offer again
+"home expired action" = "サブスクリプションに再登録";
