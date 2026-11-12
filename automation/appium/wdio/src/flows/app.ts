@@ -1,5 +1,7 @@
 import { driver } from "@wdio/globals";
 
+import { APP_AUTOMATION_ARGS } from "../../scripts/lib/automation-env.mjs";
+import { forceKillIosApp } from "../support/devicectl.js";
 import { isAndroid } from "../support/platform.js";
 
 const APP_STATE_NOT_RUNNING = 1;
@@ -13,6 +15,10 @@ function appArgs(bundleId: string): Record<string, string> {
 
 async function queryAppState(bundleId: string): Promise<number> {
   return driver.execute("mobile: queryAppState", appArgs(bundleId));
+}
+
+export async function isAppRunning(bundleId: string): Promise<boolean> {
+  return (await queryAppState(bundleId)) !== APP_STATE_NOT_RUNNING;
 }
 
 export async function waitForAppForeground(bundleId: string, timeout = 20000): Promise<void> {
@@ -47,14 +53,25 @@ export async function terminateApp(bundleId: string): Promise<void> {
   } catch (error) {
     console.warn(`terminateApp failed for ${bundleId}: ${String(error)}`);
   }
-  await waitForAppTermination(bundleId).catch(() => undefined);
+  const terminated = await waitForAppTermination(bundleId)
+    .then(() => true)
+    .catch(() => false);
+  // WDA can report success while the app survives in the background; reusing
+  // that process skips launch arguments and can leave Flutter's accessibility
+  // tree off. Kill it from the host instead.
+  if (!terminated && !isAndroid()) {
+    console.warn(`${bundleId} survived terminate; force-killing it via devicectl.`);
+    if (forceKillIosApp(bundleId)) {
+      await waitForAppTermination(bundleId, 5000).catch(() => undefined);
+    }
+  }
 }
 
 export async function launchApp(bundleId: string): Promise<void> {
   if (isAndroid()) {
     await driver.execute("mobile: activateApp", appArgs(bundleId));
   } else {
-    await driver.execute("mobile: launchApp", { bundleId });
+    await driver.execute("mobile: launchApp", { bundleId, arguments: [...APP_AUTOMATION_ARGS] });
   }
   await waitForAppForeground(bundleId);
 }
@@ -66,7 +83,13 @@ export async function activateApp(bundleId: string): Promise<void> {
     return;
   }
   try {
-    await driver.activateApp(bundleId);
+    if (!(await isAppRunning(bundleId))) {
+      // A cold start must carry the automation launch arguments (activate would launch
+      // the app without it); see scripts/lib/automation-env.mjs.
+      await driver.execute("mobile: launchApp", { bundleId, arguments: [...APP_AUTOMATION_ARGS] });
+    } else {
+      await driver.activateApp(bundleId);
+    }
   } catch (error) {
     console.warn(`activateApp fell back to launch for ${bundleId}: ${String(error)}`);
     await driver.execute("mobile: activateApp", { bundleId });
