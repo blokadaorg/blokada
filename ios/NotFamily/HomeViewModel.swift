@@ -44,8 +44,15 @@ class HomeViewModel: ObservableObject {
     @Published var accountActive = false
     @Published var accountType = AccountType.Libre
 
-    @Published var showError: Bool = false
+    @Published var showError: Bool = false {
+        didSet {
+            // Errors the app raises itself, such as a failed pause, set no stage
+            // alert, so a closed alert must not leave its Ask support behind.
+            if !showError { askSupportAlert = nil }
+        }
+    }
     var errorHeader: String? = nil
+    var askSupportAlert: StageModal? = nil
     var error: String? = nil {
         didSet {
             if error != nil {
@@ -99,6 +106,7 @@ class HomeViewModel: ObservableObject {
     
     init() {
         onErrorHeader()
+        onAskSupportAlert()
         onError()
         onInput()
         onAppStateChanged()
@@ -115,6 +123,15 @@ class HomeViewModel: ObservableObject {
         .receive(on: RunLoop.main)
         .sink(onValue: { it in
             self.errorHeader = it
+        })
+        .store(in: &cancellables)
+    }
+
+    private func onAskSupportAlert() {
+        stage.askSupportAlert
+        .receive(on: RunLoop.main)
+        .sink(onValue: { it in
+            self.askSupportAlert = it
         })
         .store(in: &cancellables)
     }
