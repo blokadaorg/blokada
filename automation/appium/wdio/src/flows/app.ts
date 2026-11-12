@@ -15,6 +15,10 @@ async function queryAppState(bundleId: string): Promise<number> {
   return driver.execute("mobile: queryAppState", appArgs(bundleId));
 }
 
+export async function isAppRunning(bundleId: string): Promise<boolean> {
+  return (await queryAppState(bundleId)) !== APP_STATE_NOT_RUNNING;
+}
+
 export async function waitForAppForeground(bundleId: string, timeout = 20000): Promise<void> {
   await driver.waitUntil(
     async () => {

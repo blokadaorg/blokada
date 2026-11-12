@@ -1,10 +1,12 @@
+import { execFileSync } from "node:child_process";
+
 import { $, driver } from "@wdio/globals";
 
 import { ANDROID_LAUNCH_ACTIVITY } from "../../scripts/lib/capabilities.mjs";
 import { AutomationIds } from "../support/automationIds.js";
 import { readCurrentAccount, writeCurrentAccount } from "../support/account-state.js";
 import { byId, isAndroid, semanticValueOf, settleNavigation, tap } from "../support/platform.js";
-import { activateApp, terminateApp, waitForAppForeground } from "./app.js";
+import { activateApp, isAppRunning, terminateApp, waitForAppForeground } from "./app.js";
 import { acceptNotificationAlert } from "./alerts.js";
 import { waitForPowerButton } from "./home.js";
 import { dismissRatePromptIfPresent } from "./modals.js";
@@ -70,6 +72,34 @@ async function launchWithRestore(accountId: string): Promise<void> {
       extras: [["s", "restore_account_id", accountId]],
       wait: true
     });
+  } else if (await isAppRunning(APP_BUNDLE_ID)) {
+    // `mobile: terminateApp` can report success while the app stays alive in
+    // the background (seen on the CI iPhone). `mobile: launchApp` would then
+    // just foreground that process without the argument, and no restore runs.
+    // devicectl's --terminate-existing kills it and passes the argument.
+    const udid = process.env.IOS_UDID;
+    if (!udid) {
+      throw new Error("App is still running after terminate and IOS_UDID is unset; cannot relaunch with the restore argument.");
+    }
+    console.warn("App survived terminate; relaunching with the restore argument via devicectl.");
+    execFileSync(
+      "xcrun",
+      [
+        "devicectl",
+        "device",
+        "process",
+        "launch",
+        "--terminate-existing",
+        "--device",
+        udid,
+        APP_BUNDLE_ID,
+        // "--" so devicectl passes the dash-prefixed argument to the app.
+        "--",
+        "-restoreAccountId",
+        accountId
+      ],
+      { stdio: "ignore" }
+    );
   } else {
     await driver.execute("mobile: launchApp", {
       bundleId: APP_BUNDLE_ID,
