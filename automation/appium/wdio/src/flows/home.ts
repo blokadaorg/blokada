@@ -2,6 +2,7 @@ import { $, driver } from "@wdio/globals";
 
 import { AutomationIds } from "../support/automationIds.js";
 import { byId, isAndroid, semanticValueOf, tap } from "../support/platform.js";
+import { activateApp, terminateApp } from "./app.js";
 import { dismissRatePromptIfPresent, dismissSafariOnboardIfPresent } from "./modals.js";
 
 const powerToggleSelector = () => byId(AutomationIds.powerToggle);
@@ -36,6 +37,19 @@ export async function waitForPowerButton(timeout = 20000): Promise<void> {
         return;
       }
       await driver.pause(1000);
+    }
+    if (!isAndroid()) {
+      // Still nothing: the app process may have Flutter's accessibility tree
+      // off (the page source shows no app elements at all, even on Home). A
+      // fresh process brings it back.
+      console.warn("Power toggle still missing; relaunching the app in a fresh process.");
+      const bundleId = process.env.APP_BUNDLE_ID ?? "net.blocka.app";
+      await terminateApp(bundleId);
+      await activateApp(bundleId);
+      await dismissRatePromptIfPresent(3000);
+      await dismissSafariOnboardIfPresent();
+      await semanticElement.waitForExist({ timeout: 15000 });
+      return;
     }
     await semanticElement.waitForExist({ timeout: 5000 });
   }

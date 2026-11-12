@@ -1,5 +1,6 @@
 import { driver } from "@wdio/globals";
 
+import { forceKillIosApp } from "../support/devicectl.js";
 import { isAndroid } from "../support/platform.js";
 
 const APP_STATE_NOT_RUNNING = 1;
@@ -51,7 +52,18 @@ export async function terminateApp(bundleId: string): Promise<void> {
   } catch (error) {
     console.warn(`terminateApp failed for ${bundleId}: ${String(error)}`);
   }
-  await waitForAppTermination(bundleId).catch(() => undefined);
+  const terminated = await waitForAppTermination(bundleId)
+    .then(() => true)
+    .catch(() => false);
+  // WDA can report success while the app survives in the background; reusing
+  // that process skips launch arguments and can leave Flutter's accessibility
+  // tree off. Kill it from the host instead.
+  if (!terminated && !isAndroid()) {
+    console.warn(`${bundleId} survived terminate; force-killing it via devicectl.`);
+    if (forceKillIosApp(bundleId)) {
+      await waitForAppTermination(bundleId, 5000).catch(() => undefined);
+    }
+  }
 }
 
 export async function launchApp(bundleId: string): Promise<void> {
