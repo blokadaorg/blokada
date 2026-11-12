@@ -7,6 +7,7 @@ import { buildCapabilities } from "./scripts/lib/capabilities.mjs";
 import { getAppiumServerConfig } from "./scripts/lib/paths.mjs";
 import { resetAccountState } from "./src/support/account-state.js";
 import { savePageSource, saveScreenshot } from "./src/support/artifacts.js";
+import { clearPreflightFailure } from "./src/support/preflight.js";
 
 const logLevel =
   (process.env.WDIO_LOG_LEVEL as Options.WebDriverLogTypes | undefined) ?? "info";
@@ -57,7 +58,10 @@ const rawConfig = {
   logLevel,
   framework: "mocha",
   mochaOpts: {
-    timeout: 600000
+    timeout: 600000,
+    // Root beforeAll that gets the app on screen before each spec, failing
+    // fast when the phone is dark or locked. See src/support/preflight.ts.
+    require: ["./src/support/preflight.ts"]
   },
   reporters: [
     "spec",
@@ -76,6 +80,7 @@ const rawConfig = {
   // later same-account specs can skip the restore. See account-state.ts.
   onPrepare: function () {
     resetAccountState();
+    clearPreflightFailure();
   },
   // Wake the device before every worker session. `make appium-test` wakes the
   // device once before the whole run, but the `after` hook below sleeps it after
