@@ -261,6 +261,47 @@ async function swipeInSettings(direction: "up" | "down" | "left" | "right"): Pro
   await driver.pause(350);
 }
 
+// iOS 26 Settings floats a Search bar over the bottom ~130pt of the list, and a
+// tap on a row underneath it is swallowed by the bar. On a supervised device the
+// "This iPhone is supervised…" banner pushes General down into exactly that zone,
+// so drag the list up just enough to bring the row clear before tapping it.
+const bottomBarClearance = 160;
+
+async function scrollClearOfBottomBar(element: WebdriverIO.Element, description: string): Promise<void> {
+  try {
+    const { height: windowHeight, width: windowWidth } = await driver.getWindowSize();
+    const rect = await driver.getElementRect(element.elementId);
+    const safeBottom = windowHeight - bottomBarClearance;
+    const overlap = rect.y + rect.height - safeBottom;
+    if (overlap <= 0) {
+      return;
+    }
+
+    const distance = Math.min(Math.round(overlap + 40), Math.round(windowHeight * 0.4));
+    const x = Math.round(windowWidth / 2);
+    const startY = Math.round(windowHeight * 0.6);
+    await driver.performActions([
+      {
+        type: "pointer",
+        id: "finger1",
+        parameters: { pointerType: "touch" },
+        actions: [
+          { type: "pointerMove", duration: 0, x, y: startY },
+          { type: "pointerDown", button: 0 },
+          { type: "pause", duration: 200 },
+          { type: "pointerMove", duration: 600, x, y: startY - distance },
+          { type: "pause", duration: 200 },
+          { type: "pointerUp", button: 0 },
+        ],
+      },
+    ]);
+    await driver.releaseActions();
+    await driver.pause(500);
+  } catch (error) {
+    console.warn(`Unable to scroll ${description} clear of the bottom bar: ${String(error)}`);
+  }
+}
+
 async function findElementWithScroll(
   selectors: string[],
   description: string,
@@ -322,6 +363,8 @@ async function openSettingsSection(
     } catch (error) {
       console.warn(`Failed to resolve parent element for ${description}: ${String(error)}`);
     }
+
+    await scrollClearOfBottomBar(target, description);
 
     try {
       await target.click();

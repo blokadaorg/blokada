@@ -2,7 +2,8 @@ import { $, driver } from "@wdio/globals";
 
 import { AutomationIds } from "../support/automationIds.js";
 import { byId, isAndroid, semanticValueOf, tap } from "../support/platform.js";
-import { dismissRatePromptIfPresent } from "./modals.js";
+import { activateApp, terminateApp } from "./app.js";
+import { dismissRatePromptIfPresent, dismissSafariOnboardIfPresent } from "./modals.js";
 
 const powerToggleSelector = () => byId(AutomationIds.powerToggle);
 
@@ -27,7 +28,29 @@ export async function waitForPowerButton(timeout = 20000): Promise<void> {
   try {
     await semanticElement.waitForExist({ timeout });
   } catch (error) {
-    await dismissRatePromptIfPresent(2000);
+    // One-time sheets (Rate us, Safari video-ads onboarding) can cover Home,
+    // and can appear one after the other, so dismiss and re-check a few times.
+    for (let round = 0; round < 3; round += 1) {
+      await dismissRatePromptIfPresent(2000);
+      await dismissSafariOnboardIfPresent();
+      if (await semanticElement.isExisting()) {
+        return;
+      }
+      await driver.pause(1000);
+    }
+    if (!isAndroid()) {
+      // Still nothing: the app process may have Flutter's accessibility tree
+      // off (the page source shows no app elements at all, even on Home). A
+      // fresh process brings it back.
+      console.warn("Power toggle still missing; relaunching the app in a fresh process.");
+      const bundleId = process.env.APP_BUNDLE_ID ?? "net.blocka.app";
+      await terminateApp(bundleId);
+      await activateApp(bundleId);
+      await dismissRatePromptIfPresent(3000);
+      await dismissSafariOnboardIfPresent();
+      await semanticElement.waitForExist({ timeout: 15000 });
+      return;
+    }
     await semanticElement.waitForExist({ timeout: 5000 });
   }
 }
@@ -114,5 +137,7 @@ export async function cancelActionSheetIfPresent(): Promise<void> {
   const action = await $(cancelActionSelector());
   if (await action.isExisting()) {
     await tap(action);
+    // Let the sheet animate away so the power toggle is readable again.
+    await driver.pause(800);
   }
 }

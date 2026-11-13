@@ -16,7 +16,7 @@
 "error account inactive after restore" = "這似乎不是有效的帳號。如果您認為其中有誤，請聯絡我們。";
 "error account invalid" = "此帳號 ID 似乎無效。";
 "error creating account" = "無法建立新帳號。請稍候再試。";
-"error fetching data" = "無法完成此動作。請確定您是否有連線網路，後稍候再試。如仍有問題，請按一下上方的協助圖示聯絡我們。";
+"error fetching data" = "無法完成此動作。請確認您已連上網路，並稍候再試。如仍有問題，請聯絡我們。";
 "error tunnel" = "無法建立 VPN。請重新開機，或移除系統設定中的 Blokada VPN 設定檔後重試。";
 "error vpn" = "無法建立 VPN。請重新開機，或移除系統設定中的 Blokada VPN 設定檔後重試。";
 "error vpn perms" = "未授予建立 VPN 設定檔的權限。";
@@ -24,15 +24,15 @@
 "error vpn no current lease new" = "Blokada Plus 現已在本裝置上停用。請選擇位置以重新啟用。";
 "error vpn too many leases" = "您已達裝置限制。請移除您其中一個裝置後重試。";
 "error vpn expired" = "已停用 VPN。請續訂訂閱以繼續使用 BLOKADA+。";
-"error payment inactive after restore" = "已還原您上個付款，但訂閱已經到期。如有任何問題，請按上方的協助按鈕聯絡我們。";
+"error payment inactive after restore" = "已還原您先前的付款紀錄，但訂閱已到期。如果您認為這是錯誤，請聯絡我們。";
 "error restore not found" = "我們找不到可恢復的啟動 Blokada 訂閱。如果您的訂閱已到期，您可以購買新的訂閱。如果您認為這是錯誤，請聯絡我們。";
-"error payment failed" = "此刻尚無法付款。請確定您是否有連線網路，後稍候再試。如仍有問題，請按一下上方的協助圖示聯絡我們。";
-"error payment failed alternative" = "無法完成您的付款。請確保您的資料是正確的，然後重試。如果問題仍然持續，請透過點擊頂部的說明圖示聯絡我們。";
+"error payment failed" = "目前無法付款。請確認您已連上網路，並稍候再試。如仍有問題，請聯絡我們。";
+"error payment failed alternative" = "無法完成您的付款。請確認您輸入的資料正確，然後再試一次。如仍有問題，請聯絡我們。";
 "error payment not available" = "此裝置無法付款。可能是本裝置未更新，或是我們尚不處理您所在地區的付款。";
 "error payment canceled" = "付款已取消。未收取您的費用。";
 "error pack install" = "無法安裝或解除安裝此功能。請稍候再試。";
 "error location failed fetching" = "無法取得地點。";
-"error unknown" = "出了問題。請確定您已連上網路，然後稍候再試。如仍有問題，請按一下上方的協助圖示聯絡我們。";
+"error unknown" = "發生問題。請確認您已連上網路，並稍候再試。如仍有問題，請聯絡我們。";
 "error multiple apps" = "您的裝置上有超過一款 Blokada app。這可能導致連線問題。是否想要立即修正？";
 "error locked" = "應用程式處於鎖定狀態時無法執行此操作。請先解鎖應用程式以繼續。";
 "error lock invalid" = "有效的 PIN 必須為正好 4 位數字。請再試一次。";
@@ -88,7 +88,7 @@
 "support action chat" = "與我們聊天";
 // Action to end chat. Keep it super short
 "support action end" = "結束";
-// Small link under the main button of the DNS setup sheet and in the Restore account ID dialog, opens the support chat. Keep it short
+// Small link under the main button of the DNS setup sheet and in the Restore account ID dialog, and a button on some error alerts. Opens the support chat. Keep it short
 "support action ask" = "尋求支援";
 // Replaces "Ask support" in the same small link while a support chat is still open, and reopens that chat. Keep it short
 "support action continue" = "繼續與支援團隊對話";
@@ -1159,6 +1159,24 @@
 "activity logging action enable" = "Turn on activity logging";
 // Shown instead of an empty list right after activity logging was turned on, until the first requests show up
 "activity logging collecting" = "Collecting your first results";
+// Guided setup after purchase (#457), first sheet: what the user wants Blokada to block. Each answer turns on one blocklist.
+"activation goals header" = "您想阻擋哪些內容？";
+"activation goals brief" = "選擇要讓 Blokada 為您阻擋的內容。您隨時可以在「進階」中變更。";
+"activation goal app ads" = "應用程式和遊戲中的廣告";
+"activation goal trackers" = "追蹤器";
+"activation goal scams" = "詐騙網站";
+"activation goal adult" = "成人內容";
+// Guided setup after purchase: declines turning on activity logging for now
+"activation logging skip" = "暫時不要";
+// Guided setup after purchase, last sheet: the first blocked requests right after DNS setup, live for about a minute
+"activation first blocks header" = "Blokada 正在運作";
+"activation first blocks brief" = "照常使用手機。Blokada 阻擋的項目會顯示在這裡。";
+// Shown instead of the brief above when activity logging is off, so only the counter is shown
+"activation first blocks brief counter" = "照常使用手機。每當 Blokada 阻擋項目時，計數就會增加。";
+// Label under the number of requests blocked so far
+"activation first blocks counter label" = "目前已阻擋";
+// Shown while the list of blocked requests is still empty
+"activation first blocks waiting" = "等待首次阻擋……";
 
 // Top line of Privacy Pulse. First %s is how many requests were blocked (e.g. "36" or "12.3K"), second %s is the range ("24 h" or "7 d"). One form for a count of 1, the other for all other counts.
 "privacy pulse insight blocked one" = "%s blocked in %s";
@@ -1247,3 +1265,30 @@
 "private dns android copied hint" = "Hostname copied. Paste it in Settings.";
 // Label above the Private DNS hostname on the Android setup sheet
 "private dns android blokada hostname label" = "Your Blokada hostname";
+
+// Daily Home (#460): the line under the power button while protection is on. Shown until the numbers load.
+"home status protected" = "已受保護";
+// Same line once loaded, with activity logging on. %s is how long ago the last request was blocked, e.g. "2 minutes ago"
+"home status protected last block" = "已受保護 · 上次阻擋：%s";
+// Same line with activity logging off. %s is how many requests were blocked in the last 24 hours, e.g. "36" or "12.3K"
+"home status protected blocked" = "已受保護 · 過去 24 小時已阻擋 %s 個請求";
+// Home during the free trial. First %s is the day of the trial, second %s its length in days, e.g. "Day 3 of 7"
+"home trial day" = "試用第 %s 天，共 %s 天";
+// Added after the line above. %s is how many requests were blocked since the trial started, e.g. "1,240" or "12.3K"
+"home trial blocked so far" = "目前已阻擋 %s 個請求";
+// Home card: the domain blocked most often in the last 24 hours
+"home headline top blocked title" = "今日已阻擋次數最多的網域";
+// First %s is a domain (e.g. "doubleclick.net"), second %s how many times it was blocked
+"home headline top blocked body" = "%s 在過去 24 小時內嘗試連線至您的裝置，系統已阻擋 %s 次。";
+// Home card: the hour of the last 24 with the most blocked requests
+"home headline busiest hour title" = "阻擋次數最多的時段";
+// First %s is the number blocked, second and third %s the start and end of the hour, e.g. "9:00 PM" and "10:00 PM"
+"home headline busiest hour body" = "Blokada 已阻擋 %s 個請求，時間為 %s 至 %s。";
+// Home after a subscription ended. %s is the date it ended, e.g. "3 Nov"
+"home expired header" = "您的防護已於 %s 結束";
+// Used instead of the line above when the end date is unknown
+"home expired header nodate" = "您的防護已結束";
+// Under the line above. %s is how many requests Blokada blocked on this device, e.g. "12.3K"
+"home expired blocked" = "Blokada 已為您阻擋 %s 個請求。";
+// Button that opens the subscription offer again
+"home expired action" = "重新訂閱";

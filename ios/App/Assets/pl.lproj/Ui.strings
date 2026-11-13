@@ -16,7 +16,7 @@
 "error account inactive after restore" = "To nie wygląda na poprawne, aktywne konto. Jeśli uważasz, że to pomyłka, skontaktuj się z nami klikając ikonkę pomocy na górze ekranu.";
 "error account invalid" = "Ten identyfikator konta wygląda na niepoprawny.";
 "error creating account" = "Nie można stworzyć nowego konta. Spróbuj ponownie później.";
-"error fetching data" = "Coś poszło nie tak. Upewnij się, że jesteś online, i spróbuj ponownie. Jeśli problem się powtarza, skontaktuj się z nami klikając na ikonkę pomocy na górze ekranu.";
+"error fetching data" = "Nie udało się wykonać tej czynności. Upewnij się, że masz połączenie z internetem i spróbuj ponownie później. Jeśli problem będzie się powtarzał, skontaktuj się z nami.";
 "error tunnel" = "Nie udało się ustawić VPN. Zrestartuj to urządzenie, lub usuń profil VPN Blokady w ustawieniach systemowych, i spróbuj ponownie.";
 "error vpn" = "Nie udało się ustawić VPN. Zrestartuj to urządzenie, lub usuń profil VPN Blokady w ustawieniach systemowych, i spróbuj ponownie.";
 "error vpn perms" = "Brak uprawnień do utworzenia profilu VPN.";
@@ -24,15 +24,15 @@
 "error vpn no current lease new" = "Blokada Plus jest teraz wyłączona na tym urządzeniu. Wybierz lokalizację, aby ją reaktywować.";
 "error vpn too many leases" = "Z Twojego konta korzysta już maksymalna dozwolona liczba urządzeń. Usuń któreś z listy urządzeń, i spróbuj ponownie.";
 "error vpn expired" = "VPN został dezaktywowany. Wznów swoją subskrypcję, aby kontynuować korzystanie z BLOKADA+";
-"error payment inactive after restore" = "Twoja ostatnia płatność została znaleziona, ale jej ważność już upłynęła. Jeśli uważasz, że to pomyłka, skontaktuj się z nami klikając ikonkę pomocy na górze ekranu.";
+"error payment inactive after restore" = "Twoja wcześniejsza płatność została przywrócona, ale subskrypcja już wygasła. Jeśli uważasz, że to pomyłka, skontaktuj się z nami.";
 "error restore not found" = "Nie znaleziono aktywnej subskrypcji Blokada do przywrócenia. Jeśli Twoja subskrypcja wygasła, możesz zakupić nową. Jeśli uważasz, że to błąd, skontaktuj się z nami.";
-"error payment failed" = "Płatności są chwilowo niedostępne. Upewnij się, że jesteś online, i spróbuj ponownie. Jeśli problem się powtarza, skontaktuj się z nami klikając na ikonkę pomocy na górze ekranu.";
-"error payment failed alternative" = "Nie można dokończyć płatności. Upewnij się, że dane są poprawne i spróbuj ponownie. Jeśli problem będzie się powtarzał, skontaktuj się z nami, stukając ikonę pomocy u góry.";
+"error payment failed" = "Płatności są chwilowo niedostępne. Upewnij się, że masz połączenie z internetem i spróbuj ponownie później. Jeśli problem będzie się powtarzał, skontaktuj się z nami.";
+"error payment failed alternative" = "Nie udało się dokończyć płatności. Upewnij się, że podane dane są poprawne i spróbuj ponownie. Jeśli problem będzie się powtarzał, skontaktuj się z nami.";
 "error payment not available" = "Płatności są niedostępne na tym urządzeniu. To urządzenie nie jest zaktualizowane lub nie obsługujemy jeszcze zakupów w Twoim kraju.";
 "error payment canceled" = "Płatność została anulowana. Twoje konto nie zostało obciążone.";
 "error pack install" = "Nie można zainstalować (lub odinstalować) tej funkcji. Spróbuj ponownie później.";
 "error location failed fetching" = "Nie można pobrać lokalizacji.";
-"error unknown" = "Wystąpił problem. Upewnij się, że jesteś online i spróbuj ponownie później. Jeśli problem będzie się powtarzał, skontaktuj się z nami poprzez stuknięcie ikony pomocy u góry.";
+"error unknown" = "Wystąpił problem. Upewnij się, że masz połączenie z internetem i spróbuj ponownie później. Jeśli problem będzie się powtarzał, skontaktuj się z nami.";
 "error multiple apps" = "Na urządzeniu znajduje się więcej niż jedna aplikacja Blokada. Może to spowodować problemy z połączeniem. Czy chcesz to teraz naprawić?";
 "error locked" = "Ta akcja jest niedostępna, gdy aplikacja jest w stanie zablokowanym. Odblokuj aplikację, aby kontynuować.";
 "error lock invalid" = "Prawidłowy kod PIN musi składać się z dokładnie 4 cyfr. Spróbuj ponownie.";
@@ -88,7 +88,7 @@
 "support action chat" = "Czatuj z nami";
 // Action to end chat. Keep it super short
 "support action end" = "Zakończ";
-// Small link under the main button of the DNS setup sheet and in the Restore account ID dialog, opens the support chat. Keep it short
+// Small link under the main button of the DNS setup sheet and in the Restore account ID dialog, and a button on some error alerts. Opens the support chat. Keep it short
 "support action ask" = "Poproś o pomoc techniczną";
 // Replaces "Ask support" in the same small link while a support chat is still open, and reopens that chat. Keep it short
 "support action continue" = "Kontynuuj rozmowę";
@@ -1157,6 +1157,24 @@
 "activity logging action enable" = "Turn on activity logging";
 // Shown instead of an empty list right after activity logging was turned on, until the first requests show up
 "activity logging collecting" = "Collecting your first results";
+// Guided setup after purchase (#457), first sheet: what the user wants Blokada to block. Each answer turns on one blocklist.
+"activation goals header" = "Co chcesz zablokować?";
+"activation goals brief" = "Wybierz, co Blokada ma blokować. Możesz to zmienić w dowolnym momencie w sekcji Zaawansowane.";
+"activation goal app ads" = "Reklamy w aplikacjach i grach";
+"activation goal trackers" = "Elementy śledzące";
+"activation goal scams" = "Oszukańcze strony";
+"activation goal adult" = "Treści dla dorosłych";
+// Guided setup after purchase: declines turning on activity logging for now
+"activation logging skip" = "Nie teraz";
+// Guided setup after purchase, last sheet: the first blocked requests right after DNS setup, live for about a minute
+"activation first blocks header" = "Blokada działa";
+"activation first blocks brief" = "Korzystaj z telefonu jak zwykle. Tutaj zobaczysz, co blokuje Blokada.";
+// Shown instead of the brief above when activity logging is off, so only the counter is shown
+"activation first blocks brief counter" = "Korzystaj z telefonu jak zwykle. Licznik wzrośnie za każdym razem, gdy Blokada coś zablokuje.";
+// Label under the number of requests blocked so far
+"activation first blocks counter label" = "Zablokowano dotąd";
+// Shown while the list of blocked requests is still empty
+"activation first blocks waiting" = "Czekamy na pierwszą blokadę…";
 
 // Top line of Privacy Pulse. First %s is how many requests were blocked (e.g. "36" or "12.3K"), second %s is the range ("24 h" or "7 d"). One form for a count of 1, the other for all other counts.
 "privacy pulse insight blocked one" = "%s blocked in %s";
@@ -1245,3 +1263,30 @@
 "private dns android copied hint" = "Hostname copied. Paste it in Settings.";
 // Label above the Private DNS hostname on the Android setup sheet
 "private dns android blokada hostname label" = "Your Blokada hostname";
+
+// Daily Home (#460): the line under the power button while protection is on. Shown until the numbers load.
+"home status protected" = "Ochrona aktywna";
+// Same line once loaded, with activity logging on. %s is how long ago the last request was blocked, e.g. "2 minutes ago"
+"home status protected last block" = "Ochrona aktywna · ostatnia blokada: %s";
+// Same line with activity logging off. %s is how many requests were blocked in the last 24 hours, e.g. "36" or "12.3K"
+"home status protected blocked" = "Ochrona aktywna · zablokowano %s w ciągu 24 godzin";
+// Home during the free trial. First %s is the day of the trial, second %s its length in days, e.g. "Day 3 of 7"
+"home trial day" = "Dzień %s z %s";
+// Added after the line above. %s is how many requests were blocked since the trial started, e.g. "1,240" or "12.3K"
+"home trial blocked so far" = "Dotychczas zablokowano %s";
+// Home card: the domain blocked most often in the last 24 hours
+"home headline top blocked title" = "Najczęściej blokowana dziś";
+// First %s is a domain (e.g. "doubleclick.net"), second %s how many times it was blocked
+"home headline top blocked body" = "Domena %s próbowała połączyć się z Twoim urządzeniem i została zablokowana %s razy w ciągu ostatnich 24 godzin.";
+// Home card: the hour of the last 24 with the most blocked requests
+"home headline busiest hour title" = "Godzina z największą liczbą blokad";
+// First %s is the number blocked, second and third %s the start and end of the hour, e.g. "9:00 PM" and "10:00 PM"
+"home headline busiest hour body" = "Blokada zablokowała %s żądań między %s a %s.";
+// Home after a subscription ended. %s is the date it ended, e.g. "3 Nov"
+"home expired header" = "Ochrona wygasła %s";
+// Used instead of the line above when the end date is unknown
+"home expired header nodate" = "Twoja ochrona wygasła";
+// Under the line above. %s is how many requests Blokada blocked on this device, e.g. "12.3K"
+"home expired blocked" = "Blokada zablokowała dla Ciebie %s żądań.";
+// Button that opens the subscription offer again
+"home expired action" = "Odnów subskrypcję";

@@ -16,7 +16,7 @@
 "error account inactive after restore" = "Ez nem tűnik érvényes, aktív fióknak. Ha úgy gondolod, ez tévedés, vedd fel velünk a kapcsolatot.";
 "error account invalid" = "Ez az ID helytelennek tűnik.";
 "error creating account" = "Nem sikerült új fiókot létrehozni. Kérjük, próbáld újra később.";
-"error fetching data" = "Ezt a műveletet nem lehetett befejezni. Ellenőrizd, hogy online vagy-e, és próbálkozz később újra. Ha a probléma továbbra is fennáll, kérjük, vedd fel velünk a kapcsolatot súgó ikon megérintésével.";
+"error fetching data" = "Ezt a műveletet nem sikerült befejezni. Ellenőrizd, hogy van-e internetkapcsolatod, és próbálkozz később újra. Ha a probléma továbbra is fennáll, vedd fel velünk a kapcsolatot.";
 "error tunnel" = "A VPN létrehozása sikertelen. Indítsd újra a készüléket, vagy távolítsd el a Blokada VPN profilt a rendszerbeállításokból, és próbáld újra.";
 "error vpn" = "A VPN létrehozása sikertelen. Indítsd újra a készüléket, vagy távolítsd el a Blokada VPN profilt a rendszerbeállításokból, és próbáld újra.";
 "error vpn perms" = "Nincs engedély a VPN profil létrehozására.";
@@ -24,15 +24,15 @@
 "error vpn no current lease new" = "Blokada Plus kikapcsolásra került az eszközön. Válasszon egy helyet az újraaktiváláshoz.";
 "error vpn too many leases" = "Elérted a készülékek számának korlátját. Kérjük, távolítsd el az egyik eszközt, és próbáld újra.";
 "error vpn expired" = "A VPN le van tiltva. Kérjük, frissítsd előfizetésed a BLOKADA+ további használatához";
-"error payment inactive after restore" = "Az előző befizetésed visszaállítottuk, de az előfizetésed már lejárt. Ha úgy gondolod, hogy a hiba nálunk van, kérjük, vedd fel velünk a kapcsolatot a súgó ikon megérintésével.";
+"error payment inactive after restore" = "A korábbi fizetésedet sikerült visszaállítani, de az előfizetésed már lejárt. Ha úgy gondolod, hogy ez tévedés, vedd fel velünk a kapcsolatot.";
 "error restore not found" = "Nem találtunk visszaállítható aktív Blokada-előfizetést. Ha az előfizetésed lejárt, vásárolhatsz újat. Ha szerinted ez tévedés, lépj velünk kapcsolatba.";
-"error payment failed" = "A kifizetések jelenleg nem érhetők el. Győződj meg arról, hogy online vagy és próbálkozz később újra. Ha a probléma továbbra is fennáll, vedd fel velünk a kapcsolatot a fenti súgó gomb megnyomásával.";
-"error payment failed alternative" = "Sikertelen fizetés. Ellenőrizze, hogy az adati helyesek-e, és próbálkozzon újra. Ha a probléma továbbra is fennáll, lépjen kapcsolatba velünk a fenti segítség ikonra kattintva.";
+"error payment failed" = "A fizetés jelenleg nem érhető el. Ellenőrizd, hogy van-e internetkapcsolatod, és próbálkozz később újra. Ha a probléma továbbra is fennáll, vedd fel velünk a kapcsolatot.";
+"error payment failed alternative" = "Nem sikerült feldolgozni a fizetésedet. Ellenőrizd, hogy helyesek-e a megadott adatok, majd próbálkozz újra. Ha a probléma továbbra is fennáll, vedd fel velünk a kapcsolatot.";
 "error payment not available" = "A fizetések nem állnak rendelkezésre ehhez a készülékhez. Vagy ez a készülék nincs frissítve, vagy még nem kezeljük a vásárlásokat az országodban.";
 "error payment canceled" = "A fizetés visszavonásra került. A terhelés nem történt meg.";
 "error pack install" = "Ezt a szolgáltatást nem lehetett telepíteni (vagy eltávolítani). Kérlek, próbáld újra később.";
 "error location failed fetching" = "Nem sikerült lekérdezni a helyet.";
-"error unknown" = "Egy hiba lépett fel. Bizonyosodjon meg arról, hogy online, és próbálkozzon újra. Ha a hiba továbbra is fennáll, nyomjon rá a segítség ikonra felül.";
+"error unknown" = "Hiba történt. Ellenőrizd, hogy van-e internetkapcsolatod, és próbálkozz később újra. Ha a probléma továbbra is fennáll, vedd fel velünk a kapcsolatot.";
 "error multiple apps" = "Egynél több Blokada alkalmazás van a készülékeden. Ez kapcsolódási problémákat okozhat. Szeretnéd ezt most orvosolni?";
 "error locked" = "Ez a művelet zárolt állapotban nem érhető el. A folytatáshoz oldd fel az alkalmazást.";
 "error lock invalid" = "Az érvényes PIN pontosan 4 számjegyű lehet. Kérjük, próbáld újra.";
@@ -88,7 +88,7 @@
 "support action chat" = "Beszélj velünk!";
 // Action to end chat. Keep it super short
 "support action end" = "Vége";
-// Small link under the main button of the DNS setup sheet and in the Restore account ID dialog, opens the support chat. Keep it short
+// Small link under the main button of the DNS setup sheet and in the Restore account ID dialog, and a button on some error alerts. Opens the support chat. Keep it short
 "support action ask" = "Segítség kérése";
 // Replaces "Ask support" in the same small link while a support chat is still open, and reopens that chat. Keep it short
 "support action continue" = "Beszélgetés folytatása";
@@ -1158,6 +1158,24 @@
 "activity logging action enable" = "Turn on activity logging";
 // Shown instead of an empty list right after activity logging was turned on, until the first requests show up
 "activity logging collecting" = "Collecting your first results";
+// Guided setup after purchase (#457), first sheet: what the user wants Blokada to block. Each answer turns on one blocklist.
+"activation goals header" = "Mit szeretnél letiltani?";
+"activation goals brief" = "Válaszd ki, mit tiltson le neked a Blokada. Ezt bármikor módosíthatod a Speciális beállításokban.";
+"activation goal app ads" = "Hirdetések az alkalmazásokban és játékokban";
+"activation goal trackers" = "Nyomkövetők";
+"activation goal scams" = "Csaló webhelyek";
+"activation goal adult" = "Felnőtt tartalom";
+// Guided setup after purchase: declines turning on activity logging for now
+"activation logging skip" = "Most nem";
+// Guided setup after purchase, last sheet: the first blocked requests right after DNS setup, live for about a minute
+"activation first blocks header" = "A Blokada működik";
+"activation first blocks brief" = "Használd a telefonodat a megszokott módon. Itt láthatod, mit blokkol a Blokada.";
+// Shown instead of the brief above when activity logging is off, so only the counter is shown
+"activation first blocks brief counter" = "Használd a telefonodat a megszokott módon. A számláló minden alkalommal nő, amikor a Blokada blokkol valamit.";
+// Label under the number of requests blocked so far
+"activation first blocks counter label" = "Eddig blokkolt kérések";
+// Shown while the list of blocked requests is still empty
+"activation first blocks waiting" = "Várakozás az első blokkolt kérésre…";
 
 // Top line of Privacy Pulse. First %s is how many requests were blocked (e.g. "36" or "12.3K"), second %s is the range ("24 h" or "7 d"). One form for a count of 1, the other for all other counts.
 "privacy pulse insight blocked one" = "%s blocked in %s";
@@ -1246,3 +1264,30 @@
 "private dns android copied hint" = "Hostname copied. Paste it in Settings.";
 // Label above the Private DNS hostname on the Android setup sheet
 "private dns android blokada hostname label" = "Your Blokada hostname";
+
+// Daily Home (#460): the line under the power button while protection is on. Shown until the numbers load.
+"home status protected" = "Védett";
+// Same line once loaded, with activity logging on. %s is how long ago the last request was blocked, e.g. "2 minutes ago"
+"home status protected last block" = "Védett · legutóbbi blokkolás: %s";
+// Same line with activity logging off. %s is how many requests were blocked in the last 24 hours, e.g. "36" or "12.3K"
+"home status protected blocked" = "Védett · %s blokkolva az elmúlt 24 órában";
+// Home during the free trial. First %s is the day of the trial, second %s its length in days, e.g. "Day 3 of 7"
+"home trial day" = "A próbaidőszak %s. napja, összesen %s nap";
+// Added after the line above. %s is how many requests were blocked since the trial started, e.g. "1,240" or "12.3K"
+"home trial blocked so far" = "Eddig %s blokkolva";
+// Home card: the domain blocked most often in the last 24 hours
+"home headline top blocked title" = "Ma legtöbbször blokkolt";
+// First %s is a domain (e.g. "doubleclick.net"), second %s how many times it was blocked
+"home headline top blocked body" = "Az elmúlt 24 órában %s megpróbált kapcsolatba lépni az eszközöddel, de a Blokada %s alkalommal blokkolta.";
+// Home card: the hour of the last 24 with the most blocked requests
+"home headline busiest hour title" = "Legforgalmasabb óra";
+// First %s is the number blocked, second and third %s the start and end of the hour, e.g. "9:00 PM" and "10:00 PM"
+"home headline busiest hour body" = "A Blokada %s kérést blokkolt %s és %s között.";
+// Home after a subscription ended. %s is the date it ended, e.g. "3 Nov"
+"home expired header" = "A védelmed ekkor járt le: %s";
+// Used instead of the line above when the end date is unknown
+"home expired header nodate" = "A védelmed lejárt";
+// Under the line above. %s is how many requests Blokada blocked on this device, e.g. "12.3K"
+"home expired blocked" = "A Blokada %s kérést blokkolt az eszközödön.";
+// Button that opens the subscription offer again
+"home expired action" = "Újra előfizetek";

@@ -1,3 +1,4 @@
+import 'package:common/src/features/funnel/domain/funnel.dart';
 import 'dart:async';
 
 import 'package:common/src/features/stats/domain/controller.dart';
@@ -141,6 +142,7 @@ class _HomeCounterState extends State<HomeCounter> with WidgetsBindingObserver, 
       unawaited(_stats.retry(Markers.userTap, StatsPart.stats));
       return;
     }
+    funnelSignal(Markers.userTap, FunnelEvent.pulseOpenedHome);
     Navigation.open(Paths.privacyPulse);
   }
 

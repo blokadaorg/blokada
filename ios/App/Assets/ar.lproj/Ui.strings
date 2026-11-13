@@ -16,7 +16,7 @@
 "error account inactive after restore" = "يبدو أن هذا ليس حسابًا نشطًا صالحًا. إذا كنت تعتقد أن هذا خطأ، يرجى التواصل معنا.";
 "error account invalid" = "يبدو أن معرف الحساب هذا غير صالح.";
 "error creating account" = "تعذر إنشاء حساب جديد. يرجى المحاولة لاحقًا.";
-"error fetching data" = "تعذر إكمال هذا الإجراء. تأكد من أنك متصل بالإنترنت، وحاول مرة أخرى لاحقًا. إذا استمرت المشكلة، يرجى التواصل معنا عبر النقر على أيقونة المساعدة بالأعلى.";
+"error fetching data" = "تعذّر إكمال هذا الإجراء. تأكّد من اتصالك بالإنترنت، وحاول مرة أخرى لاحقًا. إذا استمرت المشكلة، يُرجى الاتصال بنا.";
 "error tunnel" = "تعذّر إنشاء اتصال VPN. يرجى إعادة تشغيل الجهاز أو إزالة ملف تعريف Blokada VPN في إعدادات النظام، ثم المحاولة مرة أخرى.";
 "error vpn" = "تعذّر إنشاء اتصال VPN. يرجى إعادة تشغيل الجهاز أو إزالة ملف تعريف Blokada VPN في إعدادات النظام، ثم المحاولة مرة أخرى.";
 "error vpn perms" = "لا توجد أذونات لإنشاء ملف تعريف VPN.";
@@ -24,15 +24,15 @@
 "error vpn no current lease new" = "تم تعطيل Blokada Plus على هذا الجهاز الآن. يرجى اختيار موقع لإعادة تفعيله.";
 "error vpn too many leases" = "لقد وصلت إلى الحد الأقصى للأجهزة. يرجى إزالة أحد الأجهزة والمحاولة مرة أخرى.";
 "error vpn expired" = "تم تعطيل VPN. يرجى تحديث اشتراكك للاستمرار في استخدام BLOKADA+";
-"error payment inactive after restore" = "تمت استعادة الدفعة السابقة، ولكن الاشتراك انتهت صلاحيته بالفعل. إذا كنت تعتقد أن هناك خطأ، يرجى التواصل معنا عبر النقر على أيقونة المساعدة بالأعلى.";
+"error payment inactive after restore" = "تمت استعادة دفعتك السابقة، لكن اشتراكك قد انتهت صلاحيته بالفعل. إذا كنت تعتقد أن هذا خطأ، يُرجى الاتصال بنا.";
 "error restore not found" = "لم نعثر على اشتراك نشط في Blokada لاستعادته. إذا انتهت صلاحية اشتراكك، يمكنك شراء اشتراك جديد. إذا كنت تعتقد أن هذا خطأ، يرجى الاتصال بنا.";
-"error payment failed" = "المدفوعات غير متاحة حاليًا. تأكد من أنك متصل بالإنترنت، وحاول مرة أخرى لاحقًا. إذا استمرت المشكلة، يرجى التواصل معنا عبر النقر على أيقونة المساعدة بالأعلى.";
-"error payment failed alternative" = "تعذر إتمام الدفع الخاص بك. يرجى التأكد من صحة بياناتك، ثم المحاولة مرة أخرى. إذا استمرت المشكلة، يرجى التواصل معنا عبر النقر على أيقونة المساعدة بالأعلى.";
+"error payment failed" = "عمليات الدفع غير متاحة حاليًا. تأكّد من اتصالك بالإنترنت، وحاول مرة أخرى لاحقًا. إذا استمرت المشكلة، يُرجى الاتصال بنا.";
+"error payment failed alternative" = "تعذّر إكمال عملية الدفع. يُرجى التأكّد من صحة بياناتك والمحاولة مرة أخرى. إذا استمرت المشكلة، يُرجى الاتصال بنا.";
 "error payment not available" = "عمليات الدفع غير مُتاحة لهذا الجهاز. إما أن الجهاز لم يتم تحديثه ، أو أننا لا نتعامل مع المشتريات في بلدك حتى الآن.";
 "error payment canceled" = "تم إلغاء الدفع. لم يتم خصم أي مبلغ.";
 "error pack install" = "لا يمكن تثبيت (أو إلغاء تثبيت) هذه الميزة. الرجاء المحاولة لاحقًا.";
 "error location failed fetching" = "تعذر تحميل المواقع.";
-"error unknown" = "حدثت مشكلة. تأكّد من أنّك متّصل بالإنترنت، و حاول مرّة أُخرى لاحقاً. إذا استمرت المشكلة، الرجاء الاتصال بنا بالنقر على أيقونة المساعدة في الأعلى.";
+"error unknown" = "حدثت مشكلة. تأكّد من اتصالك بالإنترنت، وحاول مرة أخرى لاحقًا. إذا استمرت المشكلة، يُرجى الاتصال بنا.";
 "error multiple apps" = "يوجد أكثر من تطبيق لبلوكادا على جهازك. قد يتسبب ذلك في مشاكل في الاتصال. هل ترغب في إصلاحه الآن؟";
 "error locked" = "هذا الإجراء غير متاح عندما يكون التطبيق في وضع القفل. يرجى إلغاء القفل للاستمرار.";
 "error lock invalid" = "رمز التعريف يجب أن يكون مؤلفًا من 4 أرقام بالضبط. يرجى المحاولة مرة أخرى.";
@@ -88,7 +88,7 @@
 "support action chat" = "تحدّث معنا";
 // Action to end chat. Keep it super short
 "support action end" = "إنهاء";
-// Small link under the main button of the DNS setup sheet and in the Restore account ID dialog, opens the support chat. Keep it short
+// Small link under the main button of the DNS setup sheet and in the Restore account ID dialog, and a button on some error alerts. Opens the support chat. Keep it short
 "support action ask" = "اطلب الدعم";
 // Replaces "Ask support" in the same small link while a support chat is still open, and reopens that chat. Keep it short
 "support action continue" = "تابع المحادثة مع الدعم";
@@ -1157,6 +1157,24 @@
 "activity logging action enable" = "Turn on activity logging";
 // Shown instead of an empty list right after activity logging was turned on, until the first requests show up
 "activity logging collecting" = "Collecting your first results";
+// Guided setup after purchase (#457), first sheet: what the user wants Blokada to block. Each answer turns on one blocklist.
+"activation goals header" = "ما الذي تريد حظره؟";
+"activation goals brief" = "اختر ما تريد أن يحظره Blokada. يمكنك تغيير اختيارك في أي وقت من الإعدادات المتقدمة.";
+"activation goal app ads" = "الإعلانات في التطبيقات والألعاب";
+"activation goal trackers" = "أدوات التتبع";
+"activation goal scams" = "المواقع الاحتيالية";
+"activation goal adult" = "محتوى للبالغين";
+// Guided setup after purchase: declines turning on activity logging for now
+"activation logging skip" = "ليس الآن";
+// Guided setup after purchase, last sheet: the first blocked requests right after DNS setup, live for about a minute
+"activation first blocks header" = "بلوكادا قيد التشغيل";
+"activation first blocks brief" = "استخدم هاتفك كالمعتاد. سيظهر هنا ما تحظره بلوكادا.";
+// Shown instead of the brief above when activity logging is off, so only the counter is shown
+"activation first blocks brief counter" = "استخدم هاتفك كالمعتاد. يرتفع العدّاد كلما حظرت بلوكادا شيئًا.";
+// Label under the number of requests blocked so far
+"activation first blocks counter label" = "المحظور حتى الآن";
+// Shown while the list of blocked requests is still empty
+"activation first blocks waiting" = "بانتظار أول طلب محظور…";
 
 // Top line of Privacy Pulse. First %s is how many requests were blocked (e.g. "36" or "12.3K"), second %s is the range ("24 h" or "7 d"). One form for a count of 1, the other for all other counts.
 "privacy pulse insight blocked one" = "%s blocked in %s";
@@ -1245,3 +1263,30 @@
 "private dns android copied hint" = "Hostname copied. Paste it in Settings.";
 // Label above the Private DNS hostname on the Android setup sheet
 "private dns android blokada hostname label" = "Your Blokada hostname";
+
+// Daily Home (#460): the line under the power button while protection is on. Shown until the numbers load.
+"home status protected" = "الحماية مفعّلة";
+// Same line once loaded, with activity logging on. %s is how long ago the last request was blocked, e.g. "2 minutes ago"
+"home status protected last block" = "الحماية مفعّلة · آخر طلب محظور: %s";
+// Same line with activity logging off. %s is how many requests were blocked in the last 24 hours, e.g. "36" or "12.3K"
+"home status protected blocked" = "الحماية مفعّلة · حُظر %s خلال 24 ساعة";
+// Home during the free trial. First %s is the day of the trial, second %s its length in days, e.g. "Day 3 of 7"
+"home trial day" = "اليوم %s من %s";
+// Added after the line above. %s is how many requests were blocked since the trial started, e.g. "1,240" or "12.3K"
+"home trial blocked so far" = "%s محظور حتى الآن";
+// Home card: the domain blocked most often in the last 24 hours
+"home headline top blocked title" = "الأكثر حظرًا اليوم";
+// First %s is a domain (e.g. "doubleclick.net"), second %s how many times it was blocked
+"home headline top blocked body" = "حاول %s الوصول إلى جهازك، وحُظر %s مرة خلال آخر 24 ساعة.";
+// Home card: the hour of the last 24 with the most blocked requests
+"home headline busiest hour title" = "ساعة الذروة";
+// First %s is the number blocked, second and third %s the start and end of the hour, e.g. "9:00 PM" and "10:00 PM"
+"home headline busiest hour body" = "حظر Blokada %s من الطلبات بين %s و%s.";
+// Home after a subscription ended. %s is the date it ended, e.g. "3 Nov"
+"home expired header" = "انتهت حمايتك في %s";
+// Used instead of the line above when the end date is unknown
+"home expired header nodate" = "انتهت حمايتك";
+// Under the line above. %s is how many requests Blokada blocked on this device, e.g. "12.3K"
+"home expired blocked" = "حظر Blokada %s من الطلبات لحمايتك.";
+// Button that opens the subscription offer again
+"home expired action" = "اشترك مجددًا";

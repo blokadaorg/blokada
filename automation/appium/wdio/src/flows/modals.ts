@@ -14,6 +14,33 @@ const rateDismissSelectors = () => forPlatform([
   "-ios predicate string: type == 'XCUIElementTypeButton' AND (label CONTAINS[c] 'Avbryt' OR name CONTAINS[c] 'Avbryt')"
 ]);
 
+// The Safari "Want to block video ads?" sheet (safari_onboard_yt_sheet.dart)
+// shows once after DNS is enabled until the user taps "Skip for now", which
+// persists. A wiped/re-prepared phone shows it again and it covers Home.
+const safariOnboardSkipLabels = ["Skip for now", "Hoppa över för nu", "Pomiń na razie"];
+const safariOnboardSkipSelectors = () =>
+  safariOnboardSkipLabels.flatMap((label) => [
+    `~${label}`,
+    `-ios predicate string: label == '${label}' OR name == '${label}'`
+  ]);
+
+export async function dismissSafariOnboardIfPresent(): Promise<boolean> {
+  for (const selector of forPlatform(safariOnboardSkipSelectors())) {
+    try {
+      const button = await $(selector);
+      if (await button.isExisting()) {
+        await tap(button);
+        await driver.pause(800);
+        console.warn(`Safari onboarding sheet dismissed via selector '${selector}'.`);
+        return true;
+      }
+    } catch (error) {
+      console.warn(`Safari onboarding skip selector '${selector}' failed: ${String(error)}`);
+    }
+  }
+  return false;
+}
+
 let lastDismissAttempt = 0;
 
 async function findAnyRateElement(): Promise<WebdriverIO.Element | undefined> {

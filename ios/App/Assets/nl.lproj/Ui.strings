@@ -16,7 +16,7 @@
 "error account inactive after restore" = "Dit lijkt geen geldig actief account te zijn. Als je denkt dat dit een vergissing is, neem dan contact met ons op.";
 "error account invalid" = "Dit account ID is ongeldig.";
 "error creating account" = "Kan geen nieuw account aanmaken. Probeer het later nog eens.";
-"error fetching data" = "Deze actie kon niet worden voltooid. Zorg ervoor dat u online bent, en probeer het later opnieuw. Als het probleem zich blijft voordoen, neem dan contact met ons op door op het help-icoon bovenaan te tikken.";
+"error fetching data" = "Deze actie kon niet worden voltooid. Zorg ervoor dat u online bent en probeer het later opnieuw. Als het probleem zich blijft voordoen, neem dan contact met ons op.";
 "error tunnel" = "Kon de VPN niet tot stand brengen. Start uw apparaat opnieuw op, of verwijder het Blokada VPN profiel in de systeeminstellingen, en probeer het opnieuw.";
 "error vpn" = "Kon de VPN niet tot stand brengen. Start uw apparaat opnieuw op, of verwijder het Blokada VPN profiel in de systeeminstellingen, en probeer het opnieuw.";
 "error vpn perms" = "Geen bevoegdheden verleend om een VPN-profiel aan te maken.";
@@ -24,15 +24,15 @@
 "error vpn no current lease new" = "Blokada Plus is nu uitgeschakeld op dit apparaat. Selecteer een locatie om het opnieuw te activeren.";
 "error vpn too many leases" = "U heeft de apparatenlimiet bereikt. Verwijder een van uw apparaten en probeer het opnieuw.";
 "error vpn expired" = "De VPN is uitgeschakeld. Werk uw abonnement bij om BLOKADA+ te blijven gebruiken";
-"error payment inactive after restore" = "Uw vorige betaling is hersteld, maar het abonnement is al verlopen. Als u denkt dat dit een vergissing is, neem dan contact met ons op door op het help-icoon bovenaan te tikken.";
+"error payment inactive after restore" = "Uw vorige betaling is hersteld, maar het abonnement is al verlopen. Als u denkt dat dit een vergissing is, neem dan contact met ons op.";
 "error restore not found" = "We konden geen actieve Blokada-abonnement vinden om te herstellen. Als uw abonnement is verlopen, kunt u een nieuw abonnement kopen. Als u denkt dat dit een vergissing is, neem dan contact met ons op.";
-"error payment failed" = "Betalingen zijn op dit moment niet beschikbaar. Zorg ervoor dat u online bent, en probeer het later opnieuw. Als het probleem zich blijft voordoen, neem dan contact met ons op door op het help-icoon bovenaan te tikken.";
-"error payment failed alternative" = "Uw betaling kon niet worden voltooid. Controleer of uw gegevens juist zijn en probeer het opnieuw. Als het probleem zich blijft voordoen, neem dan contact met ons op door op het help-icoon bovenaan te tikken.";
+"error payment failed" = "Betalingen zijn op dit moment niet beschikbaar. Zorg ervoor dat u online bent en probeer het later opnieuw. Als het probleem zich blijft voordoen, neem dan contact met ons op.";
+"error payment failed alternative" = "Uw betaling kon niet worden voltooid. Controleer of uw gegevens juist zijn en probeer het opnieuw. Als het probleem zich blijft voordoen, neem dan contact met ons op.";
 "error payment not available" = "Betalingen zijn niet beschikbaar voor dit apparaat. Ofwel is dit apparaat niet bijgewerkt of wij verwerken nog geen betalingen in uw land.";
 "error payment canceled" = "De betaling is geannuleerd. Er is niets in rekening gebracht.";
 "error pack install" = "Kon deze functie niet installeren (of deïnstalleren). Probeer het later opnieuw.";
 "error location failed fetching" = "Kon locaties niet ophalen.";
-"error unknown" = "Er is een probleem opgetreden. Zorg ervoor dat je online bent en probeer het later opnieuw. Als het probleem zich blijft voordoen, neem dan contact met ons op door op het help-icoontje bovenaan te tikken.";
+"error unknown" = "Er is een probleem opgetreden. Zorg ervoor dat u online bent en probeer het later opnieuw. Als het probleem zich blijft voordoen, neem dan contact met ons op.";
 "error multiple apps" = "Er is meer dan één Blokada-app op uw apparaat. Dit kan verbindingsproblemen veroorzaken. Wilt u het nu oplossen?";
 "error locked" = "Deze actie is niet beschikbaar wanneer de app zich in een vergrendelde status bevindt. Ontgrendel de app om door te gaan.";
 "error lock invalid" = "Een geldige pincode moet precies 4 cijfers bevatten. Probeer het opnieuw.";
@@ -88,7 +88,7 @@
 "support action chat" = "Chat met ons";
 // Action to end chat. Keep it super short
 "support action end" = "Beëindigen";
-// Small link under the main button of the DNS setup sheet and in the Restore account ID dialog, opens the support chat. Keep it short
+// Small link under the main button of the DNS setup sheet and in the Restore account ID dialog, and a button on some error alerts. Opens the support chat. Keep it short
 "support action ask" = "Chatten met support";
 // Replaces "Ask support" in the same small link while a support chat is still open, and reopens that chat. Keep it short
 "support action continue" = "Verder chatten met support";
@@ -1157,6 +1157,24 @@
 "activity logging action enable" = "Turn on activity logging";
 // Shown instead of an empty list right after activity logging was turned on, until the first requests show up
 "activity logging collecting" = "Collecting your first results";
+// Guided setup after purchase (#457), first sheet: what the user wants Blokada to block. Each answer turns on one blocklist.
+"activation goals header" = "Wat wil je blokkeren?";
+"activation goals brief" = "Kies wat Blokada voor je moet blokkeren. Je kunt dit altijd wijzigen onder Geavanceerd.";
+"activation goal app ads" = "Advertenties in apps en games";
+"activation goal trackers" = "Trackers";
+"activation goal scams" = "Oplichtingssites";
+"activation goal adult" = "18+ Content";
+// Guided setup after purchase: declines turning on activity logging for now
+"activation logging skip" = "Nu niet";
+// Guided setup after purchase, last sheet: the first blocked requests right after DNS setup, live for about a minute
+"activation first blocks header" = "Blokada werkt";
+"activation first blocks brief" = "Gebruik je telefoon zoals gewoonlijk. Wat Blokada blokkeert, zie je hier.";
+// Shown instead of the brief above when activity logging is off, so only the counter is shown
+"activation first blocks brief counter" = "Gebruik je telefoon zoals gewoonlijk. De teller loopt op telkens als Blokada iets blokkeert.";
+// Label under the number of requests blocked so far
+"activation first blocks counter label" = "Tot nu toe geblokkeerd";
+// Shown while the list of blocked requests is still empty
+"activation first blocks waiting" = "Wachten op de eerste blokkering…";
 
 // Top line of Privacy Pulse. First %s is how many requests were blocked (e.g. "36" or "12.3K"), second %s is the range ("24 h" or "7 d"). One form for a count of 1, the other for all other counts.
 "privacy pulse insight blocked one" = "%s blocked in %s";
@@ -1245,3 +1263,30 @@
 "private dns android copied hint" = "Hostname copied. Paste it in Settings.";
 // Label above the Private DNS hostname on the Android setup sheet
 "private dns android blokada hostname label" = "Your Blokada hostname";
+
+// Daily Home (#460): the line under the power button while protection is on. Shown until the numbers load.
+"home status protected" = "Beschermd";
+// Same line once loaded, with activity logging on. %s is how long ago the last request was blocked, e.g. "2 minutes ago"
+"home status protected last block" = "Beschermd · laatst geblokkeerd: %s";
+// Same line with activity logging off. %s is how many requests were blocked in the last 24 hours, e.g. "36" or "12.3K"
+"home status protected blocked" = "Beschermd · %s geblokkeerd in 24 uur";
+// Home during the free trial. First %s is the day of the trial, second %s its length in days, e.g. "Day 3 of 7"
+"home trial day" = "Dag %s van %s";
+// Added after the line above. %s is how many requests were blocked since the trial started, e.g. "1,240" or "12.3K"
+"home trial blocked so far" = "%s tot nu toe geblokkeerd";
+// Home card: the domain blocked most often in the last 24 hours
+"home headline top blocked title" = "Vandaag het vaakst geblokkeerd";
+// First %s is a domain (e.g. "doubleclick.net"), second %s how many times it was blocked
+"home headline top blocked body" = "%s probeerde verbinding te maken met je apparaat en werd de afgelopen 24 uur %s keer geblokkeerd.";
+// Home card: the hour of the last 24 with the most blocked requests
+"home headline busiest hour title" = "Drukste uur";
+// First %s is the number blocked, second and third %s the start and end of the hour, e.g. "9:00 PM" and "10:00 PM"
+"home headline busiest hour body" = "Blokada heeft %s verzoeken geblokkeerd tussen %s en %s.";
+// Home after a subscription ended. %s is the date it ended, e.g. "3 Nov"
+"home expired header" = "Bescherming beëindigd op %s";
+// Used instead of the line above when the end date is unknown
+"home expired header nodate" = "Je bescherming is beëindigd";
+// Under the line above. %s is how many requests Blokada blocked on this device, e.g. "12.3K"
+"home expired blocked" = "Blokada heeft %s verzoeken voor je geblokkeerd.";
+// Button that opens the subscription offer again
+"home expired action" = "Opnieuw abonneren";

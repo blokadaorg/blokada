@@ -16,7 +16,7 @@
 "error account inactive after restore" = "Acesta nu pare să fie un cont activ valabil. Dacă crezi că este o greșeală, contactează-ne.";
 "error account invalid" = "ID-ul acestui cont pare nevalid.";
 "error creating account" = "Nu s-a putut crea un cont nou. Vă rugăm să încercați din nou mai târziu.";
-"error fetching data" = "Această acțiune nu a putut fi finalizată. Asigurați-vă că sunteți online și încearcați din nou mai târziu. Dacă problema persistă, vă rugăm să ne contactați prin apăsarea pictogramei de ajutor din partea de sus.";
+"error fetching data" = "Această acțiune nu a putut fi finalizată. Asigurați-vă că sunteți online și încercați din nou mai târziu. Dacă problema persistă, vă rugăm să ne contactați.";
 "error tunnel" = "VPN-ul nu a putut fi stabilit. Vă rugăm să reporniți dispozitivul sau să ștergeți profilul Blokada VPN din setările de sistem și să încercați din nou.";
 "error vpn" = "VPN-ul nu a putut fi stabilit. Vă rugăm să reporniți dispozitivul sau să ștergeți profilul Blokada VPN din setările de sistem și să încercați din nou.";
 "error vpn perms" = "Nicio permisiune acordată pentru a crea un profil VPN.";
@@ -24,15 +24,15 @@
 "error vpn no current lease new" = "Blokada Plus este acum dezactivat pe acest dispozitiv. Vă rugăm să selectați o locație pentru reactivare.";
 "error vpn too many leases" = "Ați atins limita maximă de dispozitive. Vă rugăm să eliminați unul dintre dispozitivele dvs. și să încercați din nou.";
 "error vpn expired" = "VPN-ul este dezactivat. Vă rugăm să vă actualizezi abonamentul pentru a continua să folosiți BLOKADA+";
-"error payment inactive after restore" = "Plata dvs. anterioară a fost restituită, dar abonamentul a expirat deja. Dacă credeți că este o greșeală, vă rugăm să ne contactați atingând pictograma de ajutor din partea de sus.";
+"error payment inactive after restore" = "Plata dvs. anterioară a fost restabilită, dar abonamentul a expirat deja. Dacă credeți că este o greșeală, vă rugăm să ne contactați.";
 "error restore not found" = "Nu am putut găsi un abonament Blokada activ de restaurat. Dacă abonamentul dvs. a expirat, puteți cumpăra unul nou. Dacă considerați că este o greșeală, vă rugăm să ne contactați.";
-"error payment failed" = "Plățile nu sunt disponibile în acest moment. Asigurați-vă că sunteți online și încearcați din nou mai târziu. Dacă problema persistă, vă rugăm să ne contactați prin apăsarea pictogramei de ajutor din partea de sus.";
-"error payment failed alternative" = "Plata dvs. nu a putut fi finalizată. Asigurați-vă că datele dvs. sunt corecte și încercați din nou. Dacă problema persistă vă rugăm să ne contactați prin apăsarea pictogramei de ajutor din partea de sus.";
+"error payment failed" = "Plățile nu sunt disponibile în acest moment. Asigurați-vă că sunteți online și încercați din nou mai târziu. Dacă problema persistă, vă rugăm să ne contactați.";
+"error payment failed alternative" = "Plata dvs. nu a putut fi finalizată. Asigurați-vă că datele dvs. sunt corecte și încercați din nou. Dacă problema persistă, vă rugăm să ne contactați.";
 "error payment not available" = "Plățile nu sunt disponibile pentru acest dispozitiv. Fie acest dispozitiv nu este actualizat, fie nu ne ocupăm încă de achizițiile din țara ta.";
 "error payment canceled" = "Plata a fost anulată. Nu ați fost taxat.";
 "error pack install" = "Nu s-a putut instala (sau dezinstala) această caracteristică. Vă rugăm să încercaţi din nou mai târziu.";
 "error location failed fetching" = "Nu s-au putut prelua locațiile.";
-"error unknown" = "A apărut o problemă. Asigură-te că ești online și încearcă din nou mai târziu. Dacă problema persistă, te rugăm să ne contactezi prin apăsarea pictogramei de ajutor din partea de sus.";
+"error unknown" = "A apărut o problemă. Asigurați-vă că sunteți online și încercați din nou mai târziu. Dacă problema persistă, vă rugăm să ne contactați.";
 "error multiple apps" = "Există mai mult de o aplicație Blokada pe dispozitivul dvs. Acest lucru poate cauza probleme de conectivitate. Doriți să o reparați acum?";
 "error locked" = "Această acțiune nu este disponibilă atunci când aplicația se află într-o stare blocată. Vă rugăm să deblocați aplicația pentru a continua.";
 "error lock invalid" = "Un PIN valid trebuie să fie exact 4 cifre. Vă rugăm să încercaţi din nou.";
@@ -88,7 +88,7 @@
 "support action chat" = "Chat cu noi";
 // Action to end chat. Keep it super short
 "support action end" = "Încheie";
-// Small link under the main button of the DNS setup sheet and in the Restore account ID dialog, opens the support chat. Keep it short
+// Small link under the main button of the DNS setup sheet and in the Restore account ID dialog, and a button on some error alerts. Opens the support chat. Keep it short
 "support action ask" = "Contactează asistența";
 // Replaces "Ask support" in the same small link while a support chat is still open, and reopens that chat. Keep it short
 "support action continue" = "Continuă discuția cu asistența";
@@ -1157,6 +1157,24 @@
 "activity logging action enable" = "Turn on activity logging";
 // Shown instead of an empty list right after activity logging was turned on, until the first requests show up
 "activity logging collecting" = "Collecting your first results";
+// Guided setup after purchase (#457), first sheet: what the user wants Blokada to block. Each answer turns on one blocklist.
+"activation goals header" = "Ce vrei să blochezi?";
+"activation goals brief" = "Alege ce vrei să blocheze Blokada pentru tine. Poți schimba oricând aceste opțiuni în secțiunea Avansate.";
+"activation goal app ads" = "Reclame în aplicații și jocuri";
+"activation goal trackers" = "Instrumente de urmărire";
+"activation goal scams" = "Site-uri frauduloase";
+"activation goal adult" = "Conținut pentru adulți";
+// Guided setup after purchase: declines turning on activity logging for now
+"activation logging skip" = "Nu acum";
+// Guided setup after purchase, last sheet: the first blocked requests right after DNS setup, live for about a minute
+"activation first blocks header" = "Blokada funcționează";
+"activation first blocks brief" = "Folosește-ți telefonul ca de obicei. Cererile blocate de Blokada apar aici.";
+// Shown instead of the brief above when activity logging is off, so only the counter is shown
+"activation first blocks brief counter" = "Folosește-ți telefonul ca de obicei. Contorul crește de fiecare dată când Blokada blochează ceva.";
+// Label under the number of requests blocked so far
+"activation first blocks counter label" = "Cereri blocate până acum";
+// Shown while the list of blocked requests is still empty
+"activation first blocks waiting" = "În așteptarea primei cereri blocate…";
 
 // Top line of Privacy Pulse. First %s is how many requests were blocked (e.g. "36" or "12.3K"), second %s is the range ("24 h" or "7 d"). One form for a count of 1, the other for all other counts.
 "privacy pulse insight blocked one" = "%s blocked in %s";
@@ -1245,3 +1263,30 @@
 "private dns android copied hint" = "Hostname copied. Paste it in Settings.";
 // Label above the Private DNS hostname on the Android setup sheet
 "private dns android blokada hostname label" = "Your Blokada hostname";
+
+// Daily Home (#460): the line under the power button while protection is on. Shown until the numbers load.
+"home status protected" = "Protejat";
+// Same line once loaded, with activity logging on. %s is how long ago the last request was blocked, e.g. "2 minutes ago"
+"home status protected last block" = "Protejat · ultima blocare: %s";
+// Same line with activity logging off. %s is how many requests were blocked in the last 24 hours, e.g. "36" or "12.3K"
+"home status protected blocked" = "Protejat · %s blocate în 24 h";
+// Home during the free trial. First %s is the day of the trial, second %s its length in days, e.g. "Day 3 of 7"
+"home trial day" = "Ziua %s din %s";
+// Added after the line above. %s is how many requests were blocked since the trial started, e.g. "1,240" or "12.3K"
+"home trial blocked so far" = "%s blocate până acum";
+// Home card: the domain blocked most often in the last 24 hours
+"home headline top blocked title" = "Cel mai des blocat astăzi";
+// First %s is a domain (e.g. "doubleclick.net"), second %s how many times it was blocked
+"home headline top blocked body" = "%s a încercat să îți acceseze dispozitivul și a fost blocat de %s ori în ultimele 24 de ore.";
+// Home card: the hour of the last 24 with the most blocked requests
+"home headline busiest hour title" = "Ora cu cele mai multe blocări";
+// First %s is the number blocked, second and third %s the start and end of the hour, e.g. "9:00 PM" and "10:00 PM"
+"home headline busiest hour body" = "Blokada a blocat %s solicitări între %s și %s.";
+// Home after a subscription ended. %s is the date it ended, e.g. "3 Nov"
+"home expired header" = "Protecția ta s-a încheiat pe %s";
+// Used instead of the line above when the end date is unknown
+"home expired header nodate" = "Protecția ta s-a încheiat";
+// Under the line above. %s is how many requests Blokada blocked on this device, e.g. "12.3K"
+"home expired blocked" = "Blokada a blocat %s solicitări pentru tine.";
+// Button that opens the subscription offer again
+"home expired action" = "Reabonează-te";
