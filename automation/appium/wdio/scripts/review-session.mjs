@@ -145,6 +145,17 @@ export function gateReviewCommand(command, args, bundleId) {
         .slice(0, 60);
       return { command, args: { name: `review-${slug || Date.now()}` } };
     }
+    case "app.activate": {
+      // The explorer's guardrail accepts its "six" aliases in any session, so a
+      // Family session could bring Blokada 6 to the front and go on driving it.
+      // Only the session's own app comes back to the front; `flavor` switches.
+      const target = String(a.target ?? "").trim();
+      const requested = String(a.bundleId ?? "").trim();
+      if (target || (requested && requested !== bundleId)) {
+        return { error: "app.activate only brings the current app to the front; switch apps with flavor." };
+      }
+      return { command, args: { bundleId } };
+    }
     case "finish":
       return { error: "Use stop to end the session." };
     case "ui.tap": {
@@ -238,6 +249,10 @@ async function serve(flavor) {
     }
     if (command === "log") {
       const name = BUNDLES[args?.flavor] ? args.flavor : current;
+      // An app this run did not set up may hold another account's log.
+      if (!available.has(name)) {
+        return { type: "refused", error: `${name} is not set up in this run: report its checks unclear.` };
+      }
       const artifact = args?.artifact === "crash" ? "crash" : "log";
       return readLog(paths, name, artifact, process.env);
     }

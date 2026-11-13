@@ -52,7 +52,13 @@ test("review screenshots get the review- prefix and a safe name", () => {
 });
 
 test("review gate keeps app.activate inside the current app", () => {
-  assert.match(gateReviewCommand("app.activate", { bundleId: "com.apple.Preferences" }, SIX).error, /outside/);
+  const FAMILY = "net.blocka.app.family";
+  assert.match(gateReviewCommand("app.activate", { bundleId: "com.apple.Preferences" }, SIX).error, /current app/);
+  // The explorer's "six" alias must not move a Family session onto Blokada 6.
+  assert.match(gateReviewCommand("app.activate", { target: "six" }, FAMILY).error, /current app/);
+  assert.match(gateReviewCommand("app.activate", { bundleId: SIX }, FAMILY).error, /current app/);
+  assert.deepEqual(gateReviewCommand("app.activate", {}, FAMILY), { command: "app.activate", args: { bundleId: FAMILY } });
+  assert.deepEqual(gateReviewCommand("app.activate", { bundleId: SIX }, SIX), { command: "app.activate", args: { bundleId: SIX } });
 });
 
 test("review gate refuses risky ids that word boundaries alone miss", () => {

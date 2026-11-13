@@ -316,6 +316,9 @@ def main() -> int:
 
     if not re.fullmatch(r"\d+-\d+", opts.run_id):
         raise RuntimeError(f"run id {opts.run_id} is not <run id>-<attempt>")
+    # The report first: if an upload or a comment fails below, the milestone
+    # must not keep an earlier run's verdict.
+    write_milestone(opts.version, text)
     uploaded: dict[str, str] = {}
     for item in items:
         if item["result"] != "glitch":
@@ -334,7 +337,6 @@ def main() -> int:
         body = comment(opts.version, opts.build, opts.run_url, item, links)
         for issue in issues:
             gh([f"repos/{TRACKER}/issues/{issue}/comments"], {"body": body})
-    write_milestone(opts.version, text)
     return 0
 
 
