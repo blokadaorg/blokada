@@ -10,15 +10,19 @@ name: Device review
 #
 # Dispatched by the release routine (or by hand) with a build number. Holds no
 # store keys and never promotes. The agent gets no write token and no network
-# tool: it drives the phone through review-session.mjs, whose guardrails refuse
-# purchase, account and external-flow actions, and returns structured output
-# that the publish job validates before writing anything.
+# tool, and reads files only inside the checkout. It drives the phone through
+# review-session.mjs, whose guardrails refuse a tap or typed text when the
+# selector, or the id or label of the element it resolves to, names a
+# purchase, account or external flow; a control that names none of these still
+# passes. It returns structured output that the publish job validates, and
+# strips of anything that renders, before writing anything.
 #
 # Secrets: CLAUDE_CODE_OAUTH_TOKEN, BLOKADA_APP_CLIENT_ID and
 # BLOKADA_APP_PRIVATE_KEY (the blokada-ci App, scoped per job below),
 # MAC_KEYCHAIN_PASSWORD, BLOKADA_ACTIVE_ACCOUNT_ID and
 # BLOKADA_INACTIVE_ACCOUNT_ID (as in appium-smoke.yml). Optional:
-# BLOKADA_FAMILY_ACCOUNT_ID, without which Family is reviewed signed out.
+# BLOKADA_FAMILY_ACCOUNT_ID, without which Family is not reviewed: the app
+# would keep whatever account an earlier run left on the phone.
 run-name: Device review of build ${{ inputs.build }}
 
 on:
@@ -105,7 +109,9 @@ jobs:
 
       # The review's input: the PRs since the previous release with their
       # tracker issues (release_scope.py), and the text the agent judges them
-      # by. PR bodies are kept only from org members and collaborators;
+      # by. Only PRs that change code running on iOS are listed, going by their
+      # files: Android-only, CI and tooling PRs have nothing to drive here. PR
+      # bodies are kept only from org members and collaborators;
       # Dependabot bodies carry upstream release notes, so only their titles
       # are kept. Tracker issues are private to the org.
       - name: Collect the scope
@@ -125,10 +131,12 @@ jobs:
               return json.loads(subprocess.run(["gh", "api", path], check=True, capture_output=True, text=True).stdout)
           out = [f"# Scope: {scope['from']} .. build/{scope['build']}", ""]
           for p in scope["prs"]:
-              if p["pr"] is None or p["kind"] not in ("app", "deps", "strings"):
+              if p["pr"] is None or p["kind"] not in ("app", "deps", "strings") or not p.get("ios", True):
                   continue
               pr = gh(f"repos/blokadaorg/blokada/pulls/{p['pr']}")
-              out += [f"## PR #{p['pr']} ({p['kind']}): {pr['title']}", f"Tracker issues: {', '.join('#%d' % n for n in p['issues']) or 'none'}", ""]
+              apps = " and ".join(p.get("apps") or []) or "shared code, check where the change shows"
+              out += [f"## PR #{p['pr']} ({p['kind']}): {pr['title']}", f"Apps its files belong to: {apps}",
+                      f"Tracker issues: {', '.join('#%d' % n for n in p['issues']) or 'none'}", ""]
               if p["kind"] == "app" and pr.get("author_association") in trusted:
                   out += ["<pr-body>", (pr.get("body") or "")[:4000], "</pr-body>", ""]
           out += ["# Tracker issues", ""]
@@ -137,13 +145,15 @@ jobs:
               out += [f"## #{i['number']}: {issue['title']}", "<issue-body>", (issue.get("body") or "")[:6000], "</issue-body>", ""]
           open("review-input/scope.md", "w").write("\n".join(out))
           PY
-          echo "$(jq '[.prs[] | select(.pr != null and (.kind == "app" or .kind == "deps" or .kind == "strings"))] | length' review-input/scope.json) PRs to review" >> "$GITHUB_STEP_SUMMARY"
+          echo "$(jq '[.prs[] | select(.pr != null and .ios != false and (.kind == "app" or .kind == "deps" or .kind == "strings"))] | length' review-input/scope.json) PRs to review on the iPhone" >> "$GITHUB_STEP_SUMMARY"
 
       - uses: actions/upload-artifact@v7
         with:
           name: review-input-${{ github.run_id }}
           path: review-input
           retention-days: 30
+          # A rerun keeps the run id, so it replaces the earlier attempt's artifact.
+          overwrite: true
 
   review:
     needs: resolve
@@ -191,7 +201,8 @@ jobs:
 
       # Both apps end on the review accounts: Blokada 6 on the active dev
       # account (the smoke may end on the inactive one), Family on its own
-      # account when the secret exists.
+      # account. Without that secret Family is left out: the session refuses
+      # to switch to it and its PRs come out unclear.
       - name: Install Family and set the review accounts
         env:
           ACTIVE: ${{ secrets.BLOKADA_ACTIVE_ACCOUNT_ID }}
@@ -200,12 +211,13 @@ jobs:
           set -euo pipefail
           cd automation/appium/wdio
           eval "$(node scripts/setup-session.mjs)"
-          make -C ../../../ios appium-install-family IOS_UDID="$IOS_UDID" IOS_DEVICE_NAME="$IOS_DEVICE_NAME"
           xcrun devicectl device process launch --terminate-existing --device "$IOS_UDID" net.blocka.app -restoreAccountId "$ACTIVE" >/dev/null
           if [ -n "$FAMILY" ]; then
+            make -C ../../../ios appium-install-family IOS_UDID="$IOS_UDID" IOS_DEVICE_NAME="$IOS_DEVICE_NAME"
             xcrun devicectl device process launch --terminate-existing --device "$IOS_UDID" net.blocka.app.family -restoreAccountId "$FAMILY" >/dev/null
           else
-            echo "::warning::BLOKADA_FAMILY_ACCOUNT_ID is not set; Family is reviewed without an account"
+            echo "::warning::BLOKADA_FAMILY_ACCOUNT_ID is not set; Family is not reviewed"
+            echo "REVIEW_FLAVORS=six" >> "$GITHUB_ENV"
           fi
           echo "IOS_UDID=$IOS_UDID" >> "$GITHUB_ENV"
           echo "IOS_DEVICE_NAME=$IOS_DEVICE_NAME" >> "$GITHUB_ENV"
@@ -237,25 +249,36 @@ jobs:
         continue-on-error: true
         timeout-minutes: 75
         # Same pin as dependabot-auto-merge.yml; Dependabot bumps both.
-        uses: anthropics/claude-code-action@6d5ae526d25ce88daa2200be073e1a373167f064 # v1.0.265
+        uses: anthropics/claude-code-action@61a9c274fa7110a66dfafc1bbbced03833eb25fe # v1.0.269
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ github.token }}
+          # File tools stay inside the checkout: the runner is a Mac with a
+          # login keychain and other checkouts, and what the agent reads can
+          # end up in its output. dontAsk denies whatever the allow rules do
+          # not cover (the action's default mode would let reads through), and
+          # the setting refuses paths outside the working directory outright.
+          settings: |
+            {"permissions": {"blockReadsOutsideWorkingDirectories": true}}
           claude_args: |
             --max-turns 300
-            --allowed-tools "Read,Glob,Grep,Bash(node automation/appium/wdio/scripts/review-session.mjs send:*)"
+            --permission-mode dontAsk
+            --allowed-tools "Read(./**),Bash(node automation/appium/wdio/scripts/review-session.mjs send:*)"
             --disallowed-tools "Write,Edit,WebFetch,WebSearch"
             --json-schema '{"type":"object","properties":{"items":{"type":"array","items":{"type":"object","properties":{"pr":{"type":"integer"},"result":{"type":"string","enum":["pass","glitch","unclear"]},"flavor":{"type":"string","enum":["six","family","both"]},"summary":{"type":"string"},"steps":{"type":"string"},"expected":{"type":"string"},"seen":{"type":"string"},"log_excerpt":{"type":"string"},"screenshots":{"type":"array","items":{"type":"string"}}},"required":["pr","result","flavor","summary"]}}},"required":["items"]}'
           prompt: |
             You are the unattended device review of Blokada release ${{ needs.resolve.outputs.version }}
-            (build ${{ inputs.build }}) on a real iPhone. Blokada 6 and Blokada Family
-            are installed from this build and signed in; the iOS smoke suite already ran.
+            (build ${{ inputs.build }}) on a real iPhone. Blokada 6 is installed from
+            this build and signed in, and so is Blokada Family unless switching to it
+            is refused; the iOS smoke suite already ran.
 
             Procedure: the "Device review" section of review-input/app-rollout-SKILL.md,
             in unattended mode. Scope: review-input/scope.md (and scope.json). Review
             every PR listed in scope.md against the expected behavior in its tracker
             issue, on the flavor it affects. deps and strings PRs get a pass over the
-            screens they touch.
+            screens they touch. scope.md lists only PRs that change code running on
+            iOS. One that fixes Android behavior in shared code passes when the
+            screens it touches look and work as before on this iPhone.
 
             Drive the phone only with:
               node automation/appium/wdio/scripts/review-session.mjs send COMMAND 'JSON_ARGS'
@@ -265,7 +288,9 @@ jobs:
             ui.screenshot, app.activate), plus: flavor {"name":"six"|"family"} to switch
             app, log {"flavor":"six"|"family","artifact":"log"|"crash"} for the recent app
             log. A "refused" reply is a guardrail: purchases, subscriptions, sign-out,
-            delete and external flows are off limits; report such a check `unclear`.
+            delete and external flows are off limits, a tap needs an element with an
+            id or a label, and Family may not be set up in this run; report such a
+            check `unclear`. Read files only inside this checkout.
             Screenshots land in automation/appium/output/review-<name>.png; read them
             with the Read tool. Do not review the third-party keyboard or hold a
             free-form support chat: the operator spot-checks those.
@@ -277,7 +302,9 @@ jobs:
 
             Return one item per PR in scope.md, with flavor the apps the PR affects
             (six, family or both); its result covers every one of them, so a PR that
-            affects both apps passes only when you checked it in both. Result pass when you saw the expected
+            affects both apps passes only when you checked it in both. A pass must
+            cover at least the apps scope.md says the PR's files belong to.
+            Result pass when you saw the expected
             behavior, glitch when you saw it wrong, unclear when you could not check it
             (never a guessed pass). For a glitch fill steps, expected, seen, the
             screenshots you took (review-<name>.png) and a short excerpt of the app log
@@ -312,6 +339,7 @@ jobs:
           path: ${{ runner.temp }}/device-review
           if-no-files-found: warn
           retention-days: 30
+          overwrite: true
 
   publish:
     needs: [resolve, review]

@@ -462,18 +462,32 @@ an automation that dispatches these workflows never approves one.
 Reviews a release candidate on the CI iPhone before it is promoted; the
 release routine dispatches it on release day with `build: N`. It refuses
 anything but an annotated `build/N` tag on `main`'s history, runs the iOS smoke
-suite, then an agent reviews every PR merged since the previous release
-against its tracker issue, both flavors, following the Device review section
-of the `app-rollout` skill in `blokadaorg/workflows`.
+suite, then an agent reviews the PRs merged since the previous release
+against their tracker issues, both flavors, following the Device review section
+of the `app-rollout` skill in `blokadaorg/workflows`. Which PRs it reviews
+comes from the files each one changes (`release_scope.py`): only those with
+code that runs on iOS. Android-only PRs are listed `n/a` (the Android smoke and
+emulator screenshots cover them), and CI, docs and tooling PRs are counted;
+neither enters the verdict.
 
-The agent has no write token and no network tool. It drives the phone only
-through `automation/appium/wdio/scripts/review-session.mjs`, which applies the
-AI explorer's guardrails (no purchase, account or external-flow actions), and
-returns structured output. The `publish` job validates that output (scope,
-verdict, screenshot names, text caps), then with a blokada-ci App token scoped
+The agent has no write token and no network tool, and its file tools are
+limited to the checkout. It drives the phone only through
+`automation/appium/wdio/scripts/review-session.mjs`, which applies the AI
+explorer's guardrails and checks each tap and typed text against the id and
+label of the element the selector resolves to, refusing purchase, account and
+external-flow controls and taps on elements that name nothing. These are text
+checks, not a sandbox: a control whose id and label name nothing risky still
+passes. The agent returns structured output. The `publish` job validates that
+output (scope, verdict, the apps each result covers, screenshot names, text
+caps), strips URLs, images and HTML from it and puts multi-line text in code
+fences, so nothing the agent wrote is fetched when a comment renders. Then
+with a blokada-ci App token scoped
 to `issue-tracker` comments each glitch on its issue, puts the screenshots on
 the image-only `release-review` branch, and writes the report into the release
-milestone. `Verdict: ship` only when the smoke passed and every PR passed. It
+milestone. A glitch is commented once per build, on the issues its PR links
+itself. `Verdict: ship` only when the smoke passed and every reviewed PR
+passed. Without `BLOKADA_FAMILY_ACCOUNT_ID` Family is not reviewed and its PRs
+come out unclear. It
 holds no store keys and never promotes.
 
 The phone is exclusive because the one `ios-physical` runner takes one job at a

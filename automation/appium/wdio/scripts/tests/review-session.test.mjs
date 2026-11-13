@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
-import { gateReviewCommand } from "../review-session.mjs";
+import { gateReviewCommand, riskyTarget, targetRefusal } from "../review-session.mjs";
 
 const SIX = "net.blocka.app";
 
@@ -53,4 +53,35 @@ test("review screenshots get the review- prefix and a safe name", () => {
 
 test("review gate keeps app.activate inside the current app", () => {
   assert.match(gateReviewCommand("app.activate", { bundleId: "com.apple.Preferences" }, SIX).error, /outside/);
+});
+
+test("review gate refuses risky ids that word boundaries alone miss", () => {
+  for (const selector of [
+    "~automation.exception_delete",
+    "~automation.settings_plan_restore",
+    "~automation.settings_plan_upgrade",
+    "~automation.attach_open",
+    "~automation.dns_open_settings"
+  ]) {
+    assert.match(gateReviewCommand("ui.tap", { selector }, SIX).error, /risky/, selector);
+    assert.match(gateReviewCommand("ui.tapCenter", { selector }, SIX).error, /risky/, selector);
+  }
+  assert.equal(gateReviewCommand("ui.tap", { selector: "~automation.home_settings" }, SIX).command, "ui.tap");
+  assert.equal(riskyTarget("automation.power_toggle", "Blokada is on"), false);
+});
+
+test("a tap is checked against the element it resolves to", () => {
+  // A positional XPath passes the selector check; what it lands on does not.
+  const selector = "//XCUIElementTypeButton[1]";
+  assert.equal(gateReviewCommand("ui.tapCenter", { selector }, SIX).command, "ui.tapCenter");
+  assert.match(targetRefusal("ui.tapCenter", { name: "automation.settings_plan_restore", label: "Restore" }), /off limits/);
+  assert.match(targetRefusal("ui.tap", { label: "Start free trial" }), /off limits/);
+  assert.match(targetRefusal("ui.tap", { name: "Subscribe" }), /off limits/);
+  assert.match(targetRefusal("ui.tap", {}), /no id or label/);
+  assert.equal(targetRefusal("ui.tap", { name: "automation.home_settings", label: "Settings" }), undefined);
+});
+
+test("typing needs no label on the field but still refuses a risky one", () => {
+  assert.equal(targetRefusal("ui.type", {}), undefined);
+  assert.match(targetRefusal("ui.type", { label: "Payment card" }), /off limits/);
 });

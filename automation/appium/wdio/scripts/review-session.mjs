@@ -10,7 +10,11 @@
 // one command per socket connection. Every explorer command goes through
 // gateReviewCommand: the AI explorer's guardrails (allowlist, no purchase,
 // account or external-flow text) plus the few commands a feature review needs
-// on top (typing, center taps, system alerts). Bridge commands:
+// on top (typing, center taps, system alerts). A tap or a typed text is then
+// checked against the element it resolves to (targetRefusal), since a selector
+// such as an XPath position says nothing about what it lands on. These are
+// text checks on ids and labels, not a sandbox: a control that names nothing
+// risky still passes. Bridge commands:
 //   flavor {"name":"six"|"family"}  restart the session on the other app (installed already)
 //   log {"flavor":"six"|"family","artifact":"log"|"crash"}  recent app log or crash report
 //   stop                            end the session and the server
@@ -31,6 +35,42 @@ export const BUNDLES = { six: "net.blocka.app", family: "net.blocka.app.family" 
 const MAX_TEXT = 120;
 const MAX_LOG_LINES = 200;
 const ALERT_ACTIONS = new Set(["accept", "dismiss", "getButtons"]);
+const TARGETED = new Set(["ui.tap", "ui.tapCenter", "ui.type"]);
+
+// What a review must not act on, matched against a selector and against the
+// id and label of the element it resolves to. Kept here, not in the explorer's
+// guardrails, because this file is taken from main while the explorer
+// libraries are the candidate's. Ids are snake_case with dots, so separators
+// become spaces first: \bdelete\b alone misses automation.exception_delete.
+const RISKY_TARGET = [
+  /\b(purchase|payment|pay|buy|subscribe|subscription|trial|restore|upgrade|plan|checkout|paywall)\b/,
+  /\b(delete|erase|reset|remove account|log ?out|sign ?out)\b/,
+  /\b(app store|browser|safari|mail|external|share|attach|open settings)\b/
+];
+
+export function riskyTarget(...values) {
+  const text = values
+    .filter((value) => typeof value === "string")
+    .join(" ")
+    .toLowerCase()
+    .replace(/[_.\-/:]+/g, " ");
+  return RISKY_TARGET.some((pattern) => pattern.test(text));
+}
+
+// The check on what a selector resolved to: `state` is the explorer's ui.read
+// of it. A tap needs an element that says what it is; a text field often has
+// neither id nor label, so typing only refuses a risky one.
+export function targetRefusal(command, state) {
+  const name = typeof state?.name === "string" ? state.name : "";
+  const label = typeof state?.label === "string" ? state.label : "";
+  if (riskyTarget(name, label)) {
+    return `The element is '${label || name}': purchase, account and external-flow controls are off limits.`;
+  }
+  if (command !== "ui.type" && !name && !label) {
+    return "The element has no id or label, so the tap cannot be checked. Select it by its id or label.";
+  }
+  return undefined;
+}
 
 // Under the temp dir: a Unix socket path must stay under 104 bytes on macOS,
 // which a runner's work directory can exceed.
@@ -45,7 +85,13 @@ function gateText(selector, text, bundleId) {
     { command: "ui.tap", args: { selector }, reason: text },
     { sessionBundleId: bundleId }
   );
-  return check.allowed ? { selector: check.action.args.selector } : { error: check.reason };
+  if (!check.allowed) {
+    return { error: check.reason };
+  }
+  if (riskyTarget(check.action.args.selector)) {
+    return { error: "Selector matched a risky purchase/account/external-flow guardrail." };
+  }
+  return { selector: check.action.args.selector };
 }
 
 export function gateReviewCommand(command, args, bundleId) {
@@ -80,6 +126,9 @@ export function gateReviewCommand(command, args, bundleId) {
       if (!check.allowed) {
         return { error: check.reason };
       }
+      if (riskyTarget(label)) {
+        return { error: "Alert button matched a risky purchase/account/external-flow guardrail." };
+      }
       return { command, args: action === "getButtons" ? { action } : { action, buttonLabel: label } };
     }
     case "ui.screenshot": {
@@ -98,6 +147,10 @@ export function gateReviewCommand(command, args, bundleId) {
     }
     case "finish":
       return { error: "Use stop to end the session." };
+    case "ui.tap": {
+      const gated = gateText(a.selector, "", bundleId);
+      return gated.error ? gated : { command, args: { selector: gated.selector } };
+    }
     default: {
       const check = evaluateExplorerAction({ command, args: a }, { sessionBundleId: bundleId });
       return check.allowed
@@ -144,6 +197,11 @@ async function serve(flavor) {
     rmSync(path);
   }
 
+  // REVIEW_FLAVORS narrows the apps this run set up, such as "six" when Family has no account.
+  const available = new Set((process.env.REVIEW_FLAVORS ?? "six,family").split(",").map((name) => name.trim()));
+  if (!available.has(flavor)) {
+    throw new Error(`${flavor} is not in REVIEW_FLAVORS.`);
+  }
   let current = flavor;
   let client;
   const start = async (name) => {
@@ -171,6 +229,9 @@ async function serve(flavor) {
       if (!BUNDLES[name]) {
         return { type: "error", error: "flavor name must be six or family." };
       }
+      if (!available.has(name)) {
+        return { type: "refused", error: `${name} is not set up in this run: report its checks unclear.` };
+      }
       await client.shutdown();
       await start(name);
       return { type: "result", result: `session on ${name}` };
@@ -185,6 +246,16 @@ async function serve(flavor) {
       return { type: "refused", error: gated.error };
     }
     try {
+      if (TARGETED.has(gated.command)) {
+        const state = await client.command("ui.read", {
+          selector: gated.args.selector,
+          attributes: ["name", "label"]
+        });
+        const refusal = targetRefusal(gated.command, state?.result ?? state);
+        if (refusal) {
+          return { type: "refused", error: refusal };
+        }
+      }
       return { type: "result", result: await client.command(gated.command, gated.args) };
     } catch (error) {
       return { type: "error", error: error instanceof Error ? error.message : String(error) };

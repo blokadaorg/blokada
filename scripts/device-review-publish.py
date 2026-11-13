@@ -11,10 +11,15 @@ the app-rollout skill); review.json is the review agent's structured output.
 The agent's output is untrusted: it read PR and issue text. Everything it can
 influence is checked here, not trusted:
 - the verdict is computed from the per-PR results and the smoke, never read;
-- a PR in scope that the agent did not report becomes `unclear`, and PRs
-  outside the scope are dropped;
-- comments go only to the tracker issues the scope links to that PR;
-- text is length-capped, code fences and @mentions are neutralised;
+- which PRs the iPhone review covers comes from the scope (the files each PR
+  changes), not from the agent: a covered PR the agent did not report becomes
+  `unclear`, PRs outside the scope are dropped, and PRs with nothing to drive
+  on an iPhone are listed `n/a` and stay out of the verdict;
+- a result must cover every app the scope's paths name for that PR;
+- comments go only to the tracker issues the PR itself links, once per build;
+- text is length-capped, with URLs, images, HTML, code fences and @mentions
+  neutralised, and multi-line agent text is published inside code fences, so
+  nothing the agent wrote is fetched or rendered when a comment is viewed;
 - screenshots must be files the review job produced, named review-*.jpg.
 
 Writes, with GH_TOKEN (the blokada-ci App, issue-tracker only): screenshots to
@@ -44,9 +49,20 @@ SHOT_NAME = re.compile(r"^review-[A-Za-z0-9-]{1,70}\.jpg$")
 CAPS = {"summary": 120, "steps": 1500, "expected": 600, "seen": 600, "log_excerpt": 3000}
 
 
+# A URL in agent text could carry data out when GitHub renders it (an image is
+# fetched without a click), so none survives: schemes, protocol-relative hosts
+# and www. names go. Multi-line fields are published inside code fences, where
+# the rest is inert; one-line fields are not, so one_line also breaks up image
+# and HTML syntax. An HTML comment is broken up everywhere: the rerun marker
+# is one, and agent text must not be able to forge it.
+URL = re.compile(r"(?i)\b[a-z][a-z0-9+.-]*://\S*|(?<![\w/])//[\w.-]+\.\S*|\bwww\.\S+|\b(?:mailto|data):\S+")
+
+
 def clean(text: Any, cap: int) -> str:
     value = str(text or "").replace("\r", "").strip()
     value = value.replace("```", "'''")
+    value = URL.sub("[link removed]", value)
+    value = value.replace("<!--", "‹!--")
     # A zero-width space after @ keeps a mention from notifying anyone.
     value = re.sub(r"@(?=\w)", "@​", value)
     if len(value) > cap:
@@ -55,7 +71,7 @@ def clean(text: Any, cap: int) -> str:
 
 
 def one_line(text: Any, cap: int) -> str:
-    return clean(re.sub(r"\s+", " ", str(text or "")), cap)
+    return clean(re.sub(r"\s+", " ", str(text or "")), cap).replace("![", "[").replace("<", "‹")
 
 
 def jpg_name(name: Any) -> str:
@@ -63,6 +79,34 @@ def jpg_name(name: Any) -> str:
     stem = str(name).rsplit("/", 1)[-1]
     stem = re.sub(r"\.(png|jpe?g)$", "", stem, flags=re.IGNORECASE)
     return f"{stem}.jpg"
+
+
+def on_iphone(pr: dict[str, Any]) -> bool:
+    """A scope from before release_scope.py classified files has no `ios`: review it."""
+    return pr.get("pr") is not None and pr.get("kind") in REVIEWED_KINDS and pr.get("ios", True) is not False
+
+
+def covers(flavor: Any, apps: list[str]) -> bool:
+    """Whether a result for `flavor` covers every app the scope's paths name."""
+    covered = {"six", "family"} if flavor == "both" else {flavor}
+    return set(apps) <= covered
+
+
+def not_reviewed(scope: dict[str, Any]) -> list[str]:
+    """The n/a lines: PRs in scope the iPhone review has nothing to drive for."""
+    lines, other = [], 0
+    for pr in scope.get("prs") or []:
+        if pr.get("pr") is None or on_iphone(pr):
+            continue
+        if pr.get("kind") in REVIEWED_KINDS and pr.get("android"):
+            # The Android gate: the smoke for every such PR, screenshots for app changes.
+            gate = "emulator smoke and screenshots" if pr["kind"] == "app" else "emulator smoke"
+            lines.append(f"n/a     #{pr['pr']} Android only: {gate}")
+        else:
+            other += 1
+    if other:
+        lines.append(f"n/a     {other} PR{'s' if other != 1 else ''} without app code")
+    return lines
 
 
 def build_items(scope: dict[str, Any], review: dict[str, Any], shots: set[str]) -> list[dict[str, Any]]:
@@ -73,18 +117,26 @@ def build_items(scope: dict[str, Any], review: dict[str, Any], shots: set[str]) 
 
     items = []
     for pr in scope.get("prs") or []:
-        if pr.get("pr") is None or pr.get("kind") not in REVIEWED_KINDS:
+        if not on_iphone(pr):
             continue
         found = by_pr.get(pr["pr"], {})
         result = found.get("result") if found.get("result") in RESULTS else "unclear"
+        summary = one_line(found.get("summary") or ("not reviewed" if not found else ""), CAPS["summary"])
+        apps = [a for a in pr.get("apps") or [] if a in ("six", "family")]
         # A result must say which apps it covers; one that does not is not a check.
         if found.get("flavor") not in FLAVORS:
             result = "unclear"
-        summary = one_line(found.get("summary") or ("not reviewed" if not found else ""), CAPS["summary"])
+        elif result == "pass" and not covers(found["flavor"], apps):
+            # The PR's paths name an app the agent did not check.
+            result = "unclear"
+            summary = one_line(f"checked in {found['flavor']} only, changes {' and '.join(apps)}: {summary}", CAPS["summary"])
+        linked_by = pr.get("linked_by") or {}
         items.append({
             "pr": pr["pr"],
             "title": one_line(pr.get("title"), 80),
             "issues": [int(n) for n in pr.get("issues") or []],
+            # Only issues the PR links itself get a comment; one that merely mentions the PR does not.
+            "comment_issues": [int(n) for n in pr.get("issues") or [] if linked_by.get(str(n)) == "pr"],
             "result": result,
             "summary": summary or "no summary",
             "flavor": one_line(found.get("flavor"), 12),
@@ -98,13 +150,13 @@ def build_items(scope: dict[str, Any], review: dict[str, Any], shots: set[str]) 
 
 
 def verdict(items: list[dict[str, Any]], smoke: str, reviewed: bool = True) -> str:
-    """ship only with a usable review, a green smoke and every PR passing."""
+    """ship only with a usable review, a green smoke and every reviewed PR passing."""
     ok = reviewed and smoke == "success" and all(i["result"] == "pass" for i in items)
     return "ship" if ok else "hold"
 
 
 def report(version: str, build: int, date: str, run_url: str, smoke: str, items: list[dict[str, Any]],
-           reviewed: bool = True) -> str:
+           reviewed: bool = True, skipped: list[str] | None = None) -> str:
     lines = [
         f"App release {version} (build {build})",
         f"Device review of build {build}, {date}, automated on the CI phone: {run_url}",
@@ -113,6 +165,7 @@ def report(version: str, build: int, date: str, run_url: str, smoke: str, items:
     for i in items:
         issues = ", ".join(f"#{n}" for n in i["issues"])
         lines.append(f"{i['result']:<7} #{i['pr']} {i['summary']}" + (f" ({issues})" if issues else ""))
+    lines += skipped or []
     lines.append("Operator spot-checks: third-party keyboard, free-form support chat")
     if not reviewed:
         lines.append("Review output missing or unreadable: see the run")
@@ -125,15 +178,21 @@ def shot_path(version: str, run_id: str, pr: int, name: str) -> str:
     return f"{version}/{run_id}/pr-{pr}-{name.removeprefix('review-')}"
 
 
+def marker(build: int, pr: int) -> str:
+    """Hidden in each glitch comment, so a rerun of publish does not post it again."""
+    return f"<!-- device-review build={build} pr={pr} -->"
+
+
 def comment(version: str, build: int, run_url: str, item: dict[str, Any], links: list[str]) -> str:
     parts = [
+        marker(build, item["pr"]),
         f"**Device review glitch** in {version} (build {build}), PR blokadaorg/blokada#{item['pr']}, "
         f"automated run: {run_url}",
         f"**{item['summary']}**" + (f" ({item['flavor']})" if item["flavor"] else ""),
     ]
     for key, label in (("steps", "Steps"), ("expected", "Expected"), ("seen", "Seen")):
         if item[key]:
-            parts.append(f"{label}:\n{item[key]}")
+            parts.append(f"{label}:\n```\n{item[key]}\n```")
     parts += [f"![screenshot]({link})" for link in links]
     if item["log_excerpt"]:
         parts.append(f"App log:\n```\n{item['log_excerpt']}\n```")
@@ -154,6 +213,16 @@ def gh(args: list[str], body: dict[str, Any] | None = None) -> Any:
     if result.returncode != 0:
         raise RuntimeError(f"gh api {' '.join(args)}: {result.stderr.strip()}")
     return json.loads(result.stdout) if result.stdout.strip() else None
+
+
+def already_commented(issue: int, mark: str) -> bool:
+    result = subprocess.run(
+        ["gh", "api", "--paginate", "--slurp", f"repos/{TRACKER}/issues/{issue}/comments?per_page=100"],
+        capture_output=True, text=True,
+    )
+    if result.returncode != 0:
+        raise RuntimeError(f"gh api issues/{issue}/comments: {result.stderr.strip()}")
+    return any(mark in (c.get("body") or "") for page in json.loads(result.stdout) for c in page)
 
 
 def branch_exists() -> bool:
@@ -240,7 +309,7 @@ def main() -> int:
     shots = {n for n in os.listdir(opts.shots) if SHOT_NAME.match(n)} if os.path.isdir(opts.shots) else set()
 
     items = build_items(scope, review, shots)
-    text = report(opts.version, opts.build, opts.date, opts.run_url, opts.smoke, items, reviewed)
+    text = report(opts.version, opts.build, opts.date, opts.run_url, opts.smoke, items, reviewed, not_reviewed(scope))
     print(text)
     if opts.dry_run:
         return 0
@@ -249,7 +318,11 @@ def main() -> int:
         raise RuntimeError(f"run id {opts.run_id} is not <run id>-<attempt>")
     uploaded: dict[str, str] = {}
     for item in items:
-        if item["result"] != "glitch" or not item["issues"]:
+        if item["result"] != "glitch":
+            continue
+        mark = marker(opts.build, item["pr"])
+        issues = [n for n in item["comment_issues"] if not already_commented(n, mark)]
+        if not issues:
             continue
         links = []
         for name in item["screenshots"]:
@@ -259,7 +332,7 @@ def main() -> int:
                     uploaded[path] = upload(path, handle.read())
             links.append(uploaded[path])
         body = comment(opts.version, opts.build, opts.run_url, item, links)
-        for issue in item["issues"]:
+        for issue in issues:
             gh([f"repos/{TRACKER}/issues/{issue}/comments"], {"body": body})
     write_milestone(opts.version, text)
     return 0
