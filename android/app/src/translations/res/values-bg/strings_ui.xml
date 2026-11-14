@@ -6,7 +6,7 @@
     <string name="error_account_inactive_after_restore">Изглежда, че това не е валиден активен акаунт. Ако смятате, че това е грешка, моля свържете се с нас.</string>
     <string name="error_account_invalid">ID на този профил изглежда е невалиден.</string>
     <string name="error_creating_account">Новият профил не можа да бъде създаден. Моля, опитайте отново по-късно.</string>
-    <string name="error_fetching_data">This action could not be completed. Make sure you are online, and try again later. If the problem persists, please contact us.</string>
+    <string name="error_fetching_data">Действието не можа да приключи. Уверете се, че сте онлайн и опитайте отново по-късно. Ако проблемът продължава, моля свържете се с нас.</string>
     <string name="error_tunnel">VPN не можа да бъде създаден. Моля, рестартирайте устройството, или премахнете профила на Blokada VPN от системните настройки и опитайте отново.</string>
     <string name="error_vpn">VPN не можа да бъде създаден. Моля, рестартирайте устройството, или премахнете профила на Blokada VPN от системните настройки и опитайте отново.</string>
     <string name="error_vpn_perms">Няма предоставено разрешение за създаване на VPN профил.</string>
@@ -14,15 +14,15 @@
     <string name="error_vpn_no_current_lease_new">Blokada Plus е деактивирана на това устройство. Моля, изберете местоположение, за да я активирате отново.</string>
     <string name="error_vpn_too_many_leases">Лимитът на устройствата е достигнат. Моля, премахнете едно от вашите устройства и опитайте отново.</string>
     <string name="error_vpn_expired">VPN е деактивиран. Моля, актуализирайте абонамента си, за да продължите да използвате BLOKADA+</string>
-    <string name="error_payment_inactive_after_restore">Your previous payment was restored, but the subscription has already expired. If you believe this is a mistake, please contact us.</string>
+    <string name="error_payment_inactive_after_restore">Предишното ви плащане беше възстановено, но абонаментът вече е изтекъл. Ако смятате, че това е грешка, моля свържете се с нас.</string>
     <string name="error_restore_not_found">Не успяхме да намерим активен абонамент за Blokada, който да бъде възстановен. Ако вашият абонамент е изтекъл, можете да закупите нов. Ако смятате, че това е грешка, моля свържете се с нас.</string>
-    <string name="error_payment_failed">Payments are unavailable at this moment. Make sure you are online, and try again later. If the problem persists, please contact us.</string>
-    <string name="error_payment_failed_alternative">Could not complete your payment. Please make sure your data is correct, and try again. If the problem persists, please contact us.</string>
+    <string name="error_payment_failed">В момента плащанията са недостъпни. Уверете се, че сте свързани с интернет и опитайте отново по-късно. Ако проблемът продължава, моля, свържете се с нас.</string>
+    <string name="error_payment_failed_alternative">Не можахме да завършим плащането Ви. Моля, уверете се, че данните Ви са верни и опитайте отново. Ако проблемът продължава, моля свържете се с нас.</string>
     <string name="error_payment_not_available">Плащанията не са налични за това устройство. Или това устройство не е актуализирано, или все още не обработваме покупки от вашата страна.</string>
     <string name="error_payment_canceled">Плащането е анулирано. Не сте таксувани.</string>
     <string name="error_pack_install">Функцията не можа да се инсталира (или деинсталира). Моля, опитайте отново по-късно.</string>
     <string name="error_location_failed_fetching">Местоположенията не можаха да бъдат извлечени.</string>
-    <string name="error_unknown">A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us.</string>
+    <string name="error_unknown">Възникна проблем. Уверете се, че сте онлайн и опитайте отново по-късно. Ако проблемът продължава, моля свържете се с нас.</string>
     <string name="error_multiple_apps">На вашето устройство има повече от едно приложение на Blokada. Възможно е това да причини проблеми със свързването. Искате ли сега да отстраните проблема?</string>
     <string name="error_locked">Това действие не е активно, когато приложението е в заключено състояние. Моля, отключете приложението, за да продължите.</string>
     <string name="error_lock_invalid">Валидният ПИН код трябва да съдържа точно 4 цифри. Моля, опитайте отново.</string>
@@ -907,7 +907,7 @@
     <string name="home_status_protected_last_block">Защитено · последно блокиране %s</string>
     <string name="home_status_protected_blocked">Защитено · блокирани заявки за 24 ч.: %s</string>
     <string name="home_trial_day">Ден %s от %s</string>
-    <string name="home_trial_blocked_so_far">%s блокирани досега</string>
+    <string name="home_trial_blocked_so_far">%s блокирани до сега</string>
     <string name="home_headline_top_blocked_title">Най-често блокиран днес</string>
     <string name="home_headline_top_blocked_body">%s се опита да се свърже с устройството ви и беше блокиран %s пъти през последните 24 часа.</string>
     <string name="home_headline_busiest_hour_title">Часът с най-много блокирани заявки</string>
