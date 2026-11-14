@@ -165,6 +165,7 @@ object PaymentBinding : PaymentOps, AdaptyFlowDefaultEventListener() {
 
     // Settings "Your plan" shows whether the subscription renews or ends, which
     // only the store knows; the backend account carries just the end date.
+    // Home's trial progress (#460) reads the start and intro offer type too.
     // Read-only: never restores or checks out.
     override fun doFetchActiveSubscriptions(callback: (Result<List<OpsSubscription>>) -> Unit) {
         Adapty.getProfile { result ->
@@ -181,6 +182,8 @@ object PaymentBinding : PaymentOps, AdaptyFlowDefaultEventListener() {
                                     willRenew = it.willRenew,
                                     expiresAt = it.expiresAt,
                                     customerUserId = customerUserId,
+                                    activatedAt = it.activatedAt,
+                                    introOfferType = it.activeIntroductoryOfferType,
                                 )
                             }
                     callback(Result.success(subscriptions))

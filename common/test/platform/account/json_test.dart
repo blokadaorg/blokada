@@ -142,6 +142,31 @@ void main() {
     });
   });
 
+  group("homeVariant", () {
+    JsonAccount withVariant(Object? value) => JsonAccount.fromJson({
+          "id": "mockedmocked",
+          "active": true,
+          "type": "cloud",
+          "attributes": {"home_variant": value},
+        });
+
+    test("defaultsToControlWithoutAttributes", () {
+      final subject = JsonAccount.fromJson(jsonDecode(fixtureJsonAccountLibre));
+      expect(subject.getHomeVariant(), HomeVariant.control);
+    });
+
+    test("parsesDailyAndControl", () {
+      expect(withVariant("daily").getHomeVariant(), HomeVariant.daily);
+      expect(withVariant("control").getHomeVariant(), HomeVariant.control);
+    });
+
+    test("fallsBackToControlForUnknownOrNonStringValues", () {
+      expect(withVariant("new").getHomeVariant(), HomeVariant.control);
+      expect(withVariant(1).getHomeVariant(), HomeVariant.control);
+      expect(withVariant(null).getHomeVariant(), HomeVariant.control);
+    });
+  });
+
   group("errors", () {
     test("willThrowOnInvalidJson", () async {
       await withTrace((m) async {

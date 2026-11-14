@@ -214,12 +214,21 @@ abstract class AccountStoreBase with Store, Logging, Actor, Emitter {
   @action
   Future<void> expireOffline(Marker m) async {
     return await log(m).trace("expireOffline", (m) async {
+      // The known end date stays when it has passed: Home says when
+      // protection ended, and the refresh may run days after that.
+      final now = DateTime.now();
+      final knownEnd = account!.jsonAccount.getActiveUntil();
       final jsonAccount = JsonAccount(
         id: account!.id,
-        activeUntil: DateTime.now().toIso8601String(),
+        activeUntil: (knownEnd.year > 2000 && knownEnd.isBefore(now) ? knownEnd : now)
+            .toIso8601String(),
         active: false,
         type: AccountType.libre.name,
-      );
+        // Keep what the API told us about the account: dropping the
+        // attributes would move it out of its experiment cohorts, and
+        // dropping the payment source would make it look never paid for.
+        attributes: account!.jsonAccount.attributes,
+      )..paymentSource = account!.jsonAccount.paymentSource;
 
       await _persistence.saveJson(m, keyAccount, jsonAccount.toJson(), isBackup: true);
       await _changeAccount(account!.update(jsonAccount), m);

@@ -8,6 +8,7 @@ import 'package:common/src/features/filter/domain/filter.dart';
 import 'package:common/src/features/journal/domain/journal.dart';
 import 'package:common/src/features/link/domain/link.dart';
 import 'package:common/src/features/stats/domain/controller.dart';
+import 'package:common/src/app_variants/v6/module/home/home.dart';
 import 'package:common/src/features/list/domain/list.dart';
 import 'package:common/src/features/lock/domain/lock.dart';
 import 'package:common/src/features/modal/domain/modal.dart';
@@ -157,6 +158,7 @@ class Modules with Logging {
     ToplistStore().onRegister();
     StatsDeltaStore().onRegister();
     await _registerModule(StatsControllerModule());
+    if (!Core.act.isFamily) await _registerModule(DailyHomeModule());
     BootstrapIdentityValue().onRegister();
 
     if (Core.act.isFamily) {

@@ -22,8 +22,13 @@ import 'package:mobx/mobx.dart';
 ///
 /// Pause is account-wide in v6, so the off state also says when the pause came
 /// from another device (#455); tapping resumes like the power button does.
+///
+/// The daily Home (#460) brings its own cards and uses only the hint
+/// ([showCards] false), so the off state reads the same in both Homes.
 class HomeActions extends StatefulWidget {
-  const HomeActions({Key? key}) : super(key: key);
+  final bool showCards;
+
+  const HomeActions({super.key, this.showCards = true});
 
   @override
   State<StatefulWidget> createState() {
@@ -163,7 +168,7 @@ class _HomeActionsState extends State<HomeActions> with TickerProviderStateMixin
                 ),
               ),
             ),
-            Column(
+            if (widget.showCards) Column(
               children: [
                 Sliding(
                     controller: _ctrlCounter,

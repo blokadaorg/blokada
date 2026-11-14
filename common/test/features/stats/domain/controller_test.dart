@@ -291,6 +291,32 @@ void main() {
       });
     });
 
+    test('Home refresh keeps running while another owner still holds it', () async {
+      await withTrace((m) async {
+        setUp(m);
+        final control = Object();
+        final daily = Object();
+        // A layout swap: the new widget takes over before the old lets go.
+        controller.setHomeRefresh(true, owner: control);
+        controller.setHomeRefresh(true, owner: daily);
+        controller.setHomeRefresh(false, owner: control);
+        await pumpEventQueue();
+        expect(store.calls, ['day force=false']);
+
+        // Still running: the next start does not fetch again.
+        controller.setHomeRefresh(true, owner: control);
+        await pumpEventQueue();
+        expect(store.calls, ['day force=false']);
+
+        controller.setHomeRefresh(false, owner: control);
+        controller.setHomeRefresh(false, owner: daily);
+        controller.setHomeRefresh(true, owner: daily);
+        await pumpEventQueue();
+        expect(store.calls, ['day force=false', 'day force=false']);
+        controller.setHomeRefresh(false, owner: daily);
+      });
+    });
+
     test('sections with nothing to show are empty', () async {
       await withTrace((m) async {
         setUp(m);

@@ -31,13 +31,25 @@ class StoreSubscription {
   final DateTime? expiresAt;
   final String? customerUserId;
 
+  /// When this level started; for a trial, the trial start.
+  final DateTime? activatedAt;
+
+  /// Adapty's active introductory offer type (`free_trial`, `pay_as_you_go`,
+  /// `pay_up_front`), null when the current period has none. Home's trial
+  /// progress (#460) only counts `free_trial`.
+  final String? introOfferType;
+
   const StoreSubscription({
     required this.accessLevelId,
     required this.store,
     required this.willRenew,
     required this.expiresAt,
     required this.customerUserId,
+    this.activatedAt,
+    this.introOfferType,
   });
+
+  bool get isFreeTrial => introOfferType == 'free_trial';
 }
 
 const cmdPaymentHandleSuccess = "paymentHandleSuccess";

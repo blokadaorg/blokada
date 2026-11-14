@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:common/src/core/core.dart';
+import 'package:common/src/features/api/domain/api.dart';
 import 'package:common/src/platform/stats/model.dart';
 import 'package:common/src/platform/device/device.dart';
 import 'package:common/src/platform/stats/toplist_store.dart';
@@ -17,6 +18,7 @@ abstract class StatsStoreBase with Store, Logging, Actor {
   late final _api = Core.get<api.StatsApi>();
   late final _device = Core.get<DeviceStore>();
   late final _toplists = Core.get<ToplistStore>();
+  late final _accountId = Core.get<AccountId>();
 
   static const Duration _cacheTtl = Duration(seconds: 10);
   api.JsonStatsEndpoint? _lastDayEndpoint;
@@ -25,6 +27,10 @@ abstract class StatsStoreBase with Store, Logging, Actor {
   DateTime? _lastDayFetch;
   DateTime? _lastWeekFetch;
   DateTime? _lastRolling2wFetch;
+
+  /// Account and device the cached two weeks belong to, so a switch never
+  /// reads the previous account's numbers.
+  String? _lastRolling2wKey;
 
   StatsStoreBase() {}
 
@@ -176,6 +182,18 @@ abstract class StatsStoreBase with Store, Logging, Actor {
     return buildAllowedDailySeriesFromRollingStats(rolling, days: days);
   }
 
+  /// Requests blocked on this device since [since], summed from the daily
+  /// buckets of the last two weeks. Home's trial progress (#460) shows it as
+  /// "blocked so far": the all-time total would also count the weeks an
+  /// account may have spent on freemium before its trial. Null when the
+  /// device has no name yet.
+  Future<int?> blockedSince(Marker m, DateTime since, {bool force = false}) async {
+    final deviceName = _deviceNameOrNull(m);
+    if (deviceName == null) return null;
+    final rolling = await _fetchRolling2w(m, deviceName, force: force);
+    return sumBlockedSince(rolling, since);
+  }
+
   StatsCounters _buildCounters(api.JsonStatsEndpoint? endpoint) {
     if (endpoint == null) return StatsCounters.empty();
     int allowed = 0;
@@ -232,13 +250,23 @@ abstract class StatsStoreBase with Store, Logging, Actor {
     String deviceName, {
     bool force = false,
   }) async {
-    if (!force && _shouldUseCache(_lastRolling2wFetch) && _lastRolling2wEndpoint != null) {
-      return _lastRolling2wEndpoint!;
+    // Read once: the request names the account the cache key does, even if
+    // the account switches while the request runs.
+    final accountId = _accountId.present;
+    final key = "$accountId/$deviceName";
+    final cached = _lastRolling2wEndpoint;
+    if (!force &&
+        cached != null &&
+        key == _lastRolling2wKey &&
+        _shouldUseCache(_lastRolling2wFetch)) {
+      return cached;
     }
 
-    _lastRolling2wEndpoint = await _api.getStats("2w", "24h", deviceName, m);
+    final endpoint = await _api.getStats("2w", "24h", deviceName, m, accountId: accountId);
+    _lastRolling2wEndpoint = endpoint;
+    _lastRolling2wKey = key;
     _lastRolling2wFetch = DateTime.now();
-    return _lastRolling2wEndpoint!;
+    return endpoint;
   }
 
   /// Loads the 24h or 7d toplists into [stats]. Throws on failure and leaves
@@ -796,4 +824,23 @@ PeriodCounters buildHourlyPeriodCountersFromRollingStats(
     previous: previous,
     hasComparison: hasComparison,
   );
+}
+
+/// Sums the blocked daily buckets of [endpoint] that end after [since], so
+/// the day [since] falls in counts whole: buckets are a day long and the
+/// endpoint has no finer resolution for older days.
+@visibleForTesting
+int sumBlockedSince(api.JsonStatsEndpoint endpoint, DateTime since) {
+  var sum = 0;
+  for (final metric in endpoint.stats.metrics) {
+    final action = metric.tags.action;
+    if (action == "allowed" || action == "fallthrough") continue;
+    for (final d in metric.dps) {
+      // Timestamps come in seconds or milliseconds depending on the backend.
+      final ms = d.timestamp > 10000000000 ? d.timestamp : d.timestamp * 1000;
+      final end = DateTime.fromMillisecondsSinceEpoch(ms, isUtc: true).add(const Duration(days: 1));
+      if (end.isAfter(since)) sum += d.value.round();
+    }
+  }
+  return sum;
 }

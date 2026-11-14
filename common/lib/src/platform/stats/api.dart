@@ -319,14 +319,17 @@ class StatsApi {
   late final _api = Core.get<Api>();
   late final _marshal = StatsMarshal();
 
+  /// [accountId] pins the request to that account; otherwise it is the
+  /// current one when the request is sent.
   Future<JsonStatsEndpoint> getStats(
     String since,
     String downsample,
     String deviceName,
     Marker m, {
     String? domain,
+    String? accountId,
   }) async {
-    return _fetchStats(since, downsample, deviceName, m, domain: domain);
+    return _fetchStats(since, downsample, deviceName, m, domain: domain, accountId: accountId);
   }
 
   Future<JsonStatsEndpoint> getStatsForDevice(
@@ -345,6 +348,7 @@ class StatsApi {
     String deviceName,
     Marker m, {
     String? domain,
+    String? accountId,
   }) async {
     if (deviceName.trim().isEmpty) {
       throw ArgumentError("deviceName is required for stats requests");
@@ -362,6 +366,7 @@ class StatsApi {
         ApiParam.statsDownsample: downsample,
         ApiParam.statsDeviceName: encoded,
         ApiParam.statsDomain: encodedDomain,
+        if (accountId != null) ApiParam.accountId: accountId,
       },
     );
 
