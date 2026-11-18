@@ -1,4 +1,3 @@
-import 'package:common/src/core/core.dart';
 import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/ui/action_sheet.dart';
 import 'package:common/src/shared/ui/theme.dart';
@@ -122,7 +121,7 @@ void main() {
     final picked = await _open(tester, TargetPlatform.android);
     expect(tester.takeException(), isNull);
 
-    final cancel = find.text('universal action cancel'.i18n);
+    final cancel = find.bySemanticsIdentifier(AutomationIds.powerActionCancel);
     await tester.scrollUntilVisible(cancel, 100, scrollable: find.byType(Scrollable).last);
     await tester.tap(cancel);
     await tester.pumpAndSettle();

@@ -1,9 +1,12 @@
+import 'dart:math' as math;
+
 import 'dart:async';
 
 import 'package:common/src/features/payment/domain/payment.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/minicard/minicard.dart';
 import 'package:common/src/features/modal/ui/blur_background.dart';
+import 'package:common/src/shared/ui/text_scale.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
 import 'package:flutter/cupertino.dart';
@@ -65,6 +68,7 @@ class _FreemiumScreenState extends State<FreemiumScreen>
 
   @override
   Widget build(BuildContext context) {
+    final topInset = isLargeTextScale(context) ? getTopPadding(context) : 0.0;
     return Material(
       type: MaterialType.transparency,
       child: Stack(
@@ -89,14 +93,17 @@ class _FreemiumScreenState extends State<FreemiumScreen>
                   // The screen below owns the primary scroll controller.
                   primary: false,
                   hitTestBehavior: HitTestBehavior.deferToChild,
+                  // At large text the dialog may be taller than the screen;
+                  // start it below the top bar so its title isn't hidden.
+                  padding: EdgeInsets.only(top: topInset),
                   child: ConstrainedBox(
-                    constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                    constraints: BoxConstraints(
+                      minHeight: math.max(0, constraints.maxHeight - topInset),
+                    ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        _buildCtaDialog(context),
-                      ],
+                      children: [_buildCtaDialog(context)],
                     ),
                   ),
                 ),
@@ -127,8 +134,11 @@ class _FreemiumScreenState extends State<FreemiumScreen>
   }
 
   Widget _buildCtaDialog(BuildContext context) {
+    // Tighter margins at large text sizes leave the words more of the
+    // screen's width.
+    final large = isLargeTextScale(context);
     return Padding(
-      padding: const EdgeInsets.all(32.0),
+      padding: EdgeInsets.all(large ? 12.0 : 32.0),
       child: Container(
         constraints: const BoxConstraints(maxWidth: 330),
         decoration: BoxDecoration(
@@ -136,30 +146,34 @@ class _FreemiumScreenState extends State<FreemiumScreen>
           borderRadius: BorderRadius.circular(16),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(mainAxisSize: MainAxisSize.min, children: [
-            if (widget.badge != null) ...[
-              _buildBadge(context, widget.badge!),
-              const SizedBox(height: 12),
-            ],
-            Text(
-              widget.title,
-              style:
-                  Theme.of(context).textTheme.headlineLarge!.copyWith(fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              widget.subtitle,
-              style: Theme.of(context).textTheme.titleMedium,
-              textAlign: TextAlign.start,
-            ),
-            const SizedBox(height: 32),
-            MergeSemantics(
-              child: Semantics(
-                identifier: widget.actionSemanticsId,
-                button: true,
-                child: MiniCard(
+          padding: EdgeInsets.all(large ? 16.0 : 24.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (widget.badge != null) ...[
+                _buildBadge(context, widget.badge!),
+                const SizedBox(height: 12),
+              ],
+              WordFitText(
+                widget.title,
+                maxScale: TextScaleCeiling.headline,
+                style: Theme.of(
+                  context,
+                ).textTheme.headlineLarge!.copyWith(fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 16),
+              WordFitText(
+                widget.subtitle,
+                style: Theme.of(context).textTheme.titleMedium,
+                textAlign: TextAlign.start,
+              ),
+              const SizedBox(height: 32),
+              MergeSemantics(
+                child: Semantics(
+                  identifier: widget.actionSemanticsId,
+                  button: true,
+                  child: MiniCard(
                     onTap: () {
                       final onAction = widget.onAction;
                       if (onAction != null) {
@@ -184,19 +198,22 @@ class _FreemiumScreenState extends State<FreemiumScreen>
                           Flexible(
                             child: Text(
                               widget.actionLabel ?? "universal action upgrade short".i18n,
-                              style: context.theme.text.title
-                                  .copyWith(color: context.theme.onAccent),
+                              style: context.theme.text.title.copyWith(
+                                color: context.theme.onAccent,
+                              ),
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ],
                       ),
-                    )),
+                    ),
+                  ),
+                ),
               ),
-            ),
-            if (widget.footer != null) widget.footer!,
-            const SizedBox(height: 8),
-          ]),
+              if (widget.footer != null) widget.footer!,
+              const SizedBox(height: 8),
+            ],
+          ),
         ),
       ),
     );

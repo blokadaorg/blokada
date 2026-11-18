@@ -7,7 +7,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FreemiumCounter extends StatefulWidget {
-  const FreemiumCounter({Key? key}) : super(key: key);
+  /// The upgrade button above the status card, for Home's compact
+  /// arrangement, where the card's text can fill the screen at large sizes.
+  final bool ctaFirst;
+
+  const FreemiumCounter({Key? key, this.ctaFirst = false}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -32,52 +36,52 @@ class _FreemiumCounterState extends State<FreemiumCounter> with TickerProviderSt
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).extension<BlokadaTheme>()!;
-    return Column(
-      children: [
-        MiniCard(
-          onTap: _onTap,
-          outlined: true,
-          child: Column(
-            children: [
-              MiniCardHeader(
-                text: "freemium home status header".i18n,
-                icon: Icons.shield_outlined,
-                color: theme.freemium,
-              ),
-              const SizedBox(height: 12),
-              Text("freemium home status desc safari".i18n),
-            ],
+    final status = MiniCard(
+      onTap: _onTap,
+      outlined: true,
+      child: Column(
+        children: [
+          MiniCardHeader(
+            text: "freemium home status header".i18n,
+            icon: Icons.shield_outlined,
+            color: theme.freemium,
           ),
-        ),
-        const SizedBox(height: 16),
-        _buildCta(context),
-      ],
+          const SizedBox(height: 12),
+          Text("freemium home status desc safari".i18n),
+        ],
+      ),
+    );
+    final cta = _buildCta(context);
+    return Column(
+      children: widget.ctaFirst
+          ? [cta, const SizedBox(height: 16), status]
+          : [status, const SizedBox(height: 16), cta],
     );
   }
 
   Widget _buildCta(BuildContext context) {
     return MiniCard(
-        onTap: _onTap,
-        color: context.theme.accent,
-        child: SizedBox(
-          height: 28,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                CupertinoIcons.heart_fill,
-                color: context.theme.onAccent,
+      onTap: _onTap,
+      color: context.theme.accent,
+      // 28 tall at the default size; grows with large text, wrapping
+      // rather than cutting the label.
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(minHeight: 28),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(CupertinoIcons.heart_fill, color: context.theme.onAccent),
+            const SizedBox(width: 12),
+            Flexible(
+              child: Text(
+                "universal action upgrade short".i18n,
+                textAlign: TextAlign.center,
+                style: context.theme.text.body.semibold.copyWith(color: context.theme.onAccent),
               ),
-              const SizedBox(width: 12),
-              Center(
-                child: Text(
-                  "universal action upgrade short".i18n,
-                  style: context.theme.text.body.semibold.copyWith(color: context.theme.onAccent),
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ],
-          ),
-        ));
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

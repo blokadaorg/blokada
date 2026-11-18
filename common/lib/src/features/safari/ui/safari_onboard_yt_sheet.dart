@@ -1,6 +1,7 @@
 import 'package:common/src/features/safari/domain/safari.dart';
 import 'package:common/src/shared/ui/minicard/minicard.dart';
 import 'package:common/src/features/safari/ui/safari_setting_guide.dart';
+import 'package:common/src/shared/ui/text_scale.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,6 +19,8 @@ class SafariOnboardYtSheetIosState extends State<SafariOnboardYtSheetIos> {
 
   @override
   Widget build(BuildContext context) {
+    // Narrower side margins at large text sizes leave the words more room.
+    final large = isLargeTextScale(context);
     return Scaffold(
       body: Container(
         color: context.theme.bgColorCard,
@@ -31,20 +34,19 @@ class SafariOnboardYtSheetIosState extends State<SafariOnboardYtSheetIos> {
                   child: Column(
                     children: [
                       const SizedBox(height: 24),
-                      Text(
+                      WordFitText(
                         "onboard safari header".i18n,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium!
-                            .copyWith(fontWeight: FontWeight.w700),
+                        maxScale: TextScaleCeiling.headline,
+                        style: Theme.of(
+                          context,
+                        ).textTheme.headlineMedium!.copyWith(fontWeight: FontWeight.w700),
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 16),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                        child: Text(
+                        padding: EdgeInsets.symmetric(horizontal: large ? 0 : 32.0),
+                        child: WordFitText(
                           "onboard safari brief".i18n,
-                          softWrap: true,
                           textAlign: TextAlign.start,
                           style: TextStyle(color: context.theme.textSecondary),
                         ),
@@ -55,10 +57,7 @@ class SafariOnboardYtSheetIosState extends State<SafariOnboardYtSheetIos> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              "1.",
-                              style: TextStyle(color: context.theme.textSecondary),
-                            ),
+                            Text("1.", style: TextStyle(color: context.theme.textSecondary)),
                             SafariSettingGuideWidget(
                               title: "youtube.com",
                               icon: CupertinoIcons.textformat,
@@ -70,10 +69,7 @@ class SafariOnboardYtSheetIosState extends State<SafariOnboardYtSheetIos> {
                               ),
                             ),
                             const SizedBox(height: 16),
-                            Text(
-                              "2.",
-                              style: TextStyle(color: context.theme.textSecondary),
-                            ),
+                            Text("2.", style: TextStyle(color: context.theme.textSecondary)),
                             SafariSettingGuideWidget(
                               title: "onboard safari step 2".i18n,
                               widgetRight: Icon(
@@ -83,10 +79,7 @@ class SafariOnboardYtSheetIosState extends State<SafariOnboardYtSheetIos> {
                               ),
                             ),
                             const SizedBox(height: 16),
-                            Text(
-                              "3.",
-                              style: TextStyle(color: context.theme.textSecondary),
-                            ),
+                            Text("3.", style: TextStyle(color: context.theme.textSecondary)),
                             SafariSettingGuideWidget(
                               title: "Blokada",
                               iconReplacement: const Image(
@@ -122,11 +115,12 @@ class SafariOnboardYtSheetIosState extends State<SafariOnboardYtSheetIos> {
                           _actor.openSafariSetup();
                         },
                         color: context.theme.accent,
-                        child: SizedBox(
-                          height: 32,
+                        child: ConstrainedBox(
+                          constraints: const BoxConstraints(minHeight: 32),
                           child: Center(
                             child: Text(
                               "onboard safari cta".i18n,
+                              textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: context.theme.onAccent,
                                 fontWeight: FontWeight.w600,
@@ -151,11 +145,12 @@ class SafariOnboardYtSheetIosState extends State<SafariOnboardYtSheetIos> {
                           _actor.markOptionalOnboardSeen(Markers.userTap);
                         },
                         color: context.theme.bgColor,
-                        child: SizedBox(
-                          height: 32,
+                        child: ConstrainedBox(
+                          constraints: const BoxConstraints(minHeight: 32),
                           child: Center(
                             child: Text(
                               "onboard safari skip".i18n,
+                              textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: context.theme.textPrimary,
                                 fontWeight: FontWeight.w600,

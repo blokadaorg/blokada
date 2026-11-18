@@ -3,6 +3,7 @@ import 'package:common/src/features/rate/domain/rate.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/shared/ui/minicard/minicard.dart';
 import 'package:common/src/features/modal/ui/blur_background.dart';
+import 'package:common/src/shared/ui/text_scale.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,6 @@ class _RateScreenState extends State<RateScreen> with Logging {
         // _hasPin = _lock.hasPin;
       });
     });
-
   }
 
   _close() => _rate.onUserTapRate(_rating, _showPlatformDialog);
@@ -66,26 +66,51 @@ class _RateScreenState extends State<RateScreen> with Logging {
     );
   }
 
+  /// Sits at the bottom of the screen, within thumb reach; scrolls when a
+  /// short screen or large text needs more room, so Cancel stays reachable.
+  /// The scroll view only takes vertical drags when its content does not fit,
+  /// so the swipe up to close keeps working otherwise.
   Widget _buildRateBody(BlokadaTheme theme) {
+    // At large text sizes Cancel stays pinned below the scrolling content
+    // rather than at its end, which can be screens away.
+    final pinned = isLargeTextScale(context);
+    final scroll = LayoutBuilder(
+      builder: (context, constraints) => SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minHeight: constraints.maxHeight),
+          child: _buildRateContent(theme, withCancel: !pinned),
+        ),
+      ),
+    );
+    if (!pinned) return scroll;
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(child: scroll),
+        _buildCancel(large: true),
+      ],
+    );
+  }
+
+  Widget _buildRateContent(BlokadaTheme theme, {required bool withCancel}) {
+    final large = isLargeTextScale(context);
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const Spacer(),
         const SizedBox(height: 50),
         Image.asset(
-          Core.act.isFamily
-              ? "assets/images/family-logo.png"
-              : "assets/images/blokada_logo.png",
+          Core.act.isFamily ? "assets/images/family-logo.png" : "assets/images/blokada_logo.png",
           fit: BoxFit.contain,
-          width: 128,
-          height: 128,
+          // Smaller at large text sizes, leaving the room to the text.
+          width: large ? 72 : 128,
+          height: large ? 72 : 128,
         ),
         const SizedBox(height: 30),
-        Text(
+        WordFitText(
           "main rate us header".i18n,
-          style: context.theme.text.hero
-              .copyWith(fontWeight: FontWeight.w900, color: Colors.white),
+          maxScale: TextScaleCeiling.headline,
+          textAlign: TextAlign.center,
+          style: context.theme.text.hero.copyWith(fontWeight: FontWeight.w900, color: Colors.white),
         ),
         const SizedBox(height: 30),
         Text(
@@ -104,7 +129,7 @@ class _RateScreenState extends State<RateScreen> with Logging {
             RateStar(full: _rating >= 5, onTap: () => setState(() => _rating = 5)),
           ],
         ),
-        const SizedBox(height: 80),
+        SizedBox(height: large ? 32 : 80),
         AnimatedOpacity(
           opacity: _rating > 0 ? 1.0 : 0.0,
           duration: _duration,
@@ -140,34 +165,45 @@ class _RateScreenState extends State<RateScreen> with Logging {
             ],
           ),
         ),
-        AnimatedOpacity(
-          opacity: _rating > 0 && _rating < 4 ? 0.0 : 1.0,
-          duration: _duration,
-          child: Row(
-            children: [
-              const Spacer(),
-              GestureDetector(
-                onTap: () {
-                  bgStateKey.currentState?.animateToClose();
-                },
-                child: Semantics(
-                  identifier: AutomationIds.rateDismiss,
-                  button: true,
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 40, vertical: 64),
-                    child: Text(
-                      "universal action cancel".i18n,
-                      style: context.theme.text.headline.copyWith(
-                          color: Colors.white, fontWeight: FontWeight.normal),
+        if (withCancel) _buildCancel(large: large),
+      ],
+    );
+  }
+
+  Widget _buildCancel({required bool large}) {
+    return AnimatedOpacity(
+      opacity: _rating > 0 && _rating < 4 ? 0.0 : 1.0,
+      duration: _duration,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          // A big tap target at the bottom right, a little smaller at
+          // large text sizes so the label keeps the room.
+          Flexible(
+            child: GestureDetector(
+              onTap: () {
+                bgStateKey.currentState?.animateToClose();
+              },
+              child: Semantics(
+                identifier: AutomationIds.rateDismiss,
+                button: true,
+                child: Padding(
+                  padding: large
+                      ? const EdgeInsets.symmetric(horizontal: 16, vertical: 32)
+                      : const EdgeInsets.symmetric(horizontal: 40, vertical: 64),
+                  child: WordFitText(
+                    "universal action cancel".i18n,
+                    style: context.theme.text.headline.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.normal,
                     ),
                   ),
                 ),
               ),
-            ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -11,6 +11,7 @@ import 'package:common/src/shared/ui/common_clickable.dart';
 import 'package:common/src/shared/ui/common_divider.dart';
 import 'package:common/src/shared/ui/domain_name_text.dart';
 import 'package:common/src/shared/ui/minicard/chart.dart';
+import 'package:common/src/shared/ui/text_scale.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/stats/model.dart' as stats_model;
@@ -911,7 +912,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
           // When not fetching toplist (final level), show additional info sections
           if (!widget.fetchToplist) ...[
             // Actions section header
-            Text(
+            WordFitText(
               "activity actions header".i18n,
               style: context.theme.text.title.copyWith(color: context.theme.textPrimary),
             ),
@@ -922,7 +923,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             const SizedBox(height: 16),
 
             // Information section header
-            Text(
+            WordFitText(
               "activity information header".i18n,
               style: context.theme.text.title.copyWith(color: context.theme.textPrimary),
             ),
@@ -937,7 +938,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             // Subdomains section header
             Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
-              child: Text(
+              child: WordFitText(
                 "privacy pulse toplists header".i18n,
                 style: context.theme.text.title.copyWith(color: context.theme.textPrimary),
               ),
@@ -1032,14 +1033,15 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             onLongPress: () {
               Core.get<ToastActor>().copy(widget.entry.domainName, Markers.userTap);
             },
-            child: Text(
+            // Shrinks rather than break inside the name at large text sizes.
+            child: WordFitText(
               middleEllipsis(widget.entry.domainName, maxLength: 20),
+              maxScale: TextScaleCeiling.headline,
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.w600,
                 color: context.theme.textPrimary,
               ),
-              overflow: TextOverflow.clip,
             ),
           ),
           const SizedBox(height: 8),
@@ -1110,7 +1112,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // "Your Rules" header
-        Text(
+        WordFitText(
           "domain details rules section header".i18n,
           style: context.theme.text.title.copyWith(color: context.theme.textPrimary),
         ),

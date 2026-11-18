@@ -297,8 +297,9 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Wide enough for the number at any text size.
                 SizedBox(
-                  width: 24,
+                  width: MediaQuery.textScalerOf(context).scale(24),
                   child: Text("${i + 1}.", style: TextStyle(color: context.theme.textSecondary)),
                 ),
                 Expanded(child: Text(steps[i])),

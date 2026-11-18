@@ -1,6 +1,7 @@
 import 'package:common/src/features/modal/domain/modal.dart';
 import 'package:common/src/features/payment/domain/payment.dart';
 import 'package:common/src/shared/ui/minicard/minicard.dart';
+import 'package:common/src/shared/ui/text_scale.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
 import 'package:flutter/cupertino.dart';
@@ -52,6 +53,8 @@ class WeeklyRefreshSheetIosState extends State<WeeklyRefreshSheetIos> {
 
   @override
   Widget build(BuildContext context) {
+    // Narrower side margins at large text sizes leave the words more room.
+    final large = isLargeTextScale(context);
     return Scaffold(
       body: Container(
         color: context.theme.bgColorCard,
@@ -69,20 +72,19 @@ class WeeklyRefreshSheetIosState extends State<WeeklyRefreshSheetIos> {
                     Column(
                       children: [
                         const SizedBox(height: 24),
-                        Text(
+                        WordFitText(
                           "freemium refresh header".i18n,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium!
-                              .copyWith(fontWeight: FontWeight.w700),
+                          maxScale: TextScaleCeiling.headline,
+                          style: Theme.of(
+                            context,
+                          ).textTheme.headlineMedium!.copyWith(fontWeight: FontWeight.w700),
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 32),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                          child: Text(
+                          padding: EdgeInsets.symmetric(horizontal: large ? 0 : 32.0),
+                          child: WordFitText(
                             "freemium refresh brief".i18n,
-                            softWrap: true,
                             textAlign: TextAlign.start,
                             style: TextStyle(color: context.theme.textSecondary, fontSize: 14),
                           ),
@@ -97,8 +99,8 @@ class WeeklyRefreshSheetIosState extends State<WeeklyRefreshSheetIos> {
                             updated
                                 ? CupertinoIcons.checkmark_shield
                                 : (updating
-                                    ? CupertinoIcons.shield
-                                    : CupertinoIcons.exclamationmark_shield),
+                                      ? CupertinoIcons.shield
+                                      : CupertinoIcons.exclamationmark_shield),
                             color: context.theme.bgColorHome2,
                             size: 80,
                           ),
@@ -108,12 +110,14 @@ class WeeklyRefreshSheetIosState extends State<WeeklyRefreshSheetIos> {
                           updated
                               ? "freemium refresh status done".i18n
                               : (updating
-                                  ? "freemium refresh status updating".i18n
-                                  : "freemium refresh status ready".i18n),
+                                    ? "freemium refresh status updating".i18n
+                                    : "freemium refresh status ready".i18n),
                           textAlign: TextAlign.center,
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
-                        const SizedBox(height: 160),
+                        // Keeps the actions low on a tall sheet; at large text
+                        // the room goes to the text instead.
+                        SizedBox(height: large ? 32 : 160),
                         Row(
                           children: [
                             Expanded(
@@ -149,8 +153,10 @@ class WeeklyRefreshSheetIosState extends State<WeeklyRefreshSheetIos> {
                                 child: MiniCard(
                                   onTap: () async {
                                     _modal.change(Markers.userTap, null);
-                                    _payment.openPaymentScreen(Markers.userTap,
-                                        placement: Placement.freemiumWeekly);
+                                    _payment.openPaymentScreen(
+                                      Markers.userTap,
+                                      placement: Placement.freemiumWeekly,
+                                    );
                                   },
                                   color: context.theme.accent,
                                   child: ConstrainedBox(
@@ -169,8 +175,9 @@ class WeeklyRefreshSheetIosState extends State<WeeklyRefreshSheetIos> {
                                             "freemium refresh action upgrade".i18n,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                                color: context.theme.onAccent,
-                                                fontWeight: FontWeight.w600),
+                                              color: context.theme.onAccent,
+                                              fontWeight: FontWeight.w600,
+                                            ),
                                           ),
                                         ),
                                       ],

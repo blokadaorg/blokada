@@ -58,14 +58,15 @@ class RecentActivityState extends State<RecentActivity>
         // Title header with Show All link
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          // Show All moves under the title when large text needs the room.
+          child: Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 8,
             children: [
-              Flexible(
-                child: Text(
-                  "privacy pulse recents header".i18n,
-                  style: context.theme.text.title.copyWith(color: context.theme.textPrimary),
-                ),
+              Text(
+                "privacy pulse recents header".i18n,
+                style: context.theme.text.title.copyWith(color: context.theme.textPrimary),
               ),
               MergeSemantics(
                 child: Semantics(
