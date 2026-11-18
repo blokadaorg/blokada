@@ -70,26 +70,33 @@ class _TrialLineState extends State<TrialLine> with Logging, Disposables {
     final text = blocked == null || blocked == 0
         ? day
         : "$day · ${"home trial blocked so far".i18n.withParams(StatsStoreBase.formatCounter(blocked))}";
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(text, textAlign: TextAlign.center, style: theme.text.footnote.semibold),
-          const SizedBox(height: 6),
-          SizedBox(
-            width: 160,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(2),
-              child: LinearProgressIndicator(
-                value: dayNumber / trial.length,
-                minHeight: 4,
-                color: theme.accent,
-                backgroundColor: theme.divider,
+    // Home scrolls when it runs out of room, but the line sits between the
+    // power button and the counter: at accessibility sizes it would wrap to
+    // three lines and push the counter off a small screen, so it stops
+    // growing at 1.5x.
+    return MediaQuery.withClampedTextScaling(
+      maxScaleFactor: 1.5,
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 8),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(text, textAlign: TextAlign.center, style: theme.text.footnote.semibold),
+            const SizedBox(height: 4),
+            SizedBox(
+              width: 160,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(2),
+                child: LinearProgressIndicator(
+                  value: dayNumber / trial.length,
+                  minHeight: 4,
+                  color: theme.accent,
+                  backgroundColor: theme.divider,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
