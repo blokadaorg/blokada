@@ -11,6 +11,7 @@ import 'package:common/src/platform/device/device.dart';
 import 'package:common/src/app_variants/v6/widget/home/counter.dart';
 import 'package:common/src/app_variants/v6/widget/home/freemium.dart';
 import 'package:common/src/app_variants/v6/widget/home/plusbutton.dart';
+import 'package:common/src/app_variants/v6/widget/home/trial_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
@@ -171,6 +172,8 @@ class _HomeActionsState extends State<HomeActions> with TickerProviderStateMixin
             ),
             _collapsible(Column(
               children: [
+                // Shows nothing outside a store free trial (#460).
+                if (!_account.isFreemium) Sliding(controller: _ctrlCounter, child: const TrialLine()),
                 Sliding(
                     controller: _ctrlCounter,
                     child: _account.isFreemium

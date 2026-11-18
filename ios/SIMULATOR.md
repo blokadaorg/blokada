@@ -76,6 +76,19 @@ Overrides: `SIM_BASE="iPhone 15"`, `NAME=custom`, `SIM_TEMPLATE="warm sim"`.
 `SIM_BASE` defaults to `iPhone 17` (what a current Xcode installs); if that
 model isn't installed, pass one from `xcrun simctl list devices available`.
 
+Home's trial line (#460), without a store: `MOCK_TRIAL_DAY=3` fakes a 7 day
+store trial on its third day. It is baked into the Flutter build like
+`ACCOUNT_ID`, so rebuild to change it:
+
+```bash
+MOCK_TRIAL_DAY=3 ACCOUNT_ID=xxx make run-six-mocked
+```
+
+It only fakes the store. The line also needs an active, non-freemium v6
+account and protection on, so a freemium dev account shows no line. To
+switch the simulator to another account, use the restore or clean steps
+above.
+
 ## When to use what
 
 | Goal | Path |

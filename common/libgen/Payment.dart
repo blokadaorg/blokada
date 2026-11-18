@@ -44,7 +44,12 @@ class OpsSubscription {
   // The Adapty profile's customer user id (our account id), so levels read
   // right after an account switch are not taken for the new account's.
   String? customerUserId;
+  // ISO 8601 start of the level; with expiresAt it gives Home's trial day (#460).
+  String? activatedAt;
+  // Adapty's activeIntroductoryOfferType: free_trial, pay_as_you_go,
+  // pay_up_front, or null when no intro offer applies to this period.
+  String? introOfferType;
 
-  OpsSubscription(
-      this.accessLevelId, this.store, this.willRenew, this.expiresAt, this.customerUserId);
+  OpsSubscription(this.accessLevelId, this.store, this.willRenew, this.expiresAt,
+      this.customerUserId, this.activatedAt, this.introOfferType);
 }
