@@ -184,9 +184,11 @@ class _HomeCounterState extends State<HomeCounter> with WidgetsBindingObserver, 
         // off small screens.
         big: MaxTextScale(max: TextScaleCeiling.display, child: big),
         small: "",
+        // The caption only restates the title at large text sizes, where
+        // its lines would push Home's actions down; the retry hint stays.
         footer: _showRetry
             ? "universal action try again".i18n
-            : "home counter caption blocked".i18n,
+            : (isLargeTextScale(context) ? null : "home counter caption blocked".i18n),
       ),
     );
   }

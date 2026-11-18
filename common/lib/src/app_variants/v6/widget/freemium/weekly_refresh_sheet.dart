@@ -93,18 +93,21 @@ class WeeklyRefreshSheetIosState extends State<WeeklyRefreshSheetIos> {
                     ),
                     Column(
                       children: [
-                        const SizedBox(height: 24),
-                        Center(
-                          child: Icon(
-                            updated
-                                ? CupertinoIcons.checkmark_shield
-                                : (updating
-                                      ? CupertinoIcons.shield
-                                      : CupertinoIcons.exclamationmark_shield),
-                            color: context.theme.bgColorHome2,
-                            size: 80,
+                        // The shield only illustrates the status; at large text it goes.
+                        if (!large) ...[
+                          const SizedBox(height: 24),
+                          Center(
+                            child: Icon(
+                              updated
+                                  ? CupertinoIcons.checkmark_shield
+                                  : (updating
+                                        ? CupertinoIcons.shield
+                                        : CupertinoIcons.exclamationmark_shield),
+                              color: context.theme.bgColorHome2,
+                              size: 80,
+                            ),
                           ),
-                        ),
+                        ],
                         const SizedBox(height: 24),
                         Text(
                           updated
@@ -129,8 +132,9 @@ class WeeklyRefreshSheetIosState extends State<WeeklyRefreshSheetIos> {
                                   child: ConstrainedBox(
                                     constraints: const BoxConstraints(minHeight: 32),
                                     child: Center(
-                                      child: Text(
+                                      child: WordFitText(
                                         "freemium refresh action update".i18n,
+                                        maxScale: TextScaleCeiling.action,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           color: context.theme.textPrimary,
@@ -171,8 +175,9 @@ class WeeklyRefreshSheetIosState extends State<WeeklyRefreshSheetIos> {
                                         const SizedBox(width: 12),
                                         // Wraps with large text instead of running off the button.
                                         Flexible(
-                                          child: Text(
+                                          child: WordFitText(
                                             "freemium refresh action upgrade".i18n,
+                                            maxScale: TextScaleCeiling.action,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               color: context.theme.onAccent,

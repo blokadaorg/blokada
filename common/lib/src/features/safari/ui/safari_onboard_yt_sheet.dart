@@ -52,53 +52,56 @@ class SafariOnboardYtSheetIosState extends State<SafariOnboardYtSheetIos> {
                         ),
                       ),
                       const SizedBox(height: 24), // Replaces Spacer
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("1.", style: TextStyle(color: context.theme.textSecondary)),
-                            SafariSettingGuideWidget(
-                              title: "youtube.com",
-                              icon: CupertinoIcons.textformat,
-                              centerTitle: true,
-                              widgetRight: Icon(
-                                size: 16,
-                                Icons.refresh,
-                                color: context.theme.textPrimary,
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            Text("2.", style: TextStyle(color: context.theme.textSecondary)),
-                            SafariSettingGuideWidget(
-                              title: "onboard safari step 2".i18n,
-                              widgetRight: Icon(
-                                size: 16,
-                                Icons.extension_outlined,
-                                color: context.theme.textPrimary,
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            Text("3.", style: TextStyle(color: context.theme.textSecondary)),
-                            SafariSettingGuideWidget(
-                              title: "Blokada",
-                              iconReplacement: const Image(
-                                image: AssetImage('assets/images/v6-appicon.png'),
-                                width: 24,
-                              ),
-                              widgetRight: Transform.scale(
-                                scale: 0.8,
-                                child: Transform.translate(
-                                  offset: const Offset(12, 0),
-                                  // A picture of the switch in iOS Settings, not a control of ours,
-                                  // so it stays the iOS one rather than a BlokadaSwitch.
-                                  child: CupertinoSwitch(value: true, onChanged: (_) => {}),
+                      // A picture of the Safari settings: helpful, but at large text sizes
+                      // it's cramped and pushes the actions away, and the brief says the same.
+                      if (!large)
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("1.", style: TextStyle(color: context.theme.textSecondary)),
+                              SafariSettingGuideWidget(
+                                title: "youtube.com",
+                                icon: CupertinoIcons.textformat,
+                                centerTitle: true,
+                                widgetRight: Icon(
+                                  size: 16,
+                                  Icons.refresh,
+                                  color: context.theme.textPrimary,
                                 ),
                               ),
-                            ),
-                          ],
+                              const SizedBox(height: 16),
+                              Text("2.", style: TextStyle(color: context.theme.textSecondary)),
+                              SafariSettingGuideWidget(
+                                title: "onboard safari step 2".i18n,
+                                widgetRight: Icon(
+                                  size: 16,
+                                  Icons.extension_outlined,
+                                  color: context.theme.textPrimary,
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              Text("3.", style: TextStyle(color: context.theme.textSecondary)),
+                              SafariSettingGuideWidget(
+                                title: "Blokada",
+                                iconReplacement: const Image(
+                                  image: AssetImage('assets/images/v6-appicon.png'),
+                                  width: 24,
+                                ),
+                                widgetRight: Transform.scale(
+                                  scale: 0.8,
+                                  child: Transform.translate(
+                                    offset: const Offset(12, 0),
+                                    // A picture of the switch in iOS Settings, not a control of ours,
+                                    // so it stays the iOS one rather than a BlokadaSwitch.
+                                    child: CupertinoSwitch(value: true, onChanged: (_) => {}),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
                       const SizedBox(height: 24), // Replaces Spacer
                     ],
                   ),
@@ -118,8 +121,9 @@ class SafariOnboardYtSheetIosState extends State<SafariOnboardYtSheetIos> {
                         child: ConstrainedBox(
                           constraints: const BoxConstraints(minHeight: 32),
                           child: Center(
-                            child: Text(
+                            child: WordFitText(
                               "onboard safari cta".i18n,
+                              maxScale: TextScaleCeiling.action,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: context.theme.onAccent,
@@ -148,8 +152,9 @@ class SafariOnboardYtSheetIosState extends State<SafariOnboardYtSheetIos> {
                         child: ConstrainedBox(
                           constraints: const BoxConstraints(minHeight: 32),
                           child: Center(
-                            child: Text(
+                            child: WordFitText(
                               "onboard safari skip".i18n,
+                              maxScale: TextScaleCeiling.action,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: context.theme.textPrimary,

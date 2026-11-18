@@ -1,3 +1,4 @@
+import 'package:common/src/shared/ui/text_scale.dart';
 import 'package:flutter/material.dart';
 
 import '../theme.dart';
@@ -37,9 +38,11 @@ class MiniCardHeader extends StatelessWidget {
               const SizedBox(width: 4),
               // Wraps rather than ellipsizing: with large text or long
               // translations a cut title ("Letzten …") loses its meaning.
+              // A heading: past the headline ceiling it only crowds the card.
               Expanded(
-                child: Text(
+                child: WordFitText(
                   text,
+                  maxScale: TextScaleCeiling.headline,
                   style: context.theme.text.body.semibold.copyWith(color: textColor ?? color),
                 ),
               ),

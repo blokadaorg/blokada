@@ -85,6 +85,7 @@ class OnboardingScreenState extends State<OnboardingScreen> with Logging {
                   child: Center(
                     child: WordFitText(
                       "universal action continue".i18n,
+                      maxScale: TextScaleCeiling.action,
                       textAlign: TextAlign.center,
                       style: TextStyle(color: context.theme.onAccent, fontWeight: FontWeight.w600),
                     ),
@@ -109,8 +110,12 @@ class OnboardingScreenState extends State<OnboardingScreen> with Logging {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const SizedBox(height: 40),
-              BigIcon(icon: null, canShowLogo: true),
+              // The logo is decoration; at large text sizes the words need the room.
+              if (!pinned) ...[
+                const SizedBox(height: 40),
+                BigIcon(icon: null, canShowLogo: true),
+              ] else
+                const SizedBox(height: 24),
               Column(
                 children: [
                   WordFitText(

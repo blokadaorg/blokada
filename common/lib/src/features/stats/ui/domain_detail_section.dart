@@ -914,6 +914,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             // Actions section header
             WordFitText(
               "activity actions header".i18n,
+              maxScale: TextScaleCeiling.headline,
               style: context.theme.text.title.copyWith(color: context.theme.textPrimary),
             ),
             const SizedBox(height: 8),
@@ -925,6 +926,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             // Information section header
             WordFitText(
               "activity information header".i18n,
+              maxScale: TextScaleCeiling.headline,
               style: context.theme.text.title.copyWith(color: context.theme.textPrimary),
             ),
             const SizedBox(height: 8),
@@ -940,6 +942,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
               padding: const EdgeInsets.only(bottom: 8.0),
               child: WordFitText(
                 "privacy pulse toplists header".i18n,
+              maxScale: TextScaleCeiling.headline,
                 style: context.theme.text.title.copyWith(color: context.theme.textPrimary),
               ),
             ),
@@ -979,54 +982,59 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   }
 
   Widget _buildHeader() {
+    final large = isLargeTextScale(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         children: [
-          // Domain icon with favicon
-          ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: CachedNetworkImage(
-              imageUrl:
-                  'https://cloud.blokada.org/favicons?domain=${_getTldDomain(widget.entry.domainName)}',
-              width: 80,
-              height: 80,
-              fit: BoxFit.contain,
-              fadeInDuration: Duration.zero,
-              fadeOutDuration: Duration.zero,
-              placeholder: (context, url) => Container(
+          // The favicon is decoration; at large text sizes the name and rules
+          // need the room.
+          if (!large) ...[
+            // Domain icon with favicon
+            ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: CachedNetworkImage(
+                imageUrl:
+                    'https://cloud.blokada.org/favicons?domain=${_getTldDomain(widget.entry.domainName)}',
                 width: 80,
                 height: 80,
-                decoration: BoxDecoration(
-                  color: context.theme.textPrimary.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Center(
-                  child: Icon(
-                    CupertinoIcons.globe,
-                    size: 40,
-                    color: context.theme.textPrimary,
+                fit: BoxFit.contain,
+                fadeInDuration: Duration.zero,
+                fadeOutDuration: Duration.zero,
+                placeholder: (context, url) => Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: context.theme.textPrimary.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Center(
+                    child: Icon(
+                      CupertinoIcons.globe,
+                      size: 40,
+                      color: context.theme.textPrimary,
+                    ),
                   ),
                 ),
-              ),
-              errorWidget: (context, url, error) => Container(
-                width: 80,
-                height: 80,
-                decoration: BoxDecoration(
-                  color: context.theme.textPrimary.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Center(
-                  child: Icon(
-                    CupertinoIcons.globe,
-                    size: 40,
-                    color: context.theme.textPrimary,
+                errorWidget: (context, url, error) => Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: context.theme.textPrimary.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Center(
+                    child: Icon(
+                      CupertinoIcons.globe,
+                      size: 40,
+                      color: context.theme.textPrimary,
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          const SizedBox(height: 16),
+            const SizedBox(height: 16),
+          ],
 
           // Domain name (long press to copy)
           GestureDetector(
@@ -1088,18 +1096,19 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
     const minLines = 2;
     final minHeight = fontSize * lineHeight * minLines;
 
+    // Secondary to the name above it; capped so at the largest sizes it
+    // doesn't fill the screen before the rules.
     return ConstrainedBox(
       constraints: BoxConstraints(minHeight: minHeight),
-      child: Text(
+      child: WordFitText(
         _getSubtitleText(),
+        maxScale: TextScaleCeiling.action,
         style: TextStyle(
           fontSize: fontSize,
           height: lineHeight,
           color: context.theme.textSecondary,
         ),
         textAlign: TextAlign.left,
-        softWrap: true,
-        overflow: TextOverflow.visible,
       ),
     );
   }
@@ -1114,6 +1123,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
         // "Your Rules" header
         WordFitText(
           "domain details rules section header".i18n,
+              maxScale: TextScaleCeiling.headline,
           style: context.theme.text.title.copyWith(color: context.theme.textPrimary),
         ),
         const SizedBox(height: 8),
@@ -1158,7 +1168,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    WordFitText(
                       "domain details edit rule action".i18n,
                       style: context.theme.text.body.semibold
                           .copyWith(color: context.theme.textPrimary),
@@ -1209,7 +1219,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    WordFitText(
                       "domain details add rule action".i18n,
                       style: context.theme.text.body.semibold
                           .copyWith(color: context.theme.textPrimary),

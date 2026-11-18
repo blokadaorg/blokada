@@ -98,6 +98,9 @@ void _showMaterialSheet(BuildContext context, {required Function(Duration?) onSe
     context: context,
     useRootNavigator: true,
     showDragHandle: true,
+    // At large text sizes the sheet may take the screen's height (it
+    // scrolls past that) instead of the default 9/16, so all actions fit.
+    isScrollControlled: isLargeTextScale(context),
     backgroundColor: context.theme.bgColorCard,
     builder: (BuildContext context) {
       final error = Theme.of(context).colorScheme.error;

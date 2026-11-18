@@ -5,6 +5,7 @@ import 'package:common/src/platform/stats/model.dart';
 import 'package:common/src/platform/stats/delta_store.dart';
 import 'package:common/src/platform/stats/stats.dart';
 import 'package:common/src/shared/ui/placeholder.dart';
+import 'package:common/src/shared/ui/text_scale.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'horizontal_radial_segment.dart';
@@ -112,8 +113,10 @@ class PrivacyPulseCharts extends StatelessWidget {
         ),
       );
     }
-    return Text(
+    // The card's headline: capped like other headlines.
+    return WordFitText(
       insight(counters: counters, range: range, delta: deltaReady ? counterDelta : null),
+      maxScale: TextScaleCeiling.headline,
       style: context.theme.text.body.semibold.copyWith(color: context.theme.textPrimary),
     );
   }

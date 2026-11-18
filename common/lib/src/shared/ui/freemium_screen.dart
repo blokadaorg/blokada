@@ -162,13 +162,18 @@ class _FreemiumScreenState extends State<FreemiumScreen>
                 ).textTheme.headlineLarge!.copyWith(fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 16),
-              WordFitText(
-                widget.subtitle,
-                style: Theme.of(context).textTheme.titleMedium,
-                textAlign: TextAlign.start,
-              ),
-              const SizedBox(height: 32),
+              // The subtitle goes at large text sizes: the title and the
+              // action say enough, and the action stays on screen.
+              if (!large) ...[
+                const SizedBox(height: 16),
+                WordFitText(
+                  widget.subtitle,
+                  style: Theme.of(context).textTheme.titleMedium,
+                  textAlign: TextAlign.start,
+                ),
+                const SizedBox(height: 32),
+              ] else
+                const SizedBox(height: 24),
               MergeSemantics(
                 child: Semantics(
                   identifier: widget.actionSemanticsId,
@@ -195,13 +200,15 @@ class _FreemiumScreenState extends State<FreemiumScreen>
                             color: context.theme.onAccent,
                           ),
                           const SizedBox(width: 12),
+                          // Fits its words rather than cutting the label ("Upgra…").
                           Flexible(
-                            child: Text(
+                            child: WordFitText(
                               widget.actionLabel ?? "universal action upgrade short".i18n,
+                              maxScale: TextScaleCeiling.action,
+                              textAlign: TextAlign.center,
                               style: context.theme.text.title.copyWith(
                                 color: context.theme.onAccent,
                               ),
-                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ],

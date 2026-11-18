@@ -122,14 +122,14 @@ void _expectPowerOnFirstScreen(WidgetTester tester) {
 
 /// Card titles (such as Home's "Last 24h") wrap rather than being cut.
 void _expectCardTitlesWhole(WidgetTester tester) {
-  final titles = find.descendant(of: find.byType(MiniCardHeader), matching: find.byType(RichText));
+  final titles = find.descendant(
+    of: find.byType(MiniCardHeader),
+    matching: find.byWidgetPredicate((w) => w is Text),
+  );
   expect(titles, findsWidgets);
-  for (final paragraph in tester.renderObjectList<RenderParagraph>(titles)) {
-    expect(
-      paragraph.didExceedMaxLines,
-      isFalse,
-      reason: '"${paragraph.text.toPlainText()}" is cut',
-    );
+  for (final title in tester.widgetList<Text>(titles)) {
+    expect(title.maxLines, isNull, reason: '"${title.data}" is limited to lines');
+    expect(title.overflow, isNot(TextOverflow.ellipsis), reason: '"${title.data}" is cut');
   }
 }
 

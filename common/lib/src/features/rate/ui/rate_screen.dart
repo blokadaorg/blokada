@@ -97,22 +97,26 @@ class _RateScreenState extends State<RateScreen> with Logging {
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const SizedBox(height: 50),
-        Image.asset(
-          Core.act.isFamily ? "assets/images/family-logo.png" : "assets/images/blokada_logo.png",
-          fit: BoxFit.contain,
-          // Smaller at large text sizes, leaving the room to the text.
-          width: large ? 72 : 128,
-          height: large ? 72 : 128,
-        ),
-        const SizedBox(height: 30),
+        // The logo is decoration; at large text sizes it goes, so the stars
+        // stay on screen.
+        if (!large) ...[
+          const SizedBox(height: 50),
+          Image.asset(
+            Core.act.isFamily ? "assets/images/family-logo.png" : "assets/images/blokada_logo.png",
+            fit: BoxFit.contain,
+            width: 128,
+            height: 128,
+          ),
+          const SizedBox(height: 30),
+        ] else
+          const SizedBox(height: 16),
         WordFitText(
           "main rate us header".i18n,
           maxScale: TextScaleCeiling.headline,
           textAlign: TextAlign.center,
           style: context.theme.text.hero.copyWith(fontWeight: FontWeight.w900, color: Colors.white),
         ),
-        const SizedBox(height: 30),
+        SizedBox(height: large ? 16 : 30),
         Text(
           "main rate us description".i18n,
           textAlign: TextAlign.start,
@@ -193,6 +197,7 @@ class _RateScreenState extends State<RateScreen> with Logging {
                       : const EdgeInsets.symmetric(horizontal: 40, vertical: 64),
                   child: WordFitText(
                     "universal action cancel".i18n,
+                    maxScale: TextScaleCeiling.action,
                     style: context.theme.text.headline.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.normal,

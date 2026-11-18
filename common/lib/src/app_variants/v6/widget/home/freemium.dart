@@ -1,6 +1,7 @@
 import 'package:common/src/features/payment/domain/payment.dart';
 import 'package:common/src/shared/ui/minicard/header.dart';
 import 'package:common/src/shared/ui/minicard/minicard.dart';
+import 'package:common/src/shared/ui/text_scale.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
 import 'package:flutter/cupertino.dart';
@@ -46,8 +47,12 @@ class _FreemiumCounterState extends State<FreemiumCounter> with TickerProviderSt
             icon: Icons.shield_outlined,
             color: theme.freemium,
           ),
-          const SizedBox(height: 12),
-          Text("freemium home status desc safari".i18n),
+          // The description is the first thing to go at large text sizes:
+          // the header and the Upgrade button say enough.
+          if (!isLargeTextScale(context)) ...[
+            const SizedBox(height: 12),
+            Text("freemium home status desc safari".i18n),
+          ],
         ],
       ),
     );
@@ -73,8 +78,9 @@ class _FreemiumCounterState extends State<FreemiumCounter> with TickerProviderSt
             Icon(CupertinoIcons.heart_fill, color: context.theme.onAccent),
             const SizedBox(width: 12),
             Flexible(
-              child: Text(
+              child: WordFitText(
                 "universal action upgrade short".i18n,
+                maxScale: TextScaleCeiling.action,
                 textAlign: TextAlign.center,
                 style: context.theme.text.body.semibold.copyWith(color: context.theme.onAccent),
               ),

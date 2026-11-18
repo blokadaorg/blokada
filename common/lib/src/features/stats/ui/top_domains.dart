@@ -16,6 +16,7 @@ import 'package:common/src/features/stats/ui/stats_error.dart';
 import 'package:common/src/platform/stats/model.dart';
 import 'package:common/src/platform/stats/delta_store.dart';
 import 'package:common/src/features/notification/domain/notification.dart';
+import 'package:common/src/shared/ui/text_scale.dart';
 import 'package:flutter/cupertino.dart';
 
 export 'package:common/src/features/stats/domain/controller.dart' show ToplistRange;
@@ -131,8 +132,9 @@ class TopDomainsState extends State<TopDomains> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Flexible(
-                    child: Text(
+                    child: WordFitText(
                       "privacy pulse toplists header".i18n,
+                      maxScale: TextScaleCeiling.headline,
                       style: context.theme.text.title.copyWith(color: context.theme.textPrimary),
                     ),
                   ),
@@ -326,15 +328,15 @@ class TopDomainsState extends State<TopDomains> {
               Expanded(
                 child: Row(
                   children: [
+                    // Shrinks rather than break the domain mid-name at large text.
                     Expanded(
-                      child: Text(
+                      child: WordFitText(
                         middleEllipsis(
                           label,
                           maxLength:
                               delta != null && delta.type == ToplistDeltaType.newEntry ? 18 : 24,
                         ),
                         style: context.theme.text.body.copyWith(color: context.theme.textPrimary),
-                        overflow: TextOverflow.clip,
                       ),
                     ),
                     if (delta != null && delta.type == ToplistDeltaType.newEntry) ...[

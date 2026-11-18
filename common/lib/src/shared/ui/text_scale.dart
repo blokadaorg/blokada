@@ -15,9 +15,13 @@ class TextScaleCeiling {
   /// Big numbers ([BlokadaTypeScale.display]), such as the Home counter.
   static const display = 1.5;
 
-  /// Screen and sheet headlines ([BlokadaTypeScale.hero] and larger), which
-  /// should still wrap rather than be cut.
-  static const headline = 2.0;
+  /// Screen, sheet and section headlines, which should still wrap rather
+  /// than be cut. Past this a headline of a few words fills a small screen.
+  static const headline = 1.6;
+
+  /// Labels of full-width buttons in sheets and dialogs: they stay big
+  /// targets, but past this two of them crowd out the content they act on.
+  static const action = 2.0;
 
   /// The system text scale at which a screen should switch to its compact
   /// arrangement (stacked actions, smaller decoration): the iOS accessibility

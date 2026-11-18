@@ -12,6 +12,7 @@ import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/features/stats/domain/controller.dart';
 import 'package:common/src/features/stats/ui/stats_error.dart';
+import 'package:common/src/shared/ui/text_scale.dart';
 import 'package:flutter/cupertino.dart';
 
 /// Privacy Pulse's latest blocked and allowed requests. Draws the recent
@@ -64,8 +65,9 @@ class RecentActivityState extends State<RecentActivity>
             crossAxisAlignment: WrapCrossAlignment.center,
             spacing: 8,
             children: [
-              Text(
+              WordFitText(
                 "privacy pulse recents header".i18n,
+                maxScale: TextScaleCeiling.headline,
                 style: context.theme.text.title.copyWith(color: context.theme.textPrimary),
               ),
               MergeSemantics(

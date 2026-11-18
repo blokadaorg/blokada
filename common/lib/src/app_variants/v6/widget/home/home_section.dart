@@ -4,6 +4,7 @@ import 'package:common/src/features/support/domain/support.dart';
 import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/navigation.dart';
 import 'package:common/src/features/home/ui/header/header_button.dart';
+import 'package:common/src/shared/ui/text_scale.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/app_variants/v6/widget/tab/tab_buttons.dart';
@@ -143,8 +144,16 @@ class V6HomeSectionState extends State<V6HomeSection> with Logging, Disposables 
 
   /// Settings beside the logo, saving a row for the actions below, and only
   /// the status bar's height above them rather than the regular fixed 60.
+  /// At the largest text sizes the logo goes too: it is decoration, and the
+  /// room is worth more to the actions.
   Widget _buildCompactHeader(BuildContext context) {
     final top = math.max(MediaQuery.paddingOf(context).top, 20.0) + 8;
+    if (isLargeTextScale(context)) {
+      return Padding(
+        padding: EdgeInsets.only(top: top, right: 16),
+        child: Align(alignment: Alignment.centerRight, child: _buildSettingsButton()),
+      );
+    }
     return Padding(
       padding: EdgeInsets.only(top: top, right: 16, left: 16),
       child: Stack(
