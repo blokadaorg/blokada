@@ -13,7 +13,6 @@ import 'package:common/src/shared/ui/app.dart';
 import 'package:common/src/shared/ui/blokada_switch.dart';
 import 'package:common/src/shared/ui/top_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:mobx/mobx.dart' as mobx;
@@ -116,9 +115,10 @@ void _expectOffer(WidgetTester tester) {
   expect(find.text("activity logging offer brief".i18n), findsOneWidget);
   expect(find.text("activity logging sample".i18n.toUpperCase()), findsOneWidget);
   expect(find.byType(RetentionSection), findsNothing);
-  // The whole label fits on the button.
-  final label = tester.renderObject<RenderParagraph>(_cta);
-  expect(label.didExceedMaxLines, isFalse);
+  // The whole label fits on the button: it wraps or shrinks, never cut.
+  final label = tester.widget<Text>(_cta);
+  expect(label.maxLines, isNull);
+  expect(label.overflow, isNot(TextOverflow.ellipsis));
   // Screen readers get the offer and the button, not the made-up data.
   expect(
     find.bySemanticsLabel(RegExp(RegExp.escape("activity logging offer header".i18n))),

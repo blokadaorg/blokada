@@ -9,6 +9,7 @@ import 'package:common/src/shared/ui/motion.dart';
 import 'dart:async';
 
 import 'package:countup/countup.dart';
+import 'package:common/src/shared/ui/text_scale.dart';
 import 'package:flutter/material.dart';
 
 import 'package:common/src/shared/ui/minicard/chart.dart';
@@ -193,13 +194,17 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
                                     color: context.theme.textBlocked,
                                   )),
                             ),
-                            Countup(
+                            // Big numbers: capped like Home's counter.
+                            MaxTextScale(
+                              max: TextScaleCeiling.display,
+                              child: Countup(
                               begin: lastBlocked,
                               end: blocked,
                               duration: countDuration,
                               style: context.theme.text.title,
                               maxLines: 1,
                               overflow: TextOverflow.visible,
+                              ),
                             ),
                           ],
                         ),
@@ -222,13 +227,17 @@ class HorizontalRadialSegmentState extends State<HorizontalRadialSegment> {
                                     color: context.theme.textAllowed,
                                   )),
                             ),
-                            Countup(
+                            // Big numbers: capped like Home's counter.
+                            MaxTextScale(
+                              max: TextScaleCeiling.display,
+                              child: Countup(
                               begin: lastAllowed,
                               end: allowed,
                               duration: countDuration,
                               style: context.theme.text.title,
                               maxLines: 1,
                               overflow: TextOverflow.visible,
+                              ),
                             ),
                           ],
                         ),

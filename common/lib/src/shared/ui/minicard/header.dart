@@ -1,7 +1,10 @@
+import 'package:common/src/shared/ui/text_scale.dart';
 import 'package:flutter/material.dart';
 
 import '../theme.dart';
 
+/// The title row of a [MiniCard]: an icon, the title and an optional
+/// chevron or label on the right that hints the card opens more.
 class MiniCardHeader extends StatelessWidget {
   final String text;
   final IconData icon;
@@ -33,12 +36,14 @@ class MiniCardHeader extends StatelessWidget {
             children: [
               Icon(icon, color: color, size: 18),
               const SizedBox(width: 4),
+              // Wraps rather than ellipsizing: with large text or long
+              // translations a cut title ("Letzten …") loses its meaning.
+              // A heading: past the headline ceiling it only crowds the card.
               Expanded(
-                child: Text(
+                child: WordFitText(
                   text,
+                  maxScale: TextScaleCeiling.headline,
                   style: context.theme.text.body.semibold.copyWith(color: textColor ?? color),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
                 ),
               ),
             ],
@@ -48,12 +53,10 @@ class MiniCardHeader extends StatelessWidget {
           Row(
             children: [
               if (chevronText != null)
-                Text(chevronText!,
-                    style: TextStyle(color: context.theme.textSecondary)),
-              if (chevronIcon != null)
-                Icon(chevronIcon, color: context.theme.textSecondary),
+                Text(chevronText!, style: TextStyle(color: context.theme.textSecondary)),
+              if (chevronIcon != null) Icon(chevronIcon, color: context.theme.textSecondary),
             ],
-          )
+          ),
       ],
     );
   }

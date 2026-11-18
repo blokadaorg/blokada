@@ -13,6 +13,7 @@ import 'package:common/src/platform/stage/stage.dart';
 import 'package:common/src/features/plus/domain/gateway/gateway.dart';
 import 'package:common/src/features/plus/domain/plus.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:common/src/shared/ui/text_scale.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart' as mobx;
 import 'dart:async';
@@ -139,10 +140,12 @@ class _PlusButtonState extends State<PlusButton>
       children: [
         // Wraps with large text, keeping the switch on the right.
         Expanded(
+          // At large text sizes only the location itself: the "Location:"
+          // label costs a line and the flag already says what it is.
           child: activated
-              ? (Text("home plus button location"
-                  .i18n
-                  .fill([location]).replaceAll("*", "")))
+              ? (Text(isLargeTextScale(context)
+                  ? location
+                  : "home plus button location".i18n.fill([location]).replaceAll("*", "")))
               : (Text("home plus button select location".i18n)),
         ),
         // The height the switch always had in the 48 tall card.

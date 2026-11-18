@@ -11,6 +11,7 @@ import 'package:common/src/shared/ui/common_clickable.dart';
 import 'package:common/src/shared/ui/common_divider.dart';
 import 'package:common/src/shared/ui/domain_name_text.dart';
 import 'package:common/src/shared/ui/minicard/chart.dart';
+import 'package:common/src/shared/ui/text_scale.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/stats/model.dart' as stats_model;
@@ -911,8 +912,9 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
           // When not fetching toplist (final level), show additional info sections
           if (!widget.fetchToplist) ...[
             // Actions section header
-            Text(
+            WordFitText(
               "activity actions header".i18n,
+              maxScale: TextScaleCeiling.headline,
               style: context.theme.text.title.copyWith(color: context.theme.textPrimary),
             ),
             const SizedBox(height: 8),
@@ -922,8 +924,9 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             const SizedBox(height: 16),
 
             // Information section header
-            Text(
+            WordFitText(
               "activity information header".i18n,
+              maxScale: TextScaleCeiling.headline,
               style: context.theme.text.title.copyWith(color: context.theme.textPrimary),
             ),
             const SizedBox(height: 8),
@@ -937,8 +940,9 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
             // Subdomains section header
             Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
-              child: Text(
+              child: WordFitText(
                 "privacy pulse toplists header".i18n,
+              maxScale: TextScaleCeiling.headline,
                 style: context.theme.text.title.copyWith(color: context.theme.textPrimary),
               ),
             ),
@@ -978,68 +982,74 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
   }
 
   Widget _buildHeader() {
+    final large = isLargeTextScale(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         children: [
-          // Domain icon with favicon
-          ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: CachedNetworkImage(
-              imageUrl:
-                  'https://cloud.blokada.org/favicons?domain=${_getTldDomain(widget.entry.domainName)}',
-              width: 80,
-              height: 80,
-              fit: BoxFit.contain,
-              fadeInDuration: Duration.zero,
-              fadeOutDuration: Duration.zero,
-              placeholder: (context, url) => Container(
+          // The favicon is decoration; at large text sizes the name and rules
+          // need the room.
+          if (!large) ...[
+            // Domain icon with favicon
+            ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: CachedNetworkImage(
+                imageUrl:
+                    'https://cloud.blokada.org/favicons?domain=${_getTldDomain(widget.entry.domainName)}',
                 width: 80,
                 height: 80,
-                decoration: BoxDecoration(
-                  color: context.theme.textPrimary.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Center(
-                  child: Icon(
-                    CupertinoIcons.globe,
-                    size: 40,
-                    color: context.theme.textPrimary,
+                fit: BoxFit.contain,
+                fadeInDuration: Duration.zero,
+                fadeOutDuration: Duration.zero,
+                placeholder: (context, url) => Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: context.theme.textPrimary.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Center(
+                    child: Icon(
+                      CupertinoIcons.globe,
+                      size: 40,
+                      color: context.theme.textPrimary,
+                    ),
                   ),
                 ),
-              ),
-              errorWidget: (context, url, error) => Container(
-                width: 80,
-                height: 80,
-                decoration: BoxDecoration(
-                  color: context.theme.textPrimary.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Center(
-                  child: Icon(
-                    CupertinoIcons.globe,
-                    size: 40,
-                    color: context.theme.textPrimary,
+                errorWidget: (context, url, error) => Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: context.theme.textPrimary.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Center(
+                    child: Icon(
+                      CupertinoIcons.globe,
+                      size: 40,
+                      color: context.theme.textPrimary,
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          const SizedBox(height: 16),
+            const SizedBox(height: 16),
+          ],
 
           // Domain name (long press to copy)
           GestureDetector(
             onLongPress: () {
               Core.get<ToastActor>().copy(widget.entry.domainName, Markers.userTap);
             },
-            child: Text(
+            // Shrinks rather than break inside the name at large text sizes.
+            child: WordFitText(
               middleEllipsis(widget.entry.domainName, maxLength: 20),
+              maxScale: TextScaleCeiling.headline,
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.w600,
                 color: context.theme.textPrimary,
               ),
-              overflow: TextOverflow.clip,
             ),
           ),
           const SizedBox(height: 8),
@@ -1086,18 +1096,19 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
     const minLines = 2;
     final minHeight = fontSize * lineHeight * minLines;
 
+    // Secondary to the name above it; capped so at the largest sizes it
+    // doesn't fill the screen before the rules.
     return ConstrainedBox(
       constraints: BoxConstraints(minHeight: minHeight),
-      child: Text(
+      child: WordFitText(
         _getSubtitleText(),
+        maxScale: TextScaleCeiling.action,
         style: TextStyle(
           fontSize: fontSize,
           height: lineHeight,
           color: context.theme.textSecondary,
         ),
         textAlign: TextAlign.left,
-        softWrap: true,
-        overflow: TextOverflow.visible,
       ),
     );
   }
@@ -1110,8 +1121,9 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // "Your Rules" header
-        Text(
+        WordFitText(
           "domain details rules section header".i18n,
+              maxScale: TextScaleCeiling.headline,
           style: context.theme.text.title.copyWith(color: context.theme.textPrimary),
         ),
         const SizedBox(height: 8),
@@ -1156,7 +1168,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    WordFitText(
                       "domain details edit rule action".i18n,
                       style: context.theme.text.body.semibold
                           .copyWith(color: context.theme.textPrimary),
@@ -1207,7 +1219,7 @@ class DomainDetailSectionState extends State<DomainDetailSection> with Logging {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    WordFitText(
                       "domain details add rule action".i18n,
                       style: context.theme.text.body.semibold
                           .copyWith(color: context.theme.textPrimary),

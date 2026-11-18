@@ -11,6 +11,7 @@ import 'package:common/src/shared/ui/common_clickable.dart';
 import 'package:common/src/shared/ui/common_divider.dart';
 import 'package:common/src/shared/ui/haptics.dart';
 import 'package:common/src/shared/ui/section_label.dart';
+import 'package:common/src/shared/ui/text_scale.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -207,7 +208,9 @@ class _Summary extends StatelessWidget {
                 style: context.theme.text.callout.copyWith(color: context.theme.textSecondary),
               ),
               const SizedBox(height: 4),
-              Text(
+              // A title; past the headline ceiling it would crowd out the list.
+              WordFitText(
+                maxScale: TextScaleCeiling.headline,
                 loading ? " " : (main ?? "blocklists main none".i18n),
                 style: context.theme.text.title.copyWith(
                   fontWeight: FontWeight.bold,

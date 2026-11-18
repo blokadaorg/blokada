@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/ui/anim/sliding.dart';
@@ -23,7 +24,12 @@ import 'package:mobx/mobx.dart';
 /// Pause is account-wide in v6, so the off state also says when the pause came
 /// from another device (#455); tapping resumes like the power button does.
 class HomeActions extends StatefulWidget {
-  const HomeActions({Key? key}) : super(key: key);
+  /// Home's compact arrangement at large text sizes: as wide as the screen
+  /// allows, and while protection is off the hidden counter and Plus button
+  /// take no room, so the tab buttons stay close.
+  final bool compact;
+
+  const HomeActions({Key? key, this.compact = false}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -131,7 +137,7 @@ class _HomeActionsState extends State<HomeActions> with TickerProviderStateMixin
           );
 
       return SizedBox(
-        width: 300,
+        width: widget.compact ? _compactWidth(context) : 300,
         child: Stack(
           alignment: AlignmentDirectional.topCenter,
           children: [
@@ -163,19 +169,39 @@ class _HomeActionsState extends State<HomeActions> with TickerProviderStateMixin
                 ),
               ),
             ),
-            Column(
+            _collapsible(Column(
               children: [
                 Sliding(
                     controller: _ctrlCounter,
-                    child: _account.isFreemium ? const FreemiumCounter() : const HomeCounter()),
+                    child: _account.isFreemium
+                        ? FreemiumCounter(ctaFirst: widget.compact)
+                        : const HomeCounter()),
                 const SizedBox(height: 16),
                 Sliding(
                     controller: _ctrlPlus, child: _account.isFreemium ? Container() : PlusButton()),
               ],
-            ),
+            )),
           ],
         ),
       );
     });
+  }
+
+  /// The screen width less a margin, up to a limit: wrapped text at large
+  /// sizes needs the room more than the regular 300.
+  double _compactWidth(BuildContext context) =>
+      math.min(MediaQuery.sizeOf(context).width - 32, 420).toDouble();
+
+  /// In compact, the counter and Plus button take room only as they slide
+  /// in, growing with the counter's animation; otherwise they always do, so
+  /// the regular layout never moves.
+  Widget _collapsible(Widget child) {
+    if (!widget.compact) return child;
+    return AnimatedBuilder(
+      animation: _ctrlCounter,
+      builder: (context, child) =>
+          Align(alignment: Alignment.topCenter, heightFactor: _ctrlCounter.value, child: child),
+      child: child,
+    );
   }
 }

@@ -19,13 +19,20 @@ import 'package:relative_scale/relative_scale.dart';
 /// The Home power button. What it shows and what a tap does come from
 /// [powerButtonState]; the widget only draws and animates that state.
 class PowerButton extends StatefulWidget {
-  PowerButton({Key? key}) : super(key: key);
+  /// Smaller, for Home's compact arrangement at large text sizes, where the
+  /// room goes to the text below.
+  final bool compact;
+
+  PowerButton({Key? key, this.compact = false}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
     return _PowerButtonState();
   }
 }
+
+/// Size of the compact power button relative to the regular one.
+const _compactScale = 0.7;
 
 class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin, Logging {
   late final _app = Core.get<AppStore>();
@@ -300,7 +307,7 @@ class _PowerButtonState extends State<PowerButton> with TickerProviderStateMixin
     _reduceMotion = Motion.reduced(context);
 
     return RelativeBuilder(builder: (context, height, width, sy, sx) {
-      final buttonSize = math.min(sy(140), 180.0);
+      final buttonSize = math.min(sy(140), 180.0) * (widget.compact ? _compactScale : 1.0);
       return Stack(
         children: [
           SizedBox(

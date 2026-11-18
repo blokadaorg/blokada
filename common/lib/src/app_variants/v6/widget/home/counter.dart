@@ -8,6 +8,7 @@ import 'package:common/src/shared/ui/minicard/header.dart';
 import 'package:common/src/shared/ui/minicard/minicard.dart';
 import 'package:common/src/shared/ui/minicard/summary.dart';
 import 'package:common/src/shared/ui/placeholder.dart';
+import 'package:common/src/shared/ui/text_scale.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/app/app.dart';
@@ -162,10 +163,7 @@ class _HomeCounterState extends State<HomeCounter> with WidgetsBindingObserver, 
         child: Stack(
           alignment: Alignment.center,
           children: [
-            Opacity(
-              opacity: 0,
-              child: Text("0", style: theme.text.display),
-            ),
+            Opacity(opacity: 0, child: Text("0", style: theme.text.display)),
             const PlaceholderBar(width: 96, height: 28, radius: 6),
           ],
         ),
@@ -182,11 +180,15 @@ class _HomeCounterState extends State<HomeCounter> with WidgetsBindingObserver, 
           color: (_app.status == AppStatus.activatedPlus) ? theme.accent : theme.cloud,
           chevronIcon: Icons.bar_chart,
         ),
-        big: big,
+        // Display-size already; past this it only pushes Home's actions
+        // off small screens.
+        big: MaxTextScale(max: TextScaleCeiling.display, child: big),
         small: "",
+        // The caption only restates the title at large text sizes, where
+        // its lines would push Home's actions down; the retry hint stays.
         footer: _showRetry
             ? "universal action try again".i18n
-            : "home counter caption blocked".i18n,
+            : (isLargeTextScale(context) ? null : "home counter caption blocked".i18n),
       ),
     );
   }

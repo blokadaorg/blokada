@@ -1,3 +1,4 @@
+import 'package:common/src/shared/ui/text_scale.dart';
 import 'package:common/src/shared/ui/theme.dart';
 import 'package:common/src/shared/ui/unread_badge.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,9 @@ class TabItem extends StatefulWidget {
   final bool active;
   final VoidCallback? onTap;
   final bool showUnreadBadge;
+
+  /// The icon beside the title rather than above it, for full-width rows.
+  final bool horizontal;
 
   /// Stable semantics identifier used by automation because these tab buttons
   /// are custom Flutter gestures rather than native tab bar controls.
@@ -20,6 +24,7 @@ class TabItem extends StatefulWidget {
     required this.active,
     this.onTap,
     this.showUnreadBadge = false,
+    this.horizontal = false,
     this.automationId,
   }) : super(key: key);
 
@@ -32,6 +37,14 @@ class TabItemState extends State<TabItem> {
   Widget build(BuildContext context) {
     final color = widget.active ? context.theme.accent : context.theme.textPrimary;
 
+    final icon = Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Icon(widget.icon, color: color),
+        if (widget.showUnreadBadge) const Positioned(right: -8, top: -6, child: UnreadBadge()),
+      ],
+    );
+
     final child = GestureDetector(
       onTap: widget.onTap,
       child: Container(
@@ -39,27 +52,27 @@ class TabItemState extends State<TabItem> {
         // Grows with large text, whose title can wrap.
         child: ConstrainedBox(
           constraints: const BoxConstraints(minHeight: 48),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  Icon(
-                    widget.icon,
-                    color: color,
-                  ),
-                  if (widget.showUnreadBadge)
-                    const Positioned(
-                      right: -8,
-                      top: -6,
-                      child: UnreadBadge(),
+          child: widget.horizontal
+              ? Row(
+                  children: [
+                    icon,
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: WordFitText(widget.title, style: TextStyle(color: color)),
                     ),
-                ],
-              ),
-              Text(widget.title, style: TextStyle(color: color), textAlign: TextAlign.center),
-            ],
-          ),
+                  ],
+                )
+              : Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    icon,
+                    Text(
+                      widget.title,
+                      style: TextStyle(color: color),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
         ),
       ),
     );

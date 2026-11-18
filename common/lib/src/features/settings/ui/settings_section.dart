@@ -23,6 +23,7 @@ import 'package:common/src/platform/perm/perm.dart';
 import 'package:common/src/platform/stage/stage.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:common/src/shared/ui/text_scale.dart';
 import 'package:flutter/material.dart';
 import 'package:common/src/shared/ui/vendor/input_code_field/input_code_field.dart';
 
@@ -133,6 +134,11 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                   if (Core.act.isFamily) const Positioned.fill(child: FamilyBgWidget()),
                   Row(
                     children: [
+                      // The logo is decoration; at large text sizes the status
+                      // gets the card's full width instead.
+                      if (isLargeTextScale(context))
+                        const SizedBox(width: 16, height: 96)
+                      else
                       Padding(
                         padding: const EdgeInsets.all(16),
                         child: SizedBox(
@@ -155,7 +161,9 @@ class SettingsState extends State<SettingsSection> with Logging, Disposables {
                           label: _getAccountSubText(),
                           child: ExcludeSemantics(
                             child: Text(_getAccountSubText(),
-                                textAlign: TextAlign.center,
+                                textAlign: isLargeTextScale(context)
+                                    ? TextAlign.start
+                                    : TextAlign.center,
                                 style: Theme.of(context).textTheme.titleSmall!.copyWith(
                                     color: Core.act.isFamily
                                         ? Colors.white
