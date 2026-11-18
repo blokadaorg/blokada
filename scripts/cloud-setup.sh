@@ -150,8 +150,10 @@ beforeSettings { settings ->
 EOF
 
 # Session checkouts leave out submodules. As in CI, only the translations:
-# the website mirror is large and the iOS one is not needed here.
+# the website mirror is large and the iOS one is not needed here. Skipped once
+# checked out, so a resume keeps commits not yet recorded in the superproject.
 init_submodules() {
+  [ -e "$repo/deps/translate/.git" ] && return 0
   git -C "$repo" submodule update --init --depth 1 deps/translate
 }
 
