@@ -134,7 +134,7 @@ class SampleStatsController extends StatsController {
   void closePulse() {}
 
   @override
-  void setHomeRefresh(bool enabled, {Object owner = const Object()}) {}
+  void setHomeRefresh(bool enabled) {}
 
   @override
   Future<void> refreshPulse(Marker m) async {}

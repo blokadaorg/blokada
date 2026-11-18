@@ -36,7 +36,7 @@ class StoreSubscription {
 
   /// Adapty's active introductory offer type (`free_trial`, `pay_as_you_go`,
   /// `pay_up_front`), null when the current period has none. Home's trial
-  /// progress (#460) only counts `free_trial`.
+  /// line (#460) only counts `free_trial`.
   final String? introOfferType;
 
   const StoreSubscription({

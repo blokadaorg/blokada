@@ -17,95 +17,15 @@ import 'package:flutter/foundation.dart' show ValueListenable;
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart' as mobx;
 
-/// Asks [StatsController] to refresh Home's stats while [child] is on screen
-/// and it is worth it: protection on ([active]), the app in the foreground
-/// and Home not covered by another route. The controller owns the fetching
-/// and the timer.
-///
-/// One per Home: the controller's switch is on or off, not counted, so two
-/// of these would turn each other off.
-class HomeStatsRefresh extends StatefulWidget {
-  final bool active;
-  final Widget child;
-
-  const HomeStatsRefresh({super.key, required this.active, required this.child});
-
-  @override
-  State<HomeStatsRefresh> createState() => _HomeStatsRefreshState();
-}
-
-class _HomeStatsRefreshState extends State<HomeStatsRefresh> with WidgetsBindingObserver {
-  final _stats = Core.get<StatsController>();
-
-  bool _foreground = true;
-  bool _refreshing = false;
-  ValueListenable<bool>? _tickerMode;
-
-  bool get _shouldRefresh => widget.active && _foreground && (_tickerMode?.value ?? true);
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-    // Null before the first lifecycle event; a background launch reports a non-resumed state.
-    final lifecycle = WidgetsBinding.instance.lifecycleState;
-    _foreground = lifecycle == null || lifecycle == AppLifecycleState.resumed;
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    // Disabled while a route covers Home.
-    final tickerMode = TickerMode.getNotifier(context);
-    if (tickerMode != _tickerMode) {
-      _tickerMode?.removeListener(_syncRefresh);
-      _tickerMode = tickerMode..addListener(_syncRefresh);
-    }
-    _syncRefresh();
-  }
-
-  @override
-  void didUpdateWidget(covariant HomeStatsRefresh oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.active != widget.active) _syncRefresh();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    _foreground = state == AppLifecycleState.resumed;
-    _syncRefresh();
-  }
-
-  void _syncRefresh() {
-    final refresh = _shouldRefresh;
-    if (refresh == _refreshing) return;
-    _refreshing = refresh;
-    _stats.setHomeRefresh(refresh, owner: this);
-  }
-
-  @override
-  void dispose() {
-    if (_refreshing) _stats.setHomeRefresh(false, owner: this);
-    _tickerMode?.removeListener(_syncRefresh);
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) => widget.child;
-}
-
 /// Home's "Last 24h" card: the number of requests blocked on this device in
 /// the last 24 hours.
 ///
 /// It stays mounted while protection is off (slid off screen by HomeActions),
-/// so by default it keeps the stats refreshing through [HomeStatsRefresh]
-/// only while protection is on. The daily Home (#460) shows it as a fallback
-/// inside its own [HomeStatsRefresh] and turns that off with [driveRefresh].
+/// so it asks [StatsController] to refresh only while protection is on, the
+/// app is in the foreground and Home is not covered by another route. The
+/// controller owns the fetching and the timer; the card only draws.
 class HomeCounter extends StatefulWidget {
-  final bool driveRefresh;
-
-  const HomeCounter({super.key, this.driveRefresh = true});
+  const HomeCounter({super.key});
 
   @override
   State<StatefulWidget> createState() {
@@ -113,7 +33,7 @@ class HomeCounter extends StatefulWidget {
   }
 }
 
-class _HomeCounterState extends State<HomeCounter> with Logging {
+class _HomeCounterState extends State<HomeCounter> with WidgetsBindingObserver, Logging {
   final _app = Core.get<AppStore>();
   final _stats = Core.get<StatsController>();
 
@@ -123,21 +43,30 @@ class _HomeCounterState extends State<HomeCounter> with Logging {
   bool _error = false;
 
   bool _active = false;
+  bool _foreground = true;
+  bool _refreshing = false;
+  ValueListenable<bool>? _tickerMode;
   StreamSubscription? _statsSub;
 
   final List<mobx.ReactionDisposer> _disposers = [];
 
+  bool get _shouldRefresh => _active && _foreground && (_tickerMode?.value ?? true);
+
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    // Null before the first lifecycle event; a background launch reports a non-resumed state.
+    final lifecycle = WidgetsBinding.instance.lifecycleState;
+    _foreground = lifecycle == null || lifecycle == AppLifecycleState.resumed;
     _active = _app.status.isActive();
 
     _disposers.add(
       mobx.reaction<bool>((_) => _app.status.isActive(), (active) {
         _active = active;
-        // The placeholder only shimmers while protection is on, and the
-        // stats refresh only then.
+        // The placeholder only shimmers while protection is on.
         if (mounted) setState(() {});
+        _syncRefresh();
       }),
     );
 
@@ -168,11 +97,39 @@ class _HomeCounterState extends State<HomeCounter> with Logging {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Disabled while a route covers Home.
+    final tickerMode = TickerMode.getNotifier(context);
+    if (tickerMode != _tickerMode) {
+      _tickerMode?.removeListener(_syncRefresh);
+      _tickerMode = tickerMode..addListener(_syncRefresh);
+    }
+    _syncRefresh();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    _foreground = state == AppLifecycleState.resumed;
+    _syncRefresh();
+  }
+
+  void _syncRefresh() {
+    final refresh = _shouldRefresh;
+    if (refresh == _refreshing) return;
+    _refreshing = refresh;
+    _stats.setHomeRefresh(refresh);
+  }
+
+  @override
   void dispose() {
+    if (_refreshing) _stats.setHomeRefresh(false);
     _statsSub?.cancel();
+    _tickerMode?.removeListener(_syncRefresh);
     for (final dispose in _disposers) {
       dispose();
     }
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
@@ -215,7 +172,7 @@ class _HomeCounterState extends State<HomeCounter> with Logging {
       );
     }
 
-    final card = MiniCard(
+    return MiniCard(
       onTap: _onTap,
       outlined: true,
       child: MiniCardSummary(
@@ -232,7 +189,5 @@ class _HomeCounterState extends State<HomeCounter> with Logging {
             : "home counter caption blocked".i18n,
       ),
     );
-    if (!widget.driveRefresh) return card;
-    return HomeStatsRefresh(active: _active, child: card);
   }
 }

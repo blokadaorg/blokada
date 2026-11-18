@@ -1,6 +1,6 @@
 part of 'home.dart';
 
-/// A store free trial, for the trial line on the daily Home (#460):
+/// A store free trial, for the trial line on Home (#460):
 /// "Day 3 of 7". The day is worked out when drawn, so it moves on at midnight
 /// while Home stays open.
 class TrialProgress {

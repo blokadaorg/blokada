@@ -7,11 +7,6 @@ import 'package:common/src/core/core.dart';
 import 'package:common/src/app_variants/v6/widget/tab/tab_buttons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:common/src/app_variants/v6/module/home/home.dart';
-import 'package:common/src/app_variants/v6/widget/home/daily/daily_actions.dart';
-import 'package:common/src/platform/account/account.dart';
-import 'package:common/src/platform/account/api.dart';
 
 import 'actions.dart';
 import 'power_button.dart';
@@ -29,8 +24,6 @@ class V6HomeSection extends StatefulWidget {
 
 class V6HomeSectionState extends State<V6HomeSection> with Logging, Disposables {
   late final _unread = Core.get<SupportUnread>();
-  late final _account = Core.get<AccountStore>();
-  late final _dailyHome = Core.get<DailyHomeActor>();
 
   @override
   void initState() {
@@ -111,18 +104,11 @@ class V6HomeSectionState extends State<V6HomeSection> with Logging, Disposables 
                         ],
                       ),
                       PowerButton(),
-                      Column(
+                      const Column(
                         children: [
-                          // The daily Home cohort (#460) gets its own cards;
-                          // everyone else today's.
-                          Observer(
-                            builder: (_) =>
-                                _dailyHome.variantFor(_account.account) == HomeVariant.daily
-                                    ? const DailyHomeActions()
-                                    : const HomeActions(),
-                          ),
-                          const TabButtonsWidget(),
-                          const SizedBox(height: 24),
+                          HomeActions(),
+                          TabButtonsWidget(),
+                          SizedBox(height: 24),
                         ],
                       ),
                     ],

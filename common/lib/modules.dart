@@ -158,7 +158,7 @@ class Modules with Logging {
     ToplistStore().onRegister();
     StatsDeltaStore().onRegister();
     await _registerModule(StatsControllerModule());
-    if (!Core.act.isFamily) await _registerModule(DailyHomeModule());
+    if (!Core.act.isFamily) await _registerModule(TrialHomeModule());
     BootstrapIdentityValue().onRegister();
 
     if (Core.act.isFamily) {

@@ -10,6 +10,7 @@ import 'package:common/src/platform/device/device.dart';
 import 'package:common/src/app_variants/v6/widget/home/counter.dart';
 import 'package:common/src/app_variants/v6/widget/home/freemium.dart';
 import 'package:common/src/app_variants/v6/widget/home/plusbutton.dart';
+import 'package:common/src/app_variants/v6/widget/home/trial_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
@@ -22,13 +23,8 @@ import 'package:mobx/mobx.dart';
 ///
 /// Pause is account-wide in v6, so the off state also says when the pause came
 /// from another device (#455); tapping resumes like the power button does.
-///
-/// The daily Home (#460) brings its own cards and uses only the hint
-/// ([showCards] false), so the off state reads the same in both Homes.
 class HomeActions extends StatefulWidget {
-  final bool showCards;
-
-  const HomeActions({super.key, this.showCards = true});
+  const HomeActions({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -168,8 +164,10 @@ class _HomeActionsState extends State<HomeActions> with TickerProviderStateMixin
                 ),
               ),
             ),
-            if (widget.showCards) Column(
+            Column(
               children: [
+                // Shows nothing outside a store free trial (#460).
+                if (!_account.isFreemium) Sliding(controller: _ctrlCounter, child: const TrialLine()),
                 Sliding(
                     controller: _ctrlCounter,
                     child: _account.isFreemium ? const FreemiumCounter() : const HomeCounter()),
