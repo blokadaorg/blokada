@@ -114,6 +114,24 @@ void main() {
       await _unmount(tester);
     });
 
+    testWidgets('hides once the trial has ended, without a store read', (tester) async {
+      await bootModules(tester);
+      final actor = _FakeTrialHome();
+      _replace<TrialHomeActor>(actor);
+      seedAppStatus(AppStatus.activatedCloud);
+      actor.trial.now = TrialProgress(
+        length: 7,
+        startedAt: _daysAgo(7),
+        expiresAt: DateTime.now().subtract(const Duration(minutes: 1)),
+      );
+
+      await _show(tester);
+
+      expect(find.textContaining('Day '), findsNothing);
+      expect(actor.trialReads, 1);
+      await _unmount(tester);
+    });
+
     testWidgets('a zero count shows the day only', (tester) async {
       await bootModules(tester);
       final actor = _FakeTrialHome();
@@ -216,6 +234,7 @@ void main() {
         // The switch's own read finds no trial.
         when(() => channel.fetchActiveSubscriptions(any())).thenAnswer((_) async => []);
         await actor.onAccountIdChanged(Markers.testing);
+        await actor.lastBackgroundRefresh;
         pending.complete([_trialSub()]);
         await read;
       });
@@ -240,22 +259,27 @@ void main() {
         Core.get<AccountStore>().account = AccountState(json.id, json);
       });
 
+      Future<void> changed() => tester.runAsync(() async {
+        await actor.onAccountChanged(Markers.testing);
+        await actor.lastBackgroundRefresh;
+      });
+
       // An active account seen for the first time, and refreshed again.
       seed(active: true);
-      await tester.runAsync(() => actor.onAccountChanged(Markers.testing));
-      await tester.runAsync(() => actor.onAccountChanged(Markers.testing));
+      await changed();
+      await changed();
       verifyNever(() => channel.fetchActiveSubscriptions(any()));
 
       // A purchase: inactive, then active.
       seed(active: false);
-      await tester.runAsync(() => actor.onAccountChanged(Markers.testing));
+      await changed();
       seed(active: true);
-      await tester.runAsync(() => actor.onAccountChanged(Markers.testing));
+      await changed();
       verify(() => channel.fetchActiveSubscriptions(any())).called(1);
       expect(actor.trial.now?.length, 7);
 
       // While a trial shows, each refresh re-reads it (it may have converted).
-      await tester.runAsync(() => actor.onAccountChanged(Markers.testing));
+      await changed();
       verify(() => channel.fetchActiveSubscriptions(any())).called(1);
     });
 
@@ -267,8 +291,105 @@ void main() {
       _replace<PaymentChannel>(channel);
       final actor = Core.get<TrialHomeActor>();
 
-      await tester.runAsync(() => actor.onAccountIdChanged(Markers.testing));
+      await tester.runAsync(() async {
+        await actor.onAccountIdChanged(Markers.testing);
+        await actor.lastBackgroundRefresh;
+      });
       expect(actor.trial.now?.length, 7);
+    });
+
+    testWidgets('a lapse while the first store read runs drops that read', (tester) async {
+      await bootModules(tester);
+      await seedCloudAccount(tester);
+      final channel = _MockPaymentChannel();
+      _replace<PaymentChannel>(channel);
+      final actor = Core.get<TrialHomeActor>();
+
+      await tester.runAsync(() async {
+        final pending = Completer<List<StoreSubscription>>();
+        when(() => channel.fetchActiveSubscriptions(any())).thenAnswer((_) => pending.future);
+        final read = actor.refreshTrial(Markers.testing);
+        runInAction(() {
+          final json = JsonAccount(
+            id: 'testaccount01',
+            activeUntil: null,
+            active: false,
+            type: 'libre',
+          );
+          Core.get<AccountStore>().account = AccountState(json.id, json);
+        });
+        await actor.onAccountChanged(Markers.testing);
+        await actor.lastBackgroundRefresh;
+        pending.complete([_trialSub()]);
+        await read;
+      });
+      expect(actor.trial.now, isNull);
+      verify(() => channel.fetchActiveSubscriptions(any())).called(1);
+    });
+
+    testWidgets('a new trial start clears the previous count until it is summed', (tester) async {
+      await bootModules(tester);
+      await seedCloudAccount(tester);
+      final channel = _MockPaymentChannel();
+      when(() => channel.fetchActiveSubscriptions(any())).thenAnswer((_) async => [_trialSub()]);
+      _replace<PaymentChannel>(channel);
+      final stats = _MockStatsStore();
+      when(() => stats.hasStats).thenReturn(false);
+      _replace<StatsStore>(stats);
+      final actor = Core.get<TrialHomeActor>();
+      actor.trial.now = TrialProgress(length: 7, startedAt: _daysAgo(5));
+      actor.trialBlocked.now = 900;
+
+      int? countWhileSumming = -1;
+      when(() => stats.blockedSince(any(), any(), accountId: any(named: 'accountId'))).thenAnswer((
+        _,
+      ) async {
+        countWhileSumming = actor.trialBlocked.now;
+        return 20;
+      });
+      await tester.runAsync(() => actor.refreshTrial(Markers.testing));
+
+      expect(countWhileSumming, isNull);
+      expect(actor.trialBlocked.now, 20);
+    });
+
+    testWidgets('a longer trial is counted while its start is in the two weeks', (tester) async {
+      await bootModules(tester);
+      await seedCloudAccount(tester);
+      final stats = _MockStatsStore();
+      when(() => stats.hasStats).thenReturn(false);
+      when(
+        () => stats.blockedSince(any(), any(), accountId: any(named: 'accountId')),
+      ).thenAnswer((_) async => 70);
+      _replace<StatsStore>(stats);
+      final actor = Core.get<TrialHomeActor>();
+
+      actor.trial.now = TrialProgress(length: 30, startedAt: _daysAgo(2));
+      await tester.runAsync(() => actor.refreshTrialBlocked(Markers.testing));
+      expect(actor.trialBlocked.now, 70);
+
+      // Started before the two weeks of stats: day only, not a partial sum.
+      actor.trial.now = TrialProgress(length: 30, startedAt: _daysAgo(20));
+      await tester.runAsync(() => actor.refreshTrialBlocked(Markers.testing));
+      expect(actor.trialBlocked.now, isNull);
+    });
+
+    testWidgets('the count is read for the current account, not the shared id', (tester) async {
+      await bootModules(tester);
+      await seedCloudAccount(tester);
+      final stats = _MockStatsStore();
+      when(() => stats.hasStats).thenReturn(false);
+      when(
+        () => stats.blockedSince(any(), any(), accountId: any(named: 'accountId')),
+      ).thenAnswer((_) async => 1);
+      _replace<StatsStore>(stats);
+      final actor = Core.get<TrialHomeActor>();
+      actor.trial.now = TrialProgress(length: 7, startedAt: _daysAgo(1));
+
+      await tester.runAsync(() => actor.refreshTrialBlocked(Markers.testing));
+      verify(
+        () => stats.blockedSince(any(), any(), accountId: Core.get<AccountStore>().id),
+      ).called(1);
     });
 
     for (final older in ['finishes', 'fails']) {
@@ -286,7 +407,7 @@ void main() {
           final second = Completer<int?>();
           final answers = [first, second];
           when(
-            () => stats.blockedSince(any(), any()),
+            () => stats.blockedSince(any(), any(), accountId: any(named: 'accountId')),
           ).thenAnswer((_) => answers.removeAt(0).future);
           final olderRead = actor.refreshTrialBlocked(Markers.testing);
           final newerRead = actor.refreshTrialBlocked(Markers.testing);

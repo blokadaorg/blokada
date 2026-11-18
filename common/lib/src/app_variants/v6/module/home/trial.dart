@@ -10,19 +10,29 @@ class TrialProgress {
   /// When the trial started, for the day and for summing what was blocked.
   final DateTime startedAt;
 
-  const TrialProgress({required this.length, required this.startedAt});
+  /// When the trial ends, so the line hides on time while Home stays open.
+  /// Null only in tests that do not care.
+  final DateTime? expiresAt;
+
+  const TrialProgress({required this.length, required this.startedAt, this.expiresAt});
 
   /// 1-based calendar day of the trial on [now], in the device's time zone,
   /// clamped to the trial.
   int dayOn(DateTime now) =>
       (_calendarDaysBetween(startedAt.toLocal(), now.toLocal()) + 1).clamp(1, length);
 
-  @override
-  bool operator ==(Object other) =>
-      other is TrialProgress && other.length == length && other.startedAt == startedAt;
+  /// Whether the trial has ended by [now].
+  bool isOverOn(DateTime now) => expiresAt != null && !now.isBefore(expiresAt!);
 
   @override
-  int get hashCode => Object.hash(length, startedAt);
+  bool operator ==(Object other) =>
+      other is TrialProgress &&
+      other.length == length &&
+      other.startedAt == startedAt &&
+      other.expiresAt == expiresAt;
+
+  @override
+  int get hashCode => Object.hash(length, startedAt, expiresAt);
 }
 
 /// Stores whose access levels are app store purchases. Web purchases also
@@ -53,7 +63,7 @@ TrialProgress? resolveTrialProgress(
     final length = (end.difference(start).inHours / 24).round();
     if (length < 1 || length > _maxTrialDays) continue;
 
-    return TrialProgress(length: length, startedAt: start);
+    return TrialProgress(length: length, startedAt: start, expiresAt: end);
   }
   return null;
 }

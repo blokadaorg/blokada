@@ -44,9 +44,15 @@ class TrialHomeActor with Logging, Actor {
   int _trialRead = 0;
   int _trialBlockedRead = 0;
 
-  /// Trials longer than the two weeks of daily stats get no count, which
-  /// would leave out their first days.
-  static const _maxCountedTrialDays = 14;
+  /// The count is summed from two weeks of daily stats; once the trial
+  /// started earlier than that it would leave out the first days, so the
+  /// line shows the day only.
+  static const _countedHistory = Duration(days: 13);
+
+  /// The refresh an account listener started last, for tests: the
+  /// listeners do not wait for it (see [onAccountChanged]).
+  @visibleForTesting
+  Future<void>? lastBackgroundRefresh;
 
   @override
   Future<void> onStart(Marker m) async {
@@ -65,15 +71,20 @@ class TrialHomeActor with Logging, Actor {
   bool? _wasActive;
 
   /// A trial that converts or lapses, or a purchase that starts one, changes
-  /// the account: re-read it then. Every other account refresh (each app
-  /// foreground) skips the store read; Home reads the trial when it shows.
+  /// the account: re-read it then. An account that can no longer have the
+  /// line clears it at once, which also drops a store read still running.
+  /// Every other account refresh (each app foreground) skips the store read;
+  /// Home reads the trial when it shows.
+  ///
+  /// Checkout and restore wait for the account listeners, so the read runs
+  /// in the background rather than holding them up.
   @visibleForTesting
   Future<void> onAccountChanged(Marker m) async {
     final active = _account.type.isActive();
     final becameActive = active && _wasActive == false;
     _wasActive = active;
-    if (trial.now == null && !becameActive) return;
-    await refreshTrial(m);
+    if (_eligible && trial.now == null && !becameActive) return;
+    _refreshInBackground(m);
   }
 
   /// Another account (a restore): nothing loaded for the previous one may
@@ -84,7 +95,17 @@ class TrialHomeActor with Logging, Actor {
     _generation++;
     trial.now = null;
     trialBlocked.now = null;
-    await refreshTrial(m);
+    _refreshInBackground(m);
+  }
+
+  bool get _eligible => _account.type.isActive() && !_account.isFreemium;
+
+  void _refreshInBackground(Marker m) {
+    final refresh = refreshTrial(m).catchError((Object e, StackTrace s) {
+      log(m).e(msg: "trialHome: background refresh failed", err: e, stack: s);
+    });
+    lastBackgroundRefresh = refresh;
+    unawaited(refresh);
   }
 
   /// Re-reads the store's access levels for the trial line. Any failure only
@@ -92,7 +113,7 @@ class TrialHomeActor with Logging, Actor {
   Future<void> refreshTrial(Marker m) async {
     final generation = _generation;
     final read = ++_trialRead;
-    if (!_account.type.isActive() || _account.isFreemium) {
+    if (!_eligible) {
       _publish(generation, () => trial.now = null);
       await refreshTrialBlocked(m);
       return;
@@ -105,7 +126,13 @@ class TrialHomeActor with Logging, Actor {
       log(m).e(msg: "trialHome: failed reading trial", err: e, stack: s);
       progress = null;
     }
-    if (!_publish(generation, () => trial.now = progress, latest: read == _trialRead)) return;
+    final published = _publish(generation, () {
+      // A count summed for another trial start must not sit next to this
+      // one's day while it is summed again.
+      if (progress?.startedAt != trial.now?.startedAt) trialBlocked.now = null;
+      trial.now = progress;
+    }, latest: read == _trialRead);
+    if (!published) return;
     await refreshTrialBlocked(m);
   }
 
@@ -115,13 +142,13 @@ class TrialHomeActor with Logging, Actor {
     final generation = _generation;
     final read = ++_trialBlockedRead;
     final progress = trial.now;
-    if (progress == null || progress.length > _maxCountedTrialDays) {
+    if (progress == null || DateTime.now().difference(progress.startedAt) > _countedHistory) {
       _publish(generation, () => trialBlocked.now = null);
       return;
     }
     int? blocked;
     try {
-      final since = await _statsStore.blockedSince(m, progress.startedAt);
+      final since = await _statsStore.blockedSince(m, progress.startedAt, accountId: _account.id);
       // The daily buckets fill in with a lag, so today's blocks may be in the
       // hourly stats only: never show less than the last 24 hours.
       blocked = since == null ? null : trialBlockedSoFar(since, _stats.stats.now.data);

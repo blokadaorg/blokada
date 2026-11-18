@@ -45,6 +45,14 @@ void main() {
       expect(trial.dayOn(DateTime(2026, 11, 5, 12)), 3);
     });
 
+    test("endsAtTheLevelsExpiry", () {
+      final trial = resolveTrialProgress([_trial(start: start)], accountId: 'acc')!;
+      final end = start.add(const Duration(days: 7));
+      expect(trial.expiresAt, end);
+      expect(trial.isOverOn(end.subtract(const Duration(minutes: 1))), isFalse);
+      expect(trial.isOverOn(end), isTrue);
+    });
+
     test("clampsToTheTrialLength", () {
       final trial = resolveTrialProgress([_trial(start: start)], accountId: 'acc')!;
       expect(trial.dayOn(DateTime(2026, 11, 12)), 7);

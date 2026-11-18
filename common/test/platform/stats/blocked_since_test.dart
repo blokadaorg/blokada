@@ -77,10 +77,9 @@ void main() {
         final since = DateTime.utc(2026, 11, 1);
 
         await accountId.change(m, 'first');
-        expect(await store.blockedSince(m, since), 10);
-        await accountId.change(m, 'second');
+        expect(await store.blockedSince(m, since, accountId: 'first'), 10);
         // Within the cache's lifetime, but another account.
-        expect(await store.blockedSince(m, since), 99);
+        expect(await store.blockedSince(m, since, accountId: 'second'), 99);
       });
     });
 
@@ -97,10 +96,10 @@ void main() {
         when(() => device.deviceAlias).thenReturn('Pixel');
         final store = StatsStore();
 
-        await accountId.change(m, 'first');
-        final read = store.blockedSince(m, DateTime.utc(2026, 11, 1));
-        // A switch while the request runs must not send it for 'second'
-        // while the result is cached as 'first'.
+        // The shared id still names the previous account, as after a restore
+        // that changes only the id: the request names the one asked for.
+        await accountId.change(m, 'previous');
+        final read = store.blockedSince(m, DateTime.utc(2026, 11, 1), accountId: 'first');
         await accountId.change(m, 'second');
         pending.complete(jsonEncode(_endpoint({}).toJson()));
         await read;

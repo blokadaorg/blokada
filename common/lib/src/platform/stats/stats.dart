@@ -187,10 +187,19 @@ abstract class StatsStoreBase with Store, Logging, Actor {
   /// "blocked so far": the all-time total would also count the weeks an
   /// account may have spent on freemium before its trial. Null when the
   /// device has no name yet.
-  Future<int?> blockedSince(Marker m, DateTime since, {bool force = false}) async {
+  ///
+  /// [accountId] names the account to read for. The shared [AccountId] is
+  /// updated only when the account's type or end date changes, so after a
+  /// restore that changes only the ID it would still name the previous one.
+  Future<int?> blockedSince(
+    Marker m,
+    DateTime since, {
+    required String accountId,
+    bool force = false,
+  }) async {
     final deviceName = _deviceNameOrNull(m);
     if (deviceName == null) return null;
-    final rolling = await _fetchRolling2w(m, deviceName, force: force);
+    final rolling = await _fetchRolling2w(m, deviceName, force: force, accountId: accountId);
     return sumBlockedSince(rolling, since);
   }
 
@@ -249,10 +258,11 @@ abstract class StatsStoreBase with Store, Logging, Actor {
     Marker m,
     String deviceName, {
     bool force = false,
+    String? accountId,
   }) async {
     // Read once: the request names the account the cache key does, even if
     // the account switches while the request runs.
-    final accountId = _accountId.present;
+    accountId ??= _accountId.present;
     final key = "$accountId/$deviceName";
     final cached = _lastRolling2wEndpoint;
     if (!force &&

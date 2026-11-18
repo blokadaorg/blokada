@@ -6,6 +6,7 @@ import 'package:common/src/features/stats/domain/controller.dart';
 import 'package:common/src/platform/app/app.dart';
 import 'package:common/src/platform/stats/stats.dart';
 import 'package:common/src/shared/ui/theme.dart';
+import 'package:flutter/foundation.dart' show ValueListenable;
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart' as mobx;
 
@@ -27,6 +28,8 @@ class _TrialLineState extends State<TrialLine> with Logging, Disposables {
   final _app = Core.get<AppStore>();
 
   mobx.ReactionDisposer? _disposeStatusReaction;
+  ValueListenable<bool>? _tickerMode;
+  bool _visible = true;
 
   @override
   void initState() {
@@ -35,10 +38,32 @@ class _TrialLineState extends State<TrialLine> with Logging, Disposables {
     disposeLater(_actor.trialBlocked.onChange.listen(rebuild));
     disposeLater(_stats.stats.onChange.listen(_onStats));
     // HomeActions stays mounted while protection is off: read the trial each
-    // time protection comes on.
+    // time protection comes on, unless another route covers Home (then the
+    // read waits until Home shows again).
     _disposeStatusReaction = mobx.reaction<bool>((_) => _app.status.isActive(), (active) {
-      if (active) unawaited(_actor.refreshTrial(Markers.ui));
+      if (active && _visible) unawaited(_actor.refreshTrial(Markers.ui));
     }, fireImmediately: true);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // TickerMode is off while another route covers Home.
+    final tickerMode = TickerMode.getNotifier(context);
+    if (tickerMode != _tickerMode) {
+      _tickerMode?.removeListener(_onVisibility);
+      _tickerMode = tickerMode..addListener(_onVisibility);
+      _visible = tickerMode.value;
+    }
+  }
+
+  /// Back on Home with protection on: read the trial again, since it may have
+  /// converted or failed to load while Home was covered.
+  void _onVisibility() {
+    final visible = _tickerMode?.value ?? true;
+    final cameBack = visible && !_visible;
+    _visible = visible;
+    if (cameBack && _app.status.isActive()) unawaited(_actor.refreshTrial(Markers.ui));
   }
 
   /// The stats refresh every 30 s while Home is up. Privacy Pulse refreshes
@@ -52,6 +77,7 @@ class _TrialLineState extends State<TrialLine> with Logging, Disposables {
   @override
   void dispose() {
     _disposeStatusReaction?.call();
+    _tickerMode?.removeListener(_onVisibility);
     disposeAll();
     super.dispose();
   }
@@ -59,10 +85,13 @@ class _TrialLineState extends State<TrialLine> with Logging, Disposables {
   @override
   Widget build(BuildContext context) {
     final trial = _actor.trial.now;
-    if (trial == null) return const SizedBox.shrink();
+    final now = DateTime.now();
+    // The stats refresh redraws the line every 30 s, so it hides at the end
+    // of the trial without another store read.
+    if (trial == null || trial.isOverOn(now)) return const SizedBox.shrink();
 
     final theme = context.theme;
-    final dayNumber = trial.dayOn(DateTime.now());
+    final dayNumber = trial.dayOn(now);
     final day = "home trial day".i18n.withParams(dayNumber, trial.length);
     final blocked = _actor.trialBlocked.now;
     // Daily buckets can lag the hourly stats; "0 blocked so far" reads as
