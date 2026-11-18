@@ -211,10 +211,10 @@ jobs:
           set -euo pipefail
           cd automation/appium/wdio
           eval "$(node scripts/setup-session.mjs)"
-          xcrun devicectl device process launch --terminate-existing --device "$IOS_UDID" net.blocka.app -restoreAccountId "$ACTIVE" >/dev/null
+          xcrun devicectl device process launch --terminate-existing --device "$IOS_UDID" net.blocka.app -- -restoreAccountId "$ACTIVE" >/dev/null
           if [ -n "$FAMILY" ]; then
             make -C ../../../ios appium-install-family IOS_UDID="$IOS_UDID" IOS_DEVICE_NAME="$IOS_DEVICE_NAME"
-            xcrun devicectl device process launch --terminate-existing --device "$IOS_UDID" net.blocka.app.family -restoreAccountId "$FAMILY" >/dev/null
+            xcrun devicectl device process launch --terminate-existing --device "$IOS_UDID" net.blocka.app.family -- -restoreAccountId "$FAMILY" >/dev/null
           else
             echo "::warning::BLOKADA_FAMILY_ACCOUNT_ID is not set; Family is not reviewed"
             echo "REVIEW_FLAVORS=six" >> "$GITHUB_ENV"
