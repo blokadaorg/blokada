@@ -2,8 +2,8 @@
 # Installs what an Android debug build needs in a Claude Code cloud session
 # (Ubuntu, x86_64, root): the app's JDK, the fvm release pinned for CI with the
 # Flutter version from common/.fvmrc, the Android SDK tools, the NDKs and the
-# compile platform, the build-tools and plugin platforms, and kubectl for
-# tools/emu. Gradle fetches the rest. Safe to rerun.
+# compile platform, the build-tools and plugin platforms, kubectl for
+# tools/emu, and the translations submodule. Gradle fetches the rest. Safe to rerun.
 #
 # A cloud environment caches its setup only when it finishes in about five
 # minutes, so the work runs as independent chains in parallel: Flutter (fvm,
@@ -149,6 +149,14 @@ beforeSettings { settings ->
 }
 EOF
 
+# Session checkouts leave out submodules. As in CI, only the translations:
+# the website mirror is large and the iOS one is not needed here. Skipped once
+# checked out, so a resume keeps commits not yet recorded in the superproject.
+init_submodules() {
+  [ -e "$repo/deps/translate/.git" ] && return 0
+  git -C "$repo" submodule update --init --depth 1 deps/translate
+}
+
 # Each chain's output is prefixed with its name, since the chains interleave.
 run() { # run <name> <function>
   "$2" 2>&1 | sed -u "s/^/[$1] /"
@@ -160,11 +168,14 @@ run flutter install_flutter &
 flutter_job=$!
 run kubectl install_kubectl &
 kubectl_job=$!
+run submodules init_submodules &
+submodules_job=$!
 
 failed=()
 wait "$android_job" || failed+=(android)
 wait "$flutter_job" || failed+=(flutter)
 wait "$kubectl_job" || failed+=(kubectl)
+wait "$submodules_job" || failed+=(submodules)
 if [ ${#failed[@]} -gt 0 ]; then
   echo "cloud-setup: failed: ${failed[*]}" >&2
   exit 1
