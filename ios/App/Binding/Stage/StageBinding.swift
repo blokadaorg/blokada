@@ -27,6 +27,8 @@ class StageBinding: StageOps {
     let enteredForegroundHot = CurrentValueSubject<Bool?, Never>(nil)
     let currentModal = CurrentValueSubject<StageModal?, Never>(nil)
     let errorHeader = CurrentValueSubject<String?, Never>(nil)
+    // The error alert to offer Ask support on, nil for alerts that keep Logs.
+    let askSupportAlert = CurrentValueSubject<StageModal?, Never>(nil)
     let error = CurrentValueSubject<Error?, Never>(nil)
 
     let showInput = CurrentValueSubject<Bool, Never>(false)
@@ -79,8 +81,15 @@ class StageBinding: StageOps {
         .plusLocationSelect, .accountChange
     ]
 
+    // The alerts whose text asks to contact us.
+    private let askSupportModals: [StageModal] = [
+        .fault, .accountInitFailed, .accountRestoreFailed, .accountRestoreIdFailed,
+        .paymentTempUnavailable, .paymentFailed
+    ]
+
     func doShowModal(modal: StageModal, completion: @escaping (Result<Void, Error>) -> Void) {
         errorHeader.send(nil)
+        askSupportAlert.send(askSupportModals.contains(modal) ? modal : nil)
 
         if supportedSheets.contains(modal) {
             currentModal.send(modal)

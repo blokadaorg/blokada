@@ -1,5 +1,5 @@
+import 'package:common/src/features/funnel/domain/funnel.dart';
 import 'package:common/src/features/modal/domain/modal.dart';
-import 'package:common/src/features/payment/domain/payment.dart';
 import 'package:common/src/features/rate/domain/rate.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/stage/channel.pg.dart';

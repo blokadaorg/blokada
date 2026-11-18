@@ -7,7 +7,9 @@ part of 'notification.dart';
 /// we can do stuff in foreground (like refresh account).
 
 class NotificationActor with Logging, Actor {
-  static const _activityLoggingReminderDelay = Duration(minutes: 1);
+  // Scheduled on payment success, which also fires at trial start: 3 days
+  // lands inside the 7-day trial, clear of the expiry push and first charge.
+  static const _activityLoggingReminderDelay = Duration(days: 3);
 
   // TODO: fix those dependencies
   late final _stage = Core.get<StageStore>();
@@ -383,7 +385,12 @@ class NotificationActor with Logging, Actor {
     _pendingNotificationPath = null;
     _pendingNotificationArgs = null;
     try {
-      await _openNotificationWithRetry(m, path, args);
+      final opened = await _openNotificationWithRetry(m, path, args);
+      // Only the weekly report push queues Privacy Pulse. Counted once it
+      // opens: a later tap can replace the queued path before this drain.
+      if (opened && path == Paths.privacyPulse) {
+        funnelSignal(m, FunnelEvent.pulseOpenedPush);
+      }
     } finally {
       _notificationNavInFlight = false;
       log(m).pair("notificationNavTrigger", trigger);
@@ -434,23 +441,25 @@ class NotificationActor with Logging, Actor {
     }
   }
 
-  Future<void> _openNotificationWithRetry(Marker m, Paths path, Object? args) async {
+  /// True once the destination opened.
+  Future<bool> _openNotificationWithRetry(Marker m, Paths path, Object? args) async {
     const attempts = 5;
     const delay = Duration(milliseconds: 250);
 
     for (var i = 0; i < attempts; i++) {
       try {
         await Navigation.open(path, arguments: args);
-        return;
+        return true;
       } catch (e, s) {
         final isLastAttempt = i == attempts - 1;
         if (isLastAttempt) {
           log(m).e(msg: "Failed to open notification destination", err: e, stack: s);
-          return;
+          return false;
         }
         await sleepAsync(delay);
       }
     }
+    return false;
   }
 
   handleFcmEvent(Marker m, String payload) async {

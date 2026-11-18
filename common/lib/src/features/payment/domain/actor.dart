@@ -40,7 +40,6 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
   late final _accountEphemeral = Core.get<api.AccountEphemeral>();
   late final _account = Core.get<AccountStore>();
   late final _api = Core.get<PaymentApi>();
-  late final _onboard = Core.get<CurrentOnboardingStepValue>();
   late final _stage = Core.get<StageStore>();
   late final _channel = Core.get<PaymentChannel>();
   late final _key = Core.get<AdaptyApiKey>();
@@ -49,7 +48,6 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
   Completer? _preloadCompleter = Completer();
   bool _isOpened = false;
   bool _isError = false; // To prevent adapty error spam loop
-  OnboardingStep? _pendingOnboard;
 
   @override
   onCreate(Marker m) async {
@@ -58,8 +56,6 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
 
   @override
   onStart(Marker m) async {
-    await _onboard.fetch(m);
-
     /// Wait once account is available because we need to do the init as a part
     /// of the startup sequence (meaning we have to block in this call).
     /// We want to make sure the sub restore was tried before user continues.
@@ -81,14 +77,12 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
       _adaptyInitialized = true;
       await _channel.init(m, _key.get(), account.id, !Core.act.isRelease);
       await _syncCustomAttributes(m, account);
-      await reportOnboarding(_pendingOnboard);
     } else {
       // Initialise Adapty with no account ID provided (never active)
       log(m).log(msg: "Adapty: initialising without accountId");
       _adaptyInitialized = true;
       await _channel.init(m, _key.get(), account.id, !Core.act.isRelease);
       await _syncCustomAttributes(m, account);
-      await reportOnboarding(_pendingOnboard);
     }
 
     /// After init:
@@ -108,17 +102,8 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
       }
     });
 
-    // TODO: change to new Value type
-    _account.addOn(accountChanged, _onAccountChanged);
-
     // Do the preload once on start, and await as a part of the startup sequence
     await _maybePreload(m, account);
-  }
-
-  _onAccountChanged(Marker m) async {
-    if (_account.type.isActive()) {
-      reportOnboarding(OnboardingStep.accountActivated);
-    }
   }
 
   // Basic preload to avoid lag when tapping CTA
@@ -141,25 +126,6 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
     _preloadCompleter = null;
   }
 
-  reportOnboarding(OnboardingStep? step, {bool reset = false}) async {
-    if (step == null) return;
-    final current = await _onboard.now();
-    if (current == null || current.order < step.order || reset) {
-      // Next step reached, report it
-      await log(Markers.ui).trace("reportOnboarding", (m) async {
-        if (!_adaptyInitialized) {
-          log(m).w("Adapty not initialised, queuing onboarding step");
-          _pendingOnboard = step;
-          return;
-        }
-
-        _pendingOnboard = null;
-        await _channel.logOnboardingStep("primaryOnboard", step);
-        await _onboard.change(m, step);
-      });
-    }
-  }
-
   openPaymentScreen(Marker m, {Placement placement = Placement.primary}) async {
     return await log(m).trace("openPaymentScreen", (m) async {
       if (_isOpened) return;
@@ -168,7 +134,6 @@ class PaymentActor with Actor, Logging, ValueEmitter<bool> {
       await _preloadCompleter?.future;
       try {
         await _channel.showPaymentScreen(m, placement, forceReload: false);
-        await reportOnboarding(OnboardingStep.ctaTapped);
       } catch (e, s) {
         await handleScreenClosed(m, isError: true);
         await handleFailure(m, "Failed creating paywall", e, s: s, temporary: true);

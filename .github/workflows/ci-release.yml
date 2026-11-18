@@ -127,6 +127,8 @@ jobs:
 
       - uses: ./.github/actions/setup-flutter
 
+      - uses: ./.github/actions/setup-jdk
+
       - name: Build Android AAB
         run: |
           set -euo pipefail

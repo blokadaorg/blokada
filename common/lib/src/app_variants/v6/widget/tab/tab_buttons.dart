@@ -1,3 +1,4 @@
+import 'package:common/src/features/funnel/domain/funnel.dart';
 import 'package:common/src/features/notification/domain/notification.dart';
 import 'package:common/src/shared/automation/ids.dart';
 import 'package:common/src/shared/navigation.dart';
@@ -45,6 +46,7 @@ class _TabState extends State<TabButtonsWidget> with Disposables, Logging {
 
   _tap(StageTab tab) async {
     if (tab == StageTab.activity) {
+      funnelSignal(Markers.userTap, FunnelEvent.pulseOpenedHome);
       Navigation.open(Paths.privacyPulse);
       _updateStage(StageTab.activity);
     } else if (tab == StageTab.advanced) {

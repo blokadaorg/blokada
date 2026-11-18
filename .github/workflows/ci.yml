@@ -286,6 +286,8 @@ jobs:
 
       - uses: ./.github/actions/setup-flutter
 
+      - uses: ./.github/actions/setup-jdk
+
       - name: Build Flutter Android debug library
         run: make regen-android
 

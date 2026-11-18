@@ -16,7 +16,7 @@
 "error account inactive after restore" = "Изглежда, че това не е валиден активен акаунт. Ако смятате, че това е грешка, моля свържете се с нас.";
 "error account invalid" = "ID на този профил изглежда е невалиден.";
 "error creating account" = "Новият профил не можа да бъде създаден. Моля, опитайте отново по-късно.";
-"error fetching data" = "This action could not be completed. Make sure you are online, and try again later. If the problem persists, please contact us.";
+"error fetching data" = "Действието не можа да приключи. Уверете се, че сте онлайн и опитайте отново по-късно. Ако проблемът продължава, моля свържете се с нас.";
 "error tunnel" = "VPN не можа да бъде създаден. Моля, рестартирайте устройството, или премахнете профила на Blokada VPN от системните настройки и опитайте отново.";
 "error vpn" = "VPN не можа да бъде създаден. Моля, рестартирайте устройството, или премахнете профила на Blokada VPN от системните настройки и опитайте отново.";
 "error vpn perms" = "Няма предоставено разрешение за създаване на VPN профил.";
@@ -24,15 +24,15 @@
 "error vpn no current lease new" = "Blokada Plus е деактивирана на това устройство. Моля, изберете местоположение, за да я активирате отново.";
 "error vpn too many leases" = "Лимитът на устройствата е достигнат. Моля, премахнете едно от вашите устройства и опитайте отново.";
 "error vpn expired" = "VPN е деактивиран. Моля, актуализирайте абонамента си, за да продължите да използвате BLOKADA+";
-"error payment inactive after restore" = "Your previous payment was restored, but the subscription has already expired. If you believe this is a mistake, please contact us.";
+"error payment inactive after restore" = "Предишното ви плащане беше възстановено, но абонаментът вече е изтекъл. Ако смятате, че това е грешка, моля свържете се с нас.";
 "error restore not found" = "Не успяхме да намерим активен абонамент за Blokada, който да бъде възстановен. Ако вашият абонамент е изтекъл, можете да закупите нов. Ако смятате, че това е грешка, моля свържете се с нас.";
-"error payment failed" = "Payments are unavailable at this moment. Make sure you are online, and try again later. If the problem persists, please contact us.";
-"error payment failed alternative" = "Could not complete your payment. Please make sure your data is correct, and try again. If the problem persists, please contact us.";
+"error payment failed" = "В момента плащанията са недостъпни. Уверете се, че сте свързани с интернет и опитайте отново по-късно. Ако проблемът продължава, моля, свържете се с нас.";
+"error payment failed alternative" = "Не можахме да завършим плащането Ви. Моля, уверете се, че данните Ви са верни и опитайте отново. Ако проблемът продължава, моля свържете се с нас.";
 "error payment not available" = "Плащанията не са налични за това устройство. Или това устройство не е актуализирано, или все още не обработваме покупки от вашата страна.";
 "error payment canceled" = "Плащането е анулирано. Не сте таксувани.";
 "error pack install" = "Функцията не можа да се инсталира (или деинсталира). Моля, опитайте отново по-късно.";
 "error location failed fetching" = "Местоположенията не можаха да бъдат извлечени.";
-"error unknown" = "A problem occurred. Make sure you are online, and try again later. If the problem persists, please contact us.";
+"error unknown" = "Възникна проблем. Уверете се, че сте онлайн и опитайте отново по-късно. Ако проблемът продължава, моля свържете се с нас.";
 "error multiple apps" = "На вашето устройство има повече от едно приложение на Blokada. Възможно е това да причини проблеми със свързването. Искате ли сега да отстраните проблема?";
 "error locked" = "Това действие не е активно, когато приложението е в заключено състояние. Моля, отключете приложението, за да продължите.";
 "error lock invalid" = "Валидният ПИН код трябва да съдържа точно 4 цифри. Моля, опитайте отново.";
@@ -1273,7 +1273,7 @@
 // Home during the free trial. First %s is the day of the trial, second %s its length in days, e.g. "Day 3 of 7"
 "home trial day" = "Ден %s от %s";
 // Added after the line above. %s is how many requests were blocked since the trial started, e.g. "1,240" or "12.3K"
-"home trial blocked so far" = "%s блокирани досега";
+"home trial blocked so far" = "%s блокирани до сега";
 // Home card: the domain blocked most often in the last 24 hours
 "home headline top blocked title" = "Най-често блокиран днес";
 // First %s is a domain (e.g. "doubleclick.net"), second %s how many times it was blocked

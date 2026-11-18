@@ -21,10 +21,6 @@ class PlatformPaymentChannel with PaymentChannel {
   Future<void> closePaymentScreen(bool isError) => _ops.doClosePaymentScreen(isError);
 
   @override
-  Future<void> logOnboardingStep(String name, OnboardingStep step) =>
-      _ops.doLogOnboardingStep(name, step.name, step.order);
-
-  @override
   Future<void> setCustomAttributes(Marker m, Map<String, dynamic> attributes) =>
       _ops.doSetCustomAttributes(attributes);
 

@@ -1,6 +1,7 @@
 import 'package:common/src/features/config/domain/config.dart';
 import 'package:common/src/features/onboard/domain/onboard.dart';
 import 'package:common/src/features/payment/domain/payment.dart';
+import 'package:common/src/features/support/domain/support.dart';
 import 'package:common/src/core/core.dart';
 import 'package:common/src/platform/perm/perm.dart';
 import 'package:dartx/dartx.dart';
@@ -172,6 +173,14 @@ class CommandStore with Logging, Actor implements CommandEvents {
         return;
       case CommandName.supportAskNotificationPerms:
         return await _permission.askNotificationPermissions(m);
+      case CommandName.askSupport:
+        // The Ask support button of a native error alert, which names its
+        // modal. Normalized here, since Android sends it in upper case; a name
+        // this build does not know still opens the chat, without the alert.
+        _ensureParam(p1);
+        final alert = _lowercaseModals[p1!.toLowerCase()]?.name;
+        return await Core.get<SupportActor>()
+            .askSupport(m, SupportEvent.errorHelp, alert: alert);
       case CommandName.schedulerPing:
         await _scheduler.pingFromBackground(m);
         return;

@@ -57,7 +57,8 @@ class _FakeSupportActor extends SupportActor {
   }
 
   @override
-  Future<bool> loadOrInit(Marker m, {SupportEvent? event}) async => false;
+  Future<bool> loadOrInit(Marker m, {SupportEvent? event, String? alert}) async =>
+      false;
 
   @override
   maybeStartSession(Marker m) async {}

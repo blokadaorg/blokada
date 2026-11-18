@@ -74,6 +74,7 @@ class SafariActor with Actor, Logging {
 
   // Opens the browser url that leads to extension installation
   openSafariSetup() async {
+    funnelSignal(Markers.userTap, FunnelEvent.setupStarted);
     if (_isBeforePaywallMandatoryOnboard()) {
       _openedSettingsFromBeforePaywallOnboard = true;
     }

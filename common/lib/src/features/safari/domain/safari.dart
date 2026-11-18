@@ -1,3 +1,4 @@
+import 'package:common/src/features/funnel/domain/funnel.dart';
 import 'dart:async';
 
 import 'package:common/src/features/api/domain/api.dart';

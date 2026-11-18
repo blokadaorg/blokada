@@ -18,7 +18,7 @@ class _FakeSupportActor extends SupportActor {
   Future<bool> isSessionOpen(Marker m) async => open;
 
   @override
-  Future<void> askSupport(Marker m, SupportEvent event) async {
+  Future<void> askSupport(Marker m, SupportEvent event, {String? alert}) async {
     calls.add("ask ${event.constant}");
   }
 }

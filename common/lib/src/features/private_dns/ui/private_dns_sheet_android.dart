@@ -1,3 +1,4 @@
+import 'package:common/src/features/funnel/domain/funnel.dart';
 import 'package:common/src/features/env/domain/env.dart';
 import 'package:common/src/features/modal/domain/modal.dart';
 import 'package:common/src/features/private_dns/domain/private_dns_setup.dart';
@@ -133,6 +134,7 @@ class PrivateDnsSheetAndroidState extends State<PrivateDnsSheetAndroid>
   // says so, and the sheet waits a moment so it is seen before Settings opens.
   Future<void> _openSettings() async {
     log(Markers.userTap).t("Opening system Settings for Private DNS");
+    funnelSignal(Markers.userTap, FunnelEvent.setupStarted);
     if (!_copied && await _copy()) {
       if (mounted) setState(() => _copiedBySettings = true);
       await sleepAsync(widget.copiedBeforeSettingsDelay);

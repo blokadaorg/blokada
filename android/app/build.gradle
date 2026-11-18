@@ -183,7 +183,7 @@ dependencies {
     implementation 'com.google.android.play:review:2.0.2'
 
     // json serialisation
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.12.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.13.0"
 
     // http and rest
     implementation 'com.squareup.retrofit2:retrofit:3.0.0'
@@ -226,7 +226,7 @@ dependencies {
     sixImplementation 'io.adapty:android-ui'
 
     // Firebase Cloud Messaging (v6 only)
-    sixImplementation platform('com.google.firebase:firebase-bom:35.1.0')
+    sixImplementation platform('com.google.firebase:firebase-bom:35.2.0')
     sixImplementation 'com.google.firebase:firebase-messaging'
 
     // test deps

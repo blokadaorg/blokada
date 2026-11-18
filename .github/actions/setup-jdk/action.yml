@@ -1,0 +1,24 @@
+name: Set up the JDK for Android builds
+description: >-
+  Selects the JDK 17 preinstalled on a GitHub-hosted Linux runner for the
+  Gradle and Flutter Android builds.
+
+runs:
+  using: composite
+  steps:
+    # The Android build targets Java 17 (jvmToolchain 17 in android/app).
+    # ubuntu-latest's default JDK follows the image: when it moved to 25, the
+    # AAR javadoc task (Dokka) failed with `IllegalArgumentException: 25.0.5`.
+    # The image keeps 17 installed next to the default, so select it rather
+    # than download one. Bump this together with the jvmToolchain.
+    - name: Select JDK 17
+      shell: bash
+      run: |
+        set -euo pipefail
+        if [ -z "${JAVA_HOME_17_X64:-}" ] || [ ! -x "$JAVA_HOME_17_X64/bin/java" ]; then
+          echo "::error::No preinstalled JDK 17 on this runner (JAVA_HOME_17_X64)"
+          exit 1
+        fi
+        echo "JAVA_HOME=$JAVA_HOME_17_X64" >> "$GITHUB_ENV"
+        echo "$JAVA_HOME_17_X64/bin" >> "$GITHUB_PATH"
+        "$JAVA_HOME_17_X64/bin/java" -version

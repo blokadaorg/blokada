@@ -119,6 +119,8 @@ jobs:
 
       - uses: ./.github/actions/setup-flutter
 
+      - uses: ./.github/actions/setup-jdk
+
       - uses: actions/setup-node@v7
         with:
           node-version: 24

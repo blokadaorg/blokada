@@ -91,19 +91,6 @@ class AdaptyPaymentChannel with Logging, PaymentChannel implements AdaptyUIFlows
   }
 
   @override
-  logOnboardingStep(String name, OnboardingStep step) async {
-    // Adapty 3.17 removed Adapty.logShowOnboarding (the manual onboarding-step
-    // analytics API) in favour of its hosted AdaptyUI onboarding views, which
-    // we don't use — onboarding is rendered by the app. There is no drop-in
-    // replacement for logging a custom step. The native Android path already
-    // no-op'd this on Adapty Android 3.15.x, so the Adapty-side onboarding
-    // analytics is gone app-wide; local step tracking in
-    // PaymentActor.reportOnboarding is unaffected.
-    log(Markers.ui)
-        .t("Adapty: skipping onboarding step '$name/${step.name}' (logShowOnboarding removed in 3.17)");
-  }
-
-  @override
   preload(Marker m, Placement placement) async {
     if (_useEmbeddedSheet()) {
       _embeddedFlow = await _fetchFlow(m, placement);

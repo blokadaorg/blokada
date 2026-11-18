@@ -70,9 +70,7 @@ struct ContentView: View {
             // TODO: remove his global alert thing
             .alert(isPresented: self.$homeVM.showError) {
                 Alert(title: Text(self.homeVM.errorHeader ?? L10n.alertErrorHeader), message: Text(self.homeVM.showErrorMessage()),
-                      primaryButton: Alert.Button.default(Text(L10n.universalActionShowLog), action: {
-                    self.commands.execute(.shareLog)
-                }),
+                      primaryButton: errorAlertAction(),
                       secondaryButton: Alert.Button.cancel(
                         Text(L10n.universalActionClose), action: { self.vm.stage.onDismissed() }
                     )
@@ -88,6 +86,20 @@ struct ContentView: View {
         .background(Color.cBackground.edgesIgnoringSafeArea(.all))
     }
     
+    // Alerts that ask to contact us open the support chat instead of the log,
+    // naming the alert so support knows where the user came from.
+    private func errorAlertAction() -> Alert.Button {
+        if let modal = self.homeVM.askSupportAlert {
+            return Alert.Button.default(Text(L10n.supportActionAsk), action: {
+                self.vm.stage.onDismissed()
+                self.commands.execute(.askSupport, "\(modal)")
+            })
+        }
+        return Alert.Button.default(Text(L10n.universalActionShowLog), action: {
+            self.commands.execute(.shareLog)
+        })
+    }
+
     func submit() {
         //self.commands.execute(.deviceAlias, self.userInput)
         self.vm.stage.onDismissed()

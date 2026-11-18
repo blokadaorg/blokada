@@ -5,7 +5,8 @@ part of 'support.dart';
 enum SupportEvent {
   firstOpen("FIRST_OPEN"),
   dnsSetupHelp("DNS_SETUP_HELP"),
-  restoreHelp("RESTORE_HELP");
+  restoreHelp("RESTORE_HELP"),
+  errorHelp("ERROR_HELP");
 
   final String constant;
 

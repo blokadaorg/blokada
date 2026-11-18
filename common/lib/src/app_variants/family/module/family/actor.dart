@@ -215,7 +215,7 @@ class FamilyActor with Logging, Actor {
     } else if (accountActive == null || permsGranted == null) {
       phase = FamilyPhase.starting;
     } else if (linkedMode && permsGranted == true && linkedTokenOk) {
-      _payment.reportOnboarding(OnboardingStep.permsGranted);
+      funnelSignal(m, FunnelEvent.setupComplete);
       phase = FamilyPhase.linkedActive;
     } else if (linkedMode && permsGranted == true) {
       phase = FamilyPhase.linkedExpired;
@@ -239,12 +239,12 @@ class FamilyActor with Logging, Actor {
         (!parentDeviceProtectionOwner.now.isBlokada6 &&
             (_thisDevice.present == null || !devices.now.hasThisDevice))) {
       phase = FamilyPhase.fresh;
-      _payment.reportOnboarding(OnboardingStep.freshHomeReached);
+      funnelSignal(m, FunnelEvent.onboardingFamilyHome);
     } else if (!parentDeviceProtectionOwner.now.isBlokada6 &&
         /*devices.hasThisDevice && */ permsGranted != true) {
       phase = FamilyPhase.noPerms;
     } else if (devices.now.hasVisibleDevices(parentDeviceProtectionOwner.now)) {
-      _payment.reportOnboarding(OnboardingStep.permsGranted);
+      funnelSignal(m, FunnelEvent.setupComplete);
       phase = FamilyPhase.parentHasDevices;
     } else if (devices.now.hasDevices == false) {
       phase = FamilyPhase.parentNoDevices;

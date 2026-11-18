@@ -764,6 +764,25 @@ void main() {
       });
     });
 
+    test("an error alert's chat names the alert", () async {
+      await withTrace((m) async {
+        final api = _registerDeps();
+        Core.register(CurrentModalValue());
+        when(api.createSession(any, any,
+                event: anyNamed("event"), alert: anyNamed("alert")))
+            .thenAnswer((_) async => _session("session-1"));
+
+        final subject = SupportActor();
+        await subject.askSupport(m, SupportEvent.errorHelp,
+            alert: "paymentFailed");
+        await Future<void>.delayed(Duration.zero);
+
+        verify(api.createSession(any, any,
+                event: SupportEvent.errorHelp, alert: "paymentFailed"))
+            .called(1);
+      });
+    });
+
     test("continues an open chat instead of starting another", () async {
       await withTrace((m) async {
         final api = _registerDeps();

@@ -5,7 +5,6 @@ class OnboardActor with Logging, Actor {
   late final _onboardIntro = Core.get<OnboardIntroValue>();
   late final _onboardSafariYoutube = Core.get<OnboardSafariValue>();
 
-  late final _payment = Core.get<PaymentActor>();
   late final _rateMetadata = RateMetadataValue();
 
   @override
@@ -28,7 +27,7 @@ class OnboardActor with Logging, Actor {
     }
 
     if (step != "first") {
-      _payment.reportOnboarding(OnboardingStep.onboardScreenReached);
+      funnelSignal(m, FunnelEvent.onboardingIntro);
       await _stage.showModal(StageModal.onboarding, m);
     }
   }

@@ -6,11 +6,12 @@ class SupportApi with Logging {
   late final _marshal = JsonSupportMarshal();
 
   Future<JsonSupportSession> createSession(Marker m, String language,
-      {SupportEvent? event}) async {
+      {SupportEvent? event, String? alert}) async {
     final result = await _api.request(ApiEndpoint.postSupport, m,
         payload: _marshal.fromCreateSession(JsonSupportPayloadCreateSession(
           language: language,
           event: event ?? SupportEvent.firstOpen,
+          alert: alert,
           clientTools: SupportClientTool.values,
         )));
     log(m).i("create session response: $result");
