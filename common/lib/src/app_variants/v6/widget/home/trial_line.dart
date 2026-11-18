@@ -6,7 +6,7 @@ import 'package:common/src/features/stats/domain/controller.dart';
 import 'package:common/src/platform/app/app.dart';
 import 'package:common/src/platform/stats/stats.dart';
 import 'package:common/src/shared/ui/theme.dart';
-import 'package:flutter/foundation.dart' show ValueListenable;
+import 'package:flutter/foundation.dart' show ValueListenable, visibleForTesting;
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart' as mobx;
 
@@ -15,6 +15,11 @@ import 'package:mobx/mobx.dart' as mobx;
 ///
 /// It reads the trial when Home comes on screen with protection on, and the
 /// blocked count follows the stats refresh the counter drives.
+/// The line's time source; tests point it at the test binding's fake clock,
+/// so the expiry timer and the drawn day run on one clock.
+@visibleForTesting
+DateTime Function() trialLineNow = DateTime.now;
+
 class TrialLine extends StatefulWidget {
   const TrialLine({super.key});
 
@@ -72,9 +77,15 @@ class _TrialLineState extends State<TrialLine> with Logging, Disposables {
     _expiry = null;
     final end = _actor.trial.now?.expiresAt;
     if (end == null) return;
-    final left = end.difference(DateTime.now());
-    if (left.isNegative) return;
-    _expiry = Timer(left, () => rebuild(null));
+    final left = end.difference(trialLineNow());
+    // At or past the deadline: nothing to wait for (and a zero timer would
+    // re-arm itself forever).
+    if (left <= Duration.zero) return;
+    // Re-armed on firing: a wall clock set back makes the timer fire early.
+    _expiry = Timer(left, () {
+      _scheduleExpiry();
+      rebuild(null);
+    });
   }
 
   /// Back on Home with protection on: read the trial again, since it may have
@@ -106,7 +117,7 @@ class _TrialLineState extends State<TrialLine> with Logging, Disposables {
   @override
   Widget build(BuildContext context) {
     final trial = _actor.trial.now;
-    final now = DateTime.now();
+    final now = trialLineNow();
     // Hidden at the end of the trial (see _scheduleExpiry), without another
     // store read.
     if (trial == null || trial.isOverOn(now)) return const SizedBox.shrink();

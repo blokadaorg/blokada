@@ -168,18 +168,23 @@ void main() {
       final actor = _FakeTrialHome();
       _replace<TrialHomeActor>(actor);
       seedAppStatus(AppStatus.activatedCloud);
+      // One clock for the timer and the drawn line: the binding's fake one.
+      trialLineNow = () => tester.binding.clock.now();
+      addTearDown(() => trialLineNow = DateTime.now);
       actor.trial.now = TrialProgress(
         length: 7,
         startedAt: _daysAgo(6),
-        expiresAt: DateTime.now().add(const Duration(seconds: 5)),
+        expiresAt: trialLineNow().add(const Duration(seconds: 5)),
       );
 
       await _show(tester);
       expect(find.textContaining('Day '), findsOneWidget);
 
-      // Real time passes for DateTime.now(); the fake clock fires the timer.
-      await tester.runAsync(() => Future.delayed(const Duration(seconds: 5)));
-      await tester.pump(const Duration(seconds: 5));
+      // _show pumped 1 s; just before the deadline the line still shows.
+      await tester.pump(const Duration(milliseconds: 3900));
+      expect(find.textContaining('Day '), findsOneWidget);
+
+      await tester.pump(const Duration(milliseconds: 200));
       expect(find.textContaining('Day '), findsNothing);
       expect(actor.trialReads, 1);
       await _unmount(tester);
