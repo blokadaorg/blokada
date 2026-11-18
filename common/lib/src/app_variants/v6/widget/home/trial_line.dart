@@ -30,19 +30,15 @@ class _TrialLineState extends State<TrialLine> with Logging, Disposables {
   mobx.ReactionDisposer? _disposeStatusReaction;
   ValueListenable<bool>? _tickerMode;
   bool _visible = true;
+  Timer? _expiry;
 
   @override
   void initState() {
     super.initState();
-    disposeLater(_actor.trial.onChange.listen(rebuild));
+    disposeLater(_actor.trial.onChange.listen(_onTrial));
     disposeLater(_actor.trialBlocked.onChange.listen(rebuild));
     disposeLater(_stats.stats.onChange.listen(_onStats));
-    // HomeActions stays mounted while protection is off: read the trial each
-    // time protection comes on, unless another route covers Home (then the
-    // read waits until Home shows again).
-    _disposeStatusReaction = mobx.reaction<bool>((_) => _app.status.isActive(), (active) {
-      if (active && _visible) unawaited(_actor.refreshTrial(Markers.ui));
-    }, fireImmediately: true);
+    _scheduleExpiry();
   }
 
   @override
@@ -55,6 +51,30 @@ class _TrialLineState extends State<TrialLine> with Logging, Disposables {
       _tickerMode = tickerMode..addListener(_onVisibility);
       _visible = tickerMode.value;
     }
+    // Started here, not in initState, so the first decision already knows
+    // whether Home is covered. HomeActions stays mounted while protection is
+    // off: read the trial each time protection comes on, unless another
+    // route covers Home (then the read waits until Home shows again).
+    _disposeStatusReaction ??= mobx.reaction<bool>((_) => _app.status.isActive(), (active) {
+      if (active && _visible) unawaited(_actor.refreshTrial(Markers.ui));
+    }, fireImmediately: true);
+  }
+
+  void _onTrial(_) {
+    _scheduleExpiry();
+    rebuild(null);
+  }
+
+  /// Redraws at the end of the trial, so the line hides on time even between
+  /// stats refreshes.
+  void _scheduleExpiry() {
+    _expiry?.cancel();
+    _expiry = null;
+    final end = _actor.trial.now?.expiresAt;
+    if (end == null) return;
+    final left = end.difference(DateTime.now());
+    if (left.isNegative) return;
+    _expiry = Timer(left, () => rebuild(null));
   }
 
   /// Back on Home with protection on: read the trial again, since it may have
@@ -77,6 +97,7 @@ class _TrialLineState extends State<TrialLine> with Logging, Disposables {
   @override
   void dispose() {
     _disposeStatusReaction?.call();
+    _expiry?.cancel();
     _tickerMode?.removeListener(_onVisibility);
     disposeAll();
     super.dispose();
@@ -86,8 +107,8 @@ class _TrialLineState extends State<TrialLine> with Logging, Disposables {
   Widget build(BuildContext context) {
     final trial = _actor.trial.now;
     final now = DateTime.now();
-    // The stats refresh redraws the line every 30 s, so it hides at the end
-    // of the trial without another store read.
+    // Hidden at the end of the trial (see _scheduleExpiry), without another
+    // store read.
     if (trial == null || trial.isOverOn(now)) return const SizedBox.shrink();
 
     final theme = context.theme;

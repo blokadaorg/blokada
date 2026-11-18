@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:common/src/app_variants/v6/module/home/home.dart';
 import 'package:common/src/app_variants/v6/widget/home/trial_line.dart';
 import 'package:common/src/core/core.dart';
+import 'package:common/src/features/api/domain/api.dart' as api;
 import 'package:common/src/features/payment/domain/payment.dart';
 import 'package:common/src/platform/account/account.dart';
 import 'package:common/src/platform/account/api.dart';
@@ -127,6 +128,58 @@ void main() {
 
       await _show(tester);
 
+      expect(find.textContaining('Day '), findsNothing);
+      expect(actor.trialReads, 1);
+      await _unmount(tester);
+    });
+
+    testWidgets('does not read the store while Home is covered', (tester) async {
+      await bootModules(tester);
+      final actor = _FakeTrialHome();
+      _replace<TrialHomeActor>(actor);
+      seedAppStatus(AppStatus.activatedCloud);
+      final enabled = ValueNotifier(false);
+
+      await tester.pumpWidget(
+        BlokadaApp(
+          isFamily: false,
+          content: Scaffold(
+            body: ValueListenableBuilder<bool>(
+              valueListenable: enabled,
+              builder: (_, on, _) => TickerMode(
+                enabled: on,
+                child: const Center(child: TrialLine()),
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.pump();
+      expect(actor.trialReads, 0);
+
+      enabled.value = true;
+      await tester.pump();
+      expect(actor.trialReads, 1);
+      await _unmount(tester);
+    });
+
+    testWidgets('hides at the end of the trial between stats refreshes', (tester) async {
+      await bootModules(tester);
+      final actor = _FakeTrialHome();
+      _replace<TrialHomeActor>(actor);
+      seedAppStatus(AppStatus.activatedCloud);
+      actor.trial.now = TrialProgress(
+        length: 7,
+        startedAt: _daysAgo(6),
+        expiresAt: DateTime.now().add(const Duration(seconds: 5)),
+      );
+
+      await _show(tester);
+      expect(find.textContaining('Day '), findsOneWidget);
+
+      // Real time passes for DateTime.now(); the fake clock fires the timer.
+      await tester.runAsync(() => Future.delayed(const Duration(seconds: 5)));
+      await tester.pump(const Duration(seconds: 5));
       expect(find.textContaining('Day '), findsNothing);
       expect(actor.trialReads, 1);
       await _unmount(tester);
@@ -385,11 +438,15 @@ void main() {
       _replace<StatsStore>(stats);
       final actor = Core.get<TrialHomeActor>();
       actor.trial.now = TrialProgress(length: 7, startedAt: _daysAgo(1));
+      // The shared id still names another account, as after a restore that
+      // changes only the id.
+      await tester.runAsync(() => Core.get<api.AccountId>().change(Markers.testing, 'previous01'));
 
       await tester.runAsync(() => actor.refreshTrialBlocked(Markers.testing));
       verify(
         () => stats.blockedSince(any(), any(), accountId: Core.get<AccountStore>().id),
       ).called(1);
+      verifyNever(() => stats.blockedSince(any(), any(), accountId: 'previous01'));
     });
 
     for (final older in ['finishes', 'fails']) {
