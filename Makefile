@@ -63,6 +63,7 @@ test-scripts:
 	./scripts/test-version.sh
 	./scripts/test-release-state.rb
 	./scripts/test-store-rollout.rb
+	./scripts/test-device-review-publish.py
 
 # Build everything from scratch
 build:
