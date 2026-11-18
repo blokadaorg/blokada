@@ -138,6 +138,16 @@ jobs:
             make ci-build-android-six
           fi
 
+      # ubuntu-26.04 dropped the preinstalled fastlane. Install the release
+      # ios/Gemfile.lock pins, so Dependabot keeps both platforms in step.
+      - name: Install fastlane
+        run: |
+          set -euo pipefail
+          FASTLANE_VERSION=$(sed -n 's/^    fastlane (\(.*\))$/\1/p' ios/Gemfile.lock)
+          test -n "$FASTLANE_VERSION"
+          sudo gem install fastlane -v "$FASTLANE_VERSION" --no-document
+          fastlane --version
+
       - name: Upload to Play internal
         env:
           BLOKADA_GPLAY_KEY_BASE64: ${{ secrets.BLOKADA_GPLAY_KEY_BASE64 }}
