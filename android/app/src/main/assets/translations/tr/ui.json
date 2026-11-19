@@ -902,17 +902,6 @@
     "private dns android help support": "Still not working? Chat with us and we'll help.",
     "private dns android copied hint": "Hostname copied. Paste it in Settings.",
     "private dns android blokada hostname label": "Your Blokada hostname",
-    "home status protected": "Korunuyor",
-    "home status protected last block": "Korunuyor · son engelleme: %s",
-    "home status protected blocked": "Korunuyor · son 24 saatte %s engellendi",
     "home trial day": "Denemenin %s. günü, toplam %s gün",
-    "home trial blocked so far": "Şimdiye kadar %s engellendi",
-    "home headline top blocked title": "Bugün en çok engellenen",
-    "home headline top blocked body": "%s son 24 saatte cihazınıza erişmeye çalıştı ve %s kez engellendi.",
-    "home headline busiest hour title": "En yoğun saat",
-    "home headline busiest hour body": "Blokada, %s isteği %s ile %s arasında engelledi.",
-    "home expired header": "Korumanız %s tarihinde sona erdi",
-    "home expired header nodate": "Korumanız sona erdi",
-    "home expired blocked": "Blokada sizin için %s isteği engelledi.",
-    "home expired action": "Yeniden abone ol"
+    "home trial blocked so far": "Şimdiye kadar %s engellendi"
 } }

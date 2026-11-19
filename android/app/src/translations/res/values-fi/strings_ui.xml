@@ -903,17 +903,6 @@
     <string name="private_dns_android_help_support">Still not working? Chat with us and we\'ll help.</string>
     <string name="private_dns_android_copied_hint">Hostname copied. Paste it in Settings.</string>
     <string name="private_dns_android_blokada_hostname_label">Your Blokada hostname</string>
-    <string name="home_status_protected">Suojattu</string>
-    <string name="home_status_protected_last_block">Suojattu · viimeksi estetty %s</string>
-    <string name="home_status_protected_blocked">Suojattu · %s pyyntöä estetty 24 tunnissa</string>
     <string name="home_trial_day">Kokeilupäivä %s/%s</string>
     <string name="home_trial_blocked_so_far">%s pyyntöä estetty tähän mennessä</string>
-    <string name="home_headline_top_blocked_title">Tänään useimmin estetty verkkotunnus</string>
-    <string name="home_headline_top_blocked_body">%s yritti ottaa yhteyttä laitteeseesi, mutta se estettiin %s kertaa viimeisen 24 tunnin aikana.</string>
-    <string name="home_headline_busiest_hour_title">Vilkkain tunti</string>
-    <string name="home_headline_busiest_hour_body">Blokada esti %s pyyntöä aikavälillä %s–%s.</string>
-    <string name="home_expired_header">Suojauksesi päättyi %s</string>
-    <string name="home_expired_header_nodate">Suojauksesi on päättynyt</string>
-    <string name="home_expired_blocked">Blokada esti %s pyyntöä puolestasi.</string>
-    <string name="home_expired_action">Tilaa uudelleen</string>
 </resources>

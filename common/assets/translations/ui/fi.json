@@ -902,17 +902,6 @@
     "private dns android help support": "Still not working? Chat with us and we'll help.",
     "private dns android copied hint": "Hostname copied. Paste it in Settings.",
     "private dns android blokada hostname label": "Your Blokada hostname",
-    "home status protected": "Suojattu",
-    "home status protected last block": "Suojattu · viimeksi estetty %s",
-    "home status protected blocked": "Suojattu · %s pyyntöä estetty 24 tunnissa",
     "home trial day": "Kokeilupäivä %s/%s",
-    "home trial blocked so far": "%s pyyntöä estetty tähän mennessä",
-    "home headline top blocked title": "Tänään useimmin estetty verkkotunnus",
-    "home headline top blocked body": "%s yritti ottaa yhteyttä laitteeseesi, mutta se estettiin %s kertaa viimeisen 24 tunnin aikana.",
-    "home headline busiest hour title": "Vilkkain tunti",
-    "home headline busiest hour body": "Blokada esti %s pyyntöä aikavälillä %s–%s.",
-    "home expired header": "Suojauksesi päättyi %s",
-    "home expired header nodate": "Suojauksesi on päättynyt",
-    "home expired blocked": "Blokada esti %s pyyntöä puolestasi.",
-    "home expired action": "Tilaa uudelleen"
+    "home trial blocked so far": "%s pyyntöä estetty tähän mennessä"
 }

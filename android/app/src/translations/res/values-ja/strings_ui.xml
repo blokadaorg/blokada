@@ -903,17 +903,6 @@
     <string name="private_dns_android_help_support">Still not working? Chat with us and we\'ll help.</string>
     <string name="private_dns_android_copied_hint">Hostname copied. Paste it in Settings.</string>
     <string name="private_dns_android_blokada_hostname_label">Your Blokada hostname</string>
-    <string name="home_status_protected">保護中</string>
-    <string name="home_status_protected_last_block">保護中 · 最後のブロック: %s</string>
-    <string name="home_status_protected_blocked">保護中 · 過去24時間に%s件をブロック</string>
     <string name="home_trial_day">%s 日目、全 %s 日間</string>
     <string name="home_trial_blocked_so_far">これまでに%s件をブロック</string>
-    <string name="home_headline_top_blocked_title">今日最も多くブロックされたドメイン</string>
-    <string name="home_headline_top_blocked_body">%sがお使いのデバイスに接続しようとし、過去24時間に%s回ブロックされました。</string>
-    <string name="home_headline_busiest_hour_title">ブロックが最も多かった時間帯</string>
-    <string name="home_headline_busiest_hour_body">Blokadaは%s件のリクエストを%sから%sまでの間にブロックしました。</string>
-    <string name="home_expired_header">保護は%sに終了しました</string>
-    <string name="home_expired_header_nodate">保護は終了しました</string>
-    <string name="home_expired_blocked">Blokadaは%s件のリクエストをブロックしました。</string>
-    <string name="home_expired_action">サブスクリプションに再登録</string>
 </resources>

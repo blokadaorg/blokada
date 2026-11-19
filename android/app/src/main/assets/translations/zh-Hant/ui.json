@@ -902,17 +902,6 @@
     "private dns android help support": "Still not working? Chat with us and we'll help.",
     "private dns android copied hint": "Hostname copied. Paste it in Settings.",
     "private dns android blokada hostname label": "Your Blokada hostname",
-    "home status protected": "已受保護",
-    "home status protected last block": "已受保護 · 上次阻擋：%s",
-    "home status protected blocked": "已受保護 · 過去 24 小時已阻擋 %s 個請求",
     "home trial day": "試用第 %s 天，共 %s 天",
-    "home trial blocked so far": "目前已阻擋 %s 個請求",
-    "home headline top blocked title": "今日已阻擋次數最多的網域",
-    "home headline top blocked body": "%s 在過去 24 小時內嘗試連線至您的裝置，系統已阻擋 %s 次。",
-    "home headline busiest hour title": "阻擋次數最多的時段",
-    "home headline busiest hour body": "Blokada 已阻擋 %s 個請求，時間為 %s 至 %s。",
-    "home expired header": "您的防護已於 %s 結束",
-    "home expired header nodate": "您的防護已結束",
-    "home expired blocked": "Blokada 已為您阻擋 %s 個請求。",
-    "home expired action": "重新訂閱"
+    "home trial blocked so far": "目前已阻擋 %s 個請求"
 } }

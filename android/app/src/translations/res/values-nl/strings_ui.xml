@@ -903,17 +903,6 @@
     <string name="private_dns_android_help_support">Still not working? Chat with us and we\'ll help.</string>
     <string name="private_dns_android_copied_hint">Hostname copied. Paste it in Settings.</string>
     <string name="private_dns_android_blokada_hostname_label">Your Blokada hostname</string>
-    <string name="home_status_protected">Beschermd</string>
-    <string name="home_status_protected_last_block">Beschermd · laatst geblokkeerd: %s</string>
-    <string name="home_status_protected_blocked">Beschermd · %s geblokkeerd in 24 uur</string>
     <string name="home_trial_day">Dag %s van %s</string>
     <string name="home_trial_blocked_so_far">%s tot nu toe geblokkeerd</string>
-    <string name="home_headline_top_blocked_title">Vandaag het vaakst geblokkeerd</string>
-    <string name="home_headline_top_blocked_body">%s probeerde verbinding te maken met je apparaat en werd de afgelopen 24 uur %s keer geblokkeerd.</string>
-    <string name="home_headline_busiest_hour_title">Drukste uur</string>
-    <string name="home_headline_busiest_hour_body">Blokada heeft %s verzoeken geblokkeerd tussen %s en %s.</string>
-    <string name="home_expired_header">Bescherming beëindigd op %s</string>
-    <string name="home_expired_header_nodate">Je bescherming is beëindigd</string>
-    <string name="home_expired_blocked">Blokada heeft %s verzoeken voor je geblokkeerd.</string>
-    <string name="home_expired_action">Opnieuw abonneren</string>
 </resources>

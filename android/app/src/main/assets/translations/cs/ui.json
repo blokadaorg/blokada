@@ -902,17 +902,6 @@
     "private dns android help support": "Still not working? Chat with us and we'll help.",
     "private dns android copied hint": "Hostname copied. Paste it in Settings.",
     "private dns android blokada hostname label": "Your Blokada hostname",
-    "home status protected": "Chráněno",
-    "home status protected last block": "Chráněno · naposledy blokováno %s",
-    "home status protected blocked": "Chráněno · za 24 h zablokováno %s",
     "home trial day": "Den %s z %s",
-    "home trial blocked so far": "Zatím zablokováno %s",
-    "home headline top blocked title": "Dnes nejčastěji blokovaná doména",
-    "home headline top blocked body": "Doména %s se v posledních 24 hodinách pokusila připojit k vašemu zařízení a byla zablokována celkem %s×.",
-    "home headline busiest hour title": "Hodina s nejvíce zablokovanými požadavky",
-    "home headline busiest hour body": "Blokada zablokovala %s požadavků mezi %s a %s.",
-    "home expired header": "Ochrana skončila dne %s",
-    "home expired header nodate": "Vaše ochrana skončila",
-    "home expired blocked": "Blokada pro vás zablokovala %s požadavků.",
-    "home expired action": "Obnovit předplatné"
+    "home trial blocked so far": "Zatím zablokováno %s"
 } }

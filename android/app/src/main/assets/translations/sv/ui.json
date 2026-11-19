@@ -902,17 +902,6 @@
     "private dns android help support": "Still not working? Chat with us and we'll help.",
     "private dns android copied hint": "Hostname copied. Paste it in Settings.",
     "private dns android blokada hostname label": "Your Blokada hostname",
-    "home status protected": "Skyddad",
-    "home status protected last block": "Skyddad · senaste blockering: %s",
-    "home status protected blocked": "Skyddad · %s blockerade de senaste 24 timmarna",
     "home trial day": "Dag %s av %s",
-    "home trial blocked so far": "%s blockerade hittills",
-    "home headline top blocked title": "Mest blockerade domänen idag",
-    "home headline top blocked body": "%s försökte nå din enhet och blockerades %s gånger under de senaste 24 timmarna.",
-    "home headline busiest hour title": "Timmen med flest blockeringar",
-    "home headline busiest hour body": "Blokada blockerade %s förfrågningar mellan %s och %s.",
-    "home expired header": "Skyddet upphörde den %s",
-    "home expired header nodate": "Ditt skydd har upphört",
-    "home expired blocked": "Blokada blockerade %s förfrågningar åt dig.",
-    "home expired action": "Prenumerera på nytt"
+    "home trial blocked so far": "%s blockerade hittills"
 } }

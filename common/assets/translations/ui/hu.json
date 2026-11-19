@@ -902,17 +902,6 @@
     "private dns android help support": "Still not working? Chat with us and we'll help.",
     "private dns android copied hint": "Hostname copied. Paste it in Settings.",
     "private dns android blokada hostname label": "Your Blokada hostname",
-    "home status protected": "Védett",
-    "home status protected last block": "Védett · legutóbbi blokkolás: %s",
-    "home status protected blocked": "Védett · %s blokkolva az elmúlt 24 órában",
     "home trial day": "A próbaidőszak %s. napja, összesen %s nap",
-    "home trial blocked so far": "Eddig %s blokkolva",
-    "home headline top blocked title": "Ma legtöbbször blokkolt",
-    "home headline top blocked body": "Az elmúlt 24 órában %s megpróbált kapcsolatba lépni az eszközöddel, de a Blokada %s alkalommal blokkolta.",
-    "home headline busiest hour title": "Legforgalmasabb óra",
-    "home headline busiest hour body": "A Blokada %s kérést blokkolt %s és %s között.",
-    "home expired header": "A védelmed ekkor járt le: %s",
-    "home expired header nodate": "A védelmed lejárt",
-    "home expired blocked": "A Blokada %s kérést blokkolt az eszközödön.",
-    "home expired action": "Újra előfizetek"
+    "home trial blocked so far": "Eddig %s blokkolva"
 }

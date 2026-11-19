@@ -903,17 +903,6 @@
     <string name="private_dns_android_help_support">Ça ne fonctionne toujours pas ? Contactez-nous par chat et nous vous aiderons.</string>
     <string name="private_dns_android_copied_hint">Le nom d\'hôte a été copié. Collez-le dans les Paramètres.</string>
     <string name="private_dns_android_blokada_hostname_label">Votre nom d\'hôte Blokada</string>
-    <string name="home_status_protected">Protégé</string>
-    <string name="home_status_protected_last_block">Protégé · dernier blocage : %s</string>
-    <string name="home_status_protected_blocked">Protégé · blocages en 24 h : %s</string>
     <string name="home_trial_day">Jour %s sur %s</string>
     <string name="home_trial_blocked_so_far">%s blocages depuis le début de l’essai</string>
-    <string name="home_headline_top_blocked_title">Domaine le plus bloqué aujourd’hui</string>
-    <string name="home_headline_top_blocked_body">%s a tenté d’accéder à votre appareil et a été bloqué %s fois au cours des dernières 24 heures.</string>
-    <string name="home_headline_busiest_hour_title">Heure la plus chargée</string>
-    <string name="home_headline_busiest_hour_body">Blokada a bloqué %s requêtes entre %s et %s.</string>
-    <string name="home_expired_header">Votre protection a pris fin le %s</string>
-    <string name="home_expired_header_nodate">Votre protection a pris fin</string>
-    <string name="home_expired_blocked">Blokada a bloqué %s requêtes pour vous.</string>
-    <string name="home_expired_action">Se réabonner</string>
 </resources>

@@ -1264,29 +1264,7 @@
 // Label above the Private DNS hostname on the Android setup sheet
 "private dns android blokada hostname label" = "Your Blokada hostname";
 
-// Daily Home (#460): the line under the power button while protection is on. Shown until the numbers load.
-"home status protected" = "Beschermd";
-// Same line once loaded, with activity logging on. %s is how long ago the last request was blocked, e.g. "2 minutes ago"
-"home status protected last block" = "Beschermd · laatst geblokkeerd: %s";
-// Same line with activity logging off. %s is how many requests were blocked in the last 24 hours, e.g. "36" or "12.3K"
-"home status protected blocked" = "Beschermd · %s geblokkeerd in 24 uur";
 // Home during the free trial. First %s is the day of the trial, second %s its length in days, e.g. "Day 3 of 7"
 "home trial day" = "Dag %s van %s";
 // Added after the line above. %s is how many requests were blocked since the trial started, e.g. "1,240" or "12.3K"
 "home trial blocked so far" = "%s tot nu toe geblokkeerd";
-// Home card: the domain blocked most often in the last 24 hours
-"home headline top blocked title" = "Vandaag het vaakst geblokkeerd";
-// First %s is a domain (e.g. "doubleclick.net"), second %s how many times it was blocked
-"home headline top blocked body" = "%s probeerde verbinding te maken met je apparaat en werd de afgelopen 24 uur %s keer geblokkeerd.";
-// Home card: the hour of the last 24 with the most blocked requests
-"home headline busiest hour title" = "Drukste uur";
-// First %s is the number blocked, second and third %s the start and end of the hour, e.g. "9:00 PM" and "10:00 PM"
-"home headline busiest hour body" = "Blokada heeft %s verzoeken geblokkeerd tussen %s en %s.";
-// Home after a subscription ended. %s is the date it ended, e.g. "3 Nov"
-"home expired header" = "Bescherming beëindigd op %s";
-// Used instead of the line above when the end date is unknown
-"home expired header nodate" = "Je bescherming is beëindigd";
-// Under the line above. %s is how many requests Blokada blocked on this device, e.g. "12.3K"
-"home expired blocked" = "Blokada heeft %s verzoeken voor je geblokkeerd.";
-// Button that opens the subscription offer again
-"home expired action" = "Opnieuw abonneren";

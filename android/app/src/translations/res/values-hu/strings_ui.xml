@@ -903,17 +903,6 @@
     <string name="private_dns_android_help_support">Still not working? Chat with us and we\'ll help.</string>
     <string name="private_dns_android_copied_hint">Hostname copied. Paste it in Settings.</string>
     <string name="private_dns_android_blokada_hostname_label">Your Blokada hostname</string>
-    <string name="home_status_protected">Védett</string>
-    <string name="home_status_protected_last_block">Védett · legutóbbi blokkolás: %s</string>
-    <string name="home_status_protected_blocked">Védett · %s blokkolva az elmúlt 24 órában</string>
     <string name="home_trial_day">A próbaidőszak %s. napja, összesen %s nap</string>
     <string name="home_trial_blocked_so_far">Eddig %s blokkolva</string>
-    <string name="home_headline_top_blocked_title">Ma legtöbbször blokkolt</string>
-    <string name="home_headline_top_blocked_body">Az elmúlt 24 órában %s megpróbált kapcsolatba lépni az eszközöddel, de a Blokada %s alkalommal blokkolta.</string>
-    <string name="home_headline_busiest_hour_title">Legforgalmasabb óra</string>
-    <string name="home_headline_busiest_hour_body">A Blokada %s kérést blokkolt %s és %s között.</string>
-    <string name="home_expired_header">A védelmed ekkor járt le: %s</string>
-    <string name="home_expired_header_nodate">A védelmed lejárt</string>
-    <string name="home_expired_blocked">A Blokada %s kérést blokkolt az eszközödön.</string>
-    <string name="home_expired_action">Újra előfizetek</string>
 </resources>
