@@ -1,5 +1,7 @@
 # Blokada 6 for Android
 
+[![OpenLib: Verified FOSS](https://www.openlib.online/badge/blokada.svg?metric=verified)](https://www.openlib.online/app/blokada)
+
 Blokada 6 is the newest edition of the well known open source mobile ad blocker and privacy app. It requires a subscription to run.
 
 Want to try it out? **[Click here to open Google Play Store](https://go.blokada.org/play_cloud)**.
