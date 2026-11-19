@@ -902,17 +902,6 @@
     "private dns android help support": "Still not working? Chat with us and we'll help.",
     "private dns android copied hint": "Hostname copied. Paste it in Settings.",
     "private dns android blokada hostname label": "Your Blokada hostname",
-    "home status protected": "保護中",
-    "home status protected last block": "保護中 · 最後のブロック: %s",
-    "home status protected blocked": "保護中 · 過去24時間に%s件をブロック",
     "home trial day": "%s 日目、全 %s 日間",
-    "home trial blocked so far": "これまでに%s件をブロック",
-    "home headline top blocked title": "今日最も多くブロックされたドメイン",
-    "home headline top blocked body": "%sがお使いのデバイスに接続しようとし、過去24時間に%s回ブロックされました。",
-    "home headline busiest hour title": "ブロックが最も多かった時間帯",
-    "home headline busiest hour body": "Blokadaは%s件のリクエストを%sから%sまでの間にブロックしました。",
-    "home expired header": "保護は%sに終了しました",
-    "home expired header nodate": "保護は終了しました",
-    "home expired blocked": "Blokadaは%s件のリクエストをブロックしました。",
-    "home expired action": "サブスクリプションに再登録"
+    "home trial blocked so far": "これまでに%s件をブロック"
 } }

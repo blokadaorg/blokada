@@ -902,17 +902,6 @@
     "private dns android help support": "Все още не работи? Пишете ни в чата и ще ви помогнем.",
     "private dns android copied hint": "Името на хоста е копирано. Поставете го в Настройки.",
     "private dns android blokada hostname label": "Името на хоста ви в Blokada",
-    "home status protected": "Защитено",
-    "home status protected last block": "Защитено · последно блокиране %s",
-    "home status protected blocked": "Защитено · блокирани заявки за 24 ч.: %s",
     "home trial day": "Ден %s от %s",
-    "home trial blocked so far": "%s блокирани до сега",
-    "home headline top blocked title": "Най-често блокиран днес",
-    "home headline top blocked body": "%s се опита да се свърже с устройството ви и беше блокиран %s пъти през последните 24 часа.",
-    "home headline busiest hour title": "Часът с най-много блокирани заявки",
-    "home headline busiest hour body": "Blokada блокира %s заявки между %s и %s.",
-    "home expired header": "Защитата приключи на %s",
-    "home expired header nodate": "Вашата защита е изтекла",
-    "home expired blocked": "Blokada блокира %s заявки вместо вас.",
-    "home expired action": "Абонирайте се отново"
+    "home trial blocked so far": "%s блокирани до сега"
 } }

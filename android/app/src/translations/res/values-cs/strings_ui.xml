@@ -903,17 +903,6 @@
     <string name="private_dns_android_help_support">Still not working? Chat with us and we\'ll help.</string>
     <string name="private_dns_android_copied_hint">Hostname copied. Paste it in Settings.</string>
     <string name="private_dns_android_blokada_hostname_label">Your Blokada hostname</string>
-    <string name="home_status_protected">Chráněno</string>
-    <string name="home_status_protected_last_block">Chráněno · naposledy blokováno %s</string>
-    <string name="home_status_protected_blocked">Chráněno · za 24 h zablokováno %s</string>
     <string name="home_trial_day">Den %s z %s</string>
     <string name="home_trial_blocked_so_far">Zatím zablokováno %s</string>
-    <string name="home_headline_top_blocked_title">Dnes nejčastěji blokovaná doména</string>
-    <string name="home_headline_top_blocked_body">Doména %s se v posledních 24 hodinách pokusila připojit k vašemu zařízení a byla zablokována celkem %s×.</string>
-    <string name="home_headline_busiest_hour_title">Hodina s nejvíce zablokovanými požadavky</string>
-    <string name="home_headline_busiest_hour_body">Blokada zablokovala %s požadavků mezi %s a %s.</string>
-    <string name="home_expired_header">Ochrana skončila dne %s</string>
-    <string name="home_expired_header_nodate">Vaše ochrana skončila</string>
-    <string name="home_expired_blocked">Blokada pro vás zablokovala %s požadavků.</string>
-    <string name="home_expired_action">Obnovit předplatné</string>
 </resources>

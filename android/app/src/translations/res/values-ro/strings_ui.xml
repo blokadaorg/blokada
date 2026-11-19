@@ -903,17 +903,6 @@
     <string name="private_dns_android_help_support">Still not working? Chat with us and we\'ll help.</string>
     <string name="private_dns_android_copied_hint">Hostname copied. Paste it in Settings.</string>
     <string name="private_dns_android_blokada_hostname_label">Your Blokada hostname</string>
-    <string name="home_status_protected">Protejat</string>
-    <string name="home_status_protected_last_block">Protejat · ultima blocare: %s</string>
-    <string name="home_status_protected_blocked">Protejat · %s blocate în 24 h</string>
     <string name="home_trial_day">Ziua %s din %s</string>
     <string name="home_trial_blocked_so_far">%s blocate până acum</string>
-    <string name="home_headline_top_blocked_title">Cel mai des blocat astăzi</string>
-    <string name="home_headline_top_blocked_body">%s a încercat să îți acceseze dispozitivul și a fost blocat de %s ori în ultimele 24 de ore.</string>
-    <string name="home_headline_busiest_hour_title">Ora cu cele mai multe blocări</string>
-    <string name="home_headline_busiest_hour_body">Blokada a blocat %s solicitări între %s și %s.</string>
-    <string name="home_expired_header">Protecția ta s-a încheiat pe %s</string>
-    <string name="home_expired_header_nodate">Protecția ta s-a încheiat</string>
-    <string name="home_expired_blocked">Blokada a blocat %s solicitări pentru tine.</string>
-    <string name="home_expired_action">Reabonează-te</string>
 </resources>

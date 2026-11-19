@@ -902,17 +902,6 @@
     "private dns android help support": "Still not working? Chat with us and we'll help.",
     "private dns android copied hint": "Hostname copied. Paste it in Settings.",
     "private dns android blokada hostname label": "Your Blokada hostname",
-    "home status protected": "Beschermd",
-    "home status protected last block": "Beschermd · laatst geblokkeerd: %s",
-    "home status protected blocked": "Beschermd · %s geblokkeerd in 24 uur",
     "home trial day": "Dag %s van %s",
-    "home trial blocked so far": "%s tot nu toe geblokkeerd",
-    "home headline top blocked title": "Vandaag het vaakst geblokkeerd",
-    "home headline top blocked body": "%s probeerde verbinding te maken met je apparaat en werd de afgelopen 24 uur %s keer geblokkeerd.",
-    "home headline busiest hour title": "Drukste uur",
-    "home headline busiest hour body": "Blokada heeft %s verzoeken geblokkeerd tussen %s en %s.",
-    "home expired header": "Bescherming beëindigd op %s",
-    "home expired header nodate": "Je bescherming is beëindigd",
-    "home expired blocked": "Blokada heeft %s verzoeken voor je geblokkeerd.",
-    "home expired action": "Opnieuw abonneren"
+    "home trial blocked so far": "%s tot nu toe geblokkeerd"
 }

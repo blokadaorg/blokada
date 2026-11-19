@@ -1264,29 +1264,7 @@
 // Label above the Private DNS hostname on the Android setup sheet
 "private dns android blokada hostname label" = "Your Blokada hostname";
 
-// Daily Home (#460): the line under the power button while protection is on. Shown until the numbers load.
-"home status protected" = "Protected";
-// Same line once loaded, with activity logging on. %s is how long ago the last request was blocked, e.g. "2 minutes ago"
-"home status protected last block" = "Protected · last block %s";
-// Same line with activity logging off. %s is how many requests were blocked in the last 24 hours, e.g. "36" or "12.3K"
-"home status protected blocked" = "Protected · %s blocked in 24 h";
 // Home during the free trial. First %s is the day of the trial, second %s its length in days, e.g. "Day 3 of 7"
 "home trial day" = "Day %s of %s";
 // Added after the line above. %s is how many requests were blocked since the trial started, e.g. "1,240" or "12.3K"
 "home trial blocked so far" = "%s blocked so far";
-// Home card: the domain blocked most often in the last 24 hours
-"home headline top blocked title" = "Most blocked today";
-// First %s is a domain (e.g. "doubleclick.net"), second %s how many times it was blocked
-"home headline top blocked body" = "%s tried to reach your device and was blocked %s times in the last 24 hours.";
-// Home card: the hour of the last 24 with the most blocked requests
-"home headline busiest hour title" = "Busiest hour";
-// First %s is the number blocked, second and third %s the start and end of the hour, e.g. "9:00 PM" and "10:00 PM"
-"home headline busiest hour body" = "Blokada blocked %s requests between %s and %s.";
-// Home after a subscription ended. %s is the date it ended, e.g. "3 Nov"
-"home expired header" = "Protection ended on %s";
-// Used instead of the line above when the end date is unknown
-"home expired header nodate" = "Your protection has ended";
-// Under the line above. %s is how many requests Blokada blocked on this device, e.g. "12.3K"
-"home expired blocked" = "Blokada blocked %s for you.";
-// Button that opens the subscription offer again
-"home expired action" = "Resubscribe";

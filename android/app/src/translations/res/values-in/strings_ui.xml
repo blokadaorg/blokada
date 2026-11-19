@@ -903,17 +903,6 @@
     <string name="private_dns_android_help_support">Still not working? Chat with us and we\'ll help.</string>
     <string name="private_dns_android_copied_hint">Hostname copied. Paste it in Settings.</string>
     <string name="private_dns_android_blokada_hostname_label">Your Blokada hostname</string>
-    <string name="home_status_protected">Terlindungi</string>
-    <string name="home_status_protected_last_block">Terlindungi · pemblokiran terakhir %s</string>
-    <string name="home_status_protected_blocked">Terlindungi · %s diblokir dalam 24 jam</string>
     <string name="home_trial_day">Hari ke-%s dari %s</string>
     <string name="home_trial_blocked_so_far">%s diblokir sejauh ini</string>
-    <string name="home_headline_top_blocked_title">Paling sering diblokir hari ini</string>
-    <string name="home_headline_top_blocked_body">%s mencoba mengakses perangkat Anda dan diblokir %s kali dalam 24 jam terakhir.</string>
-    <string name="home_headline_busiest_hour_title">Jam tersibuk</string>
-    <string name="home_headline_busiest_hour_body">Blokada memblokir %s permintaan antara pukul %s dan %s.</string>
-    <string name="home_expired_header">Perlindungan berakhir pada %s</string>
-    <string name="home_expired_header_nodate">Perlindungan Anda telah berakhir</string>
-    <string name="home_expired_blocked">Blokada memblokir %s permintaan untuk Anda.</string>
-    <string name="home_expired_action">Berlangganan kembali</string>
 </resources>

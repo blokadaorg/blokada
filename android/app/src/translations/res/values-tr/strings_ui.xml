@@ -903,17 +903,6 @@
     <string name="private_dns_android_help_support">Still not working? Chat with us and we\'ll help.</string>
     <string name="private_dns_android_copied_hint">Hostname copied. Paste it in Settings.</string>
     <string name="private_dns_android_blokada_hostname_label">Your Blokada hostname</string>
-    <string name="home_status_protected">Korunuyor</string>
-    <string name="home_status_protected_last_block">Korunuyor · son engelleme: %s</string>
-    <string name="home_status_protected_blocked">Korunuyor · son 24 saatte %s engellendi</string>
     <string name="home_trial_day">Denemenin %s. günü, toplam %s gün</string>
     <string name="home_trial_blocked_so_far">Şimdiye kadar %s engellendi</string>
-    <string name="home_headline_top_blocked_title">Bugün en çok engellenen</string>
-    <string name="home_headline_top_blocked_body">%s son 24 saatte cihazınıza erişmeye çalıştı ve %s kez engellendi.</string>
-    <string name="home_headline_busiest_hour_title">En yoğun saat</string>
-    <string name="home_headline_busiest_hour_body">Blokada, %s isteği %s ile %s arasında engelledi.</string>
-    <string name="home_expired_header">Korumanız %s tarihinde sona erdi</string>
-    <string name="home_expired_header_nodate">Korumanız sona erdi</string>
-    <string name="home_expired_blocked">Blokada sizin için %s isteği engelledi.</string>
-    <string name="home_expired_action">Yeniden abone ol</string>
 </resources>

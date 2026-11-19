@@ -902,17 +902,6 @@
     "private dns android help support": "Ça ne fonctionne toujours pas ? Contactez-nous par chat et nous vous aiderons.",
     "private dns android copied hint": "Le nom d'hôte a été copié. Collez-le dans les Paramètres.",
     "private dns android blokada hostname label": "Votre nom d'hôte Blokada",
-    "home status protected": "Protégé",
-    "home status protected last block": "Protégé · dernier blocage : %s",
-    "home status protected blocked": "Protégé · blocages en 24 h : %s",
     "home trial day": "Jour %s sur %s",
-    "home trial blocked so far": "%s blocages depuis le début de l’essai",
-    "home headline top blocked title": "Domaine le plus bloqué aujourd’hui",
-    "home headline top blocked body": "%s a tenté d’accéder à votre appareil et a été bloqué %s fois au cours des dernières 24 heures.",
-    "home headline busiest hour title": "Heure la plus chargée",
-    "home headline busiest hour body": "Blokada a bloqué %s requêtes entre %s et %s.",
-    "home expired header": "Votre protection a pris fin le %s",
-    "home expired header nodate": "Votre protection a pris fin",
-    "home expired blocked": "Blokada a bloqué %s requêtes pour vous.",
-    "home expired action": "Se réabonner"
+    "home trial blocked so far": "%s blocages depuis le début de l’essai"
 } }

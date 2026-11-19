@@ -903,17 +903,6 @@
     <string name="private_dns_android_help_support">Still not working? Chat with us and we\'ll help.</string>
     <string name="private_dns_android_copied_hint">Hostname copied. Paste it in Settings.</string>
     <string name="private_dns_android_blokada_hostname_label">Your Blokada hostname</string>
-    <string name="home_status_protected">Skyddad</string>
-    <string name="home_status_protected_last_block">Skyddad · senaste blockering: %s</string>
-    <string name="home_status_protected_blocked">Skyddad · %s blockerade de senaste 24 timmarna</string>
     <string name="home_trial_day">Dag %s av %s</string>
     <string name="home_trial_blocked_so_far">%s blockerade hittills</string>
-    <string name="home_headline_top_blocked_title">Mest blockerade domänen idag</string>
-    <string name="home_headline_top_blocked_body">%s försökte nå din enhet och blockerades %s gånger under de senaste 24 timmarna.</string>
-    <string name="home_headline_busiest_hour_title">Timmen med flest blockeringar</string>
-    <string name="home_headline_busiest_hour_body">Blokada blockerade %s förfrågningar mellan %s och %s.</string>
-    <string name="home_expired_header">Skyddet upphörde den %s</string>
-    <string name="home_expired_header_nodate">Ditt skydd har upphört</string>
-    <string name="home_expired_blocked">Blokada blockerade %s förfrågningar åt dig.</string>
-    <string name="home_expired_action">Prenumerera på nytt</string>
 </resources>

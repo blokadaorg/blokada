@@ -902,17 +902,6 @@
     "private dns android help support": "Still not working? Chat with us and we'll help.",
     "private dns android copied hint": "Hostname copied. Paste it in Settings.",
     "private dns android blokada hostname label": "Your Blokada hostname",
-    "home status protected": "Terlindungi",
-    "home status protected last block": "Terlindungi · pemblokiran terakhir %s",
-    "home status protected blocked": "Terlindungi · %s diblokir dalam 24 jam",
     "home trial day": "Hari ke-%s dari %s",
-    "home trial blocked so far": "%s diblokir sejauh ini",
-    "home headline top blocked title": "Paling sering diblokir hari ini",
-    "home headline top blocked body": "%s mencoba mengakses perangkat Anda dan diblokir %s kali dalam 24 jam terakhir.",
-    "home headline busiest hour title": "Jam tersibuk",
-    "home headline busiest hour body": "Blokada memblokir %s permintaan antara pukul %s dan %s.",
-    "home expired header": "Perlindungan berakhir pada %s",
-    "home expired header nodate": "Perlindungan Anda telah berakhir",
-    "home expired blocked": "Blokada memblokir %s permintaan untuk Anda.",
-    "home expired action": "Berlangganan kembali"
+    "home trial blocked so far": "%s diblokir sejauh ini"
 }
