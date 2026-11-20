@@ -138,7 +138,10 @@ def build_items(scope: dict[str, Any], review: dict[str, Any], shots: set[str]) 
         # A result must say which apps it covers; one that does not is not a check.
         if found.get("flavor") not in FLAVORS:
             result = "unclear"
-        elif result == "untestable" and found.get("untestable_reason") not in UNTESTABLE_REASONS:
+        elif result == "untestable" and not (
+            isinstance(found.get("untestable_reason"), str)
+            and found["untestable_reason"] in UNTESTABLE_REASONS
+        ):
             # A reason from the fixed list, or it was a check that did not happen.
             result = "unclear"
         elif result == "pass" and not covers(found["flavor"], apps):

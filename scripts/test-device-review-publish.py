@@ -156,13 +156,18 @@ class VerdictTest(unittest.TestCase):
     def test_untestable_needs_a_listed_reason(self):
         def result(reason):
             review = {"items": [{"pr": 1430, "result": "untestable", "summary": "x", "flavor": "six",
-                                 **({"untestable_reason": reason} if reason else {})}]}
+                                 **({"untestable_reason": reason} if reason is not None else {})}]}
             return publish.build_items(SCOPE, review, set())[0]
         self.assertEqual(result("scheduled")["result"], "untestable")
         self.assertEqual(result("scheduled")["reason"], "scheduled notification")
         self.assertEqual(result(None)["result"], "unclear")
         # Log-only changes are checkable through the app log.
         self.assertEqual(result("log-only")["result"], "unclear")
+        # Agent output is untrusted JSON: a non-string reason is unclear, not a crash.
+        self.assertEqual(result([])["result"], "unclear")
+        self.assertEqual(result({})["result"], "unclear")
+        for reason in publish.UNTESTABLE_REASONS:
+            self.assertEqual(result(reason)["result"], "untestable")
 
     def test_untestable_prs_join_the_operator_spot_checks(self):
         review = {"items": [
