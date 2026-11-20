@@ -147,6 +147,35 @@ class VerdictTest(unittest.TestCase):
         self.assertEqual(publish.verdict([], "success"), "ship")
         self.assertEqual(publish.verdict([], "success", reviewed=False), "hold")
 
+    def test_untestable_ships_but_unclear_and_glitch_hold(self):
+        self.assertEqual(publish.verdict(self.items("pass", "untestable"), "success"), "ship")
+        self.assertEqual(publish.verdict(self.items("untestable", "unclear"), "success"), "hold")
+        self.assertEqual(publish.verdict(self.items("untestable", "glitch"), "success"), "hold")
+        self.assertEqual(publish.verdict(self.items("untestable"), "failure"), "hold")
+
+    def test_untestable_needs_a_listed_reason(self):
+        def result(reason):
+            review = {"items": [{"pr": 1430, "result": "untestable", "summary": "x", "flavor": "six",
+                                 **({"untestable_reason": reason} if reason else {})}]}
+            return publish.build_items(SCOPE, review, set())[0]
+        self.assertEqual(result("scheduled")["result"], "untestable")
+        self.assertEqual(result("scheduled")["reason"], "scheduled notification")
+        self.assertEqual(result(None)["result"], "unclear")
+        # Log-only changes are checkable through the app log.
+        self.assertEqual(result("log-only")["result"], "unclear")
+
+    def test_untestable_prs_join_the_operator_spot_checks(self):
+        review = {"items": [
+            {"pr": 1430, "result": "untestable", "untestable_reason": "scheduled", "summary": "weekly push", "flavor": "six"},
+            {"pr": 1444, "result": "pass", "summary": "strings ok", "flavor": "both"},
+            {"pr": 1451, "result": "untestable", "untestable_reason": "second-device", "summary": "link", "flavor": "six"},
+        ]}
+        items = publish.build_items(SCOPE, review, set())
+        lines = publish.report("26.11.1232", 1232, "2026-11-10", "https://run", "success", items).splitlines()
+        self.assertIn("Operator spot-checks: third-party keyboard, free-form support chat, "
+                      "#1430 (scheduled notification), #1451 (needs a second device)", lines)
+        self.assertEqual(lines[-1], "Verdict: ship")
+
     def test_report_shape(self):
         items = publish.build_items(SCOPE, {"items": [{"pr": 1430, "result": "pass", "summary": "chat", "flavor": "both"}]}, set())
         text = publish.report("26.11.1232", 1232, "2026-11-10", "https://run", "success", items)

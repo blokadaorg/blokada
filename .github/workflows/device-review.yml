@@ -265,7 +265,7 @@ jobs:
             --permission-mode dontAsk
             --allowed-tools "Read(./**),Bash(node automation/appium/wdio/scripts/review-session.mjs send:*)"
             --disallowed-tools "Write,Edit,WebFetch,WebSearch"
-            --json-schema '{"type":"object","properties":{"items":{"type":"array","items":{"type":"object","properties":{"pr":{"type":"integer"},"result":{"type":"string","enum":["pass","glitch","unclear"]},"flavor":{"type":"string","enum":["six","family","both"]},"summary":{"type":"string"},"steps":{"type":"string"},"expected":{"type":"string"},"seen":{"type":"string"},"log_excerpt":{"type":"string"},"screenshots":{"type":"array","items":{"type":"string"}}},"required":["pr","result","flavor","summary"]}}},"required":["items"]}'
+            --json-schema '{"type":"object","properties":{"items":{"type":"array","items":{"type":"object","properties":{"pr":{"type":"integer"},"result":{"type":"string","enum":["pass","glitch","unclear","untestable"]},"untestable_reason":{"type":"string","enum":["scheduled","account","second-device","system-setting","guardrail"]},"flavor":{"type":"string","enum":["six","family","both"]},"summary":{"type":"string"},"steps":{"type":"string"},"expected":{"type":"string"},"seen":{"type":"string"},"log_excerpt":{"type":"string"},"screenshots":{"type":"array","items":{"type":"string"}}},"required":["pr","result","flavor","summary"]}}},"required":["items"]}'
           prompt: |
             You are the unattended device review of Blokada release ${{ needs.resolve.outputs.version }}
             (build ${{ inputs.build }}) on a real iPhone. Blokada 6 is installed from
@@ -289,8 +289,10 @@ jobs:
             app, log {"flavor":"six"|"family","artifact":"log"|"crash"} for the recent app
             log. A "refused" reply is a guardrail: purchases, subscriptions, sign-out,
             delete and external flows are off limits, a tap needs an element with an
-            id or a label, and Family may not be set up in this run; report such a
-            check `unclear`. Read files only inside this checkout.
+            id or a label, and Family may not be set up in this run. A check that
+            needs such a flow is `untestable` with reason `guardrail`; a refused
+            tap you could have reached another way is `unclear`. Read files only
+            inside this checkout.
             Screenshots land in automation/appium/output/review-<name>.png; read them
             with the Read tool. Do not review the third-party keyboard or hold a
             free-form support chat: the operator spot-checks those.
@@ -306,7 +308,15 @@ jobs:
             cover at least the apps scope.md says the PR's files belong to.
             Result pass when you saw the expected
             behavior, glitch when you saw it wrong, unclear when you could not check it
-            (never a guessed pass). For a glitch fill steps, expected, seen, the
+            (never a guessed pass). untestable only when no review on this phone can
+            exercise the change, with untestable_reason one of: scheduled (a
+            notification or reminder that fires on a timer or a weekly schedule),
+            account (needs an account state the review accounts lack, such as a store
+            trial or an expired subscription), second-device, system-setting (iOS
+            Settings such as the text size), guardrail. untestable hands the check to
+            the operator, so say in summary what they should look at. A change that
+            shows only in the app log is not untestable: read it with the log command
+            and pass or glitch on what it says. For a glitch fill steps, expected, seen, the
             screenshots you took (review-<name>.png) and a short excerpt of the app log
             around it. summary is one line, under 100 characters.
 
