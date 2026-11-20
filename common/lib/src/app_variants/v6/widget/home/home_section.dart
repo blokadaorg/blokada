@@ -108,16 +108,20 @@ class V6HomeSectionState extends State<V6HomeSection> with Logging, Disposables 
     );
   }
 
-  Widget _buildSettingsButton() => Semantics(
-    identifier: AutomationIds.homeSettings,
-    button: true,
-    child: SmartHeaderButton(
-      bgColor: Colors.transparent,
-      unread: _unread.present ?? false,
-      icon: CupertinoIcons.settings,
-      onTap: () {
-        Navigation.open(Paths.settings);
-      },
+  // MergeSemantics puts the id and the button's label on one node, the one
+  // VoiceOver and WDA see.
+  Widget _buildSettingsButton() => MergeSemantics(
+    child: Semantics(
+      identifier: AutomationIds.homeSettings,
+      child: SmartHeaderButton(
+        bgColor: Colors.transparent,
+        unread: _unread.present ?? false,
+        icon: CupertinoIcons.settings,
+        label: "main tab settings".i18n,
+        onTap: () {
+          Navigation.open(Paths.settings);
+        },
+      ),
     ),
   );
 
