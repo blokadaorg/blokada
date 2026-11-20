@@ -16,6 +16,9 @@ influence is checked here, not trusted:
   `unclear`, PRs outside the scope are dropped, and PRs with nothing to drive
   on an iPhone are listed `n/a` and stay out of the verdict;
 - a result must cover every app the scope's paths name for that PR;
+- `untestable` needs a reason from UNTESTABLE_REASONS (else it is `unclear`)
+  and never ships on its own: it adds the PR to the operator spot-checks the
+  report lists before promote, so a person still checks it;
 - comments go only to the tracker issues the PR itself links, once per build;
 - text is length-capped, with URLs, images, HTML, code fences and @mentions
   neutralised, and multi-line agent text is published inside code fences, so
@@ -43,7 +46,16 @@ TRACKER = "blokadaorg/issue-tracker"
 BRANCH = "release-review"
 # Store listing copy and CI-only changes have nothing to drive on a device.
 REVIEWED_KINDS = {"app", "deps", "strings"}
-RESULTS = {"pass", "glitch", "unclear"}
+RESULTS = {"pass", "glitch", "unclear", "untestable"}
+# Why a PR cannot be exercised in an unattended review on the CI phone. A
+# change that only shows in the app log is not one: the agent reads the log.
+UNTESTABLE_REASONS = {
+    "scheduled": "scheduled notification",
+    "account": "needs another account state",
+    "second-device": "needs a second device",
+    "system-setting": "needs a system setting",
+    "guardrail": "flow off limits to the review",
+}
 FLAVORS = {"six", "family", "both"}
 SHOT_NAME = re.compile(r"^review-[A-Za-z0-9-]{1,70}\.jpg$")
 CAPS = {"summary": 120, "steps": 1500, "expected": 600, "seen": 600, "log_excerpt": 3000}
@@ -126,6 +138,12 @@ def build_items(scope: dict[str, Any], review: dict[str, Any], shots: set[str]) 
         # A result must say which apps it covers; one that does not is not a check.
         if found.get("flavor") not in FLAVORS:
             result = "unclear"
+        elif result == "untestable" and not (
+            isinstance(found.get("untestable_reason"), str)
+            and found["untestable_reason"] in UNTESTABLE_REASONS
+        ):
+            # A reason from the fixed list, or it was a check that did not happen.
+            result = "unclear"
         elif result == "pass" and not covers(found["flavor"], apps):
             # The PR's paths name an app the agent did not check.
             result = "unclear"
@@ -138,6 +156,7 @@ def build_items(scope: dict[str, Any], review: dict[str, Any], shots: set[str]) 
             # Only issues the PR links itself get a comment; one that merely mentions the PR does not.
             "comment_issues": [int(n) for n in pr.get("issues") or [] if linked_by.get(str(n)) == "pr"],
             "result": result,
+            "reason": UNTESTABLE_REASONS[found["untestable_reason"]] if result == "untestable" else "",
             "summary": summary or "no summary",
             "flavor": one_line(found.get("flavor"), 12),
             "steps": clean(found.get("steps"), CAPS["steps"]),
@@ -150,8 +169,9 @@ def build_items(scope: dict[str, Any], review: dict[str, Any], shots: set[str]) 
 
 
 def verdict(items: list[dict[str, Any]], smoke: str, reviewed: bool = True) -> str:
-    """ship only with a usable review, a green smoke and every reviewed PR passing."""
-    ok = reviewed and smoke == "success" and all(i["result"] == "pass" for i in items)
+    """ship only with a usable review, a green smoke and every reviewed PR passing,
+    or untestable on the phone and so handed to the operator's spot-checks."""
+    ok = reviewed and smoke == "success" and all(i["result"] in ("pass", "untestable") for i in items)
     return "ship" if ok else "hold"
 
 
@@ -166,7 +186,9 @@ def report(version: str, build: int, date: str, run_url: str, smoke: str, items:
         issues = ", ".join(f"#{n}" for n in i["issues"])
         lines.append(f"{i['result']:<7} #{i['pr']} {i['summary']}" + (f" ({issues})" if issues else ""))
     lines += skipped or []
-    lines.append("Operator spot-checks: third-party keyboard, free-form support chat")
+    checks = ["third-party keyboard", "free-form support chat"]
+    checks += [f"#{i['pr']} ({i['reason']})" for i in items if i["result"] == "untestable"]
+    lines.append("Operator spot-checks: " + ", ".join(checks))
     if not reviewed:
         lines.append("Review output missing or unreadable: see the run")
     lines.append(f"Verdict: {verdict(items, smoke, reviewed)}")
