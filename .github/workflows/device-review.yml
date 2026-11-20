@@ -188,6 +188,11 @@ jobs:
           KEYCHAIN_PASSWORD: ${{ secrets.MAC_KEYCHAIN_PASSWORD }}
         run: security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/login.keychain-db
 
+      # The review counts once-per-install funnel lines only from this run's
+      # smoke: the app-group log can outlive an uninstall.
+      - name: Note the smoke start
+        run: echo "SMOKE_STARTED=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_ENV"
+
       # Installs Blokada 6 from scratch and onboards it, as appium-smoke.yml
       # does. Its result goes into the verdict; a red smoke does not stop the
       # review.
@@ -316,7 +321,18 @@ jobs:
             Settings such as the text size), guardrail. untestable hands the check to
             the operator, so say in summary what they should look at. A change that
             shows only in the app log is not untestable: read it with the log command
-            and pass or glitch on what it says. For a glitch fill steps, expected, seen, the
+            and pass or glitch on what it says. The apps here are Dev builds whose
+            version is "dev", and the api refuses every funnel signal from them with
+            HTTP 400, so test runs never reach the funnel counts. A signal passes when
+            the log shows it sent with the expected event and refused with 400
+            ("Funnel: EVENT not sent: ..."). Trigger an every-time signal (app_foreground,
+            pulse_opened_*) yourself and look for a line written after you did. A
+            once-per-install signal (onboarding_*, setup_*) is sent once per install.
+            On Blokada 6 the smoke onboarded this same install, so its line comes from
+            the smoke run, which started at ${{ env.SMOKE_STARTED }} (UTC): an older
+            line is from an earlier install and does not count. Family was installed without
+            onboarding, so it may never send one. With no such line it is unclear,
+            not a glitch. For a glitch fill steps, expected, seen, the
             screenshots you took (review-<name>.png) and a short excerpt of the app log
             around it. summary is one line, under 100 characters.
 
