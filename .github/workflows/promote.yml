@@ -216,6 +216,45 @@ jobs:
         if: always()
         run: make appstore-key-clean
 
+  # The durable record that an approved go-live reached a store, which lets
+  # store-rollout.yml's `advance` take the ramp's later steps there. Workflow
+  # runs can disappear from GitHub, so it is a tag. If this fails nothing is
+  # released differently: the ramp just stays by hand.
+  record_go_live:
+    needs: [resolve, approve_live, promote_android, promote_ios]
+    if: ${{ !cancelled() && needs.approve_live.result == 'success' && inputs.flavor != 'family' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write # pushes golive/N/<store>
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+
+      - name: Push go-live tags
+        env:
+          BUILD_NUMBER: ${{ needs.resolve.outputs.build_number }}
+          ANDROID_RESULT: ${{ needs.promote_android.result }}
+          IOS_RESULT: ${{ needs.promote_ios.result }}
+        run: |
+          set -euo pipefail
+          git config user.email "ci@blokada.org"
+          git config user.name "blokada-ci"
+          git fetch --quiet --depth 1 origin "+refs/tags/build/$BUILD_NUMBER:refs/tags/build/$BUILD_NUMBER"
+          BUILD_SHA=$(git rev-parse "refs/tags/build/$BUILD_NUMBER^{}")
+          for entry in "android:$ANDROID_RESULT" "ios:$IOS_RESULT"; do
+            store=${entry%%:*}
+            [ "${entry#*:}" = "success" ] || continue
+            name="golive/$BUILD_NUMBER/$store"
+            if git ls-remote --exit-code --tags origin "refs/tags/$name" >/dev/null; then
+              echo "$name already recorded"
+              continue
+            fi
+            git tag -a "$name" -m "Go-live approved in $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" "$BUILD_SHA"
+            git push origin "refs/tags/$name"
+          done
+
   tag:
     needs: [resolve, promote_android, promote_ios]
     # Only tag a complete, successful release of everything.

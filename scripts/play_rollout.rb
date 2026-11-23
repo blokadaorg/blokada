@@ -12,7 +12,7 @@ module PlayRollout
   HALTED = "halted"
   COMPLETED = "completed"
 
-  ACTIONS = %w[raise halt resume].freeze
+  ACTIONS = %w[raise halt resume].freeze # advance resolves to a raise in play-rollout.rb
 
   class Refusal < StandardError; end
 

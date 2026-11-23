@@ -111,9 +111,7 @@ def not_reviewed(scope: dict[str, Any]) -> list[str]:
         if pr.get("pr") is None or on_iphone(pr):
             continue
         if pr.get("kind") in REVIEWED_KINDS and pr.get("android"):
-            # The Android gate: the smoke for every such PR, screenshots for app changes.
-            gate = "emulator smoke and screenshots" if pr["kind"] == "app" else "emulator smoke"
-            lines.append(f"n/a     #{pr['pr']} Android only: {gate}")
+            lines.append(f"n/a     #{pr['pr']} Android only: emulator smoke")
         else:
             other += 1
     if other:

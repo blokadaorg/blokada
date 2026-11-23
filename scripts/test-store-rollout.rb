@@ -6,6 +6,7 @@
 # Deliberately free of credentials and of the fastlane runtime, like
 # test-release-state.rb, so PR CI covers every case without a store.
 require_relative "play_rollout"
+require_relative "rollout_policy"
 require_relative "../ios/fastlane/ios_rollout"
 
 FAILURES = []
@@ -168,6 +169,107 @@ end
 check("an unknown iOS action is refused") do
   IosRollout.decide("halt", version_state: "READY_FOR_DISTRIBUTION", phased_state: "ACTIVE").is_a?(String)
 end
+
+# --- advance ------------------------------------------------------------------
+
+NOW = Time.utc(2026, 12, 2, 12)
+
+class FakeTags
+  attr_reader :recorded
+
+  def initialize(dates)
+    @dates = dates
+    @recorded = []
+  end
+
+  def date(name)
+    @dates[name]
+  end
+
+  def record(name)
+    @recorded << name
+  end
+end
+
+def go_live(hours_ago = 25)
+  { "golive/1100/android" => NOW - hours_ago * 3600 }
+end
+
+def advance(release, tags)
+  RolloutPolicy.authorize_play!(release, tags: tags, now: NOW)
+end
+
+def advance_refused?(release, dates)
+  tags = FakeTags.new(dates)
+  advance(release, tags)
+  false
+rescue RolloutPolicy::Refusal
+  true
+end
+
+check("advance takes 1% to 20%") { advance(staged(0.01), FakeTags.new(go_live)) == 0.2 }
+check("advance takes 20% to 50%") do
+  advance(staged(0.2), FakeTags.new(go_live(72).merge("ramp/1100/20" => NOW - 25 * 3600))) == 0.5
+end
+check("advance takes 50% to 100%") do
+  advance(staged(0.5), FakeTags.new(go_live(72).merge("ramp/1100/50" => NOW - 25 * 3600))) == 1.0
+end
+check("advance refuses a fraction off the ladder") { advance_refused?(staged(0.05), go_live) }
+check("advance refuses a halted rollout") { advance_refused?(halted(0.2), go_live) }
+check("advance refuses without an approved go-live") { advance_refused?(staged(0.01), {}) }
+check("advance refuses a go-live of another build") do
+  advance_refused?(staged(0.01), { "golive/1099" => NOW - 25 * 3600 })
+end
+check("advance refuses within 24 hours of the go-live") { advance_refused?(staged(0.01), go_live(23)) }
+check("advance refuses within 24 hours of the last step") do
+  advance_refused?(staged(0.2), go_live(72).merge("ramp/1100/20" => NOW - 3600))
+end
+check("advance refuses a step raised by hand, with no record") { advance_refused?(staged(0.2), go_live(72)) }
+check("advance refuses when GitHub cannot be read") do
+  tags = FakeTags.new({})
+  tags.define_singleton_method(:date) { |_name| raise RolloutPolicy::Refusal, "GitHub returned 500" }
+  begin
+    advance(staged(0.01), tags)
+    false
+  rescue RolloutPolicy::Refusal
+    true
+  end
+end
+check("advance refuses within 24 hours of a resume at 1%") do
+  advance_refused?(staged(0.01), go_live(72).merge("ramp/1100/1" => NOW - 3600))
+end
+check("an iOS-only go-live does not approve Android") do
+  advance_refused?(staged(0.01), { "golive/1100/ios" => NOW - 25 * 3600 })
+end
+check("a step on the ladder is recorded") do
+  tags = FakeTags.new({})
+  RolloutPolicy.record_step!(staged(0.2), tags: tags)
+  tags.recorded == ["ramp/1100/20"]
+end
+check("a completed rollout is recorded as 100%") do
+  tags = FakeTags.new({})
+  RolloutPolicy.record_step!(Release.new(status: "completed", user_fraction: nil, version_codes: ["669001100"]), tags: tags)
+  tags.recorded == ["ramp/1100/100"]
+end
+check("a fraction off the ladder is not recorded") do
+  tags = FakeTags.new({})
+  RolloutPolicy.record_step!(staged(0.05), tags: tags)
+  tags.recorded.empty?
+end
+
+IOS_GO_LIVE = { "golive/1100/ios" => NOW - 3600 }.freeze
+
+def ios_refused?(version, phased, dates)
+  RolloutPolicy.authorize_ios!(version_string: version, phased_state: phased, tags: FakeTags.new(dates))
+  false
+rescue RolloutPolicy::Refusal
+  true
+end
+
+check("iOS advance releases an approved phased version") { !ios_refused?("26.12.1100", "INACTIVE", IOS_GO_LIVE) }
+check("iOS advance refuses a version without a phased release") { ios_refused?("26.12.1100", nil, IOS_GO_LIVE) }
+check("iOS advance refuses a version without an approved go-live") { ios_refused?("26.12.1101", "INACTIVE", IOS_GO_LIVE) }
+check("an Android-only go-live does not approve iOS") { ios_refused?("26.12.1100", "INACTIVE", go_live) }
 
 abort("\nFAIL: #{FAILURES.size} check(s) failed: #{FAILURES.join(', ')}") unless FAILURES.empty?
 puts "\nPASS: store rollout decisions"

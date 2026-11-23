@@ -22,6 +22,7 @@
 require_relative "release_state"
 require_relative "ci_annotation"
 require_relative "ios_rollout"
+require_relative "../../scripts/rollout_policy"
 
 default_platform(:ios)
 
@@ -391,7 +392,12 @@ platform :ios do
     require "spaceship"
 
     bundle_id = options[:bundle_id]
-    action = options[:action].to_s
+    requested = options[:action].to_s
+    if requested == "advance" && bundle_id != "net.blocka.app"
+      UI.user_error!("advance only applies to Blokada 6, not #{bundle_id}")
+    end
+    # advance is a release of a version whose go-live was already approved.
+    action = requested == "advance" ? "release" : requested
 
     Spaceship::ConnectAPI.token = Spaceship::ConnectAPI::Token.from_json_file("../blokada-appstore.json")
     platform = Spaceship::ConnectAPI::Platform::IOS
@@ -418,6 +424,17 @@ platform :ios do
     if decision.is_a?(String)
       CiAnnotation.error(title: "Cannot #{action} #{bundle_id}", message: decision)
       UI.user_error!("#{bundle_id}: #{decision}")
+    end
+
+    if requested == "advance"
+      begin
+        RolloutPolicy.authorize_ios!(version_string: version.version_string,
+                                     phased_state: phased&.phased_release_state,
+                                     tags: RolloutPolicy::GitHubTags.new)
+      rescue RolloutPolicy::Refusal => e
+        CiAnnotation.error(title: "Cannot advance #{bundle_id}", message: e.message)
+        UI.user_error!("#{bundle_id}: #{e.message}")
+      end
     end
 
     label = "#{bundle_id} #{version.version_string}"

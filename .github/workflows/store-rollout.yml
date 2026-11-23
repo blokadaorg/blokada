@@ -1,4 +1,5 @@
 name: Store Rollout
+run-name: Store rollout ${{ inputs.flavor }} ${{ inputs.platform }} ${{ inputs.action }}
 
 # Moves a release that promote.yml already put in the stores: raises, halts or
 # resumes the Play staged rollout, pauses or resumes the App Store phased
@@ -6,7 +7,8 @@ name: Store Rollout
 #
 # Anything that reaches more users waits for a reviewer on the `store-live`
 # environment first. Halting and pausing never wait: a bad release has to stop
-# at once.
+# at once. `advance` doesn't wait either: approving the promote approved the
+# ramp, so it only takes the next fixed step (scripts/rollout_policy.rb).
 on:
   workflow_dispatch:
     inputs:
@@ -21,10 +23,10 @@ on:
         type: choice
         options: [android, ios]
       action:
-        description: "Android: raise, halt or resume the production staged rollout. iOS: pause or resume the phased release of the live version, or release the version Apple approved. halt and pause run at once; the rest wait for a maintainer's approval."
+        description: "Android: raise, halt or resume the production staged rollout. iOS: pause or resume the phased release of the live version, or release the version Apple approved. advance (Blokada 6): the next step of a go-live that was approved. halt, pause and advance run at once; the rest wait for a maintainer's approval."
         required: true
         type: choice
-        options: [halt, pause, raise, resume, release]
+        options: [halt, pause, advance, raise, resume, release]
       fraction:
         description: "Android raise only. Share of users to roll out to, as a fraction above 0 and at most 1 or a percentage with %: 0.2 or 20% is 20% of users, 1 or 100% completes the rollout. A bare 20 is refused."
         required: false
@@ -62,12 +64,16 @@ jobs:
         run: |
           set -euo pipefail
           case "$PLATFORM:$ACTION" in
-            android:raise | android:halt | android:resume | ios:pause | ios:resume | ios:release) ;;
+            android:raise | android:halt | android:resume | android:advance | ios:pause | ios:resume | ios:release | ios:advance) ;;
             *)
-              echo "::error title=Invalid input::'$ACTION' does not apply to $PLATFORM. Android: raise, halt, resume. iOS: pause, resume, release."
+              echo "::error title=Invalid input::'$ACTION' does not apply to $PLATFORM. Android: raise, halt, resume, advance. iOS: pause, resume, release, advance."
               exit 1
               ;;
           esac
+          if [ "$ACTION" = "advance" ] && [ "$FLAVOR" != "six" ]; then
+            echo "::error title=Invalid input::advance only applies to Blokada 6, the one app with a ramp"
+            exit 1
+          fi
           if [ "$ACTION" = "raise" ]; then
             # The same parse play-rollout.rb applies after approval.
             if ! error=$(ruby -r ./scripts/play_rollout.rb -e '
@@ -84,7 +90,7 @@ jobs:
             exit 1
           fi
           case "$ACTION" in
-            halt | pause) echo "gated=false" >> "$GITHUB_OUTPUT" ;;
+            halt | pause | advance) echo "gated=false" >> "$GITHUB_OUTPUT" ;;
             *) echo "gated=true" >> "$GITHUB_OUTPUT" ;;
           esac
           {
@@ -120,6 +126,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: release
     timeout-minutes: 15
+    permissions:
+      contents: write # records each step as a ramp/N/<pct> tag
     env:
       FLAVOR: ${{ inputs.flavor }}
       ROLLOUT_ACTION: ${{ inputs.action }}
@@ -140,6 +148,7 @@ jobs:
       - name: Change the production rollout
         env:
           BLOKADA_GPLAY_KEY_BASE64: ${{ secrets.BLOKADA_GPLAY_KEY_BASE64 }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: make rollout-android FLAVOR="$FLAVOR" ROLLOUT_ACTION="$ROLLOUT_ACTION" ROLLOUT_FRACTION="$ROLLOUT_FRACTION"
 
       - name: Clean Google Play key
@@ -159,6 +168,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: release
     timeout-minutes: 15
+    permissions:
+      contents: read # advance reads golive/N/ios
     env:
       LANG: en_US.UTF-8
       LC_ALL: en_US.UTF-8
@@ -181,6 +192,7 @@ jobs:
       - name: Change the App Store release
         env:
           BLOKADA_APPSTORE_KEY_BASE64: ${{ secrets.BLOKADA_APPSTORE_KEY_BASE64 }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: make rollout-ios FLAVOR="$FLAVOR" ROLLOUT_ACTION="$ROLLOUT_ACTION" FASTLANE="bundle exec fastlane"
 
       - name: Clean App Store key
