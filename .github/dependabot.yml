@@ -142,6 +142,15 @@ updates:
         applies-to: security-updates
         patterns:
           - "*"
+    ignore:
+      # Appium 4 cannot land as a lone server bump (#1491): the pinned drivers
+      # (xcuitest 10.28.1, uiautomator2 8.7.0) and @wdio/session 10.2 all
+      # peer-require appium ^3, and it needs node >=24.15 where the iOS runner
+      # has 24.3. Remove this once a WebdriverIO release accepts appium 4, and
+      # move the server, both driver pins and the runner's node together.
+      - dependency-name: "appium"
+        update-types:
+          - "version-update:semver-major"
 
   - package-ecosystem: "bundler"
     directory: "/ios"
