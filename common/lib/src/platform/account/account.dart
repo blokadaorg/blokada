@@ -227,13 +227,18 @@ abstract class AccountStoreBase with Store, Logging, Actor, Emitter {
   }
 
   _changeAccount(AccountState account, Marker m) async {
+    final oldId = this.account?.id;
     final oldA = this.account?.jsonAccount;
     final newA = account.jsonAccount;
     _ensureValidAccountType(newA);
     this.account = account;
 
     if (oldA != null) {
-      if (oldA.type != newA.type ||
+      // A different ID is a different account even when its type and expiry
+      // match the old one (two libre accounts, say). Listeners such as
+      // AccountActor, which feeds AccountId and the Adapty identity, must hear it.
+      if (oldId != account.id ||
+          oldA.type != newA.type ||
           oldA.activeUntil != newA.activeUntil ||
           oldA.isFreemium() != newA.isFreemium()) {
         await emit(accountChanged, account, m);
