@@ -218,7 +218,7 @@ check("advance refuses a fraction off the ladder") { advance_refused?(staged(0.0
 check("advance refuses a halted rollout") { advance_refused?(halted(0.2), go_live) }
 check("advance refuses without an approved go-live") { advance_refused?(staged(0.01), {}) }
 check("advance refuses a go-live of another build") do
-  advance_refused?(staged(0.01), { "golive/1099" => NOW - 25 * 3600 })
+  advance_refused?(staged(0.01), { "golive/1099/android" => NOW - 25 * 3600 })
 end
 check("advance refuses within 24 hours of the go-live") { advance_refused?(staged(0.01), go_live(23)) }
 check("advance refuses within 24 hours of the last step") do
@@ -270,6 +270,67 @@ check("iOS advance releases an approved phased version") { !ios_refused?("26.12.
 check("iOS advance refuses a version without a phased release") { ios_refused?("26.12.1100", nil, IOS_GO_LIVE) }
 check("iOS advance refuses a version without an approved go-live") { ios_refused?("26.12.1101", "INACTIVE", IOS_GO_LIVE) }
 check("an Android-only go-live does not approve iOS") { ios_refused?("26.12.1100", "INACTIVE", go_live) }
+
+# --- GitHubTags against canned GitHub responses --------------------------------
+
+def http(klass, code, body = nil)
+  response = klass.new("1.1", code, "")
+  response.instance_variable_set(:@body, body && JSON.generate(body))
+  response.instance_variable_set(:@read, true)
+  response
+end
+
+# A GitHubTags whose requests are answered in order from `responses`.
+def github_tags(*responses)
+  tags = RolloutPolicy::GitHubTags.new(repository: "example/repo", token: "token", sha: "abc123")
+  calls = []
+  tags.define_singleton_method(:requests) { calls }
+  tags.define_singleton_method(:call) do |method, path, body = nil|
+    calls << [method, path, body]
+    responses.shift or raise "unexpected request #{path}"
+  end
+  tags
+end
+
+def tags_refused?
+  yield
+  false
+rescue RolloutPolicy::Refusal
+  true
+end
+
+check("a tag's date is its tagger date, read through the tag object") do
+  tags = github_tags(http(Net::HTTPOK, "200", { object: { type: "tag", sha: "tagsha" } }),
+                     http(Net::HTTPOK, "200", { tagger: { date: "2026-12-01T10:00:00Z" } }))
+  tags.date("golive/1100/android") == Time.utc(2026, 12, 1, 10) &&
+    tags.requests.map { |r| r[1] } == ["git/ref/tags/golive/1100/android", "git/tags/tagsha"]
+end
+check("a missing tag has no date") { github_tags(http(Net::HTTPNotFound, "404")).date("golive/1100/android").nil? }
+check("a lightweight tag is refused") do
+  tags_refused? { github_tags(http(Net::HTTPOK, "200", { object: { type: "commit", sha: "c" } })).date("golive/1100/android") }
+end
+check("a GitHub error while reading a tag is refused") do
+  tags_refused? { github_tags(http(Net::HTTPInternalServerError, "500")).date("golive/1100/android") }
+end
+check("recording a new tag creates the tag object and its ref") do
+  tags = github_tags(http(Net::HTTPCreated, "201", { sha: "newtag" }), http(Net::HTTPCreated, "201", {}))
+  tags.record("ramp/1100/20")
+  tags.requests.map { |r| [r[0], r[1]] } == [[Net::HTTP::Post, "git/tags"], [Net::HTTP::Post, "git/refs"]] &&
+    tags.requests[1][2] == { ref: "refs/tags/ramp/1100/20", sha: "newtag" }
+end
+check("recording an existing tag moves its ref to the new tag object") do
+  tags = github_tags(http(Net::HTTPCreated, "201", { sha: "newtag" }),
+                     http(Net::HTTPUnprocessableEntity, "422", {}), http(Net::HTTPOK, "200", {}))
+  tags.record("ramp/1100/20")
+  tags.requests.last[0..1] == [Net::HTTP::Patch, "git/refs/tags/ramp/1100/20"] &&
+    tags.requests.last[2] == { sha: "newtag", force: true }
+end
+check("a failed ref update while recording is refused") do
+  tags_refused? do
+    github_tags(http(Net::HTTPCreated, "201", { sha: "newtag" }), http(Net::HTTPUnprocessableEntity, "422", {}),
+                http(Net::HTTPForbidden, "403", {})).record("ramp/1100/20")
+  end
+end
 
 abort("\nFAIL: #{FAILURES.size} check(s) failed: #{FAILURES.join(', ')}") unless FAILURES.empty?
 puts "\nPASS: store rollout decisions"
