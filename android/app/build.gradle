@@ -24,7 +24,12 @@ kotlin {
 
 android {
     namespace "org.blokada"
-    compileSdk 37
+    // 37.1, not plain 37: Compose 1.13 (compose-bom 2026.11.01) refuses to
+    // build against android-37.0. Compile-only; targetSdkVersion decides
+    // runtime behavior.
+    compileSdk {
+        version = release(37) { minorApiLevel = 1 }
+    }
 
     kotlin {
         jvmToolchain 17
