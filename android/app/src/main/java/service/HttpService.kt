@@ -41,10 +41,9 @@ object HttpService {
             level = HttpLoggingInterceptor.Level.BODY
         })
 
-        // Probably DNS is messing up with those timeouts as we can still see hanging requests
-        // As a workaround we now bypass our own app from VPN
-        .connectTimeout(5, TimeUnit.SECONDS)
-        .readTimeout(30, TimeUnit.SECONDS)
+        // Statements of their own: chained after the if above, they only ran in debug builds.
+        connectTimeout(5, TimeUnit.SECONDS)
+        readTimeout(30, TimeUnit.SECONDS)
     }.build()
 
     fun getClient() = httpClient
