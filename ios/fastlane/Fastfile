@@ -414,7 +414,7 @@ platform :ios do
     # has none raises "No data" in spaceship instead of returning nil.
     version = app.get_app_store_versions(
       filter: { platform: platform, appVersionState: state },
-      includes: "appStoreVersionPhasedRelease"
+      includes: "appStoreVersionPhasedRelease,build"
     ).first
     phased = version&.app_store_version_phased_release
 
@@ -429,8 +429,9 @@ platform :ios do
     if requested == "advance"
       begin
         RolloutPolicy.authorize_ios!(version_string: version.version_string,
+                                     build_version: version.build&.version,
                                      phased_state: phased&.phased_release_state,
-                                     tags: RolloutPolicy::GitHubTags.new)
+                                     tags: RolloutPolicy::GitTags.new)
       rescue RolloutPolicy::Refusal => e
         CiAnnotation.error(title: "Cannot advance #{bundle_id}", message: e.message)
         UI.user_error!("#{bundle_id}: #{e.message}")

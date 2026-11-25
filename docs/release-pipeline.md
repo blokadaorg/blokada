@@ -439,7 +439,12 @@ one fixed step at a time, at least 24 hours apart. Each `advance`, `raise` or
 `resume` of Blokada 6 refreshes a `ramp/N/<percent>` tag just before the store
 write, so a resume restarts the 24 hours. It uses tags because workflow runs
 can disappear from GitHub. A raise off the ladder leaves no tag, so `advance`
-refuses and that ramp stays by hand. The approval
+refuses and that ramp stays by hand. A tag counts only if it is annotated,
+tagged by `blokada-ci` and points at `build/N`'s commit. That stops mistakes,
+not someone with write access who forges all three; only a tag ruleset on
+`golive/**` and `ramp/**` stops that. iOS `advance` also checks that the
+version string is the one `build/N` was tagged with and that its binary is
+`669000000 + N`. The approval
 job holds no secrets, and the job that uses the keys only starts once it has
 passed. An action that finds the store already where it would put it (halting
 a halted rollout) succeeds without a change; one that cannot start (raising a

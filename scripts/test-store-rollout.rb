@@ -189,6 +189,10 @@ class FakeTags
   def record(name)
     @recorded << name
   end
+
+  def version(build)
+    "26.12.#{build}"
+  end
 end
 
 def go_live(hours_ago = 25)
@@ -225,9 +229,9 @@ check("advance refuses within 24 hours of the last step") do
   advance_refused?(staged(0.2), go_live(72).merge("ramp/1100/20" => NOW - 3600))
 end
 check("advance refuses a step raised by hand, with no record") { advance_refused?(staged(0.2), go_live(72)) }
-check("advance refuses when GitHub cannot be read") do
+check("advance refuses when the tags cannot be read") do
   tags = FakeTags.new({})
-  tags.define_singleton_method(:date) { |_name| raise RolloutPolicy::Refusal, "GitHub returned 500" }
+  tags.define_singleton_method(:date) { |_name| raise RolloutPolicy::Refusal, "git fetch failed" }
   begin
     advance(staged(0.01), tags)
     false
@@ -259,8 +263,10 @@ end
 
 IOS_GO_LIVE = { "golive/1100/ios" => NOW - 3600 }.freeze
 
-def ios_refused?(version, phased, dates)
-  RolloutPolicy.authorize_ios!(version_string: version, phased_state: phased, tags: FakeTags.new(dates))
+def ios_refused?(version, phased, dates, binary: nil)
+  build = version[/\d+\z/].to_i
+  RolloutPolicy.authorize_ios!(version_string: version, build_version: binary || (669_000_000 + build).to_s,
+                               phased_state: phased, tags: FakeTags.new(dates))
   false
 rescue RolloutPolicy::Refusal
   true
@@ -270,65 +276,108 @@ check("iOS advance releases an approved phased version") { !ios_refused?("26.12.
 check("iOS advance refuses a version without a phased release") { ios_refused?("26.12.1100", nil, IOS_GO_LIVE) }
 check("iOS advance refuses a version without an approved go-live") { ios_refused?("26.12.1101", "INACTIVE", IOS_GO_LIVE) }
 check("an Android-only go-live does not approve iOS") { ios_refused?("26.12.1100", "INACTIVE", go_live) }
-
-# --- GitHubTags against canned GitHub responses --------------------------------
-
-def http(klass, code, body = nil)
-  response = klass.new("1.1", code, "")
-  response.instance_variable_set(:@body, body && JSON.generate(body))
-  response.instance_variable_set(:@read, true)
-  response
+check("iOS advance refuses a version build N was not tagged with") do
+  ios_refused?("27.1.1100", "INACTIVE", IOS_GO_LIVE)
+end
+check("iOS advance refuses a version carrying another build's binary") do
+  ios_refused?("26.12.1100", "INACTIVE", IOS_GO_LIVE, binary: "669001099")
+end
+check("iOS advance refuses a version with no binary") do
+  ios_refused?("26.12.1100", "INACTIVE", IOS_GO_LIVE, binary: "")
 end
 
-# A GitHubTags whose requests are answered in order from `responses`.
-def github_tags(*responses)
-  tags = RolloutPolicy::GitHubTags.new(repository: "example/repo", token: "token", sha: "abc123")
-  calls = []
-  tags.define_singleton_method(:requests) { calls }
-  tags.define_singleton_method(:call) do |method, path, body = nil|
-    calls << [method, path, body]
-    responses.shift or raise "unexpected request #{path}"
+# --- GitTags against a real git remote ---------------------------------------
+
+require "tmpdir"
+
+def sh(dir, *args, env: {})
+  out, err, status = Open3.capture3(env, "git", "-c", "tag.gpgSign=false", "-c", "commit.gpgSign=false",
+                                    "-c", "init.defaultBranch=main", *args, chdir: dir)
+  raise "git #{args.join(' ')}: #{err}" unless status.success?
+
+  out.strip
+end
+
+CI = { "GIT_COMMITTER_NAME" => "blokada-ci", "GIT_COMMITTER_EMAIL" => "ci@blokada.org",
+       "GIT_AUTHOR_NAME" => "blokada-ci", "GIT_AUTHOR_EMAIL" => "ci@blokada.org" }.freeze
+SOMEONE = CI.transform_values { |v| v.sub("blokada-ci", "someone").sub("ci@", "someone@") }.freeze
+
+# A remote with build/1100 at one commit and a later commit on main, and a
+# shallow checkout of main without tags, as actions/checkout leaves it.
+def with_remote
+  Dir.mktmpdir do |root|
+    origin = File.join(root, "origin.git")
+    seed = File.join(root, "seed")
+    checkout = File.join(root, "checkout")
+    sh(root, "init", "--quiet", "--bare", origin)
+    sh(root, "init", "--quiet", seed)
+    sh(seed, "commit", "--quiet", "--allow-empty", "-m", "build 1100", env: CI)
+    sh(seed, "tag", "-a", "build/1100", "-m", "26.12.1100", env: CI)
+    sh(seed, "commit", "--quiet", "--allow-empty", "-m", "later", env: CI)
+    sh(seed, "push", "--quiet", origin, "main", "refs/tags/build/1100")
+    sh(root, "clone", "--quiet", "--depth", "1", "--no-tags", "file://#{origin}", checkout)
+    yield RolloutPolicy::GitTags.new(dir: checkout), seed, origin
   end
-  tags
 end
 
-def tags_refused?
+def git_refused?
   yield
   false
 rescue RolloutPolicy::Refusal
   true
 end
 
-check("a tag's date is its tagger date, read through the tag object") do
-  tags = github_tags(http(Net::HTTPOK, "200", { object: { type: "tag", sha: "tagsha" } }),
-                     http(Net::HTTPOK, "200", { tagger: { date: "2026-12-01T10:00:00Z" } }))
-  tags.date("golive/1100/android") == Time.utc(2026, 12, 1, 10) &&
-    tags.requests.map { |r| r[1] } == ["git/ref/tags/golive/1100/android", "git/tags/tagsha"]
+check("a recorded tag is read back with its date") do
+  with_remote do |tags, _, _|
+    tags.record("golive/1100/android")
+    (Time.now - tags.date("golive/1100/android")).abs < 60
+  end
 end
-check("a missing tag has no date") { github_tags(http(Net::HTTPNotFound, "404")).date("golive/1100/android").nil? }
+check("a recorded tag points at its build's commit, not the checkout") do
+  with_remote do |tags, seed, origin|
+    tags.record("ramp/1100/20")
+    sh(seed, "ls-remote", origin, "refs/tags/ramp/1100/20^{}").split.first == sh(seed, "rev-parse", "build/1100^{commit}")
+  end
+end
+check("recording an existing tag moves it") do
+  with_remote do |tags, seed, origin|
+    tags.record("ramp/1100/20")
+    before = sh(seed, "ls-remote", origin, "refs/tags/ramp/1100/20").split.first
+    sleep 1.1
+    tags.record("ramp/1100/20")
+    sh(seed, "ls-remote", origin, "refs/tags/ramp/1100/20").split.first != before
+  end
+end
+check("a missing tag has no date") { with_remote { |tags, _, _| tags.date("golive/1100/android").nil? } }
+check("the version is build N's tag subject") { with_remote { |tags, _, _| tags.version(1100) == "26.12.1100" } }
+check("a build without its tag is refused") do
+  with_remote { |tags, _, _| git_refused? { tags.record("ramp/1101/20") } }
+end
 check("a lightweight tag is refused") do
-  tags_refused? { github_tags(http(Net::HTTPOK, "200", { object: { type: "commit", sha: "c" } })).date("golive/1100/android") }
+  with_remote do |tags, seed, origin|
+    sh(seed, "tag", "golive/1100/android", "build/1100^{commit}")
+    sh(seed, "push", "--quiet", origin, "refs/tags/golive/1100/android")
+    git_refused? { tags.date("golive/1100/android") }
+  end
 end
-check("a GitHub error while reading a tag is refused") do
-  tags_refused? { github_tags(http(Net::HTTPInternalServerError, "500")).date("golive/1100/android") }
+check("a tag made by someone other than blokada-ci is refused") do
+  with_remote do |tags, seed, origin|
+    sh(seed, "tag", "-a", "golive/1100/android", "-m", "x", "build/1100^{commit}", env: SOMEONE)
+    sh(seed, "push", "--quiet", origin, "refs/tags/golive/1100/android")
+    git_refused? { tags.date("golive/1100/android") }
+  end
 end
-check("recording a new tag creates the tag object and its ref") do
-  tags = github_tags(http(Net::HTTPCreated, "201", { sha: "newtag" }), http(Net::HTTPCreated, "201", {}))
-  tags.record("ramp/1100/20")
-  tags.requests.map { |r| [r[0], r[1]] } == [[Net::HTTP::Post, "git/tags"], [Net::HTTP::Post, "git/refs"]] &&
-    tags.requests[1][2] == { ref: "refs/tags/ramp/1100/20", sha: "newtag" }
+check("a tag at another commit than its build is refused") do
+  with_remote do |tags, seed, origin|
+    sh(seed, "tag", "-a", "golive/1100/android", "-m", "x", "main", env: CI)
+    sh(seed, "push", "--quiet", origin, "refs/tags/golive/1100/android")
+    git_refused? { tags.date("golive/1100/android") }
+  end
 end
-check("recording an existing tag moves its ref to the new tag object") do
-  tags = github_tags(http(Net::HTTPCreated, "201", { sha: "newtag" }),
-                     http(Net::HTTPUnprocessableEntity, "422", {}), http(Net::HTTPOK, "200", {}))
-  tags.record("ramp/1100/20")
-  tags.requests.last[0..1] == [Net::HTTP::Patch, "git/refs/tags/ramp/1100/20"] &&
-    tags.requests.last[2] == { sha: "newtag", force: true }
-end
-check("a failed ref update while recording is refused") do
-  tags_refused? do
-    github_tags(http(Net::HTTPCreated, "201", { sha: "newtag" }), http(Net::HTTPUnprocessableEntity, "422", {}),
-                http(Net::HTTPForbidden, "403", {})).record("ramp/1100/20")
+check("an unreachable remote is refused, not read as a missing tag") do
+  with_remote do |_, _, origin|
+    FileUtils.rm_rf(origin)
+    git_refused? { RolloutPolicy::GitTags.new(dir: Dir.pwd, remote: "file://#{origin}").date("golive/1100/android") }
   end
 end
 

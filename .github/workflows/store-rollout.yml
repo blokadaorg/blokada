@@ -127,7 +127,7 @@ jobs:
     environment: release
     timeout-minutes: 15
     permissions:
-      contents: write # records each step as a ramp/N/<pct> tag
+      contents: write # pushes each step as a ramp/N/<pct> tag with git
     env:
       FLAVOR: ${{ inputs.flavor }}
       ROLLOUT_ACTION: ${{ inputs.action }}
@@ -148,7 +148,6 @@ jobs:
       - name: Change the production rollout
         env:
           BLOKADA_GPLAY_KEY_BASE64: ${{ secrets.BLOKADA_GPLAY_KEY_BASE64 }}
-          GITHUB_TOKEN: ${{ github.token }}
         run: make rollout-android FLAVOR="$FLAVOR" ROLLOUT_ACTION="$ROLLOUT_ACTION" ROLLOUT_FRACTION="$ROLLOUT_FRACTION"
 
       - name: Clean Google Play key
@@ -169,7 +168,7 @@ jobs:
     environment: release
     timeout-minutes: 15
     permissions:
-      contents: read # advance reads golive/N/ios
+      contents: read # advance fetches golive/N/ios and build/N with git
     env:
       LANG: en_US.UTF-8
       LC_ALL: en_US.UTF-8
@@ -192,7 +191,6 @@ jobs:
       - name: Change the App Store release
         env:
           BLOKADA_APPSTORE_KEY_BASE64: ${{ secrets.BLOKADA_APPSTORE_KEY_BASE64 }}
-          GITHUB_TOKEN: ${{ github.token }}
         run: make rollout-ios FLAVOR="$FLAVOR" ROLLOUT_ACTION="$ROLLOUT_ACTION" FASTLANE="bundle exec fastlane"
 
       - name: Clean App Store key

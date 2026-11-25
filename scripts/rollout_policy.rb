@@ -5,23 +5,22 @@
 # takes the next fixed step of a build with an approved go-live. Everything it
 # cannot prove is refused; `raise` and `release` stay behind store-live.
 #
-# The proof is in tags, because workflow runs can disappear from GitHub:
+# The proof is in tags at build N's commit, because workflow runs can
+# disappear from GitHub:
 #   golive/N/<store>  pushed by promote.yml after an approved go-live reached
 #                     that store (android or ios)
 #   ramp/N/<pct>      refreshed just before each store write that lands on that
 #                     step, by advance, raise or resume, so its date is when the
 #                     step last changed
-require "json"
-require "net/http"
+require "open3"
 require "time"
-require "uri"
 
 module RolloutPolicy
   class Refusal < StandardError; end
 
   LADDER = [0.01, 0.2, 0.5, 1.0].freeze
   MIN_STEP_SECONDS = 24 * 60 * 60
-  PLAY_CODE_OFFSET = 669_000_000
+  CODE_OFFSET = 669_000_000
 
   def self.next_fraction(current)
     index = LADDER.index { |step| current && (step - current).abs < 1e-9 }
@@ -70,7 +69,7 @@ module RolloutPolicy
     codes = release.version_codes || []
     raise Refusal, "expected one version code, got #{codes.inspect}" unless codes.size == 1
 
-    build = Integer(codes.first.to_s, 10) - PLAY_CODE_OFFSET
+    build = Integer(codes.first.to_s, 10) - CODE_OFFSET
     raise Refusal, "version code #{codes.first} is not a Blokada 6 build" unless build.positive?
 
     build
@@ -79,10 +78,21 @@ module RolloutPolicy
   end
 
   # An App Store version waits in Pending Developer Release whether or not the
-  # promote went live, so the go-live tag is what approves releasing it.
-  def self.authorize_ios!(version_string:, phased_state:, tags:)
+  # promote went live, so the go-live tag is what approves releasing it. The
+  # version and its binary must both be build N's, so a go-live of one build
+  # cannot release another that shares its last number.
+  def self.authorize_ios!(version_string:, build_version:, phased_state:, tags:)
     build = version_string.to_s[/\A\d+\.\d+\.(\d+)\z/, 1]
     raise Refusal, "could not read a build number from version #{version_string.inspect}" if build.nil?
+
+    build = Integer(build, 10)
+    expected = tags.version(build)
+    unless version_string == expected
+      raise Refusal, "version #{version_string} is not build #{build}, which is #{expected}"
+    end
+    unless build_version.to_s == (CODE_OFFSET + build).to_s
+      raise Refusal, "#{version_string} carries binary #{build_version.inspect}, not #{CODE_OFFSET + build}"
+    end
     if phased_state.nil?
       raise Refusal, "#{version_string} has no phased release, so it would reach every user at once. " \
                      "Use `release`, which waits for a maintainer."
@@ -94,73 +104,90 @@ module RolloutPolicy
     nil
   end
 
-  # Reads and creates annotated tags with the run's token. Any failure refuses.
-  class GitHubTags
-    def initialize(repository: ENV["GITHUB_REPOSITORY"], token: ENV["GITHUB_TOKEN"], sha: ENV["GITHUB_SHA"])
-      if [repository, token, sha].any? { |value| value.to_s.empty? }
-        raise Refusal, "GITHUB_REPOSITORY, GITHUB_TOKEN and GITHUB_SHA are required"
-      end
+  # Reads and pushes rollout tags with git, in a checkout whose origin is this
+  # repository. A tag counts only if it is annotated, tagged by blokada-ci and
+  # points at its build's commit; anything else is refused, never ignored.
+  # This stops mistakes and casual edits, not someone with write access who
+  # forges all three: only a tag ruleset on golive/** and ramp/** does that.
+  class GitTags
+    TAGGER = "blokada-ci <ci@blokada.org>"
 
-      @repository = repository
-      @token = token
-      @sha = sha
+    def initialize(dir: Dir.pwd, remote: "origin")
+      @dir = dir
+      @remote = remote
     end
 
-    # The tag's creation time, nil when it does not exist. A lightweight tag
-    # has no time and is not proof of anything, so it is refused.
+    # The tag's date, nil when it does not exist.
     def date(name)
-      response = call(Net::HTTP::Get, "git/ref/tags/#{name}")
-      return nil if response.is_a?(Net::HTTPNotFound)
+      return nil unless fetch(name)
 
-      ref = parse(response, name)
-      object = ref.fetch("object")
-      raise Refusal, "tag #{name} is not annotated" unless object["type"] == "tag"
+      type, tagger, date, target = git("for-each-ref",
+                                       "--format=%(objecttype)\t%(taggername) %(taggeremail)\t" \
+                                       "%(taggerdate:iso-strict)\t%(*objectname)",
+                                       "refs/tags/#{name}").chomp.split("\t")
+      raise Refusal, "tag #{name} is not annotated" unless type == "tag"
+      raise Refusal, "tag #{name} was made by #{tagger}, not #{TAGGER}" unless tagger == TAGGER
 
-      tag = parse(call(Net::HTTP::Get, "git/tags/#{object.fetch('sha')}"), name)
-      Time.iso8601(tag.fetch("tagger").fetch("date"))
-    rescue KeyError, ArgumentError => e
+      build = build_of(name)
+      raise Refusal, "tag #{name} does not point at build/#{build}" unless target == commit(build)
+
+      Time.iso8601(date)
+    rescue ArgumentError => e
       raise Refusal, "could not read tag #{name}: #{e.message}"
     end
 
-    # Creates the tag, or moves it to a new tag object dated now.
+    # The version string build N was tagged with, such as 26.12.1100.
+    def version(build)
+      commit(build)
+      git("for-each-ref", "--format=%(contents:subject)", "refs/tags/build/#{build}").strip
+    end
+
+    # Creates the tag at its build's commit, or moves it to a new one dated now.
     def record(name)
-      tag = parse(call(Net::HTTP::Post, "git/tags", {
-                         tag: name, message: "Rollout step recorded by run #{ENV['GITHUB_RUN_ID']}",
-                         object: @sha, type: "commit",
-                         tagger: { name: "blokada-ci", email: "ci@blokada.org", date: Time.now.utc.iso8601 }
-                       }), name)
-      sha = tag.fetch("sha")
-      response = call(Net::HTTP::Post, "git/refs", { ref: "refs/tags/#{name}", sha: sha })
-      if response.is_a?(Net::HTTPUnprocessableEntity)
-        response = call(Net::HTTP::Patch, "git/refs/tags/#{name}", { sha: sha, force: true })
-      end
-      parse(response, name)
+      sha = commit(build_of(name))
+      git("-c", "user.name=blokada-ci", "-c", "user.email=ci@blokada.org", "-c", "tag.gpgSign=false",
+          "tag", "--annotate", "--force", name, sha,
+          "--message", "Rollout step recorded by run #{ENV.fetch('GITHUB_RUN_ID', 'outside CI')}")
+      git("push", "--force", @remote, "refs/tags/#{name}")
       nil
-    rescue KeyError => e
-      raise Refusal, "could not record tag #{name}: #{e.message}"
     end
 
     private
 
-    def parse(response, name)
-      raise Refusal, "GitHub returned #{response.code} for tag #{name}" unless response.is_a?(Net::HTTPSuccess)
-
-      JSON.parse(response.body)
-    rescue JSON::ParserError => e
-      raise Refusal, "unreadable GitHub response for tag #{name}: #{e.message}"
+    def build_of(name)
+      Integer(name.split("/")[1].to_s, 10)
+    rescue ArgumentError
+      raise Refusal, "tag #{name} names no build"
     end
 
-    def call(method, path, body = nil)
-      uri = URI("https://api.github.com/repos/#{@repository}/#{path}")
-      request = method.new(uri)
-      request["Authorization"] = "Bearer #{@token}"
-      request["Accept"] = "application/vnd.github+json"
-      request.body = JSON.generate(body) if body
-      Net::HTTP.start(uri.host, uri.port, use_ssl: true, open_timeout: 15, read_timeout: 30) do |http|
-        http.request(request)
-      end
-    rescue SocketError, SystemCallError, Net::OpenTimeout, Net::ReadTimeout, OpenSSL::SSL::SSLError => e
-      raise Refusal, "could not reach GitHub for #{path}: #{e.message}"
+    # The commit build/N points at. A build without its tag is refused.
+    def commit(build)
+      raise Refusal, "build/#{build} does not exist" unless fetch("build/#{build}")
+
+      git("rev-parse", "refs/tags/build/#{build}^{commit}").strip
+    end
+
+    # Fetches one tag from the remote; false when the remote has no such tag.
+    def fetch(name)
+      _, _, status = run("ls-remote", "--exit-code", "--tags", @remote, "refs/tags/#{name}")
+      return false if status.exitstatus == 2
+
+      raise Refusal, "could not list tag #{name} on #{@remote}" unless status.success?
+
+      git("fetch", "--quiet", "--force", "--no-tags", "--depth", "1", @remote,
+          "+refs/tags/#{name}:refs/tags/#{name}")
+      true
+    end
+
+    def git(*args)
+      out, err, status = run(*args)
+      raise Refusal, "git #{args.first} failed: #{err.strip}" unless status.success?
+
+      out
+    end
+
+    def run(*args)
+      Open3.capture3("git", *args, chdir: @dir)
     end
   end
 end

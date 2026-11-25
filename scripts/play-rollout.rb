@@ -94,7 +94,7 @@ begin
 
     fraction = RolloutPolicy.authorize_play!(
       PlayRollout.staged_release(track.releases),
-      tags: RolloutPolicy::GitHubTags.new,
+      tags: RolloutPolicy::GitTags.new,
       now: Time.now.utc
     ).to_s
     action = "raise"
@@ -105,7 +105,7 @@ begin
     CiAnnotation.summary("#{package_name}: nothing to #{options[:action]} on #{TRACK}, #{before}")
   else
     if package_name == "org.blokada.sex" && %w[raise resume].include?(action)
-      RolloutPolicy.record_step!(release, tags: RolloutPolicy::GitHubTags.new)
+      RolloutPolicy.record_step!(release, tags: RolloutPolicy::GitTags.new)
     end
     track.releases = [release]
     client.update_track(TRACK, track)
