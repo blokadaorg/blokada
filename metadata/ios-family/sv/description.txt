@@ -1,8 +1,8 @@
-🛡️ Blokada Family — Föräldrakontroll över flera enheter, byggd på Blokadas pålitliga plattform
+Blokada Family — Föräldrakontroll över flera enheter, byggd på Blokadas pålitliga plattform
 
 Skydda dina barn online utan att alla i familjen måste vara på samma plattform. Blokada Family ger dig föräldrakontroll över flera enheter, byggd på samma öppna källkodsgrund för annonsblockering och integritet som driver Blokada.
 
-✨ Varför Blokada Family
+Varför Blokada Family
 
 • En föräldraapp, många barnenheter — hantera barnens telefoner och plattor från ett ställe, oavsett plattform.
 • App- och innehållsblockerare — blockera appar, webbplatser och hela kategorier med en knapptryckning.
@@ -11,7 +11,7 @@ Skydda dina barn online utan att alla i familjen måste vara på samma plattform
 • Anpassningsbara regler per enhet — finjustera vad som är tillåtet för varje barn.
 • Inbyggd annons- och trackerblockering — varje skyddad enhet får dessutom hela Blokada-upplevelsen på köpet.
 
-🛡️ Vad det skyddar mot
+Vad det skyddar mot
 
 • Olämpliga eller skadliga webbplatser och appar
 • Kategorier som vuxet innehåll, spel om pengar och våld
@@ -19,14 +19,14 @@ Skydda dina barn online utan att alla i familjen måste vara på samma plattform
 • Skadliga sajter och nätfiske
 • Ofiltrerade, distraherande sökresultat
 
-🚀 Enkelt att komma igång
+Enkelt att komma igång
 
 1. Installera Blokada Family på förälderns enhet.
 2. Lägg till varje barns enhet.
 3. Välj reglerna — kategorier, appar och sökfilter för varje barn.
 4. Följ statistiken live och justera när familjen växer.
 
-🌍 Designad för moderna familjer
+Designad för moderna familjer
 
 Byggd för familjer med blandade enheter och föränderliga behov. En app, varje barn, full kontroll — oavsett om barnen har iPhone eller Android.
 

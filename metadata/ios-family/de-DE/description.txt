@@ -1,8 +1,8 @@
-🛡️ Blokada Family — Geräteübergreifende Kindersicherung, aufgebaut auf Blokadas bewährter Plattform
+Blokada Family — Geräteübergreifende Kindersicherung, aufgebaut auf Blokadas bewährter Plattform
 
 Schützen Sie Ihre Kinder online, ohne dass alle in Ihrer Familie auf derselben Plattform sein müssen. Blokada Family bietet Ihnen geräteübergreifende Kindersicherung – aufgebaut auf demselben Open-Source-Fundament für Werbeblocker und Privatsphäre, das auch Blokada antreibt.
 
-✨ Warum Blokada Family
+Warum Blokada Family
 
 • Eine Eltern-App, viele Kindergeräte – verwalten Sie die Smartphones und Tablets Ihrer Kinder von einem Ort aus, plattformunabhängig.
 • App- und Inhalts-Blocker – blockieren Sie Apps, Webseiten und ganze Kategorien per Antippen.
@@ -11,7 +11,7 @@ Schützen Sie Ihre Kinder online, ohne dass alle in Ihrer Familie auf derselben 
 • Anpassbare Regeln pro Gerät – feinjustieren Sie für jedes Kind, was erlaubt ist.
 • Eingebauter Werbe- und Tracker-Schutz – jedes geschützte Gerät bekommt zusätzlich das volle Blokada-Erlebnis.
 
-🛡️ Wovor es schützt
+Wovor es schützt
 
 • Unangemessene oder schädliche Webseiten und Apps
 • Inhaltskategorien wie Erwachsene, Glücksspiel und Gewalt
@@ -19,14 +19,14 @@ Schützen Sie Ihre Kinder online, ohne dass alle in Ihrer Familie auf derselben 
 • Schädliche und Phishing-Seiten
 • Ungefilterte, ablenkende Suchergebnisse
 
-🚀 Einfach einzurichten
+Einfach einzurichten
 
 1. Installieren Sie Blokada Family auf dem Gerät der Eltern.
 2. Fügen Sie das Gerät jedes Kindes hinzu.
 3. Wählen Sie die Regeln – Kategorien, Apps und Suchfilter pro Kind.
 4. Verfolgen Sie die Live-Statistiken und passen Sie an, wenn Ihre Familie wächst.
 
-🌍 Für moderne Familien gemacht
+Für moderne Familien gemacht
 
 Entwickelt für Familien mit gemischten Geräten und sich verändernden Bedürfnissen. Eine App, jedes Kind, volle Kontrolle – egal ob iPhone oder Android.
 

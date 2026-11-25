@@ -1,8 +1,8 @@
-🛡️ Blokada Family — Cross-Device Parental Controls, Built on Blokada's Trusted Privacy Stack
+Blokada Family — Cross-Device Parental Controls, Built on Blokada's Trusted Privacy Stack
 
 Keep your kids safe online without forcing your whole family onto the same platform. Blokada Family gives you cross-device parental controls, built on the same open-source ad-blocking and privacy stack that powers Blokada.
 
-✨ Why Blokada Family
+Why Blokada Family
 
 • One parent app, many child devices — manage your kids' phones and tablets from one place, regardless of platform.
 • App and content blocker — block apps, websites, and entire categories with a tap.
@@ -11,7 +11,7 @@ Keep your kids safe online without forcing your whole family onto the same platf
 • Customizable per-device rules — fine-tune what is allowed for every child.
 • Built-in ad and tracker blocking — every protected device gets the full Blokada experience as a bonus.
 
-🛡️ What it protects against
+What it protects against
 
 • Inappropriate or harmful websites and apps
 • Adult, gambling, and violent content categories
@@ -19,14 +19,14 @@ Keep your kids safe online without forcing your whole family onto the same platf
 • Malicious and phishing sites
 • Unfiltered, distracting search results
 
-🚀 Easy to set up
+Easy to set up
 
 1. Install Blokada Family on the parent's device.
 2. Add each child's device.
 3. Choose the rules — categories, apps, and search filters per child.
 4. Watch the live stats and adjust as your family grows.
 
-🌍 Designed for modern families
+Designed for modern families
 
 Built for families with mixed devices and changing needs. One app, every child, full control — whether your kids are on iPhone or Android.
 

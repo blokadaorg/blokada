@@ -1,8 +1,8 @@
-🛡️ Blokada Family — Contrôle parental multi-appareils, bâti sur la plateforme éprouvée de Blokada
+Blokada Family — Contrôle parental multi-appareils, bâti sur la plateforme éprouvée de Blokada
 
 Protégez vos enfants en ligne sans forcer toute votre famille à être sur la même plateforme. Blokada Family vous offre un contrôle parental multi-appareils, bâti sur la même base open source de blocage des publicités et de protection de la vie privée qui anime Blokada.
 
-✨ Pourquoi Blokada Family
+Pourquoi Blokada Family
 
 • Une appli parent, de nombreux appareils enfants — gérez les téléphones et tablettes de vos enfants depuis un seul endroit, quelle que soit la plateforme.
 • Blocage d'applis et de contenus — bloquez applis, sites et catégories entières d'une simple pression.
@@ -11,7 +11,7 @@ Protégez vos enfants en ligne sans forcer toute votre famille à être sur la m
 • Règles personnalisables par appareil — ajustez finement ce qui est autorisé pour chaque enfant.
 • Blocage des publicités et des traqueurs intégré — chaque appareil protégé profite en bonus de l'expérience complète de Blokada.
 
-🛡️ Ce contre quoi il protège
+Ce contre quoi il protège
 
 • Sites et applis inappropriés ou nuisibles
 • Catégories de contenus pour adultes, jeux d'argent et violence
@@ -19,14 +19,14 @@ Protégez vos enfants en ligne sans forcer toute votre famille à être sur la m
 • Sites malveillants et hameçonnage
 • Résultats de recherche non filtrés et distrayants
 
-🚀 Facile à mettre en place
+Facile à mettre en place
 
 1. Installez Blokada Family sur l'appareil du parent.
 2. Ajoutez l'appareil de chaque enfant.
 3. Choisissez les règles — catégories, applis et filtres de recherche pour chaque enfant.
 4. Suivez les statistiques en direct et ajustez à mesure que votre famille évolue.
 
-🌍 Conçu pour les familles modernes
+Conçu pour les familles modernes
 
 Pensé pour les familles aux appareils variés et aux besoins changeants. Une appli, chaque enfant, un contrôle total — que vos enfants soient sur iPhone ou Android.
 

@@ -1,8 +1,8 @@
-🛡️ Blokada Family — Control parental multidispositivo, sobre la plataforma de confianza de Blokada
+Blokada Family — Control parental multidispositivo, sobre la plataforma de confianza de Blokada
 
 Protege a tus hijos en línea sin obligar a toda tu familia a estar en la misma plataforma. Blokada Family te ofrece control parental multidispositivo, construido sobre la misma base open source de bloqueo de anuncios y privacidad que da vida a Blokada.
 
-✨ Por qué Blokada Family
+Por qué Blokada Family
 
 • Una app para padres, muchos dispositivos infantiles — gestiona los móviles y tablets de tus hijos desde un único lugar, sea cual sea la plataforma.
 • Bloqueador de apps y contenidos — bloquea apps, webs y categorías enteras con un toque.
@@ -11,7 +11,7 @@ Protege a tus hijos en línea sin obligar a toda tu familia a estar en la misma 
 • Reglas personalizables por dispositivo — ajusta con precisión qué se permite para cada hijo.
 • Bloqueo de anuncios y rastreadores incluido — cada dispositivo protegido recibe además la experiencia completa de Blokada.
 
-🛡️ De qué protege
+De qué protege
 
 • Webs y apps inapropiadas o dañinas
 • Categorías de contenido adulto, juego o violencia
@@ -19,14 +19,14 @@ Protege a tus hijos en línea sin obligar a toda tu familia a estar en la misma 
 • Sitios maliciosos y de phishing
 • Resultados de búsqueda sin filtrar y que distraen
 
-🚀 Fácil de configurar
+Fácil de configurar
 
 1. Instala Blokada Family en el dispositivo del padre o la madre.
 2. Añade el dispositivo de cada hijo.
 3. Elige las reglas — categorías, apps y filtros de búsqueda para cada hijo.
 4. Mira las estadísticas en vivo y ajusta a medida que crezca tu familia.
 
-🌍 Diseñado para familias modernas
+Diseñado para familias modernas
 
 Pensado para familias con dispositivos variados y necesidades cambiantes. Una app, cada hijo, control total — sin importar si tienen iPhone o Android.
 
