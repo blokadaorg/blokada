@@ -1,8 +1,8 @@
-🛡️ Blokada Family — Kontrola rodzicielska na wielu urządzeniach, zbudowana na sprawdzonej platformie Blokada
+Blokada Family — Kontrola rodzicielska na wielu urządzeniach, zbudowana na sprawdzonej platformie Blokada
 
 Chroń swoje dzieci w sieci bez zmuszania całej rodziny do jednej platformy. Blokada Family daje Ci kontrolę rodzicielską obejmującą wiele urządzeń — zbudowaną na tych samych otwartoźródłowych fundamentach blokowania reklam i ochrony prywatności, na których działa Blokada.
 
-✨ Dlaczego Blokada Family
+Dlaczego Blokada Family
 
 • Jedna aplikacja rodzica, wiele urządzeń dziecka — zarządzaj telefonami i tabletami dzieci z jednego miejsca, niezależnie od platformy.
 • Blokada aplikacji i treści — blokuj aplikacje, strony i całe kategorie jednym dotknięciem.
@@ -11,7 +11,7 @@ Chroń swoje dzieci w sieci bez zmuszania całej rodziny do jednej platformy. Bl
 • Konfigurowalne reguły dla każdego urządzenia — precyzyjnie dostosuj, co jest dozwolone dla każdego dziecka.
 • Wbudowane blokowanie reklam i trackerów — każde chronione urządzenie dostaje w prezencie pełne doświadczenie Blokada.
 
-🛡️ Przed czym chroni
+Przed czym chroni
 
 • Nieodpowiednie lub szkodliwe strony i aplikacje
 • Kategorie treści dla dorosłych, hazardowych i przemocy
@@ -19,14 +19,14 @@ Chroń swoje dzieci w sieci bez zmuszania całej rodziny do jednej platformy. Bl
 • Strony złośliwe i phishingowe
 • Niefiltrowane, rozpraszające wyniki wyszukiwania
 
-🚀 Łatwa konfiguracja
+Łatwa konfiguracja
 
 1. Zainstaluj Blokada Family na urządzeniu rodzica.
 2. Dodaj urządzenie każdego dziecka.
 3. Wybierz reguły — kategorie, aplikacje i filtry wyszukiwania dla każdego dziecka.
 4. Obserwuj statystyki na żywo i dostosowuj je w miarę jak rodzina się zmienia.
 
-🌍 Stworzone dla nowoczesnych rodzin
+Stworzone dla nowoczesnych rodzin
 
 Zaprojektowane dla rodzin z różnymi urządzeniami i zmieniającymi się potrzebami. Jedna aplikacja, każde dziecko, pełna kontrola — niezależnie od tego, czy mają iPhone'a, czy Androida.
 

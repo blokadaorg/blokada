@@ -1,8 +1,8 @@
-🛡️ Blokada — Open-Source Ad Blocker, Encrypted DNS & WireGuard® VPN
+Blokada — Open-Source Ad Blocker, Encrypted DNS & WireGuard® VPN
 
 Block ads, trackers, and malware in apps, browsers, and games — not just inside your browser. Blokada is an open-source privacy app, built in the open to keep the internet fast, private, and free of clutter — without draining your battery.
 
-✨ Why Blokada is different
+Why Blokada is different
 
 • Cloud-based filtering — ads are blocked before they reach your device, so there is no battery or data overhead.
 • Built-in WireGuard® VPN — modern, fast, no-log. Encrypt all your traffic with one tap.
@@ -10,7 +10,7 @@ Block ads, trackers, and malware in apps, browsers, and games — not just insid
 • One subscription, every device — Android, iOS, Windows, macOS, Linux. Move freely between them.
 • Systemwide protection — DNS-level blocking across apps, browsers, and games.
 
-🚀 What you get
+What you get
 
 • Faster page loads and lower data usage
 • Longer battery life on mobile
@@ -19,11 +19,11 @@ Block ads, trackers, and malware in apps, browsers, and games — not just insid
 • Customizable filter lists, including community-maintained sets
 • Public Wi-Fi protection through the built-in VPN
 
-⚙️ How it works
+How it works
 
 Blokada Cloud blocks ads and trackers at the DNS level — fast, light, and reliable. Upgrade to Blokada Plus for the no-log WireGuard® VPN, encrypting your full traffic across our global network.
 
-🎯 Built for
+Built for
 
 • People who want a faster, calmer internet
 • Privacy-minded users who want to see what is tracking them

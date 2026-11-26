@@ -1,8 +1,8 @@
-🛡️ Blokada — Annonsblockerare med öppen källkod, krypterad DNS och WireGuard® VPN
+Blokada — Annonsblockerare med öppen källkod, krypterad DNS och WireGuard® VPN
 
 Blockera annonser, trackers och skadlig kod i appar, på webben och i spel — inte bara inuti din webbläsare. Blokada är en integritetsapp med öppen källkod, byggd öppet för att hålla nätet snabbt, privat och rent — utan att tömma batteriet.
 
-✨ Det här skiljer Blokada från andra
+Det här skiljer Blokada från andra
 
 • Molnbaserad filtrering — annonserna stoppas innan de når din enhet, så varken batteri eller surf belastas.
 • Inbyggt WireGuard® VPN — modernt, snabbt, utan loggar. Kryptera all din trafik med en knapptryckning.
@@ -10,7 +10,7 @@ Blockera annonser, trackers och skadlig kod i appar, på webben och i spel — i
 • Ett abonnemang, alla enheter — Android, iOS, Windows, macOS, Linux. Hoppa fritt mellan dem.
 • Systemövergripande skydd — DNS-baserad blockering i appar, på webben och i spel.
 
-🚀 Det här får du
+Det här får du
 
 • Snabbare sidladdningar och lägre datatrafik
 • Längre batteritid på mobilen
@@ -19,11 +19,11 @@ Blockera annonser, trackers och skadlig kod i appar, på webben och i spel — i
 • Anpassningsbara filterlistor, inklusive community-underhållna
 • Skydd på publika Wi-Fi via den inbyggda VPN-tjänsten
 
-⚙️ Så fungerar det
+Så fungerar det
 
 Blokada Cloud blockerar annonser och trackers på DNS-nivå — snabbt, lätt och stabilt. Uppgradera till Blokada Plus för WireGuard®-VPN utan loggar, som krypterar all din trafik via vårt globala nätverk.
 
-🎯 Byggd för
+Byggd för
 
 • Dig som vill ha ett snabbare och lugnare nät
 • Integritetsmedvetna som vill se vem som spårar dem
