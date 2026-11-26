@@ -19,6 +19,7 @@
 
 require 'optparse'
 require_relative 'play_rollout'
+require_relative 'rollout_policy'
 require_relative '../ios/fastlane/ci_annotation'
 
 begin
@@ -43,10 +44,10 @@ end
 
 options = {}
 parser = OptionParser.new do |opts|
-  opts.banner = "Usage: play-rollout.rb --json-key KEY --package-name PKG --action raise|halt|resume [--fraction F]"
+  opts.banner = "Usage: play-rollout.rb --json-key KEY --package-name PKG --action raise|halt|resume|advance [--fraction F]"
   opts.on("--json-key KEY", "Play service account JSON") { |v| options[:json_key] = v }
   opts.on("--package-name PKG", "Play package name") { |v| options[:package_name] = v }
-  opts.on("--action ACTION", "raise, halt or resume") { |v| options[:action] = v }
+  opts.on("--action ACTION", "raise, halt, resume or advance") { |v| options[:action] = v }
   opts.on("--fraction F", "raise only: share of users, 0.2 or 20% (above 0, at most 1 or 100%)") { |v| options[:fraction] = v }
 end
 
@@ -85,18 +86,34 @@ begin
   fail_with("#{package_name} has no #{TRACK} track") if track.nil?
 
   before = PlayRollout.describe([PlayRollout.staged_release(track.releases)])
-  release = PlayRollout.apply!(track.releases, action: options[:action], fraction: options[:fraction])
+  action = options[:action]
+  fraction = options[:fraction]
+  if action == "advance"
+    fail_with("advance only applies to org.blokada.sex") unless package_name == "org.blokada.sex"
+    fail_with("advance takes no --fraction") unless fraction.nil?
+
+    fraction = RolloutPolicy.authorize_play!(
+      PlayRollout.staged_release(track.releases),
+      tags: RolloutPolicy::GitTags.new,
+      now: Time.now.utc
+    ).to_s
+    action = "raise"
+  end
+  release = PlayRollout.apply!(track.releases, action: action, fraction: fraction)
 
   if release.nil?
     CiAnnotation.summary("#{package_name}: nothing to #{options[:action]} on #{TRACK}, #{before}")
   else
+    if package_name == "org.blokada.sex" && %w[raise resume].include?(action)
+      RolloutPolicy.record_step!(release, tags: RolloutPolicy::GitTags.new)
+    end
     track.releases = [release]
     client.update_track(TRACK, track)
     client.commit_current_edit!
     committed = true
     CiAnnotation.summary("#{package_name}: #{options[:action]} on #{TRACK}, #{before} -> #{PlayRollout.describe([release])}")
   end
-rescue PlayRollout::Refusal => e
+rescue PlayRollout::Refusal, RolloutPolicy::Refusal => e
   fail_with("#{package_name}: #{e.message}")
 rescue StandardError => e
   fail_with("could not #{options[:action]} the rollout of #{package_name}: #{e.message}")

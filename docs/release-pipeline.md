@@ -425,12 +425,26 @@ outside the `release` environment. Dispatched with `flavor` (`six`, `family`),
 | android | `halt` | halts the production staged rollout at its fraction | none |
 | android | `resume` | resumes a halted rollout at the fraction it was halted at | `store-live` |
 | android | `raise` | raises the staged rollout to `fraction`; `1` completes it | `store-live` |
+| android | `advance` | Blokada 6: the next step of 1%, 20%, 50%, 100% | none, needs `golive/N/<store>` |
 | ios | `pause` | pauses the live version's phased release | none |
 | ios | `resume` | resumes a paused phased release | `store-live` |
 | ios | `release` | releases the version in Pending Developer Release | `store-live` |
+| ios | `advance` | Blokada 6: releases an approved, phased version | none, needs `golive/N/<store>` |
 
-Anything that reaches more users waits for a reviewer on `store-live`; halting
-and pausing run at once, because a bad release has to stop now. The approval
+Anything that reaches more users waits for a reviewer on `store-live`, except
+`advance`; halting and pausing run at once, because a bad release has to stop
+now. Approving a promote with `public_release` approves its ramp: the promote
+pushes `golive/N/<store>` for each store it reached, and `advance` then takes
+one fixed step at a time, at least 24 hours apart. Each `advance`, `raise` or
+`resume` of Blokada 6 refreshes a `ramp/N/<percent>` tag just before the store
+write, so a resume restarts the 24 hours. It uses tags because workflow runs
+can disappear from GitHub. A raise off the ladder leaves no tag, so `advance`
+refuses and that ramp stays by hand. A tag counts only if it is annotated,
+tagged by `blokada-ci` and points at `build/N`'s commit. That stops mistakes,
+not someone with write access who forges all three; only a tag ruleset on
+`golive/**` and `ramp/**` stops that. iOS `advance` also checks that the
+version string is the one `build/N` was tagged with and that its binary is
+`669000000 + N`. The approval
 job holds no secrets, and the job that uses the keys only starts once it has
 passed. An action that finds the store already where it would put it (halting
 a halted rollout) succeeds without a change; one that cannot start (raising a
@@ -466,8 +480,8 @@ suite, then an agent reviews the PRs merged since the previous release
 against their tracker issues, both flavors, following the Device review section
 of the `app-rollout` skill in `blokadaorg/workflows`. Which PRs it reviews
 comes from the files each one changes (`release_scope.py`): only those with
-code that runs on iOS. Android-only PRs are listed `n/a` (the Android smoke and
-emulator screenshots cover them), and CI, docs and tooling PRs are counted;
+code that runs on iOS. Android-only PRs are listed `n/a` (the Android smoke
+covers them), and CI, docs and tooling PRs are counted;
 neither enters the verdict.
 
 The agent has no write token and no network tool, and its file tools are

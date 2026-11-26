@@ -6,6 +6,7 @@
 # Deliberately free of credentials and of the fastlane runtime, like
 # test-release-state.rb, so PR CI covers every case without a store.
 require_relative "play_rollout"
+require_relative "rollout_policy"
 require_relative "../ios/fastlane/ios_rollout"
 
 FAILURES = []
@@ -167,6 +168,217 @@ end
 
 check("an unknown iOS action is refused") do
   IosRollout.decide("halt", version_state: "READY_FOR_DISTRIBUTION", phased_state: "ACTIVE").is_a?(String)
+end
+
+# --- advance ------------------------------------------------------------------
+
+NOW = Time.utc(2026, 12, 2, 12)
+
+class FakeTags
+  attr_reader :recorded
+
+  def initialize(dates)
+    @dates = dates
+    @recorded = []
+  end
+
+  def date(name)
+    @dates[name]
+  end
+
+  def record(name)
+    @recorded << name
+  end
+
+  def version(build)
+    "26.12.#{build}"
+  end
+end
+
+def go_live(hours_ago = 25)
+  { "golive/1100/android" => NOW - hours_ago * 3600 }
+end
+
+def advance(release, tags)
+  RolloutPolicy.authorize_play!(release, tags: tags, now: NOW)
+end
+
+def advance_refused?(release, dates)
+  tags = FakeTags.new(dates)
+  advance(release, tags)
+  false
+rescue RolloutPolicy::Refusal
+  true
+end
+
+check("advance takes 1% to 20%") { advance(staged(0.01), FakeTags.new(go_live)) == 0.2 }
+check("advance takes 20% to 50%") do
+  advance(staged(0.2), FakeTags.new(go_live(72).merge("ramp/1100/20" => NOW - 25 * 3600))) == 0.5
+end
+check("advance takes 50% to 100%") do
+  advance(staged(0.5), FakeTags.new(go_live(72).merge("ramp/1100/50" => NOW - 25 * 3600))) == 1.0
+end
+check("advance refuses a fraction off the ladder") { advance_refused?(staged(0.05), go_live) }
+check("advance refuses a halted rollout") { advance_refused?(halted(0.2), go_live) }
+check("advance refuses without an approved go-live") { advance_refused?(staged(0.01), {}) }
+check("advance refuses a go-live of another build") do
+  advance_refused?(staged(0.01), { "golive/1099/android" => NOW - 25 * 3600 })
+end
+check("advance refuses within 24 hours of the go-live") { advance_refused?(staged(0.01), go_live(23)) }
+check("advance refuses within 24 hours of the last step") do
+  advance_refused?(staged(0.2), go_live(72).merge("ramp/1100/20" => NOW - 3600))
+end
+check("advance refuses a step raised by hand, with no record") { advance_refused?(staged(0.2), go_live(72)) }
+check("advance refuses when the tags cannot be read") do
+  tags = FakeTags.new({})
+  tags.define_singleton_method(:date) { |_name| raise RolloutPolicy::Refusal, "git fetch failed" }
+  begin
+    advance(staged(0.01), tags)
+    false
+  rescue RolloutPolicy::Refusal
+    true
+  end
+end
+check("advance refuses within 24 hours of a resume at 1%") do
+  advance_refused?(staged(0.01), go_live(72).merge("ramp/1100/1" => NOW - 3600))
+end
+check("an iOS-only go-live does not approve Android") do
+  advance_refused?(staged(0.01), { "golive/1100/ios" => NOW - 25 * 3600 })
+end
+check("a step on the ladder is recorded") do
+  tags = FakeTags.new({})
+  RolloutPolicy.record_step!(staged(0.2), tags: tags)
+  tags.recorded == ["ramp/1100/20"]
+end
+check("a completed rollout is recorded as 100%") do
+  tags = FakeTags.new({})
+  RolloutPolicy.record_step!(Release.new(status: "completed", user_fraction: nil, version_codes: ["669001100"]), tags: tags)
+  tags.recorded == ["ramp/1100/100"]
+end
+check("a fraction off the ladder is not recorded") do
+  tags = FakeTags.new({})
+  RolloutPolicy.record_step!(staged(0.05), tags: tags)
+  tags.recorded.empty?
+end
+
+IOS_GO_LIVE = { "golive/1100/ios" => NOW - 3600 }.freeze
+
+def ios_refused?(version, phased, dates, binary: nil)
+  build = version[/\d+\z/].to_i
+  RolloutPolicy.authorize_ios!(version_string: version, build_version: binary || (669_000_000 + build).to_s,
+                               phased_state: phased, tags: FakeTags.new(dates))
+  false
+rescue RolloutPolicy::Refusal
+  true
+end
+
+check("iOS advance releases an approved phased version") { !ios_refused?("26.12.1100", "INACTIVE", IOS_GO_LIVE) }
+check("iOS advance refuses a version without a phased release") { ios_refused?("26.12.1100", nil, IOS_GO_LIVE) }
+check("iOS advance refuses a version without an approved go-live") { ios_refused?("26.12.1101", "INACTIVE", IOS_GO_LIVE) }
+check("an Android-only go-live does not approve iOS") { ios_refused?("26.12.1100", "INACTIVE", go_live) }
+check("iOS advance refuses a version build N was not tagged with") do
+  ios_refused?("27.1.1100", "INACTIVE", IOS_GO_LIVE)
+end
+check("iOS advance refuses a version carrying another build's binary") do
+  ios_refused?("26.12.1100", "INACTIVE", IOS_GO_LIVE, binary: "669001099")
+end
+check("iOS advance refuses a version with no binary") do
+  ios_refused?("26.12.1100", "INACTIVE", IOS_GO_LIVE, binary: "")
+end
+
+# --- GitTags against a real git remote ---------------------------------------
+
+require "tmpdir"
+
+def sh(dir, *args, env: {})
+  out, err, status = Open3.capture3(env, "git", "-c", "tag.gpgSign=false", "-c", "commit.gpgSign=false",
+                                    "-c", "init.defaultBranch=main", *args, chdir: dir)
+  raise "git #{args.join(' ')}: #{err}" unless status.success?
+
+  out.strip
+end
+
+CI = { "GIT_COMMITTER_NAME" => "blokada-ci", "GIT_COMMITTER_EMAIL" => "ci@blokada.org",
+       "GIT_AUTHOR_NAME" => "blokada-ci", "GIT_AUTHOR_EMAIL" => "ci@blokada.org" }.freeze
+SOMEONE = CI.transform_values { |v| v.sub("blokada-ci", "someone").sub("ci@", "someone@") }.freeze
+
+# A remote with build/1100 at one commit and a later commit on main, and a
+# shallow checkout of main without tags, as actions/checkout leaves it.
+def with_remote
+  Dir.mktmpdir do |root|
+    origin = File.join(root, "origin.git")
+    seed = File.join(root, "seed")
+    checkout = File.join(root, "checkout")
+    sh(root, "init", "--quiet", "--bare", origin)
+    sh(root, "init", "--quiet", seed)
+    sh(seed, "commit", "--quiet", "--allow-empty", "-m", "build 1100", env: CI)
+    sh(seed, "tag", "-a", "build/1100", "-m", "26.12.1100", env: CI)
+    sh(seed, "commit", "--quiet", "--allow-empty", "-m", "later", env: CI)
+    sh(seed, "push", "--quiet", origin, "main", "refs/tags/build/1100")
+    sh(root, "clone", "--quiet", "--depth", "1", "--no-tags", "file://#{origin}", checkout)
+    yield RolloutPolicy::GitTags.new(dir: checkout), seed, origin
+  end
+end
+
+def git_refused?
+  yield
+  false
+rescue RolloutPolicy::Refusal
+  true
+end
+
+check("a recorded tag is read back with its date") do
+  with_remote do |tags, _, _|
+    tags.record("golive/1100/android")
+    (Time.now - tags.date("golive/1100/android")).abs < 60
+  end
+end
+check("a recorded tag points at its build's commit, not the checkout") do
+  with_remote do |tags, seed, origin|
+    tags.record("ramp/1100/20")
+    sh(seed, "ls-remote", origin, "refs/tags/ramp/1100/20^{}").split.first == sh(seed, "rev-parse", "build/1100^{commit}")
+  end
+end
+check("recording an existing tag moves it") do
+  with_remote do |tags, seed, origin|
+    tags.record("ramp/1100/20")
+    before = sh(seed, "ls-remote", origin, "refs/tags/ramp/1100/20").split.first
+    sleep 1.1
+    tags.record("ramp/1100/20")
+    sh(seed, "ls-remote", origin, "refs/tags/ramp/1100/20").split.first != before
+  end
+end
+check("a missing tag has no date") { with_remote { |tags, _, _| tags.date("golive/1100/android").nil? } }
+check("the version is build N's tag subject") { with_remote { |tags, _, _| tags.version(1100) == "26.12.1100" } }
+check("a build without its tag is refused") do
+  with_remote { |tags, _, _| git_refused? { tags.record("ramp/1101/20") } }
+end
+check("a lightweight tag is refused") do
+  with_remote do |tags, seed, origin|
+    sh(seed, "tag", "golive/1100/android", "build/1100^{commit}")
+    sh(seed, "push", "--quiet", origin, "refs/tags/golive/1100/android")
+    git_refused? { tags.date("golive/1100/android") }
+  end
+end
+check("a tag made by someone other than blokada-ci is refused") do
+  with_remote do |tags, seed, origin|
+    sh(seed, "tag", "-a", "golive/1100/android", "-m", "x", "build/1100^{commit}", env: SOMEONE)
+    sh(seed, "push", "--quiet", origin, "refs/tags/golive/1100/android")
+    git_refused? { tags.date("golive/1100/android") }
+  end
+end
+check("a tag at another commit than its build is refused") do
+  with_remote do |tags, seed, origin|
+    sh(seed, "tag", "-a", "golive/1100/android", "-m", "x", "main", env: CI)
+    sh(seed, "push", "--quiet", origin, "refs/tags/golive/1100/android")
+    git_refused? { tags.date("golive/1100/android") }
+  end
+end
+check("an unreachable remote is refused, not read as a missing tag") do
+  with_remote do |_, _, origin|
+    FileUtils.rm_rf(origin)
+    git_refused? { RolloutPolicy::GitTags.new(dir: Dir.pwd, remote: "file://#{origin}").date("golive/1100/android") }
+  end
 end
 
 abort("\nFAIL: #{FAILURES.size} check(s) failed: #{FAILURES.join(', ')}") unless FAILURES.empty?

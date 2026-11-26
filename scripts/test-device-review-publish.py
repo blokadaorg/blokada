@@ -116,7 +116,7 @@ class FileScopeTest(unittest.TestCase):
         items = publish.build_items(FILE_SCOPE, self.review(pr1432="six", pr1440="both", pr1451="both"), set())
         skipped = publish.not_reviewed(FILE_SCOPE)
         self.assertEqual(skipped, [
-            "n/a     #1453 Android only: emulator smoke and screenshots",
+            "n/a     #1453 Android only: emulator smoke",
             "n/a     #1459 Android only: emulator smoke",
             "n/a     2 PRs without app code",
         ])
